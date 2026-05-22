@@ -39,16 +39,34 @@ export function extractVariableFields(
 }
 
 /**
+ * Accumulator for per-entry layer metadata collected during merge.
+ */
+export interface PerEntryAccum {
+  /** Sections removed via `_remove: true` with their original index in the base. */
+  removedSections: Array<{ section: Record<string, unknown>; originalIndex: number }>;
+  /**
+   * Stable reference map from section id → base template index, built ONCE before
+   * any per-entry layers are applied. Ensures `originalIndex` is always relative to
+   * the immutable shared template even when both _common.yml and {locale}.yml remove
+   * sections (which would otherwise shift the idx counter in subsequent calls).
+   */
+  baseIndexById?: Map<string, number>;
+}
+
+/**
  * Applies a single per-entry layer (either _common.yml or {locale}.yml) on top
  * of the accumulated merged template. Non-sections fields are deep-merged normally.
  * If the layer declares a `sections` array, it is applied as an id-based patch:
  *   - Entries with `_remove: true` remove the matching base section by id.
  *   - Other entries deep-merge their properties into the matching base section by id.
+ *   - Entries whose id does not match any base section are treated as new per-entry
+ *     sections and appended to the result with `_perEntrySource: true`.
  * Sections without an id in either layer or base are left unchanged.
  */
 function applyPerEntryLayer(
   base: Record<string, unknown>,
   layer: Record<string, unknown>,
+  accum?: PerEntryAccum,
 ): Record<string, unknown> {
   const layerSections = Array.isArray(layer.sections)
     ? (layer.sections as Record<string, unknown>[])
@@ -68,19 +86,51 @@ function applyPerEntryLayer(
     ? (result.sections as Record<string, unknown>[])
     : [];
 
+  // Build set of base section IDs for fast lookup
+  const baseSectionIds = new Set<string>(
+    baseSections
+      .map((s) => (typeof s.id === "string" ? s.id : null))
+      .filter(Boolean) as string[],
+  );
+
   const removeIds = new Set<string>();
   const patchById = new Map<string, Record<string, unknown>>();
+  const perEntryNewSections: Record<string, unknown>[] = [];
+
   for (const s of layerSections) {
     const id = typeof s.id === "string" ? s.id : undefined;
     if (!id) continue;
     if (s._remove) {
       removeIds.add(id);
-    } else {
+    } else if (baseSectionIds.has(id)) {
       patchById.set(id, s);
+    } else {
+      // Section exists in per-entry layer only — it's a new per-entry addition
+      perEntryNewSections.push(s);
     }
   }
 
-  result.sections = baseSections
+  // Collect removed sections with stable original indices.
+  // Use baseIndexById (computed before any per-entry layers) when available so that
+  // `originalIndex` is always relative to the immutable shared template, not the
+  // partially-filtered base of a subsequent layer call.
+  if (accum) {
+    baseSections.forEach((s, idx) => {
+      const id = typeof s.id === "string" ? s.id : undefined;
+      if (id && removeIds.has(id)) {
+        // Avoid duplicates when both _common.yml and {locale}.yml mark the same section removed
+        const alreadyRecorded = accum.removedSections.some(
+          (r) => typeof r.section.id === "string" && r.section.id === id,
+        );
+        if (!alreadyRecorded) {
+          const originalIndex = accum.baseIndexById?.get(id) ?? idx;
+          accum.removedSections.push({ section: s, originalIndex });
+        }
+      }
+    });
+  }
+
+  const filteredAndPatched = baseSections
     .filter((s) => {
       const id = typeof s.id === "string" ? s.id : undefined;
       return !id || !removeIds.has(id);
@@ -92,6 +142,84 @@ function applyPerEntryLayer(
       return patch ? deepMerge(s, patch) : s;
     });
 
+  // Tag per-entry-only sections; strip _insertAfterSectionId from final output (positioning hint only)
+  const taggedNew = perEntryNewSections.map((s) => {
+    const { _insertAfterSectionId: _pos, ...rest } = s as Record<string, unknown>;
+    return { ...rest, _perEntrySource: true, _insertAfterSectionId: _pos };
+  });
+
+  // Place per-entry sections at their intended position using _insertAfterSectionId.
+  // - _insertAfterSectionId === undefined  → no metadata (legacy/compat): append at end
+  // - _insertAfterSectionId === null       → insert before all base sections
+  // - _insertAfterSectionId === <id>       → insert immediately after the base section with that id
+  const appendNew: typeof taggedNew = [];
+  const insertBeforeAll: typeof taggedNew = [];
+  const insertAfterMap = new Map<string, typeof taggedNew>();
+
+  for (const s of taggedNew) {
+    const anchorKey = s._insertAfterSectionId;
+    if (anchorKey === undefined) {
+      appendNew.push(s);
+    } else if (anchorKey === null) {
+      insertBeforeAll.push(s);
+    } else {
+      const key = anchorKey as string;
+      if (!insertAfterMap.has(key)) insertAfterMap.set(key, []);
+      insertAfterMap.get(key)!.push(s);
+    }
+  }
+
+  // Strip the positioning hint from the final output — it's only needed at load time
+  const stripHint = (s: Record<string, unknown>) => {
+    const { _insertAfterSectionId: _discarded, ...rest } = s;
+    return rest;
+  };
+
+  // Phase 1: Build finalSections using base section anchors
+  const finalSections: Record<string, unknown>[] = [
+    ...insertBeforeAll.map(stripHint),
+  ];
+  for (const s of filteredAndPatched) {
+    finalSections.push(s);
+    const id = typeof s.id === "string" ? s.id : undefined;
+    if (id && insertAfterMap.has(id)) {
+      for (const newS of insertAfterMap.get(id)!) {
+        finalSections.push(stripHint(newS));
+      }
+      insertAfterMap.delete(id);
+    }
+  }
+
+  // Phase 2: Handle anchors pointing to per-entry sections (those inserted in phase 1).
+  // Iterate until stable — handles chained per-entry-after-per-entry insertions.
+  let madeProgress = true;
+  while (madeProgress && insertAfterMap.size > 0) {
+    madeProgress = false;
+    for (const [anchorId, sections] of [...insertAfterMap.entries()]) {
+      const anchorIdx = finalSections.findIndex(
+        (s) => typeof s.id === "string" && s.id === anchorId,
+      );
+      if (anchorIdx !== -1) {
+        // Insert immediately after the anchor (in reverse to preserve order when splicing)
+        for (let i = sections.length - 1; i >= 0; i--) {
+          finalSections.splice(anchorIdx + 1, 0, stripHint(sections[i]));
+        }
+        insertAfterMap.delete(anchorId);
+        madeProgress = true;
+      }
+    }
+  }
+
+  // Remaining unresolved anchors (anchor id never found) fall back to append-at-end
+  for (const [, sections] of insertAfterMap) {
+    for (const s of sections) appendNew.push(s);
+  }
+  for (const s of appendNew) {
+    finalSections.push(stripHint(s));
+  }
+
+  result.sections = finalSections;
+
   return result;
 }
 
@@ -99,6 +227,7 @@ export function mergeSingleTemplate(
   contentType: string,
   locale: string,
   slug?: string,
+  accum?: PerEntryAccum,
 ): Record<string, unknown> | null {
   const folder = getFolder(contentType);
   const templateDir = path.join(process.cwd(), "marketing-content", folder);
@@ -125,6 +254,21 @@ export function mergeSingleTemplate(
     ? deepMerge(baseData, localeData)
     : { ...localeData };
 
+  // Capture stable base-template section-id → index map BEFORE any per-entry layers
+  // so that originalIndex values in accum.removedSections are always relative to the
+  // immutable shared template, regardless of how many per-entry layers fire.
+  if (slug && accum) {
+    const baseSectionsSnapshot = Array.isArray(merged.sections)
+      ? (merged.sections as Record<string, unknown>[])
+      : [];
+    const baseIndexById = new Map<string, number>();
+    baseSectionsSnapshot.forEach((s, idx) => {
+      const id = typeof s.id === "string" ? s.id : undefined;
+      if (id) baseIndexById.set(id, idx);
+    });
+    accum.baseIndexById = baseIndexById;
+  }
+
   // Layer 4 & 5: per-entry YML overrides (only when slug is provided).
   // Each layer is applied sequentially so section directives from layer 4
   // (_common.yml) are not lost when layer 5 ({locale}.yml) also has sections.
@@ -134,12 +278,12 @@ export function mergeSingleTemplate(
       const entryCommonPath = path.join(entryDir, "_common.yml");
       if (fs.existsSync(entryCommonPath)) {
         const parsed = contentIndex.safeYamlLoad(fs.readFileSync(entryCommonPath, "utf-8"));
-        if (parsed) merged = applyPerEntryLayer(merged, parsed);
+        if (parsed) merged = applyPerEntryLayer(merged, parsed, accum);
       }
       const entryLocalePath = path.join(entryDir, `${locale}.yml`);
       if (fs.existsSync(entryLocalePath)) {
         const parsed = contentIndex.safeYamlLoad(fs.readFileSync(entryLocalePath, "utf-8"));
-        if (parsed) merged = applyPerEntryLayer(merged, parsed);
+        if (parsed) merged = applyPerEntryLayer(merged, parsed, accum);
       }
     }
   }
@@ -155,13 +299,24 @@ export async function loadDatabaseSinglePage(
   const dbName = getDatabaseName(contentType);
   if (!dbName) return null;
 
-  const merged = mergeSingleTemplate(contentType, locale, slug);
+  // Collect per-entry metadata (removed sections, per-entry additions)
+  const accum: PerEntryAccum = { removedSections: [] };
+  const merged = mergeSingleTemplate(contentType, locale, slug, accum);
 
   if (!merged) {
     console.error(
       `[DatabaseSingle] Template not found: single.${locale}.yml for ${contentType}`,
     );
     return null;
+  }
+
+  // Compute per-entry removed sections.
+  // Compare base template (no slug) with merged (with slug) to find removed sections.
+  let perEntryRemovedSections: Array<{ section: Record<string, unknown>; originalIndex: number }> = [];
+
+  // Only compute if we have per-entry overrides (accum tracks what was removed)
+  if (accum.removedSections.length > 0) {
+    perEntryRemovedSections = accum.removedSections;
   }
 
   if (!databaseManager.exists(dbName)) {
@@ -267,6 +422,7 @@ export async function loadDatabaseSinglePage(
       settings: (merged.settings as TemplatePage["settings"]) || undefined,
       schema: (merged.schema as TemplatePage["schema"]) || undefined,
       singleEntry: singleItem as Record<string, unknown>,
+      perEntryRemovedSections: perEntryRemovedSections.length > 0 ? perEntryRemovedSections : undefined,
     };
 
     return page;

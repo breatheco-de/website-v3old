@@ -1247,6 +1247,7 @@ export interface TemplatePage {
   settings?: PageSettings;
   sections: Section[];
   singleEntry?: Record<string, unknown>;
+  perEntryRemovedSections?: Array<{ section: Record<string, unknown>; originalIndex: number }>;
   [key: string]: unknown;
 }
 

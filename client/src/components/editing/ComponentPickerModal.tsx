@@ -30,7 +30,7 @@ import {
 } from "@/components/ui/tooltip";
 import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { useToast } from "@/hooks/use-toast";
-import { useContentTypes, getFolderFromType } from "@/hooks/useContentTypes";
+import { useContentTypes, useContentTypesRaw, getFolderFromType } from "@/hooks/useContentTypes";
 import { emitContentUpdated } from "@/lib/contentEvents";
 import { DbTemplateWarningDialog } from "@/components/editing/DbTemplateWarningDialog";
 import { RelatedFeaturesPicker } from "./RelatedFeaturesPicker";
@@ -46,6 +46,7 @@ interface ComponentPickerModalProps {
   variant?: string;
   version?: number;
   isSharedTemplate?: boolean;
+  singleEntry?: Record<string, unknown>;
 }
 
 interface ComponentInfo {
@@ -170,6 +171,7 @@ export default function ComponentPickerModal({
   variant,
   version,
   isSharedTemplate,
+  singleEntry,
 }: ComponentPickerModalProps) {
   const [step, setStep] = useState<"select" | "configure" | "wizard">("select");
   const [selectedComponent, setSelectedComponent] = useState<ComponentInfo | null>(null);
@@ -184,9 +186,25 @@ export default function ComponentPickerModal({
   const [selectedRelatedFeatures, setSelectedRelatedFeatures] = useState<string[]>([]);
   const [componentSearch, setComponentSearch] = useState("");
   const [addWarnOpen, setAddWarnOpen] = useState(false);
+  const [addScopeOpen, setAddScopeOpen] = useState(false);
+  /** "All entries" path for the scope dialog (shared-template add or wizard shared add). */
   const pendingAddFn = useRef<(() => Promise<void>) | null>(null);
+  /** "This entry only" path for the scope dialog — separate from pendingAddFn because
+   *  wizard and example-based flows use different per-entry functions. */
+  const pendingPerEntryFn = useRef<(() => Promise<void>) | null>(null);
   const { toast } = useToast();
   const contentTypesMap = useContentTypes();
+  const { data: rawContentTypes } = useContentTypesRaw();
+  const singularLabel = (() => {
+    if (!contentType) return "entry";
+    const found = rawContentTypes?.find((t) => t.name === contentType);
+    const label = found?.label ?? contentType.replace(/_/g, " ");
+    const lower = label.toLowerCase();
+    if (lower.endsWith("ies")) return lower.slice(0, -3) + "y";
+    if (lower.endsWith("ses") || lower.endsWith("xes") || lower.endsWith("zes")) return lower.slice(0, -2);
+    if (lower.endsWith("s") && lower.length > 2) return lower.slice(0, -1);
+    return lower;
+  })();
 
   const { data: registryData, isLoading: isLoadingRegistry } = useQuery<RegistryOverview>({
     queryKey: ["/api/component-registry"],
@@ -367,14 +385,56 @@ export default function ComponentPickerModal({
     }
   }, [contentType, slug, locale, variant, version, insertIndex, onClose, toast]);
 
+  /** Per-entry variant of wizard add — sends the wizard section to /api/per-entry-section-add */
+  const executePerEntryWizardComplete = useCallback(async (config: DynamicTableConfig) => {
+    if (!contentType || !slug || !locale) return;
+    setIsAdding(true);
+    try {
+      const sectionData = {
+        type: "dynamic_table",
+        version: "1.0",
+        endpoint: config.endpoint,
+        ...(config.data_path ? { data_path: config.data_path } : {}),
+        ...(config.title ? { title: config.title } : {}),
+        columns: config.columns,
+        ...(config.action ? { action: config.action } : {}),
+      };
+      const token = getDebugToken();
+      const resp = await fetch("/api/per-entry-section-add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Token ${token}` } : {}) },
+        body: JSON.stringify({ contentType, slug, locale, sectionData, insertIndex }),
+      });
+      if (resp.ok) {
+        onClose();
+        emitContentUpdated({ contentType, slug, locale });
+        toast({ title: "Table added", description: "Dynamic table added to this entry only." });
+      } else {
+        const err = await resp.json().catch(() => ({}));
+        toast({ title: "Failed to add table", description: err.error || "Unknown error", variant: "destructive" });
+      }
+    } catch {
+      toast({ title: "Error adding table", variant: "destructive" });
+    } finally {
+      setIsAdding(false);
+    }
+  }, [contentType, slug, locale, insertIndex, onClose, toast]);
+
   const handleWizardComplete = useCallback(async (config: DynamicTableConfig) => {
+    if (isSharedTemplate && singleEntry) {
+      pendingAddFn.current = () => executeWizardComplete(config);
+      pendingPerEntryFn.current = () => executePerEntryWizardComplete(config);
+      setAddScopeOpen(true);
+      return;
+    }
     if (isSharedTemplate) {
       pendingAddFn.current = () => executeWizardComplete(config);
+      pendingPerEntryFn.current = null;
       setAddWarnOpen(true);
       return;
     }
     await executeWizardComplete(config);
-  }, [isSharedTemplate, executeWizardComplete]);
+  }, [isSharedTemplate, singleEntry, executeWizardComplete, executePerEntryWizardComplete]);
 
   const executeAddSection = useCallback(async () => {
     if (!selectedExampleData || !selectedComponent || !contentType || !slug || !locale) {
@@ -504,14 +564,54 @@ export default function ComponentPickerModal({
     }
   }, [selectedExampleData, selectedComponent, selectedVersion, contentType, slug, locale, variant, version, insertIndex, onClose, useAiAdaptation, selectedRelatedFeatures, toast]);
 
+  const executePerEntryAddSection = useCallback(async () => {
+    if (!selectedExampleData || !selectedComponent || !contentType || !slug || !locale) return;
+    setIsAdding(true);
+    try {
+      let finalContent = selectedExampleData.content;
+      if (selectedComponent.type === "faq" && selectedRelatedFeatures.length > 0) {
+        finalContent = {
+          title: (finalContent.title as string) || "Frequently Asked Questions",
+          related_features: selectedRelatedFeatures,
+        };
+      }
+      const sectionData = { type: selectedComponent.type, version: selectedVersion, ...finalContent };
+      const token = getDebugToken();
+      const resp = await fetch("/api/per-entry-section-add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Token ${token}` } : {}) },
+        body: JSON.stringify({ contentType, slug, locale, sectionData, insertIndex }),
+      });
+      if (resp.ok) {
+        onClose();
+        emitContentUpdated({ contentType, slug, locale });
+        toast({ title: "Section added", description: `${selectedComponent.label} added to this entry only.` });
+      } else {
+        const err = await resp.json().catch(() => ({}));
+        toast({ title: "Failed to add section", description: err.error || "Unknown error", variant: "destructive" });
+      }
+    } catch {
+      toast({ title: "Error adding section", variant: "destructive" });
+    } finally {
+      setIsAdding(false);
+    }
+  }, [selectedExampleData, selectedComponent, selectedVersion, contentType, slug, locale, selectedRelatedFeatures, onClose, toast]);
+
   const handleAddSection = useCallback(async () => {
+    if (isSharedTemplate && singleEntry) {
+      pendingAddFn.current = executeAddSection;
+      pendingPerEntryFn.current = executePerEntryAddSection;
+      setAddScopeOpen(true);
+      return;
+    }
     if (isSharedTemplate) {
       pendingAddFn.current = executeAddSection;
+      pendingPerEntryFn.current = null;
       setAddWarnOpen(true);
       return;
     }
     await executeAddSection();
-  }, [isSharedTemplate, executeAddSection]);
+  }, [isSharedTemplate, singleEntry, executeAddSection, executePerEntryAddSection]);
 
   const previewUrl = useMemo(() => {
     if (!selectedComponent || !selectedVersion || !selectedExample) {
@@ -781,6 +881,61 @@ export default function ComponentPickerModal({
       contentType={contentType || "page"}
       isLoading={isAdding}
     />
+    {/* Scope choice dialog — only when adding to a DB entry page */}
+    <Dialog open={addScopeOpen} onOpenChange={(open) => { if (!open && !isAdding) { setAddScopeOpen(false); pendingAddFn.current = null; pendingPerEntryFn.current = null; } }}>
+      <DialogContent className="sm:max-w-sm">
+        <DialogHeader>
+          <DialogTitle>Where should this section appear?</DialogTitle>
+          <DialogDescription>
+            Choose whether to add this section to this {singularLabel} only, or to the shared template for all {singularLabel}s.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="flex flex-col gap-2 pt-1">
+          <Button
+            variant="outline"
+            disabled={isAdding}
+            className="w-full justify-start gap-2"
+            data-testid="button-scope-this-entry"
+            onClick={async () => {
+              if (pendingPerEntryFn.current) {
+                await pendingPerEntryFn.current();
+              }
+              setAddScopeOpen(false);
+              pendingAddFn.current = null;
+              pendingPerEntryFn.current = null;
+            }}
+          >
+            <X className="h-4 w-4 shrink-0" />
+            This {singularLabel} only
+          </Button>
+          <Button
+            variant="outline"
+            disabled={isAdding}
+            className="w-full justify-start gap-2"
+            data-testid="button-scope-all-entries"
+            onClick={async () => {
+              if (pendingAddFn.current) {
+                await pendingAddFn.current();
+                pendingAddFn.current = null;
+              }
+              setAddScopeOpen(false);
+              pendingPerEntryFn.current = null;
+            }}
+          >
+            <AlertTriangle className="h-4 w-4 shrink-0" />
+            All {singularLabel}s (shared template)
+          </Button>
+          <Button
+            variant="ghost"
+            disabled={isAdding}
+            className="w-full"
+            onClick={() => { setAddScopeOpen(false); pendingAddFn.current = null; pendingPerEntryFn.current = null; }}
+          >
+            Cancel
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
     </>
   );
 }

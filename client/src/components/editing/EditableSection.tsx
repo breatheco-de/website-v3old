@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef, lazy, Suspense, useMemo } from "react";
 import { AlertTriangle, ArrowDown, ArrowLeftRight, ArrowUp, Check, ChevronLeft, ChevronRight, Clock3, Code, Copy, Eye, History, Link, Loader2, Monitor, MoreVertical, Pencil, Smartphone, Space, Sparkles, Trash2, Unlink, X } from "lucide-react";
+import { IconPin } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import type { Section, SectionLayout, ShowOn, ResponsiveSpacing } from "@shared/schema";
 import { Label } from "@/components/ui/label";
@@ -13,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DbTemplateWarningDialog } from "@/components/editing/DbTemplateWarningDialog";
 import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
-import { useContentTypes, getFolderFromType } from "@/hooks/useContentTypes";
+import { useContentTypes, useContentTypesRaw, getFolderFromType } from "@/hooks/useContentTypes";
 import { useToast } from "@/hooks/use-toast";
 import { emitContentUpdated } from "@/lib/contentEvents";
 import { renderSection } from "@/components/SectionRenderer";
@@ -291,11 +292,25 @@ function parseAutoSyncAuthor(subject: string): string | null {
   return m ? m[1] : null;
 }
 
+/** Returns a singular human-readable noun for a content type, e.g. "course" from "Courses". */
+function getSingularLabel(ct: string | undefined, rawTypes: import("@/hooks/useContentTypes").ContentTypeApiItem[] | undefined): string {
+  if (!ct) return "entry";
+  const found = rawTypes?.find((t) => t.name === ct);
+  const label = found?.label ?? ct.replace(/_/g, " ");
+  const lower = label.toLowerCase();
+  if (lower.endsWith("ies")) return lower.slice(0, -3) + "y"; // categories → category
+  if (lower.endsWith("ses") || lower.endsWith("xes") || lower.endsWith("zes")) return lower.slice(0, -2); // classes → class
+  if (lower.endsWith("s") && lower.length > 2) return lower.slice(0, -1); // courses → course
+  return lower;
+}
+
 export function EditableSection({ children, section, index, sectionType, contentType, slug, locale, variant, version, totalSections = 0, allSections, isSharedTemplate, onMoveUp, onMoveDown, onDelete, onDuplicate }: EditableSectionProps) {
   const editMode = useEditModeOptional();
   const pageHistory = usePageHistoryOptional();
   const { toast } = useToast();
   const contentTypesMap = useContentTypes();
+  const { data: rawContentTypes } = useContentTypesRaw();
+  const singularLabel = getSingularLabel(contentType, rawContentTypes);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [currentSection, setCurrentSection] = useState<Section>(section);
   const [wasLocallyUpdated, setWasLocallyUpdated] = useState(false);
@@ -1512,7 +1527,8 @@ export function EditableSection({ children, section, index, sectionType, content
         
         return (
           <div 
-            className="absolute top-12 right-2 z-30 flex flex-col items-end gap-0.5 px-2 py-1 bg-amber-500/90 text-amber-950 text-xs font-medium rounded"
+            className="absolute right-2 z-30 flex flex-col items-end gap-0.5 px-2 py-1 bg-amber-500/90 text-amber-950 text-xs font-medium rounded"
+            style={{ top: (section as any)._perEntrySource ? "3.5rem" : "3rem" }}
             title="Special Visibility Conditions"
             data-testid={`badge-visibility-${index}`}
           >
@@ -1541,6 +1557,18 @@ export function EditableSection({ children, section, index, sectionType, content
       })()}
 
       
+      {/* Per-entry origin badge (always visible when section is from per-entry override) */}
+      {(section as any)._perEntrySource && (
+        <div
+          className="absolute top-2 right-2 z-30 flex items-center gap-1 px-2 py-1 bg-primary/90 text-primary-foreground text-xs font-medium rounded"
+          title="This section is specific to this entry only"
+          data-testid={`badge-per-entry-${index}`}
+        >
+          <IconPin className="h-3.5 w-3.5 shrink-0" />
+          <span className="hidden md:inline">Only this {singularLabel}</span>
+        </div>
+      )}
+
       {/* Top-left row: broken image badge (always visible) + section labels (on hover) */}
       <div className="absolute top-2 left-2 z-30 flex flex-row flex-wrap items-center gap-1.5">
         {brokenImageIds.length > 0 && (

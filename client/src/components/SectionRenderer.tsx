@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import { AlertTriangle, Link, Loader2, Trash2 } from "lucide-react";
 import { useState, useCallback, useMemo, useRef, useEffect } from "react";
+import { useContentTypesRaw } from "@/hooks/useContentTypes";
 import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn, PageSettings } from "@shared/schema";
 import { useSession } from "@/contexts/SessionContext";
 import { useMenuVisualContext } from "@/contexts/MenuVisualContext";
@@ -384,6 +385,7 @@ interface SectionRendererProps {
   landingLocations?: string[];
   isSharedTemplate?: boolean;
   singleEntry?: Record<string, unknown>;
+  perEntryRemovedSections?: Array<{ section: Record<string, unknown>; originalIndex: number }>;
 }
 
 function EmptyPageState({ 
@@ -605,7 +607,19 @@ function patchVariableFieldHighlights(
   return patched;
 }
 
-export function SectionRenderer({ sections, settings, contentType, slug, locale, variant, programSlug, landingLocations, isSharedTemplate, singleEntry }: SectionRendererProps) {
+/** Returns a singular human-readable noun for a content type, e.g. "course" from "Courses". */
+function toSingularLabel(ct: string | undefined, rawTypes: { name: string; label: string }[] | undefined): string {
+  if (!ct) return "entry";
+  const found = rawTypes?.find((t) => t.name === ct);
+  const label = found?.label ?? ct.replace(/_/g, " ");
+  const lower = label.toLowerCase();
+  if (lower.endsWith("ies")) return lower.slice(0, -3) + "y";
+  if (lower.endsWith("ses") || lower.endsWith("xes") || lower.endsWith("zes")) return lower.slice(0, -2);
+  if (lower.endsWith("s") && lower.length > 2) return lower.slice(0, -1);
+  return lower;
+}
+
+export function SectionRenderer({ sections, settings, contentType, slug, locale, variant, programSlug, landingLocations, isSharedTemplate, singleEntry, perEntryRemovedSections }: SectionRendererProps) {
   const { toast } = useToast();
   const editMode = useEditModeOptional();
   const isEditMode = editMode?.isEditMode ?? false;
@@ -614,6 +628,8 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
   const { sectionBackgroundOverlapsMenu, topChromeHeightDesktop, topChromeHeightMobile } = useMenuVisualContext();
   const sessionLocationSlug = session.location?.slug;
   const sessionLocationRegion = session.location?.region;
+  const { data: rawContentTypes } = useContentTypesRaw();
+  const singularLabel = toSingularLabel(contentType, rawContentTypes);
 
   const { data: varDefinitions } = useVariableDefinitions();
   const varContext = useVariableContext();
@@ -750,6 +766,24 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     isDeleting: boolean;
   }>({ open: false, index: -1, isDeleting: false });
 
+  // Dialog for scope choice when deleting on a specific DB entry page (isSharedTemplate && singleEntry)
+  const [dbEntryDeleteDialog, setDbEntryDeleteDialog] = useState<{
+    open: boolean;
+    index: number;
+    isPerEntry: boolean;
+    isDeleting: boolean;
+    sectionId?: string;
+    /** Fallback when section has no id — merged-view position of the section. */
+    mergedIndex?: number;
+  }>({ open: false, index: -1, isPerEntry: false, isDeleting: false });
+
+  // Restore dialog for ghost (removed) sections
+  const [restoreDialog, setRestoreDialog] = useState<{
+    open: boolean;
+    section: Record<string, unknown>;
+    isRestoring: boolean;
+  }>({ open: false, section: {}, isRestoring: false });
+
   const [simpleDeleteDialog, setSimpleDeleteDialog] = useState<{
     open: boolean;
     index: number;
@@ -774,13 +808,29 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
       }
     } catch {}
 
+    if (isSharedTemplate && singleEntry) {
+      // On a specific DB entry page — check if section is per-entry-only
+      const rawSection = sections[index] as Record<string, unknown>;
+      const isPerEntry = !!(rawSection?._perEntrySource);
+      const sectionId = typeof rawSection?.id === "string" ? rawSection.id : undefined;
+
+      if (isPerEntry) {
+        // Per-entry sections: delete directly — no scope dialog needed
+        deletePerEntryDirect(index);
+        return;
+      }
+
+      setDbEntryDeleteDialog({ open: true, index, isPerEntry: false, isDeleting: false, sectionId, mergedIndex: index });
+      return;
+    }
+
     if (isSharedTemplate) {
       setDbTemplateDeleteDialog({ open: true, index, isDeleting: false });
       return;
     }
 
     setSimpleDeleteDialog({ open: true, index, isDeleting: false });
-  }, [contentType, slug, locale, isSharedTemplate, toast]);
+  }, [contentType, slug, locale, isSharedTemplate, singleEntry, sections, toast]);
 
   const handleSimpleDeleteConfirm = useCallback(async () => {
     if (!contentType || !slug || !locale) return;
@@ -905,6 +955,115 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     }
   }, [contentType, slug, locale, deleteDialog, toast]);
 
+  // Directly deletes a per-entry section (no scope dialog needed for _perEntrySource sections)
+  const deletePerEntryDirect = useCallback(async (index: number) => {
+    if (!contentType || !slug || !locale) return;
+    try {
+      const token = getDebugToken();
+      const resp = await fetch("/api/per-entry-section-remove", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Token ${token}` } : {}) },
+        body: JSON.stringify({ contentType, slug, locale, sectionIndex: index, isPerEntry: true }),
+      });
+      const data = await resp.json();
+      if (data.success) {
+        toast({ title: "Section deleted" });
+        emitContentUpdated({ contentType, slug, locale });
+      } else {
+        toast({ title: "Failed to delete section", description: data.error, variant: "destructive" });
+      }
+    } catch {
+      toast({ title: "Error deleting section", variant: "destructive" });
+    }
+  }, [contentType, slug, locale, toast]);
+
+  // Called when user chooses "Hide from this entry only" in the scope dialog
+  const handleDbEntryRemoveThisEntry = useCallback(async () => {
+    if (!contentType || !slug || !locale) return;
+    const { index, isPerEntry } = dbEntryDeleteDialog;
+    setDbEntryDeleteDialog(prev => ({ ...prev, isDeleting: true }));
+    try {
+      const token = getDebugToken();
+      const resp = await fetch("/api/per-entry-section-remove", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Token ${token}` } : {}) },
+        body: JSON.stringify({ contentType, slug, locale, sectionIndex: index, isPerEntry }),
+      });
+      const data = await resp.json();
+      if (data.success) {
+        toast({ title: isPerEntry ? "Section deleted" : "Section hidden for this entry" });
+        emitContentUpdated({ contentType, slug, locale });
+      } else {
+        toast({ title: "Failed to remove section", description: data.error, variant: "destructive" });
+      }
+    } catch {
+      toast({ title: "Error removing section", variant: "destructive" });
+    }
+    setDbEntryDeleteDialog({ open: false, index: -1, isPerEntry: false, isDeleting: false });
+  }, [contentType, slug, locale, dbEntryDeleteDialog, toast]);
+
+  // Called when user chooses "Delete from shared template" in the scope dialog.
+  // Prefers ID-based deletion (avoids merged-index vs. template-index divergence) but
+  // falls back to mergedIndex for id-less shared sections so deletion always works.
+  const handleDbEntryDeleteAllEntries = useCallback(async () => {
+    if (!contentType || !slug || !locale) return;
+    const { sectionId, mergedIndex } = dbEntryDeleteDialog;
+    if (!sectionId && mergedIndex === undefined) {
+      toast({ title: "Cannot delete: section has no id or position", variant: "destructive" });
+      setDbEntryDeleteDialog({ open: false, index: -1, isPerEntry: false, isDeleting: false });
+      return;
+    }
+    setDbEntryDeleteDialog(prev => ({ ...prev, isDeleting: true }));
+    try {
+      const token = getDebugToken();
+      const resp = await fetch("/api/per-entry-section-delete-from-template", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Token ${token}` } : {}) },
+        body: JSON.stringify({ contentType, slug, locale, sectionId, mergedIndex }),
+      });
+      const data = await resp.json();
+      if (data.success) {
+        toast({ title: "Section deleted from shared template" });
+        emitContentUpdated({ contentType, slug, locale });
+      } else {
+        toast({ title: "Failed to delete section", description: data.error, variant: "destructive" });
+      }
+    } catch {
+      toast({ title: "Error deleting section", variant: "destructive" });
+    }
+    setDbEntryDeleteDialog({ open: false, index: -1, isPerEntry: false, isDeleting: false });
+  }, [contentType, slug, locale, dbEntryDeleteDialog, toast]);
+
+  // Restore a ghost section (per-entry removed section)
+  const handleRestoreConfirm = useCallback(async () => {
+    if (!contentType || !slug || !locale) return;
+    const sectionId = typeof restoreDialog.section.id === "string" ? restoreDialog.section.id : null;
+    if (!sectionId) {
+      toast({ title: "Cannot restore: section has no id", variant: "destructive" });
+      setRestoreDialog({ open: false, section: {}, isRestoring: false });
+      return;
+    }
+    setRestoreDialog(prev => ({ ...prev, isRestoring: true }));
+    try {
+      const token = getDebugToken();
+      const resp = await fetch("/api/per-entry-section-restore", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Token ${token}` } : {}) },
+        body: JSON.stringify({ contentType, slug, locale, sectionId }),
+      });
+      const data = await resp.json();
+      if (data.success) {
+        toast({ title: "Section restored" });
+        emitContentUpdated({ contentType, slug, locale });
+      } else {
+        toast({ title: "Failed to restore section", description: data.error, variant: "destructive" });
+      }
+    } catch {
+      toast({ title: "Error restoring section", variant: "destructive" });
+    }
+    setRestoreDialog({ open: false, section: {}, isRestoring: false });
+  }, [contentType, slug, locale, restoreDialog, toast]);
+
   const handleDuplicate = useCallback(async (index: number) => {
     if (!contentType || !slug || !locale) return;
 
@@ -936,6 +1095,60 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
 
   const isMobilePreview = isEditMode && previewBreakpoint === 'mobile';
 
+  // Interleaved rendering items: live sections + ghost placeholders for per-entry removed sections
+  const interleavedItems = useMemo(() => {
+    if (!isEditMode || !singleEntry || !perEntryRemovedSections || perEntryRemovedSections.length === 0) {
+      return null; // Fall through to regular rendering
+    }
+
+    type InterleavedItem =
+      | { kind: 'live'; rawSection: Section; resolvedSection: Section; liveIndex: number }
+      | { kind: 'ghost'; section: Record<string, unknown>; originalIndex: number };
+
+    // Split live sections into base (from shared template) and per-entry additions
+    const baseLiveSections: Array<{ raw: Section; resolved: Section; liveIndex: number }> = [];
+    const perEntryAdditions: Array<{ raw: Section; resolved: Section; liveIndex: number }> = [];
+    for (let i = 0; i < sections.length; i++) {
+      const raw = sections[i];
+      const resolved = resolvedSections[i] ?? raw;
+      if ((raw as Record<string, unknown>)._perEntrySource) {
+        perEntryAdditions.push({ raw, resolved, liveIndex: i });
+      } else {
+        baseLiveSections.push({ raw, resolved, liveIndex: i });
+      }
+    }
+
+    // Sort removed sections by originalIndex
+    const removedSorted = [...perEntryRemovedSections].sort((a, b) => a.originalIndex - b.originalIndex);
+
+    const result: InterleavedItem[] = [];
+    let liveIdx = 0;
+    let removedIdx = 0;
+    let slot = 0;
+
+    while (liveIdx < baseLiveSections.length || removedIdx < removedSorted.length) {
+      const nextRemovedSlot = removedIdx < removedSorted.length ? removedSorted[removedIdx].originalIndex : Infinity;
+      if (slot === nextRemovedSlot) {
+        result.push({ kind: 'ghost', section: removedSorted[removedIdx].section, originalIndex: slot });
+        removedIdx++;
+      } else if (liveIdx < baseLiveSections.length) {
+        const item = baseLiveSections[liveIdx];
+        result.push({ kind: 'live', rawSection: item.raw, resolvedSection: item.resolved, liveIndex: item.liveIndex });
+        liveIdx++;
+      } else {
+        break;
+      }
+      slot++;
+    }
+
+    // Per-entry additions go at the end
+    for (const item of perEntryAdditions) {
+      result.push({ kind: 'live', rawSection: item.raw, resolvedSection: item.resolved, liveIndex: item.liveIndex });
+    }
+
+    return result;
+  }, [isEditMode, singleEntry, perEntryRemovedSections, sections, resolvedSections]);
+
   const content = (
     <>
       <AddSectionButton
@@ -945,6 +1158,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
         slug={slug}
         locale={locale}
         isSharedTemplate={isSharedTemplate}
+        singleEntry={singleEntry}
       />
       {sections.length === 0 && (
         <EmptyPageState 
@@ -958,157 +1172,183 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
       {(() => {
         let hasAppliedTopCover = false;
 
-        return resolvedSections.map((section, index) => {
-        const rawSection = sections[index];
-        const sectionType = (section as { type: string }).type;
-        const loadStrategy = isEditMode ? "eager" : resolveLoadStrategy(rawSection, index, settings);
-        const renderedContent = renderSection(section, index);
-        const wrapperStyles = getSectionWrapperStyles(section);
-        const innerStyles: CSSProperties = {
-          maxWidth: "var(--section-mw)",
-          marginLeft: "auto",
-          marginRight: "auto",
-          width: "100%",
-        };
-        const showOn = (rawSection as SectionLayout).showOn;
-
-        const isVisible = shouldShowSection(showOn, previewBreakpoint, isEditMode);
-        const isLocationVisible = shouldShowSectionForLocation(rawSection, sessionLocationSlug, sessionLocationRegion, isEditMode);
-        const visibilityClasses = isEditMode ? '' : getSectionVisibilityClasses(showOn);
-
-        if (!renderedContent) return null;
-
-        if (!isLocationVisible) return null;
-
-        if (!isVisible && isEditMode) {
+        const renderGhost = (section: Record<string, unknown>, originalIndex: number) => {
+          const ghostType = typeof section.type === 'string' ? section.type : 'section';
+          const ghostVariant = typeof section.variant === 'string' ? section.variant : null;
+          const ghostLabel = ghostVariant ? `${ghostType} (${ghostVariant})` : ghostType;
           return (
-            <div key={index}>
-              <AddSectionButton
-                insertIndex={index + 1}
-                sections={sections}
-                contentType={contentType}
-                slug={slug}
-                locale={locale}
-                isSharedTemplate={isSharedTemplate}
-              />
+            <div key={`ghost-${originalIndex}`} className="relative group">
+              <div
+                className="flex items-center justify-between px-6 py-4 mx-4 my-2 border-2 border-dashed border-muted-foreground/30 rounded-lg bg-muted/20 text-muted-foreground"
+                data-testid={`ghost-section-${originalIndex}`}
+              >
+                <div className="flex items-center gap-3">
+                  <Trash2 className="h-4 w-4 shrink-0 text-muted-foreground/60" />
+                  <div>
+                    <p className="text-sm font-medium">{ghostLabel} — hidden for this entry</p>
+                    {typeof section.id === 'string' && (
+                      <p className="text-xs text-muted-foreground/60 font-mono">#{section.id}</p>
+                    )}
+                  </div>
+                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setRestoreDialog({ open: true, section, isRestoring: false })}
+                  data-testid={`button-restore-section-${originalIndex}`}
+                >
+                  Restore
+                </Button>
+              </div>
             </div>
           );
-        }
+        };
 
-        const isFirstVisibleSection = isVisible && !hasAppliedTopCover;
-        if (isFirstVisibleSection) {
-          hasAppliedTopCover = true;
-        }
+        const renderLiveSection = (section: Section, index: number) => {
+          const rawSection = sections[index];
+          const sectionType = (section as { type: string }).type;
+          const loadStrategy = isEditMode ? "eager" : resolveLoadStrategy(rawSection, index, settings);
+          const renderedContent = renderSection(section, index);
+          const wrapperStyles = getSectionWrapperStyles(section);
+          const innerStyles: CSSProperties = {
+            maxWidth: "var(--section-mw)",
+            marginLeft: "auto",
+            marginRight: "auto",
+            width: "100%",
+          };
+          const showOn = (rawSection as SectionLayout).showOn;
 
-        const topCoverBackground = typeof wrapperStyles.background === "string" ? wrapperStyles.background : undefined;
-        const hasTopCover = isFirstVisibleSection
-          && sectionBackgroundOverlapsMenu
-          && !!topCoverBackground
-          && (topChromeHeightDesktop > 0 || topChromeHeightMobile > 0);
-        const sectionWrapperStyles = hasTopCover
-          ? {
-              ...wrapperStyles,
-              background: "transparent",
-            }
-          : wrapperStyles;
-        const contentLayerStyles: CSSProperties = hasTopCover
-          ? {
-              ...innerStyles,
-              position: "relative",
-            }
-          : innerStyles;
-        const sectionId = (rawSection as SectionLayout).section_id || `${sectionType}-${index}`;
-        const isPriority = loadStrategy === "eager";
-        const sectionVariableFields = (rawSection as Record<string, unknown>)._variableFields as Record<string, string> | undefined;
-        const sectionVariableKeys = (rawSection as Record<string, unknown>)._variableKeys as Record<string, string> | undefined;
-        const imageSizes =
-          ((rawSection as Record<string, unknown>)._imageSizes as Record<string, string> | undefined) ??
-          {};
-        const priorityWrapped = (
-          <SectionContextProvider
-            value={{
-              isPriority,
-              sectionIndex: index,
-              contentType: contentType ?? "",
-              slug: slug ?? "",
-              locale: locale ?? "",
-              imageSizes,
-              variableFields: sectionVariableFields,
-              variableKeys: sectionVariableKeys,
-            }}
-          >
-            {renderedContent}
-          </SectionContextProvider>
-        );
-        const renderedSection = loadStrategy === "lazy"
-          ? <DeferredSection>{priorityWrapped}</DeferredSection>
-          : priorityWrapped;
+          const isVisible = shouldShowSection(showOn, previewBreakpoint, isEditMode);
+          const isLocationVisible = shouldShowSectionForLocation(rawSection, sessionLocationSlug, sessionLocationRegion, isEditMode);
+          const visibilityClasses = isEditMode ? '' : getSectionVisibilityClasses(showOn);
 
-        return (
-          <div
-            key={index}
-            id={sectionId}
-            data-section-type={sectionType}
-            className={`section-wrapper${sectionType !== "modal" ? " scroll-mt-20" : ""}${hasTopCover ? " relative" : ""}${visibilityClasses ? " " + visibilityClasses : ""}`.trim()}
-            style={sectionWrapperStyles}
-          >
-            {hasTopCover && (
-              <>
-                {topChromeHeightDesktop > 0 && (
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-x-0 bottom-0 z-0 hidden md:block"
-                    style={{
-                      top: `${-topChromeHeightDesktop}px`,
-                      background: topCoverBackground,
-                    }}
-                  />
-                )}
-                {topChromeHeightMobile > 0 && (
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-x-0 bottom-0 z-0 md:hidden"
-                    style={{
-                      top: `${-topChromeHeightMobile}px`,
-                      background: topCoverBackground,
-                    }}
-                  />
-                )}
-              </>
-            )}
-            <div style={contentLayerStyles}>
-              <EditableSection
-                section={rawSection}
-                index={index}
-                sectionType={sectionType}
-                contentType={contentType}
-                slug={slug}
-                locale={locale}
-                variant={variant}
-                totalSections={sections.length}
-                allSections={sections}
-                isSharedTemplate={isSharedTemplate}
-                onMoveUp={handleMoveUp}
-                onMoveDown={handleMoveDown}
-                onDelete={handleDelete}
-                onDuplicate={handleDuplicate}
-              >
-                <VariableHighlightProvider sectionIndex={index} contentType={contentType} hasSingleVars={!!singleEntry}>
-                  {renderedSection}
-                </VariableHighlightProvider>
-              </EditableSection>
-              <AddSectionButton
-                insertIndex={index + 1}
-                sections={sections}
-                contentType={contentType}
-                slug={slug}
-                locale={locale}
-                isSharedTemplate={isSharedTemplate}
-              />
+          if (!renderedContent) return null;
+          if (!isLocationVisible) return null;
+
+          if (!isVisible && isEditMode) {
+            return (
+              <div key={index}>
+                <AddSectionButton
+                  insertIndex={index + 1}
+                  sections={sections}
+                  contentType={contentType}
+                  slug={slug}
+                  locale={locale}
+                  isSharedTemplate={isSharedTemplate}
+                  singleEntry={singleEntry}
+                />
+              </div>
+            );
+          }
+
+          const isFirstVisibleSection = isVisible && !hasAppliedTopCover;
+          if (isFirstVisibleSection) hasAppliedTopCover = true;
+
+          const topCoverBackground = typeof wrapperStyles.background === "string" ? wrapperStyles.background : undefined;
+          const hasTopCover = isFirstVisibleSection
+            && sectionBackgroundOverlapsMenu
+            && !!topCoverBackground
+            && (topChromeHeightDesktop > 0 || topChromeHeightMobile > 0);
+          const sectionWrapperStyles = hasTopCover ? { ...wrapperStyles, background: "transparent" } : wrapperStyles;
+          const contentLayerStyles: CSSProperties = hasTopCover ? { ...innerStyles, position: "relative" } : innerStyles;
+          const sectionId = (rawSection as SectionLayout).section_id || `${sectionType}-${index}`;
+          const isPriority = loadStrategy === "eager";
+          const sectionVariableFields = (rawSection as Record<string, unknown>)._variableFields as Record<string, string> | undefined;
+          const sectionVariableKeys = (rawSection as Record<string, unknown>)._variableKeys as Record<string, string> | undefined;
+          const imageSizes = ((rawSection as Record<string, unknown>)._imageSizes as Record<string, string> | undefined) ?? {};
+          const priorityWrapped = (
+            <SectionContextProvider
+              value={{
+                isPriority,
+                sectionIndex: index,
+                contentType: contentType ?? "",
+                slug: slug ?? "",
+                locale: locale ?? "",
+                imageSizes,
+                variableFields: sectionVariableFields,
+                variableKeys: sectionVariableKeys,
+              }}
+            >
+              {renderedContent}
+            </SectionContextProvider>
+          );
+          const renderedSection = loadStrategy === "lazy"
+            ? <DeferredSection>{priorityWrapped}</DeferredSection>
+            : priorityWrapped;
+
+          return (
+            <div
+              key={index}
+              id={sectionId}
+              data-section-type={sectionType}
+              className={`section-wrapper${sectionType !== "modal" ? " scroll-mt-20" : ""}${hasTopCover ? " relative" : ""}${visibilityClasses ? " " + visibilityClasses : ""}`.trim()}
+              style={sectionWrapperStyles}
+            >
+              {hasTopCover && (
+                <>
+                  {topChromeHeightDesktop > 0 && (
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-x-0 bottom-0 z-0 hidden md:block"
+                      style={{ top: `${-topChromeHeightDesktop}px`, background: topCoverBackground }}
+                    />
+                  )}
+                  {topChromeHeightMobile > 0 && (
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-x-0 bottom-0 z-0 md:hidden"
+                      style={{ top: `${-topChromeHeightMobile}px`, background: topCoverBackground }}
+                    />
+                  )}
+                </>
+              )}
+              <div style={contentLayerStyles}>
+                <EditableSection
+                  section={rawSection}
+                  index={index}
+                  sectionType={sectionType}
+                  contentType={contentType}
+                  slug={slug}
+                  locale={locale}
+                  variant={variant}
+                  totalSections={sections.length}
+                  allSections={sections}
+                  isSharedTemplate={isSharedTemplate}
+                  onMoveUp={handleMoveUp}
+                  onMoveDown={handleMoveDown}
+                  onDelete={handleDelete}
+                  onDuplicate={handleDuplicate}
+                >
+                  <VariableHighlightProvider sectionIndex={index} contentType={contentType} hasSingleVars={!!singleEntry}>
+                    {renderedSection}
+                  </VariableHighlightProvider>
+                </EditableSection>
+                <AddSectionButton
+                  insertIndex={index + 1}
+                  sections={sections}
+                  contentType={contentType}
+                  slug={slug}
+                  locale={locale}
+                  isSharedTemplate={isSharedTemplate}
+                  singleEntry={singleEntry}
+                />
+              </div>
             </div>
-          </div>
-        );
-      });
+          );
+        };
+
+        if (interleavedItems) {
+          // Interleaved rendering: ghosts + live sections in template order
+          return interleavedItems.map((item) => {
+            if (item.kind === 'ghost') {
+              return renderGhost(item.section, item.originalIndex);
+            }
+            return renderLiveSection(item.resolvedSection, item.liveIndex);
+          });
+        }
+
+        // Default: render live sections only
+        return resolvedSections.map((section, index) => renderLiveSection(section, index));
       })()}
     </>
   );
@@ -1134,6 +1374,83 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
         contentType={contentType || "page"}
         isLoading={dbTemplateDeleteDialog.isDeleting}
       />
+
+      {/* Scope choice dialog: delete on specific DB entry page */}
+      <Dialog open={dbEntryDeleteDialog.open} onOpenChange={(open) => { if (!open && !dbEntryDeleteDialog.isDeleting) setDbEntryDeleteDialog({ open: false, index: -1, isPerEntry: false, isDeleting: false }); }}>
+        <DialogContent className="sm:max-w-sm">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-destructive" />
+              Remove section
+            </DialogTitle>
+            <DialogDescription>
+              Choose how to remove this section for this {singularLabel}.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex flex-col gap-2 pt-1">
+            <Button
+              variant="outline"
+              disabled={dbEntryDeleteDialog.isDeleting}
+              className="w-full justify-start gap-2"
+              data-testid="button-scope-delete-this-entry"
+              onClick={handleDbEntryRemoveThisEntry}
+            >
+              {dbEntryDeleteDialog.isDeleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+              Hide from this {singularLabel} only
+            </Button>
+            {!dbEntryDeleteDialog.isPerEntry && (
+              <Button
+                variant="destructive"
+                disabled={dbEntryDeleteDialog.isDeleting}
+                className="w-full justify-start gap-2"
+                data-testid="button-scope-delete-all-entries"
+                onClick={handleDbEntryDeleteAllEntries}
+              >
+                {dbEntryDeleteDialog.isDeleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+                Delete from all {singularLabel}s (shared template)
+              </Button>
+            )}
+            <Button
+              variant="ghost"
+              disabled={dbEntryDeleteDialog.isDeleting}
+              className="w-full"
+              onClick={() => setDbEntryDeleteDialog({ open: false, index: -1, isPerEntry: false, isDeleting: false })}
+            >
+              Cancel
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Restore dialog for ghost sections */}
+      <Dialog open={restoreDialog.open} onOpenChange={(open) => { if (!open && !restoreDialog.isRestoring) setRestoreDialog({ open: false, section: {}, isRestoring: false }); }}>
+        <DialogContent className="sm:max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Restore hidden section</DialogTitle>
+            <DialogDescription>
+              This will restore the section from the shared template for this entry.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              variant="ghost"
+              onClick={() => setRestoreDialog({ open: false, section: {}, isRestoring: false })}
+              disabled={restoreDialog.isRestoring}
+              data-testid="button-restore-cancel"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleRestoreConfirm}
+              disabled={restoreDialog.isRestoring}
+              data-testid="button-restore-confirm"
+            >
+              {restoreDialog.isRestoring ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+              Restore
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       <Dialog open={deleteDialog.open} onOpenChange={(open) => { if (!open && !deleteDialog.isDeleting) setDeleteDialog({ open: false, index: -1, bindingGroup: null, isDeleting: false }); }}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>

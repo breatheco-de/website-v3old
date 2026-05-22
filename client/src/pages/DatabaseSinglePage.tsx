@@ -146,6 +146,7 @@ export default function DatabaseSinglePage({ contentType }: DatabaseSinglePagePr
           locale={locale}
           isSharedTemplate
           singleEntry={page.singleEntry}
+          perEntryRemovedSections={page.perEntryRemovedSections}
         />
       </MenuVisualContextProvider>
       <div className="group relative">

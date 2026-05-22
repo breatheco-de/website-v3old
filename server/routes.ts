@@ -2329,6 +2329,431 @@ Sitemap: ${baseUrl}/sitemap.xml
     }
   });
 
+  // ── Per-entry section operations ──
+
+  /**
+   * Remove a section from a specific DB entry.
+   * If the section is per-entry (_perEntrySource), deletes it from the per-entry file.
+   * If shared-template, writes { id, _remove: true } to the per-entry file.
+   */
+  app.post("/api/per-entry-section-remove", async (req, res) => {
+    try {
+      const { authorized } = await requireCapability(req, res, "edit_content");
+      if (!authorized) return;
+
+      const { contentType, slug, locale: rawLocale, sectionIndex, isPerEntry } = req.body as {
+        contentType: string;
+        slug: string;
+        locale: string;
+        sectionIndex: number;
+        isPerEntry?: boolean;
+      };
+
+      if (!contentType || !slug || !rawLocale || sectionIndex === undefined) {
+        res.status(400).json({ error: "Missing required fields" });
+        return;
+      }
+
+      const locale = normalizeLocale(rawLocale);
+      const folder = getFolder(contentType);
+      const templateDir = path.join(process.cwd(), "marketing-content", folder);
+      const entryDir = path.join(templateDir, slug);
+      const entryFilePath = path.join(entryDir, `${locale}.yml`);
+
+      // Load the current merged page to get the section
+      const mergedPage = await loadDatabaseSinglePage(contentType, slug, locale);
+      if (!mergedPage) {
+        res.status(404).json({ error: "Entry not found" });
+        return;
+      }
+
+      const sections = mergedPage.sections as Record<string, unknown>[];
+      const targetSection = sections[sectionIndex];
+      if (!targetSection) {
+        res.status(400).json({ error: "Section index out of range" });
+        return;
+      }
+
+      // Ensure entry directory exists
+      if (!fs.existsSync(entryDir)) {
+        fs.mkdirSync(entryDir, { recursive: true });
+      }
+
+      // Load existing per-entry file or start fresh
+      let entryData: Record<string, unknown> = {};
+      if (fs.existsSync(entryFilePath)) {
+        const raw = fs.readFileSync(entryFilePath, "utf-8");
+        const parsed = contentIndex.safeYamlLoad(raw);
+        if (parsed && typeof parsed === "object") entryData = parsed as Record<string, unknown>;
+      }
+
+      const entrySections = Array.isArray(entryData.sections)
+        ? (entryData.sections as Record<string, unknown>[])
+        : [];
+
+      if (isPerEntry) {
+        // Remove the section from the per-entry file's sections array by id
+        const sectionId = typeof targetSection.id === "string" ? targetSection.id : null;
+        if (sectionId) {
+          entryData.sections = entrySections.filter(
+            (s) => !(typeof s.id === "string" && s.id === sectionId),
+          );
+        } else {
+          res.status(400).json({ error: "Per-entry section has no id" });
+          return;
+        }
+      } else {
+        // Shared template section — ensure it has an id, then write _remove: true
+        let sectionId = typeof targetSection.id === "string" ? targetSection.id : null;
+
+        if (!sectionId) {
+          // Auto-generate an id and patch the shared template.
+          // We must resolve the correct TEMPLATE index (not the merged index) because
+          // per-entry removals can shift section positions in the merged view.
+          const { generateSectionId } = await import("./utils/generateSectionId");
+          sectionId = generateSectionId((targetSection.type as string) || "section");
+
+          const localePath = path.join(templateDir, `single.${locale}.yml`);
+          const fallbackPath = path.join(templateDir, "single.en.yml");
+          const templateFile = fs.existsSync(localePath) ? localePath : fallbackPath;
+
+          if (fs.existsSync(templateFile)) {
+            const rawTemplate = fs.readFileSync(templateFile, "utf-8");
+            const templateData = (contentIndex.safeYamlLoad(rawTemplate) as Record<string, unknown>) || {};
+            const templateSections = Array.isArray(templateData.sections)
+              ? (templateData.sections as Record<string, unknown>[])
+              : [];
+
+            // Map merged index → template index by counting non-perEntry sections in the merged
+            // view and then finding the corresponding visible-base-template position.
+            const mergedSections = mergedPage.sections as Record<string, unknown>[];
+            const removedOriginalIndices = new Set<number>(
+              ((mergedPage.perEntryRemovedSections as Array<{ originalIndex: number }>) || [])
+                .map((r) => r.originalIndex),
+            );
+
+            // Count how many base-template (non-perEntry) sections precede sectionIndex in merged
+            let baseCountBefore = 0;
+            for (let i = 0; i < sectionIndex; i++) {
+              if (!mergedSections[i]?._perEntrySource) baseCountBefore++;
+            }
+
+            // Find the baseCountBefore-th non-removed section in the template file
+            let tplIdx = -1;
+            let visible = 0;
+            for (let i = 0; i < templateSections.length; i++) {
+              if (removedOriginalIndices.has(i)) continue;
+              if (visible === baseCountBefore) { tplIdx = i; break; }
+              visible++;
+            }
+
+            const patchIdx = tplIdx !== -1 ? tplIdx : sectionIndex; // fallback: direct index
+            if (templateSections[patchIdx]) {
+              templateSections[patchIdx] = { ...templateSections[patchIdx], id: sectionId };
+              templateData.sections = templateSections;
+              const { escapeObjectVars, unescapeYamlDump } = await import("@shared/templateVars");
+              const { escaped, map } = escapeObjectVars(templateData);
+              const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
+              fs.writeFileSync(templateFile, unescapeYamlDump(dumped, map), "utf-8");
+              markFileAsModified(templateFile);
+            }
+          }
+        }
+
+        // Write _remove: true into per-entry file
+        const alreadyRemoved = entrySections.some(
+          (s) => typeof s.id === "string" && s.id === sectionId && s._remove === true,
+        );
+        if (!alreadyRemoved) {
+          entryData.sections = [...entrySections, { id: sectionId, _remove: true }];
+        }
+      }
+
+      const { escapeObjectVars, unescapeYamlDump } = await import("@shared/templateVars");
+      const { escaped, map } = escapeObjectVars(entryData);
+      const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
+      fs.writeFileSync(entryFilePath, unescapeYamlDump(dumped, map), "utf-8");
+      markFileAsModified(entryFilePath);
+
+      res.json({ success: true });
+    } catch (error) {
+      console.error("[per-entry-section-remove] Error:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
+    }
+  });
+
+  /**
+   * Restore a section that was removed for a specific entry.
+   * Removes the { id, _remove: true } entry from the per-entry file.
+   */
+  app.post("/api/per-entry-section-restore", async (req, res) => {
+    try {
+      const { authorized } = await requireCapability(req, res, "edit_content");
+      if (!authorized) return;
+
+      const { contentType, slug, locale: rawLocale, sectionId } = req.body as {
+        contentType: string;
+        slug: string;
+        locale: string;
+        sectionId: string;
+      };
+
+      if (!contentType || !slug || !rawLocale || !sectionId) {
+        res.status(400).json({ error: "Missing required fields" });
+        return;
+      }
+
+      const locale = normalizeLocale(rawLocale);
+      const folder = getFolder(contentType);
+      const templateDir = path.join(process.cwd(), "marketing-content", folder);
+      const entryDir = path.join(templateDir, slug);
+      const entryFilePath = path.join(entryDir, `${locale}.yml`);
+
+      if (!fs.existsSync(entryFilePath)) {
+        // Nothing to restore — idempotent success
+        res.json({ success: true });
+        return;
+      }
+
+      const raw = fs.readFileSync(entryFilePath, "utf-8");
+      const entryData = (contentIndex.safeYamlLoad(raw) as Record<string, unknown>) || {};
+      const entrySections = Array.isArray(entryData.sections)
+        ? (entryData.sections as Record<string, unknown>[])
+        : [];
+
+      // Remove the _remove: true entry for this sectionId
+      entryData.sections = entrySections.filter(
+        (s) => !(typeof s.id === "string" && s.id === sectionId && s._remove === true),
+      );
+
+      const { escapeObjectVars, unescapeYamlDump } = await import("@shared/templateVars");
+      const { escaped, map } = escapeObjectVars(entryData);
+      const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
+      fs.writeFileSync(entryFilePath, unescapeYamlDump(dumped, map), "utf-8");
+      markFileAsModified(entryFilePath);
+
+      res.json({ success: true });
+    } catch (error) {
+      console.error("[per-entry-section-restore] Error:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
+    }
+  });
+
+  /**
+   * Add a section to a specific DB entry only (per-entry override).
+   * Creates the per-entry folder and locale file if absent.
+   * Accepts `insertAfterSectionId` to position the section after a specific base section.
+   * Sections with `_insertAfterSectionId` are placed right after the matching base section
+   * by `applyPerEntryLayer` during rendering; without it they are appended.
+   */
+  app.post("/api/per-entry-section-add", async (req, res) => {
+    try {
+      const { authorized } = await requireCapability(req, res, "edit_content");
+      if (!authorized) return;
+
+      const { contentType, slug, locale: rawLocale, sectionData, insertIndex } = req.body as {
+        contentType: string;
+        slug: string;
+        locale: string;
+        insertIndex?: number;
+        sectionData: Record<string, unknown>;
+      };
+
+      if (!contentType || !slug || !rawLocale || !sectionData) {
+        res.status(400).json({ error: "Missing required fields" });
+        return;
+      }
+
+      const locale = normalizeLocale(rawLocale);
+      const folder = getFolder(contentType);
+      const templateDir = path.join(process.cwd(), "marketing-content", folder);
+      const entryDir = path.join(templateDir, slug);
+      const entryFilePath = path.join(entryDir, `${locale}.yml`);
+
+      // Ensure directory exists
+      if (!fs.existsSync(entryDir)) {
+        fs.mkdirSync(entryDir, { recursive: true });
+      }
+
+      // Load existing per-entry file or start fresh
+      let entryData: Record<string, unknown> = {};
+      if (fs.existsSync(entryFilePath)) {
+        const raw = fs.readFileSync(entryFilePath, "utf-8");
+        const parsed = contentIndex.safeYamlLoad(raw);
+        if (parsed && typeof parsed === "object") entryData = parsed as Record<string, unknown>;
+      }
+
+      const { generateSectionId } = await import("./utils/generateSectionId");
+      const newSection: Record<string, unknown> = {
+        ...sectionData,
+        id: (sectionData.id as string) || generateSectionId((sectionData.type as string) || "section"),
+      };
+
+      // Resolve _insertAfterSectionId from insertIndex using the current merged page.
+      // insertIndex is the position in the merged list where the new section should appear.
+      //   insertIndex === 0        → insert before all sections → _insertAfterSectionId: null
+      //   insertIndex > 0         → look at sections[insertIndex - 1].id as the anchor
+      //   insertIndex === undefined → no positioning metadata → append at end (backward compat)
+      if (insertIndex !== undefined) {
+        if (insertIndex === 0) {
+          // Insert before all sections
+          newSection._insertAfterSectionId = null;
+        } else {
+          const mergedPage = await loadDatabaseSinglePage(contentType, slug, locale);
+          const mergedSections = Array.isArray(mergedPage?.sections)
+            ? (mergedPage!.sections as Record<string, unknown>[])
+            : [];
+          // Walk backward from insertIndex - 1 to find the nearest section that has an id.
+          // This handles id-less sections gracefully: we anchor after the closest preceding
+          // named section so the new section lands at (or near) the intended position.
+          let insertAfterSectionId: string | null | undefined = undefined; // undefined = append
+          for (let i = insertIndex - 1; i >= 0; i--) {
+            const candidate = mergedSections[i];
+            if (typeof candidate?.id === "string") {
+              insertAfterSectionId = candidate.id;
+              break;
+            }
+          }
+          // If no preceding section has an id we leave undefined (append-at-end fallback)
+          // rather than null (insert-before-all) which would be visually wrong.
+          newSection._insertAfterSectionId = insertAfterSectionId;
+        }
+      }
+
+      const entrySections = Array.isArray(entryData.sections)
+        ? (entryData.sections as Record<string, unknown>[])
+        : [];
+      entryData.sections = [...entrySections, newSection];
+
+      const { escapeObjectVars, unescapeYamlDump } = await import("@shared/templateVars");
+      const { escaped, map } = escapeObjectVars(entryData);
+      const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
+      fs.writeFileSync(entryFilePath, unescapeYamlDump(dumped, map), "utf-8");
+      markFileAsModified(entryFilePath);
+
+      // Return updated merged section list so the client can update without a full page reload
+      const updatedPage = await loadDatabaseSinglePage(contentType, slug, locale);
+      res.json({ success: true, sections: updatedPage?.sections ?? [] });
+    } catch (error) {
+      console.error("[per-entry-section-add] Error:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
+    }
+  });
+
+  /**
+   * Delete a shared-template section by its ID, resolving the correct template index.
+   * Used when "Delete from all entries" is chosen on a specific DB entry page — avoids
+   * the merged-index vs. template-index divergence that occurs when per-entry removals
+   * have filtered some sections out.
+   */
+  app.post("/api/per-entry-section-delete-from-template", async (req, res) => {
+    try {
+      const { authorized } = await requireCapability(req, res, "edit_content");
+      if (!authorized) return;
+
+      const { contentType, slug, locale: rawLocale, sectionId, mergedIndex } = req.body as {
+        contentType: string;
+        slug: string;
+        locale: string;
+        sectionId?: string;
+        mergedIndex?: number;
+      };
+
+      if (!contentType || !slug || !rawLocale || (!sectionId && mergedIndex === undefined)) {
+        res.status(400).json({ error: "Missing required fields: contentType, slug, locale and either sectionId or mergedIndex" });
+        return;
+      }
+
+      const locale = normalizeLocale(rawLocale);
+      const folder = getFolder(contentType);
+      const templateDir = path.join(process.cwd(), "marketing-content", folder);
+
+      // Load the shared template WITHOUT per-entry overlay to get the correct template indices
+      const baseTemplate = mergeSingleTemplate(contentType, locale);
+      if (!baseTemplate) {
+        res.status(404).json({ error: "Template not found" });
+        return;
+      }
+
+      const baseSections = Array.isArray(baseTemplate.sections)
+        ? (baseTemplate.sections as Record<string, unknown>[])
+        : [];
+
+      let templateIndex: number;
+
+      if (sectionId) {
+        // Preferred: id-based lookup on the base template (no per-entry overlay)
+        templateIndex = baseSections.findIndex(
+          (s) => typeof s.id === "string" && s.id === sectionId,
+        );
+        if (templateIndex === -1) {
+          res.status(404).json({ error: `Section with id '${sectionId}' not found in shared template` });
+          return;
+        }
+      } else {
+        // Fallback: resolve template index from merged view position.
+        // The merged view (WITH per-entry overlay) may have fewer sections than the base template
+        // because per-entry removals filter some out. Non-per-entry sections in the merged view
+        // appear in the same ORDER as in the base template; counting them gives the base index.
+        const mergedWithEntry = mergeSingleTemplate(contentType, locale, slug);
+        const mergedSections = Array.isArray(mergedWithEntry?.sections)
+          ? (mergedWithEntry!.sections as Record<string, unknown>[])
+          : [];
+        // Count how many non-per-entry-source sections appear before mergedIndex in merged view
+        let baseCount = 0;
+        for (let i = 0; i < (mergedIndex as number); i++) {
+          if (!mergedSections[i]?._perEntrySource) baseCount++;
+        }
+        // The section AT mergedIndex in the merged view is at baseCount in the base template
+        templateIndex = baseCount;
+        if (templateIndex >= baseSections.length) {
+          res.status(404).json({ error: `Cannot resolve template index from mergedIndex ${mergedIndex}` });
+          return;
+        }
+      }
+
+      // Find and mutate the correct template YAML file
+      const localePath = path.join(templateDir, `single.${locale}.yml`);
+      const fallbackPath = path.join(templateDir, "single.en.yml");
+      const templateFile = fs.existsSync(localePath) ? localePath : fallbackPath;
+
+      if (!fs.existsSync(templateFile)) {
+        res.status(404).json({ error: "Template file not found" });
+        return;
+      }
+
+      const rawTemplate = fs.readFileSync(templateFile, "utf-8");
+      const templateData = (contentIndex.safeYamlLoad(rawTemplate) as Record<string, unknown>) || {};
+      const templateSections = Array.isArray(templateData.sections)
+        ? [...(templateData.sections as Record<string, unknown>[])]
+        : [];
+
+      // Find the section in the template file by id (file may differ from merged if _common overlays)
+      const fileIndex = sectionId
+        ? templateSections.findIndex((s) => typeof s.id === "string" && s.id === sectionId)
+        : -1;
+
+      if (fileIndex !== -1) {
+        templateSections.splice(fileIndex, 1);
+      } else {
+        // Fallback: use the resolved template index in case the file doesn't have ids yet
+        templateSections.splice(templateIndex, 1);
+      }
+
+      templateData.sections = templateSections;
+      const { escapeObjectVars, unescapeYamlDump } = await import("@shared/templateVars");
+      const { escaped, map } = escapeObjectVars(templateData);
+      const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
+      fs.writeFileSync(templateFile, unescapeYamlDump(dumped, map), "utf-8");
+      markFileAsModified(templateFile);
+
+      res.json({ success: true });
+    } catch (error) {
+      console.error("[per-entry-section-delete-from-template] Error:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
+    }
+  });
+
   // ── Generic Content Type API Routes ──
 
   app.get("/api/content-types", (_req, res) => {

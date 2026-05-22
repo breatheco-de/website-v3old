@@ -12,6 +12,7 @@ interface AddSectionButtonProps {
   slug?: string;
   locale?: string;
   isSharedTemplate?: boolean;
+  singleEntry?: Record<string, unknown>;
 }
 
 export function AddSectionButton({ 
@@ -21,6 +22,7 @@ export function AddSectionButton({
   slug, 
   locale,
   isSharedTemplate,
+  singleEntry,
 }: AddSectionButtonProps) {
   const editMode = useEditModeOptional();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -74,6 +76,7 @@ export function AddSectionButton({
           slug={slug}
           locale={locale}
           isSharedTemplate={isSharedTemplate}
+          singleEntry={singleEntry}
         />
       )}
     </>
