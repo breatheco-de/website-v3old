@@ -81,7 +81,7 @@ function PairingsTable({ pairings }: { pairings: ComponentPairing[] }) {
                         {col.label}
                       </span>
                     </TooltipTrigger>
-                    <TooltipContent className="max-w-xs text-xs">{col.tooltip}</TooltipContent>
+                    <TooltipContent side="top" className="max-w-sm text-xs">{col.tooltip}</TooltipContent>
                   </Tooltip>
                 ) : (
                   col.label
