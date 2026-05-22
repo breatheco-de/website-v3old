@@ -19,14 +19,6 @@ schema:
     - website
     - courses:data-science
 sections:
-  - type: breadcrumb
-    section_id: breadcrumb-data-science-ml
-    items:
-      - label: Home
-        url: /
-      - label: Career Programs
-        url: /en/career-programs
-      - label: "Data Science and Machine Learning"
   - type: hero
     section_id: hero-5v636o
     version: "1.0"
