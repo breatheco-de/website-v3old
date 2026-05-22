@@ -304,6 +304,47 @@ export function getWebsiteDefaultSocialImage(): string | null {
   return typeof img === "string" && img.trim() !== "" ? img.trim() : null;
 }
 
+export function updateOrganizationTwitterHandle(handle: string): void {
+  const schemaPath = path.join(process.cwd(), "marketing-content", "schema-org.yml");
+  let existing: Record<string, unknown> = {};
+  if (fs.existsSync(schemaPath)) {
+    try {
+      const raw = fs.readFileSync(schemaPath, "utf-8");
+      existing = (yaml.load(raw) as Record<string, unknown>) || {};
+    } catch {}
+  }
+
+  if (!existing.organization || typeof existing.organization !== "object") {
+    existing.organization = {};
+  }
+  const org = existing.organization as Record<string, unknown>;
+
+  const normalizedHandle = handle.replace(/^@/, "").trim();
+  const newUrl = normalizedHandle ? `https://twitter.com/${normalizedHandle}` : null;
+
+  let sameAs: string[] = Array.isArray(org.same_as) ? [...(org.same_as as string[])] : [];
+
+  const twitterIndex = sameAs.findIndex(
+    (url) => typeof url === "string" && (url.includes("twitter.com/") || url.includes("x.com/"))
+  );
+
+  if (newUrl) {
+    if (twitterIndex >= 0) {
+      sameAs[twitterIndex] = newUrl;
+    } else {
+      sameAs.push(newUrl);
+    }
+  } else if (twitterIndex >= 0) {
+    sameAs.splice(twitterIndex, 1);
+  }
+
+  org.same_as = sameAs;
+
+  const output = yaml.dump(existing, { lineWidth: 120, noRefs: true });
+  fs.writeFileSync(schemaPath, output, "utf-8");
+  clearSchemaCache();
+}
+
 export function updateWebsiteDefaultSocialImage(imageUrl: string): void {
   const schemaPath = path.join(process.cwd(), "marketing-content", "schema-org.yml");
   let existing: Record<string, unknown> = {};

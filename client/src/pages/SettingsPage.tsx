@@ -970,6 +970,8 @@ export default function SettingsPage() {
   const [migrationStates, setMigrationStates] = useState<Record<string, MigrationRowState>>({});
   const [brandImagePickerOpen, setBrandImagePickerOpen] = useState(false);
   const [brandSaving, setBrandSaving] = useState(false);
+  const [twitterHandle, setTwitterHandle] = useState("");
+  const [twitterSaving, setTwitterSaving] = useState(false);
 
   const canManageUsers = hasCapability("users_manage");
   const canEditSeo = hasCapability("seo_edit");
@@ -981,6 +983,12 @@ export default function SettingsPage() {
       setDirty(false);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (brandData) {
+      setTwitterHandle(brandData.twitter_handle ?? "");
+    }
+  }, [brandData]);
 
   function addLocale() {
     const code = newCode.trim().toLowerCase();
@@ -1048,6 +1056,23 @@ export default function SettingsPage() {
       toast({ title: "Failed to save", description: err.message || String(err), variant: "destructive" });
     } finally {
       setBrandSaving(false);
+    }
+  }
+
+  async function handleTwitterSave() {
+    setTwitterSaving(true);
+    try {
+      const res = await apiRequest("PUT", "/api/admin/brand-settings", {
+        twitter_handle: twitterHandle.trim(),
+      });
+      const result = await res.json();
+      if (result.error) throw new Error(result.error);
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/brand-settings"] });
+      toast({ title: "Twitter / X handle saved" });
+    } catch (err: any) {
+      toast({ title: "Failed to save", description: err.message || String(err), variant: "destructive" });
+    } finally {
+      setTwitterSaving(false);
     }
   }
 
@@ -1330,6 +1355,9 @@ export default function SettingsPage() {
                       <p className="text-xs text-muted-foreground">
                         Used as the fallback <code className="font-mono">og:image</code> on pages that don't have a specific social image. Recommended size: 1200×630 px.
                       </p>
+                      <p className="text-xs text-muted-foreground">
+                        Saved to <code className="font-mono">marketing-content/schema-org.yml</code> under <code className="font-mono">website.default_social_image</code>.
+                      </p>
                     </div>
 
                     <div className="space-y-3">
@@ -1382,17 +1410,38 @@ export default function SettingsPage() {
                       </Button>
                     </div>
 
-                    {brandData?.twitter_handle && (
-                      <div className="pt-2 border-t space-y-1">
+                    <div className="pt-2 border-t space-y-2">
+                      <div className="space-y-1">
                         <p className="text-sm font-medium">Twitter / X Handle</p>
                         <p className="text-xs text-muted-foreground">
-                          Auto-extracted from <code className="font-mono">schema-org.yml</code>. Edit the YAML directly to change it.
+                          Saved to <code className="font-mono">marketing-content/schema-org.yml</code> under <code className="font-mono">organization.same_as</code>.
                         </p>
-                        <code className="text-sm font-mono text-foreground" data-testid="text-brand-twitter-handle">
-                          {brandData.twitter_handle}
-                        </code>
                       </div>
-                    )}
+                      <div className="flex items-center gap-2">
+                        <Input
+                          value={twitterHandle}
+                          onChange={(e) => setTwitterHandle(e.target.value)}
+                          placeholder="@handle"
+                          disabled={twitterSaving || !canEditSeo}
+                          data-testid="input-brand-twitter-handle"
+                          className="font-mono"
+                        />
+                        <Button
+                          size="sm"
+                          onClick={handleTwitterSave}
+                          disabled={twitterSaving || !canEditSeo}
+                          title={!canEditSeo ? "You don't have permission to edit brand settings" : undefined}
+                          data-testid="button-brand-save-twitter"
+                        >
+                          {twitterSaving ? (
+                            <IconLoader2 className="h-4 w-4 mr-1.5 animate-spin" />
+                          ) : (
+                            <IconDeviceFloppy className="h-4 w-4 mr-1.5" />
+                          )}
+                          Save
+                        </Button>
+                      </div>
+                    </div>
                   </>
                 )}
               </CardContent>

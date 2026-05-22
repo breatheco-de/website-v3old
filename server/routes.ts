@@ -41,6 +41,7 @@ import {
   getOrganizationTwitterHandle,
   getWebsiteDefaultSocialImage,
   updateWebsiteDefaultSocialImage,
+  updateOrganizationTwitterHandle,
 } from "./schema-org";
 import {
   getRegistryOverview,
@@ -5641,16 +5642,29 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     const auth = await requireCapability(req, res, "seo_edit");
     if (!auth.authorized) return;
     try {
-      const { default_social_image } = req.body;
-      if (typeof default_social_image !== "string") {
-        res.status(400).json({ error: "default_social_image must be a string" });
-        return;
+      const { default_social_image, twitter_handle } = req.body;
+
+      if (default_social_image !== undefined) {
+        if (typeof default_social_image !== "string") {
+          res.status(400).json({ error: "default_social_image must be a string" });
+          return;
+        }
+        updateWebsiteDefaultSocialImage(default_social_image.trim());
       }
-      updateWebsiteDefaultSocialImage(default_social_image.trim());
+
+      if (twitter_handle !== undefined) {
+        if (typeof twitter_handle !== "string") {
+          res.status(400).json({ error: "twitter_handle must be a string" });
+          return;
+        }
+        updateOrganizationTwitterHandle(twitter_handle.trim());
+      }
+
       clearSsrSchemaCache();
       res.json({
         success: true,
         default_social_image: getWebsiteDefaultSocialImage() ?? "",
+        twitter_handle: getOrganizationTwitterHandle() ?? "",
       });
     } catch (err: any) {
       res.status(500).json({ error: err.message || String(err) });
