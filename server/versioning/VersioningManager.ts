@@ -432,7 +432,7 @@ export class VersioningManager {
     this.configCache.delete(cacheKey);
     this.contentCache.clear();
     markFileAsModified(configPath, "system");
-    console.log(`[Versioning] Updated versioning.yml for ${contentType}/${slug}`);
+    console.log(`[Versioning] Updated versioning.yml for ${contentType}/${slug} — queued for auto-commit (${configPath})`);
   }
 
   /**

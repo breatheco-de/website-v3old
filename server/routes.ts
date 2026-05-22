@@ -7674,6 +7674,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       try {
         const existing = versioningManager.getVersioningForContent(contentType, contentSlug) || {};
         const updated = { ...existing, [locale]: { variants: parseResult.data.variants } };
+        // updateVersioning writes the file and calls markFileAsModified, which queues
+        // versioning.yml for auto-commit — the same path taken by create/promote/delete routes.
         versioningManager.updateVersioning(contentType, contentSlug, updated);
         res.json({ success: true, contentType, contentSlug, locale });
       } catch (error) {
