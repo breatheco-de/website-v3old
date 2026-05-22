@@ -262,8 +262,10 @@ function CapabilityFields({
 
 function RolesTab() {
   const { toast } = useToast();
+  const { isValidated } = useDebugAuth();
   const { data: rolesData, isLoading } = useQuery<Record<string, RoleDefinition>>({
     queryKey: ["/api/admin/roles"],
+    enabled: isValidated === true,
   });
 
   const [newRoleForm, setNewRoleForm] = useState<RoleFormState | null>(null);
@@ -576,14 +578,18 @@ function RolesTab() {
 
 function UsersTab() {
   const { toast } = useToast();
+  const { isValidated } = useDebugAuth();
   const { data: users, isLoading: usersLoading } = useQuery<UserRecord[]>({
     queryKey: ["/api/admin/users"],
+    enabled: isValidated === true,
   });
   const { data: pendingUsers, isLoading: pendingLoading } = useQuery<PendingUserRecord[]>({
     queryKey: ["/api/admin/pending-users"],
+    enabled: isValidated === true,
   });
   const { data: rolesData } = useQuery<Record<string, RoleDefinition>>({
     queryKey: ["/api/admin/roles"],
+    enabled: isValidated === true,
   });
 
   const [editingUser, setEditingUser] = useState<string | null>(null);
@@ -954,7 +960,7 @@ interface BrandSettings {
 
 export default function SettingsPage() {
   const { toast } = useToast();
-  const { hasCapability } = useDebugAuth();
+  const { hasCapability, isValidated } = useDebugAuth();
   const { data, isLoading } = useQuery<LocaleSettings>({
     queryKey: ["/api/settings/locales"],
   });
@@ -965,6 +971,7 @@ export default function SettingsPage() {
 
   const { data: brandData, isLoading: brandLoading } = useQuery<BrandSettings>({
     queryKey: ["/api/admin/brand-settings"],
+    enabled: isValidated === true,
   });
 
   const [locales, setLocales] = useState<LocaleEntry[]>([]);
