@@ -130,7 +130,7 @@ async function saveToBucket(): Promise<void> {
   if (!IS_PRODUCTION || !gcs.available) return;
   try {
     const content = logEntries.map(e => JSON.stringify(e)).join('\n') + '\n';
-    await gcs.upload(GCS_SYNC_LOG_KEY, Buffer.from(content, 'utf-8'), 'text/plain');
+    gcs.debouncedUpload(GCS_SYNC_LOG_KEY, Buffer.from(content, 'utf-8'), 'text/plain', 2_000);
   } catch (error) {
     console.error('[SyncLog] Error saving log to bucket:', error);
   }

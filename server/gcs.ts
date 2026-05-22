@@ -21,10 +21,22 @@ export interface GCSConfig {
   credentialsJson?: string;
 }
 
+interface PendingUpload {
+  timer: ReturnType<typeof setTimeout>;
+  data: Buffer;
+  contentType: string;
+  options?: { cacheControl?: string };
+}
+
+const UPLOAD_MAX_RETRIES = 3;
+const UPLOAD_RETRY_BASE_MS = 2_000;
+const DEBOUNCE_DEFAULT_MS = 4_000;
+
 class GCSClient {
   private storage: Storage | null = null;
   private bucketName: string = "";
   private _available = false;
+  private _pendingUploads = new Map<string, PendingUpload>();
 
   init(config: GCSConfig): void {
     this.bucketName = config.bucketName;
@@ -92,14 +104,50 @@ class GCSClient {
   ): Promise<string> {
     if (!this.storage) throw new Error("[GCS] Not initialized");
     const file = this.storage.bucket(this.bucketName).file(key);
-    await file.save(data, {
+    const saveOpts = {
       contentType: contentType || "application/octet-stream",
       resumable: false,
       metadata: {
         cacheControl: options?.cacheControl ?? "public, max-age=31536000",
       },
-    });
-    return this.getPublicUrl(key);
+    };
+
+    let attempt = 0;
+    while (true) {
+      try {
+        await file.save(data, saveOpts);
+        return this.getPublicUrl(key);
+      } catch (err: any) {
+        const is429 = err?.code === 429 || err?.response?.statusCode === 429;
+        attempt++;
+        if (!is429 || attempt >= UPLOAD_MAX_RETRIES) throw err;
+        const delayMs = UPLOAD_RETRY_BASE_MS * Math.pow(2, attempt - 1);
+        console.warn(`[GCS] 429 on upload "${key}", retry ${attempt}/${UPLOAD_MAX_RETRIES - 1} in ${delayMs}ms`);
+        await new Promise((resolve) => setTimeout(resolve, delayMs));
+      }
+    }
+  }
+
+  debouncedUpload(
+    key: string,
+    data: Buffer,
+    contentType?: string,
+    delayMs: number = DEBOUNCE_DEFAULT_MS,
+    options?: { cacheControl?: string }
+  ): void {
+    const existing = this._pendingUploads.get(key);
+    if (existing) clearTimeout(existing.timer);
+
+    const timer = setTimeout(async () => {
+      this._pendingUploads.delete(key);
+      try {
+        await this.upload(key, data, contentType, options);
+      } catch (err) {
+        console.error(`[GCS] debouncedUpload failed for "${key}":`, err);
+      }
+    }, delayMs);
+
+    this._pendingUploads.set(key, { timer, data, contentType: contentType || "application/octet-stream", options });
   }
 
   async list(prefix: string): Promise<string[]> {

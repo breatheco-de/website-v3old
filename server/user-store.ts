@@ -120,7 +120,7 @@ async function saveToBucket(): Promise<void> {
   if (!IS_PRODUCTION || !gcs.available) return;
   try {
     const content = JSON.stringify(state, null, 2);
-    await gcs.upload(GCS_KEY, Buffer.from(content, "utf-8"), "application/json");
+    gcs.debouncedUpload(GCS_KEY, Buffer.from(content, "utf-8"), "application/json");
   } catch (err) {
     console.error("[UserStore] Error saving to GCS:", err);
   }

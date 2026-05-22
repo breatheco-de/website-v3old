@@ -65,7 +65,7 @@ async function saveSyncStateToBucket(state: SyncStateWithConfig): Promise<void> 
 
   try {
     const content = JSON.stringify(state, null, 2);
-    await gcs.upload(GCS_SYNC_STATE_KEY, Buffer.from(content, 'utf-8'), 'application/json');
+    gcs.debouncedUpload(GCS_SYNC_STATE_KEY, Buffer.from(content, 'utf-8'), 'application/json');
   } catch (error) {
     console.error('[SyncState] Error saving to bucket:', error);
   }
