@@ -13,14 +13,10 @@ import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
 import type { Validator, ValidationContext, ValidatorResult, ValidationIssue } from "../shared/types";
+import { getAllDirectories } from "../../../server/content-types";
 
 const THEME_PATH = path.join(process.cwd(), "marketing-content", "theme.json");
-const CONTENT_DIRS = [
-  "marketing-content/landings",
-  "marketing-content/programs",
-  "marketing-content/locations",
-  "marketing-content/pages",
-];
+const CONTENT_DIRS = getAllDirectories().map(dir => `marketing-content/${dir}`);
 
 interface ThemeColor {
   id: string;

@@ -6590,7 +6590,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       let withFaq = 0;
       let withSchema = 0;
 
-      const highPriorityTypes = new Set(["programs", "landings", "landing"]);
+      const highPriorityTypes = new Set([getFolder("program"), getFolder("landing")]);
 
       for (const entry of entries) {
         const ct = entry.contentType;
@@ -9436,13 +9436,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     const locale =
       typeof req.query.locale === "string" ? req.query.locale : undefined;
     const urlsToCheck: string[] = [];
-    const contentTypeMap: Record<string, string> = {
-      location: "locations",
-      page: "pages",
-      program: "programs",
-      landing: "landings",
-    };
-    const ctKey = contentTypeMap[type];
+    const ctKey = getFolder(type);
     if (type === "landing") {
       urlsToCheck.push(contentIndex.buildUrl(ctKey, "default", slug));
     } else if (locale) {
@@ -9503,14 +9497,8 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
 
     const entries = contentIndex.listAll();
-    const contentTypeMap: Record<string, string> = {
-      locations: "locations",
-      pages: "pages",
-      programs: "programs",
-      landings: "landings",
-    };
     for (const entry of entries) {
-      const ctKey = contentTypeMap[entry.contentType] || entry.contentType;
+      const ctKey = getDirectory(entry.contentType);
       for (const locale of entry.locales) {
         if (locale.startsWith("_") || locale.includes(".")) continue;
         const url = contentIndex.buildUrl(ctKey, locale, entry.slug);

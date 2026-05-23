@@ -3,15 +3,12 @@ import * as path from "path";
 import * as yaml from "js-yaml";
 import type { Validator, ValidatorResult, ValidationContext, ValidationIssue } from "../shared/types";
 import { escapeTemplateVars } from "../../../shared/templateVars";
+import { getAllDirectories } from "../../../server/content-types";
 
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), "marketing-content");
 const REGISTRY_PATH = path.join(MARKETING_CONTENT_DIR, "image-registry.json");
 
-const CONTENT_DIRS = [
-  path.join(MARKETING_CONTENT_DIR, "pages"),
-  path.join(MARKETING_CONTENT_DIR, "landings"),
-  path.join(MARKETING_CONTENT_DIR, "landing-page"),
-];
+const CONTENT_DIRS = getAllDirectories().map(dir => path.join(MARKETING_CONTENT_DIR, dir));
 
 const HERO_VARIANT_KEYS = new Set([
   "hero",
