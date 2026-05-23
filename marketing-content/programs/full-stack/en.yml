@@ -78,6 +78,8 @@ sections:
         - icon: IconRobot
           text: AI-Powered Learning & Feedback
     section_id: hero-mc5ka2
+    paddingY:
+      desktop: md none
   - type: modal
     version: "1.0"
     heading: Request Program Details
