@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import yaml from "js-yaml";
 import { escapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import { generateSectionId } from "./utils/generateSectionId";
@@ -9,13 +10,22 @@ function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
   return unescapeYamlDump(dumped, map);
 }
 import type { EditOperation } from "@shared/schema";
-import { normalizeLocale } from "./settings";
+import { normalizeLocale, getSupportedLocales, getDefaultLocale } from "./settings";
 import { markFileAsModified } from "./sync-state";
 import { contentIndex } from "./content-index";
 import { deepMerge } from "./utils/deepMerge";
 import { mergeSingleTemplate, extractVariableFields, TEMPLATE_EXPR_RE } from "./database-single-loader";
-import { getDatabaseName, getLookupKey, getFieldMapping } from "./content-types";
+import { getDatabaseName, getLookupKey, getFieldMapping, isValidType, getAllTypes, getFolder, getContentTypeConfig } from "./content-types";
 import { databaseManager } from "./database";
+import { regenerateSectionIds } from "./utils/regenerateSectionIds";
+import {
+  refreshSitemapEntry,
+  refreshSitemapEntriesForContentKey,
+  invalidateSitemapEntry,
+  invalidateSitemapEntriesByContentKey,
+} from "./sitemap";
+import { clearRedirectCache } from "./redirects";
+import { clearSsrSchemaCache } from "./ssr-schema";
 
 interface ContentEditRequest {
   contentType: string;
@@ -550,4 +560,528 @@ export function getContentForEdit(
     console.error("Error reading content:", error);
     return { content: null, error: error instanceof Error ? error.message : "Unknown error" };
   }
+}
+
+// ─── Content lifecycle helpers ────────────────────────────────────────────────
+
+function coerceToOriginalType(newValue: string, originalValue: unknown): unknown {
+  if (typeof originalValue === "number") {
+    const n = Number(newValue);
+    return Number.isNaN(n) ? newValue : n;
+  }
+  if (typeof originalValue === "boolean") return newValue === "true";
+  return newValue;
+}
+
+function coerceStringValue(value: string): unknown {
+  if (/^-?\d+(\.\d+)?$/.test(value)) return Number(value);
+  if (value === "true") return true;
+  if (value === "false") return false;
+  return value;
+}
+
+function formatValidationError(type: string, raw: string): string {
+  try {
+    const match = raw.match(/(\[[\s\S]*\])/);
+    if (match) {
+      const issues = JSON.parse(match[1]) as Array<{ path: string[]; message: string }>;
+      return `Cannot save ${type}: ${issues.map(i => `"${i.path.join(".")}" ${i.message}`).join("; ")}`;
+    }
+  } catch {}
+  return `Cannot save ${type}: ${raw}`;
+}
+
+function invalidateContentCaches(contentType?: string): void {
+  if (contentType) contentIndex.invalidateCommonFields(contentType);
+  clearSsrSchemaCache();
+}
+
+type ContentLifecycleResult<T extends Record<string, unknown>> =
+  | { success: true; data: T }
+  | { success: false; statusCode: number; error: string };
+
+// ─── renameContentSlug ────────────────────────────────────────────────────────
+
+export interface RenameContentSlugInput {
+  contentType: string;
+  folderSlug: string;
+  locale: string;
+  newSlug: string;
+  createRedirect?: boolean;
+  author?: string;
+}
+
+export async function renameContentSlug(
+  input: RenameContentSlugInput,
+): Promise<ContentLifecycleResult<{
+  success: boolean; folderSlug: string; oldSlug: string; newSlug: string;
+  oldUrl: string; newUrl: string; locale: string; redirectCreated: boolean;
+}>> {
+  const { contentType, folderSlug, locale, newSlug, createRedirect = false, author } = input;
+
+  if (!contentType || !folderSlug || !locale || !newSlug) {
+    return { success: false, statusCode: 400, error: "Missing required fields: contentType, folderSlug, locale, newSlug" };
+  }
+  if (!isValidType(contentType)) {
+    return { success: false, statusCode: 400, error: `Invalid type. Must be one of: ${getAllTypes().join(", ")}` };
+  }
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(newSlug)) {
+    return { success: false, statusCode: 400, error: "Invalid slug format. Use lowercase letters, numbers, and hyphens only." };
+  }
+
+  const contentFolder = getFolder(contentType);
+  const resolvedFolderSlug = contentIndex.resolveBaseSlug(folderSlug, contentFolder);
+  const folderPath = path.join(process.cwd(), "marketing-content", contentFolder, resolvedFolderSlug);
+
+  if (!fs.existsSync(folderPath)) {
+    return { success: false, statusCode: 404, error: `Content folder not found: ${folderSlug} (resolved: ${resolvedFolderSlug})` };
+  }
+
+  const effectiveLocale =
+    contentType === "landing"
+      ? ((contentIndex.loadCommonData("landing", resolvedFolderSlug)?.locale as string) || locale)
+      : locale;
+
+  const localeFile = [`${effectiveLocale}.yml`, `${effectiveLocale}.yaml`].find(
+    (f) => fs.existsSync(path.join(folderPath, f)),
+  );
+  if (!localeFile) {
+    return { success: false, statusCode: 404, error: `Locale file not found: ${effectiveLocale}` };
+  }
+
+  const localeFilePath = path.join(folderPath, localeFile);
+  const raw = fs.readFileSync(localeFilePath, "utf-8");
+  const parsed = contentIndex.safeYamlLoad(raw) as Record<string, unknown> | null;
+  if (!parsed) return { success: false, statusCode: 500, error: "Failed to parse locale file" };
+
+  const currentSlug = (parsed.slug as string) || folderSlug;
+  if (currentSlug === newSlug) {
+    return { success: false, statusCode: 400, error: "New slug is the same as current slug" };
+  }
+
+  const oldUrl = contentIndex.buildUrl(contentFolder, effectiveLocale, currentSlug);
+  const newUrl = contentIndex.buildUrl(contentFolder, effectiveLocale, newSlug);
+  parsed.slug = newSlug;
+
+  if (createRedirect) {
+    const meta = (parsed.meta || {}) as Record<string, unknown>;
+    const redirects = Array.isArray(meta.redirects) ? [...meta.redirects] : [];
+    if (!redirects.includes(oldUrl)) redirects.push(oldUrl);
+    meta.redirects = redirects;
+    parsed.meta = meta;
+  }
+
+  const updated = safeYamlDump(parsed, { lineWidth: -1, noRefs: true });
+  fs.writeFileSync(localeFilePath, updated, "utf-8");
+  markFileAsModified(`marketing-content/${contentFolder}/${resolvedFolderSlug}/${localeFile}`, author);
+  contentIndex.refresh();
+  refreshSitemapEntry(contentType, resolvedFolderSlug, effectiveLocale);
+  clearRedirectCache();
+  invalidateContentCaches(contentType);
+
+  return {
+    success: true,
+    data: {
+      success: true, folderSlug: resolvedFolderSlug, oldSlug: currentSlug,
+      newSlug, oldUrl, newUrl, locale: effectiveLocale, redirectCreated: !!createRedirect,
+    },
+  };
+}
+
+// ─── deleteContentEntry ───────────────────────────────────────────────────────
+
+export interface DeleteContentEntryInput {
+  type: string;
+  slug: string;
+  author?: string;
+  localesToDelete?: string[];
+}
+
+export async function deleteContentEntry(
+  input: DeleteContentEntryInput,
+): Promise<ContentLifecycleResult<{ success: boolean; message: string; deletedFiles?: string[]; folderRemoved?: boolean }>> {
+  const { type, slug, author, localesToDelete = [] } = input;
+
+  if (!type || !slug) {
+    return { success: false, statusCode: 400, error: "Missing required fields: type, slug" };
+  }
+  if (!isValidType(type)) {
+    return { success: false, statusCode: 400, error: `Invalid type. Must be one of: ${getAllTypes().join(", ")}` };
+  }
+  if (/[/\\]|\.\./.test(slug) || slug.startsWith(".")) {
+    return { success: false, statusCode: 400, error: "Invalid slug format" };
+  }
+
+  const typeFolder = getFolder(type);
+  const resolvedSlug = contentIndex.resolveBaseSlug(slug, typeFolder);
+  const folderPath = path.join(process.cwd(), "marketing-content", typeFolder, resolvedSlug);
+
+  if (!fs.existsSync(folderPath)) {
+    return { success: false, statusCode: 404, error: `Content "${slug}" of type "${type}" not found` };
+  }
+
+  const realPath = fs.realpathSync(path.resolve(folderPath));
+  const allowedBase = fs.realpathSync(path.join(process.cwd(), "marketing-content", typeFolder));
+  if (!realPath.startsWith(allowedBase + path.sep)) {
+    return { success: false, statusCode: 400, error: "Invalid path" };
+  }
+
+  if (localesToDelete.length > 0) {
+    const deletedFiles: string[] = [];
+    for (const locale of localesToDelete) {
+      const localeFile = path.join(folderPath, `${locale}.yml`);
+      if (fs.existsSync(localeFile)) {
+        fs.unlinkSync(localeFile);
+        deletedFiles.push(`${locale}.yml`);
+        markFileAsModified(`marketing-content/${typeFolder}/${resolvedSlug}/${locale}.yml`, author);
+      }
+    }
+
+    const remainingFiles = fs.readdirSync(folderPath).filter((f) => f.endsWith(".yml") && !f.startsWith("_"));
+
+    if (remainingFiles.length === 0) {
+      const allFiles = fs.existsSync(folderPath) ? fs.readdirSync(folderPath) : [];
+      for (const file of allFiles) {
+        markFileAsModified(`marketing-content/${typeFolder}/${resolvedSlug}/${file}`, author);
+      }
+      fs.rmSync(folderPath, { recursive: true, force: true });
+      console.log(`[Content] Deleted ${type}/${slug} (all locales removed, folder cleaned up)`);
+      try {
+        const { removeSlugFromAllDependants } = await import("./utils/sectionAnchors");
+        removeSlugFromAllDependants(type, resolvedSlug);
+      } catch { /* non-fatal */ }
+    } else {
+      console.log(`[Content] Deleted ${deletedFiles.join(", ")} from ${type}/${slug} (${remainingFiles.length} locale(s) remaining)`);
+    }
+
+    if (remainingFiles.length === 0) {
+      invalidateSitemapEntriesByContentKey(`${type}:${resolvedSlug}`);
+    } else {
+      for (const deletedFile of deletedFiles) {
+        invalidateSitemapEntry(`${type}:${resolvedSlug}:${deletedFile.replace(/\.ya?ml$/, "")}`);
+      }
+    }
+    contentIndex.refresh();
+    invalidateContentCaches(type);
+
+    return {
+      success: true,
+      data: {
+        success: true,
+        message: remainingFiles.length === 0
+          ? `Successfully deleted ${type}/${slug}`
+          : `Deleted ${deletedFiles.join(", ")} from ${type}/${slug}`,
+        deletedFiles,
+        folderRemoved: remainingFiles.length === 0,
+      },
+    };
+  }
+
+  // Full folder delete
+  const allFiles = fs.readdirSync(folderPath);
+  for (const file of allFiles) {
+    markFileAsModified(`marketing-content/${typeFolder}/${resolvedSlug}/${file}`, author);
+  }
+  fs.rmSync(folderPath, { recursive: true, force: true });
+  console.log(`[Content] Deleted ${type}/${slug}`);
+  invalidateSitemapEntriesByContentKey(`${type}:${resolvedSlug}`);
+  contentIndex.refresh();
+  invalidateContentCaches(type);
+
+  try {
+    const { removeSlugFromAllDependants } = await import("./utils/sectionAnchors");
+    removeSlugFromAllDependants(type, resolvedSlug);
+  } catch { /* non-fatal */ }
+
+  return { success: true, data: { success: true, message: `Successfully deleted ${type}/${slug}` } };
+}
+
+// ─── createContentEntry ───────────────────────────────────────────────────────
+
+export interface CreateContentEntryInput {
+  type: string;
+  slugEn?: string | null;
+  slugEs?: string | null;
+  title: string;
+  sourceUrl?: string;
+  changeContentType?: boolean;
+  skipLocales?: string[];
+  uniqueFieldValues?: Record<string, string | boolean>;
+  localeTitles?: Record<string, string>;
+  author?: string;
+}
+
+export async function createContentEntry(
+  input: CreateContentEntryInput,
+): Promise<ContentLifecycleResult<Record<string, unknown>>> {
+  const {
+    type, title, sourceUrl, changeContentType = false,
+    skipLocales = [], uniqueFieldValues = {}, localeTitles = {}, author,
+  } = input;
+
+  if (!type || !title) {
+    return { success: false, statusCode: 400, error: "Missing required fields: type, title" };
+  }
+  if (!isValidType(type)) {
+    return { success: false, statusCode: 400, error: `Invalid type. Must be one of: ${getAllTypes().join(", ")}` };
+  }
+
+  const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+  const skipEn = skipLocales.includes("en");
+  const skipEs = skipLocales.includes("es");
+  const enSlug = skipEn ? null : (input.slugEn || null);
+  const esSlug = skipEs ? null : (input.slugEs || null);
+
+  if (!enSlug && !esSlug) {
+    return { success: false, statusCode: 400, error: "At least one locale slug must be provided" };
+  }
+  if (enSlug && !slugRegex.test(enSlug)) {
+    return { success: false, statusCode: 400, error: "Invalid English slug format. Use lowercase letters, numbers, and hyphens only." };
+  }
+  if (esSlug && !slugRegex.test(esSlug)) {
+    return { success: false, statusCode: 400, error: "Invalid Spanish slug format. Use lowercase letters, numbers, and hyphens only." };
+  }
+
+  const folderSlug = (enSlug || esSlug)!;
+  const existingTypeSlugs = contentIndex.listContentSlugs(type);
+  if (existingTypeSlugs.includes(folderSlug)) {
+    return { success: false, statusCode: 409, error: `A ${type} with slug "${folderSlug}" already exists` };
+  }
+
+  const folderPath = path.join(process.cwd(), "marketing-content", getFolder(type), folderSlug);
+  if (fs.existsSync(folderPath)) {
+    return { success: false, statusCode: 409, error: `A ${type} with slug "${folderSlug}" already exists` };
+  }
+
+  fs.mkdirSync(folderPath, { recursive: true });
+
+  if (sourceUrl) {
+    try {
+      const sourceUrlObj = new URL(sourceUrl);
+      const sourcePath = sourceUrlObj.pathname;
+      const resolved = contentIndex.resolveUrl(sourcePath);
+      const foundSourceFolder = resolved ? path.join(process.cwd(), resolved.entry.directory) : "";
+
+      if (foundSourceFolder) {
+        // Cross-type duplication
+        if (changeContentType && resolved && resolved.contentType !== type) {
+          const result = contentIndex.duplicateWithTypeChange({
+            sourceDir: foundSourceFolder,
+            sourceType: resolved.contentType,
+            targetType: type,
+            targetDir: folderPath,
+            newSlugs: { en: enSlug || undefined, es: esSlug || undefined },
+            title: title || folderSlug,
+            skipLocales,
+            localeTitles,
+          });
+          for (const file of result.copiedFiles) {
+            markFileAsModified(`marketing-content/${getFolder(type)}/${folderSlug}/${file}`, author);
+          }
+          refreshSitemapEntriesForContentKey(type, folderSlug, getSupportedLocales().filter(l => !skipLocales.includes(l)));
+          contentIndex.refresh();
+          invalidateContentCaches(type);
+
+          const localesToValidate1 = getSupportedLocales().filter(
+            l => !skipLocales.includes(l) && fs.existsSync(path.join(folderPath, `${l}.yml`))
+          );
+          for (const locale of localesToValidate1) {
+            const { error: validationError } = contentIndex.loadMergedContent(type, folderSlug, locale);
+            if (validationError) {
+              fs.rmSync(folderPath, { recursive: true, force: true });
+              contentIndex.refresh();
+              return { success: false, statusCode: 400, error: formatValidationError(type, validationError) };
+            }
+          }
+          return {
+            success: true,
+            data: {
+              success: true, slugEn: enSlug, slugEs: esSlug, type,
+              directory: `marketing-content/${getFolder(type)}/${folderSlug}`,
+              duplicatedFrom: sourceUrl, typeChanged: true,
+              conversion: { from: resolved.contentType, to: type, copiedFiles: result.copiedFiles, strippedFields: result.strippedFields, replacedVars: result.replacedVars },
+            },
+          };
+        }
+
+        // Same-type duplication
+        const sourceFiles = fs.readdirSync(foundSourceFolder);
+        const parsedDupFiles: Array<{ file: string; parsed: Record<string, unknown> }> = [];
+        const sourceLocaleFiles = new Set(
+          sourceFiles.filter(f => f.endsWith(".yml") || f.endsWith(".yaml")).map(f => f.replace(/\.ya?ml$/, ""))
+        );
+
+        for (const file of sourceFiles) {
+          const fileLocale = file.replace(/\.yml$/, "");
+          if (fileLocale !== "_common" && skipLocales.includes(fileLocale)) continue;
+          if (!file.endsWith(".yml") && !file.endsWith(".yaml")) continue;
+
+          const rawContent = fs.readFileSync(path.join(foundSourceFolder, file), "utf8");
+          const parsed = contentIndex.safeYamlLoad(rawContent) as Record<string, unknown> | null;
+          if (!parsed) {
+            fs.writeFileSync(path.join(folderPath, file), rawContent);
+            markFileAsModified(`marketing-content/${getFolder(type)}/${folderSlug}/${file}`, author);
+            continue;
+          }
+
+          delete parsed.redirects;
+          if (parsed.meta && typeof parsed.meta === "object") {
+            delete (parsed.meta as Record<string, unknown>).redirects;
+          }
+
+          parsed.slug = file === "es.yml" ? (esSlug || folderSlug) : (enSlug || folderSlug);
+
+          if (file === "_common.yml") {
+            parsed.title = title;
+            for (const [fieldName, newValue] of Object.entries(uniqueFieldValues)) {
+              if (fieldName === "slug" || fieldName === "title") continue;
+              parsed[fieldName] = coerceToOriginalType(newValue as string, parsed[fieldName]);
+            }
+          } else if (file === "en.yml" || file === "es.yml") {
+            const locTitle = localeTitles[fileLocale] || title;
+            parsed.title = locTitle;
+            if (locTitle) {
+              if (!parsed.meta || typeof parsed.meta !== "object") parsed.meta = {};
+              (parsed.meta as Record<string, unknown>).page_title = locTitle;
+            }
+          }
+          parsedDupFiles.push({ file, parsed });
+        }
+
+        // Synthesize missing locale files from the source
+        const supportedLocs = getSupportedLocales();
+        const existingSourceLocale = supportedLocs.find(l => sourceLocaleFiles.has(l));
+        if (existingSourceLocale) {
+          for (const loc of supportedLocs) {
+            if (skipLocales.includes(loc) || sourceLocaleFiles.has(loc)) continue;
+            const srcRaw = fs.readFileSync(path.join(foundSourceFolder, `${existingSourceLocale}.yml`), "utf8");
+            const cloned = contentIndex.safeYamlLoad(srcRaw) as Record<string, unknown> | null;
+            if (!cloned) continue;
+            delete cloned.redirects;
+            if (cloned.meta && typeof cloned.meta === "object") {
+              delete (cloned.meta as Record<string, unknown>).redirects;
+            }
+            cloned.slug = loc === "es" ? (esSlug || folderSlug) : (enSlug || folderSlug);
+            cloned.locale = loc;
+            const clonedTitle = localeTitles[loc] || title;
+            cloned.title = clonedTitle;
+            if (clonedTitle) {
+              if (!cloned.meta || typeof cloned.meta !== "object") cloned.meta = {};
+              (cloned.meta as Record<string, unknown>).page_title = clonedTitle;
+            }
+            parsedDupFiles.push({ file: `${loc}.yml`, parsed: cloned });
+          }
+        }
+
+        const { objs: regeneratedDup } = regenerateSectionIds(parsedDupFiles.map(f => f.parsed));
+        for (let i = 0; i < parsedDupFiles.length; i++) {
+          const { file } = parsedDupFiles[i];
+          const content = safeYamlDump(regeneratedDup[i], { lineWidth: 120, noRefs: true, sortKeys: false });
+          fs.writeFileSync(path.join(folderPath, file), content);
+          markFileAsModified(`marketing-content/${getFolder(type)}/${folderSlug}/${file}`, author);
+        }
+
+        refreshSitemapEntriesForContentKey(type, folderSlug, getSupportedLocales().filter(l => !skipLocales.includes(l)));
+        contentIndex.refresh();
+        invalidateContentCaches(type);
+
+        const localesToValidate2 = getSupportedLocales().filter(
+          l => !skipLocales.includes(l) && fs.existsSync(path.join(folderPath, `${l}.yml`))
+        );
+        for (const locale of localesToValidate2) {
+          const { error: validationError } = contentIndex.loadMergedContent(type, folderSlug, locale);
+          if (validationError) {
+            fs.rmSync(folderPath, { recursive: true, force: true });
+            contentIndex.refresh();
+            return { success: false, statusCode: 400, error: formatValidationError(type, validationError) };
+          }
+        }
+
+        return {
+          success: true,
+          data: {
+            success: true, slugEn: enSlug, slugEs: esSlug, type,
+            directory: `marketing-content/${getFolder(type)}/${folderSlug}`,
+            duplicatedFrom: sourceUrl,
+          },
+        };
+      }
+    } catch (dupError) {
+      console.error("Error duplicating content:", dupError);
+      // Fall through to fresh create
+    }
+  }
+
+  // Fresh create from field_mapping
+  const typeConfig = getContentTypeConfig(type);
+  const fieldMappingRaw = typeConfig?.field_mapping ?? {};
+  const fieldKeys = Object.keys(fieldMappingRaw).filter(k => !k.startsWith("_"));
+  const activeLocale = getSupportedLocales().find(l => !skipLocales.includes(l)) ?? getDefaultLocale();
+
+  const commonObj: Record<string, unknown> = {};
+  for (const key of fieldKeys) {
+    if (key === "slug") commonObj.slug = folderSlug;
+    else if (key === "title") commonObj.title = title;
+    else if (key === "locale") commonObj.locale = activeLocale;
+    else if (uniqueFieldValues[key] !== undefined) {
+      const ufv = uniqueFieldValues[key];
+      commonObj[key] = typeof ufv === "boolean" ? ufv : coerceStringValue(ufv as string);
+    } else {
+      commonObj[key] = "";
+    }
+  }
+  const commonYml = yaml.dump(commonObj, { lineWidth: 120, noRefs: true, sortKeys: false });
+
+  const makeLocaleObj = (slug: string, loc: string) => {
+    const obj: Record<string, unknown> = { slug, sections: [] };
+    const localeTitle = localeTitles[loc];
+    const effectiveTitle = localeTitle || title;
+    if (localeTitle) obj.title = localeTitle;
+    if (effectiveTitle) obj.meta = { page_title: effectiveTitle };
+    return obj;
+  };
+  const enYml = yaml.dump(makeLocaleObj(enSlug || folderSlug, "en"), { lineWidth: 120, noRefs: true, sortKeys: false });
+  const esYml = yaml.dump(makeLocaleObj(esSlug || folderSlug, "es"), { lineWidth: 120, noRefs: true, sortKeys: false });
+
+  const createdFiles: string[] = [];
+  const relFolder = `marketing-content/${getFolder(type)}/${folderSlug}`;
+  if (!fs.existsSync(path.join(folderPath, "_common.yml"))) {
+    fs.writeFileSync(path.join(folderPath, "_common.yml"), commonYml);
+    createdFiles.push("_common.yml");
+    markFileAsModified(`${relFolder}/_common.yml`, author);
+  }
+  if (!skipEn && !fs.existsSync(path.join(folderPath, "en.yml"))) {
+    fs.writeFileSync(path.join(folderPath, "en.yml"), enYml);
+    createdFiles.push("en.yml");
+    markFileAsModified(`${relFolder}/en.yml`, author);
+  }
+  if (!skipEs && !fs.existsSync(path.join(folderPath, "es.yml"))) {
+    fs.writeFileSync(path.join(folderPath, "es.yml"), esYml);
+    createdFiles.push("es.yml");
+    markFileAsModified(`${relFolder}/es.yml`, author);
+  }
+
+  refreshSitemapEntriesForContentKey(type, folderSlug, getSupportedLocales().filter(l => !skipLocales.includes(l)));
+  contentIndex.refresh();
+  invalidateContentCaches(type);
+
+  const localesToValidate3 = getSupportedLocales().filter(l => !skipLocales.includes(l));
+  for (const locale of localesToValidate3) {
+    const { error: validationError } = contentIndex.loadMergedContent(type, folderSlug, locale);
+    if (validationError) {
+      fs.rmSync(folderPath, { recursive: true, force: true });
+      contentIndex.refresh();
+      return { success: false, statusCode: 400, error: formatValidationError(type, validationError) };
+    }
+  }
+
+  return {
+    success: true,
+    data: {
+      success: true, slugEn: enSlug, slugEs: esSlug, type,
+      directory: `marketing-content/${getFolder(type)}/${folderSlug}`,
+      files: createdFiles,
+      skippedLocales: skipLocales.length > 0 ? skipLocales : undefined,
+    },
+  };
 }
