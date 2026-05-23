@@ -204,6 +204,32 @@ import {
   FixerItemStatus,
 } from "./_helpers";
 
+// =============================================================================
+// ROUTE FILE MAP — where to add new API endpoints
+// =============================================================================
+// When adding a new route, put it in the file whose domain matches the prefix:
+//
+//   geo.ts          /api/geo, /api/ip
+//   auth.ts         /api/auth, /api/debug-token
+//   forms.ts        /api/leads, /api/form-options
+//   settings.ts     /api/settings, /api/content-types, /api/menus, /api/faqs
+//   content.ts      /api/content, /api/landings, /api/locations, /api/pages,
+//                   /api/career-programs, /api/content-pages, /api/preview
+//   databases.ts    /api/databases, /api/db
+//   sections.ts     /api/sections, /api/content-pages (section-level edits)
+//   seo.ts          /api/sitemap, /api/redirects, /api/schema, /api/seo
+//   admin.ts        /api/admin, /api/users, /api/roles, /api/sync-log
+//   components.ts   /api/component-registry
+//   versioning.ts   /api/versioning
+//   github.ts       /api/github, /api/debug/github
+//   media.ts        /api/media, /api/image-registry, /api/image-optimizer
+//   ai.ts           /api/ai, /api/chat, /api/brand-context
+//   validation.ts   /api/validation, /api/diagnostics, /api/debug
+//
+// Each file exports a single registerXxxRoutes(app: Express): void function.
+// Add your function call to the register block in registerRoutes() below.
+// =============================================================================
+
 import { registerGeoRoutes } from "./geo";
 import { registerAuthRoutes } from "./auth";
 import { registerFormsRoutes } from "./forms";
