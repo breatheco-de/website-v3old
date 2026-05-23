@@ -21,83 +21,6 @@ schema:
     - website
     - courses:ai-engineering
 sections:
-  - type: breadcrumb
-    section_id: breadcrumb-ingenieria-ia-es
-    items:
-      - label: Inicio
-        url: /
-      - label: Programas de Carrera
-        url: /es/programas-de-carrera
-      - label: "Ingeniería de Inteligencia Artificial"
-  - type: hero
-    section_id: hero-gckpm4
-    version: "1.3"
-    variant: course
-    title: Ingeniería de IA
-    subtitle: Aprende a diseñar, desarrollar y desplegar sistemas completos de Inteligencia Artificial utilizados en entornos reales de producción.
-    students_enrolled:
-      avatars:
-        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
-        - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
-        - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
-        - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
-      count: +6000 graduados
-    bullet_points:
-      - Transforma un Caso de Empresa completo en un sistema totalmente nativo de IA, nivel por nivel.
-      - Integra modelos inteligentes en software real, conectando datos, arquitectura y usuarios.
-      - Utiliza herramientas modernas de IA y agentes de código para construir y lanzar software más rápido.
-    tutors:
-      - name: Marco Gonzalo
-        role: Instructor Principal
-        image: https://storage.googleapis.com/4geeks-academy-website/media/410890.jpg
-      - name: Rigo
-        role: Tutor de IA
-        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: "Tus mentores:"
-    description: Construye sistemas reales listos para producción en nuestro programa de Ingeniería en IA, con mentoría 1:1 ilimitada y orientación profesional enfocada en empleabilidad. Conviértete en el profesional que las empresas están buscando.
-    signup_card:
-      title: Recibe el Plan de Estudios Completo
-      description: Accede a la hoja de ruta de 10 hitos y descubre nuestra Metodología de Caso de Empresa.
-      cta_button:
-        text: Recibir el Plan de Estudios
-        url: "#apply-modal"
-        variant: primary
-      login_link:
-        text: ¿Ya eres estudiante? Inicia sesión.
-        url: https://4geeks.com/es/login
-      type: video
-      src: https://www.youtube.com/shorts/sSxJnelPJT8
-      thumbnail: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
-      alt: AI Engineering program introduction
-      features:
-        - icon: calendar
-          text: Programa de {{ global.ai_engineering_week_duration | 24 }} semanas o versión acelerada de 12 semanas
-        - icon: briefcase-business
-          text: Contenido orientado a la práctica
-        - icon: IconRobot
-          text: Aprendizaje y feedback con IA
-        - icon: IconUsers
-          text: Proporción {{ global.global_teacher_student_ratio | 1:8 }} de estudiante–profesor
-        - icon: IconUserCheck
-          text: Mentoría 1:1 ilimitada
-        - icon: book
-          text: Portafolio listo para producción
-    paddingY:
-      desktop: md
-    marginY:
-      desktop: none
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
   - type: hero
     version: "1.3"
     variant: course
@@ -151,29 +74,6 @@ sections:
       desktop: md
     marginY:
       desktop: none
-    showOnLocations:
-      - barcelona-spain
-      - berlin-germany
-      - dublin-ireland
-      - hamburg-germany
-      - lisbon-portugal
-      - madrid-spain
-      - malaga-spain
-      - milan-italy
-      - munich-germany
-      - rome-italy
-      - valencia-spain
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
     video:
       url: https://www.youtube.com/watch?v=hUgwkBtYtUI
       preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-10-120305.png
@@ -598,8 +498,8 @@ sections:
       - content-and-syllabus
       - career-support
     rating_summary:
-      average: "{{ global.global_review_rating | 4.9 }}"
-      count: "{{ global.global_review_count | 700 }}"
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 700 }}
     paddingY:
       desktop: md lg
     marginY:
@@ -611,7 +511,7 @@ sections:
     subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
     discount_text: "Descuento por pago completo: Ahorra 10% pagando de una sola vez."
     financing_text: "Financiamiento basado en crédito: desde"
-    financing_amount: "{{ global.price_ai_engineering | $399 }}"
+    financing_amount: {{ global.price_ai_engineering | $399 }}
     tech_icons:
       - openai
       - python
@@ -845,7 +745,7 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: "{{ global.call_to_action_apply | Aplicar ahora }}"
+      submit_label: {{ global.call_to_action_apply | Aplicar ahora }}
       tags: website-lead
       fields:
         email:
@@ -884,7 +784,7 @@ sections:
     section_id: sticky_cta-nmcllq
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: "{{ global.call_to_action_apply | Aplicar ahora }}"
+    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
     show_dismiss: false
     form:
       variant: inline

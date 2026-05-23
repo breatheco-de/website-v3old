@@ -25,7 +25,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Artificial Intelligence Engineering
+    title: AI Engineering
     title_highlight: Artificial Intelligence Engineering
     subtitle: AI Engineer is the fastest-growing job of 2026. Our intensive program is built to get you hired, backed by an AI-first methodology, unlimited 1:1 mentorship, and lifelong career support.
     students_enrolled:
@@ -36,9 +36,9 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduates
     bullet_points:
-      - Build a fully AI-native company from scratch, end to end.
-      - Work with AI agents, models, and data pipelines, the way AI-first engineers do.
-      - Graduate with the production-ready portfolio employers are looking for.
+      - Build a complete AI-native company end to end, with agents, pipelines, and real-time data.
+      - Work with AI coding agents to build and deliver production-ready software faster.
+      - Leave with a portfolio that gets you in the door at top tech companies.
     tutors:
       - name: Marco Gonzalo
         role: Main Instructor
@@ -47,7 +47,7 @@ sections:
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
-    description: Graduate job-ready for one of tech's fastest-growing roles — with the skills and support to land positions paying $95K–$135K+.
+    description: Graduate job-ready for one of tech's fastest-growing roles, with the skills and support to land positions paying $95K–$135K+.
     media:
       type: video
       src: https://www.youtube.com/shorts/sSxJnelPJT8
@@ -57,7 +57,7 @@ sections:
       title: Get the Full Program Overview
       description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, financing options and more. It takes 2 minutes."
       cta_button:
-        text: Send me the details
+        text: Send Me the Details
         url: "#modal-ubwgcj"
         variant: primary
       login_link:
@@ -65,20 +65,18 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: 24-week program
-        - icon: IconBriefcase
-          text: Employment-first curriculum
-        - icon: IconRobot
-          text: AI-Powered learning & feedback
+          text: 24-Week or 15-Week Accelerated Morning Track
+        - icon: IconShield
+          text: Optional Job Guarantee (available as add-on)
         - icon: IconUsers
           text: {{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
-          text: Unlimited 1:1 mentorship
-        - icon: book
-          text: Production-grade portfolio
-    section_id: hero-1h88n1
+          text: Unlimited 1:1 Mentorship
+        - icon: IconRobot
+          text: AI-Powered Learning & Feedback
+    section_id: hero-tznhhe
     paddingY:
-      desktop: md
+      desktop: none md
     marginY:
       desktop: none
   - type: modal
