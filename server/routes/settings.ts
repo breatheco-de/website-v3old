@@ -1,0 +1,1565 @@
+import type { Express, Request, Response } from "express";
+import { createServer, type Server } from "http";
+import { storage } from "../storage";
+import { geoGet, geoSet } from "../geo-cache";
+import { getQueueStats, enqueueOptimization, getPendingOptimizations, getFailedEntries, retryFailedImages, resetOptimizeSession, getOptimizeSession, enqueueExternalImage } from "../image-registry";
+import { getAllQueueState } from "../image-queue-state";
+
+
+import * as fs from "fs";
+import * as path from "path";
+import * as yaml from "js-yaml";
+import { execSync as _execSync, execFile } from "child_process";
+import {
+  versioningUpdateSchema,
+  type CareerProgram,
+  type LandingPage,
+  type LocationPage,
+  type TemplatePage,
+} from "@shared/schema";
+import {
+  getSitemap,
+  clearSitemapCache,
+  getSitemapCacheStatus,
+  getSitemapUrls,
+  invalidateSitemapEntry,
+  invalidateSitemapEntriesByContentKey,
+  refreshSitemapEntry,
+  refreshSitemapEntriesForContentKey,
+} from "../sitemap";
+import { markFileAsModified } from "../sync-state";
+import { deepMerge } from "../utils/deepMerge";
+import { regenerateSectionIds } from "../utils/regenerateSectionIds";
+import { databaseManager } from "../database";
+import {
+  redirectMiddleware,
+  getRedirects,
+  clearRedirectCache,
+  testRedirect,
+} from "../redirects";
+import {
+  getSchema,
+  getMergedSchemas,
+  getAvailableSchemaKeys,
+  clearSchemaCache,
+  getOrganizationTwitterHandle,
+  getOrganizationSameAsUrl,
+  getWebsiteDefaultSocialImage,
+  updateWebsiteDefaultSocialImage,
+  updateOrganizationTwitterHandle,
+  updateOrganizationSameAsUrl,
+} from "../schema-org";
+import {
+  getRegistryOverview,
+  getComponentInfo,
+  listVersions,
+  loadSchema,
+  loadExamples,
+  createNewVersion,
+  getExampleFilePath,
+  saveExample,
+  createExample,
+  loadAllFieldEditors,
+  applyComponentSectionDefaults,
+  applyComponentImageSizes,
+  getVariantByExample,
+  getVariantExamples,
+  deleteExample,
+  deleteVariant,
+} from "../component-registry";
+import {
+  editContent,
+  editCommonContent,
+  getContentForEdit,
+  createContentEntry,
+  deleteContentEntry,
+  renameContentSlug,
+} from "../content-editor";
+import { bindingManager } from "../bindings";
+import {
+  escapeTemplateVars,
+  escapeObjectVars,
+  unescapeObjectVars,
+  unescapeYamlDump,
+} from "@shared/templateVars";
+import {
+  getVersioningManager,
+  readUserId,
+  getVersioningCookie,
+  setVersioningCookie,
+  buildUserContext,
+} from "../versioning";
+import { mediaGallery } from "../media-gallery";
+import { media } from "../media";
+import multer from "multer";
+import { contentIndex, type ContentType } from "../content-index";
+import { runScan as runComponentInsightsScan, readInsightsFile, suggestNext as suggestNextComponent } from "../component-insights";
+import { validateFieldSource, validateFieldMapping, extractByDotPath } from "../../scripts/validation/shared/fieldMappingValidator";
+import {
+  getFolder,
+  getType,
+  isValidType,
+  getAllTypes,
+  getAllFolders,
+  getAllConfigs,
+  getDatabaseName,
+  getFieldMapping,
+  getLookupKey,
+  getLocaleKey,
+  getLocaleDefault,
+  getIndexes,
+  hasDatabaseSingle,
+  getContentTypeConfig,
+  updateContentTypeConfig,
+  addContentType,
+  getDatabaseConfig,
+  getLabel,
+  normalizeUrlPattern,
+  getLocaleSource,
+  resolveContentTypeUrl,
+  getLayout,
+  resolveLayout,
+  listAvailableMenus,
+  getDirectory,
+} from "../content-types";
+import { resolveFieldValue, applyTransformIfNeeded } from "../transform";
+import { resolveSingleVars } from "../single-resolver";
+import {
+  normalizeLocale,
+  getSupportedLocales,
+  getDefaultLocale,
+  getLocaleEntries,
+  updateLocaleSettings,
+  getHomePage,
+  getOptimizationSettings,
+  updateOptimizationSettings,
+} from "../settings";
+import { variableManager } from "../variable-manager";
+import { getValidationService } from "../../scripts/validation/service";
+import { getCanonicalUrl, normalizeUrl } from "../../scripts/validation/shared/canonicalUrls";
+import {
+  isNonLocalFilesystemSrc,
+  buildRegistrySrcToIdMap,
+  resolveRegistryReference,
+} from "../../scripts/validation/shared/imageRegistrySrc";
+import type { ProgressEvent } from "../../scripts/validation/fixers/types";
+import { gcs } from "../gcs";
+import { z } from "zod";
+import {
+  generateSsrSchemaHtml,
+  generateDatabaseSsrHtml,
+  generateListingSsrHtml,
+  clearSsrSchemaCache,
+  loadRawYaml,
+  resolveFaqItems,
+  buildFaqPageSchema,
+  resolvePageRobots,
+  type FaqSection,
+} from "../ssr-schema";
+import {
+  fetchMarkdownContent,
+  clearMarkdownCache,
+  clearMarkdownCacheByUrl,
+} from "../markdown";
+import { resolveDynamicEntries } from "../dynamic-entries";
+import { loadDatabaseSinglePage, mergeSingleTemplate } from "../database-single-loader";
+import { getBaseUrl } from "../hreflang";
+import * as userManager from "../user-manager";
+import * as userStore from "../user-store";
+import type { CapabilityName } from "../user-store";
+
+
+import {
+  BREATHECODE_HOST,
+  extractToken,
+  requireCapability,
+  safeYamlLoad,
+  safeYamlDump,
+  resolveVariantAssignment,
+  invalidateContentCaches,
+  createValidationFixRun,
+  appendValidationRunLog,
+  applyFixerProgress,
+  resolveFixerPipeline,
+  validationRuns,
+  validationRunOrder,
+  MAX_VALIDATION_RUNS,
+  MAX_RUN_LOG_ENTRIES,
+  careerProgramsListingSchema,
+  loadCareerProgramsListing,
+  applyMetaFallback,
+  injectCanonicalIfMissing,
+  loadCareerProgram,
+  listCareerPrograms,
+  loadLandingPage,
+  listLandingPages,
+  loadLocationPage,
+  listLocationPages,
+  loadTemplatePage,
+  buildSingleEntryFromContent,
+  listTemplatePages,
+  detectLanguageFromRequest,
+  ValidationFixRunState,
+  ValidationFixRunLogEntry,
+  FixerItemStatus,
+} from "./_helpers";
+
+export function registerSettingsRoutes(app: Express): void {
+  app.get("/api/theme", (_req, res) => {
+    try {
+      const themePath = path.join(
+        process.cwd(),
+        "marketing-content",
+        "theme.json",
+      );
+      if (!fs.existsSync(themePath)) {
+        res.status(404).json({ error: "Theme configuration not found" });
+        return;
+      }
+      const themeContent = fs.readFileSync(themePath, "utf-8");
+      const theme = JSON.parse(themeContent);
+      res.json(theme);
+    } catch (error) {
+      console.error("Error loading theme:", error);
+      res.status(500).json({ error: "Failed to load theme configuration" });
+    }
+  });
+
+  app.put("/api/theme/colors", (req, res) => {
+    try {
+      const { light, dark } = req.body as { light?: Record<string, string>; dark?: Record<string, string> };
+      const themePath = path.join(process.cwd(), "marketing-content", "theme.json");
+      if (!fs.existsSync(themePath)) {
+        res.status(404).json({ error: "Theme configuration not found" });
+        return;
+      }
+      const theme = JSON.parse(fs.readFileSync(themePath, "utf-8"));
+      theme.colors = { light: light || {}, dark: dark || {} };
+      fs.writeFileSync(themePath, JSON.stringify(theme, null, 2));
+      markFileAsModified('marketing-content/theme.json');
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error saving theme colors:", error);
+      res.status(500).json({ error: "Failed to save theme colors" });
+    }
+  });
+
+  app.put("/api/theme/preview-examples", (req, res) => {
+    try {
+      const examples = req.body as Array<{ component: string; version: string; example: string }>;
+      const themePath = path.join(process.cwd(), "marketing-content", "theme.json");
+      if (!fs.existsSync(themePath)) {
+        res.status(404).json({ error: "Theme configuration not found" });
+        return;
+      }
+      const theme = JSON.parse(fs.readFileSync(themePath, "utf-8"));
+      theme.preview_examples = Array.isArray(examples) ? examples : [];
+      fs.writeFileSync(themePath, JSON.stringify(theme, null, 2));
+      markFileAsModified('marketing-content/theme.json');
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error saving preview examples:", error);
+      res.status(500).json({ error: "Failed to save preview examples" });
+    }
+  });
+
+  app.put("/api/theme/palettes", async (req, res) => {
+    try {
+      const auth = await requireCapability(req, res, "theme_edit");
+      if (!auth.authorized) return;
+
+      const paletteEntrySchema = z.object({
+        id: z.string(),
+        label: z.string(),
+        cssVar: z.string().optional(),
+        value: z.string().optional(),
+        lightValue: z.string().optional(),
+        darkValue: z.string().optional(),
+      });
+      const bodySchema = z.object({
+        backgrounds: z.array(paletteEntrySchema),
+        text: z.array(paletteEntrySchema),
+        accents: z.array(paletteEntrySchema),
+      });
+      const parsed = bodySchema.safeParse(req.body);
+      if (!parsed.success) {
+        res.status(400).json({ error: "Invalid palette data", details: parsed.error.issues });
+        return;
+      }
+
+      const themePath = path.join(process.cwd(), "marketing-content", "theme.json");
+      if (!fs.existsSync(themePath)) {
+        res.status(404).json({ error: "Theme configuration not found" });
+        return;
+      }
+      const theme = JSON.parse(fs.readFileSync(themePath, "utf-8"));
+
+      const knownVars = new Set<string>([
+        ...Object.keys((theme.colors?.light as Record<string, string>) || {}),
+        ...Object.keys((theme.colors?.dark as Record<string, string>) || {}),
+      ]);
+
+      const unknownVarWarnings: string[] = [];
+      const allEntries = [
+        ...parsed.data.backgrounds,
+        ...parsed.data.text,
+        ...parsed.data.accents,
+      ];
+      for (const entry of allEntries) {
+        if (entry.cssVar && !knownVars.has(entry.cssVar)) {
+          unknownVarWarnings.push(`${entry.id}: unknown cssVar "${entry.cssVar}"`);
+        }
+      }
+
+      theme.backgrounds = parsed.data.backgrounds;
+      theme.text = parsed.data.text;
+      theme.accents = parsed.data.accents;
+
+      const themeDir = path.dirname(themePath);
+      const tmpPath = path.join(themeDir, `.theme.${Date.now()}.tmp`);
+      fs.writeFileSync(tmpPath, JSON.stringify(theme, null, 2));
+      fs.renameSync(tmpPath, themePath);
+      markFileAsModified('marketing-content/theme.json');
+
+      if (unknownVarWarnings.length > 0) {
+        res.json({ ok: true, warnings: unknownVarWarnings });
+      } else {
+        res.json({ ok: true });
+      }
+    } catch (error) {
+      console.error("Error saving theme palettes:", error);
+      res.status(500).json({ error: "Failed to save theme palettes" });
+    }
+  });
+
+  app.get("/api/variables", (_req, res) => {
+    res.json(variableManager.getDefinitions());
+  });
+
+  app.put("/api/variables/:name", (req, res) => {
+    try {
+      const { name } = req.params;
+      const body = req.body;
+
+      const { action } = body as { action: string };
+      if (!action) {
+        return res.status(400).json({ error: "action is required" });
+      }
+
+      switch (action) {
+        case "set_default": {
+          const { value } = body as { value: string };
+          if (value === undefined) {
+            return res.status(400).json({ error: "value is required" });
+          }
+          variableManager.updateDefault(name, value);
+          break;
+        }
+        case "add_condition": {
+          const { condition } = body as {
+            condition: { query: Record<string, string>; value: string };
+          };
+          if (!condition || !condition.query || condition.value === undefined) {
+            return res
+              .status(400)
+              .json({ error: "condition with query and value is required" });
+          }
+          variableManager.addCondition(name, condition);
+          break;
+        }
+        case "update_condition": {
+          const { index, condition } = body as {
+            index: number;
+            condition: { query: Record<string, string>; value: string };
+          };
+          if (
+            index === undefined ||
+            !condition ||
+            !condition.query ||
+            condition.value === undefined
+          ) {
+            return res.status(400).json({
+              error: "index and condition with query and value are required",
+            });
+          }
+          variableManager.updateCondition(name, index, condition);
+          break;
+        }
+        case "delete_condition": {
+          const { index } = body as { index: number };
+          if (index === undefined) {
+            return res.status(400).json({ error: "index is required" });
+          }
+          variableManager.deleteCondition(name, index);
+          break;
+        }
+        case "reorder_conditions": {
+          const { fromIndex, toIndex } = body as {
+            fromIndex: number;
+            toIndex: number;
+          };
+          if (fromIndex === undefined || toIndex === undefined) {
+            return res
+              .status(400)
+              .json({ error: "fromIndex and toIndex are required" });
+          }
+          variableManager.reorderConditions(name, fromIndex, toIndex);
+          break;
+        }
+        default:
+          return res.status(400).json({ error: `Unknown action: ${action}` });
+      }
+
+      res.json({
+        success: true,
+        definitions: variableManager.getDefinitions(),
+      });
+    } catch (err: any) {
+      res
+        .status(500)
+        .json({ error: err?.message || "Failed to update variable" });
+    }
+  });
+
+  app.delete("/api/variables/:name", (req, res) => {
+    try {
+      const { name } = req.params;
+      const body = req.body;
+
+      if (body.level) {
+        const { level, key } = body as { level: string; key?: string };
+        const VALID_LEVELS = [
+          "default",
+          "by_locale",
+          "by_region",
+          "by_location",
+        ];
+        if (!level) {
+          return res.status(400).json({ error: "level is required" });
+        }
+        if (!VALID_LEVELS.includes(level)) {
+          return res.status(400).json({
+            error: `Invalid level. Must be one of: ${VALID_LEVELS.join(", ")}`,
+          });
+        }
+        if (level !== "default" && !key) {
+          return res
+            .status(400)
+            .json({ error: "key is required for non-default levels" });
+        }
+        const result = variableManager.deleteVariableEntry(name, level, key);
+        if (!result) {
+          return res.status(404).json({ error: "Variable not found" });
+        }
+        return res.json({
+          success: true,
+          definitions: variableManager.getDefinitions(),
+        });
+      }
+
+      const { action, index } = body as { action?: string; index?: number };
+      if (action === "delete_condition" && index !== undefined) {
+        variableManager.deleteCondition(name, index);
+        return res.json({
+          success: true,
+          definitions: variableManager.getDefinitions(),
+        });
+      }
+
+      return res
+        .status(400)
+        .json({ error: "level or action with index is required" });
+    } catch (err: any) {
+      res
+        .status(500)
+        .json({ error: err?.message || "Failed to delete variable entry" });
+    }
+  });
+
+  app.get("/api/variables/:name/usage", (req, res) => {
+    try {
+      const { name } = req.params;
+      const files = contentIndex.getVariableUsage(name);
+      res.json({ variable: name, files });
+    } catch (err: any) {
+      res
+        .status(500)
+        .json({ error: err?.message || "Failed to get variable usage" });
+    }
+  });
+
+  app.post("/api/variables/:name/rename", (req, res) => {
+    try {
+      const { name: oldName } = req.params;
+      const { newName, author } = req.body as { newName: string; author?: string };
+      const authorName = author && typeof author === "string" ? author : undefined;
+
+      if (!newName || typeof newName !== "string") {
+        return res.status(400).json({ error: "newName is required" });
+      }
+
+      const sanitized = newName.trim().replace(/\s+/g, "_").toLowerCase();
+      if (!/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(sanitized)) {
+        return res.status(400).json({
+          error:
+            "Invalid variable name. Use letters, numbers, and underscores only.",
+        });
+      }
+
+      const affectedFiles = contentIndex.getVariableUsage(oldName);
+
+      const pattern = new RegExp(
+        `\\{\\{\\s*${oldName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(\\s*(?:\\|[^}]*)?)\\}\\}`,
+        "g",
+      );
+
+      const updatedFiles: string[] = [];
+      for (const relPath of affectedFiles) {
+        const absPath = path.join(process.cwd(), relPath);
+        if (!fs.existsSync(absPath)) continue;
+
+        const content = fs.readFileSync(absPath, "utf-8");
+        const newContent = content.replace(pattern, `{{ ${sanitized}$1}}`);
+        if (newContent !== content) {
+          fs.writeFileSync(absPath, newContent, "utf-8");
+          markFileAsModified(relPath, authorName);
+          updatedFiles.push(relPath);
+        }
+      }
+
+      variableManager.renameVariable(oldName, sanitized);
+
+      contentIndex.refresh();
+      invalidateContentCaches();
+
+      res.json({
+        success: true,
+        oldName,
+        newName: sanitized,
+        updatedFiles,
+        definitions: variableManager.getDefinitions(),
+      });
+    } catch (err: any) {
+      res
+        .status(500)
+        .json({ error: err?.message || "Failed to rename variable" });
+    }
+  });
+  app.get("/api/settings/home-page", (_req, res) => {
+    res.json(getHomePage());
+  });
+
+  app.get("/api/settings/locales", (_req, res) => {
+    res.json({
+      default_locale: getDefaultLocale(),
+      supported_locales: getLocaleEntries(),
+    });
+  });
+
+  app.put("/api/settings/locales", (req, res) => {
+    try {
+      const { default_locale, supported_locales } = req.body;
+      updateLocaleSettings({ default_locale, supported_locales });
+      res.json({
+        success: true,
+        default_locale: getDefaultLocale(),
+        supported_locales: getLocaleEntries(),
+      });
+    } catch (err: any) {
+      res.status(400).json({ error: err.message || String(err) });
+    }
+  });
+
+  app.get("/api/settings/optimization", (_req, res) => {
+    res.json(getOptimizationSettings());
+  });
+
+  app.put("/api/settings/optimization", async (req, res) => {
+    try {
+      const { tagmanager } = req.body;
+      if (!tagmanager || typeof tagmanager !== "object") {
+        return res.status(400).json({ error: "Request body must contain a tagmanager object" });
+      }
+      updateOptimizationSettings({ tagmanager });
+      res.json({ success: true, ...getOptimizationSettings() });
+    } catch (err: any) {
+      res.status(400).json({ error: err.message || String(err) });
+    }
+  });
+
+  app.post("/api/settings/optimization/test", async (req, res) => {
+    const { url: rawUrl } = req.body;
+    if (!rawUrl || typeof rawUrl !== "string") {
+      return res.status(400).json({ reachable: false, reason: "No URL provided." });
+    }
+
+    let parsed: URL;
+    try {
+      parsed = new URL(rawUrl.trim());
+    } catch {
+      return res.status(400).json({ reachable: false, reason: "Invalid URL — could not be parsed." });
+    }
+
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+      return res.status(400).json({ reachable: false, reason: "URL must use http or https protocol." });
+    }
+
+    const http2 = await import("http");
+    const https2 = await import("https");
+    const protocol = parsed.protocol === "https:" ? https2 : http2;
+
+    const options = {
+      hostname: parsed.hostname,
+      port: parsed.port || (parsed.protocol === "https:" ? 443 : 80),
+      path: parsed.pathname || "/",
+      method: "HEAD",
+      timeout: 8000,
+      headers: { "User-Agent": "sGTM-connection-test/1.0" },
+    };
+
+    try {
+      await new Promise<void>((resolve, reject) => {
+        const probeReq = protocol.request(options, (probeRes) => {
+          const status = probeRes.statusCode ?? 0;
+          probeRes.resume();
+          if (status >= 200 && status < 400) {
+            resolve();
+          } else if (status >= 400 && status < 500) {
+            reject(new Error(`HTTP ${status} — the server responded but returned a client error. Check that the URL is correct.`));
+          } else if (status >= 500) {
+            reject(new Error(`HTTP ${status} — the sGTM server returned a server error.`));
+          } else {
+            reject(new Error(`HTTP ${status} — unexpected response from server.`));
+          }
+        });
+        probeReq.on("timeout", () => {
+          probeReq.destroy();
+          reject(new Error("Connection timed out (8 s). Check the URL and network."));
+        });
+        probeReq.on("error", (err: NodeJS.ErrnoException) => {
+          if (err.code === "ENOTFOUND" || err.code === "EAI_AGAIN") {
+            reject(new Error(`DNS resolution failed — hostname "${parsed.hostname}" not found.`));
+          } else if (err.code === "ECONNREFUSED") {
+            reject(new Error(`Connection refused at ${parsed.hostname}:${options.port}.`));
+          } else {
+            reject(new Error(err.message || String(err)));
+          }
+        });
+        probeReq.end();
+      });
+
+      return res.json({ reachable: true });
+    } catch (err: any) {
+      return res.json({ reachable: false, reason: err.message || String(err) });
+    }
+  });
+  // Menus API - list all menu files (excludes translation files like .es.yml)
+  app.get("/api/menus", (_req, res) => {
+    const menusDir = path.join(process.cwd(), "marketing-content", "menus");
+
+    if (!fs.existsSync(menusDir)) {
+      res.json({ menus: [] });
+      return;
+    }
+
+    // Filter for .yml/.yaml files, excluding translation files (e.g., main-navbar.es.yml)
+    const translationPattern = /\.[a-z]{2}\.(yml|yaml)$/;
+    const files = fs
+      .readdirSync(menusDir)
+      .filter(
+        (f) =>
+          (f.endsWith(".yml") || f.endsWith(".yaml")) &&
+          !translationPattern.test(f),
+      );
+
+    const menus = files.map((file) => {
+      const name = file.replace(/\.(yml|yaml)$/, "");
+      return { name, file };
+    });
+
+    res.json({ menus });
+  });
+
+  // Create a new menu file
+  app.post("/api/menus", (req, res) => {
+    const { name, type } = req.body || {};
+
+    if (!name || typeof name !== "string") {
+      res.status(400).json({ error: "name is required" });
+      return;
+    }
+
+    // Validate slug: lowercase letters, numbers, hyphens only
+    const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+    if (!slugPattern.test(name)) {
+      res.status(400).json({ error: "name must be a valid slug (lowercase letters, numbers, and hyphens only)" });
+      return;
+    }
+
+    const resolvedType = type || "navbar";
+    if (resolvedType !== "navbar" && resolvedType !== "footer") {
+      res.status(400).json({ error: "type must be 'navbar' or 'footer'" });
+      return;
+    }
+
+    const menusDir = path.join(process.cwd(), "marketing-content", "menus");
+
+    if (!fs.existsSync(menusDir)) {
+      fs.mkdirSync(menusDir, { recursive: true });
+    }
+
+    const fileName = `${name}.yml`;
+    const filePath = path.join(menusDir, fileName);
+    const filePathYaml = path.join(menusDir, `${name}.yaml`);
+
+    if (fs.existsSync(filePath) || fs.existsSync(filePathYaml)) {
+      res.status(409).json({ error: `A menu named '${name}' already exists` });
+      return;
+    }
+
+    const scaffold =
+      resolvedType === "navbar"
+        ? `navbar:\n  items: []\n`
+        : `footer:\n  columns: []\n`;
+
+    fs.writeFileSync(filePath, scaffold, "utf8");
+
+    res.status(201).json({ name, file: fileName });
+  });
+
+  app.get("/api/menus/:name/usage", (req, res) => {
+    try {
+      const { name } = req.params;
+      const configs = getAllConfigs();
+      const defaultContentTypes: { name: string; position: "top" | "bottom" | "both" }[] = [];
+      for (const [typeName, config] of Object.entries(configs)) {
+        const top = config.layout?.menu?.top === name;
+        const bottom = config.layout?.menu?.bottom === name;
+        if (top && bottom) {
+          defaultContentTypes.push({ name: typeName, position: "both" });
+        } else if (top) {
+          defaultContentTypes.push({ name: typeName, position: "top" });
+        } else if (bottom) {
+          defaultContentTypes.push({ name: typeName, position: "bottom" });
+        }
+      }
+
+      const rawOverrides = contentIndex.getMenuUsageByMenuId(name);
+      const overrides = rawOverrides.filter(o => {
+        const matchesDefault = defaultContentTypes.some(
+          d => d.name === o.contentType && (d.position === "both" || d.position === o.position)
+        );
+        if (matchesDefault && o.source === "_common.yml") return false;
+        return true;
+      });
+
+      res.json({ defaultContentTypes, overrides });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.delete("/api/menus/:name", (req, res) => {
+    try {
+      const { name } = req.params;
+
+      // Validate name is a safe slug — same rule as POST /api/menus
+      const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+      if (!slugPattern.test(name)) {
+        res.status(400).json({ error: "Invalid menu name" });
+        return;
+      }
+
+      const menusDir = path.join(process.cwd(), "marketing-content", "menus");
+
+      // Find main file (yml or yaml)
+      const mainYml = path.join(menusDir, `${name}.yml`);
+      const mainYaml = path.join(menusDir, `${name}.yaml`);
+      const mainFile = fs.existsSync(mainYml) ? mainYml : fs.existsSync(mainYaml) ? mainYaml : null;
+
+      if (!mainFile) {
+        res.status(404).json({ error: `Menu "${name}" not found` });
+        return;
+      }
+
+      type LayoutObj = Record<string, unknown> & { menu?: { top?: string | null; bottom?: string | null } };
+
+      const cleanMenuRef = (parsed: Record<string, unknown>, position: "top" | "bottom" | "both"): boolean => {
+        const layout = parsed.layout as LayoutObj | undefined;
+        if (!layout?.menu) return false;
+        let changed = false;
+        if ((position === "top" || position === "both") && layout.menu.top === name) {
+          delete layout.menu.top;
+          changed = true;
+        }
+        if ((position === "bottom" || position === "both") && layout.menu.bottom === name) {
+          delete layout.menu.bottom;
+          changed = true;
+        }
+        if (changed) {
+          if (Object.keys(layout.menu).length === 0) delete layout.menu;
+          if (Object.keys(layout).length === 0) delete parsed.layout;
+        }
+        return changed;
+      };
+
+      // 1. Clean up layout references in content-types.yml
+      const configs = getAllConfigs();
+      for (const [typeName, config] of Object.entries(configs)) {
+        const top = config.layout?.menu?.top === name;
+        const bottom = config.layout?.menu?.bottom === name;
+        if (!top && !bottom) continue;
+
+        const currentMenu = config.layout?.menu || {};
+        const newMenu: { top?: string | null; bottom?: string | null } = {
+          top: top ? null : (currentMenu.top ?? null),
+          bottom: bottom ? null : (currentMenu.bottom ?? null),
+        };
+        updateContentTypeConfig(typeName, { layout: { menu: newMenu } });
+
+        // Also clean any page-level overrides for this content type
+        const position: "top" | "bottom" | "both" = top && bottom ? "both" : top ? "top" : "bottom";
+        const slugs = contentIndex.listContentSlugs(typeName);
+        for (const slug of slugs) {
+          const commonPath = contentIndex.getCommonFilePath(typeName, slug);
+          if (!fs.existsSync(commonPath)) continue;
+          try {
+            const raw = fs.readFileSync(commonPath, "utf-8");
+            const parsed = yaml.load(raw) as Record<string, unknown> | null;
+            if (!parsed) continue;
+            if (cleanMenuRef(parsed, position)) {
+              fs.writeFileSync(commonPath, yaml.dump(parsed, { lineWidth: 120, noRefs: true }), "utf-8");
+            }
+          } catch {}
+        }
+      }
+
+      // 2. Clean page-level overrides not covered by content-type defaults above
+      const rawOverrides = contentIndex.getMenuUsageByMenuId(name);
+      for (const override of rawOverrides) {
+        const commonPath = contentIndex.getCommonFilePath(override.contentType, override.slug);
+        if (!fs.existsSync(commonPath)) continue;
+        try {
+          const raw = fs.readFileSync(commonPath, "utf-8");
+          const parsed = yaml.load(raw) as Record<string, unknown> | null;
+          if (!parsed) continue;
+          if (cleanMenuRef(parsed, override.position)) {
+            fs.writeFileSync(commonPath, yaml.dump(parsed, { lineWidth: 120, noRefs: true }), "utf-8");
+          }
+        } catch {}
+      }
+
+      // 3. Delete the main file and any translation variant files
+      fs.unlinkSync(mainFile);
+      try {
+        // Safe: name is already validated as a slug (no special regex chars)
+        const translationPattern = new RegExp(`^${name}\\.[a-z]{2}(?:\\.[a-z]{2})?\\.(yml|yaml)$`);
+        const dir = fs.readdirSync(menusDir);
+        for (const f of dir) {
+          if (translationPattern.test(f)) {
+            fs.unlinkSync(path.join(menusDir, f));
+          }
+        }
+      } catch {}
+
+      contentIndex.refresh();
+      res.json({ success: true });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.put("/api/content-types/:type/layout", async (req, res) => {
+    try {
+      const { type } = req.params;
+      const auth = await requireCapability(req, res, "content_types_manage");
+      if (!auth.authorized) return;
+      const config = getContentTypeConfig(type);
+      if (!config) {
+        res.status(404).json({ error: `Content type "${type}" not found` });
+        return;
+      }
+      const body = req.body;
+      if (!body?.menu || typeof body.menu !== "object") {
+        res.status(400).json({ error: "Request body must include { menu: { top?: string|null, bottom?: string|null } }" });
+        return;
+      }
+
+      for (const key of ["top", "bottom"] as const) {
+        if (key in body.menu && body.menu[key] !== null && typeof body.menu[key] !== "string") {
+          res.status(400).json({ error: `menu.${key} must be a string or null` });
+          return;
+        }
+      }
+
+      const currentLayout = config.layout?.menu || { top: null, bottom: null };
+      const newMenu: { top?: string | null; bottom?: string | null } = {};
+      if ("top" in body.menu) newMenu.top = body.menu.top;
+      else newMenu.top = currentLayout.top;
+      if ("bottom" in body.menu) newMenu.bottom = body.menu.bottom;
+      else newMenu.bottom = currentLayout.bottom;
+
+      updateContentTypeConfig(type, { layout: { menu: newMenu } });
+
+      const slugs = contentIndex.listContentSlugs(type);
+      for (const slug of slugs) {
+        const commonPath = contentIndex.getCommonFilePath(type, slug);
+        if (!fs.existsSync(commonPath)) continue;
+        try {
+          const raw = fs.readFileSync(commonPath, "utf-8");
+          const parsed = yaml.load(raw) as Record<string, unknown> | null;
+          if (!parsed?.layout) continue;
+          const layout = parsed.layout as { menu?: { top?: string | null; bottom?: string | null } };
+          if (!layout.menu) continue;
+          let changed = false;
+          if ("top" in body.menu && layout.menu.top !== undefined) {
+            delete layout.menu.top;
+            changed = true;
+          }
+          if ("bottom" in body.menu && layout.menu.bottom !== undefined) {
+            delete layout.menu.bottom;
+            changed = true;
+          }
+          if (changed) {
+            if (Object.keys(layout.menu).length === 0) {
+              delete (parsed.layout as any).menu;
+            }
+            if (Object.keys(parsed.layout as any).length === 0) {
+              delete parsed.layout;
+            }
+            fs.writeFileSync(commonPath, yaml.dump(parsed, { lineWidth: 120, noRefs: true }), "utf-8");
+          }
+        } catch {}
+      }
+
+      contentIndex.refresh();
+      invalidateContentCaches(type);
+      res.json({ success: true });
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.get("/api/menus/:name", (req, res) => {
+    const { name } = req.params;
+    const locale = req.query.locale as string | undefined;
+    const menusDir = path.join(process.cwd(), "marketing-content", "menus");
+
+    let filePath: string | null = null;
+
+    if (locale && locale !== getDefaultLocale()) {
+      const localizedBase = `${name}.${locale}`;
+      const localizedYml = path.join(menusDir, `${localizedBase}.yml`);
+      const localizedYaml = path.join(menusDir, `${localizedBase}.yaml`);
+      if (fs.existsSync(localizedYml)) filePath = localizedYml;
+      else if (fs.existsSync(localizedYaml)) filePath = localizedYaml;
+    }
+
+    if (!filePath) {
+      const baseYml = path.join(menusDir, `${name}.yml`);
+      const baseYaml = path.join(menusDir, `${name}.yaml`);
+      if (fs.existsSync(baseYml)) filePath = baseYml;
+      else if (fs.existsSync(baseYaml)) filePath = baseYaml;
+    }
+
+    if (!filePath) {
+      res.status(404).json({ error: "Menu not found" });
+      return;
+    }
+
+    try {
+      const content = fs.readFileSync(filePath, "utf-8");
+      const data = safeYamlLoad(content);
+      const raw = req.query.raw === "true";
+      if (raw) {
+        res.json({ name, locale: locale || "en", data });
+        return;
+      }
+
+      const context = {
+        locale: locale || "en",
+        location: req.query.location as string | undefined,
+        region: req.query.region as string | undefined,
+      };
+      const { data: resolved } = variableManager.resolveDeep(data, context);
+      res.json({ name, locale: locale || "en", data: resolved });
+    } catch (error) {
+      console.error(`Error loading menu ${name}:`, error);
+      res.status(500).json({ error: "Failed to parse menu file" });
+    }
+  });
+
+  // DEPRECATED: Old menu save endpoint - redirect to new separated endpoints
+  // Use PUT /api/menus/:name/structure for structural changes (English only, propagates to translations)
+  // Use PUT /api/menus/:name/translations?locale=xx for text-only changes
+  app.post("/api/menus/:name", (req, res) => {
+    res.status(410).json({
+      error:
+        "This endpoint is deprecated. Use the separated endpoints instead.",
+      alternatives: {
+        structure:
+          "PUT /api/menus/:name/structure - For structural changes (English only, propagates to translations)",
+        translations:
+          "PUT /api/menus/:name/translations?locale=xx - For text-only changes",
+      },
+    });
+  });
+
+  // Helper function to sync menu structure from English (master) to translation
+  function syncMenuStructure(
+    master: any,
+    translation: any,
+    previousMaster?: any,
+  ): any {
+    if (master?.footer) {
+      return syncFooterStructure(master, translation || {}, previousMaster);
+    }
+
+    if (!master?.navbar?.items || !translation?.navbar?.items) {
+      return translation;
+    }
+
+    const masterItems = master.navbar.items;
+    const translationItems = translation.navbar.items;
+    const syncedItems: any[] = [];
+
+    for (let i = 0; i < masterItems.length; i++) {
+      const masterItem = masterItems[i];
+      const existingTranslation = translationItems[i];
+
+      if (existingTranslation) {
+        const syncedItem = syncMenuItem(masterItem, existingTranslation);
+        syncedItems.push(syncedItem);
+      } else {
+        const newItem = createTranslationPlaceholder(masterItem);
+        syncedItems.push(newItem);
+      }
+    }
+
+    return { navbar: { items: syncedItems } };
+  }
+
+  function syncFooterStructure(
+    master: any,
+    translation: any,
+    previousMaster?: any,
+  ): any {
+    const mf = master.footer;
+    const tf = translation.footer || {};
+    const pf = previousMaster?.footer || {};
+    const result: any = {};
+
+    result.columns = (tf.columns || []).map((transCol: any) => ({
+      title: transCol.title,
+      items: (transCol.items || []).map((transItem: any) => ({
+        label: transItem.label,
+        href: transItem.href,
+      })),
+    }));
+
+    if (mf.columns) {
+      const prevColumns = pf.columns || [];
+      const prevColTitleToIndex = new Map<string, number>();
+      const prevItemsByIndex = new Map<number, Set<string>>();
+      for (let i = 0; i < prevColumns.length; i++) {
+        prevColTitleToIndex.set(prevColumns[i].title, i);
+        prevItemsByIndex.set(
+          i,
+          new Set((prevColumns[i].items || []).map((it: any) => it.label)),
+        );
+      }
+
+      for (const masterCol of mf.columns) {
+        const prevIndex = prevColTitleToIndex.get(masterCol.title);
+
+        if (prevIndex === undefined) {
+          result.columns.push({
+            title: `[TRANSLATE] ${masterCol.title}`,
+            items: (masterCol.items || []).map((item: any) => ({
+              label: `[TRANSLATE] ${item.label}`,
+              href: item.href,
+            })),
+          });
+        } else {
+          const prevItems = prevItemsByIndex.get(prevIndex) || new Set();
+          const newItems = (masterCol.items || []).filter(
+            (item: any) => !prevItems.has(item.label),
+          );
+
+          if (newItems.length > 0 && result.columns[prevIndex]) {
+            for (const newItem of newItems) {
+              result.columns[prevIndex].items.push({
+                label: `[TRANSLATE] ${newItem.label}`,
+                href: newItem.href,
+              });
+            }
+          }
+        }
+      }
+    }
+
+    result.socials = (tf.socials || []).map((transSocial: any) => ({
+      name: transSocial.name,
+      icon: transSocial.icon,
+      link: transSocial.link,
+    }));
+
+    if (mf.socials) {
+      const prevSocialIcons = new Set(
+        (pf.socials || []).map((s: any) => s.icon),
+      );
+      for (const masterSocial of mf.socials) {
+        if (!prevSocialIcons.has(masterSocial.icon)) {
+          result.socials.push({
+            name: masterSocial.name,
+            icon: masterSocial.icon,
+            link: masterSocial.link,
+          });
+        }
+      }
+    }
+
+    result.legal_links = (tf.legal_links || []).map((transLink: any) => ({
+      label: transLink.label,
+      href: transLink.href,
+    }));
+
+    if (mf.legal_links) {
+      const prevLegalLabels = new Set(
+        (pf.legal_links || []).map((l: any) => l.label),
+      );
+      for (const masterLink of mf.legal_links) {
+        if (!prevLegalLabels.has(masterLink.label)) {
+          result.legal_links.push({
+            label: `[TRANSLATE] ${masterLink.label}`,
+            href: masterLink.href,
+          });
+        }
+      }
+    }
+
+    if (mf.subscribe_text !== undefined) {
+      result.subscribe_text =
+        tf.subscribe_text || `[TRANSLATE] ${mf.subscribe_text}`;
+    }
+    if (mf.copyright_text !== undefined) {
+      result.copyright_text =
+        tf.copyright_text || `[TRANSLATE] ${mf.copyright_text}`;
+    }
+
+    return { footer: result };
+  }
+
+  function syncMenuItem(master: any, translation: any): any {
+    const result: any = {
+      // TEXT field - from translation
+      label: translation.label || `[TRANSLATE] ${master.label}`,
+      // STRUCTURE fields - ALWAYS from master
+      href: master.href,
+      component: master.component,
+    };
+
+    if (master.dropdown) {
+      result.dropdown = syncDropdown(
+        master.dropdown,
+        translation.dropdown || {},
+      );
+    }
+
+    return result;
+  }
+
+  function syncDropdown(master: any, translation: any): any {
+    const result: any = {
+      type: master.type,
+      title: translation.title || `[TRANSLATE] ${master.title}`,
+      description:
+        translation.description || `[TRANSLATE] ${master.description}`,
+    };
+
+    if (master.icon) result.icon = master.icon;
+
+    // Sync items array (for cards and simple-list types)
+    if (master.items) {
+      result.items = master.items.map((masterItem: any, idx: number) => {
+        const transItem = translation.items?.[idx] || {};
+        return syncDropdownItem(masterItem, transItem);
+      });
+    }
+
+    // Sync columns (for columns type)
+    if (master.columns) {
+      result.columns = master.columns.map((masterCol: any, idx: number) => {
+        const transCol = translation.columns?.[idx] || {};
+        return {
+          title: transCol.title || `[TRANSLATE] ${masterCol.title}`,
+          items: masterCol.items.map((masterItem: any, itemIdx: number) => {
+            const transItem = transCol.items?.[itemIdx] || {};
+            return {
+              // TEXT field - from translation
+              label: transItem.label || `[TRANSLATE] ${masterItem.label}`,
+              // STRUCTURE field - ALWAYS from master
+              href: masterItem.href,
+            };
+          }),
+        };
+      });
+    }
+
+    // Sync groups (for grouped-list type)
+    if (master.groups) {
+      result.groups = master.groups.map((masterGroup: any, idx: number) => {
+        const transGroup = translation.groups?.[idx] || {};
+        return {
+          // TEXT field - from translation
+          title: transGroup.title || `[TRANSLATE] ${masterGroup.title}`,
+          items: masterGroup.items.map((masterItem: any, itemIdx: number) => {
+            const transItem = transGroup.items?.[itemIdx] || {};
+            return {
+              // TEXT field - from translation
+              label: transItem.label || `[TRANSLATE] ${masterItem.label}`,
+              // STRUCTURE field - ALWAYS from master
+              href: masterItem.href,
+            };
+          }),
+        };
+      });
+    }
+
+    // Sync footer
+    if (master.footer) {
+      result.footer = {
+        // TEXT fields - from translation
+        text: translation.footer?.text || `[TRANSLATE] ${master.footer.text}`,
+        linkText:
+          translation.footer?.linkText ||
+          `[TRANSLATE] ${master.footer.linkText}`,
+        // STRUCTURE field - ALWAYS from master
+        href: master.footer.href,
+      };
+    }
+
+    return result;
+  }
+
+  function syncDropdownItem(master: any, translation: any): any {
+    const result: any = {};
+
+    // TEXT fields - from translation if provided
+    if (master.title !== undefined) {
+      result.title = translation.title || `[TRANSLATE] ${master.title}`;
+    }
+    if (master.label !== undefined) {
+      result.label = translation.label || `[TRANSLATE] ${master.label}`;
+    }
+    if (master.description !== undefined) {
+      result.description =
+        translation.description || `[TRANSLATE] ${master.description}`;
+    }
+    if (master.cta !== undefined) {
+      result.cta = translation.cta || `[TRANSLATE] ${master.cta}`;
+    }
+    // STRUCTURE field - ALWAYS from master
+    if (master.href !== undefined) {
+      result.href = master.href;
+    }
+    if (master.icon !== undefined) {
+      result.icon = master.icon;
+    }
+
+    return result;
+  }
+
+  function createTranslationPlaceholder(master: any): any {
+    const result: any = {
+      label: `[TRANSLATE] ${master.label}`,
+      href: master.href,
+      component: master.component,
+    };
+
+    if (master.dropdown) {
+      result.dropdown = syncDropdown(master.dropdown, {});
+    }
+
+    return result;
+  }
+
+  // Structure endpoint - Only for English, propagates to all translation files
+  // Used for: reordering items, adding/deleting items, changing icons, changing hrefs
+  app.put("/api/menus/:name/structure", (req, res) => {
+    const { name } = req.params;
+    const { data, author } = req.body;
+    const authorName = author && typeof author === "string" ? author : undefined;
+
+    if (!data) {
+      res.status(400).json({ error: "Missing data in request body" });
+      return;
+    }
+
+    const menusDir = path.join(process.cwd(), "marketing-content", "menus");
+
+    // Structure changes can ONLY be made to English (master) file
+    let filePath = path.join(menusDir, `${name}.yml`);
+    if (!fs.existsSync(filePath)) {
+      filePath = path.join(menusDir, `${name}.yaml`);
+    }
+    if (!fs.existsSync(filePath)) {
+      filePath = path.join(menusDir, `${name}.yml`);
+    }
+
+    try {
+      let previousData: any = null;
+      if (fs.existsSync(filePath)) {
+        try {
+          const previousContent = fs.readFileSync(filePath, "utf-8");
+          previousData = safeYamlLoad(previousContent) as any;
+        } catch (e) {}
+      }
+
+      const yamlContent = safeYamlDump(data, {
+        indent: 2,
+        lineWidth: -1,
+        noRefs: true,
+        sortKeys: false,
+      });
+      fs.writeFileSync(filePath, yamlContent, "utf-8");
+      markFileAsModified(filePath, authorName);
+
+      const syncResults: Record<string, string> = {};
+      const translationLocales = ["es", "fr", "de", "pt", "it"];
+
+      for (const targetLocale of translationLocales) {
+        const translationFileName = `${name}.${targetLocale}.yml`;
+        const translationFilePath = path.join(menusDir, translationFileName);
+
+        if (fs.existsSync(translationFilePath)) {
+          try {
+            const translationContent = fs.readFileSync(
+              translationFilePath,
+              "utf-8",
+            );
+            const translationData = safeYamlLoad(translationContent) as any;
+
+            const syncedData = syncMenuStructure(
+              data,
+              translationData,
+              previousData,
+            );
+
+            const syncedYaml = safeYamlDump(syncedData, {
+              indent: 2,
+              lineWidth: -1,
+              noRefs: true,
+              sortKeys: false,
+            });
+            fs.writeFileSync(translationFilePath, syncedYaml, "utf-8");
+            markFileAsModified(translationFilePath, authorName);
+            syncResults[targetLocale] = "synced";
+          } catch (syncError) {
+            console.error(
+              `Error syncing structure to ${targetLocale}:`,
+              syncError,
+            );
+            syncResults[targetLocale] = "error";
+          }
+        }
+      }
+
+      res.json({
+        success: true,
+        name,
+        endpoint: "structure",
+        syncResults,
+        message: "Structure updated in English and synced to all translations",
+      });
+    } catch (error) {
+      console.error(`Error saving menu structure ${name}:`, error);
+      res.status(500).json({ error: "Failed to save menu structure" });
+    }
+  });
+
+  // Translations endpoint - For any locale, only updates text fields
+  // Used for: updating title, description, label, cta text
+  // CANNOT modify structure (item count, order, icons, hrefs)
+  app.put("/api/menus/:name/translations", (req, res) => {
+    const { name } = req.params;
+    const locale = req.query.locale as string;
+    const { data, author } = req.body;
+    const authorName = author && typeof author === "string" ? author : undefined;
+
+    if (!data) {
+      res.status(400).json({ error: "Missing data in request body" });
+      return;
+    }
+
+    if (!locale) {
+      res.status(400).json({ error: "Locale query parameter is required" });
+      return;
+    }
+
+    const menusDir = path.join(process.cwd(), "marketing-content", "menus");
+    const isDefaultLocale = locale === getDefaultLocale();
+
+    // Build filename based on locale
+    const fileBaseName = isDefaultLocale ? name : `${name}.${locale}`;
+
+    let filePath = path.join(menusDir, `${fileBaseName}.yml`);
+    if (!fs.existsSync(filePath)) {
+      filePath = path.join(menusDir, `${fileBaseName}.yaml`);
+    }
+    if (!fs.existsSync(filePath)) {
+      filePath = path.join(menusDir, `${fileBaseName}.yml`);
+    }
+
+    // Translations endpoint is for text and link changes in ANY locale (including English)
+    // For structure changes (icon, add/delete), use the /structure endpoint instead
+    const masterFilePath = path.join(menusDir, `${name}.yml`);
+    if (!fs.existsSync(masterFilePath)) {
+      res.status(400).json({
+        error: "English master file not found. Cannot update translations.",
+      });
+      return;
+    }
+
+    let dataToSave = data;
+
+    const isFooterMenu = data?.footer && !data?.navbar;
+
+    if (isFooterMenu && !isDefaultLocale) {
+      dataToSave = data;
+    } else {
+      try {
+        const masterContent = fs.readFileSync(masterFilePath, "utf-8");
+        const masterData = safeYamlLoad(masterContent) as any;
+
+        dataToSave = mergeTextOnlyFromTranslation(masterData, data);
+      } catch (e) {
+        console.error("Error syncing translation to master structure:", e);
+        res
+          .status(500)
+          .json({ error: "Failed to sync translation with master structure" });
+        return;
+      }
+    }
+
+    try {
+      const yamlContent = safeYamlDump(dataToSave, {
+        indent: 2,
+        lineWidth: -1,
+        noRefs: true,
+        sortKeys: false,
+      });
+      fs.writeFileSync(filePath, yamlContent, "utf-8");
+      markFileAsModified(filePath, authorName);
+
+      res.json({
+        success: true,
+        name,
+        locale,
+        endpoint: "translations",
+        message: isDefaultLocale
+          ? "English text updated"
+          : `${locale} translations updated`,
+      });
+    } catch (error) {
+      console.error(`Error saving menu translations ${name}:`, error);
+      res.status(500).json({ error: "Failed to save menu translations" });
+    }
+  });
+
+  // STRICT text-only merge: Deep-clone master, overlay ONLY translatable fields from translation
+  // Translatable fields: label, title, description, cta, text, linkText, href
+  // ALL other fields preserved from master (including unknown/extra keys)
+  const TEXT_FIELDS = new Set([
+    "label",
+    "title",
+    "description",
+    "cta",
+    "text",
+    "linkText",
+    "href",
+  ]);
+
+  function mergeTextOnlyFromTranslation(master: any, translation: any): any {
+    if (!master?.navbar?.items && !master?.footer) {
+      throw new Error(
+        "Master file is missing navbar.items or footer structure",
+      );
+    }
+
+    // For footer files, use the footer-aware structure sync which preserves translations
+    if (master?.footer && !master?.navbar) {
+      return syncFooterStructure(master, translation || {});
+    }
+
+    // Deep clone master to preserve ALL structure
+    const result = JSON.parse(JSON.stringify(master));
+
+    // Overlay text fields from translation onto the cloned master (starting at root)
+    if (translation) {
+      overlayTextFieldsOnObject(result, translation);
+    }
+
+    // Marquee config is locale-specific — if the translation carries its own
+    // navbar.marquee block, use it wholesale instead of the English master's.
+    if (translation?.navbar?.marquee !== undefined) {
+      if (!result.navbar) result.navbar = {};
+      result.navbar.marquee = translation.navbar.marquee;
+    }
+
+    return result;
+  }
+
+  function overlayTextFieldsOnItems(
+    masterItems: any[],
+    translationItems: any[],
+  ): void {
+    for (
+      let i = 0;
+      i < masterItems.length && i < translationItems.length;
+      i++
+    ) {
+      overlayTextFieldsOnObject(masterItems[i], translationItems[i]);
+    }
+  }
+
+  function overlayTextFieldsOnObject(master: any, translation: any): void {
+    if (
+      !master ||
+      !translation ||
+      typeof master !== "object" ||
+      typeof translation !== "object"
+    ) {
+      return;
+    }
+
+    // Overlay text fields from translation onto master
+    for (const key of Object.keys(master)) {
+      if (TEXT_FIELDS.has(key) && translation[key] !== undefined) {
+        // This is a text field - take value from translation
+        master[key] = translation[key];
+      } else if (
+        Array.isArray(master[key]) &&
+        Array.isArray(translation[key])
+      ) {
+        // Recursively process arrays (items, columns, groups, etc.)
+        for (
+          let i = 0;
+          i < master[key].length && i < translation[key].length;
+          i++
+        ) {
+          overlayTextFieldsOnObject(master[key][i], translation[key][i]);
+        }
+      } else if (
+        typeof master[key] === "object" &&
+        master[key] !== null &&
+        translation[key]
+      ) {
+        // Recursively process nested objects (dropdown, footer, etc.)
+        overlayTextFieldsOnObject(master[key], translation[key]);
+      }
+      // All other fields (href, icon, component, type, etc.) stay from master
+    }
+  }
+
+}

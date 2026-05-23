@@ -1,0 +1,1288 @@
+import type { Express, Request, Response } from "express";
+import { createServer, type Server } from "http";
+import { storage } from "../storage";
+import { geoGet, geoSet } from "../geo-cache";
+import { getQueueStats, enqueueOptimization, getPendingOptimizations, getFailedEntries, retryFailedImages, resetOptimizeSession, getOptimizeSession, enqueueExternalImage } from "../image-registry";
+import { getAllQueueState } from "../image-queue-state";
+
+
+import * as fs from "fs";
+import * as path from "path";
+import * as yaml from "js-yaml";
+import { execSync as _execSync, execFile } from "child_process";
+import {
+  versioningUpdateSchema,
+  type CareerProgram,
+  type LandingPage,
+  type LocationPage,
+  type TemplatePage,
+} from "@shared/schema";
+import {
+  getSitemap,
+  clearSitemapCache,
+  getSitemapCacheStatus,
+  getSitemapUrls,
+  invalidateSitemapEntry,
+  invalidateSitemapEntriesByContentKey,
+  refreshSitemapEntry,
+  refreshSitemapEntriesForContentKey,
+} from "../sitemap";
+import { markFileAsModified } from "../sync-state";
+import { deepMerge } from "../utils/deepMerge";
+import { regenerateSectionIds } from "../utils/regenerateSectionIds";
+import { databaseManager } from "../database";
+import {
+  redirectMiddleware,
+  getRedirects,
+  clearRedirectCache,
+  testRedirect,
+} from "../redirects";
+import {
+  getSchema,
+  getMergedSchemas,
+  getAvailableSchemaKeys,
+  clearSchemaCache,
+  getOrganizationTwitterHandle,
+  getOrganizationSameAsUrl,
+  getWebsiteDefaultSocialImage,
+  updateWebsiteDefaultSocialImage,
+  updateOrganizationTwitterHandle,
+  updateOrganizationSameAsUrl,
+} from "../schema-org";
+import {
+  getRegistryOverview,
+  getComponentInfo,
+  listVersions,
+  loadSchema,
+  loadExamples,
+  createNewVersion,
+  getExampleFilePath,
+  saveExample,
+  createExample,
+  loadAllFieldEditors,
+  applyComponentSectionDefaults,
+  applyComponentImageSizes,
+  getVariantByExample,
+  getVariantExamples,
+  deleteExample,
+  deleteVariant,
+} from "../component-registry";
+import {
+  editContent,
+  editCommonContent,
+  getContentForEdit,
+  createContentEntry,
+  deleteContentEntry,
+  renameContentSlug,
+} from "../content-editor";
+import { bindingManager } from "../bindings";
+import {
+  escapeTemplateVars,
+  escapeObjectVars,
+  unescapeObjectVars,
+  unescapeYamlDump,
+} from "@shared/templateVars";
+import {
+  getVersioningManager,
+  readUserId,
+  getVersioningCookie,
+  setVersioningCookie,
+  buildUserContext,
+} from "../versioning";
+import { mediaGallery } from "../media-gallery";
+import { media } from "../media";
+import multer from "multer";
+import { contentIndex, type ContentType } from "../content-index";
+import { runScan as runComponentInsightsScan, readInsightsFile, suggestNext as suggestNextComponent } from "../component-insights";
+import { validateFieldSource, validateFieldMapping, extractByDotPath } from "../../scripts/validation/shared/fieldMappingValidator";
+import {
+  getFolder,
+  getType,
+  isValidType,
+  getAllTypes,
+  getAllFolders,
+  getAllConfigs,
+  getDatabaseName,
+  getFieldMapping,
+  getLookupKey,
+  getLocaleKey,
+  getLocaleDefault,
+  getIndexes,
+  hasDatabaseSingle,
+  getContentTypeConfig,
+  updateContentTypeConfig,
+  addContentType,
+  getDatabaseConfig,
+  getLabel,
+  normalizeUrlPattern,
+  getLocaleSource,
+  resolveContentTypeUrl,
+  getLayout,
+  resolveLayout,
+  listAvailableMenus,
+  getDirectory,
+} from "../content-types";
+import { resolveFieldValue, applyTransformIfNeeded } from "../transform";
+import { resolveSingleVars } from "../single-resolver";
+import {
+  normalizeLocale,
+  getSupportedLocales,
+  getDefaultLocale,
+  getLocaleEntries,
+  updateLocaleSettings,
+  getHomePage,
+  getOptimizationSettings,
+  updateOptimizationSettings,
+} from "../settings";
+import { variableManager } from "../variable-manager";
+import { getValidationService } from "../../scripts/validation/service";
+import { getCanonicalUrl, normalizeUrl } from "../../scripts/validation/shared/canonicalUrls";
+import {
+  isNonLocalFilesystemSrc,
+  buildRegistrySrcToIdMap,
+  resolveRegistryReference,
+} from "../../scripts/validation/shared/imageRegistrySrc";
+import type { ProgressEvent } from "../../scripts/validation/fixers/types";
+import { gcs } from "../gcs";
+import { z } from "zod";
+import {
+  generateSsrSchemaHtml,
+  generateDatabaseSsrHtml,
+  generateListingSsrHtml,
+  clearSsrSchemaCache,
+  loadRawYaml,
+  resolveFaqItems,
+  buildFaqPageSchema,
+  resolvePageRobots,
+  type FaqSection,
+} from "../ssr-schema";
+import {
+  fetchMarkdownContent,
+  clearMarkdownCache,
+  clearMarkdownCacheByUrl,
+} from "../markdown";
+import { resolveDynamicEntries } from "../dynamic-entries";
+import { loadDatabaseSinglePage, mergeSingleTemplate } from "../database-single-loader";
+import { getBaseUrl } from "../hreflang";
+import * as userManager from "../user-manager";
+import * as userStore from "../user-store";
+import type { CapabilityName } from "../user-store";
+
+
+import {
+  BREATHECODE_HOST,
+  extractToken,
+  requireCapability,
+  safeYamlLoad,
+  safeYamlDump,
+  resolveVariantAssignment,
+  invalidateContentCaches,
+  createValidationFixRun,
+  appendValidationRunLog,
+  applyFixerProgress,
+  resolveFixerPipeline,
+  validationRuns,
+  validationRunOrder,
+  MAX_VALIDATION_RUNS,
+  MAX_RUN_LOG_ENTRIES,
+  careerProgramsListingSchema,
+  loadCareerProgramsListing,
+  applyMetaFallback,
+  injectCanonicalIfMissing,
+  loadCareerProgram,
+  listCareerPrograms,
+  loadLandingPage,
+  listLandingPages,
+  loadLocationPage,
+  listLocationPages,
+  loadTemplatePage,
+  buildSingleEntryFromContent,
+  listTemplatePages,
+  detectLanguageFromRequest,
+  ValidationFixRunState,
+  ValidationFixRunLogEntry,
+  FixerItemStatus,
+} from "./_helpers";
+
+export function registerComponentsRoutes(app: Express): void {
+
+  // Schema.org API endpoints
+  app.get("/api/schema", (req, res) => {
+    const keys = getAvailableSchemaKeys();
+    res.json({ available: keys });
+  });
+
+  app.get("/api/schema/:key", (req, res) => {
+    const { key } = req.params;
+    const locale = normalizeLocale(req.query.locale as string);
+
+    const schema = getSchema(key, locale);
+
+    if (!schema) {
+      res.status(404).json({ error: "Schema not found" });
+      return;
+    }
+
+    res.json(schema);
+  });
+
+  app.post("/api/schema/merge", (req, res) => {
+    const { include, overrides } = req.body;
+    const locale = normalizeLocale(req.query.locale as string);
+
+    if (!include || !Array.isArray(include)) {
+      res.status(400).json({ error: "include array required" });
+      return;
+    }
+
+    const schemas = getMergedSchemas({ include, overrides }, locale);
+    res.json({ schemas });
+  });
+
+  app.post("/api/debug/clear-schema-cache", (req, res) => {
+    clearSchemaCache();
+    clearSsrSchemaCache();
+    res.json({ success: true, message: "Schema cache cleared" });
+  });
+  // Molecules Showcase API endpoint
+  app.get("/api/molecules", (_req, res) => {
+    const moleculesPath = path.join(
+      process.cwd(),
+      "marketing-content",
+      "molecules.json",
+    );
+    try {
+      const moleculesData = JSON.parse(fs.readFileSync(moleculesPath, "utf-8"));
+      res.json(moleculesData);
+    } catch (error) {
+      res.status(500).json({
+        error: "Failed to load molecules data",
+        details: String(error),
+      });
+    }
+  });
+
+  // Component Registry API endpoints
+  app.get("/api/component-registry", (req, res) => {
+    const overview = getRegistryOverview();
+    res.json(overview);
+  });
+
+  // Field editors endpoint - returns all field editor configs from component registry
+  app.get("/api/component-registry/field-editors", (_req, res) => {
+    const fieldEditors = loadAllFieldEditors();
+    res.json(fieldEditors);
+  });
+
+  app.get("/api/component-registry/:componentType", (req, res) => {
+    const { componentType } = req.params;
+    const info = getComponentInfo(componentType);
+
+    if (!info) {
+      res.status(404).json({ error: "Component not found" });
+      return;
+    }
+
+    res.json(info);
+  });
+
+  app.get("/api/component-registry/:componentType/validate", (req, res) => {
+    const { componentType } = req.params;
+    const version = req.query.version as string | undefined;
+
+    // Dynamic import to avoid circular dependencies
+    import("../../scripts/utils/validateComponent")
+      .then(({ validateComponent }) => {
+        const result = validateComponent(componentType, version);
+        res.json(result);
+      })
+      .catch((error) => {
+        res.status(500).json({
+          error: "Failed to load validation module",
+          details: String(error),
+        });
+      });
+  });
+
+  app.get("/api/component-registry/:componentType/versions", (req, res) => {
+    const { componentType } = req.params;
+    const versions = listVersions(componentType);
+    res.json({ versions });
+  });
+
+  app.get(
+    "/api/component-registry/:componentType/:version/schema",
+    (req, res) => {
+      const { componentType, version } = req.params;
+      const schema = loadSchema(componentType, version);
+
+      if (!schema) {
+        res.status(404).json({ error: "Schema not found" });
+        return;
+      }
+
+      res.json(schema);
+    },
+  );
+
+  app.get(
+    "/api/component-registry/:componentType/:version/examples",
+    (req, res) => {
+      const { componentType, version } = req.params;
+      const examples = loadExamples(componentType, version);
+      res.json({ examples });
+    },
+  );
+
+  app.get(
+    "/api/component-registry/:componentType/:version/example-path",
+    (req, res) => {
+      const { componentType, version } = req.params;
+      const filePath = getExampleFilePath(componentType, version);
+      res.json({ path: filePath });
+    },
+  );
+
+  app.post(
+    "/api/component-registry/:componentType/create-version",
+    (req, res) => {
+      const { componentType } = req.params;
+      const { baseVersion } = req.body;
+
+      if (!baseVersion) {
+        res.status(400).json({ error: "baseVersion required" });
+        return;
+      }
+
+      const result = createNewVersion(componentType, baseVersion);
+
+      if (!result.success) {
+        res.status(400).json({ error: result.error });
+        return;
+      }
+
+      res.json({ success: true, newVersion: result.newVersion });
+    },
+  );
+
+  app.post(
+    "/api/component-registry/:componentType/:version/save-example",
+    (req, res) => {
+      const { componentType, version } = req.params;
+      const { exampleName, yamlContent } = req.body;
+
+      if (!exampleName || !yamlContent) {
+        res.status(400).json({ error: "exampleName and yamlContent required" });
+        return;
+      }
+
+      const result = saveExample(
+        componentType,
+        version,
+        exampleName,
+        yamlContent,
+      );
+
+      if (!result.success) {
+        res.status(400).json({ error: result.error });
+        return;
+      }
+
+      if (result.filePath) {
+        const relPath = path.relative(process.cwd(), result.filePath);
+        markFileAsModified(relPath, undefined, new Set([relPath]));
+      }
+
+      res.json({ success: true });
+    },
+  );
+
+  app.post(
+    "/api/component-registry/:componentType/:version/examples",
+    (req, res) => {
+      const { componentType, version } = req.params;
+      const { yamlContent, sectionId, name, description } = req.body as {
+        yamlContent?: string;
+        sectionId?: string;
+        name?: string;
+        description?: string;
+      };
+
+      if (!yamlContent) {
+        res.status(400).json({ error: "yamlContent is required" });
+        return;
+      }
+
+      const displayName = typeof name === "string" ? name : undefined;
+      const desc = typeof description === "string" ? description : undefined;
+
+      const result = createExample(componentType, version, yamlContent, sectionId, {
+        displayName,
+        description: desc,
+      });
+
+      if (!result.success) {
+        res.status(400).json({ error: result.error });
+        return;
+      }
+
+      if (result.filePath) {
+        const relPath = path.relative(process.cwd(), result.filePath);
+        markFileAsModified(relPath, undefined, new Set([relPath]));
+      }
+
+      res.json({ success: true, filename: result.filename, exampleName: result.exampleName });
+    }
+  );
+
+  app.get(
+    "/api/component-registry/:componentType/variant-impact",
+    (req, res) => {
+      const { componentType } = req.params;
+      const { version, exampleName } = req.query as { version?: string; exampleName?: string };
+
+      if (!version || !exampleName) {
+        res.status(400).json({ error: "version and exampleName are required" });
+        return;
+      }
+
+      const variantName = getVariantByExample(componentType, version, exampleName);
+      if (!variantName) {
+        res.status(404).json({ error: `Could not determine variant for example "${exampleName}"` });
+        return;
+      }
+
+      const toPascal = (s: string) =>
+        s.replace(/[-_](.)/g, (_, c: string) => c.toUpperCase()).replace(/^(.)/, (c: string) => c.toUpperCase());
+      const componentName = `${toPascal(componentType)}${toPascal(variantName)}`;
+      const tsxPath = `client/src/components/${componentType}/variants/${componentName}.tsx`;
+
+      const examples = getVariantExamples(componentType, variantName).map((e) => e.name);
+
+      const pagesRaw = contentIndex.removeAllVariantSectionsFromPages(componentType, variantName, true);
+      const pagesMap = new Map<string, { count: number; sectionIds: string[] }>();
+      for (const p of pagesRaw) {
+        const key = `/${p.locale}/${p.slug}`;
+        const existing = pagesMap.get(key);
+        if (existing) {
+          existing.count += p.removedCount;
+          existing.sectionIds.push(...p.removedSectionIds);
+        } else {
+          pagesMap.set(key, { count: p.removedCount, sectionIds: p.removedSectionIds });
+        }
+      }
+      const pages = Array.from(pagesMap.entries()).map(([path, data]) => ({
+        path,
+        count: data.count,
+        sectionIds: data.sectionIds,
+      }));
+
+      res.json({ variantName, componentName, tsxPath, examples, pages });
+    }
+  );
+
+  app.delete(
+    "/api/component-registry/:componentType/versions/:version/examples/:exampleName",
+    (req, res) => {
+      const { componentType, version, exampleName } = req.params;
+      const result = deleteExample(componentType, version, decodeURIComponent(exampleName));
+      if (!result.success) {
+        res.status(400).json({ error: result.error });
+        return;
+      }
+      if (result.filePath) {
+        const relPath = path.relative(process.cwd(), result.filePath);
+        markFileAsModified(relPath, undefined, new Set([relPath]));
+      }
+      res.json({ success: true });
+    }
+  );
+
+  app.delete(
+    "/api/component-registry/:componentType/variants/:variantName",
+    (req, res) => {
+      const { componentType, variantName } = req.params;
+
+      const variantResult = deleteVariant(componentType, decodeURIComponent(variantName));
+      if (!variantResult.success) {
+        res.status(400).json({ error: variantResult.error });
+        return;
+      }
+
+      const cwd = process.cwd();
+      const allDeletedPaths = [
+        variantResult.tsxPath,
+        ...variantResult.deletedExamplePaths,
+      ];
+      const relPaths = allDeletedPaths.map((p) => path.relative(cwd, p));
+      const exceptions = new Set(relPaths);
+      for (const relPath of relPaths) {
+        markFileAsModified(relPath, undefined, exceptions);
+      }
+
+      const pagesAffected = contentIndex.removeAllVariantSectionsFromPages(componentType, decodeURIComponent(variantName));
+
+      res.json({
+        success: true,
+        deletedExamples: variantResult.deletedExamples,
+        pagesAffected: pagesAffected.length,
+      });
+    }
+  );
+
+  app.get("/api/content/folder-files", (req, res) => {
+    try {
+      const folderPath = req.query.path as string;
+      if (!folderPath) {
+        res.status(400).json({ error: "Folder path is required" });
+        return;
+      }
+      const normalizedPath = path.normalize(folderPath);
+      if (
+        !normalizedPath.startsWith("marketing-content/") ||
+        normalizedPath.includes("..")
+      ) {
+        res.status(403).json({ error: "Access denied" });
+        return;
+      }
+      const entry = contentIndex.findByPath(normalizedPath);
+      if (!entry) {
+        res.status(404).json({ error: "Folder not found" });
+        return;
+      }
+      res.json({ files: entry.files, directory: entry.directory });
+    } catch (error) {
+      console.error("Error listing folder:", error);
+      res.status(500).json({ error: "Failed to list folder" });
+    }
+  });
+
+  app.get("/api/content/resolve-folder", (req, res) => {
+    try {
+      const slug = req.query.slug as string;
+      const type = req.query.type as string | undefined;
+      if (!slug) {
+        res.status(400).json({ error: "slug is required" });
+        return;
+      }
+      const opts = type ? { contentType: type as any } : undefined;
+      const matches = contentIndex.findBySlug(slug, opts);
+      if (matches.length === 0) {
+        res
+          .status(404)
+          .json({ error: "No content folder found for this slug" });
+        return;
+      }
+      if (matches.length === 1) {
+        const entry = matches[0];
+        res.json({
+          directory: entry.directory,
+          contentType: entry.contentType,
+          files: entry.files,
+          title: entry.title,
+        });
+      } else {
+        res.json({
+          multiple: true,
+          matches: matches.map((e) => ({
+            directory: e.directory,
+            contentType: e.contentType,
+            files: e.files,
+            title: e.title,
+          })),
+        });
+      }
+    } catch (error) {
+      console.error("Error resolving folder:", error);
+      res.status(500).json({ error: "Failed to resolve folder" });
+    }
+  });
+
+  app.get("/api/content/index", (_req, res) => {
+    try {
+      const entries = contentIndex.listAll();
+      const stats = contentIndex.getStats();
+      res.json({ entries, stats });
+    } catch (error) {
+      console.error("Error listing content index:", error);
+      res.status(500).json({ error: "Failed to list content index" });
+    }
+  });
+
+  app.post("/api/content/index/refresh", (_req, res) => {
+    try {
+      contentIndex.refresh();
+      const stats = contentIndex.getStats();
+      res.json({ refreshed: true, stats });
+    } catch (error) {
+      console.error("Error refreshing content index:", error);
+      res.status(500).json({ error: "Failed to refresh content index" });
+    }
+  });
+
+  app.get("/api/content/file", (req, res) => {
+    try {
+      const filePath = req.query.path as string;
+
+      if (!filePath) {
+        res.status(400).json({ error: "File path is required" });
+        return;
+      }
+
+      // Security: only allow files within marketing-content directory
+      const normalizedPath = path.normalize(filePath);
+      if (
+        !normalizedPath.startsWith("marketing-content/") ||
+        normalizedPath.includes("..")
+      ) {
+        res.status(403).json({
+          error: "Access denied: Only marketing-content files allowed",
+        });
+        return;
+      }
+
+      const fullPath = path.join(process.cwd(), normalizedPath);
+
+      if (!fs.existsSync(fullPath)) {
+        res.status(404).json({ error: "File not found" });
+        return;
+      }
+
+      const content = fs.readFileSync(fullPath, "utf-8");
+      res.type("text/yaml").send(content);
+    } catch (error) {
+      console.error("Error reading file:", error);
+      res.status(500).json({ error: "Failed to read file" });
+    }
+  });
+
+  app.get("/api/content/raw-file", (req, res) => {
+    try {
+      const contentType = req.query.contentType as string;
+      const slug = req.query.slug as string;
+      const locale = (req.query.locale as string) || getDefaultLocale();
+
+      if (!contentType || !slug) {
+        res.status(400).json({ error: "contentType and slug are required" });
+        return;
+      }
+
+      if (!isValidType(contentType)) {
+        res.status(400).json({ error: `Unknown content type: ${contentType}` });
+        return;
+      }
+      const folder = getFolder(contentType);
+
+      let resolvedSlug = slug;
+      try {
+        resolvedSlug = contentIndex.resolveBaseSlug(slug, folder);
+      } catch {
+        // keep original slug if resolution fails
+      }
+
+      const baseDir = path.join(process.cwd(), "marketing-content", folder);
+      let contentDir = path.join(baseDir, resolvedSlug);
+
+      if (!fs.existsSync(contentDir)) {
+        const subdirs = fs.existsSync(baseDir)
+          ? fs
+              .readdirSync(baseDir, { withFileTypes: true })
+              .filter((d) => d.isDirectory())
+              .map((d) => d.name)
+          : [];
+        for (const dir of subdirs) {
+          const candidateDir = path.join(baseDir, dir);
+          const ymlFiles = fs
+            .readdirSync(candidateDir)
+            .filter((f) => f.endsWith(".yml") && f !== "_common.yml");
+          for (const yf of ymlFiles) {
+            try {
+              const raw = fs.readFileSync(path.join(candidateDir, yf), "utf-8");
+              const slugMatch = raw.match(/^slug:\s*(.+)$/m);
+              if (slugMatch && slugMatch[1].trim() === slug) {
+                resolvedSlug = dir;
+                contentDir = candidateDir;
+                break;
+              }
+            } catch {
+              /* skip unreadable files */
+            }
+          }
+          if (contentDir === candidateDir) break;
+        }
+      }
+
+      const localePath = path.join(contentDir, `${locale}.yml`);
+      const commonPath = path.join(contentDir, "_common.yml");
+
+      const files: {
+        locale?: { path: string; content: string };
+        common?: { path: string; content: string };
+      } = {};
+
+      if (fs.existsSync(localePath)) {
+        files.locale = {
+          path: `marketing-content/${folder}/${resolvedSlug}/${locale}.yml`,
+          content: fs.readFileSync(localePath, "utf-8"),
+        };
+      }
+      if (fs.existsSync(commonPath)) {
+        files.common = {
+          path: `marketing-content/${folder}/${resolvedSlug}/_common.yml`,
+          content: fs.readFileSync(commonPath, "utf-8"),
+        };
+      }
+
+      if (!files.locale && !files.common) {
+        res.status(404).json({ exists: false });
+        return;
+      }
+
+      res.json({ exists: true, files, resolvedSlug });
+    } catch (error) {
+      console.error("Error reading raw content file:", error);
+      res.status(500).json({ error: "Failed to read content file" });
+    }
+  });
+
+  app.put("/api/content/raw-file", async (req, res) => {
+    try {
+      const rawFilePath: string = req.body.filePath || "";
+
+      // Reject writes to internal data files that could be used for privilege escalation
+      const PROTECTED_RAW_PATTERNS = [
+        /\.users-state\.json$/,
+        /\.users-state\.ya?ml$/,
+        /image-registry\.json$/,
+      ];
+      if (PROTECTED_RAW_PATTERNS.some((p) => p.test(rawFilePath))) {
+        res.status(403).json({ error: "Writing to this path is not permitted via raw-file" });
+        return;
+      }
+
+      // Derive contentType from filePath (e.g. marketing-content/courses/... → "courses").
+      // Reject when content type cannot be determined — unscoped writes are not allowed.
+      const derivedContentType: string | undefined = (() => {
+        const m = rawFilePath.match(/marketing-content\/([^/]+)\//);
+        return m ? m[1] : undefined;
+      })();
+      if (!derivedContentType) {
+        res.status(400).json({ error: "Cannot determine content type from filePath; path must be under marketing-content/<contentType>/" });
+        return;
+      }
+
+      const auth = await requireCapability(req, res, "content_edit_default", derivedContentType);
+      if (!auth.authorized) return;
+
+      const {
+        filePath,
+        content,
+        author: requestAuthor,
+      } = req.body as {
+        filePath: string;
+        content: string;
+        author?: string;
+      };
+      // Prefer server-resolved author (from Breathecode identity) over client-provided value
+      const authorName = auth.author || (requestAuthor && typeof requestAuthor === "string" ? requestAuthor : undefined);
+
+      if (!filePath || typeof content !== "string") {
+        res.status(400).json({ error: "filePath and content are required" });
+        return;
+      }
+
+      const normalizedPath = path.normalize(filePath);
+      if (
+        !normalizedPath.startsWith("marketing-content/") ||
+        normalizedPath.includes("..")
+      ) {
+        res.status(403).json({
+          error: "Access denied: Only marketing-content files allowed",
+        });
+        return;
+      }
+
+      const fullPath = path.join(process.cwd(), normalizedPath);
+      if (!fs.existsSync(fullPath)) {
+        res.status(404).json({ error: "File not found" });
+        return;
+      }
+
+      fs.writeFileSync(fullPath, content, "utf-8");
+      markFileAsModified(normalizedPath, authorName);
+      clearRedirectCache();
+      contentIndex.refresh();
+
+      // Derive content type from path (marketing-content/<folder>/...) for targeted invalidation
+      const pathParts = normalizedPath.replace(/\\/g, "/").split("/");
+      const folderSegment = pathParts[1]; // segment after "marketing-content"
+      const resolvedType = folderSegment ? getType(folderSegment) : undefined;
+
+      // Targeted sitemap cache invalidation based on file path
+      const rawDirSlug = pathParts[2];
+      const rawFilename = pathParts[3];
+      const rawLocale = rawFilename ? rawFilename.replace(/\.ya?ml$/, "") : "";
+      if (resolvedType && rawDirSlug && getSupportedLocales().includes(rawLocale)) {
+        refreshSitemapEntry(resolvedType, rawDirSlug, rawLocale);
+      } else if (resolvedType && rawDirSlug && rawFilename === "_common.yml") {
+        refreshSitemapEntriesForContentKey(resolvedType, rawDirSlug, getSupportedLocales());
+      } else {
+        clearSitemapCache();
+      }
+
+      invalidateContentCaches(resolvedType);
+
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error saving raw content file:", error);
+      res.status(500).json({ error: "Failed to save content file" });
+    }
+  });
+
+  // Section Bindings API
+  app.get("/api/bindings", (_req, res) => {
+    try {
+      const groups = bindingManager.getAll();
+      const enrichedGroups = groups.map((g) => ({
+        ...g,
+        members: g.members.map((m) => ({
+          ...m,
+          localeSlug: contentIndex.getLocaleSlug(
+            m.slug,
+            m.contentType,
+            g.locale,
+          ),
+          sectionIndex: bindingManager.resolveSectionIndex(
+            m.contentType,
+            m.slug,
+            m.sectionId,
+            g.locale,
+          ),
+        })),
+      }));
+      res.json({ groups: enrichedGroups });
+    } catch (error) {
+      console.error("Error fetching bindings:", error);
+      res.status(500).json({ error: "Failed to fetch bindings" });
+    }
+  });
+
+  app.get("/api/bindings/section", (req, res) => {
+    try {
+      const { contentType, slug, sectionIndex, locale } = req.query;
+      if (!contentType || !slug || sectionIndex === undefined) {
+        res
+          .status(400)
+          .json({ error: "Missing contentType, slug, or sectionIndex" });
+        return;
+      }
+      const resolvedLocale = normalizeLocale((locale as string) || "en");
+      const baseSlug = contentIndex.resolveBaseSlug(
+        slug as string,
+        contentType as string,
+      );
+      const group = bindingManager.findGroupForSectionByIndex(
+        contentType as string,
+        baseSlug,
+        parseInt(sectionIndex as string, 10),
+        resolvedLocale,
+      );
+      if (!group) {
+        res.json({ group: null });
+        return;
+      }
+      const enrichedGroup = {
+        ...group,
+        members: group.members.map((m) => ({
+          ...m,
+          localeSlug: contentIndex.getLocaleSlug(
+            m.slug,
+            m.contentType,
+            group.locale,
+          ),
+          sectionIndex: bindingManager.resolveSectionIndex(
+            m.contentType,
+            m.slug,
+            m.sectionId,
+            group.locale,
+          ),
+        })),
+      };
+      res.json({ group: enrichedGroup });
+    } catch (error) {
+      console.error("Error finding binding for section:", error);
+      res.status(500).json({ error: "Failed to find binding" });
+    }
+  });
+
+  app.get("/api/bindings/candidates", (req, res) => {
+    try {
+      const { component, locale } = req.query;
+      if (!component || !locale) {
+        res.status(400).json({ error: "Missing component or locale" });
+        return;
+      }
+
+      const normalizedLocale = normalizeLocale(locale as string);
+      const allEntries = contentIndex.listAll();
+      const candidates: Array<{
+        contentType: string;
+        slug: string;
+        localeSlug: string;
+        sectionIndex: number;
+        sectionId?: string;
+        title?: string;
+        alreadyBound?: string;
+        alreadyBoundGroupName?: string;
+      }> = [];
+
+      for (const entry of allEntries) {
+        const entryContentType = entry.contentType.replace(/s$/, "");
+        if (!entry.locales.includes(normalizedLocale))
+          continue;
+
+        try {
+          const localeForLoad = normalizedLocale;
+          const { data: merged } = contentIndex.loadMergedContent(
+            entryContentType,
+            entry.slug,
+            localeForLoad,
+          );
+          if (!merged) continue;
+          const sections = merged.sections as Record<string, unknown>[];
+          if (!Array.isArray(sections)) continue;
+
+          for (let i = 0; i < sections.length; i++) {
+            const section = sections[i];
+            if (section && section.type === component) {
+              const existingGroup = bindingManager.findGroupForSectionByIndex(
+                entryContentType,
+                entry.slug,
+                i,
+                normalizedLocale,
+              );
+              const sameLocaleGroup = existingGroup;
+              candidates.push({
+                contentType: entryContentType,
+                slug: entry.slug,
+                localeSlug: contentIndex.getLocaleSlug(
+                  entry.slug,
+                  entryContentType,
+                  normalizedLocale,
+                ),
+                sectionIndex: i,
+                sectionId: (section as Record<string, unknown>).section_id as
+                  | string
+                  | undefined,
+                title:
+                  ((merged.meta as Record<string, unknown>)?.title as string) ||
+                  entry.title ||
+                  entry.slug,
+                alreadyBound: sameLocaleGroup?.id,
+                alreadyBoundGroupName: sameLocaleGroup?.name,
+              });
+            }
+          }
+        } catch {
+          // skip entries that fail to parse
+        }
+      }
+
+      res.json({ candidates });
+    } catch (error) {
+      console.error("Error finding binding candidates:", error);
+      res.status(500).json({ error: "Failed to find candidates" });
+    }
+  });
+
+  const requireEditAuth = (
+    req: import("express").Request,
+    res: import("express").Response,
+  ): boolean => {
+    const isDevelopment = process.env.NODE_ENV !== "production";
+    if (isDevelopment) return true;
+    const authHeader = req.headers.authorization;
+    const debugToken = req.headers["x-debug-token"] as string | undefined;
+    if (!authHeader?.startsWith("Token ") && !debugToken) {
+      res.status(401).json({ error: "Authorization required" });
+      return false;
+    }
+    return true;
+  };
+
+  app.post("/api/bindings", (req, res) => {
+    try {
+      if (!requireEditAuth(req, res)) return;
+      const { component, locale, members, author: bindAuthor } = req.body;
+      const bindAuthorName =
+        bindAuthor && typeof bindAuthor === "string" ? bindAuthor : undefined;
+      if (
+        !component ||
+        !locale ||
+        !Array.isArray(members) ||
+        members.length < 2
+      ) {
+        res.status(400).json({
+          error: "Missing component, locale, or need at least 2 members",
+        });
+        return;
+      }
+      const normalizedLocale = normalizeLocale(locale);
+      const resolvedMembers = members.map(
+        (m: { contentType: string; slug: string; sectionIndex: number }) => {
+          const memberBaseSlug = contentIndex.resolveBaseSlug(
+            m.slug,
+            m.contentType,
+          );
+          const sectionId = bindingManager.ensureSectionId(
+            m.contentType,
+            memberBaseSlug,
+            m.sectionIndex,
+            normalizedLocale,
+            bindAuthorName,
+          );
+          return {
+            contentType: m.contentType,
+            slug: memberBaseSlug,
+            sectionId,
+          };
+        },
+      );
+      const { name, sourceIndex } = req.body;
+      const group = bindingManager.createGroup(
+        component,
+        normalizedLocale,
+        resolvedMembers,
+        {
+          name,
+          sourceIndex,
+        },
+        bindAuthorName,
+      );
+      const enrichedGroup = {
+        ...group,
+        members: group.members.map((m) => ({
+          ...m,
+          localeSlug: contentIndex.getLocaleSlug(
+            m.slug,
+            m.contentType,
+            group.locale,
+          ),
+          sectionIndex: bindingManager.resolveSectionIndex(
+            m.contentType,
+            m.slug,
+            m.sectionId,
+            group.locale,
+          ),
+        })),
+      };
+      res.json({ group: enrichedGroup });
+    } catch (error) {
+      const msg =
+        error instanceof Error ? error.message : "Failed to create binding";
+      console.error("Error creating binding:", error);
+      res.status(400).json({ error: msg });
+    }
+  });
+
+  app.patch("/api/bindings/:groupId", (req, res) => {
+    try {
+      if (!requireEditAuth(req, res)) return;
+      const { groupId } = req.params;
+      const { name, author: renameBindAuthor } = req.body;
+      const renameBindAuthorName =
+        renameBindAuthor && typeof renameBindAuthor === "string"
+          ? renameBindAuthor
+          : undefined;
+      if (name === undefined) {
+        res.status(400).json({ error: "Missing name field" });
+        return;
+      }
+      const group = bindingManager.renameGroup(
+        groupId,
+        name,
+        renameBindAuthorName,
+      );
+      res.json({ group });
+    } catch (error) {
+      const msg =
+        error instanceof Error ? error.message : "Failed to rename binding";
+      console.error("Error renaming binding:", error);
+      res.status(400).json({ error: msg });
+    }
+  });
+
+  app.post("/api/bindings/:groupId/members", (req, res) => {
+    try {
+      if (!requireEditAuth(req, res)) return;
+      const { groupId } = req.params;
+      const {
+        contentType,
+        slug,
+        sectionIndex,
+        author: addMemberAuthor,
+      } = req.body;
+      const addMemberAuthorName =
+        addMemberAuthor && typeof addMemberAuthor === "string"
+          ? addMemberAuthor
+          : undefined;
+      if (!contentType || !slug || sectionIndex === undefined) {
+        res
+          .status(400)
+          .json({ error: "Missing contentType, slug, or sectionIndex" });
+        return;
+      }
+      const group = bindingManager.getGroupById(groupId);
+      if (!group) {
+        res.status(404).json({ error: "Binding group not found" });
+        return;
+      }
+      const addBaseSlug = contentIndex.resolveBaseSlug(slug, contentType);
+      const sectionId = bindingManager.ensureSectionId(
+        contentType,
+        addBaseSlug,
+        parseInt(sectionIndex as string, 10),
+        group.locale,
+        addMemberAuthorName,
+      );
+      const updatedGroup = bindingManager.addMember(
+        groupId,
+        {
+          contentType,
+          slug: addBaseSlug,
+          sectionId,
+        },
+        addMemberAuthorName,
+      );
+      const enrichedGroup = {
+        ...updatedGroup,
+        members: updatedGroup.members.map((m) => ({
+          ...m,
+          localeSlug: contentIndex.getLocaleSlug(
+            m.slug,
+            m.contentType,
+            updatedGroup.locale,
+          ),
+          sectionIndex: bindingManager.resolveSectionIndex(
+            m.contentType,
+            m.slug,
+            m.sectionId,
+            updatedGroup.locale,
+          ),
+        })),
+      };
+      res.json({ group: enrichedGroup });
+    } catch (error) {
+      const msg =
+        error instanceof Error ? error.message : "Failed to add member";
+      console.error("Error adding binding member:", error);
+      res.status(400).json({ error: msg });
+    }
+  });
+
+  app.delete("/api/bindings/:groupId/members", (req, res) => {
+    try {
+      if (!requireEditAuth(req, res)) return;
+      const { groupId } = req.params;
+      const {
+        contentType,
+        slug,
+        sectionIndex,
+        author: removeMemberAuthor,
+      } = req.body;
+      const removeMemberAuthorName =
+        removeMemberAuthor && typeof removeMemberAuthor === "string"
+          ? removeMemberAuthor
+          : undefined;
+      if (!contentType || !slug || sectionIndex === undefined) {
+        res
+          .status(400)
+          .json({ error: "Missing contentType, slug, or sectionIndex" });
+        return;
+      }
+      const group = bindingManager.getGroupById(groupId);
+      if (!group) {
+        res.status(404).json({ error: "Binding group not found" });
+        return;
+      }
+      const removeBaseSlug = contentIndex.resolveBaseSlug(slug, contentType);
+      const sectionId = bindingManager.getSectionIdAtIndex(
+        contentType,
+        removeBaseSlug,
+        parseInt(sectionIndex as string, 10),
+        group.locale,
+      );
+      if (!sectionId) {
+        res
+          .status(400)
+          .json({
+            error: `No section_id found at index ${sectionIndex} for ${contentType}/${removeBaseSlug}`,
+          });
+        return;
+      }
+      const result = bindingManager.removeMemberBySectionId(
+        groupId,
+        contentType,
+        removeBaseSlug,
+        sectionId,
+        removeMemberAuthorName,
+      );
+      if (result) {
+        const enrichedResult = {
+          ...result,
+          members: result.members.map((m) => ({
+            ...m,
+            localeSlug: contentIndex.getLocaleSlug(
+              m.slug,
+              m.contentType,
+              result.locale,
+            ),
+            sectionIndex: bindingManager.resolveSectionIndex(
+              m.contentType,
+              m.slug,
+              m.sectionId,
+              result.locale,
+            ),
+          })),
+        };
+        res.json({ group: enrichedResult });
+      } else {
+        res.json({ group: null });
+      }
+    } catch (error) {
+      const msg =
+        error instanceof Error ? error.message : "Failed to remove member";
+      console.error("Error removing binding member:", error);
+      res.status(400).json({ error: msg });
+    }
+  });
+
+  app.delete("/api/bindings/:groupId", (req, res) => {
+    try {
+      if (!requireEditAuth(req, res)) return;
+      const { groupId } = req.params;
+      const { author: deleteGroupAuthor } = req.body || {};
+      const deleteGroupAuthorName =
+        deleteGroupAuthor && typeof deleteGroupAuthor === "string"
+          ? deleteGroupAuthor
+          : undefined;
+      bindingManager.deleteGroup(groupId, deleteGroupAuthorName);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error deleting binding:", error);
+      res.status(500).json({ error: "Failed to delete binding" });
+    }
+  });
+
+  app.post("/api/bindings/cleanup", (req, res) => {
+    try {
+      if (!requireEditAuth(req, res)) return;
+      const removed = bindingManager.cleanupStaleReferences();
+      res.json({ removed });
+    } catch (error) {
+      console.error("Error cleaning up bindings:", error);
+      res.status(500).json({ error: "Failed to cleanup bindings" });
+    }
+  });
+
+}

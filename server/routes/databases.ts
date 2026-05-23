@@ -1,0 +1,722 @@
+import type { Express, Request, Response } from "express";
+import { createServer, type Server } from "http";
+import { storage } from "../storage";
+import { geoGet, geoSet } from "../geo-cache";
+import { getQueueStats, enqueueOptimization, getPendingOptimizations, getFailedEntries, retryFailedImages, resetOptimizeSession, getOptimizeSession, enqueueExternalImage } from "../image-registry";
+import { getAllQueueState } from "../image-queue-state";
+
+
+import * as fs from "fs";
+import * as path from "path";
+import * as yaml from "js-yaml";
+import { execSync as _execSync, execFile } from "child_process";
+import {
+  versioningUpdateSchema,
+  type CareerProgram,
+  type LandingPage,
+  type LocationPage,
+  type TemplatePage,
+} from "@shared/schema";
+import {
+  getSitemap,
+  clearSitemapCache,
+  getSitemapCacheStatus,
+  getSitemapUrls,
+  invalidateSitemapEntry,
+  invalidateSitemapEntriesByContentKey,
+  refreshSitemapEntry,
+  refreshSitemapEntriesForContentKey,
+} from "../sitemap";
+import { markFileAsModified } from "../sync-state";
+import { deepMerge } from "../utils/deepMerge";
+import { regenerateSectionIds } from "../utils/regenerateSectionIds";
+import { databaseManager } from "../database";
+import {
+  redirectMiddleware,
+  getRedirects,
+  clearRedirectCache,
+  testRedirect,
+} from "../redirects";
+import {
+  getSchema,
+  getMergedSchemas,
+  getAvailableSchemaKeys,
+  clearSchemaCache,
+  getOrganizationTwitterHandle,
+  getOrganizationSameAsUrl,
+  getWebsiteDefaultSocialImage,
+  updateWebsiteDefaultSocialImage,
+  updateOrganizationTwitterHandle,
+  updateOrganizationSameAsUrl,
+} from "../schema-org";
+import {
+  getRegistryOverview,
+  getComponentInfo,
+  listVersions,
+  loadSchema,
+  loadExamples,
+  createNewVersion,
+  getExampleFilePath,
+  saveExample,
+  createExample,
+  loadAllFieldEditors,
+  applyComponentSectionDefaults,
+  applyComponentImageSizes,
+  getVariantByExample,
+  getVariantExamples,
+  deleteExample,
+  deleteVariant,
+} from "../component-registry";
+import {
+  editContent,
+  editCommonContent,
+  getContentForEdit,
+  createContentEntry,
+  deleteContentEntry,
+  renameContentSlug,
+} from "../content-editor";
+import { bindingManager } from "../bindings";
+import {
+  escapeTemplateVars,
+  escapeObjectVars,
+  unescapeObjectVars,
+  unescapeYamlDump,
+} from "@shared/templateVars";
+import {
+  getVersioningManager,
+  readUserId,
+  getVersioningCookie,
+  setVersioningCookie,
+  buildUserContext,
+} from "../versioning";
+import { mediaGallery } from "../media-gallery";
+import { media } from "../media";
+import multer from "multer";
+import { contentIndex, type ContentType } from "../content-index";
+import { runScan as runComponentInsightsScan, readInsightsFile, suggestNext as suggestNextComponent } from "../component-insights";
+import { validateFieldSource, validateFieldMapping, extractByDotPath } from "../../scripts/validation/shared/fieldMappingValidator";
+import {
+  getFolder,
+  getType,
+  isValidType,
+  getAllTypes,
+  getAllFolders,
+  getAllConfigs,
+  getDatabaseName,
+  getFieldMapping,
+  getLookupKey,
+  getLocaleKey,
+  getLocaleDefault,
+  getIndexes,
+  hasDatabaseSingle,
+  getContentTypeConfig,
+  updateContentTypeConfig,
+  addContentType,
+  getDatabaseConfig,
+  getLabel,
+  normalizeUrlPattern,
+  getLocaleSource,
+  resolveContentTypeUrl,
+  getLayout,
+  resolveLayout,
+  listAvailableMenus,
+  getDirectory,
+} from "../content-types";
+import { resolveFieldValue, applyTransformIfNeeded } from "../transform";
+import { resolveSingleVars } from "../single-resolver";
+import {
+  normalizeLocale,
+  getSupportedLocales,
+  getDefaultLocale,
+  getLocaleEntries,
+  updateLocaleSettings,
+  getHomePage,
+  getOptimizationSettings,
+  updateOptimizationSettings,
+} from "../settings";
+import { variableManager } from "../variable-manager";
+import { getValidationService } from "../../scripts/validation/service";
+import { getCanonicalUrl, normalizeUrl } from "../../scripts/validation/shared/canonicalUrls";
+import {
+  isNonLocalFilesystemSrc,
+  buildRegistrySrcToIdMap,
+  resolveRegistryReference,
+} from "../../scripts/validation/shared/imageRegistrySrc";
+import type { ProgressEvent } from "../../scripts/validation/fixers/types";
+import { gcs } from "../gcs";
+import { z } from "zod";
+import {
+  generateSsrSchemaHtml,
+  generateDatabaseSsrHtml,
+  generateListingSsrHtml,
+  clearSsrSchemaCache,
+  loadRawYaml,
+  resolveFaqItems,
+  buildFaqPageSchema,
+  resolvePageRobots,
+  type FaqSection,
+} from "../ssr-schema";
+import {
+  fetchMarkdownContent,
+  clearMarkdownCache,
+  clearMarkdownCacheByUrl,
+} from "../markdown";
+import { resolveDynamicEntries } from "../dynamic-entries";
+import { loadDatabaseSinglePage, mergeSingleTemplate } from "../database-single-loader";
+import { getBaseUrl } from "../hreflang";
+import * as userManager from "../user-manager";
+import * as userStore from "../user-store";
+import type { CapabilityName } from "../user-store";
+
+
+import {
+  BREATHECODE_HOST,
+  extractToken,
+  requireCapability,
+  safeYamlLoad,
+  safeYamlDump,
+  resolveVariantAssignment,
+  invalidateContentCaches,
+  createValidationFixRun,
+  appendValidationRunLog,
+  applyFixerProgress,
+  resolveFixerPipeline,
+  validationRuns,
+  validationRunOrder,
+  MAX_VALIDATION_RUNS,
+  MAX_RUN_LOG_ENTRIES,
+  careerProgramsListingSchema,
+  loadCareerProgramsListing,
+  applyMetaFallback,
+  injectCanonicalIfMissing,
+  loadCareerProgram,
+  listCareerPrograms,
+  loadLandingPage,
+  listLandingPages,
+  loadLocationPage,
+  listLocationPages,
+  loadTemplatePage,
+  buildSingleEntryFromContent,
+  listTemplatePages,
+  detectLanguageFromRequest,
+  ValidationFixRunState,
+  ValidationFixRunLogEntry,
+  FixerItemStatus,
+} from "./_helpers";
+
+export function registerDatabasesRoutes(app: Express): void {
+  app.get("/api/database-single/:contentType/:slug", async (req, res) => {
+    try {
+      const { contentType, slug } = req.params;
+      const locale = normalizeLocale(req.query.locale as string);
+
+      if (!hasDatabaseSingle(contentType)) {
+        res
+          .status(400)
+          .json({
+            error: `Content type "${contentType}" is not database-backed`,
+          });
+        return;
+      }
+
+      const page = await loadDatabaseSinglePage(contentType, slug, locale);
+      if (!page) {
+        res
+          .status(404)
+          .json({ error: `Item not found: ${contentType}/${slug}` });
+        return;
+      }
+
+      const dbSingleRaw = contentIndex.loadMergedContent(contentType, slug, locale);
+      const dbSingleLayout = resolveLayout(contentType, dbSingleRaw.data || (page as unknown as Record<string, unknown>));
+      const dbSingleData = page as unknown as Record<string, unknown>;
+      injectCanonicalIfMissing(dbSingleData, contentType, locale);
+      const { layout: _dbSingleStripLayout, ...dbSingleRest } = dbSingleData;
+      res.json({ ...dbSingleRest, layout: dbSingleLayout });
+    } catch (error) {
+      console.error("[DatabaseSingle] Error:", error);
+      res.status(500).json({ error: "Failed to load database single page" });
+    }
+  });
+  app.get("/api/migrations", (_req, res) => {
+    try {
+      const migrationsDir = path.join(process.cwd(), "scripts", "migrations");
+      if (!fs.existsSync(migrationsDir)) {
+        res.json([]);
+        return;
+      }
+      const files = fs.readdirSync(migrationsDir)
+        .filter(f => /^\d{3}_[\w]+\.ts$/.test(f))
+        .sort();
+      const result = files.map(filename => {
+        const fullPath = path.join(migrationsDir, filename);
+        const content = fs.readFileSync(fullPath, "utf-8");
+        const nameMatch = content.match(/@migration\s+([^\n*]+)/);
+        const descMatch = content.match(/@description\s+([^\n*]+(?:\n\s*\*\s+[^\n*@]+)*)/);
+        const name = nameMatch ? nameMatch[1].trim() : filename.replace(/\.ts$/, "");
+        const description = descMatch
+          ? descMatch[1].replace(/\n\s*\*\s*/g, " ").trim()
+          : "No description provided.";
+        return { filename, name, description };
+      });
+      res.json(result);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message || String(err) });
+    }
+  });
+
+  app.post("/api/migrations/run", (req, res) => {
+    const { filename } = req.body || {};
+    if (!filename || !/^\d{3}_[\w]+\.ts$/.test(filename)) {
+      res.status(400).json({ error: "Invalid migration filename." });
+      return;
+    }
+    const migrationsDir = path.join(process.cwd(), "scripts", "migrations");
+    const fullPath = path.join(migrationsDir, filename);
+    if (!fs.existsSync(fullPath)) {
+      res.status(404).json({ error: "Migration script not found." });
+      return;
+    }
+    execFile(
+      "npx",
+      ["tsx", fullPath],
+      { cwd: process.cwd(), timeout: 120000 },
+      (err, stdout, stderr) => {
+        const output = [stdout, stderr].filter(Boolean).join("\n").trim();
+        if (err && err.killed) {
+          res.json({ success: false, output: `Timed out after 120s.\n${output}` });
+        } else if (err && err.code !== 0) {
+          res.json({ success: false, output: output || err.message });
+        } else {
+          res.json({ success: true, output });
+        }
+      },
+    );
+  });
+  // ── Database routes ──────────────────────────────────────────
+  app.get("/api/databases", (_req, res) => {
+    try {
+      const databases = databaseManager.list();
+      const cacheStats = databaseManager.getCacheStats();
+      res.json(
+        databases.map((db) => ({
+          name: db.name,
+          label: db.config.name,
+          description: db.config.description || null,
+          source_type: db.config.source.type,
+          field_count: databaseManager.getFieldCount(db.name),
+          cache_item_count: cacheStats.perDb[db.name]?.item_count ?? null,
+          cache_fetched_at: cacheStats.perDb[db.name]?.fetched_at ?? null,
+          cache_file_size_bytes: cacheStats.totalFileSizeBytes,
+        })),
+      );
+    } catch (err) {
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.post("/api/databases", (req, res) => {
+    try {
+      const { slug, config } = req.body;
+      if (!slug || !config || !config.name || !config.source) {
+        res
+          .status(400)
+          .json({ error: "slug, config.name, and config.source are required" });
+        return;
+      }
+      databaseManager.create(slug, config);
+      res.json({ success: true, name: slug, config });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes("already exists")) {
+        res.status(409).json({ error: msg });
+      } else {
+        res.status(400).json({ error: msg });
+      }
+    }
+  });
+
+  app.get("/api/databases/:name", (req, res) => {
+    try {
+      const config = databaseManager.get(req.params.name);
+      const cacheInfo = databaseManager.getCacheInfo(req.params.name);
+      res.json({
+        name: req.params.name,
+        config,
+        cache_status: cacheInfo,
+      });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes("not found")) {
+        res.status(404).json({ error: msg });
+      } else {
+        res.status(500).json({ error: msg });
+      }
+    }
+  });
+
+  app.get("/api/databases/:name/raw-fields", (req, res) => {
+    try {
+      const fields = databaseManager.getRawFields(req.params.name);
+      res.json({ fields });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes("not found")) {
+        res.status(404).json({ error: msg });
+      } else {
+        res.status(500).json({ error: msg });
+      }
+    }
+  });
+
+  app.get("/api/databases/:name/raw-sample", (req, res) => {
+    try {
+      const rawItems = databaseManager.getRawItems(req.params.name);
+      if (!rawItems || rawItems.length === 0) {
+        res.json({ items: [], count: 0 });
+        return;
+      }
+      const limit = Math.min(Number(req.query.limit) || 3, 10);
+      res.json({ items: rawItems.slice(0, limit), count: rawItems.length });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes("not found")) {
+        res.status(404).json({ error: msg });
+      } else {
+        res.status(500).json({ error: msg });
+      }
+    }
+  });
+
+  app.get("/api/databases/:name/raw-items", (req, res) => {
+    try {
+      const rawItems = databaseManager.getRawItems(req.params.name);
+      res.json({ items: rawItems || [], item_count: rawItems?.length ?? 0 });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes("not found")) {
+        res.status(404).json({ error: msg });
+      } else {
+        res.status(500).json({ error: msg });
+      }
+    }
+  });
+
+  app.post("/api/databases/:name/analyze-fields", async (req, res) => {
+    try {
+      const dbName = req.params.name;
+      const rawItems = databaseManager.getRawItems(dbName);
+      if (!rawItems || rawItems.length === 0) {
+        res
+          .status(400)
+          .json({ error: "No cached data available. Fetch data first." });
+        return;
+      }
+
+      const sample = rawItems.slice(0, 3);
+      const sampleKeys = Object.keys(sample[0] || {}).slice(0, 50);
+
+      const prompt = `You are analyzing raw API response data to suggest a field mapping that normalizes it into clean database fields.
+
+Here are ${sample.length} sample items from the API (showing up to 50 top-level keys):
+${JSON.stringify(
+  sample.map((item) => {
+    const filtered: Record<string, unknown> = {};
+    for (const k of sampleKeys) {
+      const val = item[k];
+      if (val !== null && val !== undefined && val !== "") {
+        filtered[k] =
+          typeof val === "object" ? JSON.stringify(val).slice(0, 100) : val;
+      }
+    }
+    return filtered;
+  }),
+  null,
+  2,
+)}
+
+Suggest a field_mapping that maps the most useful raw fields to clean, normalized keys.
+Focus on fields that are commonly needed: id, slug, title, description, status, language/locale, dates, author info, categories, tags, images, URLs.
+Skip fields that are internal IDs, computed values, or rarely useful.
+
+Return JSON with this exact structure:
+{
+  "field_mapping": {
+    "normalized_key": "source.field.path",
+    ...
+  },
+  "notes": "Brief explanation of the mapping choices"
+}
+
+Values should be dot-notation paths into the raw data (e.g., "author.name" for { author: { name: "..." } }).
+Do NOT prefix values with "raw." or "db." — just use the plain field path.
+Keep normalized keys lowercase with underscores. Aim for 10-25 of the most useful fields.`;
+
+      const { getLLMService } = await import("../ai/LLMService");
+      const llm = getLLMService();
+
+      const systemPrompt =
+        "You are a data analyst that suggests field mappings for normalizing raw API data. Respond with valid JSON only, no markdown.";
+      const result = await llm.complete(prompt, {
+        systemPrompt,
+        temperature: 0.2,
+        maxTokens: 2000,
+      });
+      let parsed: Record<string, unknown>;
+      try {
+        const jsonMatch = result.match(/\{[\s\S]*\}/);
+        parsed = jsonMatch
+          ? JSON.parse(jsonMatch[0])
+          : { raw: result, error: "No JSON found" };
+      } catch {
+        parsed = { raw: result, error: "Failed to parse AI response" };
+      }
+
+      if (parsed.field_mapping && typeof parsed.field_mapping === "object") {
+        const cleaned: Record<string, string> = {};
+        for (const [key, val] of Object.entries(
+          parsed.field_mapping as Record<string, string>,
+        )) {
+          const strVal = String(val);
+          cleaned[key] = strVal.startsWith("raw.")
+            ? strVal.slice(4)
+            : strVal.startsWith("db.")
+              ? strVal.slice(3)
+              : strVal;
+        }
+        parsed.field_mapping = cleaned;
+      }
+
+      res.json(parsed);
+    } catch (err) {
+      console.error("AI analyze-fields (database) error:", err);
+      res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.get("/api/databases/:name/items", async (req, res) => {
+    try {
+      const result = await databaseManager.fetchItems(req.params.name);
+      res.json(result);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes("not found")) {
+        res.status(404).json({ error: msg });
+      } else {
+        res.status(500).json({ error: msg });
+      }
+    }
+  });
+
+  app.put("/api/databases/:name/items", async (req, res) => {
+    try {
+      const dbName = req.params.name;
+      const config = databaseManager.get(dbName);
+
+      if (config.source.type !== "local") {
+        res.status(400).json({ error: "Only local databases support item editing" });
+        return;
+      }
+
+      const { items } = req.body;
+      if (!Array.isArray(items)) {
+        res.status(400).json({ error: "items must be an array" });
+        return;
+      }
+
+      const localConfig = config.source.local!;
+      const filename = localConfig.filename;
+      const resultsPath = localConfig.results_path;
+
+      const filePath = path.join(process.cwd(), "marketing-content", "db", dbName, filename);
+      if (!fs.existsSync(path.dirname(filePath))) {
+        res.status(404).json({ error: `Database directory not found` });
+        return;
+      }
+
+      const data: unknown = resultsPath ? { [resultsPath]: items } : items;
+      const yamlStr = safeYamlDump(data, { lineWidth: 120 });
+      fs.writeFileSync(filePath, yamlStr);
+
+      databaseManager.clearCache(dbName);
+
+      const relPath = `marketing-content/db/${dbName}/${filename}`;
+      markFileAsModified(relPath, "api");
+
+      res.json({ success: true, count: items.length });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes("not found")) {
+        res.status(404).json({ error: msg });
+      } else {
+        res.status(500).json({ error: msg });
+      }
+    }
+  });
+
+  app.post("/api/databases/:name/refresh", async (req, res) => {
+    try {
+      const result = await databaseManager.fetchItems(req.params.name, true);
+      res.json(result);
+    } catch (err: unknown) {
+      res
+        .status(500)
+        .json({ error: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
+  app.put("/api/databases/:name/config", (req, res) => {
+    try {
+      const config = req.body;
+      if (!config || !config.name || !config.source) {
+        res
+          .status(400)
+          .json({ error: "Invalid config: name and source are required" });
+        return;
+      }
+      databaseManager.update(req.params.name, config);
+      res.json({ success: true });
+    } catch (err: unknown) {
+      res
+        .status(500)
+        .json({ error: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
+  app.delete("/api/databases/:name", (req, res) => {
+    try {
+      databaseManager.delete(req.params.name);
+      res.json({ success: true });
+    } catch (err: unknown) {
+      res
+        .status(500)
+        .json({ error: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
+  app.post("/api/databases/:name/test", async (req, res) => {
+    try {
+      const source = req.body?.source;
+      if (!source) {
+        res.status(400).json({ error: "source config required in body" });
+        return;
+      }
+      const dbSlug = req.params.name === "_test" ? req.body?.slug : req.params.name;
+      const result = await databaseManager.test(source, dbSlug);
+      res.json(result);
+    } catch (err: unknown) {
+      res
+        .status(500)
+        .json({ error: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
+  // ── Dataset file management routes ───────────────────────────
+
+  const DATASET_EXTENSIONS_SET = new Set([".json", ".csv", ".yaml", ".yml"]);
+
+  app.get("/api/databases/check-file", (req, res) => {
+    const slug = (req.query.slug as string) || "";
+    const filename = (req.query.filename as string) || "";
+    if (!slug || !filename) {
+      res.status(400).json({ error: "slug and filename are required" });
+      return;
+    }
+    const filePath = path.join(process.cwd(), "marketing-content", "db", slug, filename);
+    res.json({ exists: fs.existsSync(filePath), path: `marketing-content/db/${slug}/${filename}` });
+  });
+
+  app.get("/api/databases/datasets", async (req, res) => {
+    try {
+      const results: {
+        id: string;
+        filename: string;
+        dbSlug: string;
+        provider: "local";
+        path: string;
+      }[] = [];
+
+      if (fs.existsSync(path.join(process.cwd(), "marketing-content", "db"))) {
+        const dbDir = path.join(process.cwd(), "marketing-content", "db");
+        const slugDirs = fs.readdirSync(dbDir).filter((f) => {
+          return fs.statSync(path.join(dbDir, f)).isDirectory();
+        });
+        for (const slug of slugDirs) {
+          const slugDir = path.join(dbDir, slug);
+          const files = fs.readdirSync(slugDir).filter((f) => {
+            const ext = path.extname(f).toLowerCase();
+            return DATASET_EXTENSIONS_SET.has(ext) && f !== "config.yml";
+          });
+          for (const file of files) {
+            results.push({
+              id: `${slug}/${file}`,
+              filename: file,
+              dbSlug: slug,
+              provider: "local",
+              path: `marketing-content/db/${slug}/${file}`,
+            });
+          }
+        }
+      }
+
+      res.json({ datasets: results });
+    } catch (err: unknown) {
+      res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
+  const datasetUpload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 50 * 1024 * 1024 },
+    fileFilter: (_req, file, cb) => {
+      const ext = path.extname(file.originalname).toLowerCase();
+      if (DATASET_EXTENSIONS_SET.has(ext)) {
+        cb(null, true);
+      } else {
+        cb(new Error(`Unsupported file type: ${ext}. Allowed: .json, .csv, .yaml, .yml`));
+      }
+    },
+  });
+
+  app.post(
+    "/api/databases/upload-dataset",
+    datasetUpload.single("file"),
+    async (req, res) => {
+      try {
+        const file = (req as any).file;
+        if (!file) {
+          res.status(400).json({ error: "No file provided" });
+          return;
+        }
+        const slug = (req.body?.slug as string) || "";
+        if (!slug || !/^[a-z0-9_-]+$/.test(slug)) {
+          res.status(400).json({ error: "A valid database slug is required" });
+          return;
+        }
+        const ext = path.extname(file.originalname).toLowerCase();
+        if (!DATASET_EXTENSIONS_SET.has(ext)) {
+          res.status(400).json({ error: `Unsupported file type: ${ext}` });
+          return;
+        }
+
+        const targetDir = path.join(process.cwd(), "marketing-content", "db", slug);
+        if (!fs.existsSync(targetDir)) {
+          fs.mkdirSync(targetDir, { recursive: true });
+        }
+
+        const filename = file.originalname;
+        const targetPath = path.join(targetDir, filename);
+        fs.writeFileSync(targetPath, file.buffer);
+
+        res.json({
+          provider: "local",
+          filename,
+          slug,
+          path: `marketing-content/db/${slug}/${filename}`,
+        });
+      } catch (error: any) {
+        res.status(500).json({ error: error.message || "Upload failed" });
+      }
+    }
+  );
+}

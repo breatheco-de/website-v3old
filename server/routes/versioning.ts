@@ -1,0 +1,552 @@
+import type { Express, Request, Response } from "express";
+import { createServer, type Server } from "http";
+import { storage } from "../storage";
+import { geoGet, geoSet } from "../geo-cache";
+import { getQueueStats, enqueueOptimization, getPendingOptimizations, getFailedEntries, retryFailedImages, resetOptimizeSession, getOptimizeSession, enqueueExternalImage } from "../image-registry";
+import { getAllQueueState } from "../image-queue-state";
+
+
+import * as fs from "fs";
+import * as path from "path";
+import * as yaml from "js-yaml";
+import { execSync as _execSync, execFile } from "child_process";
+import {
+  versioningUpdateSchema,
+  type CareerProgram,
+  type LandingPage,
+  type LocationPage,
+  type TemplatePage,
+} from "@shared/schema";
+import {
+  getSitemap,
+  clearSitemapCache,
+  getSitemapCacheStatus,
+  getSitemapUrls,
+  invalidateSitemapEntry,
+  invalidateSitemapEntriesByContentKey,
+  refreshSitemapEntry,
+  refreshSitemapEntriesForContentKey,
+} from "../sitemap";
+import { markFileAsModified } from "../sync-state";
+import { deepMerge } from "../utils/deepMerge";
+import { regenerateSectionIds } from "../utils/regenerateSectionIds";
+import { databaseManager } from "../database";
+import {
+  redirectMiddleware,
+  getRedirects,
+  clearRedirectCache,
+  testRedirect,
+} from "../redirects";
+import {
+  getSchema,
+  getMergedSchemas,
+  getAvailableSchemaKeys,
+  clearSchemaCache,
+  getOrganizationTwitterHandle,
+  getOrganizationSameAsUrl,
+  getWebsiteDefaultSocialImage,
+  updateWebsiteDefaultSocialImage,
+  updateOrganizationTwitterHandle,
+  updateOrganizationSameAsUrl,
+} from "../schema-org";
+import {
+  getRegistryOverview,
+  getComponentInfo,
+  listVersions,
+  loadSchema,
+  loadExamples,
+  createNewVersion,
+  getExampleFilePath,
+  saveExample,
+  createExample,
+  loadAllFieldEditors,
+  applyComponentSectionDefaults,
+  applyComponentImageSizes,
+  getVariantByExample,
+  getVariantExamples,
+  deleteExample,
+  deleteVariant,
+} from "../component-registry";
+import {
+  editContent,
+  editCommonContent,
+  getContentForEdit,
+  createContentEntry,
+  deleteContentEntry,
+  renameContentSlug,
+} from "../content-editor";
+import { bindingManager } from "../bindings";
+import {
+  escapeTemplateVars,
+  escapeObjectVars,
+  unescapeObjectVars,
+  unescapeYamlDump,
+} from "@shared/templateVars";
+import {
+  getVersioningManager,
+  readUserId,
+  getVersioningCookie,
+  setVersioningCookie,
+  buildUserContext,
+} from "../versioning";
+import { mediaGallery } from "../media-gallery";
+import { media } from "../media";
+import multer from "multer";
+import { contentIndex, type ContentType } from "../content-index";
+import { runScan as runComponentInsightsScan, readInsightsFile, suggestNext as suggestNextComponent } from "../component-insights";
+import { validateFieldSource, validateFieldMapping, extractByDotPath } from "../../scripts/validation/shared/fieldMappingValidator";
+import {
+  getFolder,
+  getType,
+  isValidType,
+  getAllTypes,
+  getAllFolders,
+  getAllConfigs,
+  getDatabaseName,
+  getFieldMapping,
+  getLookupKey,
+  getLocaleKey,
+  getLocaleDefault,
+  getIndexes,
+  hasDatabaseSingle,
+  getContentTypeConfig,
+  updateContentTypeConfig,
+  addContentType,
+  getDatabaseConfig,
+  getLabel,
+  normalizeUrlPattern,
+  getLocaleSource,
+  resolveContentTypeUrl,
+  getLayout,
+  resolveLayout,
+  listAvailableMenus,
+  getDirectory,
+} from "../content-types";
+import { resolveFieldValue, applyTransformIfNeeded } from "../transform";
+import { resolveSingleVars } from "../single-resolver";
+import {
+  normalizeLocale,
+  getSupportedLocales,
+  getDefaultLocale,
+  getLocaleEntries,
+  updateLocaleSettings,
+  getHomePage,
+  getOptimizationSettings,
+  updateOptimizationSettings,
+} from "../settings";
+import { variableManager } from "../variable-manager";
+import { getValidationService } from "../../scripts/validation/service";
+import { getCanonicalUrl, normalizeUrl } from "../../scripts/validation/shared/canonicalUrls";
+import {
+  isNonLocalFilesystemSrc,
+  buildRegistrySrcToIdMap,
+  resolveRegistryReference,
+} from "../../scripts/validation/shared/imageRegistrySrc";
+import type { ProgressEvent } from "../../scripts/validation/fixers/types";
+import { gcs } from "../gcs";
+import { z } from "zod";
+import {
+  generateSsrSchemaHtml,
+  generateDatabaseSsrHtml,
+  generateListingSsrHtml,
+  clearSsrSchemaCache,
+  loadRawYaml,
+  resolveFaqItems,
+  buildFaqPageSchema,
+  resolvePageRobots,
+  type FaqSection,
+} from "../ssr-schema";
+import {
+  fetchMarkdownContent,
+  clearMarkdownCache,
+  clearMarkdownCacheByUrl,
+} from "../markdown";
+import { resolveDynamicEntries } from "../dynamic-entries";
+import { loadDatabaseSinglePage, mergeSingleTemplate } from "../database-single-loader";
+import { getBaseUrl } from "../hreflang";
+import * as userManager from "../user-manager";
+import * as userStore from "../user-store";
+import type { CapabilityName } from "../user-store";
+
+
+import {
+  BREATHECODE_HOST,
+  extractToken,
+  requireCapability,
+  safeYamlLoad,
+  safeYamlDump,
+  resolveVariantAssignment,
+  invalidateContentCaches,
+  createValidationFixRun,
+  appendValidationRunLog,
+  applyFixerProgress,
+  resolveFixerPipeline,
+  validationRuns,
+  validationRunOrder,
+  MAX_VALIDATION_RUNS,
+  MAX_RUN_LOG_ENTRIES,
+  careerProgramsListingSchema,
+  loadCareerProgramsListing,
+  applyMetaFallback,
+  injectCanonicalIfMissing,
+  loadCareerProgram,
+  listCareerPrograms,
+  loadLandingPage,
+  listLandingPages,
+  loadLocationPage,
+  listLocationPages,
+  loadTemplatePage,
+  buildSingleEntryFromContent,
+  listTemplatePages,
+  detectLanguageFromRequest,
+  ValidationFixRunState,
+  ValidationFixRunLogEntry,
+  FixerItemStatus,
+} from "./_helpers";
+
+export function registerVersioningRoutes(app: Express): void {
+  app.get("/api/debug/versioning", (req, res) => {
+    const versioningManager = getVersioningManager();
+    const stats = versioningManager.getStats();
+    res.json({
+      stats,
+      totalVariants: Object.keys(stats).length,
+    });
+  });
+
+  app.post("/api/debug/clear-versioning-cache", async (req, res) => {
+    const auth = await requireCapability(req, res, "content_allocate_traffic");
+    if (!auth.authorized) return;
+    const versioningManager = getVersioningManager();
+    versioningManager.clearCache();
+    res.json({ success: true, message: "Versioning cache cleared" });
+  });
+  app.get("/api/variants/:contentType/:slug", (req, res) => {
+    const { contentType, slug } = req.params;
+
+    if (!isValidType(contentType)) {
+      res
+        .status(400)
+        .json({ error: "Invalid content type", validTypes: getAllFolders() });
+      return;
+    }
+
+    const versioningManager = getVersioningManager();
+    const result = versioningManager.getAvailableVariants(contentType, slug);
+
+    if (!result) {
+      res.status(404).json({ error: "Content folder not found" });
+      return;
+    }
+
+    res.json(result);
+  });
+
+  // Get versioning data for a specific content type and slug
+  app.get("/api/versioning/:contentType/:contentSlug", (req, res) => {
+    const { contentType, contentSlug } = req.params;
+
+    if (!isValidType(contentType)) {
+      res.status(400).json({
+        error: "Invalid content type",
+        validTypes: getAllFolders(),
+      });
+      return;
+    }
+
+    const versioningManager = getVersioningManager();
+    const versioning = versioningManager.getVersioningForContent(contentType, contentSlug);
+    const filePath = path.join(
+      process.cwd(),
+      "marketing-content",
+      getFolder(contentType as ContentType) || contentType,
+      contentSlug,
+      "versioning.yml",
+    );
+
+    const availableLocales = getLocaleEntries().map((l: { code: string }) => l.code);
+
+    if (!versioning) {
+      res.json({
+        versioning: null,
+        hasVersioningFile: false,
+        filePath,
+        availableLocales,
+      });
+      return;
+    }
+
+    res.json({
+      versioning,
+      hasVersioningFile: true,
+      filePath,
+      availableLocales,
+    });
+  });
+
+  // Update versioning allocations for a locale
+  app.patch(
+    "/api/versioning/:contentType/:contentSlug/:locale",
+    async (req, res) => {
+      const { contentType, contentSlug, locale } = req.params;
+
+      if (!isValidType(contentType)) {
+        res
+          .status(400)
+          .json({ error: "Invalid content type", validTypes: getAllFolders() });
+        return;
+      }
+
+      const auth = await requireCapability(req, res, "content_allocate_traffic", contentType);
+      if (!auth.authorized) return;
+
+      const parseResult = versioningUpdateSchema.safeParse(req.body);
+      if (!parseResult.success) {
+        res.status(400).json({
+          error: "Invalid update data",
+          details: parseResult.error.issues.map((i) => ({
+            path: i.path.join("."),
+            message: i.message,
+          })),
+        });
+        return;
+      }
+
+      const versioningManager = getVersioningManager();
+      try {
+        const existing = versioningManager.getVersioningForContent(contentType, contentSlug) || {};
+        const updated = { ...existing, [locale]: { variants: parseResult.data.variants } };
+        // updateVersioning writes the file and calls markFileAsModified, which queues
+        // versioning.yml for auto-commit — the same path taken by create/promote/delete routes.
+        versioningManager.updateVersioning(contentType, contentSlug, updated);
+        res.json({ success: true, contentType, contentSlug, locale });
+      } catch (error) {
+        res.status(400).json({
+          error:
+            error instanceof Error
+              ? error.message
+              : "Failed to update versioning",
+        });
+      }
+    },
+  );
+
+  // Create a new content variant (copies locale file + registers in versioning.yml at 0% allocation)
+  app.post("/api/versioning/:contentType/:contentSlug", async (req, res) => {
+    const { contentType, contentSlug } = req.params;
+
+    if (!isValidType(contentType)) {
+      res.status(400).json({ error: "Invalid content type", validTypes: getAllFolders() });
+      return;
+    }
+
+    const auth = await requireCapability(req, res, "content_create_variant", contentType);
+    if (!auth.authorized) return;
+
+    const { variantSlug, locale } = req.body as { variantSlug?: string; locale?: string };
+
+    if (!variantSlug || !locale) {
+      res.status(400).json({ error: "variantSlug and locale are required" });
+      return;
+    }
+
+    if (!/^[a-z0-9-]+$/.test(variantSlug)) {
+      res.status(400).json({ error: "variantSlug must be lowercase letters, numbers, and hyphens only" });
+      return;
+    }
+
+    const folder = getFolder(contentType as ContentType);
+    const contentDir = path.join(process.cwd(), "marketing-content", folder, contentSlug);
+
+    if (!fs.existsSync(contentDir)) {
+      res.status(404).json({ error: "Content folder not found" });
+      return;
+    }
+
+    const variantFilePath = path.join(contentDir, `${variantSlug}.${locale}.yml`);
+    if (fs.existsSync(variantFilePath)) {
+      res.status(409).json({ error: `Variant ${variantSlug}.${locale}.yml already exists` });
+      return;
+    }
+
+    const sourceFilePath = path.join(contentDir, `${locale}.yml`);
+    if (!fs.existsSync(sourceFilePath)) {
+      res.status(404).json({ error: `Source file ${locale}.yml not found for this entry` });
+      return;
+    }
+
+    try {
+      const sourceContent = fs.readFileSync(sourceFilePath, "utf-8");
+      fs.writeFileSync(variantFilePath, sourceContent, "utf-8");
+      markFileAsModified(`marketing-content/${folder}/${contentSlug}/${variantSlug}.${locale}.yml`, "api");
+
+      const versioningManager = getVersioningManager();
+      const existing = versioningManager.getVersioningForContent(contentType, contentSlug) || {};
+      const localeData = existing[locale]
+        ? { variants: [...(existing[locale].variants || [])] }
+        : { variants: [] };
+
+      if (!localeData.variants.some((v) => v.slug === variantSlug)) {
+        localeData.variants.push({ slug: variantSlug, allocation: 0 });
+      }
+
+      versioningManager.updateVersioning(contentType, contentSlug, { ...existing, [locale]: localeData });
+
+      res.json({
+        success: true,
+        variantSlug,
+        locale,
+        filePath: `marketing-content/${folder}/${contentSlug}/${variantSlug}.${locale}.yml`,
+      });
+    } catch (error) {
+      res.status(500).json({ error: String(error) });
+    }
+  });
+
+  // Promote a variant: overwrite the default locale file, remove from versioning.yml, delete variant file
+  app.post("/api/versioning/:contentType/:contentSlug/:locale/promote/:variantSlug", async (req, res) => {
+    const { contentType, contentSlug, locale, variantSlug } = req.params;
+
+    if (!isValidType(contentType)) {
+      res.status(400).json({ error: "Invalid content type", validTypes: getAllFolders() });
+      return;
+    }
+
+    const auth = await requireCapability(req, res, "content_promote_variant", contentType);
+    if (!auth.authorized) return;
+
+    if (!/^[a-z0-9-]+$/.test(variantSlug)) {
+      res.status(400).json({ error: "variantSlug must be lowercase letters, numbers, and hyphens only" });
+      return;
+    }
+
+    if (!/^[a-z]{2}(-[A-Z]{2})?$/.test(locale)) {
+      res.status(400).json({ error: "locale must be a valid language code (e.g. en, es, pt-BR)" });
+      return;
+    }
+
+    const folder = getFolder(contentType as ContentType);
+    const contentDir = path.resolve(process.cwd(), "marketing-content", folder, contentSlug);
+
+    if (!fs.existsSync(contentDir)) {
+      res.status(404).json({ error: "Content folder not found" });
+      return;
+    }
+
+    const variantFilePath = path.resolve(contentDir, `${variantSlug}.${locale}.yml`);
+    const defaultFilePath = path.resolve(contentDir, `${locale}.yml`);
+
+    // Path containment: both resolved paths must stay within contentDir
+    if (!variantFilePath.startsWith(contentDir + path.sep) || !defaultFilePath.startsWith(contentDir + path.sep)) {
+      res.status(400).json({ error: "Invalid file path" });
+      return;
+    }
+
+    if (!fs.existsSync(variantFilePath)) {
+      res.status(404).json({ error: `Variant file ${variantSlug}.${locale}.yml not found` });
+      return;
+    }
+
+    try {
+      const variantContent = fs.readFileSync(variantFilePath, "utf-8");
+      fs.writeFileSync(defaultFilePath, variantContent, "utf-8");
+
+      const versioningManager = getVersioningManager();
+      const existing = versioningManager.getVersioningForContent(contentType, contentSlug) || {};
+      const localeData = existing[locale];
+      if (localeData) {
+        const updatedVariants = (localeData.variants || []).filter((v) => v.slug !== variantSlug);
+        versioningManager.updateVersioning(contentType, contentSlug, {
+          ...existing,
+          [locale]: { variants: updatedVariants },
+        });
+      }
+
+      fs.unlinkSync(variantFilePath);
+
+      contentIndex.invalidateCommonFields(contentType);
+      clearSsrSchemaCache();
+      const folder = getFolder(contentType as ContentType);
+      markFileAsModified(`marketing-content/${folder}/${contentSlug}/${locale}.yml`, "api");
+      markFileAsModified(`marketing-content/${folder}/${contentSlug}/${variantSlug}.${locale}.yml`, "api");
+
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: String(error) });
+    }
+  });
+
+  // Delete a variant: remove its YML file and strip its entry from versioning.yml
+  app.delete("/api/versioning/:contentType/:contentSlug/:locale/:variantSlug", async (req, res) => {
+    const { contentType, contentSlug, locale, variantSlug } = req.params;
+
+    if (!isValidType(contentType)) {
+      res.status(400).json({ error: "Invalid content type", validTypes: getAllFolders() });
+      return;
+    }
+
+    const auth = await requireCapability(req, res, "content_delete_variant", contentType);
+    if (!auth.authorized) return;
+
+    if (!/^[a-z0-9-]+$/.test(variantSlug)) {
+      res.status(400).json({ error: "variantSlug must be lowercase letters, numbers, and hyphens only" });
+      return;
+    }
+
+    if (!/^[a-z]{2}(-[A-Z]{2})?$/.test(locale)) {
+      res.status(400).json({ error: "locale must be a valid language code (e.g. en, es, pt-BR)" });
+      return;
+    }
+
+    const folder = getFolder(contentType as ContentType);
+    const contentDir = path.resolve(process.cwd(), "marketing-content", folder, contentSlug);
+
+    if (!fs.existsSync(contentDir)) {
+      res.status(404).json({ error: "Content folder not found" });
+      return;
+    }
+
+    const variantFilePath = path.resolve(contentDir, `${variantSlug}.${locale}.yml`);
+
+    // Path containment: resolved path must stay within contentDir
+    if (!variantFilePath.startsWith(contentDir + path.sep)) {
+      res.status(400).json({ error: "Invalid file path" });
+      return;
+    }
+
+    if (!fs.existsSync(variantFilePath)) {
+      res.status(404).json({ error: `Variant file ${variantSlug}.${locale}.yml not found` });
+      return;
+    }
+
+    try {
+      fs.unlinkSync(variantFilePath);
+      markFileAsModified(`marketing-content/${folder}/${contentSlug}/${variantSlug}.${locale}.yml`, "api");
+
+      const versioningManager = getVersioningManager();
+      const existing = versioningManager.getVersioningForContent(contentType, contentSlug) || {};
+      const localeData = existing[locale];
+      if (localeData) {
+        const updatedVariants = (localeData.variants || []).filter((v) => v.slug !== variantSlug);
+        versioningManager.updateVersioning(contentType, contentSlug, {
+          ...existing,
+          [locale]: { variants: updatedVariants },
+        });
+      }
+
+      contentIndex.invalidateCommonFields(contentType);
+      clearSsrSchemaCache();
+
+      const updated = versioningManager.getVersioningForContent(contentType, contentSlug) || {};
+      const availableLocales = contentIndex.getAvailableLocalesOrVariants(contentType as ContentType, contentSlug);
+      res.json({
+        hasVersioningFile: true,
+        versioning: updated,
+        availableLocales,
+      });
+    } catch (error) {
+      res.status(500).json({ error: String(error) });
+    }
+  });
+
+}
