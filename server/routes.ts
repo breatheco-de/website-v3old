@@ -2554,6 +2554,64 @@ Sitemap: ${baseUrl}/sitemap.xml
   });
 
   /**
+   * Reset a per-entry section patch (remove the per-entry content override for a shared-template section).
+   * Removes the patch entry for this sectionId from the per-entry locale file WITHOUT adding _remove: true.
+   * After reset, the section will render from the shared template again.
+   */
+  app.post("/api/per-entry-section-patch-reset", async (req, res) => {
+    try {
+      const { authorized } = await requireCapability(req, res, "edit_content");
+      if (!authorized) return;
+
+      const { contentType, slug, locale: rawLocale, sectionId } = req.body as {
+        contentType: string;
+        slug: string;
+        locale: string;
+        sectionId: string;
+      };
+
+      if (!contentType || !slug || !rawLocale || !sectionId) {
+        res.status(400).json({ error: "Missing required fields" });
+        return;
+      }
+
+      const locale = normalizeLocale(rawLocale);
+      const folder = getFolder(contentType);
+      const templateDir = path.join(process.cwd(), "marketing-content", folder);
+      const entryDir = path.join(templateDir, slug);
+      const entryFilePath = path.join(entryDir, `${locale}.yml`);
+
+      if (!fs.existsSync(entryFilePath)) {
+        // Nothing to reset — idempotent success
+        res.json({ success: true });
+        return;
+      }
+
+      const raw = fs.readFileSync(entryFilePath, "utf-8");
+      const entryData = (contentIndex.safeYamlLoad(raw) as Record<string, unknown>) || {};
+      const entrySections = Array.isArray(entryData.sections)
+        ? (entryData.sections as Record<string, unknown>[])
+        : [];
+
+      // Remove any patch entry (non-_remove) with this sectionId — restores shared template content
+      entryData.sections = entrySections.filter(
+        (s) => !(typeof s.id === "string" && s.id === sectionId && !s._remove),
+      );
+
+      const { escapeObjectVars, unescapeYamlDump } = await import("@shared/templateVars");
+      const { escaped, map } = escapeObjectVars(entryData);
+      const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
+      fs.writeFileSync(entryFilePath, unescapeYamlDump(dumped, map), "utf-8");
+      markFileAsModified(entryFilePath);
+
+      res.json({ success: true });
+    } catch (error) {
+      console.error("[per-entry-section-patch-reset] Error:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
+    }
+  });
+
+  /**
    * Add a section to a specific DB entry only (per-entry override).
    * Creates the per-entry folder and locale file if absent.
    * Accepts `insertAfterSectionId` to position the section after a specific base section.

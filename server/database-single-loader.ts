@@ -141,7 +141,8 @@ function applyPerEntryLayer(
       const id = typeof s.id === "string" ? s.id : undefined;
       if (!id) return s;
       const patch = patchById.get(id);
-      return patch ? deepMerge(s, patch) : s;
+      if (!patch) return s;
+      return { ...deepMerge(s, patch), _perEntryPatched: true };
     });
 
   // Tag per-entry-only sections; strip _insertAfterSectionId from final output (positioning hint only)
