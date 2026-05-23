@@ -76,7 +76,7 @@ sections:
           text: AI-Powered Learning & Feedback
     section_id: hero-tznhhe
     paddingY:
-      desktop: none md
+      desktop: lg md
     marginY:
       desktop: none
   - type: modal
