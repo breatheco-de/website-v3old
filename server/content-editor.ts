@@ -387,6 +387,64 @@ function handleSharedTemplateEdit(opts: {
     }
   }
 
+  // Also write non-DB-variable field changes (e.g. paddingY, showOn, background) and
+  // section-level saves (update_section) to the shared template YAML file, while
+  // restoring any {{ single.* }} placeholder expressions that the client may have
+  // stripped or replaced with resolved values.
+  try {
+    const raw = fs.readFileSync(filePath, "utf-8");
+    const templateData = (contentIndex.safeYamlLoad(raw) as Record<string, unknown>) || {};
+
+    let templateDirty = false;
+
+    for (const operation of operations) {
+      if (operation.action === "update_section") {
+        // Write the whole section to the template, but restore placeholder expressions first.
+        const templateSections2 = Array.isArray(templateData.sections)
+          ? (templateData.sections as Record<string, unknown>[])
+          : [];
+        const originalTemplateSection = templateSections2[operation.index] as Record<string, unknown> | undefined;
+        let newSectionData = (operation.section ?? {}) as Record<string, unknown>;
+        if (originalTemplateSection) {
+          newSectionData = restoreTemplatePlaceholders(newSectionData, originalTemplateSection);
+        }
+        applyOperation(templateData, { ...operation, section: newSectionData } as EditOperation);
+        templateDirty = true;
+      } else if (operation.action === "update_field") {
+        // Only write to the template if this path is NOT a template-variable field
+        // (template-variable fields are persisted to the DB instead).
+        const m = operation.path.match(/^sections\.(\d+)\.(.+)$/);
+        if (m) {
+          const sectionIdx = parseInt(m[1], 10);
+          const fieldPath = m[2];
+          const varFields = sectionVarFields[sectionIdx] ?? {};
+          if (!varFields[fieldPath]) {
+            // Not a DB-mapped variable field → write directly to the template file.
+            applyOperation(templateData, operation);
+            templateDirty = true;
+          }
+        } else {
+          // Top-level (non-section-field) path → write to template.
+          applyOperation(templateData, operation);
+          templateDirty = true;
+        }
+      }
+    }
+
+    if (templateDirty) {
+      const updatedYaml = safeYamlDump(templateData, {
+        lineWidth: -1,
+        noRefs: true,
+        quotingType: '"',
+        forceQuotes: false,
+      });
+      fs.writeFileSync(filePath, updatedYaml, "utf-8");
+      markFileAsModified(filePath, author);
+    }
+  } catch (err) {
+    console.error("[editContent] Failed to write non-DB field changes to shared template:", err instanceof Error ? err.message : err);
+  }
+
   // Apply operations to localeData in-memory so the returned sections reflect
   // what the client expects to see immediately (the resolved new values).
   for (const operation of operations) {
