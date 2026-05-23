@@ -381,7 +381,7 @@ function handleSharedTemplateEdit(opts: {
   }
 
   if (Object.keys(dbUpdates).length > 0 && dbName) {
-    const patched = databaseManager.patchDbEntry(dbName, lookupKey, slug, dbUpdates, fieldMapping);
+    const patched = databaseManager.patchDbEntry(dbName, lookupKey, slug, dbUpdates, fieldMapping, author);
     if (!patched) {
       console.warn(`[editContent] patchDbEntry found no matching entry for ${dbName}/${slug}`);
     }

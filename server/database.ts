@@ -6,6 +6,7 @@ import { getValueByPath, resolveFieldValue } from "./transform";
 import { ExternalImageCacher } from "./external-image-cacher";
 import { resolveBySourceUrl } from "./image-registry";
 import { IDatabaseCache, CacheEntry, SqliteCache, CACHE_DIR } from "./db-cache";
+import { markFileAsModified } from "./sync-state";
 
 const DB_DIR = path.join(process.cwd(), "marketing-content", "db");
 
@@ -801,7 +802,8 @@ export class DatabaseManager {
     lookupKey: string,
     slugValue: string,
     mappedUpdates: Record<string, unknown>,
-    fieldMapping: Record<string, string> | null = null
+    fieldMapping: Record<string, string> | null = null,
+    author?: string
   ): boolean {
     try {
       const dbKeyedOverrides: Record<string, unknown> = {};
@@ -855,6 +857,7 @@ export class DatabaseManager {
         ...dbKeyedOverrides,
       };
       this.saveOverridesFile(dbName, overridesFile);
+      markFileAsModified(`marketing-content/db/${dbName}/overrides.json`, author);
 
       this.memoryCache.delete(dbName);
       return patchedIdx !== -1;
@@ -888,7 +891,8 @@ export class DatabaseManager {
   clearDbOverride(
     dbName: string,
     slugValue: string,
-    fieldKey?: string
+    fieldKey?: string,
+    author?: string
   ): boolean {
     try {
       this.validateName(dbName);
@@ -907,6 +911,7 @@ export class DatabaseManager {
       }
 
       this.saveOverridesFile(dbName, overridesFile);
+      markFileAsModified(`marketing-content/db/${dbName}/overrides.json`, author);
 
       this.memoryCache.delete(dbName);
       this.cache.clear(dbName);

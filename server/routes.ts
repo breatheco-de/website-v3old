@@ -3943,6 +3943,8 @@ Sitemap: ${baseUrl}/sitemap.xml
     try {
       const { type, slug } = req.params;
       const rawFieldKey = req.query.field as string | undefined;
+      const rawAuthor = (req.body as Record<string, unknown> | undefined)?.author;
+      const authorName = rawAuthor && typeof rawAuthor === "string" ? rawAuthor : undefined;
       const config = getContentTypeConfig(type);
       if (!config?.database?.slug) {
         res.status(400).json({ error: `Content type "${type}" has no database configured` });
@@ -3961,7 +3963,7 @@ Sitemap: ${baseUrl}/sitemap.xml
           fieldKey = mappedPath;
         }
       }
-      const cleared = databaseManager.clearDbOverride(dbName, slug, fieldKey);
+      const cleared = databaseManager.clearDbOverride(dbName, slug, fieldKey, authorName);
       res.json({
         success: true,
         cleared,
