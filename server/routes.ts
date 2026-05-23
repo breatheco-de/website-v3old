@@ -3066,6 +3066,73 @@ Sitemap: ${baseUrl}/sitemap.xml
     }
   });
 
+  app.post("/api/settings/optimization/test", async (req, res) => {
+    const { url: rawUrl } = req.body;
+    if (!rawUrl || typeof rawUrl !== "string") {
+      return res.status(400).json({ reachable: false, reason: "No URL provided." });
+    }
+
+    let parsed: URL;
+    try {
+      parsed = new URL(rawUrl.trim());
+    } catch {
+      return res.status(400).json({ reachable: false, reason: "Invalid URL — could not be parsed." });
+    }
+
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+      return res.status(400).json({ reachable: false, reason: "URL must use http or https protocol." });
+    }
+
+    const http2 = await import("http");
+    const https2 = await import("https");
+    const protocol = parsed.protocol === "https:" ? https2 : http2;
+
+    const options = {
+      hostname: parsed.hostname,
+      port: parsed.port || (parsed.protocol === "https:" ? 443 : 80),
+      path: parsed.pathname || "/",
+      method: "HEAD",
+      timeout: 8000,
+      headers: { "User-Agent": "sGTM-connection-test/1.0" },
+    };
+
+    try {
+      await new Promise<void>((resolve, reject) => {
+        const probeReq = protocol.request(options, (probeRes) => {
+          const status = probeRes.statusCode ?? 0;
+          probeRes.resume();
+          if (status >= 200 && status < 400) {
+            resolve();
+          } else if (status >= 400 && status < 500) {
+            reject(new Error(`HTTP ${status} — the server responded but returned a client error. Check that the URL is correct.`));
+          } else if (status >= 500) {
+            reject(new Error(`HTTP ${status} — the sGTM server returned a server error.`));
+          } else {
+            reject(new Error(`HTTP ${status} — unexpected response from server.`));
+          }
+        });
+        probeReq.on("timeout", () => {
+          probeReq.destroy();
+          reject(new Error("Connection timed out (8 s). Check the URL and network."));
+        });
+        probeReq.on("error", (err: NodeJS.ErrnoException) => {
+          if (err.code === "ENOTFOUND" || err.code === "EAI_AGAIN") {
+            reject(new Error(`DNS resolution failed — hostname "${parsed.hostname}" not found.`));
+          } else if (err.code === "ECONNREFUSED") {
+            reject(new Error(`Connection refused at ${parsed.hostname}:${options.port}.`));
+          } else {
+            reject(new Error(err.message || String(err)));
+          }
+        });
+        probeReq.end();
+      });
+
+      return res.json({ reachable: true });
+    } catch (err: any) {
+      return res.json({ reachable: false, reason: err.message || String(err) });
+    }
+  });
+
   app.get("/api/migrations", (_req, res) => {
     try {
       const migrationsDir = path.join(process.cwd(), "scripts", "migrations");
