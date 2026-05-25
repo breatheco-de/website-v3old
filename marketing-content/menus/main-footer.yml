@@ -85,9 +85,6 @@ footer:
     - name: Instagram
       icon: instagram
       link: https://www.instagram.com/4GeeksAcademy
-    - name: New Social
-      icon: linkedin
-      link: https://
   legal_links:
     - label: Privacy Policy
       href: /en/privacy-policy
