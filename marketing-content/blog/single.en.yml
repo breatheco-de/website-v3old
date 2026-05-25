@@ -19,6 +19,8 @@ sections:
     toc_position: side
     max_width: xl
     content: {{ single.content | blog content }}
+    paddingY:
+      desktop: none md
   - type: cta_banner
     version: "1.0"
     variant: form
@@ -51,7 +53,7 @@ sections:
         message: Thank you! We'll be in touch soon.
     section_id: cta_banner-grae49
     paddingY:
-      desktop: sm
+      desktop: md sm
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
   - type: breadcrumb
