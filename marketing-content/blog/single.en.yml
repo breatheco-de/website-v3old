@@ -28,7 +28,7 @@ sections:
     form:
       variant: stacked
       submit_label: Get Started
-      button_className: bg-white text-primary hover:bg-white/90 border-white
+      button_className: bg-primary text-white hover:bg-white/90 border-white
       terms_className: text-white/80
       show_terms: true
       fields:
