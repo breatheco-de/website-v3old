@@ -49,7 +49,6 @@ sections:
     section_id: cta_banner-grae49
     paddingY:
       desktop: sm
-    terms_color: hsl(var(--primary))
   - type: breadcrumb
     version: v1.0
     items:
