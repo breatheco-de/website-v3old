@@ -44,6 +44,9 @@ sections:
           visible: true
           required: true
           placeholder: Last name
+        phone:
+          visible: true
+          required: true
       success:
         message: Thank you! We'll be in touch soon.
     section_id: cta_banner-grae49
