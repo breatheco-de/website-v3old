@@ -53,7 +53,7 @@ sections:
         message: Thank you! We'll be in touch soon.
     section_id: cta_banner-grae49
     paddingY:
-      desktop: md sm
+      desktop: none sm
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
   - type: breadcrumb
