@@ -22,7 +22,7 @@ sections:
   - type: cta_banner
     version: "1.0"
     variant: form
-    background: bg-primary
+    background: hsl(var(--primary))
     title: Start Your AI Career Today
     subtitle: Join thousands of graduates who have transformed their careers with 4Geeks Academy.
     form:
