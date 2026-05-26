@@ -4,10 +4,14 @@
  * Exports a single enrichWithEcommerceData() function that acts as an optional
  * enrichment step in the CMS content loading pipeline.
  *
- * If a loaded entry matches an active product, resolved plan data is injected
- * into the render context under an `ecommerce` key. The plans are also injected
- * directly into any `pricing_plans` sections in the page so section components
- * can read from their own data prop without needing page-level context.
+ * Resolution order (deep-merge):
+ *   ecommerce-settings.yml plans → type-level ecommerce.yml → entry-level ecommerce.yml
+ *
+ * If the loaded entry resolves to an active purchasable product, resolved plan
+ * data is injected into the render context under an `ecommerce` key. Plans are
+ * also injected directly into any `pricing_plans` sections in the page so
+ * section components can read from their own data prop without needing
+ * page-level context.
  *
  * This function is non-breaking: it silently returns the unchanged context when
  * no matching product is found.
@@ -21,8 +25,8 @@ type RenderContext = Record<string, unknown>;
 /**
  * Enriches a CMS render context with ecommerce data.
  *
- * @param contentType - The CMS content type of the loaded entry
- * @param slug        - The slug of the loaded entry
+ * @param contentType   - The CMS content type of the loaded entry
+ * @param slug          - The slug of the loaded entry
  * @param renderContext - The mutable render context object (page data)
  * @returns The same renderContext object, possibly mutated with an `ecommerce` key
  */

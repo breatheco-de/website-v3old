@@ -34,9 +34,16 @@ class EcommerceManager {
 
   /**
    * Reverse lookup: find a product whose content_type and content_slug match.
-   * Returns the first matching active product, or undefined.
+   * In the co-located architecture the product_id is either an explicit field
+   * or derived as `${contentType}/${slug}`, so both lookup paths are tried.
    */
   findProductByCmsEntry(contentType: string, slug: string): EcommerceProduct | undefined {
+    // Try derived key first (O(1))
+    const derivedKey = `${contentType}/${slug}`;
+    const byKey = productMap.get(derivedKey);
+    if (byKey) return byKey;
+
+    // Fall back to linear scan for entries that declared an explicit product_id
     for (const product of productMap.values()) {
       if (product.active && product.content_type === contentType && product.content_slug === slug) {
         return product;
