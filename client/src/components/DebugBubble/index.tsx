@@ -1848,6 +1848,8 @@ export function DebugBubble() {
         getDebugToken={getDebugToken}
         getDebugUserName={getDebugUserName}
         clearToken={clearToken}
+        handleCheckSession={handleCheckSession}
+        isCheckingSession={isCheckingSession}
       />
       <SyncModal
         open={commitModalOpen}

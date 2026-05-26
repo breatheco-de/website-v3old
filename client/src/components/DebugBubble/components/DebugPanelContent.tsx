@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AlertTriangle, ArrowLeft, ArrowRight, BarChart2, Blocks, Book, Brain, Check, ChevronRight, CloudDownload, Cookie, Database, Github, GitBranch, Image, Languages, Map, MapPin, Menu, MessageCircle, Monitor, Moon, Palette, Pencil, Plus, RefreshCw, Route, Settings, Smartphone, Stethoscope, Sun, X } from "lucide-react";
-import { IconShoppingBag } from "@tabler/icons-react";
+import { IconLogout, IconShoppingBag } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -827,15 +827,16 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                       : <Moon className="h-3 w-3" />}
                     <span className="capitalize">{props.theme}</span>
                   </button>
-                  <button
-                    onClick={props.handleCheckSession}
-                    disabled={props.isCheckingSession}
-                    className="p-1 rounded hover-elevate"
-                    data-testid="button-session-refresh"
-                    title="Check session validity"
-                  >
-                    <RefreshCw className={`h-3.5 w-3.5 text-muted-foreground ${props.isCheckingSession ? 'animate-spin' : ''}`} />
-                  </button>
+                  {props.hasToken && (
+                    <button
+                      onClick={props.clearToken}
+                      className="p-1 rounded hover-elevate"
+                      data-testid="button-logout"
+                      title="Logout"
+                    >
+                      <IconLogout className="h-3.5 w-3.5 text-muted-foreground" />
+                    </button>
+                  )}
                 </div>
               </div>
           </div>
