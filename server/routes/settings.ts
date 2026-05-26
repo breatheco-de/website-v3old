@@ -205,6 +205,21 @@ import {
 } from "./_helpers";
 
 export function registerSettingsRoutes(app: Express): void {
+  app.get("/api/version", (_req, res) => {
+    try {
+      const versionPath = path.join(process.cwd(), "version.json");
+      if (!fs.existsSync(versionPath)) {
+        res.json({ version: "1.0.0" });
+        return;
+      }
+      const content = fs.readFileSync(versionPath, "utf-8");
+      const data = JSON.parse(content);
+      res.json({ version: data.version || "1.0.0" });
+    } catch {
+      res.json({ version: "1.0.0" });
+    }
+  });
+
   app.get("/api/theme", (_req, res) => {
     try {
       const themePath = path.join(

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { AlertTriangle, ArrowLeft, ArrowRight, BarChart2, Blocks, Book, Brain, Check, ChevronRight, CloudDownload, Cookie, Database, Github, GitBranch, Image, Languages, Map, MapPin, Menu, MessageCircle, Monitor, Moon, Palette, Pencil, Plus, RefreshCw, Route, Settings, Smartphone, Stethoscope, Sun, X } from "lucide-react";
 import { IconLogout, IconShoppingBag } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
@@ -188,6 +189,11 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
   const [createMenuOpen, setCreateMenuOpen] = useState(false);
   const [settingsExpanded, setSettingsExpanded] = useState(false);
   const [storeExpanded, setStoreExpanded] = useState(false);
+
+  const { data: versionData } = useQuery<{ version: string }>({
+    queryKey: ["/api/version"],
+    staleTime: Infinity,
+  });
 
   if (props.noTokenDetected) {
     return (
@@ -782,16 +788,21 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
 
           <div className="border-t p-2 space-y-1">
               <div className="flex items-center justify-between px-3 py-1.5">
-                <div
-                  className="flex items-center gap-2 cursor-pointer hover-elevate rounded px-1 -mx-1"
-                  onClick={() => props.setSessionModalOpen(true)}
-                  data-testid="button-session-header"
-                  title="View session data"
-                >
-                  <Cookie className="h-3.5 w-3.5 text-muted-foreground" />
-                  <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Session</span>
-                  {!props.hasToken && (
-                    <span className="text-xs text-amber-600 dark:text-amber-400">(no auth)</span>
+                <div className="flex flex-col">
+                  <div
+                    className="flex items-center gap-2 cursor-pointer hover-elevate rounded px-1 -mx-1"
+                    onClick={() => props.setSessionModalOpen(true)}
+                    data-testid="button-session-header"
+                    title="View session data"
+                  >
+                    <Cookie className="h-3.5 w-3.5 text-muted-foreground" />
+                    <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Session</span>
+                    {!props.hasToken && (
+                      <span className="text-xs text-amber-600 dark:text-amber-400">(no auth)</span>
+                    )}
+                  </div>
+                  {versionData?.version && (
+                    <span className="text-[10px] text-muted-foreground px-1 -mx-1" data-testid="text-app-version">v{versionData.version}</span>
                   )}
                 </div>
                 <div className="flex items-center gap-1">
