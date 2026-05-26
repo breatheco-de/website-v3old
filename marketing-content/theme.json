@@ -636,11 +636,6 @@
       "example": "awards_badges",
       "importYaml": "- type: award_badges\n  version: v1.0\n  variant: detailed\n  showBorder: false\n  items:\n    - id: course-report-badge\n      logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp\n      alt: Course Report Badge 2025\n      logoHeight: 64px\n      description: Recognized as one of the best coding bootcamps worldwide\n      link: https://www.coursereport.com/schools/4geeks-academy\n      linkText: Read reviewsn\n    - id: logo-switchup-best-bootcamps-2025\n      logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png\n      alt: SwitchUp Best Bootcamps 2025\n      logoHeight: 64px\n      description: Top-rated bootcamp based on verified student reviews\n      link: https://www.switchup.org/bootcamps/4geeks-academy\n      linkText: See rankings\n    - id: 4geeks-academy-reviews-cost-courses-and-outcomes-05-26-2026-10-59-am\n      logo: https://storage.googleapis.com/4geeks-academy-website/media/4Geeks-Academy-Reviews-Cost-Courses-and-Outcomes-05-26-2026_10_59_AM.png\n      alt: 'Image: 4Geeks-Academy-Reviews-Cost-Courses-and-Outcomes-05-26-2026_10_59_AM'\n      logoHeight: 64px\n      description: Best coding bootcamp for career changers and beginners\n      link: https://careerkarma.com/schools/4geeks-academy/\n      linkText: Learn more\n  section_id: award_badges-j7julo\n  paddingY:\n    desktop: sm\n",
       "registryPersisted": true
-    },
-    {
-      "component": "award_badges",
-      "version": "v1.0",
-      "example": "detailed"
     }
   ]
 }
