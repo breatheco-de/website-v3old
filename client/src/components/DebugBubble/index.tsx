@@ -1810,6 +1810,12 @@ export function DebugBubble() {
             align="start"
             className="p-0 flex flex-col w-96 max-h-[85vh]"
             sideOffset={8}
+            onPointerDownOutside={(e) => {
+              const target = (e.detail.originalEvent as PointerEvent).target as Element | null;
+              if (target?.closest("[data-radix-popper-content-wrapper]")) {
+                e.preventDefault();
+              }
+            }}
           >
             <div className="flex-1 overflow-y-auto overflow-x-hidden">
               <DebugPanelContent {...panelContentProps} />
