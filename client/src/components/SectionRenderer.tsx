@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import { AlertTriangle, Link, Loader2, Trash2 } from "lucide-react";
-import { useState, useCallback, useMemo, useRef, useEffect, lazy, Suspense } from "react";
+import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 import { useContentTypesRaw } from "@/hooks/useContentTypes";
 import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn, PageSettings } from "@shared/schema";
 import { useSession } from "@/contexts/SessionContext";
@@ -252,13 +252,11 @@ function getSectionVisibilityClasses(showOn: ShowOn | undefined): string {
       return ''; // Visible on all breakpoints
   }
 }
-const EditableSection = lazy(() =>
-  import("@/components/editing/EditableSection").then(m => ({ default: m.EditableSection }))
-);
+import { EditableSection } from "@/components/editing/EditableSection";
 import { AddSectionButton } from "@/components/editing/AddSectionButton";
 import ComponentPickerModal from "@/components/editing/ComponentPickerModal";
 import { useToast } from "@/hooks/use-toast";
-import { getDebugToken, resolveAuthorName, useDebugAuth } from "@/hooks/useDebugAuth";
+import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { emitContentUpdated } from "@/lib/contentEvents";
 import {
   Dialog,
@@ -625,64 +623,6 @@ function patchVariableFieldHighlights(
   return patched;
 }
 
-interface EditableSectionWrapperProps {
-  section: import("@shared/schema").Section;
-  index: number;
-  sectionType: string;
-  contentType?: string;
-  slug?: string;
-  locale?: string;
-  variant?: string;
-  version?: number;
-  totalSections: number;
-  allSections?: import("@shared/schema").Section[];
-  isSharedTemplate?: boolean;
-  singleEntry?: Record<string, unknown>;
-  onMoveUp: (index: number) => void;
-  onMoveDown: (index: number) => void;
-  onDelete: (index: number) => void;
-  onDuplicate: (index: number) => void;
-  children: React.ReactNode;
-  sections: import("@shared/schema").Section[];
-}
-
-function EditableSectionWrapper({ section, index, sectionType, contentType, slug, locale, variant, version, totalSections, allSections, isSharedTemplate, singleEntry, onMoveUp, onMoveDown, onDelete, onDuplicate, children, sections }: EditableSectionWrapperProps) {
-  return (
-    <Suspense fallback={null}>
-      <EditableSection
-        section={section}
-        index={index}
-        sectionType={sectionType}
-        contentType={contentType}
-        slug={slug}
-        locale={locale}
-        variant={variant}
-        totalSections={totalSections}
-        allSections={allSections}
-        isSharedTemplate={isSharedTemplate}
-        singleEntry={singleEntry}
-        onMoveUp={onMoveUp}
-        onMoveDown={onMoveDown}
-        onDelete={onDelete}
-        onDuplicate={onDuplicate}
-      >
-        {children}
-      </EditableSection>
-      <AddSectionButton
-        insertIndex={index + 1}
-        sections={sections}
-        contentType={contentType}
-        slug={slug}
-        locale={locale}
-        variant={variant}
-        version={version}
-        isSharedTemplate={isSharedTemplate}
-        singleEntry={singleEntry}
-      />
-    </Suspense>
-  );
-}
-
 /** Returns a singular human-readable noun for a content type, e.g. "course" from "Courses". */
 function toSingularLabel(ct: string | undefined, rawTypes: { name: string; label: string }[] | undefined): string {
   if (!ct) return "entry";
@@ -707,7 +647,6 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
   const { data: rawContentTypes } = useContentTypesRaw();
   const singularLabel = toSingularLabel(contentType, rawContentTypes);
 
-  const { isDebugMode } = useDebugAuth();
   const { data: varDefinitions } = useVariableDefinitions();
   const varContext = useVariableContext();
 
@@ -1421,35 +1360,38 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
                 </>
               )}
               <div style={contentLayerStyles}>
-                {isDebugMode ? (
-                  <EditableSectionWrapper
-                    section={rawSection}
-                    index={index}
-                    sectionType={sectionType}
-                    contentType={contentType}
-                    slug={slug}
-                    locale={locale}
-                    variant={variant}
-                    version={version}
-                    totalSections={sections.length}
-                    allSections={sections}
-                    isSharedTemplate={isSharedTemplate}
-                    singleEntry={singleEntry}
-                    onMoveUp={handleMoveUp}
-                    onMoveDown={handleMoveDown}
-                    onDelete={handleDelete}
-                    onDuplicate={handleDuplicate}
-                    sections={sections}
-                  >
-                    <VariableHighlightProvider sectionIndex={index} contentType={contentType} hasSingleVars={!!singleEntry}>
-                      {renderedSection}
-                    </VariableHighlightProvider>
-                  </EditableSectionWrapper>
-                ) : (
+                <EditableSection
+                  section={rawSection}
+                  index={index}
+                  sectionType={sectionType}
+                  contentType={contentType}
+                  slug={slug}
+                  locale={locale}
+                  variant={variant}
+                  totalSections={sections.length}
+                  allSections={sections}
+                  isSharedTemplate={isSharedTemplate}
+                  singleEntry={singleEntry}
+                  onMoveUp={handleMoveUp}
+                  onMoveDown={handleMoveDown}
+                  onDelete={handleDelete}
+                  onDuplicate={handleDuplicate}
+                >
                   <VariableHighlightProvider sectionIndex={index} contentType={contentType} hasSingleVars={!!singleEntry}>
                     {renderedSection}
                   </VariableHighlightProvider>
-                )}
+                </EditableSection>
+                <AddSectionButton
+                  insertIndex={index + 1}
+                  sections={sections}
+                  contentType={contentType}
+                  slug={slug}
+                  locale={locale}
+                  variant={variant}
+                  version={version}
+                  isSharedTemplate={isSharedTemplate}
+                  singleEntry={singleEntry}
+                />
               </div>
             </div>
           );

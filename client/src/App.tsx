@@ -6,10 +6,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { lazy, Suspense, useMemo, useState, useEffect } from "react";
 import NotFound from "@/pages/not-found";
 import { SessionProvider } from "@/contexts/SessionContext";
-const EditModeWrapper = lazy(() =>
-  import("@/components/editing/EditModeWrapper").then(m => ({ default: m.EditModeWrapper }))
-);
-import { DebugAuthProvider, isDebugModeActive } from "@/hooks/useDebugAuth";
+import { EditModeWrapper } from "@/components/editing/EditModeWrapper";
+import { DebugAuthProvider } from "@/hooks/useDebugAuth";
 import { ImagePickerProvider } from "@/contexts/ImagePickerContext";
 import { usePageTracking } from "@/hooks/usePageTracking";
 import type { ContentTypeApiItem } from "@/hooks/useContentTypes";
@@ -303,33 +301,18 @@ function App({ ssrQueryClient }: AppProps = {}) {
       <SessionProvider>
         <DebugAuthProvider>
         <TooltipProvider>
-          {isDebugModeActive() ? (
-            <Suspense fallback={null}>
-              <EditModeWrapper>
-                <ImagePickerProvider>
-                  <PageTracker />
-                  <Router />
-                  <ClientOnly>
-                    <Toaster />
-                    <Suspense fallback={null}><ChatWidget /></Suspense>
-                    <Suspense fallback={null}><DebugBubble /></Suspense>
-                    <Suspense fallback={null}><VariableModalHost /></Suspense>
-                  </ClientOnly>
-                </ImagePickerProvider>
-              </EditModeWrapper>
-            </Suspense>
-          ) : (
+          <EditModeWrapper>
             <ImagePickerProvider>
-              <PageTracker />
-              <Router />
-              <ClientOnly>
-                <Toaster />
-                <Suspense fallback={null}><ChatWidget /></Suspense>
-                <Suspense fallback={null}><DebugBubble /></Suspense>
-                <Suspense fallback={null}><VariableModalHost /></Suspense>
-              </ClientOnly>
+            <PageTracker />
+            <Router />
+            <ClientOnly>
+              <Toaster />
+              <Suspense fallback={null}><ChatWidget /></Suspense>
+              <Suspense fallback={null}><DebugBubble /></Suspense>
+              <Suspense fallback={null}><VariableModalHost /></Suspense>
+            </ClientOnly>
             </ImagePickerProvider>
-          )}
+          </EditModeWrapper>
         </TooltipProvider>
         </DebugAuthProvider>
       </SessionProvider>

@@ -6,7 +6,6 @@ import {
   readInitialDataPayload,
 } from "./lib/initialData";
 import { preloadSectionsFromInitialData } from "@/components/sectionRegistry";
-import { isDebugModeActive } from "@/hooks/useDebugAuth";
 
 const initialDataPayload = readInitialDataPayload();
 hydrateInitialData();
@@ -66,12 +65,6 @@ const rootEl = document.getElementById("root")!;
     }
 
     const sectionPreload = preloadSectionsFromInitialData(initialDataPayload);
-
-    // Preload EditableSection for debug users so the SectionRenderer Suspense
-    // boundary resolves synchronously during hydrateRoot.
-    if (isDebugModeActive()) {
-      chunkLoads.push(import("@/components/editing/EditableSection"));
-    }
 
     // Gracefully handle preload failure — hydration still proceeds but may briefly
     // flash for that route. Better than blocking hydration globally.

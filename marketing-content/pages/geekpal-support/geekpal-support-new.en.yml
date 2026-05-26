@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.9
   change_frequency: weekly
-  page_title: GeekPAL Support | 4Geeks
-  description: Get unlimited 1:1 technical mentorship with real tech professionals, available during your program and for life. No session cap, no expiration date. Includes AI support from Rigobot 24/7 and access to a global community of 6,000+ graduates and mentors.
+  page_title: GeekPAL Support | 4Geeks Academy
+  description: At 4Geeks, you never learn alone. Unlimited 1:1 mentorship, 24/7 AI tutoring from Rigobot, and a global dev community. Lifelong access. 4Geeks Academy.
   redirects:
     - /geekpal-support
     - /us/geekpal-support
@@ -19,19 +19,19 @@ sections:
     section_id: hero-ivsy21
     version: "1.0"
     variant: productShowcase
-    welcome_text: null
+    title: Lifetime Mentorship & AI-Powered Coding Support
+    welcome_text: Welcome to
     brand_mark:
       prefix: Geek
       highlight: PAL
       suffix: ":"
       color: destructive
-    title: Unlimited mentorship, for life.
-    description: With GeekPal, you get unlimited 1:1 mentorship with our expert tutors, whenever you need it. For life. You choose who you work with, and when. No session cap, no expiration date.
-    bullets_heading: Support is always there when you need it
+    description: Get unlimited coding mentorship, 24/7 AI coding support, and access to a global developer community built to accelerate your learning and advance your tech career.
     bullets:
-      - text: Experienced mentors who've built what you're building
-      - text: Rigobot, our AI tutor, available 24/7 alongside our human mentors
-      - text: A global Slack community of 6,000+ graduates and mentors, ready to help
+      - text: Unlimited 1:1 coding mentorship
+      - text: AI-powered guidance from Rigobot 24/7
+      - text: Lifelong access
+      - text: Real community support
     video:
       url: https://youtu.be/D5nUZNL52-Q
       ratio: "3:4"
@@ -43,30 +43,33 @@ sections:
     version: "1.0"
     logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     avatars:
-      - https://randomuser.me/api/portraits/women/1.jpg
-      - https://randomuser.me/api/portraits/men/2.jpg
-      - https://randomuser.me/api/portraits/women/3.jpg
-      - https://randomuser.me/api/portraits/men/4.jpg
+      - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+      - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+      - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+      - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
     title: Advance Faster, Never Lose Momentum
     description: "The #1 reason people quit when learning to code? Getting stuck. GeekPal keeps you moving with support that shows up exactly when you need it."
     background: gradient
   - type: human_and_ai_duo
     section_id: human_and_ai_duo-zg16oa
     version: "1.0"
-    heading: Human mentors whenever you need them. AI support 24/7.
-    description: Human mentors bring judgment, experience, and live problem-solving. Rigobot, our AI tutor, and Learnpack bring instant feedback and structured practice. Between the two, you always have what you need to go deeper and move faster.
+    heading: "AI: The Perfect Support Duo"
+    description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll progress faster and smarter through unlimited 1:1 mentorship and AI-powered support from Rigobot.
     bullet_groups:
-      - title: "Your expert mentors:"
+      - title: "Our team of expert mentors:"
         image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
         bullets:
-          - text: 1:1 guidance adapted to where you are and where you're going
-          - text: Live help with whatever you're building or stuck on
-          - text: Available during the program and for life
+          - text: Personalized guidance
+          - text: Live troubleshooting
+          - text: Expert bug fixing assistance
+          - text: Industry insights and career advice
       - title: "Rigobot + Learnpack:"
+        image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
         bullets:
-          - text: Instant feedback and support, 24/7
-          - text: Adjusts to your skill level and progress
-          - text: Hundreds of interactive exercises and hands-on projects
+          - text: Instant feedback and tutoring 24/7
+          - text: Adjusts advice to your skills and progress
+          - text: Debugging and problem-solving support
+          - text: Hundreds of hands-on coding exercises and tests
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
         alt: Asian student learning to code
@@ -97,16 +100,16 @@ sections:
   - type: community_support
     section_id: community_support-hnuq6q
     version: "1.0"
-    heading: A global community of 6,000+ graduates, mentors, and tech professionals.
-    description: A network to support you for life.
+    heading: A Global Tech Community to Support your Growth
+    description: 4Geeks is more than a program, it's an active network of tech pros, mentors, and fellow geeks that keeps you progressing in your career.
     bullet_groups:
       - title: Slack Community
-        description: Active channels for technical support, job boards, and career advice in real time.
+        description: Get real-time help from mentors, alumni, and peers through our active, theme specific channels; from coding support, to job boards and career advice (and yes, there's coding humor too!).
         icon: BrandSlack
         badge: 6,000+ Members
         accent_color: primary
       - title: 4Geeks.com
-        description: Keep advancing with self-paced courses, live events, and collaborative projects used by thousands of tech professionals worldwide.
+        description: Keep advancing your skills with further training resources, live events, and collaborative projects. Connect with people who've been where you are — and know how to help you get where you want to go.
         icon: Rigobot
         accent_color: primary
     image: https://storage.googleapis.com/4geeks-academy-website/media/Group-6606.webp
@@ -124,8 +127,8 @@ sections:
     left:
       video: https://www.youtube.com/watch?v=MBXqEnhodx0
       video_width: 900px
-      heading: The impact of unlimited technical mentorship.
-      description: Joao shares how 1:1 mentorship supported him through the program and beyond.
+      heading: The Impact of Unlimited Coding Mentorship
+      description: Joao shares how continuous 1:1 mentorship supported his learning during the bootcamp and helped him grow professionally afterward.
       justify: center
       text_align: center
       font_size: lg
@@ -137,9 +140,14 @@ sections:
     section_id: testimonials_slide-rrnpaj
     title: Real Careers Start Here
     description: See how our alumni achieved their goals
-    related_features:
-      - career-support
-      - mentors-and-teachers
+    dynamic_entries:
+      database: testimonials_en
+      limit: 30
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - career-support
+            - mentors-and-teachers
     marginY:
       desktop: none
     paddingY:
@@ -183,12 +191,12 @@ sections:
       desktop: none md
   - type: cta_banner
     version: "1.0"
-    title: Ready to learn with mentorship that's with you for life?
-    subtitle: "Fill in your details and our admissions team will send you everything you need: program descriptions, requirements, and financing options. It only takes 2 minutes."
+    title: Take the Next Step Toward Your Tech Career
+    subtitle: Receive personalized program information and next steps.
     variant: form
     form:
       variant: stacked
-      submit_label: Get the Full Program Details
+      submit_label: Get the details
       tags: request_more_info
       automations: soft
       fields:
@@ -209,7 +217,7 @@ sections:
           required: true
           default: auto
       success:
-        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
+        message: Thank you! We'll be in touch soon.
       consent:
         email: true
         marketing: true
@@ -234,7 +242,7 @@ sections:
     form:
       variant: inline
       conversion_name: student_application
-      submit_label: Start Your Application
+      submit_label: Submit Application
       tags: website-lead
       automations: strong
       fields:
@@ -255,4 +263,4 @@ sections:
           required: true
           default: auto
       success:
-        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
+        message: Thanks! We'll be in touch within 24 hours.
