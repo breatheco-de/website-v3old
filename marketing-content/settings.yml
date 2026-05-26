@@ -7,8 +7,8 @@ i18n:
       label: Spanish
 optimization:
   tagmanager:
-    sgtm_enabled: false
-    sgtm_server_url: ''
+    sgtm_enabled: true
+    sgtm_server_url: https://metrics.4geeksacademy.com
     sgtm_proxy_path: /sgtm/
 page_intents:
   - id: content_seo

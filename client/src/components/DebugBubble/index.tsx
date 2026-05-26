@@ -138,7 +138,7 @@ export function DebugBubble() {
   const [sitemapLoading, setSitemapLoading] = useState(false);
   const [showSitemapSearch, setShowSitemapSearch] = useState(false);
   const [showYamlEditor, setShowYamlEditor] = useState(false);
-  const [yamlEditorInfo, setYamlEditorInfo] = useState<{ contentType: string; slug: string; locale: string } | null>(null);
+  const [yamlEditorInfo, setYamlEditorInfo] = useState<{ contentType: string; slug: string; locale: string; variantSlug?: string } | null>(null);
   const [componentSearch, setComponentSearch] = useState("");
   const [showComponentSearch, setShowComponentSearch] = useState(false);
 
@@ -1656,6 +1656,11 @@ export function DebugBubble() {
     versioningLoading,
     versioningData,
     onVersioningDataUpdate: setVersioningData,
+    onEditVariantYaml: (locale: string, variantSlug: string) => {
+      if (!contentInfo.type || !contentInfo.slug) return;
+      setYamlEditorInfo({ contentType: contentInfo.type, slug: contentInfo.slug, locale, variantSlug });
+      setShowYamlEditor(true);
+    },
     handleLinkClick,
     sitemapUrls,
     sitemapLoading,
@@ -1698,7 +1703,7 @@ export function DebugBubble() {
   // a single entry means there are effectively 2 variants to switch between.
   const forkVariantCount = useMemo(() => {
     if (!versioningData?.versioning) return 0;
-    return Math.max(...Object.values(versioningData.versioning).map((ld) => ld.variants.length));
+    return Math.max(...Object.values(versioningData.versioning).map((ld) => ld?.variants?.length ?? 0));
   }, [versioningData]);
 
   const showForkBubble = !shouldHide &&
@@ -1991,6 +1996,7 @@ export function DebugBubble() {
             contentType={yamlEditorInfo.contentType}
             slug={yamlEditorInfo.slug}
             locale={yamlEditorInfo.locale}
+            variantSlug={yamlEditorInfo.variantSlug}
             onClose={() => setShowYamlEditor(false)}
             onSaved={() => window.location.reload()}
           />

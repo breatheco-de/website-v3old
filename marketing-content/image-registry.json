@@ -19045,6 +19045,42 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/4Geeks-Academy-Reviews-Cost-Courses-and-Outcomes-05-26-2026_10_59_AM-340w.webp"
         }
       ]
+    },
+    "4geeks-og-image": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-og-image.png",
+      "alt": "Image: 4geeks-og-image",
+      "focal_point": "center",
+      "tags": [
+        "hero",
+        "illustration"
+      ],
+      "usage_count": 0,
+      "hash": "39f065bad42af0c045817ade39dde087a290b31392ad43d26ae93a5a44ccf07e",
+      "width": 1560,
+      "height": 1008,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960,
+        1280
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-og-image-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-og-image-960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-og-image-1280w.webp"
+        }
+      ]
     }
   }
 }

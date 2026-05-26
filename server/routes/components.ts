@@ -712,7 +712,10 @@ export function registerComponentsRoutes(app: Express): void {
         }
       }
 
-      const localePath = path.join(contentDir, `${locale}.yml`);
+      const variantSlug = req.query.variantSlug as string | undefined;
+      const localePath = variantSlug
+        ? path.join(contentDir, `${variantSlug}.${locale}.yml`)
+        : path.join(contentDir, `${locale}.yml`);
       const commonPath = path.join(contentDir, "_common.yml");
 
       const files: {
@@ -722,7 +725,9 @@ export function registerComponentsRoutes(app: Express): void {
 
       if (fs.existsSync(localePath)) {
         files.locale = {
-          path: `marketing-content/${folder}/${resolvedSlug}/${locale}.yml`,
+          path: variantSlug
+            ? `marketing-content/${folder}/${resolvedSlug}/${variantSlug}.${locale}.yml`
+            : `marketing-content/${folder}/${resolvedSlug}/${locale}.yml`,
           content: fs.readFileSync(localePath, "utf-8"),
         };
       }

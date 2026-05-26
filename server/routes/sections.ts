@@ -214,7 +214,7 @@ export function registerSectionsRoutes(app: Express): void {
    */
   app.post("/api/per-entry-section-remove", async (req, res) => {
     try {
-      const { authorized } = await requireCapability(req, res, "edit_content");
+      const { authorized } = await requireCapability(req, res, "content_edit_default", req.body.contentType);
       if (!authorized) return;
 
       const { contentType, slug, locale: rawLocale, sectionIndex, isPerEntry } = req.body as {
@@ -376,7 +376,7 @@ export function registerSectionsRoutes(app: Express): void {
    */
   app.post("/api/per-entry-section-restore", async (req, res) => {
     try {
-      const { authorized } = await requireCapability(req, res, "edit_content");
+      const { authorized } = await requireCapability(req, res, "content_edit_default", req.body.contentType);
       if (!authorized) return;
 
       const { contentType, slug, locale: rawLocale, sectionId } = req.body as {
@@ -434,7 +434,7 @@ export function registerSectionsRoutes(app: Express): void {
    */
   app.post("/api/per-entry-section-patch-reset", async (req, res) => {
     try {
-      const { authorized } = await requireCapability(req, res, "edit_content");
+      const { authorized } = await requireCapability(req, res, "content_edit_default", req.body.contentType);
       if (!authorized) return;
 
       const { contentType, slug, locale: rawLocale, sectionId } = req.body as {
@@ -494,7 +494,7 @@ export function registerSectionsRoutes(app: Express): void {
    */
   app.post("/api/per-entry-section-add", async (req, res) => {
     try {
-      const { authorized } = await requireCapability(req, res, "edit_content");
+      const { authorized } = await requireCapability(req, res, "content_edit_default", req.body.contentType);
       if (!authorized) return;
 
       const { contentType, slug, locale: rawLocale, sectionData, insertIndex } = req.body as {
@@ -611,7 +611,7 @@ export function registerSectionsRoutes(app: Express): void {
    */
   app.post("/api/per-entry-section-delete-from-template", async (req, res) => {
     try {
-      const { authorized } = await requireCapability(req, res, "edit_content");
+      const { authorized } = await requireCapability(req, res, "content_edit_structure", req.body.contentType);
       if (!authorized) return;
 
       const { contentType, slug, locale: rawLocale, sectionId, mergedIndex } = req.body as {
@@ -742,7 +742,7 @@ export function registerSectionsRoutes(app: Express): void {
    */
   app.post("/api/per-entry-section-update", async (req, res) => {
     try {
-      const { authorized } = await requireCapability(req, res, "edit_content");
+      const { authorized } = await requireCapability(req, res, "content_edit_default", req.body.contentType);
       if (!authorized) return;
 
       const { contentType, slug, locale: rawLocale, sectionIndex, sectionData } = req.body as {
