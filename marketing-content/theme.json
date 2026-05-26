@@ -636,11 +636,6 @@
       "example": "banner - geekpal",
       "importYaml": "- type: banner\n  section_id: banner-mwfx4x\n  version: '1.0'\n  logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp\n  avatars:\n    - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png\n    - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg\n    - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg\n    - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp\n  title: Advance Faster, Never Lose Momentum\n  description: 'The #1 reason people quit when learning to code? Getting stuck. GeekPal keeps you moving with support that shows up exactly when you need it.'\n  background: gradient\n",
       "registryPersisted": true
-    },
-    {
-      "component": "banner",
-      "version": "v1.0",
-      "example": "Default Banner"
     }
   ]
 }
