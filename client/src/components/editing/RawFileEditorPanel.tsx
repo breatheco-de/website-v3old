@@ -22,6 +22,7 @@ interface RawFileEditorPanelProps {
   contentType: string;
   slug: string;
   locale: string;
+  variantSlug?: string;
   onClose: () => void;
   onSaved?: () => void;
 }
@@ -36,7 +37,7 @@ interface PendingSave {
   issues: string[];
 }
 
-export default function RawFileEditorPanel({ contentType, slug, locale, onClose, onSaved }: RawFileEditorPanelProps) {
+export default function RawFileEditorPanel({ contentType, slug, locale, variantSlug, onClose, onSaved }: RawFileEditorPanelProps) {
   const { toast } = useToast();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -54,7 +55,7 @@ export default function RawFileEditorPanel({ contentType, slug, locale, onClose,
       try {
         setLoading(true);
         setError(null);
-        const res = await fetch(`/api/content/raw-file?contentType=${contentType}&slug=${slug}&locale=${locale}`);
+        const res = await fetch(`/api/content/raw-file?contentType=${contentType}&slug=${slug}&locale=${locale}${variantSlug ? `&variantSlug=${encodeURIComponent(variantSlug)}` : ""}`);
         if (!res.ok) {
           setError("Could not load YAML files");
           return;
@@ -212,7 +213,7 @@ export default function RawFileEditorPanel({ contentType, slug, locale, onClose,
               data-testid="tab-locale-file"
             >
               <File className="h-3.5 w-3.5 inline mr-1.5" />
-              {locale}.yml
+              {variantSlug ? `${variantSlug}.${locale}.yml` : `${locale}.yml`}
             </button>
             <button
               type="button"

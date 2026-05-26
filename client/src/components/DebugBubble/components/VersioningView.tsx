@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useSearch } from "wouter";
 import { deslugify } from "../utils/debugHelpers";
-import { IconArrowLeft, IconGitBranch, IconRefresh, IconPencil, IconCheck, IconX, IconPlayerPlay, IconPlus, IconHistory, IconExternalLink, IconArrowBackUp, IconCrown, IconTrash } from "@tabler/icons-react";
+import { IconArrowLeft, IconGitBranch, IconRefresh, IconPencil, IconCheck, IconX, IconPlayerPlay, IconPlus, IconHistory, IconExternalLink, IconArrowBackUp, IconCrown, IconTrash, IconDots, IconCode } from "@tabler/icons-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -23,6 +24,7 @@ interface VersioningViewProps {
   navigate: (path: string) => void;
   pathname: string;
   onVersioningDataUpdate?: (data: VersioningResponse) => void;
+  onEditVariantYaml: (locale: string, variantSlug: string) => void;
 }
 
 export function VersioningView({
@@ -33,6 +35,7 @@ export function VersioningView({
   navigate,
   pathname,
   onVersioningDataUpdate,
+  onEditVariantYaml,
 }: VersioningViewProps) {
   const { toast } = useToast();
   const locales = versioningData?.versioning ? Object.keys(versioningData.versioning) : [];
@@ -656,24 +659,36 @@ export function VersioningView({
                               </TooltipProvider>
                             )}
                             {!isEditing && (
-                              <TooltipProvider delayDuration={300}>
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <Button
-                                      size="icon"
-                                      variant="ghost"
-                                      className="h-5 w-5 shrink-0 transition-colors hover:bg-destructive/10 hover:text-destructive"
-                                      onClick={() => setDeleteTarget({ locale, slug: variant.slug, allocation: variant.allocation })}
-                                      data-testid={`button-delete-variant-${locale}-${variant.slug}`}
-                                    >
-                                      <IconTrash className="h-3 w-3" />
-                                    </Button>
-                                  </TooltipTrigger>
-                                  <TooltipContent side="top">
-                                    <p>Delete this variant</p>
-                                  </TooltipContent>
-                                </Tooltip>
-                              </TooltipProvider>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button
+                                    size="icon"
+                                    variant="ghost"
+                                    className="h-5 w-5 shrink-0"
+                                    data-testid={`button-variant-menu-${locale}-${variant.slug}`}
+                                  >
+                                    <IconDots className="h-3 w-3" />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="w-40">
+                                  <DropdownMenuItem
+                                    onClick={() => onEditVariantYaml(locale, variant.slug)}
+                                    className="text-[13px]"
+                                    data-testid={`menu-edit-yaml-variant-${locale}-${variant.slug}`}
+                                  >
+                                    <IconCode className="h-3.5 w-3.5 mr-2" />
+                                    Edit YAML
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem
+                                    onClick={() => setDeleteTarget({ locale, slug: variant.slug, allocation: variant.allocation })}
+                                    className="text-[13px] text-destructive"
+                                    data-testid={`menu-delete-variant-${locale}-${variant.slug}`}
+                                  >
+                                    <IconTrash className="h-3.5 w-3.5 mr-2" />
+                                    Delete variant
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
                             )}
                           </div>
                         </div>

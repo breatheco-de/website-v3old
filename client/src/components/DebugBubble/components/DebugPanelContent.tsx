@@ -86,6 +86,7 @@ export interface DebugPanelContentProps {
   versioningLoading: boolean;
   versioningData: unknown;
   onVersioningDataUpdate?: (data: unknown) => void;
+  onEditVariantYaml: (locale: string, variantSlug: string) => void;
   handleLinkClick: (href: string) => void;
 
   sitemapUrls: SitemapUrl[];
@@ -788,6 +789,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
           navigate={props.navigate}
           pathname={props.pathname}
           onVersioningDataUpdate={props.onVersioningDataUpdate as any}
+          onEditVariantYaml={props.onEditVariantYaml}
         />
       ) : props.menuView === "menus" ? (
         <>
