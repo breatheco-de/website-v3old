@@ -89,6 +89,23 @@ function safeYamlDump(obj: unknown, opts?: yamlParser.DumpOptions): string {
   return unescapeYamlDump(dumped, map);
 }
 
+const TEMPLATE_VAR_RE = /\{\{[\s\S]*?\}\}/;
+
+function isTemplateVarValue(value: unknown): boolean {
+  return typeof value === "string" && TEMPLATE_VAR_RE.test(value);
+}
+
+function getValueAtFieldPath(obj: unknown, fieldPath: string): unknown {
+  const parts = fieldPath.split(".");
+  let current: unknown = obj;
+  for (const part of parts) {
+    if (current === null || current === undefined) return undefined;
+    if (typeof current !== "object") return undefined;
+    current = (current as Record<string, unknown>)[part];
+  }
+  return current;
+}
+
 function stripTransientDynamicKeys(section: unknown): unknown {
   if (!section || typeof section !== "object") return section;
   const sec = section as Record<string, unknown>;
@@ -2761,6 +2778,7 @@ export function SectionEditorPanel({
                   : currentValue.split("/").pop() || currentValue;
 
                 const isOverridden = fieldHasOverride(fieldPath);
+                const isTemplateVar = isTemplateVarValue(getValueAtFieldPath(parsedSection, fieldPath));
                 return (
                   <div key={fieldPath} className="space-y-2 mt-3">
                     <div className="flex items-center gap-2 flex-wrap">
@@ -2774,6 +2792,15 @@ export function SectionEditorPanel({
                           data-testid={`badge-override-${fieldPath}`}
                         >
                           overridden
+                        </Badge>
+                      )}
+                      {!isOverridden && isTemplateVar && (
+                        <Badge
+                          variant="secondary"
+                          className="text-[10px] px-1.5 py-0 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-700"
+                          data-testid={`badge-template-var-${fieldPath}`}
+                        >
+                          template
                         </Badge>
                       )}
                     </div>
@@ -4675,11 +4702,23 @@ export function SectionEditorPanel({
                   };
                   const currentValue = getSimpleFieldValue();
                   const fieldLabel = getFieldLabel(fieldPath);
+                  const isFieldTemplateVar = isTemplateVarValue(getValueAtFieldPath(parsedSection, fieldPath));
                   return (
                     <div key={fieldPath} className="space-y-2">
-                      <Label className="text-sm font-medium">
-                        {fieldLabel}
-                      </Label>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <Label className="text-sm font-medium">
+                          {fieldLabel}
+                        </Label>
+                        {isFieldTemplateVar && (
+                          <Badge
+                            variant="secondary"
+                            className="text-[10px] px-1.5 py-0 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-700"
+                            data-testid={`badge-template-var-${fieldPath}`}
+                          >
+                            template
+                          </Badge>
+                        )}
+                      </div>
                       <RichTextArea
                         key={`${sectionIndex}-${fieldPath}`}
                         value={currentValue}

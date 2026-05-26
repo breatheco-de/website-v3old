@@ -10,6 +10,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as crypto from 'crypto';
+import { getAllDirectories } from './content-types';
 import {
   detectPendingChanges,
   getLastSyncedCommit,
@@ -979,7 +980,8 @@ export async function getAllSyncChanges(): Promise<PendingChange[]> {
       }
       
       // Parse content type and slug from file path
-      const pathMatch = filePath.match(/marketing-content\/(programs|landings|locations|pages|component-registry)\/([^\/]+)/);
+      const allDirs = [...getAllDirectories(), "component-registry"];
+      const pathMatch = filePath.match(new RegExp(`marketing-content\\/(${allDirs.join("|")})\\/([^\\/]+)`));
       changes.push({
         file: filePath,
         status: 'modified',

@@ -24,6 +24,9 @@ import {
   IconSettingsCog,
   IconToggleLeft,
   IconToggleRight,
+  IconCircleCheck,
+  IconCircleX,
+  IconPlugConnected,
 } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { ImagePickerDialog } from "@/components/editing/ImagePickerDialog";
@@ -1034,6 +1037,11 @@ function OptimizationTab() {
   const [dirty, setDirty] = useState(false);
   const [saving, setSaving] = useState(false);
 
+  type TestStatus = "idle" | "testing" | "success" | "error";
+  const [testStatus, setTestStatus] = useState<TestStatus>("idle");
+  const [testReason, setTestReason] = useState<string>("");
+  const [testing, setTesting] = useState(false);
+
   useEffect(() => {
     if (data?.tagmanager) {
       setEnabled(data.tagmanager.sgtm_enabled);
@@ -1045,6 +1053,29 @@ function OptimizationTab() {
 
   function markDirty() {
     setDirty(true);
+  }
+
+  async function handleTestConnection() {
+    if (!serverUrl.trim()) return;
+    setTesting(true);
+    setTestStatus("testing");
+    setTestReason("");
+    try {
+      const res = await apiRequest("POST", "/api/settings/optimization/test", { url: serverUrl.trim() });
+      const result = await res.json();
+      if (result.reachable) {
+        setTestStatus("success");
+        setTestReason("");
+      } else {
+        setTestStatus("error");
+        setTestReason(result.reason || "Server unreachable.");
+      }
+    } catch (err: any) {
+      setTestStatus("error");
+      setTestReason(err.message || "Connection test failed.");
+    } finally {
+      setTesting(false);
+    }
   }
 
   const siteOrigin = typeof window !== "undefined" ? window.location.origin : "";
@@ -1138,17 +1169,52 @@ function OptimizationTab() {
                   <label className="text-xs font-medium text-muted-foreground" htmlFor="sgtm-server-url">
                     sGTM Server URL
                   </label>
-                  <Input
-                    id="sgtm-server-url"
-                    placeholder="https://xxx.stape.net"
-                    value={serverUrl}
-                    onChange={(e) => { setServerUrl(e.target.value); markDirty(); }}
-                    className="font-mono text-sm"
-                    data-testid="input-sgtm-server-url"
-                  />
+                  <div className="flex gap-2">
+                    <Input
+                      id="sgtm-server-url"
+                      placeholder="https://xxx.stape.net"
+                      value={serverUrl}
+                      onChange={(e) => {
+                        setServerUrl(e.target.value);
+                        markDirty();
+                        setTestStatus("idle");
+                        setTestReason("");
+                      }}
+                      className="font-mono text-sm"
+                      data-testid="input-sgtm-server-url"
+                    />
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      onClick={handleTestConnection}
+                      disabled={!serverUrl.trim() || testing}
+                      data-testid="button-test-sgtm-connection"
+                      className="shrink-0"
+                    >
+                      {testing ? (
+                        <IconLoader2 className="h-4 w-4 mr-1.5 animate-spin" />
+                      ) : (
+                        <IconPlugConnected className="h-4 w-4 mr-1.5" />
+                      )}
+                      Test
+                    </Button>
+                  </div>
                   <p className="text-xs text-muted-foreground">
                     The Stape.io or custom sGTM server endpoint (e.g. <code className="font-mono">https://xxx.stape.net</code>).
                   </p>
+                  {testStatus === "success" && (
+                    <div className="flex items-center gap-1.5 text-xs" data-testid="status-sgtm-connection-success">
+                      <IconCircleCheck className="h-4 w-4 text-green-600 shrink-0" />
+                      <span className="text-green-700 dark:text-green-400">Server reachable — connection successful.</span>
+                    </div>
+                  )}
+                  {testStatus === "error" && (
+                    <div className="flex items-start gap-1.5 text-xs" data-testid="status-sgtm-connection-error">
+                      <IconCircleX className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                      <span className="text-destructive">{testReason}</span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-1">

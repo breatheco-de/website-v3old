@@ -22,11 +22,10 @@ const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditor
 
 type ContentData = CareerProgram | LandingPage | LocationPage | TemplatePage;
 
+// Only special-case types whose API path differs from their registry directory name.
+// For all other known content types, the directory from the registry is used as the API path.
 const STATIC_API_PATHS: Record<string, string> = {
   program: "career-programs",
-  landing: "landings",
-  location: "locations",
-  page: "pages",
 };
 
 export default function PrivatePreview() {
@@ -50,7 +49,13 @@ export default function PrivatePreview() {
   );
 
   const typeInfo = allContentTypes?.find(t => t.name === normalizedType);
-  const staticApiPath = STATIC_API_PATHS[normalizedType];
+  // For types with /api/{directory}/{slug} standalone endpoints, derive the path from the
+  // registry directory instead of hardcoding it. Types without standalone endpoints (e.g. blog,
+  // downloadable) are routed through the generic /api/content-pages endpoint below.
+  const STANDALONE_ENDPOINT_TYPES = new Set(["landing", "location", "page"]);
+  const staticApiPath =
+    STATIC_API_PATHS[normalizedType] ??
+    (STANDALONE_ENDPOINT_TYPES.has(normalizedType) ? typeInfo?.directory : undefined);
   const isValidContentType = !!typeInfo || !!staticApiPath;
   const typeLabel = typeInfo?.label || normalizedType.charAt(0).toUpperCase() + normalizedType.slice(1);
 

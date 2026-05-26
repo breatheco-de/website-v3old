@@ -1,0 +1,750 @@
+import type { Express, Request, Response } from "express";
+import { createServer, type Server } from "http";
+import { storage } from "../storage";
+import { geoGet, geoSet } from "../geo-cache";
+import { getQueueStats, enqueueOptimization, getPendingOptimizations, getFailedEntries, retryFailedImages, resetOptimizeSession, getOptimizeSession, enqueueExternalImage } from "../image-registry";
+import { getAllQueueState } from "../image-queue-state";
+
+
+import * as fs from "fs";
+import * as path from "path";
+import * as yaml from "js-yaml";
+import { execSync as _execSync, execFile } from "child_process";
+import {
+  versioningUpdateSchema,
+  type CareerProgram,
+  type LandingPage,
+  type LocationPage,
+  type TemplatePage,
+} from "@shared/schema";
+import {
+  getSitemap,
+  clearSitemapCache,
+  getSitemapCacheStatus,
+  getSitemapUrls,
+  invalidateSitemapEntry,
+  invalidateSitemapEntriesByContentKey,
+  refreshSitemapEntry,
+  refreshSitemapEntriesForContentKey,
+} from "../sitemap";
+import { markFileAsModified } from "../sync-state";
+import { deepMerge } from "../utils/deepMerge";
+import { regenerateSectionIds } from "../utils/regenerateSectionIds";
+import { databaseManager } from "../database";
+import {
+  redirectMiddleware,
+  getRedirects,
+  clearRedirectCache,
+  testRedirect,
+} from "../redirects";
+import {
+  getSchema,
+  getMergedSchemas,
+  getAvailableSchemaKeys,
+  clearSchemaCache,
+  getOrganizationTwitterHandle,
+  getOrganizationSameAsUrl,
+  getWebsiteDefaultSocialImage,
+  updateWebsiteDefaultSocialImage,
+  updateOrganizationTwitterHandle,
+  updateOrganizationSameAsUrl,
+} from "../schema-org";
+import {
+  getRegistryOverview,
+  getComponentInfo,
+  listVersions,
+  loadSchema,
+  loadExamples,
+  createNewVersion,
+  getExampleFilePath,
+  saveExample,
+  createExample,
+  loadAllFieldEditors,
+  applyComponentSectionDefaults,
+  applyComponentImageSizes,
+  getVariantByExample,
+  getVariantExamples,
+  deleteExample,
+  deleteVariant,
+} from "../component-registry";
+import {
+  editContent,
+  editCommonContent,
+  getContentForEdit,
+  createContentEntry,
+  deleteContentEntry,
+  renameContentSlug,
+} from "../content-editor";
+import { bindingManager } from "../bindings";
+import {
+  escapeTemplateVars,
+  escapeObjectVars,
+  unescapeObjectVars,
+  unescapeYamlDump,
+} from "@shared/templateVars";
+import {
+  getVersioningManager,
+  readUserId,
+  getVersioningCookie,
+  setVersioningCookie,
+  buildUserContext,
+} from "../versioning";
+import { mediaGallery } from "../media-gallery";
+import { media } from "../media";
+import multer from "multer";
+import { contentIndex, type ContentType } from "../content-index";
+import { runScan as runComponentInsightsScan, readInsightsFile, suggestNext as suggestNextComponent } from "../component-insights";
+import { validateFieldSource, validateFieldMapping, extractByDotPath } from "../../scripts/validation/shared/fieldMappingValidator";
+import {
+  getFolder,
+  getType,
+  isValidType,
+  getAllTypes,
+  getAllFolders,
+  getAllConfigs,
+  getDatabaseName,
+  getFieldMapping,
+  getLookupKey,
+  getLocaleKey,
+  getLocaleDefault,
+  getIndexes,
+  hasDatabaseSingle,
+  getContentTypeConfig,
+  updateContentTypeConfig,
+  addContentType,
+  getDatabaseConfig,
+  getLabel,
+  normalizeUrlPattern,
+  getLocaleSource,
+  resolveContentTypeUrl,
+  getLayout,
+  resolveLayout,
+  listAvailableMenus,
+  getDirectory,
+} from "../content-types";
+import { resolveFieldValue, applyTransformIfNeeded } from "../transform";
+import { resolveSingleVars } from "../single-resolver";
+import {
+  normalizeLocale,
+  getSupportedLocales,
+  getDefaultLocale,
+  getLocaleEntries,
+  updateLocaleSettings,
+  getHomePage,
+  getOptimizationSettings,
+  updateOptimizationSettings,
+} from "../settings";
+import { variableManager } from "../variable-manager";
+import { getValidationService } from "../../scripts/validation/service";
+import { getCanonicalUrl, normalizeUrl } from "../../scripts/validation/shared/canonicalUrls";
+import {
+  isNonLocalFilesystemSrc,
+  buildRegistrySrcToIdMap,
+  resolveRegistryReference,
+} from "../../scripts/validation/shared/imageRegistrySrc";
+import type { ProgressEvent } from "../../scripts/validation/fixers/types";
+import { gcs } from "../gcs";
+import { z } from "zod";
+import {
+  generateSsrSchemaHtml,
+  generateDatabaseSsrHtml,
+  generateListingSsrHtml,
+  clearSsrSchemaCache,
+  loadRawYaml,
+  resolveFaqItems,
+  buildFaqPageSchema,
+  resolvePageRobots,
+  type FaqSection,
+} from "../ssr-schema";
+import {
+  fetchMarkdownContent,
+  clearMarkdownCache,
+  clearMarkdownCacheByUrl,
+} from "../markdown";
+import { resolveDynamicEntries } from "../dynamic-entries";
+import { loadDatabaseSinglePage, mergeSingleTemplate } from "../database-single-loader";
+import { getBaseUrl } from "../hreflang";
+import * as userManager from "../user-manager";
+import * as userStore from "../user-store";
+import type { CapabilityName } from "../user-store";
+
+
+import {
+  BREATHECODE_HOST,
+  extractToken,
+  requireCapability,
+  safeYamlLoad,
+  safeYamlDump,
+  resolveVariantAssignment,
+  invalidateContentCaches,
+  createValidationFixRun,
+  appendValidationRunLog,
+  applyFixerProgress,
+  resolveFixerPipeline,
+  validationRuns,
+  validationRunOrder,
+  MAX_VALIDATION_RUNS,
+  MAX_RUN_LOG_ENTRIES,
+  careerProgramsListingSchema,
+  loadCareerProgramsListing,
+  applyMetaFallback,
+  injectCanonicalIfMissing,
+  loadCareerProgram,
+  listCareerPrograms,
+  loadLandingPage,
+  listLandingPages,
+  loadLocationPage,
+  listLocationPages,
+  loadTemplatePage,
+  buildSingleEntryFromContent,
+  listTemplatePages,
+  detectLanguageFromRequest,
+  ValidationFixRunState,
+  ValidationFixRunLogEntry,
+  FixerItemStatus,
+} from "./_helpers";
+
+export function registerSeoRoutes(app: Express): void {
+  // Dynamic robots.txt — uses SITE_URL at request time so staging and production
+  // always point to the correct sitemap domain. Registered before static-file
+  // middleware so this route takes precedence over public/robots.txt.
+  app.get("/robots.txt", (req, res) => {
+    function getRobotsBaseUrl(): string {
+      if (process.env.SITE_URL) return process.env.SITE_URL.replace(/\/$/, "");
+      if (process.env.REPLIT_DEV_DOMAIN) return `https://${process.env.REPLIT_DEV_DOMAIN}`;
+      return "http://localhost:5000";
+    }
+    const baseUrl = getRobotsBaseUrl();
+    const content = `# Allow all crawlers
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /private/
+Disallow: /preview-frame
+Disallow: /health
+
+# Allow AI/LLM crawlers explicitly
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Sitemap location
+Sitemap: ${baseUrl}/sitemap.xml
+`;
+    res.set("Content-Type", "text/plain");
+    res.set("Cache-Control", "public, max-age=3600");
+    res.send(content);
+  });
+
+  // Dynamic sitemap with caching
+  app.get("/sitemap.xml", (req, res) => {
+    const xml = getSitemap();
+    res.set("Content-Type", "application/xml");
+    res.set("Cache-Control", "public, max-age=3600"); // Browser cache for 1 hour
+    res.send(xml);
+  });
+
+  // Get Breathecode host configuration (for debug tools)
+  app.get("/api/debug/breathecode-host", (req, res) => {
+    const defaultHost = "https://breathecode.herokuapp.com";
+    res.json({
+      host: BREATHECODE_HOST,
+      isDefault: BREATHECODE_HOST === defaultHost,
+    });
+  });
+
+  // Sitemap cache status (for debug tools)
+  app.get("/api/debug/sitemap-cache-status", (req, res) => {
+    const status = getSitemapCacheStatus();
+    res.json(status);
+  });
+
+  // Sitemap URLs as JSON (for debug tools)
+  app.get("/api/debug/sitemap-urls", (req, res) => {
+    const urls = getSitemapUrls();
+    res.json(urls);
+  });
+
+  // Public sitemap URLs endpoint for menu editor
+  app.get("/api/sitemap-urls", (req, res) => {
+    const locale = req.query.locale as string | undefined;
+    const urls = getSitemapUrls();
+
+    if (locale) {
+      const langPrefixes = ["/en/", "/es/", "/fr/", "/de/", "/pt/", "/it/"];
+      const filteredUrls = urls.filter((entry) => {
+        const path = entry.loc.replace(/^https?:\/\/[^/]+/, "");
+        const matchesLocale = path.startsWith(`/${locale}/`);
+        const isNeutral = !langPrefixes.some((prefix) =>
+          path.startsWith(prefix),
+        );
+        return matchesLocale || isNeutral;
+      });
+      res.json(filteredUrls);
+    } else {
+      res.json(urls);
+    }
+  });
+
+  // Returns sections for a given page path — used by LinkPicker's Section/Modal tabs
+  // when a contextPath is set (e.g. in per-page CTA override rows)
+  app.get("/api/page-sections", async (req, res) => {
+    try {
+      const pagePath = req.query.path as string;
+
+      if (!pagePath) {
+        res.status(400).json({ error: "Missing path query parameter", sections: [] });
+        return;
+      }
+
+      const normalizedPath = normalizeUrl(pagePath);
+      const resolved = contentIndex.resolveUrl(normalizedPath);
+
+      let effectiveLocale = (req.query.locale as string) || "en";
+      if (resolved && !req.query.locale && resolved.patternLocale) {
+        effectiveLocale =
+          resolved.patternLocale === "default" ? "en" : resolved.patternLocale;
+      }
+
+      let rawData: Record<string, unknown> | null = null;
+
+      if (resolved && !resolved.fromDatabase) {
+        const merged = contentIndex.loadMergedContent(
+          resolved.contentType,
+          resolved.slug,
+          effectiveLocale,
+        );
+        if (merged.data) {
+          rawData = merged.data;
+        }
+      }
+
+      if (!rawData) {
+        const service = getValidationService();
+        let context = service.getContext();
+        if (!context) {
+          context = await service.buildContext();
+        }
+
+        const matchingFiles = (context.contentFiles as any[]).filter(
+          (f: any) => normalizeUrl(getCanonicalUrl(f)) === normalizedPath,
+        );
+
+        const file =
+          matchingFiles.find((f: any) => f.locale === effectiveLocale) ||
+          matchingFiles.find((f: any) => f.locale !== "_common") ||
+          matchingFiles[0] ||
+          null;
+
+        if (!file) {
+          res.json({ sections: [] });
+          return;
+        }
+
+        rawData = {};
+        try {
+          const commonPath = path.join(path.dirname(file.filePath), "_common.yml");
+          if (fs.existsSync(commonPath)) {
+            const commonData =
+              (safeYamlLoad(fs.readFileSync(commonPath, "utf-8")) as Record<string, unknown>) || {};
+            rawData = { ...commonData };
+          }
+          if (fs.existsSync(file.filePath)) {
+            const localeData =
+              (safeYamlLoad(fs.readFileSync(file.filePath, "utf-8")) as Record<string, unknown>) || {};
+            rawData = { ...rawData, ...localeData };
+          }
+        } catch {}
+      }
+
+      const includeYaml = req.query.includeYaml === "true";
+      const rawSections = (rawData.sections as any[]) || [];
+      const sections = rawSections
+        .filter((s: any) => s?.type)
+        .map((s: any, index: number) => {
+          const base: Record<string, unknown> = {
+            type: s.type as string,
+            section_id: (s.section_id as string) || null,
+            label:
+              (s.title as string) ||
+              (s.heading as string) ||
+              `${s.type} (section ${index + 1})`,
+          };
+          if (includeYaml) {
+            base.yamlContent = safeYamlDump([s], { lineWidth: -1 });
+          }
+          return base;
+        });
+
+      res.json({ sections });
+    } catch (e) {
+      res.status(500).json({ error: String(e), sections: [] });
+    }
+  });
+
+  // ============================================================================
+  // Blog API routes
+  // ============================================================================
+  app.get("/api/seo/overview", (req, res) => {
+    try {
+      const entries = contentIndex.listAll();
+      const seoEntries = contentIndex.getAllSeoEntries();
+
+      const intentDistribution: Record<string, Record<string, number>> = {};
+      const clusterMap = new Map<string, string[]>();
+      const orphanPages: { slug: string; contentType: string; intent: string; filePath: string }[] = [];
+      const featureCoverage: Record<string, number> = {};
+      const faqCoverage: { slug: string; contentType: string; locale: string; faqCount: number }[] = [];
+      const schemaCoverage: Record<string, number> = {};
+
+      let totalPages = 0;
+      let withPillar = 0;
+      let withIntent = 0;
+      let withFocusFeatures = 0;
+      let withFaq = 0;
+      let withSchema = 0;
+
+      const highPriorityTypes = new Set([getFolder("program"), getFolder("landing")]);
+
+      for (const entry of entries) {
+        const ct = entry.contentType;
+        for (const locale of entry.locales) {
+          if (locale.startsWith("_") || locale.includes(".")) continue;
+          totalPages++;
+
+          const merged = contentIndex.loadMergedContent(ct, entry.slug, locale);
+          if (!merged.data) continue;
+          const data = merged.data as Record<string, unknown>;
+
+          const seo = data.seo as Record<string, unknown> | undefined;
+          const schema = data.schema as { include?: string[] } | undefined;
+          const sections = data.sections as { type?: string }[] | undefined;
+
+          const intent = (seo?.intent as string) || "unknown";
+          const pillar = typeof seo?.pillar === "string" && seo.pillar ? seo.pillar : undefined;
+          const focusFeatures = Array.isArray(seo?.focus_features)
+            ? (seo!.focus_features as string[]).filter((f) => typeof f === "string")
+            : [];
+
+          if (!intentDistribution[ct]) intentDistribution[ct] = {};
+          intentDistribution[ct][intent] = (intentDistribution[ct][intent] || 0) + 1;
+
+          if (seo?.intent) withIntent++;
+
+          if (pillar) {
+            withPillar++;
+            const cluster = clusterMap.get(pillar) || [];
+            if (!cluster.includes(entry.slug)) cluster.push(entry.slug);
+            clusterMap.set(pillar, cluster);
+          } else if (highPriorityTypes.has(ct)) {
+            orphanPages.push({
+              slug: entry.slug,
+              contentType: ct,
+              intent,
+              filePath: merged.filePath,
+            });
+          }
+
+          if (focusFeatures.length > 0) {
+            withFocusFeatures++;
+            for (const f of focusFeatures) {
+              featureCoverage[f] = (featureCoverage[f] || 0) + 1;
+            }
+          }
+
+          if (schema?.include && schema.include.length > 0) {
+            withSchema++;
+            for (const schemaType of schema.include) {
+              schemaCoverage[schemaType] = (schemaCoverage[schemaType] || 0) + 1;
+            }
+          }
+
+          if (Array.isArray(sections)) {
+            const faqSections = sections.filter((s) => s?.type === "faq");
+            if (faqSections.length > 0) {
+              withFaq++;
+              faqCoverage.push({
+                slug: entry.slug,
+                contentType: ct,
+                locale,
+                faqCount: faqSections.length,
+              });
+            }
+          }
+        }
+      }
+
+      const clusters = Array.from(clusterMap.entries()).map(([pillarUrl, clusterSlugs]) => ({
+        pillarUrl,
+        clusterSlugs,
+        clusterCount: clusterSlugs.length,
+      }));
+
+      const uniqueOrphans = orphanPages.filter(
+        (o, i, arr) => arr.findIndex((x) => x.slug === o.slug && x.contentType === o.contentType) === i,
+      );
+
+      res.json({
+        intentDistribution,
+        clusters,
+        orphanPages: uniqueOrphans,
+        featureCoverage,
+        faqCoverage,
+        schemaCoverage,
+        totals: {
+          totalPages,
+          withPillar,
+          withIntent,
+          withFocusFeatures,
+          withFaq,
+          withSchema,
+        },
+      });
+    } catch (err) {
+      res.status(500).json({ error: "Failed to build SEO overview", message: String(err) });
+    }
+  });
+
+  app.get("/api/seo-preview/:contentType/:slug", async (req, res) => {
+    try {
+      const { contentType, slug } = req.params;
+      const locale = normalizeLocale(
+        (req.query.locale as string) || getDefaultLocale(),
+      );
+
+      if (!isValidType(contentType)) {
+        res.status(400).json({
+          error: `Invalid content type. Must be one of: ${getAllFolders().join(", ")}`,
+        });
+        return;
+      }
+
+      if (hasDatabaseSingle(contentType)) {
+        const page = await loadDatabaseSinglePage(contentType, slug, locale);
+        if (!page) {
+          res.status(404).json({ error: "Content not found" });
+          return;
+        }
+
+        const singleEntry = (page.singleEntry as Record<string, unknown>) || {};
+        const resolvedPage = resolveSingleVars(page, singleEntry) as typeof page;
+
+        const meta = (resolvedPage.meta as Record<string, unknown>) || {};
+        const schema = resolvedPage.schema as
+          | {
+              include?: string[];
+              overrides?: Record<string, Record<string, unknown>>;
+            }
+          | undefined;
+
+        let schemaOrg: Record<string, unknown>[] = [];
+        if (schema?.include && schema.include.length > 0) {
+          schemaOrg = getMergedSchemas(schema, locale);
+        }
+
+        const schemaInclude = (schema?.include as string[]) || [];
+        const schemaOverrides =
+          (schema?.overrides as Record<string, Record<string, unknown>>) || {};
+
+        res.json({
+          meta,
+          faqSchema: null,
+          schemaOrg,
+          schemaInclude,
+          schemaOverrides,
+          title: (resolvedPage.title as string) || "",
+          slug: (resolvedPage.slug as string) || slug,
+        });
+        return;
+      }
+
+      const pageData = loadRawYaml(contentType, slug, locale);
+      if (!pageData) {
+        res.status(404).json({ error: "Content not found" });
+        return;
+      }
+
+      const meta = (pageData.meta as Record<string, unknown>) || {};
+      const schema = pageData.schema as
+        | {
+            include?: string[];
+            overrides?: Record<string, Record<string, unknown>>;
+          }
+        | undefined;
+
+      let faqSchema: Record<string, unknown> | null = null;
+      const sections = pageData.sections as
+        | Array<Record<string, unknown>>
+        | undefined;
+      if (sections) {
+        // Extract location slug if we're on a location page
+        const locationSlug =
+          getType(contentType) === "location" ? slug : undefined;
+        // Extract program slug if we're on a program page
+        const programSlug =
+          getType(contentType) === "program" ? slug : undefined;
+
+        const allFaqItems: Array<{ question: string; answer: string }> = [];
+        for (const section of sections) {
+          if (section.type === "faq") {
+            const items = resolveFaqItems(
+              section as unknown as FaqSection,
+              locale,
+              locationSlug,
+              programSlug,
+            );
+            allFaqItems.push(...items);
+          }
+        }
+        if (allFaqItems.length > 0) {
+          faqSchema = buildFaqPageSchema(allFaqItems);
+        }
+      }
+
+      let schemaOrg: Record<string, unknown>[] = [];
+      if (schema?.include && schema.include.length > 0) {
+        schemaOrg = getMergedSchemas(schema, locale);
+      }
+
+      const schemaInclude = (schema?.include as string[]) || [];
+      const schemaOverrides =
+        (schema?.overrides as Record<string, Record<string, unknown>>) || {};
+
+      const responseData: Record<string, unknown> = {
+        meta,
+        faqSchema,
+        schemaOrg,
+        schemaInclude,
+        schemaOverrides,
+        title: pageData.title || "",
+        slug: pageData.slug || slug,
+      };
+
+      if (getType(contentType) === "landing") {
+        const commonData = contentIndex.loadCommonData("landing", slug);
+        responseData.locations = (commonData?.locations as string[]) || [];
+        responseData.availableLocations = listLocationPages(locale).map(
+          (loc) => ({
+            slug: loc.slug,
+            name: loc.name,
+            city: loc.city,
+            country: loc.country,
+          }),
+        );
+      }
+
+      res.json(responseData);
+    } catch (error) {
+      console.error("[SEO Preview] Error:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  app.post("/api/content/update-locations", async (req, res) => {
+    try {
+      const auth = await requireCapability(req, res, "content_edit_structure", req.body.contentType || req.body.type || undefined);
+      if (!auth.authorized) return;
+
+      const { contentType, slug, locations, author } = req.body;
+      if (!contentType || !slug || !Array.isArray(locations)) {
+        res.status(400).json({
+          error:
+            "Missing required fields: contentType, slug, locations (array)",
+        });
+        return;
+      }
+      if (getType(contentType) !== "landing") {
+        res
+          .status(400)
+          .json({ error: "Locations can only be updated for landings" });
+        return;
+      }
+
+      const authorName =
+        author && typeof author === "string" ? author : undefined;
+
+      const result = editCommonContent({
+        contentType,
+        slug,
+        operations: [
+          {
+            action: "update_field",
+            path: "locations",
+            value: locations.length > 0 ? locations : null,
+          },
+        ],
+        author: authorName,
+      });
+
+      if (!result.success) {
+        res.status(400).json({ error: result.error });
+        return;
+      }
+
+      const landingDir = contentIndex.getContentFolderPath(contentType, slug);
+      const variantFiles = fs
+        .readdirSync(landingDir)
+        .filter((f) => f.endsWith(".yml") && f !== "_common.yml");
+      const strippedVariants: string[] = [];
+      for (const variantFile of variantFiles) {
+        const variantPath = path.join(landingDir, variantFile);
+        try {
+          const variantContent = fs.readFileSync(variantPath, "utf-8");
+          const variantData = safeYamlLoad(variantContent) as Record<
+            string,
+            unknown
+          >;
+          if (variantData && "locations" in variantData) {
+            delete variantData.locations;
+            const variantYaml = safeYamlDump(variantData, {
+              lineWidth: -1,
+              noRefs: true,
+              quotingType: '"',
+              forceQuotes: false,
+            });
+            fs.writeFileSync(variantPath, variantYaml, "utf-8");
+            markFileAsModified(variantPath, authorName);
+            strippedVariants.push(variantFile);
+          }
+        } catch (e) {
+          console.warn(
+            `[Update Locations] Could not process variant ${variantFile}:`,
+            e,
+          );
+        }
+      }
+      if (strippedVariants.length > 0) {
+        console.log(
+          `[Update Locations] Removed locations from variants: ${strippedVariants.join(", ")}`,
+        );
+      }
+
+      contentIndex.refresh();
+      invalidateContentCaches(contentType);
+
+      res.json({
+        success: true,
+        locations: locations.length > 0 ? locations : [],
+        strippedVariants,
+      });
+    } catch (error) {
+      console.error("[Update Locations] Error:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+}

@@ -1,10 +1,9 @@
-import * as fs from "fs";
-import * as path from "path";
 import { contentIndex, MARKETING_CONTENT_PATH as BASE_CONTENT_PATH } from "./content-index";
 import { getContentTypeConfig, getLocaleKey, getLocaleSource, getFieldMapping, getFullFieldMapping, resolveUrlPatternWithMapping, getAllConfigs, getDirectory } from "./content-types";
 import { getSupportedLocales } from "./settings";
 import { applyTransformIfNeeded } from "./transform";
 import { getFileLastmod } from "./sync-state";
+import { databaseManager } from "./database";
 
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -325,48 +324,49 @@ function buildCanonicalSitemapEntries(): Map<string, CanonicalSitemapEntry> {
     });
   }
 
-  // Blog posts from database cache file (read synchronously)
+  // DB-backed content types — read synchronously from the SQLite cache
   try {
-    const blogTypeConfig = getContentTypeConfig("blog");
-    if (blogTypeConfig?.database?.slug) {
-      const dbName = blogTypeConfig.database.slug;
-      const localeFieldKey = getLocaleKey("blog");
-      const localeSource = getLocaleSource("blog");
-      const cachePath = path.join(process.cwd(), ".cache", `db-${dbName}.json`);
-      if (fs.existsSync(cachePath)) {
-        const cached = JSON.parse(fs.readFileSync(cachePath, "utf-8")) as {
-          items: Array<Record<string, unknown>>;
-        };
-        const urlPatterns = blogTypeConfig.url_pattern;
-        const blogFieldMapping = getFullFieldMapping("blog");
-        for (const post of cached.items) {
-          let locale = "en";
-          if (localeFieldKey) {
-            const langVal = String(post[localeFieldKey] || "en");
-            locale = localeSource ? applyTransformIfNeeded(localeSource, langVal) : langVal;
-          }
-          const urlPattern = urlPatterns[locale] || urlPatterns["en"];
-          const postUrl = `${getBaseUrl()}${resolveUrlPatternWithMapping(urlPattern, post, locale, blogFieldMapping)}`;
-          const title = String(post.title || post.slug || "");
-          const updatedAt = String(post.updated_at || "");
-          const postSlug = String(post.slug || post.id || "");
-          const entry: CanonicalSitemapEntry = {
-            loc: postUrl,
-            lastmod: updatedAt ? updatedAt.split("T")[0] : today,
-            label: `Blog: ${title} (${formatLocaleLabel(locale)})`,
-            type: "static",
-            locale,
-            contentKey: postSlug ? `blog:${postSlug}` : undefined,
-          };
-          addEntry(entry);
+    const allTypeConfigs = getAllConfigs();
+    for (const [typeName, typeConfig] of Object.entries(allTypeConfigs)) {
+      if (!typeConfig.database?.slug) continue;
+      const dbName = typeConfig.database.slug;
+      const items = databaseManager.getRawItems(dbName);
+      if (!items || items.length === 0) {
+        console.warn(`[Sitemap] No cached items for DB-backed type "${typeName}" (db: ${dbName}) — skipping`);
+        continue;
+      }
+      const localeFieldKey = getLocaleKey(typeName);
+      const localeSource = getLocaleSource(typeName);
+      const urlPatterns = typeConfig.url_pattern;
+      const fieldMapping = getFullFieldMapping(typeName);
+      const typeLabel = typeName.charAt(0).toUpperCase() + typeName.slice(1);
+      for (const item of items) {
+        let locale = "en";
+        if (localeFieldKey) {
+          const langVal = String(item[localeFieldKey] || "en");
+          locale = localeSource ? applyTransformIfNeeded(localeSource, langVal) : langVal;
         }
+        const urlPattern = urlPatterns[locale] || urlPatterns["en"];
+        if (!urlPattern) continue;
+        const itemUrl = `${getBaseUrl()}${resolveUrlPatternWithMapping(urlPattern, item, locale, fieldMapping)}`;
+        const title = String(item.title || item.slug || item.id || "");
+        const updatedAt = String(item.updated_at || "");
+        const itemSlug = String(item.slug || item.id || "");
+        addEntry({
+          loc: itemUrl,
+          lastmod: updatedAt ? updatedAt.split("T")[0] : today,
+          label: `${typeLabel}: ${title} (${formatLocaleLabel(locale)})`,
+          type: "static",
+          locale,
+          contentKey: itemSlug ? `${typeName}:${itemSlug}` : undefined,
+        });
       }
     }
   } catch (err) {
-    console.warn("[Sitemap] Could not load blog posts for sitemap:", err);
+    console.warn("[Sitemap] Could not load DB-backed content types for sitemap:", err);
   }
 
-  const handledTypes = new Set(["program", "location", "page", "blog"]);
+  const handledTypes = new Set(["program", "location", "page"]);
   try {
     const allTypeConfigs = getAllConfigs();
     for (const [typeName, typeConfig] of Object.entries(allTypeConfigs)) {
@@ -670,13 +670,13 @@ function buildSingleEntry(type: string, dirSlug: string, locale: string): Canoni
  * and the new URL is inserted at the same key — without affecting sibling
  * locales.
  *
- * No-op for blog posts (DB-backed) and unsupported locales.
+ * No-op for DB-backed content types and unsupported locales.
  * Safe to call when cache is cold — invalidation is a no-op and no partial
  * cache is created.
  */
 export function refreshSitemapEntry(type: string, dirSlug: string, locale: string): void {
-  // Blog posts are DB-backed — not handled via YAML refresh
-  if (type === "blog") return;
+  // DB-backed types are not handled via YAML refresh
+  if (getContentTypeConfig(type)?.database) return;
 
   // Only process supported locales
   if (!getSupportedLocales().includes(locale)) return;
@@ -706,7 +706,7 @@ export function refreshSitemapEntry(type: string, dirSlug: string, locale: strin
  * Use this for edits that affect all locales simultaneously (e.g. `_common.yml`
  * saves or `edit-common` requests where no locale is specified).
  *
- * No-op for blog posts (DB-backed).
+ * No-op for DB-backed content types.
  * Safe to call when cache is cold.
  */
 export function refreshSitemapEntriesForContentKey(type: string, dirSlug: string, locales: string[]): void {
@@ -716,8 +716,8 @@ export function refreshSitemapEntriesForContentKey(type: string, dirSlug: string
   // If cache isn't warm, don't pre-populate a partial cache
   if (!sitemapCache) return;
 
-  // Blog posts are DB-backed — not handled via YAML refresh
-  if (type === "blog") return;
+  // DB-backed types are not handled via YAML refresh
+  if (getContentTypeConfig(type)?.database) return;
 
   const supported = getSupportedLocales();
   for (const locale of locales) {

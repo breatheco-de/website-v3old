@@ -44,6 +44,7 @@ export function VersioningView({
   const [editingLocale, setEditingLocale] = useState<string | null>(null);
   const [tempAllocations, setTempAllocations] = useState<Record<string, number>>({});
   const [isSaving, setIsSaving] = useState(false);
+  const [savedLocale, setSavedLocale] = useState<string | null>(null);
 
   const [createVersionOpen, setCreateVersionOpen] = useState(false);
   const [createVersionSlug, setCreateVersionSlug] = useState("");
@@ -268,7 +269,13 @@ export function VersioningView({
 
       if (onVersioningDataUpdate) onVersioningDataUpdate(updated);
 
-      toast({ title: "Allocations saved", description: "Traffic split updated." });
+      toast({
+        title: "Traffic split saved",
+        description: "Allocation changes have been committed to version control and will go live on next deploy.",
+        duration: 5000,
+      });
+      setSavedLocale(editingLocale);
+      setTimeout(() => setSavedLocale(null), 4000);
       setEditingLocale(null);
       setTempAllocations({});
     } catch {
@@ -487,6 +494,12 @@ export function VersioningView({
                         {locale.toUpperCase()}
                       </Badge>
                       <span className="text-xs text-muted-foreground">locale</span>
+                      {savedLocale === locale && (
+                        <Badge variant="default" className="text-[10px] px-1.5 py-0 leading-4 gap-0.5 flex items-center">
+                          <IconCheck className="h-2.5 w-2.5" />
+                          Saved
+                        </Badge>
+                      )}
                     </div>
                     {!isEditing ? (
                       <button

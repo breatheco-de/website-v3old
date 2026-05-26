@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef, lazy, Suspense, useMemo } from "react";
 import { AlertTriangle, ArrowDown, ArrowLeftRight, ArrowUp, Check, ChevronLeft, ChevronRight, Clock3, Code, Copy, Eye, History, Link, Loader2, Monitor, MoreVertical, Pencil, Smartphone, Space, Sparkles, Trash2, Unlink, X } from "lucide-react";
-import { IconPin } from "@tabler/icons-react";
+import { IconPin, IconEdit, IconArrowBackUp } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import type { Section, SectionLayout, ShowOn, ResponsiveSpacing } from "@shared/schema";
 import { Label } from "@/components/ui/label";
@@ -359,6 +359,10 @@ export function EditableSection({ children, section, index, sectionType, content
     const m = parseXSpacing((section as SectionLayout).marginX);
     return m.desktop.left === m.desktop.right;
   });
+
+  // Per-entry patch reset state
+  const [resetPatchOpen, setResetPatchOpen] = useState(false);
+  const [isResettingPatch, setIsResettingPatch] = useState(false);
 
   // DB template structural warning dialog state
   const [swapWarnOpen, setSwapWarnOpen] = useState(false);
@@ -916,6 +920,37 @@ export function EditableSection({ children, section, index, sectionType, content
       setXSaving(false);
     }
   }, [contentType, slug, locale, index, currentSection, xPadding, xMargin, xMaxWidth, toXResponsiveSpacing, toast]);
+
+  const handleResetPatch = useCallback(async () => {
+    if (!contentType || !slug || !locale) return;
+    const sectionId = typeof (section as Record<string, unknown>).id === "string"
+      ? (section as Record<string, unknown>).id as string
+      : null;
+    if (!sectionId) return;
+    setIsResettingPatch(true);
+    try {
+      const token = getDebugToken();
+      const res = await fetch("/api/per-entry-section-patch-reset", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Token ${token}` } : {}),
+        },
+        body: JSON.stringify({ contentType, slug, locale, sectionId }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to reset section");
+      }
+      setResetPatchOpen(false);
+      emitContentUpdated({ contentType: contentType!, slug: slug!, locale: locale! });
+      toast({ title: "Section reset", description: "Section is now showing shared template content." });
+    } catch (err) {
+      toast({ title: "Error", description: err instanceof Error ? err.message : "Failed to reset section", variant: "destructive" });
+    } finally {
+      setIsResettingPatch(false);
+    }
+  }, [contentType, slug, locale, section, toast]);
 
   const handleOpenEditor = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
@@ -1529,7 +1564,7 @@ export function EditableSection({ children, section, index, sectionType, content
         return (
           <div 
             className="absolute right-2 z-30 flex flex-col items-end gap-0.5 px-2 py-1 bg-amber-500/90 text-amber-950 text-xs font-medium rounded"
-            style={{ top: (section as any)._perEntrySource ? "3.5rem" : "3rem" }}
+            style={{ top: (section as any)._perEntryPatched ? "4.5rem" : (section as any)._perEntrySource ? "3.5rem" : "3rem" }}
             title="Special Visibility Conditions"
             data-testid={`badge-visibility-${index}`}
           >
@@ -1568,6 +1603,49 @@ export function EditableSection({ children, section, index, sectionType, content
           <IconPin className="h-3.5 w-3.5 shrink-0" />
           <span className="hidden md:inline">Only this {singularLabel}</span>
         </div>
+      )}
+
+      {/* Per-entry patch badge (visible when a shared-template section has entry-specific overrides) */}
+      {(section as any)._perEntryPatched && !isSharedTemplate && (
+        <Popover open={resetPatchOpen} onOpenChange={setResetPatchOpen}>
+          <PopoverTrigger asChild>
+            <button
+              className="absolute right-2 z-30 flex items-center gap-1 px-2 py-1 bg-amber-400/90 text-amber-950 text-xs font-medium rounded hover-elevate"
+              style={{ top: "3rem" }}
+              title="This section has entry-specific overrides — click to reset"
+              data-testid={`badge-per-entry-patched-${index}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <IconEdit className="h-3.5 w-3.5 shrink-0" />
+              <span className="hidden md:inline">Overridden</span>
+            </button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto max-w-xs p-3" side="bottom" align="end" onClick={(e) => e.stopPropagation()}>
+            <div className="space-y-2">
+              <p className="text-xs font-medium flex items-center gap-1.5">
+                <IconEdit className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+                Entry-specific override
+              </p>
+              <p className="text-xs text-muted-foreground">
+                This section has been customized for this {singularLabel} only. The shared template content is not shown.
+              </p>
+              <Button
+                size="sm"
+                variant="outline"
+                className="w-full gap-1.5"
+                onClick={handleResetPatch}
+                disabled={isResettingPatch}
+                data-testid={`button-reset-patch-${index}`}
+              >
+                {isResettingPatch
+                  ? <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                  : <IconArrowBackUp className="h-3.5 w-3.5" />
+                }
+                Reset to shared template
+              </Button>
+            </div>
+          </PopoverContent>
+        </Popover>
       )}
 
       {/* Top-left row: broken image badge (always visible) + section labels (on hover) */}
