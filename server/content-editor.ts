@@ -917,6 +917,18 @@ export async function createContentEntry(
           if (!file.endsWith(".yml") && !file.endsWith(".yaml")) continue;
 
           const rawContent = fs.readFileSync(path.join(foundSourceFolder, file), "utf8");
+
+          const isContentFile =
+            file === "_common.yml" || file === "_common.yaml" ||
+            /^[a-z]{2,5}\.ya?ml$/.test(file) ||
+            /^.+\.[a-z]{2,5}\.ya?ml$/.test(file);
+
+          if (!isContentFile) {
+            fs.writeFileSync(path.join(folderPath, file), rawContent);
+            markFileAsModified(`marketing-content/${getFolder(type)}/${folderSlug}/${file}`, author);
+            continue;
+          }
+
           const parsed = contentIndex.safeYamlLoad(rawContent) as Record<string, unknown> | null;
           if (!parsed) {
             fs.writeFileSync(path.join(folderPath, file), rawContent);
