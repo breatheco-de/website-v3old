@@ -371,35 +371,34 @@ export function getComponentUsageData(
     });
   }
 
-  const intentCluster = filters.intent ? data.byIntent[filters.intent] : undefined;
-  const cluster =
-    intentCluster && intentCluster.pageCount >= FALLBACK_CLUSTER_MIN
-      ? intentCluster
-      : data.global;
-
+  // Compute neighbors and sequences directly from scoped pages so they always
+  // reflect exactly the same scope as totalUses/pages (no cluster fallback).
   const beforeMap = new Map<string, number>();
-  for (const p of cluster.pairings) {
-    if (p.to === componentType) {
-      beforeMap.set(p.from, (beforeMap.get(p.from) ?? 0) + p.count);
+  const afterMap = new Map<string, number>();
+  for (const page of scopedPages) {
+    for (let i = 0; i < page.sections.length; i++) {
+      if (page.sections[i] === componentType) {
+        if (i > 0) {
+          const prev = page.sections[i - 1];
+          beforeMap.set(prev, (beforeMap.get(prev) ?? 0) + page.weight);
+        }
+        if (i < page.sections.length - 1) {
+          const next = page.sections[i + 1];
+          afterMap.set(next, (afterMap.get(next) ?? 0) + page.weight);
+        }
+      }
     }
   }
   const before = Array.from(beforeMap.entries())
     .sort((a, b) => b[1] - a[1])
     .slice(0, 5)
     .map(([type, count]) => ({ type, count }));
-
-  const afterMap = new Map<string, number>();
-  for (const p of cluster.pairings) {
-    if (p.from === componentType) {
-      afterMap.set(p.to, (afterMap.get(p.to) ?? 0) + p.count);
-    }
-  }
   const after = Array.from(afterMap.entries())
     .sort((a, b) => b[1] - a[1])
     .slice(0, 5)
     .map(([type, count]) => ({ type, count }));
 
-  const topSequences = cluster.topSequences
+  const topSequences = computeTopSequences(scopedPages)
     .filter((s) => s.sequence.includes(componentType))
     .slice(0, 5);
 
