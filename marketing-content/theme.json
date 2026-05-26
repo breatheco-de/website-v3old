@@ -646,6 +646,11 @@
       "component": "award_badges",
       "version": "v1.0",
       "example": "simple"
+    },
+    {
+      "component": "award_badges",
+      "version": "v1.0",
+      "example": "text-fallback"
     }
   ]
 }
