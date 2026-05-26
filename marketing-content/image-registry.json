@@ -4463,7 +4463,15 @@
       "focal_point": "center",
       "tags": [
         "logo",
-        "award"
+        "award",
+        "avatar",
+        "card",
+        "icon",
+        "photo",
+        "badge",
+        "illustration",
+        "testimonial",
+        "team"
       ],
       "usage_count": 0,
       "hash": "1fa8cc2a1ea27b1694d1410f00562ff76a7f370e7cfa1919861ba45f1da32731",
@@ -19007,6 +19015,34 @@
         {
           "w": 640,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-4geeks-at-america-business-forum-png-7ebaecf6-736x491-640w.webp"
+        }
+      ]
+    },
+    "4geeks-academy-reviews-cost-courses-and-outcomes-05-26-2026-10-59-am": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/4Geeks-Academy-Reviews-Cost-Courses-and-Outcomes-05-26-2026_10_59_AM.png",
+      "alt": "Image: 4Geeks-Academy-Reviews-Cost-Courses-and-Outcomes-05-26-2026_10_59_AM",
+      "focal_point": "center",
+      "tags": [
+        "testimonial",
+        "award",
+        "badge",
+        "logo"
+      ],
+      "usage_count": 0,
+      "hash": "0785d104c0b29e5513afe8e976eb1aae47a22e10ad6bb94798cbf5c43f4d1ab3",
+      "width": 340,
+      "height": 276,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        340
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 340,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/4Geeks-Academy-Reviews-Cost-Courses-and-Outcomes-05-26-2026_10_59_AM-340w.webp"
         }
       ]
     }
