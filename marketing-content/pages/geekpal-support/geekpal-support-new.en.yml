@@ -20,7 +20,7 @@ sections:
     version: "1.0"
     variant: productShowcase
     title: Lifetime Mentorship & AI-Powered Coding Support
-    welcome_text: Welcome to test
+    welcome_text: Welcome to
     brand_mark:
       prefix: Geek
       highlight: PAL
