@@ -636,6 +636,11 @@
       "example": "program fit",
       "importYaml": "- type: bullet_tabs_showcase\n  section_id: bullet_tabs_showcase-8r6n7d\n  version: '1.0'\n  heading: ¿Este programa es para ti?\n  tabs:\n    - label: Compromiso intensivo\n      description: |-\n        Listo para un compromiso intensivo:\n        20-24 horas/semana durante 24 semanas. (Clases en vivo + ~12 h de tareas)\n      image_id: group_original\n    - label: Enfocado en carrera\n      description: |-\n        Enfocado en resultados de carrera:\n        Quieres habilidades en IA que abran roles bien pagados y demandados.\n      image_id: students_group_collaboration\n    - label: Motivado por la estructura\n      description: |-\n        Motivado por la estructura:\n        Prefieres hitos claros, instructores expertos y una cohorte que te apoye.\n      image_id: student_coding_laptop\n  image_position: right\n  marginY:\n    mobile: xl lg\n    desktop: lg\n  paddingY:\n    mobile: none\n    desktop: none\n",
       "registryPersisted": true
+    },
+    {
+      "component": "bullet_tabs_showcase",
+      "version": "v1.0",
+      "example": "subheading-with-bullets"
     }
   ]
 }
