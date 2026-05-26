@@ -1,0 +1,11 @@
+slug: new-geekpal-support-4geeks-academy-en
+title: New GeekPAL Support | 4Geeks Academy (EN)
+meta:
+  priority: 0.9
+  change_frequency: weekly
+  robots: index, follow
+  page_title: GeekPAL Support | 4Geeks
+schema:
+  include:
+    - organization
+    - website
