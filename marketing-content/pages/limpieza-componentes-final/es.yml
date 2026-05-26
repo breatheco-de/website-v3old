@@ -88,6 +88,13 @@ sections:
     variant: detailed
     showBorder: false
     items:
+      - id: course-report-badge
+        logo: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+        alt: Course Report Badge 2025
+        logoHeight: 64px
+        description: Recognized as one of the best coding bootcamps worldwide
+        link: https://www.coursereport.com
+        linkText: Read reviewsn
       - id: logo-switchup-best-bootcamps-2025
         logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup-best-bootcamps-2025_1770392145139.png
         alt: SwitchUp Best Bootcamps 2025
