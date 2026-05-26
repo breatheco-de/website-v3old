@@ -198,5 +198,16 @@ sections:
     section_id: bento_cards-lurxas
     paddingY:
       desktop: sm
+  - type: breadcrumb
+    version: v1.0
+    items:
+      - label: Home
+        url: /
+      - label: Career Programs
+        url: /en/career-programs
+      - label: Full Stack Developer
+    section_id: breadcrumb-fkayl9
+    paddingY:
+      desktop: sm
 meta:
   page_title: limpieza componentes-final
