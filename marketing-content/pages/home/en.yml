@@ -613,3 +613,11 @@ sections:
       desktop: md
     maxWidth:
       desktop: 6xl
+  - type: hero
+    section_id: hero-bkkzaq
+    paddingY:
+      desktop: sm
+  - type: hero_single_column
+    section_id: hero_single_column-xk9v6i
+    paddingY:
+      desktop: sm
