@@ -184,6 +184,7 @@ function ExpandableMenuItem({ icon: Icon, label, expanded, onToggle, testId, act
 export function DebugPanelContent(props: DebugPanelContentProps) {
   const { i18n } = useTranslation();
   const [createMenuOpen, setCreateMenuOpen] = useState(false);
+  const [settingsExpanded, setSettingsExpanded] = useState(false);
 
   if (props.noTokenDetected) {
     return (
@@ -599,14 +600,6 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
             </ExpandableMenuItem>
 
             <MenuItem
-              icon={Palette}
-              label="Theme Editor"
-              href="/private/theme-editor"
-              indicator="arrow"
-              testId="link-theme-editor"
-            />
-
-            <MenuItem
               icon={Stethoscope}
               label="Diagnostics"
               href="/private/diagnostics"
@@ -614,13 +607,28 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               testId="link-diagnostics"
             />
 
-            <MenuItem
+            <ExpandableMenuItem
               icon={Settings}
               label="Settings"
-              href="/private/settings"
-              indicator="arrow"
-              testId="link-settings"
-            />
+              expanded={settingsExpanded}
+              onToggle={() => setSettingsExpanded(!settingsExpanded)}
+              testId="button-settings-toggle"
+            >
+              <MenuItem
+                icon={Settings}
+                label="General"
+                href="/private/settings"
+                indicator="arrow"
+                testId="link-settings-general"
+              />
+              <MenuItem
+                icon={Palette}
+                label="Theme Editor"
+                href="/private/theme-editor"
+                indicator="arrow"
+                testId="link-theme-editor"
+              />
+            </ExpandableMenuItem>
 
             <div className="flex items-center justify-between w-full px-3 py-2 rounded-md text-sm">
               <div className="flex items-center gap-3">
