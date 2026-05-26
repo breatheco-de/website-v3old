@@ -523,7 +523,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               />
               <MenuItem
                 icon={Database}
-                label="Databases"
+                label="Content Databases"
                 onClick={() => props.setMenuView("databases")}
                 indicator="chevron"
                 testId="button-databases-menu"
