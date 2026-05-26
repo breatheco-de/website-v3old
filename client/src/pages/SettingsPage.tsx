@@ -40,7 +40,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest, queryClient } from "@/lib/queryClient";
+import { apiRequest, apiFetch, queryClient } from "@/lib/queryClient";
 import { useDebugAuth, getDebugUserName } from "@/hooks/useDebugAuth";
 import { CAPABILITY_REGISTRY } from "@shared/capabilities";
 
@@ -1061,7 +1061,12 @@ function OptimizationTab() {
     setTestStatus("testing");
     setTestReason("");
     try {
-      const res = await apiRequest("POST", "/api/settings/optimization/test", { url: serverUrl.trim() });
+      const res = await apiFetch("/api/settings/optimization/test", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: serverUrl.trim() }),
+        credentials: "include",
+      });
       const result = await res.json();
       if (result.reachable) {
         setTestStatus("success");
