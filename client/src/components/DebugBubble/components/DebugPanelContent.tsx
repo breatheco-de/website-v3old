@@ -470,8 +470,13 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               label="Content & Sitemap"
               expanded={props.sitemapExpanded}
               onToggle={() => {
-                props.setSitemapExpanded(!props.sitemapExpanded);
-                if (!props.sitemapExpanded) props.setComponentsExpanded(false);
+                const opening = !props.sitemapExpanded;
+                props.setSitemapExpanded(opening);
+                if (opening) {
+                  props.setComponentsExpanded(false);
+                  props.setAiAgentsExpanded(false);
+                  setSettingsExpanded(false);
+                }
               }}
               testId="button-sitemap-toggle"
               actions={
@@ -492,6 +497,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 </button>
               }
             >
+
               <MenuItem
                 icon={Map}
                 label="Indexed URLs"
@@ -546,8 +552,13 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               label="Components"
               expanded={props.componentsExpanded}
               onToggle={() => {
-                props.setComponentsExpanded(!props.componentsExpanded);
-                if (!props.componentsExpanded) props.setSitemapExpanded(false);
+                const opening = !props.componentsExpanded;
+                props.setComponentsExpanded(opening);
+                if (opening) {
+                  props.setSitemapExpanded(false);
+                  props.setAiAgentsExpanded(false);
+                  setSettingsExpanded(false);
+                }
               }}
               testId="button-components-toggle"
             >
@@ -579,7 +590,13 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               label="AI & Agents"
               expanded={props.aiAgentsExpanded}
               onToggle={() => {
-                props.setAiAgentsExpanded(!props.aiAgentsExpanded);
+                const opening = !props.aiAgentsExpanded;
+                props.setAiAgentsExpanded(opening);
+                if (opening) {
+                  props.setSitemapExpanded(false);
+                  props.setComponentsExpanded(false);
+                  setSettingsExpanded(false);
+                }
               }}
               testId="button-ai-agents-toggle"
             >
@@ -611,7 +628,15 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               icon={Settings}
               label="Settings"
               expanded={settingsExpanded}
-              onToggle={() => setSettingsExpanded(!settingsExpanded)}
+              onToggle={() => {
+                const opening = !settingsExpanded;
+                setSettingsExpanded(opening);
+                if (opening) {
+                  props.setSitemapExpanded(false);
+                  props.setComponentsExpanded(false);
+                  props.setAiAgentsExpanded(false);
+                }
+              }}
               testId="button-settings-toggle"
             >
               <MenuItem
