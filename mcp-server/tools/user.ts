@@ -1,5 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { z } from "zod";
 import { getTokenUsername } from "../lib/oauth.js";
+import { checkCap } from "../lib/auth.js";
 
 const MAIN_SERVER_PORT = process.env.PORT || "5000";
 const MCP_SERVER_SECRET = process.env.MCP_SERVER_SECRET || process.env.MCP_API_KEY || "";
@@ -54,6 +56,47 @@ export function registerUserTools(mcp: McpServer, mcpToken?: string): void {
         const profile = await res.json();
         return {
           content: [{ type: "text" as const, text: JSON.stringify(profile, null, 2) }],
+        };
+      } catch (err) {
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify({
+                error: "network_error",
+                message: (err as Error).message,
+              }),
+            },
+          ],
+          isError: true,
+        };
+      }
+    },
+  );
+
+  mcp.tool(
+    "check_capability",
+    "Check whether the authenticated MCP caller holds a specific capability, optionally scoped to a content type. " +
+      "Use this before attempting privileged operations so agents can handle permission denials gracefully. " +
+      "Parameters: cap (required) — the capability name to check; contentType (optional) — restrict the check to a specific content type. " +
+      "Returns: { allowed: boolean }. In development mode always returns { allowed: true }.",
+    {
+      cap: z.string().describe("The capability name to check (e.g. 'edit_content', 'manage_users')."),
+      contentType: z.string().optional().describe("Optional content type to scope the capability check (e.g. 'career_program')."),
+    },
+    async ({ cap, contentType }) => {
+      try {
+        const allowed = mcpToken
+          ? await checkCap(mcpToken, cap, contentType)
+          : process.env.NODE_ENV !== "production";
+
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify({ allowed }),
+            },
+          ],
         };
       } catch (err) {
         return {
