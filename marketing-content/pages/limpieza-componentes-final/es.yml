@@ -83,5 +83,34 @@ sections:
     section_id: apply_form-f81aap
     paddingY:
       desktop: sm
+  - type: award_badges
+    version: v1.0
+    variant: detailed
+    showBorder: false
+    items:
+      - id: coursereport-detailed
+        logo: /images/awards/course-report.svg
+        alt: Course Report - Best Coding Bootcamp
+        logoHeight: 64px
+        description: Recognized as one of the best coding bootcamps worldwide
+        link: https://www.coursereport.com
+        linkText: Read reviews
+      - id: switchup-detailed
+        logo: /images/awards/switchup.svg
+        alt: SwitchUp - Top Bootcamp
+        logoHeight: 64px
+        description: Top-rated bootcamp based on verified student reviews
+        link: https://www.switchup.org
+        linkText: See rankings
+      - id: careerkarma-detailed
+        logo: /images/awards/career-karma.svg
+        alt: Career Karma - Best Value
+        logoHeight: 64px
+        description: Best value for career changers and beginners
+        link: https://careerkarma.com
+        linkText: Learn more
+    section_id: award_badges-j7julo
+    paddingY:
+      desktop: sm
 meta:
   page_title: limpieza componentes-final
