@@ -4463,7 +4463,15 @@
       "focal_point": "center",
       "tags": [
         "logo",
-        "award"
+        "award",
+        "avatar",
+        "card",
+        "icon",
+        "photo",
+        "badge",
+        "illustration",
+        "testimonial",
+        "team"
       ],
       "usage_count": 0,
       "hash": "1fa8cc2a1ea27b1694d1410f00562ff76a7f370e7cfa1919861ba45f1da32731",
