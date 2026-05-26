@@ -629,5 +629,13 @@
       "value": "1.6px"
     }
   ],
-  "preview_examples": []
+  "preview_examples": [
+    {
+      "component": "cards_deck",
+      "version": "v1.0",
+      "example": "testimonials spanish",
+      "importYaml": "- type: cards_deck\n  section_id: cards_deck-8jlm80\n  version: '1.0'\n  heading: Historias reales de cambios de carrera\n  subtitle: Miles de graduados han utilizado nuestros programas para entrar en el mundo de la tecnología. Estas son solo algunas de sus historias, desde aumentos salariales hasta reinvenciones completas de carrera.\n  cards:\n    - video:\n        url: https://www.youtube.com/watch?v=B01-eTfgqqc\n      image: ''\n      brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png\n      author_name: Mattia Tozzi\n      title: '\"4Geeks ha empujado mi futuro laboral\"'\n      description: Las tutorías ilimitadas de 4Geeks fueron clave para elegirlos. Con la ayuda de sus profesores y la comunidad, pudo resolver todas sus dudas rápidamente y avanzar en su aprendizaje.\n      alt: Geekpal\n    - video:\n        url: https://www.youtube.com/watch?v=XqyM_QSVcOs\n      image: ''\n      brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png\n      author_name: Ana Romero\n      title: '\"He superado mi miedo a programar\"'\n      description: Están ahí siempre para brindarte apoyo. Sus buenos mentores, guías de programación y las herramientas de 4Geeks son excelentes. La recomendaría un millón de veces.\n      alt: Geekpal\n    - video:\n        url: https://www.youtube.com/watch?v=rtpfwwfE0yY\n      image: ''\n      brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png\n      author_name: Joshua Bravo\n      title: '\"De asistente de cocina a Desarrollador Full Stack\"'\n      description: Joshua pasó de trabajar en cocina y contabilidad a conseguir empleo como desarrollador en Regcheq, una startup fintech en Chile, tras completar el bootcamp de 4Geeks.\n      alt: Geekforce\n  marginY:\n    desktop: none xl\n  background: hsl(var(--card))\n",
+      "registryPersisted": true
+    }
+  ]
 }
