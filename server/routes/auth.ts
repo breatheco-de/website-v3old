@@ -309,6 +309,67 @@ export function registerAuthRoutes(app: Express): void {
     }
   });
 
+  // Internal loopback: return identity + roles + capabilities for an authenticated MCP caller.
+  // Accepts the same trusted-internal auth pattern as /api/auth/check-capability.
+  app.get("/api/auth/user-info", async (req, res) => {
+    const { username } = req.query as Record<string, string>;
+
+    const isDevelopment = process.env.NODE_ENV !== "production";
+    if (isDevelopment) {
+      const devUser = username || "dev.user";
+      const devRecord = userStore.getUser(devUser);
+      res.json({
+        username: devUser,
+        firstName: devRecord?.firstName ?? "Dev",
+        lastName: devRecord?.lastName ?? "User",
+        email: devRecord?.email ?? "dev@localhost",
+        roles: devRecord?.roles ?? ["webmaster"],
+        capabilities: userStore.getEffectiveCapabilities(devUser),
+      });
+      return;
+    }
+
+    const authHeader = req.headers.authorization || "";
+    const bearerToken = authHeader.replace(/^Bearer\s+/i, "").trim();
+
+    if (!bearerToken) {
+      res.status(401).json({ error: "Authorization required" });
+      return;
+    }
+
+    let resolvedUsername: string | null = username || null;
+
+    const mcpApiKey = process.env.MCP_SERVER_SECRET || process.env.MCP_API_KEY;
+    if (mcpApiKey && bearerToken === mcpApiKey) {
+      if (!resolvedUsername) {
+        res.status(400).json({ error: "username query parameter required when authenticating with the API key" });
+        return;
+      }
+    } else {
+      const profile = await userManager.validateToken(bearerToken);
+      if (!profile.valid || !profile.username) {
+        res.status(401).json({ error: "Invalid or expired token" });
+        return;
+      }
+      resolvedUsername = profile.username;
+    }
+
+    const record = userStore.getUser(resolvedUsername);
+    if (!record) {
+      res.status(404).json({ error: `User '${resolvedUsername}' not found` });
+      return;
+    }
+
+    res.json({
+      username: record.username,
+      firstName: record.firstName ?? "",
+      lastName: record.lastName ?? "",
+      email: record.email ?? "",
+      roles: record.roles,
+      capabilities: userStore.getEffectiveCapabilities(resolvedUsername),
+    });
+  });
+
   // Check token validity without full re-validation (for session refresh)
   app.post("/api/debug/check-session", async (req, res) => {
     try {

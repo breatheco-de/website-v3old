@@ -4,6 +4,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { registerPageTools } from "./tools/pages.js";
 import { registerComponentTools } from "./tools/components.js";
+import { registerUserTools } from "./tools/user.js";
 import {
   registerClient,
   lookupClient,
@@ -153,6 +154,7 @@ function createMcpServer(mcpAuthor?: string, mcpToken?: string): McpServer {
   const mcp = new McpServer({ name: "content-pages", version: "1.0.0" });
   registerPageTools(mcp, mcpAuthor, mcpToken);
   registerComponentTools(mcp, mcpToken);
+  registerUserTools(mcp, mcpToken);
   return mcp;
 }
 
