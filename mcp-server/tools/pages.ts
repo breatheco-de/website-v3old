@@ -762,6 +762,15 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
       contentType: z.string().optional().describe("Content type hint (e.g. 'page', 'program'). Omit to auto-detect from slug."),
     },
     async ({ contentType, slug, locale, section, index }) => {
+      if (!MCP_SERVER_SECRET) {
+        return {
+          content: [{
+            type: "text",
+            text: "add_section is unavailable: MCP_SERVER_SECRET is not configured. Set MCP_SERVER_SECRET in your environment before using section-editing tools.",
+          }],
+          isError: true,
+        };
+      }
       try {
         assertSafeSegment(slug, "slug");
         assertSafeLocale(locale);
