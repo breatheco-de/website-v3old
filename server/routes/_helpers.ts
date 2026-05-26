@@ -164,6 +164,7 @@ import {
 } from "../markdown";
 import { resolveDynamicEntries } from "../dynamic-entries";
 import { loadDatabaseSinglePage, mergeSingleTemplate } from "../database-single-loader";
+import { enrichWithEcommerceData } from "../ecommerce/ecommerce-resolver";
 import { getBaseUrl } from "../hreflang";
 import * as userManager from "../user-manager";
 import * as userStore from "../user-store";
@@ -529,6 +530,7 @@ export function loadCareerProgram(slug: string, locale: string): CareerProgram |
     applyComponentSectionDefaults(result.data.sections as unknown[]);
     applyComponentImageSizes(result.data.sections as unknown[]);
   }
+  enrichWithEcommerceData("program", slug, result.data as Record<string, unknown>);
   return result.data;
 }
 
@@ -573,6 +575,7 @@ export function loadLandingPage(slug: string, locale?: string): LandingPage | nu
     applyComponentSectionDefaults(result.data.sections as unknown[]);
     applyComponentImageSizes(result.data.sections as unknown[]);
   }
+  enrichWithEcommerceData("landing", slug, result.data as Record<string, unknown>);
   return result.data;
 }
 
@@ -617,6 +620,7 @@ export function loadLocationPage(slug: string, locale: string): LocationPage | n
     applyComponentSectionDefaults(result.data.sections as unknown[]);
     applyComponentImageSizes(result.data.sections as unknown[]);
   }
+  enrichWithEcommerceData("location", slug, result.data as Record<string, unknown>);
   return result.data;
 }
 
@@ -670,6 +674,7 @@ export function loadTemplatePage(slug: string, locale: string): TemplatePage | n
     applyComponentSectionDefaults(result.data.sections as unknown[]);
     applyComponentImageSizes(result.data.sections as unknown[]);
   }
+  enrichWithEcommerceData("page", slug, result.data as Record<string, unknown>);
   return result.data;
 }
 

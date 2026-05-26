@@ -1,0 +1,23 @@
+# Product Definition
+# ===================
+# A product links a purchasable offering to its matching CMS content entry.
+#
+# product_id:   Unique identifier for this product (slug-style, lowercase, hyphens)
+# name:         Display name shown in admin and API responses
+# content_type: Must match a key in marketing-content/content-types.yml
+# content_slug: Must match an existing entry slug for the given content_type
+# plans:        List of plan_id values defined under ecommerce/plans/
+# active:       Whether this product is available for purchase (default: true)
+# description:  Optional human-readable description
+
+product_id: ai-reskilling-bootcamp
+name: AI Reskilling Bootcamp
+content_type: program
+content_slug: ai-ml
+active: true
+description: >
+  Full-stack AI reskilling program covering machine learning, prompt engineering,
+  and production deployment. Available as a monthly subscription or one-time annual plan.
+plans:
+  - ai-bootcamp-monthly
+  - ai-bootcamp-annual
