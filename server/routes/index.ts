@@ -225,6 +225,7 @@ import {
 //   media.ts        /api/media, /api/image-registry, /api/image-optimizer
 //   ai.ts           /api/ai, /api/chat, /api/brand-context
 //   validation.ts   /api/validation, /api/diagnostics, /api/debug
+//   ecommerce.ts    /api/ecommerce
 //
 // Each file exports a single registerXxxRoutes(app: Express): void function.
 // Add your function call to the register block in registerRoutes() below.
@@ -245,6 +246,7 @@ import { registerGithubRoutes } from "./github";
 import { registerMediaRoutes } from "./media";
 import { registerAiRoutes } from "./ai";
 import { registerValidationRoutes } from "./validation";
+import { registerEcommerceRoutes } from "./ecommerce";
 import { setWorkerRunNow } from "./_worker-state";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -307,6 +309,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   registerMediaRoutes(app);
   registerAiRoutes(app);
   registerValidationRoutes(app);
+  registerEcommerceRoutes(app);
 
   const httpServer = createServer(app);
 

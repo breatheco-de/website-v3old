@@ -132,6 +132,7 @@ export function DebugBubble() {
     return "light";
   });
   const [cacheClearStatus, setCacheClearStatus] = useState<"idle" | "loading" | "success">("idle");
+  const [sitemapUrlCount, setSitemapUrlCount] = useState<number | null>(null);
   const [sitemapUrls, setSitemapUrls] = useState<SitemapUrl[]>([]);
   const [sitemapSearch, setSitemapSearch] = useState("");
   const [sitemapLoading, setSitemapLoading] = useState(false);
@@ -431,6 +432,18 @@ export function DebugBubble() {
     }
   }, [isValidated, isLoading, pendingAutoEditMode, editMode, contentInfo, pathname, i18n.language, navigate, pageDiagnostics?.locale]);
 
+  // Fetch sitemap URL count on mount
+  useEffect(() => {
+    fetch("/api/debug/sitemap-cache-status")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.entryCount !== null && data.entryCount !== undefined) {
+          setSitemapUrlCount(data.entryCount);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   // Fetch sitemap URLs when entering sitemap view
   useEffect(() => {
     if (menuView === "sitemap" && sitemapUrls.length === 0) {
@@ -439,6 +452,7 @@ export function DebugBubble() {
         .then((res) => res.json())
         .then((data) => {
           setSitemapUrls(data);
+          setSitemapUrlCount(data.length);
           setSitemapLoading(false);
         })
         .catch(() => setSitemapLoading(false));
@@ -1558,6 +1572,7 @@ export function DebugBubble() {
         if (freshRes.ok) {
           const freshData = await freshRes.json();
           setSitemapUrls(freshData);
+          setSitemapUrlCount(freshData.length);
         }
       } else {
         console.error("Failed to clear sitemap cache");
@@ -1629,6 +1644,7 @@ export function DebugBubble() {
     setAiAgentsExpanded,
     cacheClearStatus,
     clearSitemapCache,
+    sitemapUrlCount,
     redirectsList,
     componentSearch,
     setComponentSearch,

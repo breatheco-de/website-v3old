@@ -10,6 +10,7 @@ import { setAutoCommitCallback } from "./sync-state";
 import { queueFileChange } from "./auto-commit";
 import { databaseManager } from "./database";
 import { contentIndex } from "./content-index";
+import { scanEcommerceContent, startEcommerceWatcher } from "./ecommerce/ecommerce-index";
 import { loadUsersStateFromBucket } from "./user-store";
 import { gcs } from "./gcs";
 import { getVersioningManager } from "./versioning/VersioningManager";
@@ -225,6 +226,11 @@ app.use((req, res, next) => {
   // listening so the first request is never blocked by the initial scan.
   // The slow phase (image/variable/redirect/SEO indexing) runs in the background.
   contentIndex.scanFast();
+
+  // Scan ecommerce YAML files and start the file watcher so plan/product data is
+  // always available at request time with zero filesystem I/O.
+  scanEcommerceContent();
+  startEcommerceWatcher();
 
   // ALWAYS serve the app on the port specified in the environment variable PORT
   // Other ports are firewalled. Default to 5000 if not specified.

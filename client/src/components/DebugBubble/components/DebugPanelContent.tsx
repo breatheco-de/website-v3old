@@ -73,6 +73,7 @@ export interface DebugPanelContentProps {
   setAiAgentsExpanded: (v: boolean) => void;
   cacheClearStatus: string;
   clearSitemapCache: () => void;
+  sitemapUrlCount: number | null;
   redirectsList: Array<{ from: string; to: string }>;
 
   componentSearch: string;
@@ -466,7 +467,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
           <div className="p-2 space-y-1">
             <ExpandableMenuItem
               icon={Map}
-              label="Sitemap"
+              label="Content & Sitemap"
               expanded={props.sitemapExpanded}
               onToggle={() => {
                 props.setSitemapExpanded(!props.sitemapExpanded);
@@ -497,6 +498,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 onClick={() => props.setMenuView("sitemap")}
                 indicator="chevron"
                 testId="button-sitemap-all-urls"
+                rightContent={<span className="text-xs text-muted-foreground">{props.sitemapUrlCount !== null ? `${props.sitemapUrlCount} indexed` : '...'}</span>}
               />
               <MenuItem
                 icon={Route}
@@ -512,6 +514,20 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 onClick={() => props.setMenuView("content-types")}
                 indicator="chevron"
                 testId="button-content-types-menu"
+              />
+              <MenuItem
+                icon={Image}
+                label="Media Gallery"
+                href="/private/media-gallery"
+                indicator="arrow"
+                testId="link-media-gallery"
+              />
+              <MenuItem
+                icon={Database}
+                label="Content Databases"
+                onClick={() => props.setMenuView("databases")}
+                indicator="chevron"
+                testId="button-databases-menu"
               />
               {props.contentInfo.type && props.contentInfo.slug && (
                 <MenuItem
@@ -584,27 +600,11 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
             </ExpandableMenuItem>
 
             <MenuItem
-              icon={Image}
-              label="Media Gallery"
-              href="/private/media-gallery"
-              indicator="arrow"
-              testId="link-media-gallery"
-            />
-
-            <MenuItem
               icon={Palette}
               label="Theme Editor"
               href="/private/theme-editor"
               indicator="arrow"
               testId="link-theme-editor"
-            />
-
-            <MenuItem
-              icon={Database}
-              label="Databases"
-              onClick={() => props.setMenuView("databases")}
-              indicator="arrow"
-              testId="button-databases-menu"
             />
 
             <MenuItem
