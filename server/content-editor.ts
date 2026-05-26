@@ -87,8 +87,15 @@ function applyOperation(content: Record<string, unknown>, operation: EditOperati
     }
     
     case "add_item": {
-      const arr = getValueAtPath(content, operation.path) as unknown[];
-      if (!Array.isArray(arr)) throw new Error(`Path ${operation.path} is not an array`);
+      let arr = getValueAtPath(content, operation.path) as unknown[];
+      if (!Array.isArray(arr)) {
+        if (operation.path === "sections") {
+          (content as Record<string, unknown>).sections = [];
+          arr = (content as Record<string, unknown>).sections as unknown[];
+        } else {
+          throw new Error(`Path ${operation.path} is not an array`);
+        }
+      }
       
       let insertedIndex: number;
       if (operation.index !== undefined && operation.index >= 0 && operation.index <= arr.length) {

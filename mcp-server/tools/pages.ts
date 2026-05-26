@@ -1032,7 +1032,7 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
         description: meta_description,
         robots,
       };
-      const localeData: Record<string, unknown> = { slug, title, meta: mergedMeta };
+      const localeData: Record<string, unknown> = { slug, title, meta: mergedMeta, sections: [] };
       const localeFilePath = path.join(pageDir, `${locale}.yml`);
       fs.writeFileSync(localeFilePath, safeDump(localeData), "utf-8");
       const localeRelPath = `marketing-content/${getDirectory(contentType, config)}/${slug}/${locale}.yml`;
