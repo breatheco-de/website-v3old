@@ -22,3 +22,31 @@ sections:
     section_id: hero-re5y9v
     paddingY:
       desktop: sm
+  - type: features_grid
+    version: "1.0"
+    variant: detailed
+    title: ¿Por qué aprender Judo?
+    subtitle: Más que un deporte, una disciplina de vida
+    columns: 3
+    features:
+      - title: Autodefensa real
+        description: Aprende técnicas de agarre y derribo aplicables en situaciones reales. El judo es uno de los sistemas de autodefensa más efectivos del mundo.
+        icon: shield
+      - title: Condición física completa
+        description: Trabaja fuerza, flexibilidad, coordinación y resistencia en cada sesión. Tu cuerpo cambia en semanas.
+        icon: activity
+      - title: Disciplina mental
+        description: El judo enseña respeto, concentración y resiliencia. Principios que aplicas dentro y fuera del tatami.
+        icon: brain
+      - title: Para todas las edades
+        description: Programa diseñado para personas de 15 a 40 años, con grupos por nivel. Empieza cuando quieras, sin experiencia previa.
+        icon: users
+      - title: Instructores certificados
+        description: Entrenadores con dan oficial y experiencia en competición. Aprenderás bien desde el primer día.
+        icon: award
+      - title: Comunidad y competición
+        description: Únete a una comunidad activa. Si quieres competir, te preparamos. Si solo quieres entrenar, también.
+        icon: trophy
+    section_id: features_grid-gxtn84
+    paddingY:
+      desktop: sm
