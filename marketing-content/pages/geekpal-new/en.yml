@@ -6,9 +6,7 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: GeekPAL-new
-  description: >-
-    At 4Geeks, you never learn alone. Unlimited 1:1 mentorship, 24/7 AI tutoring from Rigobot, and a global dev
-    community. Lifelong access. 4Geeks Academy.
+  description: At 4Geeks, you never learn alone. Unlimited 1:1 mentorship, 24/7 AI tutoring from Rigobot, and a global dev community. Lifelong access. 4Geeks Academy.
 schema:
   include:
     - organization
@@ -16,18 +14,16 @@ schema:
 sections:
   - type: hero
     section_id: hero-rjyebc
-    version: '1.0'
+    version: "1.0"
     variant: productShowcase
     title: Lifetime Mentorship & AI-Powered Coding Support
     welcome_text: Welcome to
     brand_mark:
       prefix: Geek
       highlight: PAL
-      suffix: ':'
+      suffix: ":"
       color: destructive
-    description: >-
-      Get unlimited coding mentorship, 24/7 AI coding support, and access to a global developer community built to
-      accelerate your learning and advance your tech career.
+    description: Get unlimited coding mentorship, 24/7 AI coding support, and access to a global developer community built to accelerate your learning and advance your tech career.
     bullets:
       - text: Unlimited 1:1 coding mentorship
       - text: AI-powered guidance from Rigobot 24/7
@@ -35,40 +31,24 @@ sections:
       - text: Real community support
     video:
       url: https://youtu.be/D5nUZNL52-Q
-      ratio: '3:4'
+      ratio: "3:4"
     paddingY:
       mobile: none lg
       desktop: md lg
-  - type: banner
-    section_id: banner-mwfx4x
-    version: '1.0'
-    logo: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    avatars:
-      - https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
-      - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
-      - https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
-      - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
-    title: Advance Faster, Never Lose Momentum
-    description: >-
-      The #1 reason people quit when learning to code? Getting stuck. GeekPal keeps you moving with support that shows
-      up exactly when you need it.
-    background: gradient
   - type: human_and_ai_duo
     section_id: human_and_ai_duo-l1vx0k
-    version: '1.0'
-    heading: 'AI: The Perfect Support Duo'
-    description: >-
-      Learning works best when human expertise and AI support come together. At 4Geeks, you'll progress faster and
-      smarter through unlimited 1:1 mentorship and AI-powered support from Rigobot.
+    version: "1.0"
+    heading: "AI: The Perfect Support Duo"
+    description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll progress faster and smarter through unlimited 1:1 mentorship and AI-powered support from Rigobot.
     bullet_groups:
-      - title: 'Our team of expert mentors:'
+      - title: "Our team of expert mentors:"
         image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
         bullets:
           - text: Personalized guidance
           - text: Live troubleshooting
           - text: Expert bug fixing assistance
           - text: Industry insights and career advice
-      - title: 'Rigobot + Learnpack:'
+      - title: "Rigobot + Learnpack:"
         image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
         bullets:
           - text: Instant feedback and tutoring 24/7
@@ -104,23 +84,17 @@ sections:
       desktop: md none
   - type: community_support
     section_id: community_support-5sxr17
-    version: '1.0'
+    version: "1.0"
     heading: A Global Tech Community to Support your Growth
-    description: >-
-      4Geeks is more than a program, it's an active network of tech pros, mentors, and fellow geeks that keeps you
-      progressing in your career.
+    description: 4Geeks is more than a program, it's an active network of tech pros, mentors, and fellow geeks that keeps you progressing in your career.
     bullet_groups:
       - title: Slack Community
-        description: >-
-          Get real-time help from mentors, alumni, and peers through our active, theme specific channels; from coding
-          support, to job boards and career advice (and yes, there's coding humor too!).
+        description: Get real-time help from mentors, alumni, and peers through our active, theme specific channels; from coding support, to job boards and career advice (and yes, there's coding humor too!).
         icon: BrandSlack
         badge: 6,000+ Members
         accent_color: primary
       - title: 4Geeks.com
-        description: >-
-          Keep advancing your skills with further training resources, live events, and collaborative projects. Connect
-          with people who've been where you are — and know how to help you get where you want to go.
+        description: Keep advancing your skills with further training resources, live events, and collaborative projects. Connect with people who've been where you are — and know how to help you get where you want to go.
         icon: Rigobot
         accent_color: primary
     image: https://storage.googleapis.com/4geeks-academy-website/media/Group-6606.webp
@@ -139,14 +113,12 @@ sections:
       video: https://www.youtube.com/watch?v=MBXqEnhodx0
       video_width: 900px
       heading: The Impact of Unlimited Coding Mentorship
-      description: >-
-        Joao shares how continuous 1:1 mentorship supported his learning during the bootcamp and helped him grow
-        professionally afterward.
+      description: Joao shares how continuous 1:1 mentorship supported his learning during the bootcamp and helped him grow professionally afterward.
       justify: center
       text_align: center
       font_size: lg
     heading_above_on_md: false
-    gap: '8'
+    gap: "8"
     paddingY:
       desktop: lg md
   - type: testimonials_slide
@@ -203,7 +175,7 @@ sections:
     paddingY:
       desktop: none md
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Receive personalized program information and next steps.
     variant: form
@@ -248,7 +220,7 @@ sections:
     section_id: cta_banner-ter5fi
   - type: sticky_cta
     section_id: sticky_cta-q4c70v
-    version: '1.0'
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
