@@ -497,7 +497,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 onClick={() => props.setMenuView("sitemap")}
                 indicator="chevron"
                 testId="button-sitemap-all-urls"
-                rightContent={<span className="text-xs text-muted-foreground">{props.sitemapUrlCount !== null ? props.sitemapUrlCount : '...'}</span>}
+                rightContent={<span className="text-xs text-muted-foreground">{props.sitemapUrlCount !== null ? `${props.sitemapUrlCount} indexed` : '...'}</span>}
               />
               <MenuItem
                 icon={Route}
