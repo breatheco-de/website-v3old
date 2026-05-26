@@ -93,7 +93,7 @@ import { mediaGallery } from "../media-gallery";
 import { media } from "../media";
 import multer from "multer";
 import { contentIndex, type ContentType } from "../content-index";
-import { runScan as runComponentInsightsScan, readInsightsFile, suggestNext as suggestNextComponent } from "../component-insights";
+import { runScan as runComponentInsightsScan, readInsightsFile, suggestNext as suggestNextComponent, getComponentUsageData } from "../component-insights";
 import { validateFieldSource, validateFieldMapping, extractByDotPath } from "../../scripts/validation/shared/fieldMappingValidator";
 import {
   getFolder,
@@ -1529,6 +1529,33 @@ export function registerAdminRoutes(app: Express): void {
       res.json(suggestions);
     } catch (err) {
       res.status(500).json({ error: "Failed to get suggestions", details: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
+  app.get("/api/private/component-insights/component/:type", (req, res) => {
+    try {
+      const componentType = req.params.type;
+      const intent = typeof req.query.intent === "string" && req.query.intent ? req.query.intent : undefined;
+      const contentType = typeof req.query.contentType === "string" && req.query.contentType ? req.query.contentType : undefined;
+
+      if (!intent && !contentType) {
+        const data = readInsightsFile() ?? runComponentInsightsScan();
+        const configs = getAllConfigs();
+        const availableContentTypes = Object.entries(configs)
+          .filter(([, cfg]) => !(cfg as Record<string, unknown>).database)
+          .map(([ct]) => ct);
+        return res.status(400).json({
+          error: "Either 'intent' or 'contentType' query param is required for scoped results.",
+          availableIntents: data.meta.intents,
+          availableContentTypes,
+        });
+      }
+
+      const result = getComponentUsageData(componentType, { intent, contentType });
+      res.json(result);
+    } catch (err) {
+      console.error("[ComponentInsights] Component usage failed:", err);
+      res.status(500).json({ error: "Failed to get component usage", details: err instanceof Error ? err.message : String(err) });
     }
   });
 

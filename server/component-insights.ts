@@ -318,6 +318,98 @@ export function readInsightsFile(): ComponentInsightsData | null {
   }
 }
 
+export interface ComponentUsageResult {
+  componentType: string;
+  scope: Record<string, string>;
+  totalUses: number;
+  pages: Array<{ contentType: string; slug: string; position: number }>;
+  neighbors: {
+    before: Array<{ type: string; count: number }>;
+    after: Array<{ type: string; count: number }>;
+  };
+  topSequences: Array<{ sequence: string[]; count: number }>;
+}
+
+export function getComponentUsageData(
+  componentType: string,
+  filters: { intent?: string; contentType?: string },
+): ComponentUsageResult {
+  let data = readInsightsFile();
+  if (!data) {
+    data = runScan();
+  }
+
+  const intents = loadPageIntents();
+  const validIntentIds = new Set(intents.map((i) => i.id));
+  const configs = getAllConfigs();
+  const contentTypeIntentMap = new Map<string, string>();
+  for (const [ct, cfg] of Object.entries(configs)) {
+    const raw = cfg as Record<string, unknown>;
+    if (typeof raw.insights_intent === "string") {
+      contentTypeIntentMap.set(ct, raw.insights_intent as string);
+    }
+  }
+
+  const allPages = scanPages(validIntentIds, contentTypeIntentMap);
+
+  let scopedPages = allPages;
+  if (filters.contentType) {
+    scopedPages = scopedPages.filter((p) => p.contentType === filters.contentType);
+  }
+  if (filters.intent) {
+    scopedPages = scopedPages.filter((p) => p.intent === filters.intent);
+  }
+
+  const usagePages: Array<{ contentType: string; slug: string; position: number }> = [];
+  let totalUses = 0;
+  for (const page of scopedPages) {
+    page.sections.forEach((section, idx) => {
+      if (section === componentType) {
+        usagePages.push({ contentType: page.contentType, slug: page.slug, position: idx + 1 });
+        totalUses++;
+      }
+    });
+  }
+
+  const intentCluster = filters.intent ? data.byIntent[filters.intent] : undefined;
+  const cluster =
+    intentCluster && intentCluster.pageCount >= FALLBACK_CLUSTER_MIN
+      ? intentCluster
+      : data.global;
+
+  const beforeMap = new Map<string, number>();
+  for (const p of cluster.pairings) {
+    if (p.to === componentType) {
+      beforeMap.set(p.from, (beforeMap.get(p.from) ?? 0) + p.count);
+    }
+  }
+  const before = Array.from(beforeMap.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([type, count]) => ({ type, count }));
+
+  const afterMap = new Map<string, number>();
+  for (const p of cluster.pairings) {
+    if (p.from === componentType) {
+      afterMap.set(p.to, (afterMap.get(p.to) ?? 0) + p.count);
+    }
+  }
+  const after = Array.from(afterMap.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([type, count]) => ({ type, count }));
+
+  const topSequences = cluster.topSequences
+    .filter((s) => s.sequence.includes(componentType))
+    .slice(0, 5);
+
+  const scope: Record<string, string> = {};
+  if (filters.intent) scope.intent = filters.intent;
+  if (filters.contentType) scope.contentType = filters.contentType;
+
+  return { componentType, scope, totalUses, pages: usagePages, neighbors: { before, after }, topSequences };
+}
+
 export function suggestNext(
   after: string,
   intent: string | undefined,

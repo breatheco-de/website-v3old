@@ -8,8 +8,24 @@ import {
   getComponentVariant,
 } from "../lib/content.js";
 import { assertSafeSegment, assertWithinBase } from "../lib/sanitize.js";
+import { getTokenUsername } from "../lib/oauth.js";
 
-export function registerComponentTools(mcp: McpServer, _mcpToken?: string): void {
+const MAIN_SERVER_PORT = process.env.PORT || "5000";
+const MCP_SERVER_SECRET = process.env.MCP_SERVER_SECRET || process.env.MCP_API_KEY || "";
+
+function internalHeaders(mcpToken?: string): Record<string, string> {
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (MCP_SERVER_SECRET) {
+    headers["Authorization"] = `Bearer ${MCP_SERVER_SECRET}`;
+  }
+  if (mcpToken) {
+    const username = getTokenUsername(mcpToken);
+    if (username) headers["x-mcp-author"] = username;
+  }
+  return headers;
+}
+
+export function registerComponentTools(mcp: McpServer, mcpToken?: string): void {
   // list_components
   mcp.tool(
     "list_components",
@@ -70,6 +86,40 @@ export function registerComponentTools(mcp: McpServer, _mcpToken?: string): void
         return { content: [{ type: "text", text: `Variant '${variant}' not found for component '${componentType}'.` }], isError: true };
       }
       return { content: [{ type: "text", text: JSON.stringify(detail, null, 2) }] };
+    }
+  );
+
+  // get_component_usage
+  mcp.tool(
+    "get_component_usage",
+    "Investigate how a specific section component is used across the site — which pages include it, what position it appears at, and which components typically come before/after it. Scope the query by 'intent' or 'contentType' to keep the response focused and token-efficient. If neither is provided, the tool returns an error listing the available intents and content types so you can pick one.",
+    {
+      componentType: z.string().describe("Component type name, e.g. 'hero', 'faq', 'two_column'"),
+      intent: z.string().optional().describe("Filter to pages with this intent slug (e.g. 'bootcamp'). Either intent or contentType is required."),
+      contentType: z.string().optional().describe("Filter to pages of this content type (e.g. 'landing-page'). Either intent or contentType is required."),
+    },
+    async ({ componentType, intent, contentType }) => {
+      try {
+        assertSafeSegment(componentType, "componentType");
+      } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
+
+      const params = new URLSearchParams();
+      if (intent) params.set("intent", intent);
+      if (contentType) params.set("contentType", contentType);
+
+      const url = `http://localhost:${MAIN_SERVER_PORT}/api/private/component-insights/component/${encodeURIComponent(componentType)}?${params}`;
+      try {
+        const res = await fetch(url, { headers: internalHeaders(mcpToken) });
+        const json = await res.json();
+        if (!res.ok) {
+          return { content: [{ type: "text", text: JSON.stringify(json, null, 2) }], isError: res.status !== 400 };
+        }
+        return { content: [{ type: "text", text: JSON.stringify(json, null, 2) }] };
+      } catch (e) {
+        return { content: [{ type: "text", text: `Failed to fetch component usage: ${(e as Error).message}` }], isError: true };
+      }
     }
   );
 
