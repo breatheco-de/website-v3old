@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AlertTriangle, ArrowLeft, ArrowRight, BarChart2, Blocks, Book, Brain, Check, ChevronRight, CloudDownload, Cookie, Database, Github, GitBranch, Image, Languages, Map, MapPin, Menu, MessageCircle, Monitor, Moon, Palette, Pencil, Plus, RefreshCw, Route, Settings, Smartphone, Stethoscope, Sun, X } from "lucide-react";
+import { IconShoppingBag } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -185,6 +186,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
   const { i18n } = useTranslation();
   const [createMenuOpen, setCreateMenuOpen] = useState(false);
   const [settingsExpanded, setSettingsExpanded] = useState(false);
+  const [storeExpanded, setStoreExpanded] = useState(false);
 
   if (props.noTokenDetected) {
     return (
@@ -476,6 +478,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   props.setComponentsExpanded(false);
                   props.setAiAgentsExpanded(false);
                   setSettingsExpanded(false);
+                  setStoreExpanded(false);
                 }
               }}
               testId="button-sitemap-toggle"
@@ -558,6 +561,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   props.setSitemapExpanded(false);
                   props.setAiAgentsExpanded(false);
                   setSettingsExpanded(false);
+                  setStoreExpanded(false);
                 }
               }}
               testId="button-components-toggle"
@@ -596,6 +600,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   props.setSitemapExpanded(false);
                   props.setComponentsExpanded(false);
                   setSettingsExpanded(false);
+                  setStoreExpanded(false);
                 }
               }}
               testId="button-ai-agents-toggle"
@@ -625,6 +630,38 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
             />
 
             <ExpandableMenuItem
+              icon={IconShoppingBag}
+              label="Store"
+              expanded={storeExpanded}
+              onToggle={() => {
+                const opening = !storeExpanded;
+                setStoreExpanded(opening);
+                if (opening) {
+                  props.setSitemapExpanded(false);
+                  props.setComponentsExpanded(false);
+                  props.setAiAgentsExpanded(false);
+                  setSettingsExpanded(false);
+                }
+              }}
+              testId="button-store-toggle"
+            >
+              <MenuItem
+                icon={IconShoppingBag}
+                label="Products"
+                href="/private/store/products"
+                indicator="arrow"
+                testId="link-store-products"
+              />
+              <MenuItem
+                icon={IconShoppingBag}
+                label="Plans"
+                href="/private/store/plans"
+                indicator="arrow"
+                testId="link-store-plans"
+              />
+            </ExpandableMenuItem>
+
+            <ExpandableMenuItem
               icon={Settings}
               label="Settings"
               expanded={settingsExpanded}
@@ -635,6 +672,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   props.setSitemapExpanded(false);
                   props.setComponentsExpanded(false);
                   props.setAiAgentsExpanded(false);
+                  setStoreExpanded(false);
                 }
               }}
               testId="button-settings-toggle"
