@@ -16,8 +16,28 @@ import {
 } from "../lib/content.js";
 import { assertSafeSegment, assertSafeLocale, assertWithinBase } from "../lib/sanitize.js";
 import { checkCap, denyResponse } from "../lib/auth.js";
+import { getTokenUsername } from "../lib/oauth.js";
 
 const MAIN_SERVER_PORT = process.env.PORT || "5000";
+// Internal credential for loopback calls to capability-gated main-server endpoints.
+// Must match the value used in server/routes/_helpers.ts trusted-internal bypass.
+export const MCP_SERVER_SECRET = process.env.MCP_SERVER_SECRET || process.env.MCP_API_KEY || "";
+
+/**
+ * Build the Authorization + author headers for loopback calls to the main
+ * server's capability-gated endpoints (e.g. /api/content/edit-sections).
+ */
+function internalHeaders(mcpToken?: string): Record<string, string> {
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (MCP_SERVER_SECRET) {
+    headers["Authorization"] = `Bearer ${MCP_SERVER_SECRET}`;
+  }
+  if (mcpToken) {
+    const username = getTokenUsername(mcpToken);
+    if (username) headers["x-mcp-author"] = username;
+  }
+  return headers;
+}
 
 /**
  * Notify the main server that a file has been modified so it is enqueued
@@ -773,7 +793,7 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
         const url = `http://localhost:${MAIN_SERVER_PORT}/api/content/edit-sections`;
         const res = await fetch(url, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: internalHeaders(mcpToken),
           body: JSON.stringify({
             contentType: resolved.contentType,
             slug,

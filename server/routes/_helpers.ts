@@ -227,6 +227,21 @@ export async function requireCapability(
     return { authorized: true, token, username: null, author: null };
   }
 
+  // Trusted-internal bypass: MCP server loopback calls send
+  // "Authorization: Bearer <MCP_SERVER_SECRET>" (not the standard
+  // "Token <...>" format that extractToken parses). Read it directly here,
+  // mirroring the same pattern used in /api/auth/check-capability.
+  const MCP_SERVER_SECRET = process.env.MCP_SERVER_SECRET || process.env.MCP_API_KEY || "";
+  if (MCP_SERVER_SECRET) {
+    const authHeader = req.headers.authorization || "";
+    const bearerToken = authHeader.startsWith("Bearer ") ? authHeader.slice(7).trim() : "";
+    if (bearerToken === MCP_SERVER_SECRET) {
+      const mcpAuthorHeader = req.headers["x-mcp-author"];
+      const author = typeof mcpAuthorHeader === "string" && mcpAuthorHeader ? mcpAuthorHeader : null;
+      return { authorized: true, token: bearerToken, username: author, author };
+    }
+  }
+
   if (!token) {
     res.status(401).json({ error: "Authorization required" });
     return { authorized: false, token: null, username: null, author: null };
