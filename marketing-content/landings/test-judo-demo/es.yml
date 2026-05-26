@@ -4,3 +4,21 @@ meta:
   page_title: Aprende Judo | Clases para todas las edades | 4Geeks
   description: Aprende judo desde cero o mejora tu técnica. Clases para jóvenes y adultos de 15 a 40 años. Disciplina, fuerza y confianza desde el primer día.
   robots: noindex, nofollow
+sections:
+  - type: hero
+    version: "1.0"
+    variant: showcase
+    title: Aprende Judo desde Cero
+    subtitle: Disciplina, fuerza y autodefensa para jóvenes y adultos de 15 a 40 años. Sin experiencia previa necesaria.
+    show_arrow: true
+    cta_button:
+      text: Reserva tu clase gratis
+      url: "#lead-form"
+      variant: primary
+    trust_bar:
+      rating: 4.8/5
+      rating_count: 500+
+      trusted_text: Alumnos que ya entrenan con nosotros
+    section_id: hero-re5y9v
+    paddingY:
+      desktop: sm
