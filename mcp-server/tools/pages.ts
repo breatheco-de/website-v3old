@@ -1070,15 +1070,22 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
   // add_section
   mcp.tool(
     "add_section",
-    "Add a new section to a page. Inserts at the given index (or appends if omitted). Section must include a 'type' field matching a component type. contentType is optional — omit it and the server will auto-detect it from the slug.",
+    "Add a new section to a page. Inserts at the given index (or appends if omitted). Section must include a 'type' field matching a component type. contentType is optional — omit it and the server will auto-detect it from the slug.\n\n" +
+    "IMPORTANT — versioning safety: If the page has active variants (a versioning.yml exists), " +
+    "you MUST ask the user before calling this tool: " +
+    "'Do you want to edit the live version directly, or create a new draft variant first?' " +
+    "To edit the live version directly pass confirm_live_edit: true. " +
+    "To edit a variant, call create_variant first and pass the returned slug as the 'variant' parameter here.",
     {
       slug: z.string().describe("Page slug"),
       locale: z.string().default("en").describe("Locale code"),
       section: z.record(z.unknown()).describe("Section object with at minimum a 'type' field"),
       index: z.number().int().optional().describe("Position to insert (0-based). Omit to append."),
       contentType: z.string().optional().describe("Content type hint (e.g. 'page', 'program'). Omit to auto-detect from slug."),
+      variant: z.string().optional().describe("Variant slug to write to (e.g. 'draft-v2'). Writes to {variantSlug}.{locale}.yml instead of the live locale file."),
+      confirm_live_edit: z.boolean().optional().describe("Set to true to confirm you want to overwrite the live locale file directly when a versioning.yml exists. Required when no 'variant' is supplied and the page has active variants."),
     },
-    async ({ contentType, slug, locale, section, index }) => {
+    async ({ contentType, slug, locale, section, index, variant, confirm_live_edit }) => {
       if (!MCP_SERVER_SECRET) {
         return {
           content: [{
@@ -1092,6 +1099,7 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
         assertSafeSegment(slug, "slug");
         assertSafeLocale(locale);
         if (contentType) assertSafeSegment(contentType, "contentType");
+        if (variant) assertSafeSegment(variant, "variant");
       } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
@@ -1103,6 +1111,33 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
       if (mcpToken) {
         if (!await checkCap(mcpToken, "content_edit_structure", resolved.contentType)) {
           return denyResponse("content_edit_structure", resolved.contentType);
+        }
+      }
+
+      if (!variant && !confirm_live_edit) {
+        const versioning = loadVersioning(resolved.contentType, slug);
+        if (versioning) {
+          const availableVariants = Object.entries(versioning).flatMap(([loc, data]) =>
+            (data.variants || []).map(v => ({ locale: loc, slug: v.slug, allocation: v.allocation }))
+          );
+          return {
+            content: [{
+              type: "text",
+              text: JSON.stringify({
+                action_required: "confirm_live_edit",
+                message:
+                  `Page '${slug}' has active variants. Before editing the live version, please ask the user: ` +
+                  `"Do you want to edit the live version directly, or create a new draft variant first?" ` +
+                  `To edit the live version, re-call with confirm_live_edit: true. ` +
+                  `To edit a draft, call create_variant then re-call with variant: <variantSlug>.`,
+                available_variants: availableVariants,
+                options: [
+                  "Pass confirm_live_edit: true to overwrite the live locale file directly",
+                  "Call create_variant to create a draft, then pass variant: <variantSlug> to edit the draft instead",
+                ],
+              }, null, 2),
+            }],
+          };
         }
       }
 
@@ -1125,13 +1160,15 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
             slug,
             locale,
             operations: [operation],
+            ...(variant ? { variant } : {}),
           }),
         });
         const data = await res.json() as Record<string, unknown>;
         if (!res.ok) {
           return { content: [{ type: "text", text: (data.error as string) || `Server error: ${res.status}` }], isError: true };
         }
-        return { content: [{ type: "text", text: `Section of type '${section.type as string}' added to ${resolved.contentType}/${slug}/${locale}.yml` }] };
+        const fileName = variant ? `${variant}.${locale}.yml` : `${locale}.yml`;
+        return { content: [{ type: "text", text: `Section of type '${section.type as string}' added to ${resolved.contentType}/${slug}/${fileName}` }] };
       } catch (e) {
         return { content: [{ type: "text", text: `Failed to call edit-sections API: ${(e as Error).message}` }], isError: true };
       }
@@ -1141,18 +1178,26 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
   // remove_section
   mcp.tool(
     "remove_section",
-    "Remove a section from a page by its index. contentType is optional — omit it and the server will auto-detect it from the slug.",
+    "Remove a section from a page by its index. contentType is optional — omit it and the server will auto-detect it from the slug.\n\n" +
+    "IMPORTANT — versioning safety: If the page has active variants (a versioning.yml exists), " +
+    "you MUST ask the user before calling this tool: " +
+    "'Do you want to edit the live version directly, or create a new draft variant first?' " +
+    "To edit the live version directly pass confirm_live_edit: true. " +
+    "To edit a variant, call create_variant first and pass the returned slug as the 'variant' parameter here.",
     {
       slug: z.string().describe("Page slug"),
       locale: z.string().default("en").describe("Locale code"),
       index: z.number().int().describe("0-based index of the section to remove"),
       contentType: z.string().optional().describe("Content type hint (e.g. 'page', 'program'). Omit to auto-detect from slug."),
+      variant: z.string().optional().describe("Variant slug to write to (e.g. 'draft-v2'). Writes to {variantSlug}.{locale}.yml instead of the live locale file."),
+      confirm_live_edit: z.boolean().optional().describe("Set to true to confirm you want to overwrite the live locale file directly when a versioning.yml exists. Required when no 'variant' is supplied and the page has active variants."),
     },
-    async ({ contentType, slug, locale, index }) => {
+    async ({ contentType, slug, locale, index, variant, confirm_live_edit }) => {
       try {
         assertSafeSegment(slug, "slug");
         assertSafeLocale(locale);
         if (contentType) assertSafeSegment(contentType, "contentType");
+        if (variant) assertSafeSegment(variant, "variant");
       } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
@@ -1167,13 +1212,41 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
         }
       }
 
+      if (!variant && !confirm_live_edit) {
+        const versioning = loadVersioning(resolved.contentType, slug);
+        if (versioning) {
+          const availableVariants = Object.entries(versioning).flatMap(([loc, data]) =>
+            (data.variants || []).map(v => ({ locale: loc, slug: v.slug, allocation: v.allocation }))
+          );
+          return {
+            content: [{
+              type: "text",
+              text: JSON.stringify({
+                action_required: "confirm_live_edit",
+                message:
+                  `Page '${slug}' has active variants. Before editing the live version, please ask the user: ` +
+                  `"Do you want to edit the live version directly, or create a new draft variant first?" ` +
+                  `To edit the live version, re-call with confirm_live_edit: true. ` +
+                  `To edit a draft, call create_variant then re-call with variant: <variantSlug>.`,
+                available_variants: availableVariants,
+                options: [
+                  "Pass confirm_live_edit: true to overwrite the live locale file directly",
+                  "Call create_variant to create a draft, then pass variant: <variantSlug> to edit the draft instead",
+                ],
+              }, null, 2),
+            }],
+          };
+        }
+      }
+
       const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
-      const localePath = path.join(dir, `${locale}.yml`);
+      const fileName = variant ? `${variant}.${locale}.yml` : `${locale}.yml`;
+      const localePath = path.join(dir, fileName);
       try { assertWithinBase(localePath, MARKETING_CONTENT_PATH); } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
       if (!fs.existsSync(localePath)) {
-        return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${locale}.yml` }], isError: true };
+        return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${fileName}` }], isError: true };
       }
 
       // Build intended content before the conflict check.
@@ -1188,7 +1261,7 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
       const removed = sections.splice(index, 1)[0] as Record<string, unknown>;
       const intendedContent = safeDump(localeData);
 
-      const relativePath = `marketing-content/${getDirectory(resolved.contentType, resolved.config)}/${slug}/${locale}.yml`;
+      const relativePath = `marketing-content/${getDirectory(resolved.contentType, resolved.config)}/${slug}/${fileName}`;
       const conflictCheck = await checkRemoteConflict(relativePath);
       if (conflictCheck.conflict) {
         return conflictError({
@@ -1201,25 +1274,33 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
 
       fs.writeFileSync(localePath, intendedContent, "utf-8");
       await notifyMarkModified(relativePath);
-      return { content: [{ type: "text", text: `Removed section at index ${index} (type: ${removed?.type ?? "unknown"}) from ${resolved.contentType}/${slug}/${locale}.yml` }] };
+      return { content: [{ type: "text", text: `Removed section at index ${index} (type: ${removed?.type ?? "unknown"}) from ${resolved.contentType}/${slug}/${fileName}` }] };
     }
   );
 
   // reorder_sections
   mcp.tool(
     "reorder_sections",
-    "Reorder sections by supplying a new order as an array of current indices. E.g. [2, 0, 1] moves the third section to the front. contentType is optional — omit it and the server will auto-detect it from the slug.",
+    "Reorder sections by supplying a new order as an array of current indices. E.g. [2, 0, 1] moves the third section to the front. contentType is optional — omit it and the server will auto-detect it from the slug.\n\n" +
+    "IMPORTANT — versioning safety: If the page has active variants (a versioning.yml exists), " +
+    "you MUST ask the user before calling this tool: " +
+    "'Do you want to edit the live version directly, or create a new draft variant first?' " +
+    "To edit the live version directly pass confirm_live_edit: true. " +
+    "To edit a variant, call create_variant first and pass the returned slug as the 'variant' parameter here.",
     {
       slug: z.string().describe("Page slug"),
       locale: z.string().default("en").describe("Locale code"),
       order: z.array(z.number().int()).describe("Array of current section indices in desired order — must be a permutation with no repeats"),
       contentType: z.string().optional().describe("Content type hint (e.g. 'page', 'program'). Omit to auto-detect from slug."),
+      variant: z.string().optional().describe("Variant slug to write to (e.g. 'draft-v2'). Writes to {variantSlug}.{locale}.yml instead of the live locale file."),
+      confirm_live_edit: z.boolean().optional().describe("Set to true to confirm you want to overwrite the live locale file directly when a versioning.yml exists. Required when no 'variant' is supplied and the page has active variants."),
     },
-    async ({ contentType, slug, locale, order }) => {
+    async ({ contentType, slug, locale, order, variant, confirm_live_edit }) => {
       try {
         assertSafeSegment(slug, "slug");
         assertSafeLocale(locale);
         if (contentType) assertSafeSegment(contentType, "contentType");
+        if (variant) assertSafeSegment(variant, "variant");
       } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
@@ -1234,13 +1315,41 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
         }
       }
 
+      if (!variant && !confirm_live_edit) {
+        const versioning = loadVersioning(resolved.contentType, slug);
+        if (versioning) {
+          const availableVariants = Object.entries(versioning).flatMap(([loc, data]) =>
+            (data.variants || []).map(v => ({ locale: loc, slug: v.slug, allocation: v.allocation }))
+          );
+          return {
+            content: [{
+              type: "text",
+              text: JSON.stringify({
+                action_required: "confirm_live_edit",
+                message:
+                  `Page '${slug}' has active variants. Before editing the live version, please ask the user: ` +
+                  `"Do you want to edit the live version directly, or create a new draft variant first?" ` +
+                  `To edit the live version, re-call with confirm_live_edit: true. ` +
+                  `To edit a draft, call create_variant then re-call with variant: <variantSlug>.`,
+                available_variants: availableVariants,
+                options: [
+                  "Pass confirm_live_edit: true to overwrite the live locale file directly",
+                  "Call create_variant to create a draft, then pass variant: <variantSlug> to edit the draft instead",
+                ],
+              }, null, 2),
+            }],
+          };
+        }
+      }
+
       const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(resolved.contentType, resolved.config), slug);
-      const localePath = path.join(dir, `${locale}.yml`);
+      const fileName = variant ? `${variant}.${locale}.yml` : `${locale}.yml`;
+      const localePath = path.join(dir, fileName);
       try { assertWithinBase(localePath, MARKETING_CONTENT_PATH); } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
       if (!fs.existsSync(localePath)) {
-        return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${locale}.yml` }], isError: true };
+        return { content: [{ type: "text", text: `Locale file not found: ${resolved.contentType}/${slug}/${fileName}` }], isError: true };
       }
 
       // Validate permutation and build intended content before the conflict check.
@@ -1262,7 +1371,7 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
       localeData.sections = order.map(i => sections[i]);
       const intendedContent = safeDump(localeData);
 
-      const relativePath = `marketing-content/${getDirectory(resolved.contentType, resolved.config)}/${slug}/${locale}.yml`;
+      const relativePath = `marketing-content/${getDirectory(resolved.contentType, resolved.config)}/${slug}/${fileName}`;
       const conflictCheck = await checkRemoteConflict(relativePath);
       if (conflictCheck.conflict) {
         return conflictError({
@@ -1275,7 +1384,7 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
 
       fs.writeFileSync(localePath, intendedContent, "utf-8");
       await notifyMarkModified(relativePath);
-      return { content: [{ type: "text", text: `Sections reordered in ${resolved.contentType}/${slug}/${locale}.yml` }] };
+      return { content: [{ type: "text", text: `Sections reordered in ${resolved.contentType}/${slug}/${fileName}` }] };
     }
   );
 
