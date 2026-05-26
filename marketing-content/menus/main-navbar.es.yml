@@ -3,6 +3,7 @@ navbar:
     - label: Logo
       href: /
       component: Logo
+      imageId: 4geeks-devs-logo-1763162063433
     - label: PROGRAMAS
       href: /programs
       component: Dropdown
@@ -14,22 +15,22 @@ navbar:
           - title: Ingeniería en Inteligencia Artificial
             description: Explora en detalle la inteligencia artificial y cómo aplicarla en diferentes industrias, roles y tu trabajo. ¡Maximiza tu productividad en solo 6 semanas!
             cta: Ver programa
-            href: /en/career-programs/ai-engineering
+            href: /es/programas-de-carrera/ingenieria-ia
             icon: brain
           - title: Ciencia de Datos y Machine Learning con IA
             description: Domina el análisis de datos potenciado por IA con Python. Construye modelos inteligentes usando técnicas de vanguardia en Machine Learning e IA para resolver problemas reales.
             cta: Ver programa
-            href: /en/career-programs/data-science-ml
+            href: /es/programas-de-carrera/ciencia-de-datos-ml
             icon: chart
           - title: Ciberseguridad
             description: Conviértete en especialista en ciberseguridad, preparado para identificar y mitigar vulnerabilidades de sistemas, alineado con ISO y otros estándares.
             cta: Ver programa
-            href: /en/career-programs/cybersecurity
+            href: /es/programas-de-carrera/ciberseguridad
             icon: shield
           - title: Full Stack con IA
             description: Conviértete en desarrollador Full Stack usando herramientas de IA como Cursor y Vercel v0. Domina las habilidades de IA más demandadas y consigue trabajo como desarrollador.
             cta: Ver programa
-            href: /en/career-programs/full-stack
+            href: /es/programas-de-carrera/desarrollo-full-stack
             icon: code
         footer:
           text: ¿No sabes qué programa te conviene más? Mira nuestra comparación de programas
@@ -47,37 +48,37 @@ navbar:
           - title: Apoyo
             items:
               - label: Mentores y profesores
-                href: /en/geekpal-support
+                href: /es/soporte-geekpal
               - label: Apoyo Profesional
-                href: /en/geekforce-career-support
+                href: /es/soporte-profesional-geekforce
               - label: Plataforma Online
-                href: /en/online-platform
+                href: /es/plataforma-online
               - label: Rigobot
-                href: /en/rigobot-ai-coding-mentor
+                href: /es/rigobot
               - label: LearnPack
-                href: /en/learnpack
+                href: /es/learnpack
           - title: Validación
             items:
               - label: Premios
-                href: /en/awards
+                href: /es/premios
               - label: Resultados
-                href: /en/outcomes
+                href: /es/resultados
               - label: 4Geeks Vs Otros
-                href: /en/geeks-vs-others
+                href: /es/geeks-vs-otros
           - title: Precios
             items:
               - label: Financiamiento
-                href: /en/financials
+                href: /es/financiaciones
               - label: Becas
-                href: /en/scholarships
+                href: /es/becas
               - label: Garantía de Empleo
-                href: /en/job-guarantee
+                href: /es/trabajo-garantizado
           - title: Nuestros Estudiantes
             items:
               - label: Egresados y Proyectos
-                href: /en/graduates-and-projects
+                href: /es/egresados-y-proyectos
               - label: Testimonios
-                href: /en/testimonials
+                href: /es/testimonios
               - label: Talento
                 href: https://www.notion.so/4geeksacademy/4Geeks-Talent-Hub-USA-ef91aba17f9c4964bf7972396d190bdf
     - label: LA ACADEMIA
@@ -92,15 +93,15 @@ navbar:
           - label: Contrata a nuestros egresados
             href: https://www.notion.so/4geeksacademy/4Geeks-Talent-Hub-USA-ef91aba17f9c4964bf7972396d190bdf
           - label: Asóciate con 4Geeks
-            href: /en/partners
+            href: /es/alianzas
           - label: Trabaja con nosotros
-            href: /en/work-with-us
+            href: /es/trabaja-con-nosotros
           - label: Quiénes somos
-            href: /en/the-academy
+            href: /es/sobre-la-academia
           - label: Prensa
-            href: /en/press
+            href: /es/prensa
           - label: Blog
-            href: /en/blog
+            href: /es/blog
     - label: CAMPUS
       href: /campus
       component: Dropdown
@@ -113,80 +114,93 @@ navbar:
           - title: EE.UU. Y CANADÁ
             items:
               - label: Miami, EE.UU.
-                href: /en/location/miami-usa
+                href: /es/ubicacion/miami-usa
               - label: Nueva York, EE.UU.
-                href: /en/location/newyork-usa
+                href: /es/ubicacion/nueva-york-usa
               - label: Dallas, EE.UU.
-                href: /en/location/dallas-usa
+                href: /es/ubicacion/dallas-usa
               - label: Toronto, Canadá
-                href: /en/location/toronto-canada
+                href: /es/ubicacion/toronto-canada
               - label: Atlanta, EE.UU.
-                href: /en/location/atlanta-usa
+                href: /es/ubicacion/atlanta-usa
               - label: Austin, EE.UU.
-                href: /en/location/austin-usa
+                href: /es/ubicacion/austin-usa
               - label: Chicago, EE.UU.
-                href: /en/location/chicago-usa
+                href: /es/ubicacion/chicago-usa
               - label: Houston, EE.UU.
-                href: /en/location/houston-usa
+                href: /es/ubicacion/houston-usa
               - label: Los Ángeles, EE.UU.
-                href: /en/location/losangeles-usa
+                href: /es/ubicacion/losangeles-usa
               - label: Remoto, EE.UU.
-                href: /en/location/remote
+                href: /es/ubicacion/remoto
           - title: EUROPA
             items:
               - label: Madrid, España
-                href: /en/location/madrid-spain
+                href: /es/ubicacion/madrid-spain
               - label: Barcelona, España
-                href: /en/location/barcelona-spain
+                href: /es/ubicacion/barcelona-espana
               - label: Valencia, España
-                href: /en/location/valencia-spain
+                href: /es/ubicacion/valencia-espana
               - label: Málaga, España
-                href: /en/location/malaga-spain
+                href: /es/ubicacion/malaga-espana
               - label: Berlín, Alemania
-                href: /en/location/berlin-germany
+                href: /es/ubicacion/berlin-alemania
               - label: Lisboa, Portugal
-                href: /en/location/lisbon-portugal
+                href: /es/ubicacion/lisboa-portugal
               - label: Hamburgo, Alemania
-                href: /en/location/hamburg-germany
+                href: /es/ubicacion/hamburgo-alemania
               - label: Munich, Alemania
-                href: /en/location/munich-germany
+                href: /es/ubicacion/munich-alemania
               - label: Dublin, Irlanda
-                href: /en/location/dublin-ireland
+                href: /es/ubicacion/dublin-irlanda
               - label: Milan, Italia
-                href: /en/location/milan-italy
+                href: /es/ubicacion/milan-italia
               - label: Roma, Italia
-                href: /en/location/rome-italy
+                href: /es/ubicacion/roma-italia
               - label: Rest of Europe
-                href: /en/location/rest-of-europe
+                href: /es/ubicacion/resto-de-europa
           - title: LATAM
             items:
               - label: Santiago, Chile
-                href: /en/location/santiago-chile
+                href: /es/ubicacion/santiago-chile
               - label: Bogotá, Colombia
-                href: /en/location/bogota-colombia
+                href: /es/ubicacion/bogota-colombia
               - label: Ciudad de México, México
-                href: /en/location/mexicocity-mexico
+                href: /es/ubicacion/ciudad-de-mexico
               - label: Caracas, Venezuela
-                href: /en/location/caracas-venezuela
+                href: /es/ubicacion/caracas-venezuela
               - label: Buenos Aires, Argentina
-                href: /en/location/buenosaires-argentina
+                href: /es/ubicacion/buenosaires-argentina
               - label: La Paz, Bolivia
-                href: /en/location/lapaz-bolivia
+                href: /es/ubicacion/lapaz-bolivia
               - label: ' Costa Rica '
-                href: /en/location/costa-rica
+                href: /es/ubicacion/costa-rica
               - label: Quito, Ecuador
-                href: /en/location/quito-ecuador
+                href: /es/ubicacion/quito-ecuador
               - label: Ciudad de Panamá, Panamá
-                href: /en/location/panamacity-panama
+                href: /es/ubicacion/ciudad-de-panama
               - label: Montevideo, Uruguay
-                href: /en/location/montevideo-uruguay
+                href: /es/ubicacion/montevideo-uruguay
               - label: Lima, Perú
-                href: /en/location/lima-peru
+                href: /es/ubicacion/lima-peru
               - label: Rest Of America
-                href: /en/location/remote
+                href: /es/ubicacion/remoto
     - label: PRÓXIMAS FECHAS
-      href: /en/upcoming-dates
+      href: /es/upcoming-dates
       component: SimpleLink
     - label: LanguageSwitcher
       href: '#'
       component: LanguageSwitcher
+  marquee:
+    enabled: true
+    texts:
+      - text: 4Geeks, Harvard Oxford y Columbia se unen para educar en Inteligencia Artificial en las Bahamas.
+        cta_label: Ver más
+        cta_url: https://www.entnerd.com/startup-chilena-es-reclutada-por-bahamas-junto-a-oxford-columbia-y-harvard-para-dar-clases-gratuitas-online/
+        cta_url_overrides:
+          /inicio: '#list_press_mentions-w7r1sh'
+    position: above
+    char_delay: 20
+    display_time: 6500
+  floating: true
+  subtle_at_top: true
