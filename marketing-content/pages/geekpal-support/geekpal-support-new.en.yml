@@ -19,7 +19,7 @@ sections:
     section_id: hero-ivsy21
     version: "1.0"
     variant: productShowcase
-    welcome_text: Included in every program
+    welcome_text: null
     brand_mark:
       prefix: Geek
       highlight: PAL
