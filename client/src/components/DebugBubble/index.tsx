@@ -1658,6 +1658,13 @@ export function DebugBubble() {
     onVersioningDataUpdate: setVersioningData,
     onEditVariantYaml: (locale: string, variantSlug: string) => {
       if (!contentInfo.type || !contentInfo.slug) return;
+      const isPreview = pathname.startsWith("/private/preview/");
+      const currentVariant = typeof window !== "undefined"
+        ? new URLSearchParams(window.location.search).get("variant")
+        : null;
+      if (!isPreview || currentVariant !== variantSlug) {
+        navigate(`/private/preview/${contentInfo.type}/${contentInfo.slug}?variant=${encodeURIComponent(variantSlug)}&locale=${locale}`);
+      }
       setYamlEditorInfo({ contentType: contentInfo.type, slug: contentInfo.slug, locale, variantSlug });
       setShowYamlEditor(true);
     },
