@@ -1658,6 +1658,13 @@ export function DebugBubble() {
     onVersioningDataUpdate: setVersioningData,
     onEditVariantYaml: (locale: string, variantSlug: string) => {
       if (!contentInfo.type || !contentInfo.slug) return;
+      const isPreview = pathname.startsWith("/private/preview/");
+      const currentVariant = typeof window !== "undefined"
+        ? new URLSearchParams(window.location.search).get("variant")
+        : null;
+      if (!isPreview || currentVariant !== variantSlug) {
+        navigate(`/private/preview/${contentInfo.type}/${contentInfo.slug}?variant=${encodeURIComponent(variantSlug)}&locale=${locale}`);
+      }
       setYamlEditorInfo({ contentType: contentInfo.type, slug: contentInfo.slug, locale, variantSlug });
       setShowYamlEditor(true);
     },
@@ -1810,6 +1817,12 @@ export function DebugBubble() {
             align="start"
             className="p-0 flex flex-col w-96 max-h-[85vh]"
             sideOffset={8}
+            onPointerDownOutside={(e) => {
+              const target = (e.detail.originalEvent as PointerEvent).target as Element | null;
+              if (target?.closest("[data-radix-popper-content-wrapper]")) {
+                e.preventDefault();
+              }
+            }}
           >
             <div className="flex-1 overflow-y-auto overflow-x-hidden">
               <DebugPanelContent {...panelContentProps} />
