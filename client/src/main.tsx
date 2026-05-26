@@ -67,9 +67,15 @@ const rootEl = document.getElementById("root")!;
 
     const sectionPreload = preloadSectionsFromInitialData(initialDataPayload);
 
-    // Preload EditableSection for debug users so the lazy Suspense boundary
-    // resolves synchronously during hydrateRoot (prevents "Suspense boundary
-    // received an update before it finished hydrating" error in dev/editor mode).
+    // Preload EditModeWrapper for ALL users so the Suspense boundary in App.tsx
+    // resolves synchronously during hydrateRoot — prevents the white-flash and
+    // "A component suspended while responding to synchronous input" error.
+    // EditModeWrapper itself is small (no CodeMirror); SectionEditorPanel
+    // (with CodeMirror) is lazy inside it and only loads when the editor opens.
+    chunkLoads.push(import("@/components/editing/EditModeWrapper"));
+
+    // Preload EditableSection for debug users so the SectionRenderer Suspense
+    // boundary resolves synchronously during hydrateRoot.
     if (isDebugModeActive()) {
       chunkLoads.push(import("@/components/editing/EditableSection"));
     }

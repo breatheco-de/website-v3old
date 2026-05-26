@@ -6,7 +6,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { lazy, Suspense, useMemo, useState, useEffect } from "react";
 import NotFound from "@/pages/not-found";
 import { SessionProvider } from "@/contexts/SessionContext";
-import { EditModeWrapper } from "@/components/editing/EditModeWrapper";
+const EditModeWrapper = lazy(() =>
+  import("@/components/editing/EditModeWrapper").then(m => ({ default: m.EditModeWrapper }))
+);
 import { DebugAuthProvider } from "@/hooks/useDebugAuth";
 import { ImagePickerProvider } from "@/contexts/ImagePickerContext";
 import { usePageTracking } from "@/hooks/usePageTracking";
@@ -301,6 +303,7 @@ function App({ ssrQueryClient }: AppProps = {}) {
       <SessionProvider>
         <DebugAuthProvider>
         <TooltipProvider>
+          <Suspense fallback={null}>
           <EditModeWrapper>
             <ImagePickerProvider>
             <PageTracker />
@@ -313,6 +316,7 @@ function App({ ssrQueryClient }: AppProps = {}) {
             </ClientOnly>
             </ImagePickerProvider>
           </EditModeWrapper>
+          </Suspense>
         </TooltipProvider>
         </DebugAuthProvider>
       </SessionProvider>
