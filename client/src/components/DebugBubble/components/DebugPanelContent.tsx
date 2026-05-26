@@ -73,6 +73,7 @@ export interface DebugPanelContentProps {
   setAiAgentsExpanded: (v: boolean) => void;
   cacheClearStatus: string;
   clearSitemapCache: () => void;
+  sitemapUrlCount: number | null;
   redirectsList: Array<{ from: string; to: string }>;
 
   componentSearch: string;
@@ -496,6 +497,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 onClick={() => props.setMenuView("sitemap")}
                 indicator="chevron"
                 testId="button-sitemap-all-urls"
+                rightContent={<span className="text-xs text-muted-foreground">{props.sitemapUrlCount !== null ? props.sitemapUrlCount : '...'}</span>}
               />
               <MenuItem
                 icon={Route}
