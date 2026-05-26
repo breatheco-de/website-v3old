@@ -1682,7 +1682,7 @@ export function DebugBubble() {
   // a single entry means there are effectively 2 variants to switch between.
   const forkVariantCount = useMemo(() => {
     if (!versioningData?.versioning) return 0;
-    return Math.max(...Object.values(versioningData.versioning).map((ld) => ld.variants.length));
+    return Math.max(...Object.values(versioningData.versioning).map((ld) => ld?.variants?.length ?? 0));
   }, [versioningData]);
 
   const showForkBubble = !shouldHide &&

@@ -9760,6 +9760,21 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
                 "utf8",
               );
 
+              const isContentFile =
+                file === "_common.yml" ||
+                file === "_common.yaml" ||
+                /^[a-z]{2,5}\.ya?ml$/.test(file) ||
+                /^.+\.[a-z]{2,5}\.ya?ml$/.test(file);
+
+              if (!isContentFile) {
+                fs.writeFileSync(path.join(folderPath, file), raw);
+                markFileAsModified(
+                  `marketing-content/${getFolder(type)}/${folderSlug}/${file}`,
+                  createAuthorName,
+                );
+                continue;
+              }
+
               const parsed = safeYamlLoad(raw) as Record<string, unknown> | null;
               if (!parsed) {
                 fs.writeFileSync(path.join(folderPath, file), raw);
