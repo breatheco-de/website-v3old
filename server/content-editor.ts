@@ -223,23 +223,29 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
             continue;
           }
 
-          // Per-entry sections use 'id'; template sections use 'section_id'
+          // applyPerEntryLayer tags per-entry sections with _perEntrySource: true.
+          // Template sections do not have this flag — keep them unchanged so
+          // applyOperation handles them exactly as it did before this fix.
+          if ((mergedSection as Record<string, unknown>)._perEntrySource !== true) {
+            translated.push(op);
+            continue;
+          }
+
+          // Per-entry section — translate the merged index to the local file index.
           const sectionId = (mergedSection.id as string | undefined) || (mergedSection.section_id as string | undefined);
           if (!sectionId) {
             translated.push(op);
             continue;
           }
 
-          // Find this section in the per-entry local file by ID
           const localIdx = localSections.findIndex(
             s => (s as Record<string, unknown>).id === sectionId ||
                  (s as Record<string, unknown>).section_id === sectionId
           );
 
           if (localIdx === -1) {
-            // Section belongs to the shared template, not this per-entry file — skip.
-            // Template-section edits from a page with a per-entry file cannot be
-            // persisted here without affecting all entries.
+            // Shouldn't happen if data is consistent, but keep original as safe fallback.
+            translated.push(op);
             continue;
           }
 
