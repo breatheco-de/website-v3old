@@ -393,13 +393,13 @@ sections:
   - type: cta_banner
     section_id: cta_banner-22d9ft
     version: "1.0"
-    title: Take the Next Step Toward your Tech Career
-    subtitle: Get pricing, program details, and personalized guidance.
+    title: Ready to Get Hired in Tech?
+    subtitle: 84% of our graduates land tech jobs. GeekForce is how. Join the next cohort and we will be with you every step of the way, for life.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Get the details
+      submit_label: Start Your Application
       tags: request_more_info
       fields:
         email:
@@ -418,7 +418,7 @@ sections:
           visible: true
           required: true
       success:
-        message: Thank you! We'll be in touch soon.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:
         email: true
         marketing: true
