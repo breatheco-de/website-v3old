@@ -101,7 +101,7 @@ sections:
     description: A network to support you for life.
     bullet_groups:
       - title: Slack Community
-        description: Active channels for technical support, job boards, and career advice in real time.
+        description: Regional and global channels for technical support, job boards, and career advice in real time.
         icon: BrandSlack
         badge: 6,000+ Members
         accent_color: primary
