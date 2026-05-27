@@ -506,11 +506,18 @@ export function SyncModal({
                             key={`${change.file}-${index}`}
                             className="p-2 space-y-1"
                           >
-                            <div
-                              className="font-mono text-xs text-foreground truncate"
-                              title={change.file}
-                            >
-                              {change.file.replace('marketing-content/', '')}
+                            <div className="flex items-center gap-1.5 min-w-0">
+                              <div
+                                className="font-mono text-xs text-foreground truncate min-w-0"
+                                title={change.file}
+                              >
+                                {change.file.replace('marketing-content/', '')}
+                              </div>
+                              {autoCommitStatus && !autoCommitStatus.enabled && autoCommitStatus.pendingFilesList.includes(change.file) && (
+                                <Badge variant="outline" className="shrink-0 text-[10px] px-1 py-0 h-4">
+                                  Auto-push compatible
+                                </Badge>
+                              )}
                             </div>
                             
                             {selectedFileForCommit === change.file ? (

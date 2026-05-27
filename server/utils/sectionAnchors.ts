@@ -22,6 +22,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
 import { getFolder } from "../content-types";
+import { markFileAsModified } from "../sync-state";
 
 export interface SectionAnchors {
   aliases: Record<string, string | null>;
@@ -69,6 +70,7 @@ export function writeSectionAnchors(contentType: string, data: SectionAnchors): 
   try {
     fs.writeFileSync(tmpPath, json, "utf-8");
     fs.renameSync(tmpPath, filePath);
+    markFileAsModified(filePath, "System");
   } catch (err) {
     try { fs.unlinkSync(tmpPath); } catch { /* ignore */ }
     throw err;
