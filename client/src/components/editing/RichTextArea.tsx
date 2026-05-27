@@ -615,6 +615,7 @@ export function RichTextArea({
     rect: DOMRect;
   } | null>(null);
   const linkPopoverRef = useRef<HTMLDivElement | null>(null);
+  const linkAnchorRef = useRef<HTMLAnchorElement | null>(null);
 
   // Keep "last non-collapsed selection" so we still have it when user opens color popover (focus move collapses selection)
   useEffect(() => {
@@ -858,7 +859,9 @@ export function RichTextArea({
     if (!el.contains(target)) return;
     const a = (e.target as Element).closest?.("a");
     if (a && el.contains(a)) {
-      setLinkHoverPopover({ anchor: a as HTMLAnchorElement, rect: a.getBoundingClientRect() });
+      const anchorEl = a as HTMLAnchorElement;
+      linkAnchorRef.current = anchorEl;
+      setLinkHoverPopover({ anchor: anchorEl, rect: anchorEl.getBoundingClientRect() });
     }
   }, []);
 
@@ -869,17 +872,17 @@ export function RichTextArea({
   }, []);
 
   const handleUnlink = useCallback(() => {
-    if (!linkHoverPopover || !editableRef.current) return;
-    const { anchor } = linkHoverPopover;
-    const sel = window.getSelection();
-    if (sel) {
-      const range = document.createRange();
-      range.selectNodeContents(anchor);
-      sel.removeAllRanges();
-      sel.addRange(range);
+    const anchor = linkAnchorRef.current ?? linkHoverPopover?.anchor;
+    if (!anchor || !editableRef.current) return;
+    const parent = anchor.parentNode;
+    if (parent) {
+      while (anchor.firstChild) {
+        parent.insertBefore(anchor.firstChild, anchor);
+      }
+      parent.removeChild(anchor);
     }
-    document.execCommand("unlink", false);
-    if (editableRef.current) onChange(editableRef.current.innerHTML);
+    linkAnchorRef.current = null;
+    onChange(editableRef.current.innerHTML);
     setLinkHoverPopover(null);
   }, [linkHoverPopover, onChange]);
 
