@@ -241,27 +241,27 @@ sections:
     section_id: numbered_steps-2brbw1
     version: "1.0"
     variant: bubbleText
-    title: Get Hired with our 3-Step Career Development Process
-    description: Our structured process is designed to get you hired fast.
+    title: How We Get You from Profile to Offer.
+    description: A structured three-step process designed to get you hired fast, with coaching and support at every stage.
     steps:
       - icon: Optimization
         title: Profile Optimization
         bullets:
-          - Polish LinkedIn, GitHub, and portfolio to attract recruiters and pass AI-based filters.
-          - Build a resume that clears applicant tracking systems (ATS) and highlights your strengths.
-          - Showcase your skills with a recruiter-ready portfolio.
+          - Polish your LinkedIn, GitHub, and portfolio to attract recruiters and clear ATS filters.
+          - Build a resume that highlights your strengths and passes automated screening.
+          - Graduate with a recruiter-ready profile that proves what you can do.
       - icon: Interview
         title: Interview Preparation
         bullets:
-          - Gain confidence with mock technical and behavioral interviews.
-          - Practice coding and problem-solving with auto-graded exercises.
-          - Develop tailored strategies for upcoming interviews.
+          - Build confidence with mock technical and behavioral interviews.
+          - Practice coding and problem-solving with structured, graded exercises.
+          - Develop a tailored strategy for every interview you walk into.
       - icon: JobSearch
         title: Strategic Job Search
         bullets:
-          - Create a personalized job search plan aligned with your goals.
+          - Build a personalized job search plan aligned with your target role and market.
           - Navigate AI-driven hiring platforms, from resume scanners to automated interviews.
-          - Connect with our extensive network of global hiring partners.
+          - Get connected directly to employers actively hiring 4Geeks graduates.
     background: bg-background
     paddingY:
       desktop: none
