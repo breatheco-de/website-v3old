@@ -216,36 +216,30 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
             continue;
           }
 
-          // Find the section at the merged index to resolve its identity.
-          // If the merged index is out of bounds, skip — do not write an
-          // un-translated index into the per-entry file.
+          // Resolve the section identity from the merged view.
           const mergedSection = mergedSections[op.index] as Record<string, unknown> | undefined;
-          if (!mergedSection) {
-            continue;
-          }
+          const sectionId = mergedSection
+            ? ((mergedSection.id as string | undefined) || (mergedSection.section_id as string | undefined))
+            : undefined;
 
-          // applyPerEntryLayer tags per-entry sections with _perEntrySource: true.
-          // Template sections do not have this flag — skip them for per-entry file
-          // writes; they must be routed to the shared template separately (follow-up #41).
-          if ((mergedSection as Record<string, unknown>)._perEntrySource !== true) {
-            continue;
-          }
-
-          // Per-entry section — translate the merged index to the local file index.
-          const sectionId = (mergedSection.id as string | undefined) || (mergedSection.section_id as string | undefined);
-          if (!sectionId) {
-            // No ID to look up — cannot safely translate; skip.
-            continue;
-          }
-
-          const localIdx = localSections.findIndex(
-            s => (s as Record<string, unknown>).id === sectionId ||
-                 (s as Record<string, unknown>).section_id === sectionId
-          );
+          // Try to find it by ID in the per-entry local file.
+          const localIdx = sectionId !== undefined
+            ? localSections.findIndex(
+                s => (s as Record<string, unknown>).id === sectionId ||
+                     (s as Record<string, unknown>).section_id === sectionId
+              )
+            : -1;
 
           if (localIdx === -1) {
-            // Section not found in the per-entry file — data inconsistency; skip.
-            continue;
+            // Section lives in the shared template, not this per-entry file.
+            // Return a clear error — the user must edit it from the template level.
+            return {
+              success: false,
+              error:
+                "Esta sección pertenece a la plantilla compartida y no puede editarse " +
+                "desde una entrada individual. Edítala directamente desde la plantilla " +
+                `(${contentType}/single.${locale}.yml) para aplicar el cambio a todas las entradas.`,
+            };
           }
 
           translated.push({ ...op, index: localIdx });
