@@ -118,7 +118,7 @@ sections:
     paddingY:
       desktop: xl lg
     marginY:
-      desktop: xl sm
+      desktop: none lg
   - type: two_column
     section_id: two_column-wtzzue
     proportions:
