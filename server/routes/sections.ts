@@ -214,8 +214,9 @@ export function registerSectionsRoutes(app: Express): void {
    */
   app.post("/api/per-entry-section-remove", async (req, res) => {
     try {
-      const { authorized } = await requireCapability(req, res, "content_edit_default", req.body.contentType);
-      if (!authorized) return;
+      const auth = await requireCapability(req, res, "content_edit_default", req.body.contentType);
+      if (!auth.authorized) return;
+      const authorName = auth.author || undefined;
 
       const { contentType, slug, locale: rawLocale, sectionIndex, isPerEntry } = req.body as {
         contentType: string;
@@ -343,7 +344,7 @@ export function registerSectionsRoutes(app: Express): void {
               const { escaped, map } = escapeObjectVars(templateData);
               const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
               fs.writeFileSync(templateFile, unescapeYamlDump(dumped, map), "utf-8");
-              markFileAsModified(templateFile);
+              markFileAsModified(templateFile, authorName);
             }
           }
         }
@@ -361,7 +362,7 @@ export function registerSectionsRoutes(app: Express): void {
       const { escaped, map } = escapeObjectVars(entryData);
       const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
       fs.writeFileSync(entryFilePath, unescapeYamlDump(dumped, map), "utf-8");
-      markFileAsModified(entryFilePath);
+      markFileAsModified(entryFilePath, authorName);
 
       res.json({ success: true });
     } catch (error) {
@@ -376,8 +377,9 @@ export function registerSectionsRoutes(app: Express): void {
    */
   app.post("/api/per-entry-section-restore", async (req, res) => {
     try {
-      const { authorized } = await requireCapability(req, res, "content_edit_default", req.body.contentType);
-      if (!authorized) return;
+      const auth = await requireCapability(req, res, "content_edit_default", req.body.contentType);
+      if (!auth.authorized) return;
+      const authorName = auth.author || undefined;
 
       const { contentType, slug, locale: rawLocale, sectionId } = req.body as {
         contentType: string;
@@ -418,7 +420,7 @@ export function registerSectionsRoutes(app: Express): void {
       const { escaped, map } = escapeObjectVars(entryData);
       const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
       fs.writeFileSync(entryFilePath, unescapeYamlDump(dumped, map), "utf-8");
-      markFileAsModified(entryFilePath);
+      markFileAsModified(entryFilePath, authorName);
 
       res.json({ success: true });
     } catch (error) {
@@ -434,8 +436,9 @@ export function registerSectionsRoutes(app: Express): void {
    */
   app.post("/api/per-entry-section-patch-reset", async (req, res) => {
     try {
-      const { authorized } = await requireCapability(req, res, "content_edit_default", req.body.contentType);
-      if (!authorized) return;
+      const auth = await requireCapability(req, res, "content_edit_default", req.body.contentType);
+      if (!auth.authorized) return;
+      const authorName = auth.author || undefined;
 
       const { contentType, slug, locale: rawLocale, sectionId } = req.body as {
         contentType: string;
@@ -476,7 +479,7 @@ export function registerSectionsRoutes(app: Express): void {
       const { escaped, map } = escapeObjectVars(entryData);
       const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
       fs.writeFileSync(entryFilePath, unescapeYamlDump(dumped, map), "utf-8");
-      markFileAsModified(entryFilePath);
+      markFileAsModified(entryFilePath, authorName);
 
       res.json({ success: true });
     } catch (error) {
@@ -494,8 +497,9 @@ export function registerSectionsRoutes(app: Express): void {
    */
   app.post("/api/per-entry-section-add", async (req, res) => {
     try {
-      const { authorized } = await requireCapability(req, res, "content_edit_default", req.body.contentType);
-      if (!authorized) return;
+      const auth = await requireCapability(req, res, "content_edit_default", req.body.contentType);
+      if (!auth.authorized) return;
+      const authorName = auth.author || undefined;
 
       const { contentType, slug, locale: rawLocale, sectionData, insertIndex } = req.body as {
         contentType: string;
@@ -592,7 +596,7 @@ export function registerSectionsRoutes(app: Express): void {
       const { escaped, map } = escapeObjectVars(entryData);
       const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
       fs.writeFileSync(entryFilePath, unescapeYamlDump(dumped, map), "utf-8");
-      markFileAsModified(entryFilePath);
+      markFileAsModified(entryFilePath, authorName);
 
       // Update dependants index: only record anchors to template section IDs (not per-entry IDs)
       if (typeof anchorId === "string" && anchorIsTemplateSection) {
@@ -617,8 +621,9 @@ export function registerSectionsRoutes(app: Express): void {
    */
   app.post("/api/per-entry-section-delete-from-template", async (req, res) => {
     try {
-      const { authorized } = await requireCapability(req, res, "content_edit_structure", req.body.contentType);
-      if (!authorized) return;
+      const auth = await requireCapability(req, res, "content_edit_structure", req.body.contentType);
+      if (!auth.authorized) return;
+      const authorName = auth.author || undefined;
 
       const { contentType, slug, locale: rawLocale, sectionId, mergedIndex } = req.body as {
         contentType: string;
@@ -725,7 +730,7 @@ export function registerSectionsRoutes(app: Express): void {
       const { escaped, map } = escapeObjectVars(templateData);
       const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
       fs.writeFileSync(templateFile, unescapeYamlDump(dumped, map), "utf-8");
-      markFileAsModified(templateFile);
+      markFileAsModified(templateFile, authorName);
 
       // Record alias: deletedId → predecessorId (null means it was the first section)
       if (actualDeletedId) {
@@ -748,8 +753,9 @@ export function registerSectionsRoutes(app: Express): void {
    */
   app.post("/api/per-entry-section-update", async (req, res) => {
     try {
-      const { authorized } = await requireCapability(req, res, "content_edit_default", req.body.contentType);
-      if (!authorized) return;
+      const auth = await requireCapability(req, res, "content_edit_default", req.body.contentType);
+      if (!auth.authorized) return;
+      const authorName = auth.author || undefined;
 
       const { contentType, slug, locale: rawLocale, sectionIndex, sectionData } = req.body as {
         contentType: string;
@@ -830,7 +836,7 @@ export function registerSectionsRoutes(app: Express): void {
             const { escaped, map } = escapeObjectVars(templateData);
             const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
             fs.writeFileSync(templateFile, unescapeYamlDump(dumped, map), "utf-8");
-            markFileAsModified(templateFile);
+            markFileAsModified(templateFile, authorName);
           }
         }
       }
@@ -863,7 +869,7 @@ export function registerSectionsRoutes(app: Express): void {
       const { escaped, map } = escapeObjectVars(entryData);
       const dumped = yaml.dump(escaped, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
       fs.writeFileSync(entryFilePath, unescapeYamlDump(dumped, map), "utf-8");
-      markFileAsModified(entryFilePath);
+      markFileAsModified(entryFilePath, authorName);
 
       res.json({ success: true });
     } catch (error) {
