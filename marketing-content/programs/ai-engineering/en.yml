@@ -609,9 +609,9 @@ sections:
     steps:
       - icon: School
         text: Add the Job Guarantee to your payment plan.
-      - icon: Briefcase
+      - icon: briefcase-business
         text: Complete the program and follow the GeekForce career process.
-      - icon: Cash
+      - icon: banknote
         text: Get hired within 9 months, or receive a full tuition refund.
     section_id: numbered_steps-pegmvh
     showOnLocations:
