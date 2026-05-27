@@ -70,6 +70,53 @@ sections:
       desktop: none
     marginY:
       desktop: none sm
+  - type: graduates_stats
+    heading: Real Outcomes. Real Numbers.
+    subheading: 6,000+ graduates. Strong outcomes across the board.
+    stats:
+      - value: 84%
+        label: Average hiring rate
+      - value: 55%
+        label: Average salary increase at new position
+      - value: 3-6 months
+        label: Average time to get hired
+    collage_images:
+      - image_id: group-7085-1
+        col_span: 5
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
+        object_scale: 1.1
+        object_position: 50% 30%
+      - image_id: group-7086-1
+        col_span: 7
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
+        id: gemini-generated-image-pd2u4upd2u4upd2u
+        object_scale: 1
+        transform_origin: 50% 50%
+        object_position: 50% 60%
+      - image_id: group-7084-1
+        col_span: 6
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
+        object_scale: 1.05
+      - image_id: group-7087-1
+        col_span: 6
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
+        object_scale: 1.05
+        transform_origin: 50% 50%
+        object_position: 50% 45%
+    section_id: graduates_stats-cnxqbb
+    marginY:
+      desktop: none md
+    maxWidth:
+      desktop: 6xl
+    paddingY:
+      desktop: md none
   - type: career_support_explain
     maxWidth:
       desktop: 6xl
@@ -190,53 +237,6 @@ sections:
               - image_id: bid_logo
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
-  - type: graduates_stats
-    heading: Real Outcomes. Real Numbers.
-    subheading: 6,000+ graduates. Strong outcomes across the board.
-    stats:
-      - value: 84%
-        label: Average hiring rate
-      - value: 55%
-        label: Average salary increase at new position
-      - value: 3-6 months
-        label: Average time to get hired
-    collage_images:
-      - image_id: group-7085-1
-        col_span: 5
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
-        id: gemini-generated-image-uwpyyruwpyyruwpy
-        object_scale: 1.1
-        object_position: 50% 30%
-      - image_id: group-7086-1
-        col_span: 7
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
-        id: gemini-generated-image-pd2u4upd2u4upd2u
-        object_scale: 1
-        transform_origin: 50% 50%
-        object_position: 50% 60%
-      - image_id: group-7084-1
-        col_span: 6
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
-        id: gemini-generated-image-dhko5mdhko5mdhko-1
-        object_scale: 1.05
-      - image_id: group-7087-1
-        col_span: 6
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
-        id: gemini-generated-image-wpk4yvwpk4yvwpk4
-        object_scale: 1.05
-        transform_origin: 50% 50%
-        object_position: 50% 45%
-    section_id: graduates_stats-cnxqbb
-    marginY:
-      desktop: none md
-    maxWidth:
-      desktop: 6xl
-    paddingY:
-      desktop: md none
   - type: numbered_steps
     section_id: numbered_steps-2brbw1
     version: "1.0"
