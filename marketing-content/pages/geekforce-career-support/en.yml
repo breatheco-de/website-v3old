@@ -320,7 +320,7 @@ sections:
         - text: Placed graduates earning between $74K and $196K
     section_id: split_cards-mtw-4grplx
     paddingY:
-      desktop: sm
+      desktop: sm lg
   - type: stats_cards
     section_id: stats-cards-mtw-4grplx
     heading: Chosen by the U.S. Government. Backed by Outcomes.
