@@ -460,6 +460,28 @@ sections:
     section_id: two_column-bs5qcg
     paddingY:
       desktop: sm
+  - type: two_column
+    version: v1.0
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    gap: "8"
+    left:
+      video: "-2ZvlgDnltc"
+      justify: center
+    right:
+      heading: See It In Action
+      sub_heading: Watch how our platform transforms careers
+      description: Our AI-powered learning platform adapts to your pace and style, providing personalized guidance every step of the way.
+      button:
+        text: Start Free Trial
+        url: /signup
+        variant: primary
+        icon: Rocket
+    section_id: two_column-3nvfsk
+    paddingY:
+      desktop: sm
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
