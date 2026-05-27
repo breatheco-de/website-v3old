@@ -629,5 +629,11 @@
       "value": "1.6px"
     }
   ],
-  "preview_examples": []
+  "preview_examples": [
+    {
+      "component": "programs_showcase",
+      "version": "v1.0",
+      "example": "Programs Spotlight with Salary"
+    }
+  ]
 }
