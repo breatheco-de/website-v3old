@@ -424,9 +424,13 @@ function handleSharedTemplateEdit(opts: {
 }): { success: boolean; error?: string; warning?: string; updatedSections?: unknown[] } {
   const { contentType, slug, locale, operations, localeData, filePath, author } = opts;
 
-  // Structural operations (add/remove section, full section swap) write directly
-  // to the shared template file rather than patching the DB entry.
-  const structuralOps = operations.filter(isStructuralOp);
+  // update_section ops always write directly to the shared template YAML.
+  // This function is only reached when the user explicitly chose "Update shared
+  // template" (or when the per-entry translation layer routed a template-owned
+  // section here). DB field patching applies only to update_field ops.
+  const structuralOps = operations.filter(
+    op => isStructuralOp(op) || op.action === "update_section",
+  );
   if (structuralOps.length > 0) {
     return writeStructuralChangesToTemplate({ operations: structuralOps, filePath, localeData, author });
   }
