@@ -57,7 +57,7 @@ sections:
     version: "1.0"
     variant: singleColumn
     title: Launch an AI-Ready Tech Career in Miami
-    subtitle: Train for today’s most in-demand tech roles, including AI Engineering, in one of the country’s fastest-growing tech hubs and home to our global headquarters. Learn online or in person with live instruction, hands-on projects, and personalized career support built for real hiring.
+    subtitle: Train for today’s most in-demand tech roles in one of the country’s fastest-growing tech hubs and home to our global headquarters. Learn online or in person with live instruction, hands-on projects, and personalized career support built for real hiring.
     badge: Miami Campus
     cta_buttons:
       - text: Apply Now
@@ -220,6 +220,39 @@ sections:
       desktop: lg
     background: hsl(var(--muted))
     section_id: course_selector-0lgvpc
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
   - type: two_column_accordion_card
     section_id: two_column_accordion_card-quibap
     variant: image_background
@@ -252,7 +285,6 @@ sections:
         - item_property_slug: related_features
           value:
             - career-support
-
   - type: split_cards
     section_id: split_cards-k4v0l0
     variant: primary-left
@@ -270,6 +302,39 @@ sections:
     background: hsl(var(--secondary))
     marginY:
       desktop: none xl
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
   - type: why_learn_ai
     section_id: why_learn_ai-itu7b0
     variant: laptop-edge
@@ -361,7 +426,8 @@ sections:
     title: Frequently Asked Questions
     related_features:
       - certification
-      - job-guarantee
+      - scholarships
+      - outcomes
     marginY:
       desktop: lg none
     background: hsl(var(--muted))
