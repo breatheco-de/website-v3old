@@ -50,6 +50,7 @@ interface AutoCommitStatus {
   nextSyncAt: number | null;
   isCommitting: boolean;
   githubConfigured: boolean;
+  autoCommitEligibleFiles: string[];
 }
 
 interface GitHubConfig {
@@ -504,6 +505,19 @@ async function commitSingleFileViaContentsAPI(
 
 export function getAutoCommitStatus(): AutoCommitStatus {
   const config = getSyncConfig();
+
+  // Files that are locally modified AND eligible for auto-commit (pass shouldTrackFile).
+  // This is computed from sync-state so it's accurate even when auto-commit is disabled
+  // (queueFileChange returns early when disabled, so pendingFilesList is empty in that case).
+  const state = loadSyncState();
+  const autoCommitEligibleFiles = Object.entries(state.files)
+    .filter(([filePath, info]) => {
+      if (!shouldTrackFile(filePath)) return false;
+      // Locally modified = local SHA differs from remote SHA, or file has no remote SHA at all
+      return info.sha && info.sha !== info.remoteSha;
+    })
+    .map(([filePath]) => filePath);
+
   return {
     enabled: isAutoCommitEnabled(),
     pendingFiles: pendingChanges.size,
@@ -521,6 +535,7 @@ export function getAutoCommitStatus(): AutoCommitStatus {
     nextSyncAt,
     isCommitting,
     githubConfigured: getGitHubConfig() !== null,
+    autoCommitEligibleFiles,
   };
 }
 
