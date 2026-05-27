@@ -271,6 +271,22 @@ sections:
           value:
             - career-support
             - mentors-and-teachers
+  - type: split_cards
+    version: v1.0
+    variant: primary-left
+    background: muted
+    primary:
+      badge: Federally Validated
+      heading: Chosen by the U.S. Government. Backed by Outcomes.
+      description: "4Geeks was selected from more than 50 training providers to deliver a federal workforce program in South Florida. The result: 96% of placed graduates landed full-time roles, and we exceeded every placement target set by the program."
+    secondary:
+      benefits:
+        - text: 96% of placed graduates landed full-time positions
+        - text: 116% of the federal placement target achieved
+        - text: Selected from 50+ providers by the U.S. Economic Development Administration
+    section_id: split_cards-mtw-4grplx
+    paddingY:
+      desktop: sm
   - type: why_learn_ai
     section_id: why_learn_ai-8djag6
     variant: laptop-edge
@@ -300,22 +316,6 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
-  - type: split_cards
-    version: v1.0
-    variant: primary-left
-    background: muted
-    primary:
-      badge: Federally Validated
-      heading: Chosen by the U.S. Government. Backed by Outcomes.
-      description: "4Geeks was selected from more than 50 training providers to deliver a federal workforce program in South Florida. The result: 96% of placed graduates landed full-time roles, and we exceeded every placement target set by the program."
-    secondary:
-      benefits:
-        - text: 96% of placed graduates landed full-time positions
-        - text: 116% of the federal placement target achieved
-        - text: Selected from 50+ providers by the U.S. Economic Development Administration
-    section_id: split_cards-mtw-4grplx
-    paddingY:
-      desktop: sm
   - type: stats_cards
     section_id: stats-cards-mtw-4grplx
     heading: Chosen by the U.S. Government. Backed by Outcomes.
