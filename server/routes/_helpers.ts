@@ -492,7 +492,7 @@ export function loadCareerProgramsListing(locale: string) {
   });
 
   if (!result.success) {
-    console.error(result.error);
+    console.warn(result.error);
     return null;
   }
 
@@ -536,7 +536,7 @@ export function loadCareerProgram(slug: string, locale: string): CareerProgram |
   });
 
   if (!result.success) {
-    console.error(result.error);
+    console.warn(result.error);
     return null;
   }
 
@@ -581,7 +581,7 @@ export function loadLandingPage(slug: string, locale?: string): LandingPage | nu
   });
 
   if (!result.success) {
-    console.error(result.error);
+    console.warn(result.error);
     return null;
   }
 
@@ -626,7 +626,7 @@ export function loadLocationPage(slug: string, locale: string): LocationPage | n
   });
 
   if (!result.success) {
-    console.error(result.error);
+    console.warn(result.error);
     return null;
   }
 
@@ -680,7 +680,7 @@ export function loadTemplatePage(slug: string, locale: string): TemplatePage | n
   });
 
   if (!result.success) {
-    console.error(result.error);
+    console.warn(result.error);
     return null;
   }
 

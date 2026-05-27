@@ -236,6 +236,11 @@ class ContentIndex {
         const slug = this.extractSlug(folderPath, folderName, files);
         const locales = this.extractLocales(files, contentType);
 
+        // Skip directories that have no locale files — they cannot be rendered as pages.
+        // e.g. a folder that only has ecommerce.yml is not a valid content entry.
+        // The ecommerce scanner reads files directly from disk so it is unaffected.
+        if (locales.length === 0) continue;
+
         // Lightweight title extraction via regex — avoids full YAML parse at startup
         let title: string | undefined;
         for (const candidate of ["_common.yml", "_common.yaml", "en.yml", "en.yaml"]) {

@@ -85,7 +85,7 @@ function applyPerEntryLayer(
 
   // Apply id-based section patches
   const baseSections = Array.isArray(result.sections)
-    ? (result.sections as Record<string, unknown>[])
+    ? (result.sections as unknown[]).filter((s): s is Record<string, unknown> => s != null && typeof s === "object")
     : [];
 
   // Build set of base section IDs for fast lookup
@@ -100,6 +100,7 @@ function applyPerEntryLayer(
   const perEntryNewSections: Record<string, unknown>[] = [];
 
   for (const s of layerSections) {
+    if (!s || typeof s !== "object") continue;
     const id = typeof s.id === "string" ? s.id : undefined;
     if (!id) continue;
     if (s._remove) {

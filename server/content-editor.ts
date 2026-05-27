@@ -198,6 +198,14 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
       applyOperation(localeData, operation);
     }
 
+    // Strip null/non-object entries from sections before writing — a null section
+    // entry (produced by a blank YAML list item) causes a server crash at load time.
+    if (Array.isArray(localeData.sections)) {
+      localeData.sections = (localeData.sections as unknown[]).filter(
+        (s): s is Record<string, unknown> => s != null && typeof s === "object",
+      );
+    }
+
     // Write locale data back to file (without _common.yml content)
     const updatedYaml = safeYamlDump(localeData, {
       lineWidth: -1, // Don't wrap lines
@@ -289,6 +297,13 @@ function writeStructuralChangesToTemplate(opts: {
       } else {
         applyOperation(templateData, op);
       }
+    }
+
+    // Strip null/non-object entries from sections before writing
+    if (Array.isArray(templateData.sections)) {
+      templateData.sections = (templateData.sections as unknown[]).filter(
+        (s): s is Record<string, unknown> => s != null && typeof s === "object",
+      );
     }
 
     const updatedYaml = safeYamlDump(templateData, {
