@@ -280,9 +280,6 @@ interface CardsDropdownData {
   items?: CardItem[];
   footer?: {
     text: string;
-    linkText?: string;
-    href: string;
-    disclaimer?: string;
   };
 }
 
@@ -565,7 +562,7 @@ function EditableCardsPreview({
               onClick={() =>
                 onChange({
                   ...dropdown,
-                  footer: { text: "", linkText: "", href: "" },
+                  footer: { text: "" },
                 })
               }
               className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-md border-2 border-dashed border-muted-foreground/30 hover:border-primary/50 hover:bg-primary/5 transition-colors text-sm text-muted-foreground"
@@ -589,68 +586,19 @@ function EditableCardsPreview({
                 </button>
               )}
             </div>
-            <div className="grid grid-cols-3 gap-3">
-              <div className="space-y-1">
-                <Label className="text-xs">Text</Label>
-                <Input
-                  value={dropdown.footer.text}
-                  onChange={(e) =>
-                    onChange({
-                      ...dropdown,
-                      footer: { ...dropdown.footer!, text: e.target.value },
-                    })
-                  }
-                  placeholder="Footer text"
-                  className="h-8 text-sm"
-                  data-testid="editable-cards-footer-text"
-                />
-              </div>
-              <div className="space-y-1">
-                <Label className="text-xs">Link label</Label>
-                <Input
-                  value={dropdown.footer.linkText || ""}
-                  onChange={(e) =>
-                    onChange({
-                      ...dropdown,
-                      footer: { ...dropdown.footer!, linkText: e.target.value },
-                    })
-                  }
-                  placeholder="here"
-                  className="h-8 text-sm"
-                  data-testid="editable-cards-footer-linktext"
-                />
-              </div>
-              <div className="space-y-1">
-                <Label className="text-xs">Link URL</Label>
-                <SitemapSearch
-                  value={dropdown.footer.href}
-                  onChange={(href) =>
-                    onChange({
-                      ...dropdown,
-                      footer: { ...dropdown.footer!, href },
-                    })
-                  }
-                  locale={locale}
-                  testId="editable-cards-footer-href"
-                />
-              </div>
-            </div>
-            <div className="space-y-1">
-              <Label className="text-xs">Disclaimer (rich text)</Label>
-              <RichTextArea
-                value={dropdown.footer.disclaimer || ""}
-                onChange={(disclaimer) =>
-                  onChange({
-                    ...dropdown,
-                    footer: { ...dropdown.footer!, disclaimer },
-                  })
-                }
-                placeholder="Optional disclaimer text..."
-                minHeight="3rem"
-                locale={locale}
-                data-testid="editable-cards-footer-disclaimer"
-              />
-            </div>
+            <RichTextArea
+              value={dropdown.footer.text}
+              onChange={(text) =>
+                onChange({
+                  ...dropdown,
+                  footer: { text },
+                })
+              }
+              placeholder="Footer content — use bold, links, line breaks, etc."
+              minHeight="4rem"
+              locale={locale}
+              data-testid="editable-cards-footer-text"
+            />
           </div>
         )}
       </div>

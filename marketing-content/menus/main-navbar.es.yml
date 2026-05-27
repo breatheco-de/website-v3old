@@ -33,10 +33,7 @@ navbar:
             href: /es/programas-de-carrera/desarrollo-full-stack
             icon: code
         footer:
-          text: ¿No sabes qué programa te conviene más? Mira nuestra comparación de programas
-          linkText: aquí
-          href: /en/program-comparison
-          disclaimer: "Residentes de Florida: Solo nuestro programa de desarrollo full-stack está autorizado por la Comisión de Educación Independiente de Florida. Nuestro paquete de garantía de empleo no se ofrece en Florida, donde nuestra única ubicación física es en Miami."
+          text: "¿No sabes qué programa te conviene más? Mira nuestra comparación de programas <a href=\"/en/program-comparison\">aquí</a>.<br><br>Residentes de Florida: Solo nuestro programa de desarrollo full-stack está autorizado por la Comisión de Educación Independiente de Florida. Nuestro paquete de garantía de empleo no se ofrece en Florida, donde nuestra única ubicación física es en Miami."
     - label: POR QUÉ 4GEEKS
       href: /why-4geeks
       component: Dropdown
