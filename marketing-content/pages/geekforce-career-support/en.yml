@@ -260,7 +260,7 @@ sections:
           - Get connected directly to employers actively hiring 4Geeks graduates.
     background: bg-background
     paddingY:
-      desktop: none
+      desktop: none lg
     marginY:
       desktop: md none
   - type: testimonials_slide
