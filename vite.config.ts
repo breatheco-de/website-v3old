@@ -68,9 +68,6 @@ export default defineConfig(async ({ isSsrBuild }) => ({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('@codemirror') || id.includes('@uiw/react-codemirror')) {
-            return 'codemirror';
-          }
           if (id.includes('recharts') || id.includes('victory-vendor')) {
             return 'charts';
           }
