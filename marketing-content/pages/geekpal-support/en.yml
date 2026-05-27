@@ -96,7 +96,9 @@ sections:
     background: bg-background
     paddingY:
       mobile: sm none
-      desktop: md none
+      desktop: md
+    marginY:
+      desktop: none md
   - type: community_support
     section_id: community_support-hnuq6q
     version: "1.0"
@@ -116,7 +118,9 @@ sections:
     image_alt: 4Geeks global developer community
     background: bg-primary/5
     paddingY:
-      desktop: none md
+      desktop: xl lg
+    marginY:
+      desktop: lg sm
   - type: two_column
     section_id: two_column-wtzzue
     proportions:

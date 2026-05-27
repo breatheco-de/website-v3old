@@ -90,7 +90,7 @@ sections:
         border_radius: 0.5rem
     image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
     image_alt: Woman working on laptop in cafe
-    background: bg-background
+    background: hsl(var(--secondary))
     paddingY:
       mobile: sm none
       desktop: md none
@@ -102,23 +102,16 @@ sections:
     alignment: center
     gap: "8"
     left:
-      video: https://www.youtube.com/shorts/-SpU1PWNBF4?feature=share
+      video: https://www.youtube.com/watch?v=MBXqEnhodx0
       justify: center
     right:
-      heading: Por qué Ingeniería de IA es la carrera más importante de esta década
-      sub_heading: Y por qué Chile necesita ingenieros ahora mismo
-      description: El 87% de las empresas no encuentra los ingenieros de IA que necesita. En Chile, la demanda crece un 30% cada año y los salarios de entrada superan los $1.5M CLP. Este programa existe para que seas tú quien cubra esa demanda.
-      button:
-        text: Iniciar mi aplicación
-        url: "#hero-lt4ge6"
-        variant: primary
-        icon: Rocket
+      heading: The impact of unlimited technical mentorship.
+      description: Joao shares how 1:1 mentorship supported him through the program and beyond.
     marginY:
       desktop: none sm
     paddingY:
       desktop: lg
-    background: hsl(var(--secondary))
-    section_id: two_column-ifkq0l
+    section_id: two_column-wtzzue
   - type: community_support
     section_id: community_support-hnuq6q
     version: "1.0"
@@ -139,25 +132,6 @@ sections:
     background: bg-primary/5
     paddingY:
       desktop: none md
-  - type: two_column
-    section_id: two_column-wtzzue
-    proportions:
-      - 12
-      - 0
-    background: bg-background
-    alignment: center
-    left:
-      video: https://www.youtube.com/watch?v=MBXqEnhodx0
-      video_width: 900px
-      heading: The Impact of Unlimited Technical Mentorship.
-      description: Joao shares how 1:1 mentorship supported him through the program and beyond.
-      justify: center
-      text_align: center
-      font_size: lg
-    heading_above_on_md: false
-    gap: "8"
-    paddingY:
-      desktop: lg md
   - type: testimonials_slide
     section_id: testimonials_slide-rrnpaj
     title: Real Careers Start Here

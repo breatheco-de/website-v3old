@@ -116,7 +116,7 @@ sections:
     maxWidth:
       desktop: 6xl
     paddingY:
-      desktop: md none
+      desktop: sm none
   - type: career_support_explain
     maxWidth:
       desktop: 6xl
@@ -231,6 +231,8 @@ sections:
               - image_id: bid_logo
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
+    marginY:
+      desktop: none lg
   - type: numbered_steps
     section_id: numbered_steps-2brbw1
     version: "1.0"
@@ -258,35 +260,9 @@ sections:
           - Get connected directly to employers actively hiring 4Geeks graduates.
     background: bg-background
     paddingY:
-      desktop: none
-  - type: testimonials_slide
-    section_id: testimonials_slide-7jjh6e
-    title: The Stories Behind the Stats
-    description: Discover how our graduates transformed their careers
-    dynamic_entries:
-      database: testimonials_en
-      limit: 20
-      permanent_filters:
-        - item_property_slug: related_features
-          value:
-            - career-support
-            - mentors-and-teachers
-  - type: split_cards
-    version: v1.0
-    variant: primary-left
-    background: muted
-    primary:
-      badge: Federally Validated
-      heading: Chosen by the U.S. Government. Backed by Outcomes.
-      description: "4Geeks was selected from more than 50 training providers to deliver a federal workforce program in South Florida. The result: 96% of placed graduates landed full-time roles, and we exceeded every placement target set by the program."
-    secondary:
-      benefits:
-        - text: 96% of placed graduates landed full-time positions
-        - text: 116% of the federal placement target achieved
-        - text: Selected from 50+ providers by the U.S. Economic Development Administration
-    section_id: split_cards-mtw-4grplx
-    paddingY:
-      desktop: sm
+      desktop: none lg
+    marginY:
+      desktop: xl lg
   - type: why_learn_ai
     section_id: why_learn_ai-8djag6
     variant: laptop-edge
@@ -303,7 +279,7 @@ sections:
       desktop: none md
     paddingY:
       desktop: none
-    background: hsl(var(--sidebar-background))
+    background: hsl(var(--secondary))
     showOnLocations:
       - atlanta-usa
       - austin-usa
@@ -316,6 +292,35 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+  - type: testimonials_slide
+    section_id: testimonials_slide-7jjh6e
+    title: The Stories Behind the Stats
+    description: Discover how our graduates transformed their careers
+    dynamic_entries:
+      database: testimonials_en
+      limit: 20
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - career-support
+            - mentors-and-teachers
+    paddingY:
+      desktop: md none
+  - type: split_cards
+    version: v1.0
+    variant: primary-left
+    primary:
+      badge: Good Jobs Challenge
+      heading: Chosen by the U.S. Government. Backed by Outcomes.
+      description: From 2023 to 2026, 4Geeks was selected from more than 50 training schools to deliver a workforce development program in South Florida. We didn't just meet the targets — we exceeded every one of them.
+    secondary:
+      benefits:
+        - text: 96% of placed graduates landed full-time positions
+        - text: 116% of the federal placement target achieved
+        - text: Placed graduates earning between $74K and $196K
+    section_id: split_cards-mtw-4grplx
+    paddingY:
+      desktop: sm lg
   - type: stats_cards
     section_id: stats-cards-mtw-4grplx
     heading: Chosen by the U.S. Government. Backed by Outcomes.
@@ -414,12 +419,14 @@ sections:
           - quito-ecuador
           - santiago-chile
     marginY:
-      desktop: none
+      desktop: none lg
+    paddingY:
+      desktop: none lg
   - type: cta_banner
     section_id: cta_banner-22d9ft
     version: "1.0"
-    title: Ready to Get Hired in Tech?
-    subtitle: 84% of our graduates land tech jobs. GeekForce is how. Join the next cohort and we will be with you every step of the way, for life.
+    title: Ready to Launch Your Tech Career?
+    subtitle: 84% of our graduates land tech jobs. GeekForce is how. Join the next cohort and we'll work with you until you land, and long after.
     background: hsl(var(--primary))
     variant: form
     form:

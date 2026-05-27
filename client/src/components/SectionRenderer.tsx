@@ -747,6 +747,13 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     dependants: string[];
   }>({ open: false, index: -1, direction: "up", dependants: [] });
 
+  // Confirmation dialog for moving a template section from a per-entry page
+  const [dbEntryMoveDialog, setDbEntryMoveDialog] = useState<{
+    open: boolean;
+    index: number;
+    direction: "up" | "down";
+  }>({ open: false, index: -1, direction: "up" });
+
   const performMove = useCallback(async (from: number, to: number) => {
     if (!contentType || !slug || !locale) return;
     const result = await sendEditOperation(contentType, slug, locale, [
@@ -763,46 +770,94 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
   const handleMoveUp = useCallback(async (index: number) => {
     if (!contentType || !slug || !locale || index <= 0) return;
 
+    if (isSharedTemplate && singleEntry) {
+      const rawSection = sections[index] as Record<string, unknown>;
+      const adjacentSection = sections[index - 1] as Record<string, unknown>;
+      const isPerEntry = !!rawSection?._perEntrySource;
+      const adjacentIsPerEntry = !!adjacentSection?._perEntrySource;
+
+      if (isPerEntry !== adjacentIsPerEntry) {
+        // Boundary move: per-entry section crossing a template section boundary.
+        // The server handles this by updating _insertAfterSectionId — no confirmation
+        // needed because the shared template is not modified.
+        await performMove(index, index - 1);
+        return;
+      }
+
+      if (isPerEntry) {
+        // Both per-entry: move directly within the per-entry file, no confirmation needed
+        await performMove(index, index - 1);
+      } else {
+        // Both template: confirm before applying to all entries
+        setDbEntryMoveDialog({ open: true, index, direction: "up" });
+      }
+      return;
+    }
+
     if (isSharedTemplate) {
+      // On the shared template admin page: always show confirmation (with dependants info)
       const rawSection = sections[index] as Record<string, unknown>;
       const sectionId = typeof rawSection?.id === "string" ? rawSection.id : null;
+      let dependants: string[] = [];
       if (sectionId) {
         try {
           const res = await fetch(`/api/section-dependants?contentType=${encodeURIComponent(contentType)}&sectionId=${encodeURIComponent(sectionId)}`);
           const data = await res.json();
-          const dependants: string[] = data.dependants ?? [];
-          if (dependants.length > 0) {
-            setMoveDependantsDialog({ open: true, index, direction: "up", dependants });
-            return;
-          }
+          dependants = data.dependants ?? [];
         } catch {}
       }
+      setMoveDependantsDialog({ open: true, index, direction: "up", dependants });
+      return;
     }
 
     await performMove(index, index - 1);
-  }, [contentType, slug, locale, isSharedTemplate, sections, performMove]);
+  }, [contentType, slug, locale, isSharedTemplate, singleEntry, sections, performMove, toast]);
 
   const handleMoveDown = useCallback(async (index: number) => {
     if (!contentType || !slug || !locale || index >= sections.length - 1) return;
 
+    if (isSharedTemplate && singleEntry) {
+      const rawSection = sections[index] as Record<string, unknown>;
+      const adjacentSection = sections[index + 1] as Record<string, unknown>;
+      const isPerEntry = !!rawSection?._perEntrySource;
+      const adjacentIsPerEntry = !!adjacentSection?._perEntrySource;
+
+      if (isPerEntry !== adjacentIsPerEntry) {
+        // Boundary move: per-entry section crossing a template section boundary.
+        // The server handles this by updating _insertAfterSectionId — no confirmation
+        // needed because the shared template is not modified.
+        await performMove(index, index + 1);
+        return;
+      }
+
+      if (isPerEntry) {
+        // Both per-entry: move directly within the per-entry file, no confirmation needed
+        await performMove(index, index + 1);
+      } else {
+        // Both template: confirm before applying to all entries
+        setDbEntryMoveDialog({ open: true, index, direction: "down" });
+      }
+      return;
+    }
+
     if (isSharedTemplate) {
+      // On the shared template admin page: always show confirmation (with dependants info)
       const rawSection = sections[index] as Record<string, unknown>;
       const sectionId = typeof rawSection?.id === "string" ? rawSection.id : null;
+      let dependants: string[] = [];
       if (sectionId) {
         try {
           const res = await fetch(`/api/section-dependants?contentType=${encodeURIComponent(contentType)}&sectionId=${encodeURIComponent(sectionId)}`);
           const data = await res.json();
-          const dependants: string[] = data.dependants ?? [];
-          if (dependants.length > 0) {
-            setMoveDependantsDialog({ open: true, index, direction: "down", dependants });
-            return;
-          }
+          dependants = data.dependants ?? [];
         } catch {}
       }
+      setMoveDependantsDialog({ open: true, index, direction: "down", dependants });
+      return;
     }
 
     await performMove(index, index + 1);
-  }, [contentType, slug, locale, isSharedTemplate, sections, performMove]);
+  }, [contentType, slug, locale, isSharedTemplate, singleEntry, sections, performMove, toast]);
 
   const [deleteDialog, setDeleteDialog] = useState<{
     open: boolean;
@@ -1631,7 +1686,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
         </DialogContent>
       </Dialog>
 
-      {/* Move warning dialog — shown when a template section has per-entry dependants */}
+      {/* Move warning dialog — shown on the shared template admin page before reordering a section */}
       <Dialog
         open={moveDependantsDialog.open}
         onOpenChange={(open) => { if (!open) setMoveDependantsDialog(prev => ({ ...prev, open: false })); }}
@@ -1643,10 +1698,11 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
               Move section
             </DialogTitle>
             <DialogDescription>
-              {moveDependantsDialog.dependants.length === 1
-                ? "1 entry has a custom section anchored here"
-                : `${moveDependantsDialog.dependants.length} entries have custom sections anchored here`}
-              {" — "}they will follow this section to its new position.
+              {moveDependantsDialog.dependants.length === 0
+                ? "This will reorder this section across all entries."
+                : moveDependantsDialog.dependants.length === 1
+                ? "1 entry has a custom section anchored here — it will follow this section to its new position."
+                : `${moveDependantsDialog.dependants.length} entries have custom sections anchored here — they will follow this section to its new position.`}
             </DialogDescription>
           </DialogHeader>
           {moveDependantsDialog.dependants.length > 0 && (
@@ -1675,7 +1731,44 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
               }}
               data-testid="button-move-dependants-confirm"
             >
-              Move anyway
+              {moveDependantsDialog.dependants.length === 0 ? "Move" : "Move anyway"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Confirmation dialog — shown when moving a template section from a specific DB entry page */}
+      <Dialog
+        open={dbEntryMoveDialog.open}
+        onOpenChange={(open) => { if (!open) setDbEntryMoveDialog(prev => ({ ...prev, open: false })); }}
+      >
+        <DialogContent className="sm:max-w-sm" data-testid="dialog-db-entry-move">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-muted-foreground" />
+              Move section
+            </DialogTitle>
+            <DialogDescription>
+              This moves the section across all {contentType} entries. The order change will apply to the shared template.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              variant="ghost"
+              onClick={() => setDbEntryMoveDialog(prev => ({ ...prev, open: false }))}
+              data-testid="button-db-entry-move-cancel"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={async () => {
+                const { index, direction } = dbEntryMoveDialog;
+                setDbEntryMoveDialog(prev => ({ ...prev, open: false }));
+                await performMove(index, direction === "up" ? index - 1 : index + 1);
+              }}
+              data-testid="button-db-entry-move-confirm"
+            >
+              Move
             </Button>
           </DialogFooter>
         </DialogContent>

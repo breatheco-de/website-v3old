@@ -556,8 +556,14 @@ export function registerSectionsRoutes(app: Express): void {
           let anchorIsTemplateSectionId = false;
           for (let i = insertIndex - 1; i >= 0; i--) {
             const candidate = mergedSections[i];
-            if (typeof candidate?.id === "string") {
-              insertAfterSectionId = candidate.id;
+            // Prefer `id`; fall back to `section_id` for legacy template sections
+            // that were created before the `id` field was introduced.
+            const candidateId =
+              (typeof candidate?.id === "string" && candidate.id) ? candidate.id
+              : (typeof candidate?.section_id === "string" && candidate.section_id) ? candidate.section_id
+              : null;
+            if (candidateId) {
+              insertAfterSectionId = candidateId;
               // Only template-sourced sections should be indexed in dependants;
               // per-entry sections have _perEntrySource: true
               anchorIsTemplateSectionId = !candidate._perEntrySource;
@@ -986,14 +992,24 @@ export function registerSectionsRoutes(app: Express): void {
           const updatedSections = result.updatedSections as
             | Record<string, unknown>[]
             | undefined;
-          const updatedSection = updatedSections?.[sIdx];
+          // For per-entry DB-backed sections the index in the operation is the merged
+          // index, but updatedSections reflects only the per-entry file. Look up by
+          // section_id/id first (works for any section with an ID), fall back to index.
+          const opSection = updateSectionOp.section as Record<string, unknown> | undefined;
+          const secId = (opSection?.section_id as string | undefined) || (opSection?.id as string | undefined);
+          const updatedSection = secId
+            ? updatedSections?.find(s => s.section_id === secId || s.id === secId)
+            : updatedSections?.[sIdx];
+          const resolvedIdx = secId && updatedSection
+            ? (updatedSections?.indexOf(updatedSection) ?? sIdx)
+            : sIdx;
           if (updatedSection) {
             const normalizedLocaleForBinding = normalizeLocale(locale);
             const baseSlugForBinding = contentIndex.resolveBaseSlug(slug, contentType);
             const propagation = bindingManager.propagateUpdate(
               contentType,
               baseSlugForBinding,
-              sIdx,
+              resolvedIdx,
               updatedSection,
               authorName,
               normalizedLocaleForBinding,
@@ -1008,10 +1024,10 @@ export function registerSectionsRoutes(app: Express): void {
             // Audit log: EDIT entry with section context
             try {
               const { logSync: _logSyncEdit } = await import("../sync-log");
-              const sectionType = (updatedSection as Record<string, unknown>).type as string || `section-${sIdx}`;
+              const sectionType = (updatedSection as Record<string, unknown>).type as string || `section-${resolvedIdx}`;
               const affectedCount = propagation.updatedFiles.length;
               const editMsg = `${sectionType} section updated on ${slug}/${locale}${affectedCount > 0 ? ` → propagated to ${affectedCount} bound page(s)` : ""}`;
-              const editMeta: Record<string, unknown> = { contentType, slug, locale, sectionIndex: sIdx, sectionType };
+              const editMeta: Record<string, unknown> = { contentType, slug, locale, sectionIndex: resolvedIdx, sectionType };
               if (affectedCount > 0) {
                 editMeta.affectedPages = propagation.updatedFiles.map(f => f.replace("marketing-content/", ""));
               }
