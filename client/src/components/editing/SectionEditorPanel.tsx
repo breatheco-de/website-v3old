@@ -7214,7 +7214,7 @@ export function SectionEditorPanel({
               disabled={isSaving}
               data-testid="button-save-scope-entry-only"
             >
-              <div className="flex flex-col items-start gap-0.5 text-left">
+              <div className="flex flex-col items-start gap-0.5 text-left whitespace-normal">
                 <span className="font-medium">Save for this entry only</span>
                 <span className="text-xs text-muted-foreground">Overrides this section just for the current entry. Other entries remain unchanged.</span>
               </div>
@@ -7233,7 +7233,7 @@ export function SectionEditorPanel({
               disabled={isSaving}
               data-testid="button-save-scope-shared-template"
             >
-              <div className="flex flex-col items-start gap-0.5 text-left">
+              <div className="flex flex-col items-start gap-0.5 text-left whitespace-normal">
                 <span className="font-medium">Update shared template</span>
                 <span className="text-xs text-muted-foreground">Applies the change to the shared template — affects all entries of this content type.</span>
               </div>
