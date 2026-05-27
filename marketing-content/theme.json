@@ -636,11 +636,6 @@
       "example": "two_column (section 2)",
       "importYaml": "- type: two_column\n  version: v1.0\n  proportions:\n    - 6\n    - 6\n  alignment: center\n  gap: '8'\n  left:\n    video: https://www.youtube.com/shorts/-SpU1PWNBF4?feature=share\n    justify: center\n  right:\n    heading: Por qué Ingeniería de IA es la carrera más importante de esta década\n    sub_heading: Y por qué Chile necesita ingenieros ahora mismo\n    description: El 87% de las empresas no encuentra los ingenieros de IA que necesita. En Chile, la demanda crece un 30% cada año y los salarios de entrada superan los $1.5M CLP. Este programa existe para que seas tú quien cubra esa demanda.\n    button:\n      text: Iniciar mi aplicación\n      url: '#hero-lt4ge6'\n      variant: primary\n      icon: Rocket\n  section_id: two_column-r882vr\n  marginY:\n    desktop: none sm\n  paddingY:\n    desktop: lg\n  background: hsl(var(--secondary))\n",
       "registryPersisted": false
-    },
-    {
-      "component": "two_column",
-      "version": "v1.0",
-      "example": "Video with CTA Button"
     }
   ]
 }
