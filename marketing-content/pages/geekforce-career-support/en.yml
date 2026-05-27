@@ -262,8 +262,8 @@ sections:
   - type: whos_hiring
     section_id: whos_hiring-9qd159
     variant: carousel
-    title: Top Tech Companies Hiring 4Geeks Graduates
-    description: 4Geeks alumni are hired by leading tech companies and innovative teams across AI engineering, software development, data science, and cybersecurity.
+    title: Where Our Graduates Work
+    description: From startups to global tech leaders, our graduates work at some of the most recognized companies worldwide.
     logos:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
         alt: Twilio
