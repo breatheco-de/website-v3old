@@ -371,5 +371,17 @@ sections:
     section_id: community_support-7ziawo
     paddingY:
       desktop: sm
+  - type: list_press_mentions
+    version: v1.0
+    variant: cards
+    title: Featured in the Press
+    columns: 3
+    dynamic_entries:
+      database: press_mentions
+      limit: 6
+      sort: priority
+    section_id: list_press_mentions-uhjqnk
+    paddingY:
+      desktop: sm
 meta:
   page_title: limpieza componentes-final
