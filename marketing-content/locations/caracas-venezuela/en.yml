@@ -212,9 +212,9 @@ sections:
       badge: Results-Backed Promise
     secondary:
       benefits:
-        - text: {{ global.global_job_placement_rate | 84 }}% hiring rate among graduates
+        - text: "{{ global.global_job_placement_rate | 84 }}% hiring rate among graduates"
         - text: 3–6 months average time to get hired
-        - text: {{ global.global_salary_increase | 55 }}% average salary increase in tech roles
+        - text: "{{ global.global_salary_increase | 55 }}% average salary increase in tech roles"
     marginY:
       desktop: none xl
     background: hsl(var(--secondary))
@@ -266,8 +266,8 @@ sections:
     title: What Our Students Say
     subtitle: Hear directly from graduates who transformed their careers
     rating_summary:
-      average: {{ global.global_review_rating | 4.9 }}
-      count: {{ global.global_review_count | 2,847 }}
+      average: "{{ global.global_review_rating | 4.9 }}"
+      count: "{{ global.global_review_count | 2,847 }}"
     items:
       - name: Maria Rodriguez
         role: Software Engineer
@@ -317,7 +317,7 @@ sections:
     paddingY:
       desktop: md lg
   - type: faq
-    title: Preguntas Frecuentes sobre 4Geeks Academy en Caracas
+    title: Frequently Asked Questions about 4Geeks Academy in Caracas
     marginY:
       desktop: lg none
     background: hsl(var(--muted))
