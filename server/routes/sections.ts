@@ -556,8 +556,14 @@ export function registerSectionsRoutes(app: Express): void {
           let anchorIsTemplateSectionId = false;
           for (let i = insertIndex - 1; i >= 0; i--) {
             const candidate = mergedSections[i];
-            if (typeof candidate?.id === "string") {
-              insertAfterSectionId = candidate.id;
+            // Prefer `id`; fall back to `section_id` for legacy template sections
+            // that were created before the `id` field was introduced.
+            const candidateId =
+              (typeof candidate?.id === "string" && candidate.id) ? candidate.id
+              : (typeof candidate?.section_id === "string" && candidate.section_id) ? candidate.section_id
+              : null;
+            if (candidateId) {
+              insertAfterSectionId = candidateId;
               // Only template-sourced sections should be indexed in dependants;
               // per-entry sections have _perEntrySource: true
               anchorIsTemplateSectionId = !candidate._perEntrySource;

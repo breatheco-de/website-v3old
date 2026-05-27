@@ -199,13 +199,21 @@ function applyPerEntryLayer(
     return rest;
   };
 
+  // Helper: resolve a section's lookup key — prefer `id`, fall back to `section_id`.
+  // Template sections created before the `id` field was introduced only have `section_id`.
+  const sectionKey = (s: Record<string, unknown>): string | undefined => {
+    if (typeof s.id === "string" && s.id) return s.id;
+    if (typeof s.section_id === "string" && s.section_id) return s.section_id;
+    return undefined;
+  };
+
   // Phase 1: Build finalSections using base section anchors
   const finalSections: Record<string, unknown>[] = [
     ...insertBeforeAll.map(stripHint),
   ];
   for (const s of filteredAndPatched) {
     finalSections.push(s);
-    const id = typeof s.id === "string" ? s.id : undefined;
+    const id = sectionKey(s);
     if (id && insertAfterMap.has(id)) {
       for (const newS of insertAfterMap.get(id)!) {
         finalSections.push(stripHint(newS));
@@ -221,7 +229,7 @@ function applyPerEntryLayer(
     madeProgress = false;
     for (const [anchorId, sections] of [...insertAfterMap.entries()]) {
       const anchorIdx = finalSections.findIndex(
-        (s) => typeof s.id === "string" && s.id === anchorId,
+        (s) => sectionKey(s) === anchorId,
       );
       if (anchorIdx !== -1) {
         // Insert immediately after the anchor (in reverse to preserve order when splicing)
