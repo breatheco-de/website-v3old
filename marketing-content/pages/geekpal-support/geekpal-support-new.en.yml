@@ -27,7 +27,6 @@ sections:
       color: destructive
     title: Unlimited mentorship, for life.
     description: "With GeekPal, you get unlimited 1:1 technical mentorship with expert mentors, whenever you need it, for life. You choose who you work with, and when. No session cap, no expiration date.<div><span style=\"line-height: 1.375;\"><div>Support is always there when you need it:&nbsp;</div></span><div></div></div>"
-    bullets_heading: Support is always there when you need it
     bullets:
       - text: Experienced mentors who've built what you're building
       - text: Rigobot, our AI tutor, always on to help
