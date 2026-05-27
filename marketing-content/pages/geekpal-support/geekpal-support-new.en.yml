@@ -94,26 +94,6 @@ sections:
     paddingY:
       mobile: sm none
       desktop: md none
-  - type: community_support
-    section_id: community_support-hnuq6q
-    version: "1.0"
-    heading: A Global Community of 6,000+ Graduates, Mentors, and Tech Professionals.
-    description: A network to support you for life.
-    bullet_groups:
-      - title: Slack Community
-        description: Regional and global channels for technical support, job boards, and career advice in real time.
-        icon: BrandSlack
-        badge: 6,000+ Members
-        accent_color: primary
-      - title: 4Geeks.com
-        description: Keep advancing with self-paced courses, live events, and collaborative projects used by thousands of tech professionals worldwide.
-        icon: Rigobot
-        accent_color: primary
-    image: https://storage.googleapis.com/4geeks-academy-website/media/Group-6606.webp
-    image_alt: 4Geeks global developer community
-    background: bg-primary/5
-    paddingY:
-      desktop: none md
   - type: two_column
     version: v1.0
     proportions:
@@ -139,6 +119,26 @@ sections:
       desktop: lg
     background: hsl(var(--secondary))
     section_id: two_column-ifkq0l
+  - type: community_support
+    section_id: community_support-hnuq6q
+    version: "1.0"
+    heading: A Global Community of 6,000+ Graduates, Mentors, and Tech Professionals.
+    description: A network to support you for life.
+    bullet_groups:
+      - title: Slack Community
+        description: Regional and global channels for technical support, job boards, and career advice in real time.
+        icon: BrandSlack
+        badge: 6,000+ Members
+        accent_color: primary
+      - title: 4Geeks.com
+        description: Keep advancing with self-paced courses, live events, and collaborative projects used by thousands of tech professionals worldwide.
+        icon: Rigobot
+        accent_color: primary
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Group-6606.webp
+    image_alt: 4Geeks global developer community
+    background: bg-primary/5
+    paddingY:
+      desktop: none md
   - type: two_column
     section_id: two_column-wtzzue
     proportions:
