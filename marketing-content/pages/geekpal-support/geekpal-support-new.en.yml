@@ -19,19 +19,19 @@ sections:
     section_id: hero-ivsy21
     version: "1.0"
     variant: productShowcase
-    title: Lifetime Mentorship & AI-Powered Coding Support
-    welcome_text: Welcome to
+    welcome_text: null
     brand_mark:
       prefix: Geek
       highlight: PAL
       suffix: ":"
       color: destructive
-    description: Get unlimited coding mentorship, 24/7 AI coding support, and access to a global developer community built to accelerate your learning and advance your tech career.
+    title: Unlimited mentorship, for life.
+    description: With GeekPal, you get unlimited 1:1 mentorship with our expert tutors, whenever you need it. For life. You choose who you work with, and when. No session cap, no expiration date.
+    bullets_heading: Support is always there when you need it
     bullets:
-      - text: Unlimited 1:1 coding mentorship
-      - text: AI-powered guidance from Rigobot 24/7
-      - text: Lifelong access
-      - text: Real community support
+      - text: Experienced mentors who've built what you're building
+      - text: Rigobot, our AI tutor, supports you 24/7 alongside our human mentors
+      - text: A global Slack community of 6,000+ graduates and mentors, ready to help
     video:
       url: https://youtu.be/D5nUZNL52-Q
       ratio: "3:4"
