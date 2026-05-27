@@ -126,6 +126,7 @@ export interface AutoCommitStatus {
   nextSyncAt: number | null;
   isCommitting: boolean;
   githubConfigured: boolean;
+  autoCommitEligibleFiles: string[];
 }
 
 export interface MenuFileItem {
