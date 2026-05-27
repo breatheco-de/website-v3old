@@ -216,25 +216,25 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
             continue;
           }
 
-          // Find the section at the merged index to resolve its identity
+          // Find the section at the merged index to resolve its identity.
+          // If the merged index is out of bounds, skip — do not write an
+          // un-translated index into the per-entry file.
           const mergedSection = mergedSections[op.index] as Record<string, unknown> | undefined;
           if (!mergedSection) {
-            translated.push(op);
             continue;
           }
 
           // applyPerEntryLayer tags per-entry sections with _perEntrySource: true.
-          // Template sections do not have this flag — keep them unchanged so
-          // applyOperation handles them exactly as it did before this fix.
+          // Template sections do not have this flag — skip them for per-entry file
+          // writes; they must be routed to the shared template separately (follow-up #41).
           if ((mergedSection as Record<string, unknown>)._perEntrySource !== true) {
-            translated.push(op);
             continue;
           }
 
           // Per-entry section — translate the merged index to the local file index.
           const sectionId = (mergedSection.id as string | undefined) || (mergedSection.section_id as string | undefined);
           if (!sectionId) {
-            translated.push(op);
+            // No ID to look up — cannot safely translate; skip.
             continue;
           }
 
@@ -244,8 +244,7 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
           );
 
           if (localIdx === -1) {
-            // Shouldn't happen if data is consistent, but keep original as safe fallback.
-            translated.push(op);
+            // Section not found in the per-entry file — data inconsistency; skip.
             continue;
           }
 
