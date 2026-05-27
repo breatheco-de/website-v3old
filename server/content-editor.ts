@@ -210,6 +210,7 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
           : [];
 
         const translated: EditOperation[] = [];
+        const templateOps: EditOperation[] = [];
         for (const op of operations) {
           if (op.action !== "update_section") {
             translated.push(op);
@@ -231,20 +232,41 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
             : -1;
 
           if (localIdx === -1) {
-            // Section lives in the shared template, not this per-entry file.
-            // Return a clear error — the user must edit it from the template level.
-            return {
-              success: false,
-              error:
-                "Esta sección pertenece a la plantilla compartida y no puede editarse " +
-                "desde una entrada individual. Edítala directamente desde la plantilla " +
-                `(${contentType}/single.${locale}.yml) para aplicar el cambio a todas las entradas.`,
-            };
+            // Section lives in the shared template — collect it for a separate
+            // write to single.{locale}.yml via handleSharedTemplateEdit.
+            templateOps.push(op);
+            continue;
           }
 
           translated.push({ ...op, index: localIdx });
         }
         resolvedOperations = translated;
+
+        // Forward any template-owned ops to the shared template file.
+        if (templateOps.length > 0) {
+          // The per-entry file is at marketing-content/{type}/{slug}/{locale}.yml
+          // Two levels up is marketing-content/{type}/ where single.{locale}.yml lives.
+          const templateFilePath = path.join(
+            path.dirname(path.dirname(filePath)),
+            `single.${locale}.yml`,
+          );
+          if (fs.existsSync(templateFilePath)) {
+            const rawTemplate = fs.readFileSync(templateFilePath, "utf-8");
+            const templateLocaleData = contentIndex.safeYamlLoad(rawTemplate) as Record<string, unknown>;
+            const templateResult = handleSharedTemplateEdit({
+              contentType,
+              slug,
+              locale,
+              operations: templateOps,
+              localeData: templateLocaleData,
+              filePath: templateFilePath,
+              author: request.author,
+            });
+            if (!templateResult.success) {
+              return { success: false, error: templateResult.error };
+            }
+          }
+        }
       }
     }
 
