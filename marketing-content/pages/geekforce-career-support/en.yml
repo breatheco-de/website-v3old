@@ -442,7 +442,26 @@ sections:
           visible: true
           required: true
           placeholder: First name
-        phone: visible
+        phone:
+          visible: true
+          required: true
+          placeholder: Phone number
+        program:
+          visible: true
+          required: true
+      success:
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
+      consent:
+        email: true
+        marketing: true
+        marketing_text: I agree to receive information about courses and promotions
+      show_terms: true
+      button_className: bg-white text-primary hover:bg-white/90 border-white
+      terms_className: text-white/80
+    marginY:
+      desktop: lg none
+    paddingY:
+      desktop: md
   - type: sticky_cta
     section_id: sticky_cta-0hqt25
     version: "1.0"
