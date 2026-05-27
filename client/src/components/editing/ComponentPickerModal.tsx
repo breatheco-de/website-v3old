@@ -1,7 +1,8 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
-import { AlertTriangle, ArrowRight, Award, BarChart2, Blocks, Book, Brain, Building2, Check, ClipboardList, Columns, Columns2, CreditCard, FolderCode, HelpCircle, Image, List, ListFilter, MessageSquare, MousePointerClick, PanelBottom, RefreshCw, Rocket, ScatterChart, Search, Sparkles, Star, Table, Trophy, Users, Wand2, X } from "lucide-react";
+import { AlertTriangle, ArrowRight, Award, BarChart2, Blocks, Book, Brain, Building2, Check, ClipboardList, Columns, Columns2, CreditCard, FolderCode, HelpCircle, Image, Info, List, ListFilter, MessageSquare, MousePointerClick, PanelBottom, RefreshCw, Rocket, ScatterChart, Search, Sparkles, Star, Table, Trophy, Users, Wand2, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import jsYaml from "js-yaml";
+import type { ComponentPairing } from "@shared/schema";
 import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
 import {
   Dialog,
@@ -23,11 +24,13 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { useToast } from "@/hooks/use-toast";
 import { useContentTypes, useContentTypesRaw, getFolderFromType } from "@/hooks/useContentTypes";
@@ -138,6 +141,62 @@ const variantLabels: Record<string, string> = {
   product: "Product",
 };
 
+const CONTENT_TYPE_INTENT: Record<string, string> = {
+  landing: "lead_generation",
+  program: "product_service",
+  blog: "content_seo",
+  page: "brand_corporate",
+  location: "brand_corporate",
+  downloadable: "lead_generation",
+  "outcome-report": "outcome",
+};
+
+const INTENT_LABELS: Record<string, string> = {
+  lead_generation: "lead generation",
+  product_service: "product / service",
+  content_seo: "content / SEO",
+  brand_corporate: "brand / corporate",
+  outcome: "outcomes",
+};
+
+interface SuggestionItem {
+  type: string;
+  score: number;
+  frequency: number;
+  count: number;
+  fromHeuristics?: boolean;
+}
+
+const POSITION_TOP_COMPONENTS = ["hero", "hero_credibility", "trust_cards", "award_badges", "awards_marquee"];
+const POSITION_MID_COMPONENTS = ["features_grid", "two_column", "testimonials", "pricing", "why_learn_ai", "mentorship", "syllabus", "numbered_steps", "ai_learning", "bullet_tabs_showcase"];
+const POSITION_BOTTOM_COMPONENTS = ["cta_banner", "faq", "testimonials_slide", "whos_hiring", "graduates_stats", "certificate", "lead_form"];
+
+function buildPositionHeuristics(
+  insertIndex: number,
+  totalSections: number,
+  availableTypes: Set<string>,
+): SuggestionItem[] {
+  const relativePos = totalSections === 0 ? 0 : insertIndex / Math.max(totalSections, 1);
+  let order: string[];
+  if (relativePos <= 0.25) {
+    order = [...POSITION_TOP_COMPONENTS, ...POSITION_MID_COMPONENTS, ...POSITION_BOTTOM_COMPONENTS];
+  } else if (relativePos >= 0.75) {
+    order = [...POSITION_BOTTOM_COMPONENTS, ...POSITION_MID_COMPONENTS, ...POSITION_TOP_COMPONENTS];
+  } else {
+    order = [...POSITION_MID_COMPONENTS, ...POSITION_BOTTOM_COMPONENTS, ...POSITION_TOP_COMPONENTS];
+  }
+  return order
+    .filter((t) => availableTypes.has(t))
+    .slice(0, 8)
+    .map((type, idx) => ({
+      type,
+      score: 1 - idx * 0.1,
+      frequency: 0,
+      count: 0,
+      fromHeuristics: true,
+    }));
+}
+
 function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -189,6 +248,10 @@ export default function ComponentPickerModal({
   const [isAdapting, setIsAdapting] = useState(false);
   const [selectedRelatedFeatures, setSelectedRelatedFeatures] = useState<string[]>([]);
   const [componentSearch, setComponentSearch] = useState("");
+  const [activePickerTab, setActivePickerTab] = useState<"suggested" | "all">("suggested");
+  const [suggestions, setSuggestions] = useState<SuggestionItem[]>([]);
+  const [suggestionsLoading, setSuggestionsLoading] = useState(false);
+  const [isStartSuggestion, setIsStartSuggestion] = useState(false);
   const [addWarnOpen, setAddWarnOpen] = useState(false);
   /** Used by the DbTemplateWarningDialog confirm callback (template-only path, no singleEntry). */
   const pendingAddFn = useRef<(() => Promise<void>) | null>(null);
@@ -236,6 +299,35 @@ export default function ComponentPickerModal({
         comp.description.toLowerCase().includes(searchLower)
     );
   }, [componentsList, componentSearch]);
+
+  const alreadyUsedTypes = useMemo(() => {
+    const sections = (singleEntry?.sections as Array<{ type: string }> | undefined) ?? [];
+    return new Set(sections.map((s) => s.type));
+  }, [singleEntry]);
+
+  const suggestedComponents = useMemo(() => {
+    return suggestions
+      .map((s) => componentsList.find((c) => c.type === s.type))
+      .filter((c): c is ComponentInfo => !!c)
+      .map((c) => {
+        const s = suggestions.find((sg) => sg.type === c.type)!;
+        return { ...c, suggestion: s };
+      });
+  }, [suggestions, componentsList]);
+
+  const prevSectionLabel = useMemo(() => {
+    const sections = (singleEntry?.sections as Array<{ type: string }> | undefined) ?? [];
+    const prevSection = insertIndex > 0 ? sections[insertIndex - 1] : null;
+    if (!prevSection) return null;
+    const comp = componentsList.find((c) => c.type === prevSection.type);
+    return comp?.label ?? prevSection.type;
+  }, [singleEntry, insertIndex, componentsList]);
+
+  const intentLabel = useMemo(() => {
+    if (!contentType) return null;
+    const intent = CONTENT_TYPE_INTENT[contentType] ?? "brand_corporate";
+    return INTENT_LABELS[intent] ?? intent;
+  }, [contentType]);
 
   useEffect(() => {
     if (selectedComponent) {
@@ -290,8 +382,80 @@ export default function ComponentPickerModal({
       setComponentSearch("");
       setStep("select");
       setSelectedComponent(null);
+      setActivePickerTab("suggested");
+      setSuggestions([]);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen || step !== "select") return;
+
+    const intent = contentType ? (CONTENT_TYPE_INTENT[contentType] ?? "brand_corporate") : undefined;
+    const sections = (singleEntry?.sections as Array<{ type: string }> | undefined) ?? [];
+    const prevSection = insertIndex > 0 ? sections[insertIndex - 1] : null;
+    const isStart = !prevSection?.type;
+    setIsStartSuggestion(isStart);
+    setSuggestionsLoading(true);
+
+    const params = new URLSearchParams();
+    if (intent) params.set("intent", intent);
+    params.set("rankBy", "pmi");
+    if (prevSection?.type) params.set("after", prevSection.type);
+
+    const applyHeuristics = () => {
+      if (componentsList.length === 0) {
+        setSuggestions([]);
+        return;
+      }
+      const availableTypes = new Set(componentsList.map((c) => c.type));
+      setSuggestions(buildPositionHeuristics(insertIndex, sections.length, availableTypes));
+    };
+
+    fetch(`/api/private/component-insights/suggest?${params}`)
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data: ComponentPairing[]) => {
+        if (!Array.isArray(data) || data.length === 0) {
+          applyHeuristics();
+          return;
+        }
+        const alreadyUsed = new Set(sections.map((s) => s.type));
+        const maxPmi = data.reduce((m, p) => Math.max(m, p.pmi), 0);
+        const norm = maxPmi > 0 ? maxPmi : 1;
+        const ALREADY_USED_PENALTY = 0.3;
+        const scored: SuggestionItem[] = data
+          .map((p) => ({
+            type: p.to,
+            score: (isStart ? p.frequency : p.pmi / norm) - (alreadyUsed.has(p.to) ? ALREADY_USED_PENALTY : 0),
+            frequency: p.frequency,
+            count: p.count,
+          }))
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 8);
+        setSuggestions(scored);
+      })
+      .catch(() => applyHeuristics())
+      .finally(() => setSuggestionsLoading(false));
+  }, [isOpen, step, contentType, insertIndex, singleEntry, componentsList]);
+
+  // When registry loads after suggestions already resolved empty, re-apply heuristics
+  useEffect(() => {
+    if (!isOpen || step !== "select" || suggestionsLoading) return;
+    if (suggestions.length > 0) return;
+    if (componentsList.length === 0) return;
+    const sections = (singleEntry?.sections as Array<{ type: string }> | undefined) ?? [];
+    const availableTypes = new Set(componentsList.map((c) => c.type));
+    const heuristics = buildPositionHeuristics(insertIndex, sections.length, availableTypes);
+    if (heuristics.length > 0) setSuggestions(heuristics);
+  }, [componentsList, isOpen, step, suggestionsLoading, suggestions.length, insertIndex, singleEntry]);
+
+  // Auto-switch to All tab when loading is done and there are still no suggestions
+  useEffect(() => {
+    if (suggestionsLoading || isLoadingRegistry) return;
+    if (!isOpen || step !== "select") return;
+    if (suggestions.length === 0 && componentsList.length > 0) {
+      setActivePickerTab("all");
+    }
+  }, [suggestionsLoading, isLoadingRegistry, isOpen, step, suggestions.length, componentsList.length]);
 
   const handleSelectComponent = useCallback((component: ComponentInfo) => {
     setSelectedComponent(component);
@@ -709,52 +873,167 @@ export default function ComponentPickerModal({
 
         {step === "select" ? (
           <div className="flex-1 flex flex-col overflow-hidden">
-            <div className="px-4 pt-2 pb-3 flex-shrink-0">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="Search components..."
-                  value={componentSearch}
-                  onChange={(e) => setComponentSearch(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                  data-testid="input-search-components"
-                />
+            <Tabs
+              value={activePickerTab}
+              onValueChange={(v) => setActivePickerTab(v as "suggested" | "all")}
+              className="flex-1 flex flex-col overflow-hidden min-h-0"
+            >
+              <div className="px-4 pt-3 pb-2 flex-shrink-0 flex items-center gap-4 flex-wrap">
+                <TabsList className="flex-shrink-0">
+                  <TabsTrigger value="suggested" data-testid="tab-suggested-components">
+                    Suggested
+                  </TabsTrigger>
+                  <TabsTrigger value="all" data-testid="tab-all-components">
+                    All Components
+                  </TabsTrigger>
+                </TabsList>
               </div>
-            </div>
-            <ScrollArea className="flex-1 px-4 pb-4">
-              {isLoadingRegistry ? (
-                <div className="flex items-center justify-center h-full py-12">
-                  <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
-                </div>
-              ) : filteredComponentsList.length === 0 ? (
-                <div className="flex items-center justify-center h-full py-12 text-muted-foreground">
-                  {componentSearch ? "No components match your search" : "No components available"}
-                </div>
-              ) : (
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {filteredComponentsList.map((component) => {
-                    const Icon = component.icon;
-                    return (
+
+              {/* Suggested Tab */}
+              <TabsContent value="suggested" className="flex-1 min-h-0 overflow-hidden mt-0 data-[state=inactive]:hidden flex flex-col">
+                <ScrollArea className="flex-1 px-4 pb-4">
+                  {suggestionsLoading || isLoadingRegistry ? (
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 pt-2">
+                      {Array.from({ length: 6 }).map((_, i) => (
+                        <div
+                          key={i}
+                          className="flex flex-col items-center gap-2 p-4 rounded-lg border bg-card animate-pulse"
+                        >
+                          <div className="w-12 h-12 rounded-full bg-muted" />
+                          <div className="w-24 h-3 rounded bg-muted" />
+                          <div className="w-16 h-2 rounded bg-muted" />
+                        </div>
+                      ))}
+                    </div>
+                  ) : suggestedComponents.length === 0 ? (
+                    <div className="py-10 flex flex-col items-center gap-2 text-center text-muted-foreground">
+                      <Info className="h-5 w-5" />
+                      <p className="text-sm">No suggestions available for this position.</p>
                       <button
-                        key={component.type}
-                        onClick={() => handleSelectComponent(component)}
-                        className="flex flex-col items-center gap-2 p-4 rounded-lg border bg-card hover:border-primary hover:bg-primary/5 transition-all text-left"
-                        data-testid={`component-option-${component.type}`}
+                        className="text-sm text-primary underline"
+                        onClick={() => setActivePickerTab("all")}
                       >
-                        <div className="p-3 rounded-full bg-muted">
-                          <Icon className="h-6 w-6 text-muted-foreground" />
-                        </div>
-                        <div className="text-center">
-                          <div className="font-medium text-sm">{component.label}</div>
-                          <div className="text-xs text-muted-foreground mt-0.5">{component.description}</div>
-                        </div>
+                        Browse all components
                       </button>
-                    );
-                  })}
+                    </div>
+                  ) : (
+                    <>
+                      {isStartSuggestion && intentLabel && (
+                        <p className="text-xs text-muted-foreground mb-3 pt-2">
+                          Popular starting points for <strong>{intentLabel}</strong> pages
+                        </p>
+                      )}
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 pt-2">
+                        {suggestedComponents.map(({ type, label, icon: Icon, description, suggestion }) => {
+                          const isAlreadyUsed = alreadyUsedTypes.has(type);
+                          const freqPct = Math.round(suggestion.frequency * 100);
+                          const tooltipText = suggestion.fromHeuristics
+                            ? `Common at this position in the page${intentLabel ? ` for ${intentLabel} pages` : ""}`
+                            : isStartSuggestion
+                              ? `Popular starting component${intentLabel ? ` for ${intentLabel} pages` : ""}${freqPct > 0 ? ` — ${freqPct}% of sequences` : ""}`
+                              : `Often added after ${prevSectionLabel ?? "this component"}${intentLabel ? ` on ${intentLabel} pages` : ""}${freqPct > 0 ? ` — ${freqPct}% frequency` : ""}`;
+                          return (
+                            <Tooltip key={type}>
+                              <TooltipTrigger asChild>
+                                <button
+                                  onClick={() => handleSelectComponent({ type, label, icon: Icon, description })}
+                                  className="relative flex flex-col items-center gap-2 p-4 rounded-lg border ring-1 ring-primary/40 bg-card hover:border-primary hover:bg-primary/5 transition-all text-left"
+                                  data-testid={`component-suggested-${type}`}
+                                >
+                                  <Badge
+                                    variant="secondary"
+                                    className="absolute top-2 right-2 text-[10px] px-1.5 py-0"
+                                  >
+                                    Suggested
+                                  </Badge>
+                                  {isAlreadyUsed && (
+                                    <Badge
+                                      variant="outline"
+                                      className="absolute top-2 left-2 text-[10px] px-1.5 py-0 opacity-60"
+                                    >
+                                      Already used
+                                    </Badge>
+                                  )}
+                                  <div className="p-3 rounded-full bg-muted mt-3">
+                                    <Icon className="h-6 w-6 text-muted-foreground" />
+                                  </div>
+                                  <div className="text-center">
+                                    <div className="font-medium text-sm">{label}</div>
+                                    <div className="text-xs text-muted-foreground mt-0.5">{description}</div>
+                                  </div>
+                                </button>
+                              </TooltipTrigger>
+                              <TooltipContent side="bottom" className="max-w-xs text-xs">
+                                {tooltipText}
+                              </TooltipContent>
+                            </Tooltip>
+                          );
+                        })}
+                      </div>
+                    </>
+                  )}
+                </ScrollArea>
+              </TabsContent>
+
+              {/* All Components Tab */}
+              <TabsContent value="all" className="flex-1 min-h-0 overflow-hidden mt-0 data-[state=inactive]:hidden flex flex-col">
+                <div className="px-4 pt-0 pb-3 flex-shrink-0">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <input
+                      type="text"
+                      placeholder="Search components..."
+                      value={componentSearch}
+                      onChange={(e) => setComponentSearch(e.target.value)}
+                      className="w-full pl-9 pr-3 py-2 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                      data-testid="input-search-components"
+                    />
+                  </div>
                 </div>
-              )}
-            </ScrollArea>
+                <ScrollArea className="flex-1 px-4 pb-4">
+                  {isLoadingRegistry ? (
+                    <div className="flex items-center justify-center h-full py-12">
+                      <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
+                    </div>
+                  ) : filteredComponentsList.length === 0 ? (
+                    <div className="flex items-center justify-center h-full py-12 text-muted-foreground">
+                      {componentSearch ? "No components match your search" : "No components available"}
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                      {filteredComponentsList.map((component) => {
+                        const Icon = component.icon;
+                        const isAlreadyUsed = alreadyUsedTypes.has(component.type);
+                        return (
+                          <button
+                            key={component.type}
+                            onClick={() => handleSelectComponent(component)}
+                            className="relative flex flex-col items-center gap-2 p-4 rounded-lg border bg-card hover:border-primary hover:bg-primary/5 transition-all text-left"
+                            data-testid={`component-option-${component.type}`}
+                          >
+                            {isAlreadyUsed && (
+                              <Badge
+                                variant="outline"
+                                className="absolute top-2 right-2 text-[10px] px-1.5 py-0 opacity-60"
+                              >
+                                Already used
+                              </Badge>
+                            )}
+                            <div className="p-3 rounded-full bg-muted mt-1">
+                              <Icon className="h-6 w-6 text-muted-foreground" />
+                            </div>
+                            <div className="text-center">
+                              <div className="font-medium text-sm">{component.label}</div>
+                              <div className="text-xs text-muted-foreground mt-0.5">{component.description}</div>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </ScrollArea>
+              </TabsContent>
+            </Tabs>
           </div>
         ) : step === "wizard" ? (
           <div className="flex-1 flex flex-col overflow-auto p-4">
