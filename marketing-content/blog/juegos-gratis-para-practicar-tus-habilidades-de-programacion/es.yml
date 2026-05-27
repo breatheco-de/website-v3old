@@ -1,0 +1,8 @@
+sections:
+  - type: faq
+    version: v1.0
+    title: Frequently Asked Questions
+    related_features:
+      - price
+      - data-science
+    id: faq-wce4cy

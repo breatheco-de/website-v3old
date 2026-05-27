@@ -193,8 +193,64 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
       return handleSharedTemplateEdit({ contentType, slug, locale, operations, localeData, filePath, author: request.author });
     }
 
+    // For DB-backed entries that have their own per-entry file (isSharedTemplate=false),
+    // the client sends indices relative to the fully merged view (template + per-entry).
+    // Translate update_section indices from the merged view to the per-entry local indices
+    // before applying, so we write to the correct section in the per-entry file.
+    let resolvedOperations = operations;
+    if (contentIndex.isDatabaseBacked(contentType) && operations.some(op => op.action === "update_section")) {
+      const mergedTemplate = mergeSingleTemplate(contentType, locale, slug);
+      const mergedSections = Array.isArray(mergedTemplate?.sections)
+        ? (mergedTemplate!.sections as Record<string, unknown>[])
+        : [];
+
+      if (mergedSections.length > 0) {
+        const localSections = Array.isArray(localeData.sections)
+          ? (localeData.sections as Record<string, unknown>[])
+          : [];
+
+        const translated: EditOperation[] = [];
+        for (const op of operations) {
+          if (op.action !== "update_section") {
+            translated.push(op);
+            continue;
+          }
+
+          // Find the section at the merged index to resolve its identity
+          const mergedSection = mergedSections[op.index] as Record<string, unknown> | undefined;
+          if (!mergedSection) {
+            translated.push(op);
+            continue;
+          }
+
+          // Per-entry sections use 'id'; template sections use 'section_id'
+          const sectionId = (mergedSection.id as string | undefined) || (mergedSection.section_id as string | undefined);
+          if (!sectionId) {
+            translated.push(op);
+            continue;
+          }
+
+          // Find this section in the per-entry local file by ID
+          const localIdx = localSections.findIndex(
+            s => (s as Record<string, unknown>).id === sectionId ||
+                 (s as Record<string, unknown>).section_id === sectionId
+          );
+
+          if (localIdx === -1) {
+            // Section belongs to the shared template, not this per-entry file — skip.
+            // Template-section edits from a page with a per-entry file cannot be
+            // persisted here without affecting all entries.
+            continue;
+          }
+
+          translated.push({ ...op, index: localIdx });
+        }
+        resolvedOperations = translated;
+      }
+    }
+
     // Apply all operations to the locale data (this is what gets saved)
-    for (const operation of operations) {
+    for (const operation of resolvedOperations) {
       applyOperation(localeData, operation);
     }
 
