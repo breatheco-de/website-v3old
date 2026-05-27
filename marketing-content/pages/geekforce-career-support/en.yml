@@ -235,7 +235,7 @@ sections:
     section_id: numbered_steps-2brbw1
     version: "1.0"
     variant: bubbleText
-    title: How We Get You from Profile to Offer.
+    title: From Profile to Offer in Three Steps.
     description: A structured three-step process designed to get you hired fast, with coaching and support at every stage.
     steps:
       - icon: Optimization
