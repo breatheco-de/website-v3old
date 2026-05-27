@@ -116,9 +116,9 @@ sections:
     image_alt: 4Geeks global developer community
     background: bg-primary/5
     paddingY:
-      desktop: none md
+      desktop: xl lg
     marginY:
-      desktop: lg sm
+      desktop: xl sm
   - type: two_column
     section_id: two_column-wtzzue
     proportions:
