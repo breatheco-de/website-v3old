@@ -278,20 +278,6 @@ sections:
     section_id: split_cards-mtw-4grplx
     paddingY:
       desktop: sm
-  - type: testimonials_slide
-    section_id: testimonials_slide-7jjh6e
-    title: The Stories Behind the Stats
-    description: Discover how our graduates transformed their careers
-    dynamic_entries:
-      database: testimonials_en
-      limit: 20
-      permanent_filters:
-        - item_property_slug: related_features
-          value:
-            - career-support
-            - mentors-and-teachers
-    paddingY:
-      desktop: md none
   - type: why_learn_ai
     section_id: why_learn_ai-8djag6
     variant: laptop-edge
@@ -321,6 +307,20 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+  - type: testimonials_slide
+    section_id: testimonials_slide-7jjh6e
+    title: The Stories Behind the Stats
+    description: Discover how our graduates transformed their careers
+    dynamic_entries:
+      database: testimonials_en
+      limit: 20
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - career-support
+            - mentors-and-teachers
+    paddingY:
+      desktop: md none
   - type: stats_cards
     section_id: stats-cards-mtw-4grplx
     heading: Chosen by the U.S. Government. Backed by Outcomes.
