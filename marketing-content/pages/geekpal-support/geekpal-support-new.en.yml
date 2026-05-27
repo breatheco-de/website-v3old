@@ -19,18 +19,18 @@ sections:
     section_id: hero-ivsy21
     version: "1.0"
     variant: productShowcase
-    welcome_text: null
+    welcome_text: Mentorship at 4Geeks
     brand_mark:
       prefix: Geek
       highlight: PAL
       suffix: ":"
       color: destructive
     title: Unlimited mentorship, for life.
-    description: With GeekPal, you get unlimited 1:1 mentorship with our expert tutors, whenever you need it. For life. You choose who you work with, and when. No session cap, no expiration date.
+    description: With GeekPal, you get unlimited 1:1 technical mentorship with expert mentors, whenever you need it, for life. You choose who you work with, and when. No session cap, no expiration date.
     bullets_heading: Support is always there when you need it
     bullets:
       - text: Experienced mentors who've built what you're building
-      - text: Rigobot, our AI tutor, supports you 24/7 alongside our human mentors
+      - text: Rigobot, our AI tutor, always on to support you
       - text: A global Slack community of 6,000+ graduates and mentors, ready to help
     video:
       url: https://youtu.be/D5nUZNL52-Q
