@@ -141,10 +141,18 @@ function applyOperation(content: Record<string, unknown>, operation: EditOperati
       if (sectionToSave && typeof sectionToSave === "object") {
         delete sectionToSave._imageSizes;
       }
-      const existingId = (sections[operation.index] as Record<string, unknown>)?.section_id;
+      const existingSection = sections[operation.index] as Record<string, unknown>;
+      const existingId = existingSection?.section_id;
+      // Preserve _insertAfterSectionId: this controls where per-entry sections appear
+      // in the merged view. If the client doesn't echo it back, losing it causes the
+      // section to fall to the end of the page on the next load.
+      const existingInsertAfter = existingSection?._insertAfterSectionId;
       sections[operation.index] = sectionToSave;
       if (existingId && !sectionToSave.section_id) {
         (sections[operation.index] as Record<string, unknown>).section_id = existingId;
+      }
+      if (existingInsertAfter !== undefined && sectionToSave._insertAfterSectionId === undefined) {
+        (sections[operation.index] as Record<string, unknown>)._insertAfterSectionId = existingInsertAfter;
       }
       break;
     }
