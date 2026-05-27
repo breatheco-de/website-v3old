@@ -197,9 +197,10 @@ export default function HeroCourse({ data }: HeroCourseProps) {
             )}
 
             {data.description && (
-              <p className="text-foreground leading-relaxed pt-4">
-                {data.description}
-              </p>
+              <RichTextContent
+                html={data.description}
+                className="text-foreground leading-relaxed pt-4"
+              />
             )}
           </div>
 
