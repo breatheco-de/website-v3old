@@ -96,9 +96,9 @@ sections:
     background: bg-background
     paddingY:
       mobile: sm none
-      desktop: md lg
+      desktop: md
     marginY:
-      desktop: none lg
+      desktop: none md
   - type: community_support
     section_id: community_support-hnuq6q
     version: "1.0"
