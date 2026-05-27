@@ -300,7 +300,7 @@ sections:
       image_id: laptop
     title: Get Hired. Or Your Money Back.
     subtitle: We're so confident in what we built, we put tuition on the line.
-    description: "<span style=\"font-size: 1.125rem;\"><span><span>Add our optional Job Guarantee for $2,000. If you don't land a qualifying job within 9 months of graduation, you get a full tuition refund.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"color: hsl(var(--primary));\">Terms and conditions apply.</span></a></span></span></span></div></span></span></span>"
+    description: "<span style=\"font-size: 1.125rem;\"><span><span>Add our optional Job Guarantee for $2,000. We'll work with you through every stage of the job search. If you don't land a qualifying role within 9 months of graduation, we'll refund your full tuition.&nbsp;<div><span><span><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions. <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"><span style=\"color: hsl(var(--primary));\">Terms and conditions apply.</span></a></span></span></span></div></span></span></span>"
     cta:
       text: Get more info
       url: /en/job-guarantee
