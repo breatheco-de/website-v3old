@@ -1,4 +1,8 @@
 {
   "aliases": {},
-  "dependants": {}
+  "dependants": {
+    "article-2i1h11": [
+      "learnpack-build-teach-learn"
+    ]
+  }
 }
