@@ -414,6 +414,16 @@ sections:
     section_id: numbered_steps-1jav2b
     paddingY:
       desktop: sm
+  - type: pricing_plans
+    version: v1.0
+    id: pricing-plans-section
+    title: Choose Your Plan
+    subtitle: Flexible options to match your learning goals. Cancel anytime.
+    cta_label: Get Started
+    cta_url: /en/apply
+    section_id: pricing_plans-j7xy2d
+    paddingY:
+      desktop: sm
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
