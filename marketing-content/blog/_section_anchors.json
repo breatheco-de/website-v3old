@@ -1,9 +1,0 @@
-{
-  "aliases": {},
-  "dependants": {
-    "faq-kpnock": [
-      "rigobot-ai-mentor",
-      "lambda-school-alternative"
-    ]
-  }
-}
