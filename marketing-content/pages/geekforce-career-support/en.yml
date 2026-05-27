@@ -303,7 +303,6 @@ sections:
   - type: split_cards
     version: v1.0
     variant: primary-left
-    background: muted
     primary:
       badge: Good Jobs Challenge
       heading: Chosen by the U.S. Government. Backed by Outcomes.
