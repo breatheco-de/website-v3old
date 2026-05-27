@@ -1063,6 +1063,30 @@ export function registerSectionsRoutes(app: Express): void {
     }
   });
 
+  app.post("/api/content/refresh-cache", (req, res) => {
+    try {
+      // Trusted-internal only: require MCP_SERVER_SECRET Bearer token when configured.
+      const mcpSecret = process.env.MCP_SERVER_SECRET || process.env.MCP_API_KEY || "";
+      if (mcpSecret) {
+        const authHeader = req.headers.authorization || "";
+        const bearerToken = authHeader.startsWith("Bearer ") ? authHeader.slice(7).trim() : "";
+        if (bearerToken !== mcpSecret) {
+          res.status(401).json({ error: "Unauthorized" });
+          return;
+        }
+      }
+
+      const { contentType } = req.body as { contentType?: string };
+      contentIndex.refresh();
+      if (contentType && typeof contentType === "string") {
+        invalidateContentCaches(contentType);
+      }
+      res.json({ ok: true });
+    } catch (err) {
+      res.status(500).json({ error: err instanceof Error ? err.message : "Unknown error" });
+    }
+  });
+
   app.post("/api/content/edit-common", async (req, res) => {
     try {
       const auth = await requireCapability(req, res, "content_edit_text", req.body.contentType || undefined);
