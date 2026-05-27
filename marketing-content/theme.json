@@ -636,6 +636,11 @@
       "example": "two column with left video",
       "importYaml": "- type: two_column\n  proportions:\n    - 6\n    - 6\n  alignment: center\n  left:\n    video: https://youtu.be/EcqasocRKHo\n  right:\n    heading: How the 4Geeks Learning Model Works\n    sub_heading: A closer look at our AI-native training approach\n    description: Our programs combine structured, project-based learning with AI-integrated tools and personalized mentorship. In this video, you’ll see how our model is designed to help students build real technical depth, stay accountable, and prepare for high-demand roles in today’s tech landscape.\n  gap: '8'\n  paddingY:\n    desktop: none md\n  marginY:\n    desktop: none sm\n  section_id: two_column-jy5f7x\n",
       "registryPersisted": true
+    },
+    {
+      "component": "two_column",
+      "version": "v1.0",
+      "example": "Subheading Groups with Collapsible Bullets"
     }
   ]
 }
