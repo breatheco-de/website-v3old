@@ -1,0 +1,117 @@
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { z } from "zod";
+import { getTokenUsername } from "../lib/oauth.js";
+import { checkCap } from "../lib/auth.js";
+
+const MAIN_SERVER_PORT = process.env.PORT || "5000";
+const MCP_SERVER_SECRET = process.env.MCP_SERVER_SECRET || process.env.MCP_API_KEY || "";
+
+/**
+ * Build internal auth headers for loopback calls to the main server,
+ * forwarding the resolved username so the endpoint can look up the user record.
+ */
+function internalHeaders(username: string): Record<string, string> {
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (MCP_SERVER_SECRET) {
+    headers["Authorization"] = `Bearer ${MCP_SERVER_SECRET}`;
+  }
+  return headers;
+}
+
+export function registerUserTools(mcp: McpServer, mcpToken?: string): void {
+  mcp.tool(
+    "get_current_user",
+    "Return the identity, roles, and effective capabilities of the authenticated MCP caller. " +
+      "Useful for agents that need to understand who they are acting as and what operations they are permitted to perform. " +
+      "Returns: username, firstName, lastName, email, roles (list of role names), and capabilities (list of effective capability names).",
+    {},
+    async () => {
+      const username = mcpToken ? getTokenUsername(mcpToken) : null;
+
+      try {
+        const params = new URLSearchParams();
+        if (username) params.set("username", username);
+        const url = `http://localhost:${MAIN_SERVER_PORT}/api/auth/user-info?${params}`;
+        const res = await fetch(url, {
+          headers: internalHeaders(username ?? ""),
+        });
+
+        if (!res.ok) {
+          const body = await res.text().catch(() => "");
+          return {
+            content: [
+              {
+                type: "text" as const,
+                text: JSON.stringify({
+                  error: "failed_to_fetch_user",
+                  status: res.status,
+                  detail: body,
+                }),
+              },
+            ],
+            isError: true,
+          };
+        }
+
+        const profile = await res.json();
+        return {
+          content: [{ type: "text" as const, text: JSON.stringify(profile, null, 2) }],
+        };
+      } catch (err) {
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify({
+                error: "network_error",
+                message: (err as Error).message,
+              }),
+            },
+          ],
+          isError: true,
+        };
+      }
+    },
+  );
+
+  mcp.tool(
+    "check_capability",
+    "Check whether the authenticated MCP caller holds a specific capability, optionally scoped to a content type. " +
+      "Use this before attempting privileged operations so agents can handle permission denials gracefully. " +
+      "Parameters: cap (required) — the capability name to check; contentType (optional) — restrict the check to a specific content type. " +
+      "Returns: { allowed: boolean }. In development mode always returns { allowed: true }.",
+    {
+      cap: z.string().describe("The capability name to check (e.g. 'edit_content', 'manage_users')."),
+      contentType: z.string().optional().describe("Optional content type to scope the capability check (e.g. 'career_program')."),
+    },
+    async ({ cap, contentType }) => {
+      try {
+        const allowed = mcpToken
+          ? await checkCap(mcpToken, cap, contentType)
+          : process.env.NODE_ENV !== "production";
+
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify({ allowed }),
+            },
+          ],
+        };
+      } catch (err) {
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify({
+                error: "network_error",
+                message: (err as Error).message,
+              }),
+            },
+          ],
+          isError: true,
+        };
+      }
+    },
+  );
+}

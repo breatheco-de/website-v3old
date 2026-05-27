@@ -4,6 +4,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { registerPageTools } from "./tools/pages.js";
 import { registerComponentTools } from "./tools/components.js";
+import { registerUserTools } from "./tools/user.js";
 import {
   registerClient,
   lookupClient,
@@ -16,6 +17,7 @@ import {
   validateBreathecodeToken,
   updateClientBreathecodeUser,
   registerBreathecodeToken,
+  TOKEN_EXPIRES_IN,
 } from "./lib/oauth.js";
 
 const PORT = parseInt(process.env.MCP_PORT || "3001", 10);
@@ -152,6 +154,7 @@ function createMcpServer(mcpAuthor?: string, mcpToken?: string): McpServer {
   const mcp = new McpServer({ name: "content-pages", version: "1.0.0" });
   registerPageTools(mcp, mcpAuthor, mcpToken);
   registerComponentTools(mcp, mcpToken);
+  registerUserTools(mcp, mcpToken);
   return mcp;
 }
 
@@ -446,7 +449,13 @@ app.post("/oauth/token", (req, res) => {
     return;
   }
 
-  res.json({ access_token: token, token_type: "bearer" });
+  const expiresAt = Date.now() + TOKEN_EXPIRES_IN * 1000;
+  res.json({
+    access_token: token,
+    token_type: "bearer",
+    expires_in: TOKEN_EXPIRES_IN,
+    expires_at: Math.floor(expiresAt / 1000),
+  });
 });
 
 // ─── MCP endpoint ─────────────────────────────────────────────────────────────

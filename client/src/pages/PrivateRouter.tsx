@@ -21,6 +21,8 @@ const AIConversations = lazy(() => import("@/pages/AIConversations"));
 const AIKnowledgeBlocks = lazy(() => import("@/pages/AIKnowledgeBlocks"));
 const ThemeEditor = lazy(() => import("@/pages/ThemeEditor"));
 const ComponentInsightsPage = lazy(() => import("@/pages/ComponentInsightsPage"));
+const StoreProductsPage = lazy(() => import("@/pages/StoreProductsPage"));
+const StorePlansPage = lazy(() => import("@/pages/StorePlansPage"));
 
 function LoadingFallback() {
   return (
@@ -65,6 +67,8 @@ export default function PrivateRouter() {
         <Route path="/private/sync-log" component={SyncLogPage} />
         <Route path="/private/theme-editor" component={ThemeEditor} />
         <Route path="/private/component-insights" component={ComponentInsightsPage} />
+        <Route path="/private/store/products" component={StoreProductsPage} />
+        <Route path="/private/store/plans" component={StorePlansPage} />
       </Switch>
     </Suspense>
   );

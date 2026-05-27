@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Check, Copy } from "lucide-react";
+import { IconRefresh } from "@tabler/icons-react";
 import {
   Dialog,
   DialogContent,
@@ -18,6 +19,8 @@ interface SessionModalProps {
   getDebugToken: () => string | null;
   getDebugUserName: () => string | null;
   clearToken: () => void;
+  handleCheckSession: () => void;
+  isCheckingSession: boolean;
 }
 
 export function SessionModal(props: SessionModalProps) {
@@ -29,6 +32,8 @@ export function SessionModal(props: SessionModalProps) {
     getDebugToken,
     getDebugUserName,
     clearToken,
+    handleCheckSession,
+    isCheckingSession,
   } = props;
 
   const [tokenCopied, setTokenCopied] = useState(false);
@@ -40,18 +45,6 @@ export function SessionModal(props: SessionModalProps) {
           <DialogTitle>Session Data{getDebugUserName() ? ` - ${getDebugUserName()}` : ''}</DialogTitle>
           <DialogDescription>
             Current session values captured from browser, geolocation, and URL parameters.
-            {hasToken && getDebugToken() && (
-              <>
-                {" "}
-                <button
-                  onClick={() => { clearToken(); onOpenChange(false); }}
-                  className="text-blue-600 dark:text-blue-400 underline hover:no-underline"
-                  data-testid="link-logout"
-                >
-                  logout
-                </button>
-              </>
-            )}
           </DialogDescription>
         </DialogHeader>
         
@@ -193,6 +186,16 @@ export function SessionModal(props: SessionModalProps) {
         </div>
 
         <DialogFooter>
+          <Button
+            size="icon"
+            variant="ghost"
+            onClick={handleCheckSession}
+            disabled={isCheckingSession}
+            data-testid="button-session-refresh"
+            title="Check session validity"
+          >
+            <IconRefresh className={`h-4 w-4 ${isCheckingSession ? 'animate-spin' : ''}`} />
+          </Button>
           <Button
             variant="outline"
             onClick={() => onOpenChange(false)}

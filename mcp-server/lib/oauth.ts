@@ -4,7 +4,10 @@ import path from "path";
 
 const CODE_TTL_MS = 5 * 60 * 1000;
 const PENDING_TTL_MS = 10 * 60 * 1000;
+const TOKEN_TTL_MS = 365 * 24 * 60 * 60 * 1000; // 1 year
 const CLIENTS_FILE = path.join(process.cwd(), "mcp-server/data/oauth-clients.json");
+const TOKENS_FILE = path.join(process.cwd(), "mcp-server/data/oauth-tokens.json");
+const BREATHECODE_TOKENS_FILE = path.join(process.cwd(), "mcp-server/data/breathecode-tokens.json");
 
 // ─── Registered clients (persisted to JSON) ───────────────────────────────────
 
@@ -56,8 +59,14 @@ function ensureDataDir(): void {
     if (!fs.existsSync(CLIENTS_FILE)) {
       fs.writeFileSync(CLIENTS_FILE, "{}\n", "utf-8");
     }
+    if (!fs.existsSync(TOKENS_FILE)) {
+      fs.writeFileSync(TOKENS_FILE, "{}\n", "utf-8");
+    }
+    if (!fs.existsSync(BREATHECODE_TOKENS_FILE)) {
+      fs.writeFileSync(BREATHECODE_TOKENS_FILE, "{}\n", "utf-8");
+    }
   } catch (err) {
-    console.warn("[MCP] OAuth: could not create oauth-clients.json —", (err as Error).message);
+    console.warn("[MCP] OAuth: could not create data files —", (err as Error).message);
   }
 }
 
@@ -221,9 +230,37 @@ export async function validateBreathecodeToken(
 // that getTokenUsername() works transparently for both OAuth and direct callers.
 
 const breathecodeTokenUsernames = new Map<string, string>();
+loadBreathecodeTokens();
+
+function loadBreathecodeTokens(): void {
+  try {
+    if (!fs.existsSync(BREATHECODE_TOKENS_FILE)) return;
+    const raw = fs.readFileSync(BREATHECODE_TOKENS_FILE, "utf-8");
+    const obj = JSON.parse(raw) as Record<string, string>;
+    for (const [token, username] of Object.entries(obj)) {
+      breathecodeTokenUsernames.set(token, username);
+    }
+    console.log(`[MCP] OAuth: loaded ${breathecodeTokenUsernames.size} Breathecode token(s) from disk`);
+  } catch (err) {
+    console.warn("[MCP] OAuth: could not load breathecode-tokens.json —", (err as Error).message);
+  }
+}
+
+function persistBreathecodeTokens(): void {
+  try {
+    const obj: Record<string, string> = {};
+    for (const [token, username] of breathecodeTokenUsernames.entries()) {
+      obj[token] = username;
+    }
+    fs.writeFileSync(BREATHECODE_TOKENS_FILE, JSON.stringify(obj, null, 2), "utf-8");
+  } catch (err) {
+    console.error("[MCP] OAuth: failed to persist breathecode-tokens.json —", (err as Error).message);
+  }
+}
 
 export function registerBreathecodeToken(token: string, username: string): void {
   breathecodeTokenUsernames.set(token, username);
+  persistBreathecodeTokens();
 }
 
 // ─── Auth codes (in-memory only) ─────────────────────────────────────────────
@@ -234,9 +271,50 @@ interface AuthCode {
   expiresAt: number;
 }
 
+interface StoredAccessToken {
+  clientId: string;
+  expiresAt: number;
+}
+
 const authCodes = new Map<string, AuthCode>();
-// Maps access token → clientId so we can look up Breathecode user info later
-const accessTokens = new Map<string, string>();
+// Maps access token → { clientId, expiresAt } so we can look up Breathecode user info
+// and enforce expiry after restart.
+const accessTokens = new Map<string, StoredAccessToken>();
+loadTokens();
+
+function loadTokens(): void {
+  try {
+    if (!fs.existsSync(TOKENS_FILE)) return;
+    const raw = fs.readFileSync(TOKENS_FILE, "utf-8");
+    const obj = JSON.parse(raw) as Record<string, StoredAccessToken>;
+    const now = Date.now();
+    let loaded = 0;
+    let expired = 0;
+    for (const [token, data] of Object.entries(obj)) {
+      if (data.expiresAt && data.expiresAt < now) {
+        expired++;
+        continue;
+      }
+      accessTokens.set(token, data);
+      loaded++;
+    }
+    console.log(`[MCP] OAuth: loaded ${loaded} access token(s) from disk (${expired} expired, skipped)`);
+  } catch (err) {
+    console.warn("[MCP] OAuth: could not load oauth-tokens.json —", (err as Error).message);
+  }
+}
+
+function persistTokens(): void {
+  try {
+    const obj: Record<string, StoredAccessToken> = {};
+    for (const [token, data] of accessTokens.entries()) {
+      obj[token] = data;
+    }
+    fs.writeFileSync(TOKENS_FILE, JSON.stringify(obj, null, 2), "utf-8");
+  } catch (err) {
+    console.error("[MCP] OAuth: failed to persist oauth-tokens.json —", (err as Error).message);
+  }
+}
 
 function purgeExpiredCodes(): void {
   const now = Date.now();
@@ -279,12 +357,23 @@ export function exchangeCode(
 
   authCodes.delete(code);
   const token = crypto.randomBytes(48).toString("hex");
-  accessTokens.set(token, clientId);
+  const expiresAt = Date.now() + TOKEN_TTL_MS;
+  accessTokens.set(token, { clientId, expiresAt });
+  persistTokens();
   return token;
 }
 
+export const TOKEN_EXPIRES_IN = Math.floor(TOKEN_TTL_MS / 1000); // seconds
+
 export function validateToken(token: string): boolean {
-  return accessTokens.has(token);
+  const entry = accessTokens.get(token);
+  if (!entry) return false;
+  if (entry.expiresAt < Date.now()) {
+    accessTokens.delete(token);
+    persistTokens();
+    return false;
+  }
+  return true;
 }
 
 /**
@@ -295,9 +384,9 @@ export function validateToken(token: string): boolean {
  */
 export function getTokenUsername(token: string): string | null {
   // Check OAuth access-token registry first
-  const clientId = accessTokens.get(token);
-  if (clientId) {
-    const client = clients.get(clientId);
+  const entry = accessTokens.get(token);
+  if (entry) {
+    const client = clients.get(entry.clientId);
     if (client) {
       if (client.breathecodeUsername) return client.breathecodeUsername;
       const first = client.breathecodeFirstName?.trim() || "";

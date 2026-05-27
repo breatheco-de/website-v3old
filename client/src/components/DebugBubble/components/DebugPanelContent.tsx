@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { AlertTriangle, ArrowLeft, ArrowRight, BarChart2, Blocks, Book, Brain, Check, ChevronRight, CloudDownload, Cookie, Database, Github, GitBranch, Image, Languages, Map, MapPin, Menu, MessageCircle, Monitor, Moon, Palette, Pencil, Plus, RefreshCw, Route, Settings, Smartphone, Stethoscope, Sun, X } from "lucide-react";
+import { IconLogout, IconShoppingBag } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -185,6 +187,13 @@ function ExpandableMenuItem({ icon: Icon, label, expanded, onToggle, testId, act
 export function DebugPanelContent(props: DebugPanelContentProps) {
   const { i18n } = useTranslation();
   const [createMenuOpen, setCreateMenuOpen] = useState(false);
+  const [settingsExpanded, setSettingsExpanded] = useState(false);
+  const [storeExpanded, setStoreExpanded] = useState(false);
+
+  const { data: versionData } = useQuery<{ version: string }>({
+    queryKey: ["/api/version"],
+    staleTime: Infinity,
+  });
 
   if (props.noTokenDetected) {
     return (
@@ -470,8 +479,14 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               label="Content & Sitemap"
               expanded={props.sitemapExpanded}
               onToggle={() => {
-                props.setSitemapExpanded(!props.sitemapExpanded);
-                if (!props.sitemapExpanded) props.setComponentsExpanded(false);
+                const opening = !props.sitemapExpanded;
+                props.setSitemapExpanded(opening);
+                if (opening) {
+                  props.setComponentsExpanded(false);
+                  props.setAiAgentsExpanded(false);
+                  setSettingsExpanded(false);
+                  setStoreExpanded(false);
+                }
               }}
               testId="button-sitemap-toggle"
               actions={
@@ -492,13 +507,14 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 </button>
               }
             >
+
               <MenuItem
                 icon={Map}
-                label="All URLs"
+                label="Indexed URLs"
                 onClick={() => props.setMenuView("sitemap")}
                 indicator="chevron"
                 testId="button-sitemap-all-urls"
-                rightContent={<span className="text-xs text-muted-foreground">{props.sitemapUrlCount !== null ? `${props.sitemapUrlCount} indexed` : '...'}</span>}
+                rightContent={<span className="text-xs text-muted-foreground">{props.sitemapUrlCount !== null ? props.sitemapUrlCount : '...'}</span>}
               />
               <MenuItem
                 icon={Route}
@@ -546,8 +562,14 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               label="Components"
               expanded={props.componentsExpanded}
               onToggle={() => {
-                props.setComponentsExpanded(!props.componentsExpanded);
-                if (!props.componentsExpanded) props.setSitemapExpanded(false);
+                const opening = !props.componentsExpanded;
+                props.setComponentsExpanded(opening);
+                if (opening) {
+                  props.setSitemapExpanded(false);
+                  props.setAiAgentsExpanded(false);
+                  setSettingsExpanded(false);
+                  setStoreExpanded(false);
+                }
               }}
               testId="button-components-toggle"
             >
@@ -579,7 +601,14 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               label="AI & Agents"
               expanded={props.aiAgentsExpanded}
               onToggle={() => {
-                props.setAiAgentsExpanded(!props.aiAgentsExpanded);
+                const opening = !props.aiAgentsExpanded;
+                props.setAiAgentsExpanded(opening);
+                if (opening) {
+                  props.setSitemapExpanded(false);
+                  props.setComponentsExpanded(false);
+                  setSettingsExpanded(false);
+                  setStoreExpanded(false);
+                }
               }}
               testId="button-ai-agents-toggle"
             >
@@ -600,14 +629,6 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
             </ExpandableMenuItem>
 
             <MenuItem
-              icon={Palette}
-              label="Theme Editor"
-              href="/private/theme-editor"
-              indicator="arrow"
-              testId="link-theme-editor"
-            />
-
-            <MenuItem
               icon={Stethoscope}
               label="Diagnostics"
               href="/private/diagnostics"
@@ -615,13 +636,69 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               testId="link-diagnostics"
             />
 
-            <MenuItem
+            <ExpandableMenuItem
+              icon={IconShoppingBag}
+              label="Store"
+              expanded={storeExpanded}
+              onToggle={() => {
+                const opening = !storeExpanded;
+                setStoreExpanded(opening);
+                if (opening) {
+                  props.setSitemapExpanded(false);
+                  props.setComponentsExpanded(false);
+                  props.setAiAgentsExpanded(false);
+                  setSettingsExpanded(false);
+                }
+              }}
+              testId="button-store-toggle"
+            >
+              <MenuItem
+                icon={IconShoppingBag}
+                label="Products"
+                href="/private/store/products"
+                indicator="arrow"
+                testId="link-store-products"
+              />
+              <MenuItem
+                icon={IconShoppingBag}
+                label="Plans"
+                href="/private/store/plans"
+                indicator="arrow"
+                testId="link-store-plans"
+              />
+            </ExpandableMenuItem>
+
+            <ExpandableMenuItem
               icon={Settings}
               label="Settings"
-              href="/private/settings"
-              indicator="arrow"
-              testId="link-settings"
-            />
+              expanded={settingsExpanded}
+              onToggle={() => {
+                const opening = !settingsExpanded;
+                setSettingsExpanded(opening);
+                if (opening) {
+                  props.setSitemapExpanded(false);
+                  props.setComponentsExpanded(false);
+                  props.setAiAgentsExpanded(false);
+                  setStoreExpanded(false);
+                }
+              }}
+              testId="button-settings-toggle"
+            >
+              <MenuItem
+                icon={Settings}
+                label="General"
+                href="/private/settings"
+                indicator="arrow"
+                testId="link-settings-general"
+              />
+              <MenuItem
+                icon={Palette}
+                label="Theme Editor"
+                href="/private/theme-editor"
+                indicator="arrow"
+                testId="link-theme-editor"
+              />
+            </ExpandableMenuItem>
 
             <div className="flex items-center justify-between w-full px-3 py-2 rounded-md text-sm">
               <div className="flex items-center gap-3">
@@ -711,16 +788,21 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
 
           <div className="border-t p-2 space-y-1">
               <div className="flex items-center justify-between px-3 py-1.5">
-                <div
-                  className="flex items-center gap-2 cursor-pointer hover-elevate rounded px-1 -mx-1"
-                  onClick={() => props.setSessionModalOpen(true)}
-                  data-testid="button-session-header"
-                  title="View session data"
-                >
-                  <Cookie className="h-3.5 w-3.5 text-muted-foreground" />
-                  <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Session</span>
-                  {!props.hasToken && (
-                    <span className="text-xs text-amber-600 dark:text-amber-400">(no auth)</span>
+                <div className="flex flex-col">
+                  <div
+                    className="flex items-center gap-2 cursor-pointer hover-elevate rounded px-1 -mx-1"
+                    onClick={() => props.setSessionModalOpen(true)}
+                    data-testid="button-session-header"
+                    title="View session data"
+                  >
+                    <Cookie className="h-3.5 w-3.5 text-muted-foreground" />
+                    <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Session</span>
+                    {!props.hasToken && (
+                      <span className="text-xs text-amber-600 dark:text-amber-400">(no auth)</span>
+                    )}
+                  </div>
+                  {versionData?.version && (
+                    <span className="text-[10px] text-muted-foreground px-1 -mx-1" data-testid="text-app-version">v{versionData.version}</span>
                   )}
                 </div>
                 <div className="flex items-center gap-1">
@@ -756,15 +838,16 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                       : <Moon className="h-3 w-3" />}
                     <span className="capitalize">{props.theme}</span>
                   </button>
-                  <button
-                    onClick={props.handleCheckSession}
-                    disabled={props.isCheckingSession}
-                    className="p-1 rounded hover-elevate"
-                    data-testid="button-session-refresh"
-                    title="Check session validity"
-                  >
-                    <RefreshCw className={`h-3.5 w-3.5 text-muted-foreground ${props.isCheckingSession ? 'animate-spin' : ''}`} />
-                  </button>
+                  {props.hasToken && (
+                    <button
+                      onClick={props.clearToken}
+                      className="p-1 rounded hover-elevate"
+                      data-testid="button-logout"
+                      title="Logout"
+                    >
+                      <IconLogout className="h-3.5 w-3.5 text-muted-foreground" />
+                    </button>
+                  )}
                 </div>
               </div>
           </div>

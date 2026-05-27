@@ -113,6 +113,59 @@ export function resolveContentType(
 
 // ─── Page helpers ─────────────────────────────────────────────────────────────
 
+export interface VersioningVariant {
+  slug: string;
+  allocation: number;
+}
+
+export interface VersioningLocale {
+  variants: VersioningVariant[];
+}
+
+export type VersioningData = Record<string, VersioningLocale>;
+
+export function loadVersioning(contentType: string, slug: string): VersioningData | null {
+  const configs = loadContentTypes();
+  const config = configs[contentType];
+  if (!config || isDbBacked(config)) return null;
+  const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(contentType, config), slug);
+  const versioningPath = path.join(dir, "versioning.yml");
+  if (!fs.existsSync(versioningPath)) return null;
+  const parsed = safeLoad(fs.readFileSync(versioningPath, "utf-8"));
+  if (!parsed) return null;
+  return parsed as VersioningData;
+}
+
+export function loadVariantPage(
+  contentType: string,
+  slug: string,
+  locale: string,
+  variantSlug: string,
+): { data: Record<string, unknown>; filePath: string } | null {
+  const configs = loadContentTypes();
+  const config = configs[contentType];
+  if (!config || isDbBacked(config)) return null;
+
+  const dir = path.join(MARKETING_CONTENT_PATH, getDirectory(contentType, config), slug);
+  if (!fs.existsSync(dir)) return null;
+
+  const commonPath = path.join(dir, "_common.yml");
+  const variantPath = path.join(dir, `${variantSlug}.${locale}.yml`);
+
+  let commonData: Record<string, unknown> = {};
+  if (fs.existsSync(commonPath)) {
+    commonData = safeLoad(fs.readFileSync(commonPath, "utf-8")) || {};
+  }
+
+  if (!fs.existsSync(variantPath)) return null;
+  const variantData = safeLoad(fs.readFileSync(variantPath, "utf-8")) || {};
+
+  return {
+    data: deepMerge(commonData, variantData),
+    filePath: variantPath,
+  };
+}
+
 export interface PageEntry {
   slug: string;
   contentType: string;
@@ -120,6 +173,7 @@ export interface PageEntry {
   locales: string[];
   title?: string;
   urls?: Record<string, string>;
+  variants?: Array<{ locale: string; slug: string; allocation: number }>;
 }
 
 export function scanPages(): PageEntry[] {
@@ -170,6 +224,18 @@ export function scanPages(): PageEntry[] {
         if (Object.keys(resolved).length > 0) urls = resolved;
       }
 
+      const versioning = loadVersioning(contentType, entry.name);
+      let variants: Array<{ locale: string; slug: string; allocation: number }> | undefined;
+      if (versioning) {
+        const variantList: Array<{ locale: string; slug: string; allocation: number }> = [];
+        for (const [locale, localeData] of Object.entries(versioning)) {
+          for (const v of localeData.variants || []) {
+            variantList.push({ locale, slug: v.slug, allocation: v.allocation });
+          }
+        }
+        if (variantList.length > 0) variants = variantList;
+      }
+
       pages.push({
         slug: entry.name,
         contentType,
@@ -177,6 +243,7 @@ export function scanPages(): PageEntry[] {
         locales,
         title,
         ...(urls ? { urls } : {}),
+        ...(variants ? { variants } : {}),
       });
     }
   }
