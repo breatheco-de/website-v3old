@@ -1,8 +1,122 @@
+# Schema.org Structured Data Configuration
+# =========================================
+# This file defines the base JSON-LD schemas used across the website.
+# Pages can include these schemas and optionally override specific properties.
+#
+# USAGE IN PROGRAMS, LANDINGS, AND OTHER YAML FILES:
+# ---------------------------------------------------
+#
+# 1. BASIC INCLUDE (inherits all properties from base schema):
+#
+#    schema:
+#      include:
+#        - "organization"
+#        - "website"
+#        - "courses:full-stack"
+#
+# 2. WITH OVERRIDES (customize specific properties):
+#
+#    schema:
+#      include:
+#        - "organization"
+#        - "courses:full-stack"
+#      overrides:
+#        courses:full-stack:
+#          name: "Full Stack Developer Bootcamp - Miami"
+#          description: "Join our Miami campus for in-person training..."
+#          location:
+#            type: "Place"
+#            name: "4Geeks Academy Miami"
+#            address: "1395 Brickell Ave, Miami, FL 33131"
+#
+# 3. LANDING PAGE EXAMPLE (webinar/event with custom event schema):
+#
+#    schema:
+#      include:
+#        - "organization"
+#      overrides:
+#        organization:
+#          name: "4Geeks Academy - Special Event"
+#      custom:
+#        - type: "Event"
+#          name: "Free AI Coding Webinar"
+#          start_date: "2024-03-15T18:00:00-05:00"
+#          end_date: "2024-03-15T19:00:00-05:00"
+#          event_attendance_mode: "OnlineEventAttendanceMode"
+#          location:
+#            type: "VirtualLocation"
+#            url: "https://4geeks.com/webinar/ai-learning"
+#
+# 4. PROGRAM PAGE EXAMPLE (with course offers):
+#
+#    schema:
+#      include:
+#        - "organization"
+#        - "website"
+#        - "courses:full-stack"
+#      overrides:
+#        courses:full-stack:
+#          offers:
+#            type: "Offer"
+#            price: "7999"
+#            price_currency: "USD"
+#            availability: "InStock"
+#            valid_from: "2024-01-01"
+#
+# 5. ADDING NEW SCHEMAS (not in this file):
+#
+#    Use the "custom" array to add schemas that don't exist in schema-org.yml:
+#
+#    schema:
+#      include:
+#        - "organization"
+#        - "courses:full-stack"
+#      custom:
+#        - type: "FAQPage"
+#          main_entity:
+#            - question: "How long is the bootcamp?"
+#              answer: "The program is 16 weeks part-time."
+#            - question: "Do you offer financing?"
+#              answer: "Yes, we offer multiple payment plans."
+#        - type: "BreadcrumbList"
+#          items:
+#            - name: "Home"
+#              url: "https://4geeks.com"
+#              position: 1
+#            - name: "Programs"
+#              url: "https://4geeks.com/programs"
+#              position: 2
+#            - name: "Full Stack"
+#              position: 3
+#
+#    Each item in the "custom" array becomes a separate JSON-LD block.
+#
+# NESTED SCHEMA REFERENCES:
+# -------------------------
+# Use colon notation to reference nested schemas:
+#   - "courses:full-stack" → courses.full-stack
+#   - "courses:data-science" → courses.data-science
+#   - "item_lists:career-programs" → item_lists.career-programs
+#
+# PROVIDER REFERENCES:
+# --------------------
+# Use "@organization" to reference the organization schema as provider:
+#   provider: "@organization"
+#
+# LOCALIZATION:
+# -------------
+# Each schema can have locale-specific overrides under "locales":
+#   locales:
+#     es:
+#       name: "Nombre en Español"
+#       description: "Descripción en español..."
+
+# Organization schema - represents 4Geeks Academy as an entity
 organization:
   type: EducationalOrganization
   name: 4Geeks Academy
-  url: https://4geeks.com
-  logo: https://4geeks.com/wp-content/uploads/2024/01/4geeks-logo.png
+  url: https://4geeksacademy.com
+  logo: https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433.png
   description: >-
     4Geeks Academy is a coding bootcamp that helps people transition into tech careers with AI-powered learning tools,
     unlimited mentorship, and career support.
@@ -25,7 +139,7 @@ organization:
   contact_point:
     type: ContactPoint
     contact_type: customer service
-    email: info@4geeks.com
+    email: info@4geeksacademy.com
   address:
     type: PostalAddress
     address_country: US
@@ -37,14 +151,15 @@ organization:
 website:
   type: WebSite
   name: 4Geeks Academy
-  url: https://4geeks.com
+  url: https://4geeksacademy.com
   description: >-
     Learn to code with AI-powered tools, unlimited mentorship, and career support. Join thousands of graduates who have
     transformed their careers.
   default_social_image: https://storage.googleapis.com/4geeks-academy-website/media/4geeks-og-image.png
-  search_action:
-    target: https://4geeks.com/search?q={search_term_string}
-    query_input: required name=search_term_string
+  # search_action disabled: /search currently returns 404 on 4geeksacademy.com
+  # search_action:
+  #   target: https://4geeksacademy.com/search?q={search_term_string}
+  #   query_input: required name=search_term_string
   locales:
     es:
       description: >-
@@ -184,8 +299,8 @@ local_business:
     type: LocalBusiness
     additional_type: EducationalOrganization
     name: 4Geeks Academy
-    url: https://4geeks.com
-    logo: https://4geeks.com/wp-content/uploads/2024/01/4geeks-logo.png
+    url: https://4geeksacademy.com
+    logo: https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433.png
     price_range: $$
     opens_at: '09:00'
     closes_at: '21:00'
@@ -201,8 +316,8 @@ local_business:
     type: LocalBusiness
     additional_type: EducationalOrganization
     name: 4Geeks Academy Miami
-    url: https://4geeks.com/en/location/miami
-    logo: https://4geeks.com/wp-content/uploads/2024/01/4geeks-logo.png
+    url: https://4geeksacademy.com/en/location/miami-usa
+    logo: https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433.png
     telephone: +1 786-416-6640
     address:
       type: PostalAddress
@@ -227,13 +342,13 @@ local_business:
     locales:
       es:
         name: 4Geeks Academy Miami
-        url: https://4geeks.com/es/ubicacion/miami
+        url: https://4geeksacademy.com/es/ubicacion/miami-usa
   madrid-spain:
     type: LocalBusiness
     additional_type: EducationalOrganization
     name: 4Geeks Academy Madrid
-    url: https://4geeks.com/en/location/madrid
-    logo: https://4geeks.com/wp-content/uploads/2024/01/4geeks-logo.png
+    url: https://4geeksacademy.com/en/location/madrid-spain
+    logo: https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433.png
     telephone: +34 910 86 69 83
     address:
       type: PostalAddress
@@ -257,13 +372,13 @@ local_business:
     locales:
       es:
         name: 4Geeks Academy Madrid
-        url: https://4geeks.com/es/ubicacion/madrid
+        url: https://4geeksacademy.com/es/ubicacion/madrid-spain
   mexicocity-mexico:
     type: LocalBusiness
     additional_type: EducationalOrganization
     name: 4Geeks Academy Mexico City
-    url: https://4geeks.com/en/location/mexico-city
-    logo: https://4geeks.com/wp-content/uploads/2024/01/4geeks-logo.png
+    url: https://4geeksacademy.com/en/location/mexicocity-mexico
+    logo: https://storage.googleapis.com/4geeks-academy-website/media/4geeks-devs-logo_1763162063433.png
     telephone: +52 55 1234 5678
     address:
       type: PostalAddress
@@ -287,4 +402,4 @@ local_business:
     locales:
       es:
         name: 4Geeks Academy Ciudad de México
-        url: https://4geeks.com/es/ubicacion/ciudad-de-mexico
+        url: https://4geeksacademy.com/es/ubicacion/ciudad-de-mexico

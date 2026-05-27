@@ -347,5 +347,190 @@ sections:
       desktop: lg
     background: hsl(var(--muted))
     section_id: certificate-2m89tr
+  - type: community_support
+    version: "1.0"
+    heading: A Global Developer Community Supporting Your Growth
+    description: 4Geeks is more than a bootcamp — it's a supportive network of tech pros, mentors, and fellow geeks to keep you moving forward in your career.
+    background: bg-primary/5
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Group-6606.webp
+    image_alt: 4Geeks global developer community
+    bullet_groups:
+      - title: Slack Community
+        badge: 6,000+ Members
+        icon: BrandSlack
+        accent_color: primary
+        description: Get real-time help from mentors, alumni, and peers through our active, theme specific channels — from coding support, to job boards and career advice (and yes, there's coding humor too!).
+      - title: 4Geeks.com
+        icon: Rigobot
+        accent_color: primary
+        description: Keep advancing your skills with further training resources, live events, and collaborative projects. Connect with people who've been where you are — and know how to help you get where you want to go.
+        button:
+          text: Visit Now
+          url: https://4geeks.com
+          variant: primary
+    section_id: community_support-7ziawo
+    paddingY:
+      desktop: sm
+  - type: list_press_mentions
+    version: v1.0
+    variant: cards
+    title: Featured in the Press
+    columns: 3
+    dynamic_entries:
+      database: press_mentions
+      limit: 6
+      sort: priority
+    section_id: list_press_mentions-uhjqnk
+    paddingY:
+      desktop: sm
+  - type: list_single_press_mention
+    version: "1.0"
+    organization: Forbes
+    title: 5 Best Online Full-Stack Bootcamps Of 2024
+    subtitle: "Ranked #1 in the Forbes Advisor analysis"
+    excerpt: Full-stack developers create and troubleshoot both the back-end and front-end of websites and software — an indispensable skill set. 4Geeks Academy ranked among the top 5 full-stack bootcamps nationally, standing out for mentorship, career support, and real-world project curriculum.
+    link_text: Read Article
+    link_url: https://www.forbes.com/advisor/education/bootcamps/best-coding-bootcamps/
+    button_icon: IconExternalLink
+    image: https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80
+    section_id: list_single_press_mention-bvf1bl
+    paddingY:
+      desktop: sm
+  - type: numbered_steps
+    version: "1.0"
+    title: How the Refund Works
+    description: Our commitment to your success is backed by a simple, transparent refund policy. If you've put in the work and followed our proven methodology, but haven't landed a job within 180 days of graduation, you're eligible for a full tuition refund.
+    description_link:
+      text: Conditions Apply.
+      url: /terms-and-conditions
+    background: bg-muted/30
+    steps:
+      - icon: School
+        text: Complete our intensive coding bootcamp and graduate within 180 days of your program start date.
+      - icon: Briefcase
+        text: Actively apply for jobs using our career services, attend all coaching sessions, and follow our job search methodology.
+      - icon: Cash
+        text: If you haven't received a qualifying job offer within 180 days of graduation, request your full tuition refund.
+    section_id: numbered_steps-1jav2b
+    paddingY:
+      desktop: sm
+  - type: pricing_plans
+    version: v1.0
+    id: pricing-plans-section
+    title: Choose Your Plan
+    subtitle: Flexible options to match your learning goals. Cancel anytime.
+    cta_label: Get Started
+    cta_url: /en/apply
+    section_id: pricing_plans-j7xy2d
+    paddingY:
+      desktop: sm
+  - type: two_column
+    version: v1.0
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    gap: "8"
+    left:
+      video: "-2ZvlgDnltc"
+      justify: center
+    right:
+      heading: See It In Action
+      sub_heading: Watch how our platform transforms careers
+      description: Our AI-powered learning platform adapts to your pace and style, providing personalized guidance every step of the way.
+      button:
+        text: Start Free Trial
+        url: /signup
+        variant: primary
+        icon: Rocket
+    section_id: two_column-3nvfsk
+    paddingY:
+      desktop: sm
+  - type: two_column
+    version: v1.0
+    proportions:
+      - 7
+      - 5
+    alignment: center
+    gap: "12"
+    left:
+      heading: Learn By Doing
+      sub_heading: Hands-on projects from day one
+      description: Our project-based curriculum ensures you're building real applications while learning core concepts. No more boring tutorials—start creating immediately.
+      text_align: left
+    right:
+      image: https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop
+      image_alt: Student coding on laptop
+      justify: end
+    section_id: two_column-8pumht
+    paddingY:
+      desktop: sm
+  - type: two_column_accordion_card
+    version: "1.0"
+    variant: image_background
+    title: Everything You Need to Succeed in an AI-Driven Industry
+    description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
+    bullets:
+      - heading: 1:1 Mentorship, Unlimited and for Life
+        text: Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the program and continue receiving support long after you graduate.
+      - heading: AI-Powered Learning Support
+        text: Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve continuously with guidance tailored to your learning path.
+      - heading: Career Support, Unlimited and for Life
+        text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
+      - heading: An Active Global Tech Community
+        text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp
+    image_alt: Student working on AI project
+    image_object_fit: cover
+    paddingY:
+      desktop: md none
+    section_id: two_column_accordion_card-wlnjlr
+  - type: why_learn_ai
+    version: "1.0"
+    variant: default
+    title: Why Should I Learn to Build and Code with AI?
+    subtitle: Software Development as You Know It Will Cease to Exist
+    description: Coding with AI will become a new standard, but it's a very different profession from traditional software development. The developers who embrace AI tools now will have a significant advantage in the job market.
+    cta:
+      text: Join now!
+      url: /signup
+      variant: primary
+    section_id: why_learn_ai-o8i4id
+    paddingY:
+      desktop: sm
+  - type: mentorship
+    version: v1.0
+    title: Mentorship & Support
+    subtitle: You're never alone in your learning journey
+    cards:
+      - icon: user
+        title: 1-on-1 Mentorship
+        description: Weekly sessions with experienced developers who guide you through challenges and help you grow professionally.
+      - icon: users
+        title: Career Coaching
+        description: Dedicated career coaches help you build your resume, prepare for interviews, and connect with hiring partners.
+      - icon: headset
+        title: 24/7 Community Support
+        description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
+    section_id: mentorship-6uxehn
+    paddingY:
+      desktop: sm
+  - type: mentorship
+    version: v1.0
+    title: Mentorship & Support
+    subtitle: You're never alone in your learning journey
+    cards:
+      - icon: user
+        title: 1-on-1 Mentorship
+        description: Weekly sessions with experienced developers who guide you through challenges and help you grow professionally.
+      - icon: users
+        title: Career Coaching
+        description: Dedicated career coaches help you build your resume, prepare for interviews, and connect with hiring partners.
+      - icon: headset
+        title: 24/7 Community Support
+        description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
+    section_id: mentorship-6xenja
+    paddingY:
+      desktop: sm
 meta:
   page_title: limpieza componentes-final

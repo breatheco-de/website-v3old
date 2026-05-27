@@ -202,7 +202,6 @@ sections:
         - item_property_slug: related_features
           value:
             - career-support
-
   - type: split_cards
     variant: primary-left
     primary:
@@ -317,6 +316,25 @@ sections:
     background: hsl(var(--muted))
     paddingY:
       desktop: md lg
+  - type: faq
+    title: Frequently Asked Questions about 4Geeks Academy in Caracas
+    marginY:
+      desktop: lg none
+    background: hsl(var(--muted))
+    paddingY:
+      desktop: md lg
+    items:
+      - question: ¿Qué tipo de bootcamps ofrece 4Geeks Academy en Caracas?
+        answer: En Caracas, ofrecemos bootcamps de Full Stack Developer, donde aprenderás a construir aplicaciones web completas. También tenemos programas de Data Science & ML para aquellos interesados en el análisis de datos y la inteligencia artificial.
+      - question: ¿Qué hace diferente a 4Geeks Academy de otros bootcamps en Venezuela?
+        answer: Nuestro enfoque se centra en el mentoring individual ilimitado (GeekPAL) y el apoyo de carrera de por vida (GeekFORCE). Además, contamos con una comunidad activa y clases en vivo con instructores senior, lo que garantiza un aprendizaje personalizado y efectivo.
+      - question: ¿Necesito experiencia previa en programación para unirme al bootcamp?
+        answer: No, nuestros bootcamps están diseñados para personas de todos los niveles, desde principiantes hasta aquellos con experiencia previa. Te guiaremos paso a paso para que adquieras las habilidades necesarias para tener éxito en la industria tecnológica.
+      - question: ¿Qué tipo de apoyo de carrera ofrece 4Geeks Academy a sus graduados?
+        answer: Ofrecemos apoyo de carrera de por vida a través de GeekFORCE, que incluye asesoramiento personalizado, preparación para entrevistas y acceso a nuestra red de empresas colaboradoras. Nuestro objetivo es ayudarte a conseguir el trabajo de tus sueños.
+      - question: ¿Cómo puedo financiar mi bootcamp en 4Geeks Academy Caracas?
+        answer: Ofrecemos diferentes opciones de financiamiento, incluyendo planes de pago flexibles y acuerdos con instituciones financieras. Contáctanos para conocer más detalles sobre cómo hacer tu bootcamp más accesible.
+    section_id: faq-botafj
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career
