@@ -259,18 +259,6 @@ sections:
     background: bg-background
     paddingY:
       desktop: none
-  - type: testimonials_slide
-    section_id: testimonials_slide-7jjh6e
-    title: The Stories Behind the Stats
-    description: Discover how our graduates transformed their careers
-    dynamic_entries:
-      database: testimonials_en
-      limit: 20
-      permanent_filters:
-        - item_property_slug: related_features
-          value:
-            - career-support
-            - mentors-and-teachers
   - type: split_cards
     version: v1.0
     variant: primary-left
@@ -287,6 +275,18 @@ sections:
     section_id: split_cards-mtw-4grplx
     paddingY:
       desktop: sm
+  - type: testimonials_slide
+    section_id: testimonials_slide-7jjh6e
+    title: The Stories Behind the Stats
+    description: Discover how our graduates transformed their careers
+    dynamic_entries:
+      database: testimonials_en
+      limit: 20
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - career-support
+            - mentors-and-teachers
   - type: why_learn_ai
     section_id: why_learn_ai-8djag6
     variant: laptop-edge
