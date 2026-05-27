@@ -36,6 +36,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "singleColumn:image.src": "image-picker",
   "singleColumn:cta_buttons[]": "cta-picker",
   "course:layout_reversed": "boolean-toggle",
+  "course:description": "rich-text-editor",
   "course:signup_card.login_link.text": "rich-text-editor",
   "course:video.url": "video-picker",
   "productShowcase:video.url": "video-picker",
