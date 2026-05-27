@@ -94,6 +94,25 @@ sections:
     paddingY:
       mobile: sm none
       desktop: md none
+  - type: two_column
+    version: v1.0
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    gap: "8"
+    left:
+      video: https://www.youtube.com/watch?v=MBXqEnhodx0
+      justify: center
+    right:
+      heading: The impact of unlimited technical mentorship.
+      description: Joao shares how 1:1 mentorship supported him through the program and beyond.
+    marginY:
+      desktop: none sm
+    paddingY:
+      desktop: lg
+    background: bg-background
+    section_id: two_column-wtzzue
   - type: community_support
     section_id: community_support-hnuq6q
     version: "1.0"
@@ -114,25 +133,6 @@ sections:
     background: bg-primary/5
     paddingY:
       desktop: none md
-  - type: two_column
-    version: v1.0
-    proportions:
-      - 6
-      - 6
-    alignment: center
-    gap: "8"
-    left:
-      video: https://www.youtube.com/watch?v=MBXqEnhodx0
-      justify: center
-    right:
-      heading: The impact of unlimited technical mentorship.
-      description: Joao shares how 1:1 mentorship supported him through the program and beyond.
-    marginY:
-      desktop: none sm
-    paddingY:
-      desktop: lg
-    background: bg-background
-    section_id: two_column-wtzzue
   - type: testimonials_slide
     section_id: testimonials_slide-rrnpaj
     title: Real Careers Start Here
