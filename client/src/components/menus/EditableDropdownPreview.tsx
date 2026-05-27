@@ -455,6 +455,8 @@ function EditableCardsPreview({
 }) {
   const items = dropdown.items || [];
   const itemIds = items.map((_, index) => `card-${index}`);
+  const [editingFooter, setEditingFooter] = useState(false);
+  const [footerDraft, setFooterDraft] = useState("");
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -572,33 +574,64 @@ function EditableCardsPreview({
               Add footer
             </button>
           )
-        ) : (
-          <div className="space-y-3">
-            <div className="flex items-center justify-between gap-2">
-              <span className="text-sm font-medium text-foreground">Footer</span>
-              {!isReadOnlyStructure && (
-                <button
-                  onClick={() => onChange({ ...dropdown, footer: undefined })}
-                  className="p-1 rounded-md text-destructive hover-elevate"
-                  data-testid="editable-cards-remove-footer"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              )}
-            </div>
+        ) : editingFooter ? (
+          <div className="space-y-2">
             <RichTextArea
-              value={dropdown.footer.text}
-              onChange={(text) =>
-                onChange({
-                  ...dropdown,
-                  footer: { text },
-                })
-              }
+              value={footerDraft}
+              onChange={setFooterDraft}
               placeholder="Footer content — use bold, links, line breaks, etc."
               minHeight="4rem"
               locale={locale}
               data-testid="editable-cards-footer-text"
             />
+            <div className="flex justify-end gap-2">
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setEditingFooter(false)}
+                data-testid="editable-cards-footer-cancel"
+              >
+                Cancel
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => {
+                  onChange({ ...dropdown, footer: { text: footerDraft } });
+                  setEditingFooter(false);
+                }}
+                data-testid="editable-cards-footer-save"
+              >
+                Save
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className="group/footer relative">
+            <div
+              className="text-center text-sm text-muted-foreground"
+              dangerouslySetInnerHTML={{ __html: dropdown.footer.text || "<em>Empty footer</em>" }}
+            />
+            {!isReadOnlyStructure && (
+              <div className="absolute top-0 right-0 flex gap-1 opacity-0 group-hover/footer:opacity-100 transition-opacity">
+                <button
+                  onClick={() => {
+                    setFooterDraft(dropdown.footer!.text);
+                    setEditingFooter(true);
+                  }}
+                  className="p-1 rounded-md bg-background border border-border text-muted-foreground hover-elevate"
+                  data-testid="editable-cards-footer-edit"
+                >
+                  <Pencil className="h-3.5 w-3.5" />
+                </button>
+                <button
+                  onClick={() => onChange({ ...dropdown, footer: undefined })}
+                  className="p-1 rounded-md bg-background border border-border text-destructive hover-elevate"
+                  data-testid="editable-cards-remove-footer"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>
