@@ -116,7 +116,7 @@ sections:
     maxWidth:
       desktop: 6xl
     paddingY:
-      desktop: md none
+      desktop: sm none
   - type: career_support_explain
     maxWidth:
       desktop: 6xl
