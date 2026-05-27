@@ -1699,9 +1699,12 @@ function FieldMappingEditor({
   };
 
   const addHintOption = () => {
-    const trimmed = hintDialogNewOption.trim();
-    if (!trimmed || hintDialogOptions.includes(trimmed)) return;
-    setHintDialogOptions((prev) => [...prev, trimmed]);
+    const newOpts = hintDialogNewOption
+      .split(",")
+      .map(s => s.trim())
+      .filter(s => s.length > 0 && !hintDialogOptions.includes(s));
+    if (newOpts.length === 0) return;
+    setHintDialogOptions(prev => [...prev, ...newOpts]);
     setHintDialogNewOption("");
   };
 
@@ -2101,27 +2104,25 @@ function FieldMappingEditor({
             {(hintDialogType === "select" || hintDialogType === "tags") && (
               <div className="space-y-2">
                 <Label className="text-xs">Options</Label>
-                <div className="flex gap-2">
-                  <Input
+                <div className="flex gap-2 items-start">
+                  <Textarea
                     value={hintDialogNewOption}
                     onChange={(e) => setHintDialogNewOption(e.target.value)}
-                    placeholder="Add an option..."
-                    className="text-sm flex-1"
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") { e.preventDefault(); addHintOption(); }
-                    }}
-                    data-testid="input-hint-new-option"
+                    placeholder="One or more comma separated values. E.g: one, two, three"
+                    className="text-sm flex-1 resize-none"
+                    rows={2}
+                    data-testid="textarea-hint-bulk-input"
                   />
                   <Button
                     type="button"
                     size="sm"
                     variant="outline"
                     onClick={addHintOption}
-                    disabled={!hintDialogNewOption.trim() || hintDialogOptions.includes(hintDialogNewOption.trim())}
-                    data-testid="button-add-hint-option"
+                    disabled={!hintDialogNewOption.trim()}
+                    data-testid="button-add-hint-options-bulk"
                   >
                     <Plus className="h-3.5 w-3.5 mr-1" />
-                    Add
+                    {hintDialogNewOption.split(",").filter(s => s.trim().length > 0).length > 1 ? "Add multiple" : "Add"}
                   </Button>
                 </div>
                 {hintDialogOptions.length > 0 && (
