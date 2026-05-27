@@ -629,11 +629,5 @@
       "value": "1.6px"
     }
   ],
-  "preview_examples": [
-    {
-      "component": "cta_banner",
-      "version": "v1.0",
-      "example": "Start Your Career CTA"
-    }
-  ]
+  "preview_examples": []
 }
