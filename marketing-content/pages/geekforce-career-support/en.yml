@@ -290,6 +290,8 @@ sections:
           value:
             - career-support
             - mentors-and-teachers
+    paddingY:
+      desktop: md none
   - type: why_learn_ai
     section_id: why_learn_ai-8djag6
     variant: laptop-edge
