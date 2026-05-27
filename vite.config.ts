@@ -83,9 +83,7 @@ export default defineConfig(async ({ isSsrBuild }) => ({
           if (id.includes('lucide-react')) {
             return 'icons-lucide';
           }
-          if (id.includes('@radix-ui')) {
-            return 'radix-ui';
-          }
+
           if (id.includes('i18next') || id.includes('react-i18next')) {
             return 'i18n';
           }
