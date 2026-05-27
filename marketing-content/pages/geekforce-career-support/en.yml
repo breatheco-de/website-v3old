@@ -231,6 +231,8 @@ sections:
               - image_id: bid_logo
             description: Melanie is a young professional who dreamed of achieving the life she now has. She is a resourceful and committed software developer working at a software company in her home country.
             achievement: She achieved a 100% salary increase.
+    marginY:
+      desktop: none lg
   - type: numbered_steps
     section_id: numbered_steps-2brbw1
     version: "1.0"
@@ -259,6 +261,8 @@ sections:
     background: bg-background
     paddingY:
       desktop: none
+    marginY:
+      desktop: md none
   - type: testimonials_slide
     section_id: testimonials_slide-7jjh6e
     title: The Stories Behind the Stats
