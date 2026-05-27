@@ -262,7 +262,7 @@ sections:
     paddingY:
       desktop: none lg
     marginY:
-      desktop: md lg
+      desktop: lg
   - type: why_learn_ai
     section_id: why_learn_ai-8djag6
     variant: laptop-edge
