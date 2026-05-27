@@ -111,7 +111,6 @@ sections:
       desktop: none sm
     paddingY:
       desktop: lg
-    background: bg-background
     section_id: two_column-wtzzue
   - type: community_support
     section_id: community_support-hnuq6q
