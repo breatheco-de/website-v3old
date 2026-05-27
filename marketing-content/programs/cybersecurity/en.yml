@@ -43,7 +43,7 @@ sections:
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
-    description: Graduate job-ready for one of tech's most in-demand fields, with the skills and support to land positions paying $75K–$130K+.
+    description: "Graduate job-ready for one of tech's most in-demand fields, with the skills and support to land positions paying $75K–$130K+.<div><br></div><div><span style=\"font-size: 12px; text-align: center;\">Florida residents: Only our full-stack development program is authorized by the Commission for Independent Education in Florida. Our job guarantee bundle is not offered in Florida where our only physical location is in Miami.</span></div>"
     signup_card:
       title: Get the Full Program Overview
       description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, financing options and more. It takes 2 minutes."

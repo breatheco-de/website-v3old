@@ -939,6 +939,7 @@ export function RichTextArea({
             locale={locale}
             contextPath={contextPath}
             testId={testId ? `${testId}-link` : "rich-text-link"}
+            compact
           />
         </div>
 

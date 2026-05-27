@@ -45,7 +45,7 @@ sections:
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
-    description: Named Forbes Advisor's Best Online Data Science Program with a Job Guarantee, 2025. Graduates land roles paying $80K–$150K+.
+    description: "Named Forbes Advisor's Best Online Data Science Program with a Job Guarantee, 2025. Graduates land roles paying $80K–$150K+.<div><br></div><div><span style=\"font-size: 12px; text-align: center;\">Florida residents: Only our full-stack development program is authorized by the Commission for Independent Education in Florida. Our job guarantee bundle is not offered in Florida where our only physical location is in Miami.</span></div>"
     video:
       url: https://youtu.be/snI-n8Ruvxg
     media:
