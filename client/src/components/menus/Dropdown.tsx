@@ -52,6 +52,7 @@ interface CardsDropdownData {
     text: string;
     linkText?: string;
     href: string;
+    disclaimer?: string;
   };
 }
 
@@ -144,10 +145,11 @@ function CardsDropdown({ dropdown, onNavigate }: { dropdown: CardsDropdownData; 
           .
         </div>
       )}
-      {dropdown.footer && (
-        <p className="mt-2 text-center text-xs text-muted-foreground/70">
-          Florida residents: Only our full-stack development program is authorized by the Commission for Independent Education in Florida. Our job guarantee bundle is not offered in Florida where our only physical location is in Miami.
-        </p>
+      {dropdown.footer?.disclaimer && (
+        <p
+          className="mt-2 text-center text-xs text-muted-foreground/70"
+          dangerouslySetInnerHTML={{ __html: dropdown.footer.disclaimer }}
+        />
       )}
     </div>
   );

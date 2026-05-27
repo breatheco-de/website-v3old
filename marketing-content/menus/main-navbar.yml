@@ -36,6 +36,7 @@ navbar:
           text: Unsure which program fits you best? See our program comparison
           linkText: here
           href: /en/program-comparison
+          disclaimer: "Florida residents: Only our full-stack development program is authorized by the Commission for Independent Education in Florida. Our job guarantee bundle is not offered in Florida where our only physical location is in Miami."
     - label: WHY 4GEEKS
       href: /why-4geeks
       component: Dropdown

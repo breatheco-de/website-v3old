@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { BarChart3, Brain, Building, ChevronRight, Code, GraduationCap, GripVertical, Link, Medal, Pencil, Plus, Shield, Trash2 } from "lucide-react";
+import { BarChart3, Brain, Building, ChevronRight, Code, GraduationCap, GripVertical, Link, Medal, Pencil, Plus, Shield, Trash2, X } from "lucide-react";
+import { RichTextArea } from "@/components/editing/RichTextArea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -281,6 +282,7 @@ interface CardsDropdownData {
     text: string;
     linkText?: string;
     href: string;
+    disclaimer?: string;
   };
 }
 
@@ -555,6 +557,103 @@ function EditableCardsPreview({
           </div>
         </SortableContext>
       </DndContext>
+
+      <div className="mt-6 pt-4 border-t">
+        {!dropdown.footer ? (
+          !isReadOnlyStructure && (
+            <button
+              onClick={() =>
+                onChange({
+                  ...dropdown,
+                  footer: { text: "", linkText: "", href: "" },
+                })
+              }
+              className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-md border-2 border-dashed border-muted-foreground/30 hover:border-primary/50 hover:bg-primary/5 transition-colors text-sm text-muted-foreground"
+              data-testid="editable-cards-add-footer"
+            >
+              <Plus className="h-4 w-4" />
+              Add footer
+            </button>
+          )
+        ) : (
+          <div className="space-y-3">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-sm font-medium text-foreground">Footer</span>
+              {!isReadOnlyStructure && (
+                <button
+                  onClick={() => onChange({ ...dropdown, footer: undefined })}
+                  className="p-1 rounded-md text-destructive hover-elevate"
+                  data-testid="editable-cards-remove-footer"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              <div className="space-y-1">
+                <Label className="text-xs">Text</Label>
+                <Input
+                  value={dropdown.footer.text}
+                  onChange={(e) =>
+                    onChange({
+                      ...dropdown,
+                      footer: { ...dropdown.footer!, text: e.target.value },
+                    })
+                  }
+                  placeholder="Footer text"
+                  className="h-8 text-sm"
+                  data-testid="editable-cards-footer-text"
+                />
+              </div>
+              <div className="space-y-1">
+                <Label className="text-xs">Link label</Label>
+                <Input
+                  value={dropdown.footer.linkText || ""}
+                  onChange={(e) =>
+                    onChange({
+                      ...dropdown,
+                      footer: { ...dropdown.footer!, linkText: e.target.value },
+                    })
+                  }
+                  placeholder="here"
+                  className="h-8 text-sm"
+                  data-testid="editable-cards-footer-linktext"
+                />
+              </div>
+              <div className="space-y-1">
+                <Label className="text-xs">Link URL</Label>
+                <SitemapSearch
+                  value={dropdown.footer.href}
+                  onChange={(href) =>
+                    onChange({
+                      ...dropdown,
+                      footer: { ...dropdown.footer!, href },
+                    })
+                  }
+                  locale={locale}
+                  testId="editable-cards-footer-href"
+                />
+              </div>
+            </div>
+            <div className="space-y-1">
+              <Label className="text-xs">Disclaimer (rich text)</Label>
+              <RichTextArea
+                value={dropdown.footer.disclaimer || ""}
+                onChange={(disclaimer) =>
+                  onChange({
+                    ...dropdown,
+                    footer: { ...dropdown.footer!, disclaimer },
+                  })
+                }
+                placeholder="Optional disclaimer text..."
+                minHeight="3rem"
+                locale={locale}
+                data-testid="editable-cards-footer-disclaimer"
+              />
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
