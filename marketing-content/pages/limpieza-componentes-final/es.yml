@@ -360,10 +360,6 @@ sections:
         icon: BrandSlack
         accent_color: primary
         description: Get real-time help from mentors, alumni, and peers through our active, theme specific channels — from coding support, to job boards and career advice (and yes, there's coding humor too!).
-        button:
-          text: Join Now
-          url: https://4geeks.com/slack
-          variant: primary
       - title: 4Geeks.com
         icon: Rigobot
         accent_color: primary
