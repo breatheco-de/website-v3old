@@ -292,6 +292,12 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
         ? (mergedView!.sections as Record<string, unknown>[])
         : [];
 
+      // Helper: return the first non-empty string ID from a section object
+      const getSectionId = (s: Record<string, unknown>): string | null =>
+        typeof s.id === "string" && s.id ? s.id
+          : typeof s.section_id === "string" && s.section_id ? s.section_id
+          : null;
+
       const opsToRemove = new Set<number>();
 
       for (let opIdx = 0; opIdx < resolvedOperations.length; opIdx++) {
@@ -389,8 +395,51 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
           opsToRemove.add(opIdx);
 
         } else {
-          // Boundary move: one template section + one per-entry section — not supported
-          throw new Error("Cannot reorder: template sections and per-entry sections cannot be swapped");
+          // Boundary move: one template section + one per-entry section.
+          // We handle this by updating _insertAfterSectionId on the per-entry section
+          // so it appears in the new visual position within this entry's merged view.
+          // The shared template file is NOT modified — this only affects this entry.
+          const localSections = Array.isArray(localeData.sections)
+            ? (localeData.sections as Record<string, unknown>[])
+            : [];
+
+          let perEntrySectionId: string | null;
+          let newAnchorId: string | null;
+
+          if (fromIsPerEntry) {
+            // Per-entry section moving past a template section
+            perEntrySectionId = getSectionId(fromSection);
+            if (fromIdx < toIdx) {
+              // Moving DOWN: anchor becomes the template section it moved past
+              newAnchorId = getSectionId(toSection);
+            } else {
+              // Moving UP: anchor becomes the section that will be just before the new slot
+              newAnchorId = toIdx > 0 ? getSectionId(mergedSections[toIdx - 1]) : null;
+            }
+          } else {
+            // Template section moving past a per-entry section.
+            // Only the per-entry section's anchor changes (template file unchanged).
+            perEntrySectionId = getSectionId(toSection);
+            if (fromIdx < toIdx) {
+              // Template moving DOWN past per-entry: per-entry shifts up to fromIdx
+              newAnchorId = fromIdx > 0 ? getSectionId(mergedSections[fromIdx - 1]) : null;
+            } else {
+              // Template moving UP past per-entry: per-entry shifts down to fromIdx
+              newAnchorId = getSectionId(fromSection);
+            }
+          }
+
+          if (!perEntrySectionId) {
+            throw new Error("Cannot resolve per-entry section ID for boundary reorder");
+          }
+
+          const localSection = localSections.find(s => getSectionId(s) === perEntrySectionId);
+          if (!localSection) {
+            throw new Error(`Per-entry section "${perEntrySectionId}" not found in local per-entry file`);
+          }
+
+          localSection._insertAfterSectionId = newAnchorId;
+          opsToRemove.add(opIdx);
         }
       }
 

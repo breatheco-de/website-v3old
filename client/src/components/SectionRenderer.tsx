@@ -776,9 +776,11 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
       const isPerEntry = !!rawSection?._perEntrySource;
       const adjacentIsPerEntry = !!adjacentSection?._perEntrySource;
 
-      // Block boundary moves (template ↔ per-entry): server cannot handle them
       if (isPerEntry !== adjacentIsPerEntry) {
-        toast({ title: "Cannot move section across template/per-entry boundary", variant: "destructive" });
+        // Boundary move: per-entry section crossing a template section boundary.
+        // The server handles this by updating _insertAfterSectionId — no confirmation
+        // needed because the shared template is not modified.
+        await performMove(index, index - 1);
         return;
       }
 
@@ -820,9 +822,11 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
       const isPerEntry = !!rawSection?._perEntrySource;
       const adjacentIsPerEntry = !!adjacentSection?._perEntrySource;
 
-      // Block boundary moves (template ↔ per-entry): server cannot handle them
       if (isPerEntry !== adjacentIsPerEntry) {
-        toast({ title: "Cannot move section across template/per-entry boundary", variant: "destructive" });
+        // Boundary move: per-entry section crossing a template section boundary.
+        // The server handles this by updating _insertAfterSectionId — no confirmation
+        // needed because the shared template is not modified.
+        await performMove(index, index + 1);
         return;
       }
 
