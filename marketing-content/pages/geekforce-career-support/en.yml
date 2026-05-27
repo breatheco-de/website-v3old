@@ -419,7 +419,9 @@ sections:
           - quito-ecuador
           - santiago-chile
     marginY:
-      desktop: none
+      desktop: none lg
+    paddingY:
+      desktop: none lg
   - type: cta_banner
     section_id: cta_banner-22d9ft
     version: "1.0"
