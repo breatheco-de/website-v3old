@@ -278,6 +278,127 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
       }
     }
 
+    // Handle reorder_sections for DB-backed per-entry pages.
+    // The client sends merged-view indices. We must translate them appropriately:
+    //   • Both template sections   → forward reorder to the shared template file; swap
+    //                                _insertAfterSectionId anchors in the per-entry data.
+    //   • Both per-entry sections  → translate merged indices to local per-entry indices
+    //                                and apply the reorder directly to localeData.
+    //   • Boundary (mixed)         → explicit error; moving across template/per-entry
+    //                                boundary is not supported.
+    if (contentIndex.isDatabaseBacked(contentType) && resolvedOperations.some(op => op.action === "reorder_sections")) {
+      const mergedView = mergeSingleTemplate(contentType, locale, slug);
+      const mergedSections = Array.isArray(mergedView?.sections)
+        ? (mergedView!.sections as Record<string, unknown>[])
+        : [];
+
+      const opsToRemove = new Set<number>();
+
+      for (let opIdx = 0; opIdx < resolvedOperations.length; opIdx++) {
+        const op = resolvedOperations[opIdx];
+        if (op.action !== "reorder_sections") continue;
+
+        const fromIdx = (op as { from: number }).from;
+        const toIdx = (op as { to: number }).to;
+        const fromSection = mergedSections[fromIdx] as Record<string, unknown> | undefined;
+        const toSection = mergedSections[toIdx] as Record<string, unknown> | undefined;
+
+        if (!fromSection || !toSection) {
+          throw new Error(`Invalid section indices for reorder: from=${fromIdx} to=${toIdx} (merged view has ${mergedSections.length} sections)`);
+        }
+
+        const fromIsPerEntry = !!fromSection._perEntrySource;
+        const toIsPerEntry = !!toSection._perEntrySource;
+
+        if (!fromIsPerEntry && !toIsPerEntry) {
+          // Both are template sections: forward reorder to shared template file
+          const templateFilePath = path.join(
+            path.dirname(path.dirname(filePath)),
+            `single.${locale}.yml`,
+          );
+
+          if (!fs.existsSync(templateFilePath)) {
+            throw new Error(`Shared template file not found: ${templateFilePath}`);
+          }
+
+          const rawTemplate = fs.readFileSync(templateFilePath, "utf-8");
+          const templateData = (contentIndex.safeYamlLoad(rawTemplate) as Record<string, unknown>) || {};
+          const templateSections = Array.isArray(templateData.sections)
+            ? (templateData.sections as Record<string, unknown>[])
+            : [];
+
+          const fromId = typeof fromSection.id === "string" ? fromSection.id : null;
+          const toId = typeof toSection.id === "string" ? toSection.id : null;
+
+          // Resolve template-file indices by section ID (avoids merged-vs-template index divergence)
+          const tplFrom = fromId ? templateSections.findIndex(s => s.id === fromId) : -1;
+          const tplTo = toId ? templateSections.findIndex(s => s.id === toId) : -1;
+
+          if (tplFrom === -1 || tplTo === -1) {
+            throw new Error(`Could not find template sections by ID (from="${fromId}", to="${toId}") — sections may lack id fields`);
+          }
+
+          const [moved] = templateSections.splice(tplFrom, 1);
+          templateSections.splice(tplTo, 0, moved);
+          templateData.sections = templateSections;
+
+          const updatedYaml = safeYamlDump(templateData, {
+            lineWidth: -1,
+            noRefs: true,
+            quotingType: '"',
+            forceQuotes: false,
+          });
+          fs.writeFileSync(templateFilePath, updatedYaml, "utf-8");
+          markFileAsModified(templateFilePath, request.author);
+
+          // Swap _insertAfterSectionId anchors that pointed to either moved section,
+          // so per-entry sections keep their intended visual position relative to neighbours.
+          if (fromId && toId) {
+            const localSections = Array.isArray(localeData.sections)
+              ? (localeData.sections as Record<string, unknown>[])
+              : [];
+            for (const s of localSections) {
+              const anchor = s._insertAfterSectionId;
+              if (anchor === fromId) s._insertAfterSectionId = toId;
+              else if (anchor === toId) s._insertAfterSectionId = fromId;
+            }
+          }
+
+          // Remove the reorder op so it is NOT applied to the per-entry file array
+          opsToRemove.add(opIdx);
+
+        } else if (fromIsPerEntry && toIsPerEntry) {
+          // Both are per-entry sections: find their local indices in the per-entry file
+          const localSections = Array.isArray(localeData.sections)
+            ? (localeData.sections as Record<string, unknown>[])
+            : [];
+          const fromId = typeof fromSection.id === "string" ? fromSection.id : null;
+          const toId = typeof toSection.id === "string" ? toSection.id : null;
+          const localFrom = fromId ? localSections.findIndex(s => s.id === fromId) : -1;
+          const localTo = toId ? localSections.findIndex(s => s.id === toId) : -1;
+
+          if (localFrom === -1 || localTo === -1) {
+            throw new Error(`Per-entry sections not found in local file (from="${fromId}", to="${toId}")`);
+          }
+
+          // Apply the reorder directly to localeData (written to per-entry file at end of editContent)
+          const [moved] = localSections.splice(localFrom, 1);
+          localSections.splice(localTo, 0, moved);
+
+          // Remove from resolvedOperations to prevent double-apply via applyOperation
+          opsToRemove.add(opIdx);
+
+        } else {
+          // Boundary move: one template section + one per-entry section — not supported
+          throw new Error("Cannot reorder: template sections and per-entry sections cannot be swapped");
+        }
+      }
+
+      if (opsToRemove.size > 0) {
+        resolvedOperations = resolvedOperations.filter((_, i) => !opsToRemove.has(i));
+      }
+    }
+
     // Apply all operations to the locale data (this is what gets saved)
     for (const operation of resolvedOperations) {
       applyOperation(localeData, operation);
@@ -323,12 +444,13 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
 
 /**
  * Returns true for operations that structurally change the sections array
- * on the shared template file (add, remove, or full section swap).
+ * on the shared template file (add, remove, reorder, or full section swap).
  */
 function isStructuralOp(op: EditOperation): boolean {
   if (op.action === "add_item" && op.path === "sections") return true;
   if (op.action === "remove_item" && op.path === "sections") return true;
   if (op.action === "update_section" && (op as { structural?: boolean }).structural === true) return true;
+  if (op.action === "reorder_sections") return true;
   return false;
 }
 
