@@ -305,15 +305,15 @@ sections:
     variant: primary-left
     background: muted
     primary:
-      badge: Results-Backed Promise
-      heading: The Confidence of a Job Guarantee
-      description: "The strongest proof that we believe in our model? We back it with a Job Guarantee. Most schools promise \"career support.\" At 4Geeks, we promise results: get hired within 9 months, or we refund your tuition in full. Conditions apply."
+      badge: Federally Validated
+      heading: Chosen by the U.S. Government. Backed by Outcomes.
+      description: "4Geeks was selected from more than 50 training providers to deliver a federal workforce program in South Florida. The result: 96% of placed graduates landed full-time roles, and we exceeded every placement target set by the program."
     secondary:
       benefits:
-        - text: Our curriculum is industry-aligned and AI-ready
-        - text: Our mentorship is unlimited and personalized
-        - text: Our career support never expires
-    section_id: split_cards-b8pu2x
+        - text: 96% of placed graduates landed full-time positions
+        - text: 116% of the federal placement target achieved
+        - text: Selected from 50+ providers by the U.S. Economic Development Administration
+    section_id: split_cards-mtw-4grplx
     paddingY:
       desktop: sm
   - type: stats_cards
