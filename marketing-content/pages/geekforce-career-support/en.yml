@@ -276,14 +276,14 @@ sections:
     variant: primary-left
     background: muted
     primary:
-      badge: Federally Validated
+      badge: Good Jobs Challenge
       heading: Chosen by the U.S. Government. Backed by Outcomes.
       description: From 2023 to 2026, 4Geeks was selected from more than 50 training schools to deliver a workforce development program in South Florida. We didn't just meet the targets — we exceeded every one of them.
     secondary:
       benefits:
         - text: 96% of placed graduates landed full-time positions
         - text: 116% of the federal placement target achieved
-        - text: Selected from more than 50 schools nationwide
+        - text: Placed graduates earning between $74K and $196K
     section_id: split_cards-mtw-4grplx
     paddingY:
       desktop: sm
