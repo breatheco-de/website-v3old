@@ -485,6 +485,19 @@ sections:
     paddingY:
       desktop: md none
     section_id: two_column_accordion_card-wlnjlr
+  - type: why_learn_ai
+    version: "1.0"
+    variant: default
+    title: Why Should I Learn to Build and Code with AI?
+    subtitle: Software Development as You Know It Will Cease to Exist
+    description: Coding with AI will become a new standard, but it's a very different profession from traditional software development. The developers who embrace AI tools now will have a significant advantage in the job market.
+    cta:
+      text: Join now!
+      url: /signup
+      variant: primary
+    section_id: why_learn_ai-o8i4id
+    paddingY:
+      desktop: sm
   - type: mentorship
     version: v1.0
     title: Mentorship & Support
