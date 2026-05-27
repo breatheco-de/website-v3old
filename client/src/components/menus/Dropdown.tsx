@@ -50,8 +50,6 @@ interface CardsDropdownData {
   items: CardItem[];
   footer?: {
     text: string;
-    linkText?: string;
-    href: string;
   };
 }
 
@@ -131,18 +129,11 @@ function CardsDropdown({ dropdown, onNavigate }: { dropdown: CardsDropdownData; 
         })}
       </div>
       
-      {dropdown.footer && (
-        <div className="mt-6 pt-4 border-t text-center text-sm text-muted-foreground">
-          {dropdown.footer.text}{" "}
-          <InternalLink
-            href={dropdown.footer.href}
-            onNavigate={onNavigate}
-            className="text-primary hover:underline"
-          >
-            {dropdown.footer.linkText || "here"}
-          </InternalLink>
-          .
-        </div>
+      {dropdown.footer?.text && (
+        <div
+          className="mt-6 pt-4 border-t text-center text-sm text-muted-foreground [&_a]:text-primary [&_a]:no-underline [&_a:hover]:underline"
+          dangerouslySetInnerHTML={{ __html: dropdown.footer.text }}
+        />
       )}
     </div>
   );

@@ -117,9 +117,10 @@ interface LinkPickerProps {
   contextPath?: string;
   testId?: string;
   portalContainer?: HTMLElement | null;
+  compact?: boolean;
 }
 
-export function LinkPicker({ value, onChange, locale = "en", allSections, contextPath, testId = "link-picker", portalContainer }: LinkPickerProps) {
+export function LinkPicker({ value, onChange, locale = "en", allSections, contextPath, testId = "link-picker", portalContainer, compact = false }: LinkPickerProps) {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [customUrl, setCustomUrl] = useState(value || "");
@@ -230,15 +231,16 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
       <PopoverTrigger asChild>
         <button
           className={cn(
-            "group inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-md transition-colors max-w-full hover-elevate",
+            "group inline-flex items-center gap-1.5 text-xs rounded-md transition-colors hover-elevate",
+            compact ? "p-1" : "px-2 py-1 max-w-full",
             value
               ? "text-primary/80 bg-primary/5"
               : "text-muted-foreground"
           )}
           data-testid={testId}
         >
-          <DisplayIconComponent className="h-3 w-3 flex-shrink-0" />
-          <span className="truncate">{displayValue}</span>
+          <DisplayIconComponent className="h-3.5 w-3.5 flex-shrink-0" />
+          {!compact && <span className="truncate">{displayValue}</span>}
         </button>
       </PopoverTrigger>
       <PopoverContent className="w-80 p-0 z-[10001]" align="start" container={portalContainer}>

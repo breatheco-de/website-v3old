@@ -42,19 +42,124 @@ function internalHeaders(mcpToken?: string): Record<string, string> {
 }
 
 /**
- * Notify the main server that a file has been modified so it is enqueued
- * in the auto-commit debounce queue (same path as UI edits).
+ * Checks for a remote conflict before writing fields to a file.
+ * Reads the file, applies the field entries, computes intended content,
+ * then checks for remote conflicts. Returns a conflict error or null if safe to proceed.
  */
-async function notifyMarkModified(relativePath: string): Promise<void> {
+async function getConflictError(
+  filePath: string,
+  relativePath: string,
+  fieldEntries: Array<[string, unknown]>,
+  intendedChangeLabel: Record<string, unknown>
+): Promise<{ content: Array<{ type: "text"; text: string }>; isError: true } | null> {
+  const currentData = (fs.existsSync(filePath) ? safeLoad(fs.readFileSync(filePath, "utf-8")) : null) || {};
+  for (const [fp, val] of fieldEntries) {
+    setValueAtPath(currentData, fp, val);
+  }
+  const intendedContent = safeDump(currentData);
+  const conflictCheck = await checkRemoteConflict(relativePath);
+  if (conflictCheck.conflict) {
+    return conflictError({
+      relativePath,
+      remoteContent: conflictCheck.remoteContent,
+      intendedContent,
+      intendedChange: intendedChangeLabel,
+    });
+  }
+  return null;
+}
+
+/**
+ * Call the main server's /api/content/edit-sections endpoint.
+ * Returns an error response on failure, or null on success.
+ */
+async function callEditSectionsApi(
+  params: { contentType: string; slug: string; locale: string; variant?: string; operations: Record<string, unknown>[] },
+  mcpToken?: string
+): Promise<{ content: Array<{ type: "text"; text: string }>; isError: true } | null> {
+  try {
+    const url = `http://localhost:${MAIN_SERVER_PORT}/api/content/edit-sections`;
+    const res = await fetch(url, {
+      method: "POST",
+      headers: internalHeaders(mcpToken),
+      body: JSON.stringify({
+        contentType: params.contentType,
+        slug: params.slug,
+        locale: params.locale,
+        operations: params.operations,
+        ...(params.variant ? { variant: params.variant } : {}),
+      }),
+    });
+    const data = await res.json() as Record<string, unknown>;
+    if (!res.ok) {
+      return { content: [{ type: "text", text: (data.error as string) || `Server error: ${res.status}` }], isError: true };
+    }
+    return null;
+  } catch (e) {
+    return { content: [{ type: "text", text: `Failed to call edit-sections API: ${(e as Error).message}` }], isError: true };
+  }
+}
+
+/**
+ * Call the main server's /api/content/edit-common endpoint.
+ * Returns an error response on failure, or null on success.
+ */
+async function callEditCommonApi(
+  params: { contentType: string; slug: string; operations: Record<string, unknown>[] },
+  mcpToken?: string
+): Promise<{ content: Array<{ type: "text"; text: string }>; isError: true } | null> {
+  try {
+    const url = `http://localhost:${MAIN_SERVER_PORT}/api/content/edit-common`;
+    const res = await fetch(url, {
+      method: "POST",
+      headers: internalHeaders(mcpToken),
+      body: JSON.stringify({
+        contentType: params.contentType,
+        slug: params.slug,
+        operations: params.operations,
+      }),
+    });
+    const data = await res.json() as Record<string, unknown>;
+    if (!res.ok) {
+      return { content: [{ type: "text", text: (data.error as string) || `Server error: ${res.status}` }], isError: true };
+    }
+    return null;
+  } catch (e) {
+    return { content: [{ type: "text", text: `Failed to call edit-common API: ${(e as Error).message}` }], isError: true };
+  }
+}
+
+/**
+ * Call the main server's /api/content/refresh-cache endpoint to flush
+ * the in-memory content index after a direct FS write.
+ */
+async function callRefreshCacheApi(contentType?: string): Promise<void> {
+  try {
+    const url = `http://localhost:${MAIN_SERVER_PORT}/api/content/refresh-cache`;
+    await fetch(url, {
+      method: "POST",
+      headers: internalHeaders(),
+      body: JSON.stringify(contentType ? { contentType } : {}),
+    });
+  } catch {
+    // Non-fatal: cache will be refreshed on the next request.
+  }
+}
+
+/**
+ * Call the main server's /api/content/mark-modified endpoint to enqueue
+ * a file for Git auto-commit tracking after a direct FS write.
+ */
+async function callMarkModifiedApi(relativePath: string): Promise<void> {
   try {
     const url = `http://localhost:${MAIN_SERVER_PORT}/api/content/mark-modified`;
     await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: internalHeaders(),
       body: JSON.stringify({ path: relativePath }),
     });
   } catch {
-    // Non-fatal: auto-commit won't pick it up, but the file is still written.
+    // Non-fatal: Git auto-commit tracking is best-effort.
   }
 }
 
@@ -305,37 +410,6 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
   ]);
   const ALL_KNOWN_META_FIELDS = new Set([...META_COMMON_FIELDS, ...META_LOCALE_FIELDS]);
 
-  /**
-   * Write `fields` (already prefixed with `meta.`) into a single YAML file,
-   * performing conflict check, write, and mark-modified.
-   */
-  async function writeFieldsToFile(
-    filePath: string,
-    relativePath: string,
-    fieldEntries: Array<[string, unknown]>,
-    intendedChangeLabel: Record<string, unknown>
-  ): Promise<{ content: Array<{ type: "text"; text: string }>; isError?: boolean }> {
-    const currentData = (fs.existsSync(filePath) ? safeLoad(fs.readFileSync(filePath, "utf-8")) : null) || {};
-    for (const [fp, val] of fieldEntries) {
-      setValueAtPath(currentData, fp, val);
-    }
-    const intendedContent = safeDump(currentData);
-
-    const conflictCheck = await checkRemoteConflict(relativePath);
-    if (conflictCheck.conflict) {
-      return conflictError({
-        relativePath,
-        remoteContent: conflictCheck.remoteContent,
-        intendedContent,
-        intendedChange: intendedChangeLabel,
-      });
-    }
-
-    fs.writeFileSync(filePath, intendedContent, "utf-8");
-    await notifyMarkModified(relativePath);
-    return { content: [{ type: "text", text: `ok:${relativePath}` }] };
-  }
-
   // update_section_field
   mcp.tool(
     "update_section_field",
@@ -434,8 +508,13 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
       }
 
       const relativePath = `marketing-content/${getDirectory(resolved.contentType, resolved.config)}/${slug}/${fileName}`;
-      const result = await writeFieldsToFile(filePath, relativePath, [[fieldPath, value]], { fieldPath, value });
-      if (result.isError) return result;
+      const conflictErr = await getConflictError(filePath, relativePath, [[fieldPath, value]], { fieldPath, value });
+      if (conflictErr) return conflictErr;
+      const apiErr = await callEditSectionsApi(
+        { contentType: resolved.contentType, slug, locale, variant, operations: [{ action: "update_field", path: fieldPath, value }] },
+        mcpToken
+      );
+      if (apiErr) return apiErr;
       return { content: [{ type: "text", text: `Updated '${fieldPath}' in ${resolved.contentType}/${slug}/${fileName}` }] };
     }
   );
@@ -538,8 +617,15 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
       }
 
       const relativePath = `marketing-content/${getDirectory(resolved.contentType, resolved.config)}/${slug}/${fileName}`;
-      const result = await writeFieldsToFile(filePath, relativePath, Object.entries(fields), { fields });
-      if (result.isError) return result;
+      const fieldEntries = Object.entries(fields);
+      const conflictErr = await getConflictError(filePath, relativePath, fieldEntries, { fields });
+      if (conflictErr) return conflictErr;
+      const operations = fieldEntries.map(([p, v]) => ({ action: "update_field", path: p, value: v }));
+      const apiErr = await callEditSectionsApi(
+        { contentType: resolved.contentType, slug, locale, variant, operations },
+        mcpToken
+      );
+      if (apiErr) return apiErr;
       const count = Object.keys(fields).length;
       return { content: [{ type: "text", text: `Updated ${count} field${count !== 1 ? "s" : ""} in ${resolved.contentType}/${slug}/${fileName}` }] };
     }
@@ -660,8 +746,16 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
           return { content: [{ type: "text", text: `File not found: ${resolved.contentType}/${slug}/${fileName}` }], isError: true };
         }
         const relativePath = `marketing-content/${ctDir}/${slug}/${fileName}`;
-        const r = await writeFieldsToFile(filePath, relativePath, [[`meta.${field}`, value]], { field, value });
-        if (r.isError) return r;
+        const conflictErrF = await getConflictError(filePath, relativePath, [[`meta.${field}`, value]], { field, value });
+        if (conflictErrF) return conflictErrF;
+        const metaOp = { action: "update_field", path: `meta.${field}`, value };
+        if (isCommon) {
+          const apiErrF = await callEditCommonApi({ contentType: resolved.contentType, slug, operations: [metaOp] }, mcpToken);
+          if (apiErrF) return apiErrF;
+        } else {
+          const apiErrF = await callEditSectionsApi({ contentType: resolved.contentType, slug, locale, variant, operations: [metaOp] }, mcpToken);
+          if (apiErrF) return apiErrF;
+        }
         results.push(`meta.${field} → ${fileName}`);
       }
 
@@ -676,8 +770,16 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
         }
         const entries: Array<[string, unknown]> = Object.entries(custom_fields).map(([k, v]) => [`meta.${k}`, v]);
         const relativePath = `marketing-content/${ctDir}/${slug}/${fileName}`;
-        const r = await writeFieldsToFile(filePath, relativePath, entries, { custom_fields, target });
-        if (r.isError) return r;
+        const conflictErrC = await getConflictError(filePath, relativePath, entries, { custom_fields, target });
+        if (conflictErrC) return conflictErrC;
+        const ops = entries.map(([p, v]) => ({ action: "update_field", path: p, value: v }));
+        if (target === "common") {
+          const apiErrC = await callEditCommonApi({ contentType: resolved.contentType, slug, operations: ops }, mcpToken);
+          if (apiErrC) return apiErrC;
+        } else {
+          const apiErrC = await callEditSectionsApi({ contentType: resolved.contentType, slug, locale, variant, operations: ops }, mcpToken);
+          if (apiErrC) return apiErrC;
+        }
         results.push(`${Object.keys(custom_fields).map(k => `meta.${k}`).join(", ")} → ${fileName}`);
       }
 
@@ -805,8 +907,13 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
             return { content: [{ type: "text", text: (e as Error).message }], isError: true };
           }
           const relativePath = `marketing-content/${ctDir}/${slug}/_common.yml`;
-          const r = await writeFieldsToFile(filePath, relativePath, commonEntries, { fields: Object.fromEntries(commonEntries) });
-          if (r.isError) return r;
+          const conflictErrCE = await getConflictError(filePath, relativePath, commonEntries, { fields: Object.fromEntries(commonEntries) });
+          if (conflictErrCE) return conflictErrCE;
+          const apiErrCE = await callEditCommonApi(
+            { contentType: resolved.contentType, slug, operations: commonEntries.map(([p, v]) => ({ action: "update_field", path: p, value: v })) },
+            mcpToken
+          );
+          if (apiErrCE) return apiErrCE;
           results.push(`${commonEntries.map(([k]) => k).join(", ")} → _common.yml`);
         }
 
@@ -820,8 +927,13 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
             return { content: [{ type: "text", text: `File not found: ${resolved.contentType}/${slug}/${fileName}` }], isError: true };
           }
           const relativePath = `marketing-content/${ctDir}/${slug}/${fileName}`;
-          const r = await writeFieldsToFile(filePath, relativePath, localeEntries, { fields: Object.fromEntries(localeEntries) });
-          if (r.isError) return r;
+          const conflictErrLE = await getConflictError(filePath, relativePath, localeEntries, { fields: Object.fromEntries(localeEntries) });
+          if (conflictErrLE) return conflictErrLE;
+          const apiErrLE = await callEditSectionsApi(
+            { contentType: resolved.contentType, slug, locale, variant, operations: localeEntries.map(([p, v]) => ({ action: "update_field", path: p, value: v })) },
+            mcpToken
+          );
+          if (apiErrLE) return apiErrLE;
           results.push(`${localeEntries.map(([k]) => k).join(", ")} → ${fileName}`);
         }
       }
@@ -837,8 +949,16 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
         }
         const entries: Array<[string, unknown]> = Object.entries(custom_fields).map(([k, v]) => [`meta.${k}`, v]);
         const relativePath = `marketing-content/${ctDir}/${slug}/${fileName}`;
-        const r = await writeFieldsToFile(filePath, relativePath, entries, { custom_fields, target });
-        if (r.isError) return r;
+        const conflictErrMF = await getConflictError(filePath, relativePath, entries, { custom_fields, target });
+        if (conflictErrMF) return conflictErrMF;
+        const opsMF = entries.map(([p, v]) => ({ action: "update_field", path: p, value: v }));
+        if (target === "common") {
+          const apiErrMF = await callEditCommonApi({ contentType: resolved.contentType, slug, operations: opsMF }, mcpToken);
+          if (apiErrMF) return apiErrMF;
+        } else {
+          const apiErrMF = await callEditSectionsApi({ contentType: resolved.contentType, slug, locale, variant, operations: opsMF }, mcpToken);
+          if (apiErrMF) return apiErrMF;
+        }
         results.push(`${Object.keys(custom_fields).map(k => `meta.${k}`).join(", ")} → ${fileName}`);
       }
 
@@ -1035,13 +1155,17 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
       const localeData: Record<string, unknown> = { slug, title, meta: mergedMeta, sections: [] };
       const localeFilePath = path.join(pageDir, `${locale}.yml`);
       fs.writeFileSync(localeFilePath, safeDump(localeData), "utf-8");
-      const localeRelPath = `marketing-content/${getDirectory(contentType, config)}/${slug}/${locale}.yml`;
-      await notifyMarkModified(localeRelPath);
 
       const commonData: Record<string, unknown> = { slug, ...(common || {}) };
       fs.writeFileSync(path.join(pageDir, "_common.yml"), safeDump(commonData), "utf-8");
+
+      const localeRelPath = `marketing-content/${getDirectory(contentType, config)}/${slug}/${locale}.yml`;
       const commonRelPath = `marketing-content/${getDirectory(contentType, config)}/${slug}/_common.yml`;
-      await notifyMarkModified(commonRelPath);
+      await Promise.all([
+        callMarkModifiedApi(localeRelPath),
+        callMarkModifiedApi(commonRelPath),
+        callRefreshCacheApi(contentType),
+      ]);
 
       const urlPattern = config.url_pattern;
       let urls: Record<string, string> | undefined;
@@ -1272,8 +1396,11 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
         });
       }
 
-      fs.writeFileSync(localePath, intendedContent, "utf-8");
-      await notifyMarkModified(relativePath);
+      const removeApiErr = await callEditSectionsApi(
+        { contentType: resolved.contentType, slug, locale, variant, operations: [{ action: "remove_item", path: "sections", index }] },
+        mcpToken
+      );
+      if (removeApiErr) return removeApiErr;
       return { content: [{ type: "text", text: `Removed section at index ${index} (type: ${removed?.type ?? "unknown"}) from ${resolved.contentType}/${slug}/${fileName}` }] };
     }
   );
@@ -1368,8 +1495,8 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
       if (!isPermutation) {
         return { content: [{ type: "text", text: `Order must be a permutation of [0..${n - 1}] with no repeats. Got: [${order.join(", ")}]` }], isError: true };
       }
-      localeData.sections = order.map(i => sections[i]);
-      const intendedContent = safeDump(localeData);
+      const reorderedSections = order.map(i => sections[i]);
+      const intendedContent = safeDump({ ...localeData, sections: reorderedSections });
 
       const relativePath = `marketing-content/${getDirectory(resolved.contentType, resolved.config)}/${slug}/${fileName}`;
       const conflictCheck = await checkRemoteConflict(relativePath);
@@ -1382,8 +1509,11 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
         });
       }
 
-      fs.writeFileSync(localePath, intendedContent, "utf-8");
-      await notifyMarkModified(relativePath);
+      const reorderApiErr = await callEditSectionsApi(
+        { contentType: resolved.contentType, slug, locale, variant, operations: [{ action: "replace_all_sections", sections: reorderedSections }] },
+        mcpToken
+      );
+      if (reorderApiErr) return reorderApiErr;
       return { content: [{ type: "text", text: `Sections reordered in ${resolved.contentType}/${slug}/${fileName}` }] };
     }
   );

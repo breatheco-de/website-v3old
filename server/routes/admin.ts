@@ -1522,9 +1522,42 @@ export function registerAdminRoutes(app: Express): void {
       const after = typeof req.query.after === "string" ? req.query.after : "";
       const intent = typeof req.query.intent === "string" && req.query.intent !== "__global__" ? req.query.intent : undefined;
       const rankBy = req.query.rankBy === "pmi" ? "pmi" : "frequency";
+
       if (!after) {
-        return res.status(400).json({ error: "after query param required" });
+        // No preceding section — derive starting suggestions from topSequences
+        const data = readInsightsFile();
+        if (!data) return res.json([]);
+
+        const FALLBACK_MIN = 3;
+        const cluster =
+          intent && data.byIntent[intent] && data.byIntent[intent].pageCount >= FALLBACK_MIN
+            ? data.byIntent[intent]
+            : data.global;
+
+        const startCountMap = new Map<string, number>();
+        for (const seq of cluster.topSequences) {
+          if (seq.sequence.length > 0) {
+            const first = seq.sequence[0];
+            startCountMap.set(first, (startCountMap.get(first) ?? 0) + seq.count);
+          }
+        }
+
+        const total = Array.from(startCountMap.values()).reduce((s, v) => s + v, 0) || 1;
+        const results = Array.from(startCountMap.entries())
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 8)
+          .map(([type, count]) => ({
+            from: "__start__",
+            to: type,
+            count,
+            frequency: Math.round((count / total) * 1000) / 1000,
+            pmi: 0,
+            distance: 1,
+          }));
+
+        return res.json(results);
       }
+
       const suggestions = suggestNextComponent(after, intent, rankBy);
       res.json(suggestions);
     } catch (err) {

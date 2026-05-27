@@ -111,6 +111,7 @@ interface MenuItemData {
       text: string;
       linkText: string;
       href: string;
+      disclaimer?: string;
     };
   };
 }

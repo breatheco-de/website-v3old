@@ -128,6 +128,14 @@ export {
 } from "../marketing-content/component-registry/certificate/v1.0/schema";
 
 // ============================================
+// Re-export TextBlock Schemas from Component Registry
+// ============================================
+export {
+  textBlockSectionSchema,
+  type TextBlockSection,
+} from "../marketing-content/component-registry/text_block/v1.0/schema";
+
+// ============================================
 // Re-export Why Learn AI Schemas from Component Registry
 // ============================================
 export {

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { BarChart3, Brain, Building, ChevronRight, Code, GraduationCap, GripVertical, Link, Medal, Pencil, Plus, Shield, Trash2 } from "lucide-react";
+import { BarChart3, Brain, Building, ChevronRight, Code, GraduationCap, GripVertical, Link, Medal, Pencil, Plus, Shield, Trash2, X } from "lucide-react";
+import { RichTextArea } from "@/components/editing/RichTextArea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -279,8 +280,6 @@ interface CardsDropdownData {
   items?: CardItem[];
   footer?: {
     text: string;
-    linkText?: string;
-    href: string;
   };
 }
 
@@ -456,6 +455,8 @@ function EditableCardsPreview({
 }) {
   const items = dropdown.items || [];
   const itemIds = items.map((_, index) => `card-${index}`);
+  const [editingFooter, setEditingFooter] = useState(false);
+  const [footerDraft, setFooterDraft] = useState("");
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -555,6 +556,85 @@ function EditableCardsPreview({
           </div>
         </SortableContext>
       </DndContext>
+
+      <div className="mt-6 pt-4 border-t">
+        {!dropdown.footer ? (
+          !isReadOnlyStructure && (
+            <button
+              onClick={() =>
+                onChange({
+                  ...dropdown,
+                  footer: { text: "" },
+                })
+              }
+              className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-md border-2 border-dashed border-muted-foreground/30 hover:border-primary/50 hover:bg-primary/5 transition-colors text-sm text-muted-foreground"
+              data-testid="editable-cards-add-footer"
+            >
+              <Plus className="h-4 w-4" />
+              Add footer
+            </button>
+          )
+        ) : editingFooter ? (
+          <div className="space-y-2">
+            <RichTextArea
+              value={footerDraft}
+              onChange={setFooterDraft}
+              placeholder="Footer content — use bold, links, line breaks, etc."
+              minHeight="4rem"
+              locale={locale}
+              data-testid="editable-cards-footer-text"
+            />
+            <div className="flex justify-end gap-2">
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => setEditingFooter(false)}
+                data-testid="editable-cards-footer-cancel"
+              >
+                Cancel
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => {
+                  onChange({ ...dropdown, footer: { text: footerDraft } });
+                  setEditingFooter(false);
+                }}
+                data-testid="editable-cards-footer-save"
+              >
+                Save
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className="relative">
+            {!isReadOnlyStructure && (
+              <div className="flex justify-end gap-1 mb-1">
+                <button
+                  onClick={() => {
+                    setFooterDraft(dropdown.footer!.text);
+                    setEditingFooter(true);
+                  }}
+                  className="p-1 rounded-md bg-background border border-border text-muted-foreground hover-elevate"
+                  data-testid="editable-cards-footer-edit"
+                >
+                  <Pencil className="h-3.5 w-3.5" />
+                </button>
+                <button
+                  onClick={() => onChange({ ...dropdown, footer: undefined })}
+                  className="p-1 rounded-md bg-background border border-border text-destructive hover-elevate"
+                  data-testid="editable-cards-remove-footer"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            )}
+            <div
+              className="text-center text-sm text-muted-foreground [&_a]:text-primary [&_a]:no-underline [&_a:hover]:underline"
+              dangerouslySetInnerHTML={{ __html: dropdown.footer.text || "<em>Empty footer</em>" }}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

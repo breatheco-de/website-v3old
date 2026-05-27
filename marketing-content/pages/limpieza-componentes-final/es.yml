@@ -424,6 +424,80 @@ sections:
     section_id: pricing_plans-j7xy2d
     paddingY:
       desktop: sm
+  - type: two_column
+    version: v1.0
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    gap: "8"
+    left:
+      video: "-2ZvlgDnltc"
+      justify: center
+    right:
+      heading: See It In Action
+      sub_heading: Watch how our platform transforms careers
+      description: Our AI-powered learning platform adapts to your pace and style, providing personalized guidance every step of the way.
+      button:
+        text: Start Free Trial
+        url: /signup
+        variant: primary
+        icon: Rocket
+    section_id: two_column-3nvfsk
+    paddingY:
+      desktop: sm
+  - type: two_column
+    version: v1.0
+    proportions:
+      - 7
+      - 5
+    alignment: center
+    gap: "12"
+    left:
+      heading: Learn By Doing
+      sub_heading: Hands-on projects from day one
+      description: Our project-based curriculum ensures you're building real applications while learning core concepts. No more boring tutorials—start creating immediately.
+      text_align: left
+    right:
+      image: https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop
+      image_alt: Student coding on laptop
+      justify: end
+    section_id: two_column-8pumht
+    paddingY:
+      desktop: sm
+  - type: two_column_accordion_card
+    version: "1.0"
+    variant: image_background
+    title: Everything You Need to Succeed in an AI-Driven Industry
+    description: AI-ready training, expert guidance, and long-term support designed for the modern tech landscape.
+    bullets:
+      - heading: 1:1 Mentorship, Unlimited and for Life
+        text: Get personalized technical guidance whenever you need it. Work one-on-one with experienced mentors during the program and continue receiving support long after you graduate.
+      - heading: AI-Powered Learning Support
+        text: Get instant feedback from RigoBot, our built-in AI learning assistant. Practice, debug, and improve continuously with guidance tailored to your learning path.
+      - heading: Career Support, Unlimited and for Life
+        text: Receive expert, personalized career coaching focused on getting you hired. From job strategy and positioning to interviews and negotiation, support evolves with your goals and experience.
+      - heading: An Active Global Tech Community
+        text: Join a supportive Slack community of students, mentors, and alumni. Ask questions, share opportunities, and stay connected to a global network well beyond graduation.
+    image: https://storage.googleapis.com/4geeks-academy-website/media/caracas_graduates-470x315.webp
+    image_alt: Student working on AI project
+    image_object_fit: cover
+    paddingY:
+      desktop: md none
+    section_id: two_column_accordion_card-wlnjlr
+  - type: why_learn_ai
+    version: "1.0"
+    variant: default
+    title: Why Should I Learn to Build and Code with AI?
+    subtitle: Software Development as You Know It Will Cease to Exist
+    description: Coding with AI will become a new standard, but it's a very different profession from traditional software development. The developers who embrace AI tools now will have a significant advantage in the job market.
+    cta:
+      text: Join now!
+      url: /signup
+      variant: primary
+    section_id: why_learn_ai-o8i4id
+    paddingY:
+      desktop: sm
   - type: mentorship
     version: v1.0
     title: Mentorship & Support

@@ -202,7 +202,6 @@ sections:
         - item_property_slug: related_features
           value:
             - career-support
-
   - type: split_cards
     variant: primary-left
     primary:
@@ -307,16 +306,24 @@ sections:
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
   - type: faq
-    section_id: faq-ksitf4
-    title: Frequently Asked Questions
-    related_features:
-      - certification
-      - job-guarantee
+    title: Frequently Asked Questions about 4Geeks Academy in Caracas
     marginY:
       desktop: lg none
     background: hsl(var(--muted))
     paddingY:
       desktop: md lg
+    items:
+      - question: What types of bootcamps does 4Geeks Academy offer in Caracas?
+        answer: In Caracas, we offer Full Stack Developer bootcamps where you'll learn to build complete web applications. We also have Data Science & ML programs for those interested in data analysis and artificial intelligence.
+      - question: What makes 4Geeks Academy different from other bootcamps in Venezuela?
+        answer: Our approach centers on unlimited 1-on-1 mentorship (GeekPAL) and lifetime career support (GeekFORCE). We also have an active community and live classes with senior instructors, ensuring a personalized and effective learning experience.
+      - question: Do I need prior programming experience to join the bootcamp?
+        answer: No, our bootcamps are designed for people of all levels, from complete beginners to those with prior experience. We'll guide you step by step so you can acquire the skills needed to succeed in the tech industry.
+      - question: What kind of career support does 4Geeks Academy offer its graduates?
+        answer: We offer lifetime career support through GeekFORCE, which includes personalized coaching, interview preparation, and access to our network of partner companies. Our goal is to help you land your dream job in tech.
+      - question: How can I finance my bootcamp at 4Geeks Academy Caracas?
+        answer: We offer different financing options, including flexible payment plans and agreements with financial institutions. Contact us to learn more about how to make your bootcamp more accessible.
+    section_id: faq-botafj
   - type: cta_banner
     version: "1.0"
     title: Take the Next Step Toward Your Tech Career

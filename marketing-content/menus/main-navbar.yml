@@ -33,9 +33,7 @@ navbar:
             href: /en/career-programs/full-stack
             icon: code
         footer:
-          text: Unsure which program fits you best? See our program comparison
-          linkText: here
-          href: /en/program-comparison
+          text: '<b>Unsure which program fits you best? </b>See our program comparison <a href="/en/program-comparison">here</a>.<br><br><span style="font-size: 0.75rem;">Florida residents: Only our full-stack development program is authorized by the Commission for Independent Education in Florida. Our job guarantee bundle is not offered in Florida where our only physical location is in Miami.</span>'
     - label: WHY 4GEEKS
       href: /why-4geeks
       component: Dropdown

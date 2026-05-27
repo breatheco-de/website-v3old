@@ -1,5 +1,5 @@
-import { useRef, useCallback, useEffect, useMemo, useState } from "react";
-import { AlignJustify, Bold, CaseUpper, Eraser, ExternalLink, Italic, Link, Unlink, List, Loader2, Palette, Search, Space, Type } from "lucide-react";
+import { useRef, useCallback, useEffect, useState } from "react";
+import { AlignJustify, Bold, CaseUpper, Eraser, Italic, Unlink, List, Loader2, Palette, Space, Type } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
+import { LinkPicker } from "@/components/editing/LinkPicker";
 
 interface ThemeColor {
   id: string;
@@ -51,20 +52,6 @@ interface ThemeConfig {
   letterSpacings?: ThemeLetterSpacing[];
 }
 
-interface SitemapEntry {
-  loc: string;
-  label: string;
-}
-
-function extractPath(url: string): string {
-  try {
-    const parsed = new URL(url);
-    return parsed.pathname;
-  } catch {
-    return url;
-  }
-}
-
 export interface RichTextAreaProps {
   value: string;
   onChange: (html: string) => void;
@@ -72,6 +59,7 @@ export interface RichTextAreaProps {
   className?: string;
   minHeight?: string;
   locale?: string;
+  contextPath?: string;
   customOptions?: string[];
   "data-testid"?: string;
 }
@@ -541,6 +529,7 @@ export function RichTextArea({
   className,
   minHeight = "120px",
   locale = "en",
+  contextPath,
   customOptions,
   "data-testid": testId,
 }: RichTextAreaProps) {
@@ -626,6 +615,7 @@ export function RichTextArea({
     rect: DOMRect;
   } | null>(null);
   const linkPopoverRef = useRef<HTMLDivElement | null>(null);
+  const linkAnchorRef = useRef<HTMLAnchorElement | null>(null);
 
   // Keep "last non-collapsed selection" so we still have it when user opens color popover (focus move collapses selection)
   useEffect(() => {
@@ -642,33 +632,9 @@ export function RichTextArea({
     document.addEventListener("selectionchange", onSelectionChange);
     return () => document.removeEventListener("selectionchange", onSelectionChange);
   }, []);
-  const [linkOpen, setLinkOpen] = useState(false);
-  const [linkSearchQuery, setLinkSearchQuery] = useState("");
-  const [linkCustomMode, setLinkCustomMode] = useState(false);
-  const [linkCustomUrl, setLinkCustomUrl] = useState("");
-
   const { data: theme, isLoading: themeLoading } = useQuery<ThemeConfig>({
     queryKey: ["/api/theme"],
   });
-
-  const { data: sitemapUrls = [], isLoading: sitemapLoading } = useQuery<SitemapEntry[]>({
-    queryKey: ["/api/sitemap-urls", locale],
-    queryFn: async () => {
-      const response = await fetch(`/api/sitemap-urls?locale=${locale}`);
-      if (!response.ok) throw new Error("Failed to load sitemap URLs");
-      return response.json();
-    },
-    enabled: linkOpen,
-  });
-
-  const filteredLinkUrls = useMemo(() => {
-    if (!linkSearchQuery.trim()) return sitemapUrls;
-    const q = linkSearchQuery.toLowerCase();
-    return sitemapUrls.filter(
-      (entry) =>
-        entry.loc.toLowerCase().includes(q) || entry.label.toLowerCase().includes(q)
-    );
-  }, [sitemapUrls, linkSearchQuery]);
 
   const textColors = theme?.text ?? [];
   const fontSizes = theme?.fontSizes ?? [];
@@ -750,22 +716,14 @@ export function RichTextArea({
     [onChange],
   );
 
-  const handleLinkPopoverOpen = useCallback((open: boolean) => {
-    if (open) {
-      const sel = window.getSelection();
-      if (sel && sel.rangeCount > 0 && editableRef.current) {
-        const range = sel.getRangeAt(0);
-        if (!range.collapsed && editableRef.current.contains(range.commonAncestorContainer)) {
-          savedLinkSelectionRef.current = range.cloneRange();
-        }
+  const saveLinkSelection = useCallback(() => {
+    const sel = window.getSelection();
+    if (sel && sel.rangeCount > 0 && editableRef.current) {
+      const range = sel.getRangeAt(0);
+      if (!range.collapsed && editableRef.current.contains(range.commonAncestorContainer)) {
+        savedLinkSelectionRef.current = range.cloneRange();
       }
-      setLinkSearchQuery("");
-      setLinkCustomMode(false);
-      setLinkCustomUrl("");
-    } else {
-      savedLinkSelectionRef.current = null;
     }
-    setLinkOpen(open);
   }, []);
 
   const applyLink = useCallback(
@@ -783,14 +741,9 @@ export function RichTextArea({
       savedLinkSelectionRef.current = null;
       editableRef.current?.focus();
       applyCommand("createLink", url.trim());
-      setLinkOpen(false);
     },
     [applyCommand],
   );
-
-  const handleLinkCustomSubmit = useCallback(() => {
-    applyLink(linkCustomUrl);
-  }, [applyLink, linkCustomUrl]);
 
   const handleColorSelect = useCallback(
     (cssVar: string) => {
@@ -906,7 +859,9 @@ export function RichTextArea({
     if (!el.contains(target)) return;
     const a = (e.target as Element).closest?.("a");
     if (a && el.contains(a)) {
-      setLinkHoverPopover({ anchor: a as HTMLAnchorElement, rect: a.getBoundingClientRect() });
+      const anchorEl = a as HTMLAnchorElement;
+      linkAnchorRef.current = anchorEl;
+      setLinkHoverPopover({ anchor: anchorEl, rect: anchorEl.getBoundingClientRect() });
     }
   }, []);
 
@@ -917,17 +872,17 @@ export function RichTextArea({
   }, []);
 
   const handleUnlink = useCallback(() => {
-    if (!linkHoverPopover || !editableRef.current) return;
-    const { anchor } = linkHoverPopover;
-    const sel = window.getSelection();
-    if (sel) {
-      const range = document.createRange();
-      range.selectNodeContents(anchor);
-      sel.removeAllRanges();
-      sel.addRange(range);
+    const anchor = linkAnchorRef.current ?? linkHoverPopover?.anchor;
+    if (!anchor || !editableRef.current) return;
+    const parent = anchor.parentNode;
+    if (parent) {
+      while (anchor.firstChild) {
+        parent.insertBefore(anchor.firstChild, anchor);
+      }
+      parent.removeChild(anchor);
     }
-    document.execCommand("unlink", false);
-    if (editableRef.current) onChange(editableRef.current.innerHTML);
+    linkAnchorRef.current = null;
+    onChange(editableRef.current.innerHTML);
     setLinkHoverPopover(null);
   }, [linkHoverPopover, onChange]);
 
@@ -980,118 +935,16 @@ export function RichTextArea({
           <Eraser className="h-4 w-4" />
         </Button>
 
-        <Popover open={linkOpen} onOpenChange={handleLinkPopoverOpen}>
-          <PopoverTrigger asChild>
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8"
-              onMouseDown={(e) => e.preventDefault()}
-              title="Insert link"
-              data-testid={testId ? `${testId}-link` : undefined}
-            >
-              <Link className="h-4 w-4" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-80 p-0 z-[10000]" align="start">
-            <div className="p-2 border-b">
-              <div className="relative">
-                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  value={linkSearchQuery}
-                  onChange={(e) => {
-                    setLinkSearchQuery(e.target.value);
-                    setLinkCustomMode(false);
-                  }}
-                  placeholder="Search pages..."
-                  className="h-8 pl-8 text-sm"
-                  autoFocus
-                  data-testid={testId ? `${testId}-link-search` : undefined}
-                />
-              </div>
-            </div>
-            {linkCustomMode ? (
-              <div className="p-2 space-y-2">
-                <p className="text-xs text-muted-foreground">Enter a custom URL:</p>
-                <div className="flex gap-2">
-                  <Input
-                    value={linkCustomUrl}
-                    onChange={(e) => setLinkCustomUrl(e.target.value)}
-                    placeholder="/custom-url or https://..."
-                    className="h-8 text-sm flex-1"
-                    autoFocus
-                    onKeyDown={(e) => e.key === "Enter" && handleLinkCustomSubmit()}
-                    data-testid={testId ? `${testId}-link-custom-input` : undefined}
-                  />
-                  <Button size="sm" className="h-8" onClick={handleLinkCustomSubmit} data-testid={testId ? `${testId}-link-custom-save` : undefined}>
-                    Save
-                  </Button>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setLinkCustomMode(false)}
-                  className="text-xs text-muted-foreground hover:underline px-1 py-0.5 rounded"
-                >
-                  Back to search
-                </button>
-              </div>
-            ) : (
-              <>
-                <ScrollArea className="h-[200px]">
-                  {sitemapLoading ? (
-                    <div className="p-4 text-sm text-muted-foreground text-center">
-                      Loading pages...
-                    </div>
-                  ) : filteredLinkUrls.length === 0 ? (
-                    <div className="p-4 text-sm text-muted-foreground text-center">
-                      {linkSearchQuery ? "No pages found" : "No pages available"}
-                    </div>
-                  ) : (
-                    <div className="p-1">
-                      {filteredLinkUrls.map((entry: SitemapEntry, index: number) => (
-                        <button
-                          key={entry.loc}
-                          type="button"
-                          onMouseDown={(e) => {
-                            e.preventDefault();
-                            applyLink(extractPath(entry.loc));
-                          }}
-                          className="w-full text-left px-2 py-1.5 rounded-md text-sm hover:bg-muted/50 flex items-start gap-2"
-                          data-testid={testId ? `${testId}-link-option-${index}` : undefined}
-                        >
-                          <div className="flex-1 min-w-0">
-                            <div className="font-medium text-foreground truncate text-xs">
-                              {entry.label}
-                            </div>
-                            <div className="text-xs text-muted-foreground truncate">
-                              {extractPath(entry.loc)}
-                            </div>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </ScrollArea>
-                <div className="p-2 border-t">
-                  <button
-                    type="button"
-                    onMouseDown={(e) => e.preventDefault()}
-                    onClick={() => {
-                      setLinkCustomMode(true);
-                      setLinkCustomUrl("");
-                    }}
-                    className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-sm text-muted-foreground hover:bg-muted/50"
-                    data-testid={testId ? `${testId}-link-custom-toggle` : undefined}
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                    <span>Use custom URL</span>
-                  </button>
-                </div>
-              </>
-            )}
-          </PopoverContent>
-        </Popover>
+        <div onMouseDown={saveLinkSelection}>
+          <LinkPicker
+            value=""
+            onChange={applyLink}
+            locale={locale}
+            contextPath={contextPath}
+            testId={testId ? `${testId}-link` : "rich-text-link"}
+            compact
+          />
+        </div>
 
         <Popover open={colorOpen} onOpenChange={handleColorPopoverOpen}>
           <PopoverTrigger asChild>

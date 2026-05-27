@@ -1079,6 +1079,22 @@ export function registerSectionsRoutes(app: Express): void {
     }
   });
 
+  app.post("/api/content/refresh-cache", async (req, res) => {
+    try {
+      const { authorized } = await requireCapability(req, res, "content_edit_structure");
+      if (!authorized) return;
+
+      const { contentType } = req.body as { contentType?: string };
+      contentIndex.refresh();
+      if (contentType && typeof contentType === "string") {
+        invalidateContentCaches(contentType);
+      }
+      res.json({ ok: true });
+    } catch (err) {
+      res.status(500).json({ error: err instanceof Error ? err.message : "Unknown error" });
+    }
+  });
+
   app.post("/api/content/edit-common", async (req, res) => {
     try {
       const auth = await requireCapability(req, res, "content_edit_text", req.body.contentType || undefined);
