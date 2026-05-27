@@ -117,6 +117,8 @@ sections:
     background: bg-primary/5
     paddingY:
       desktop: none md
+    marginY:
+      desktop: lg sm
   - type: two_column
     section_id: two_column-wtzzue
     proportions:
