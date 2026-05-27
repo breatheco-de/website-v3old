@@ -629,7 +629,7 @@ function EditableCardsPreview({
               </div>
             )}
             <div
-              className="text-center text-sm text-muted-foreground"
+              className="text-center text-sm text-muted-foreground [&_a]:text-primary [&_a]:no-underline [&_a:hover]:underline"
               dangerouslySetInnerHTML={{ __html: dropdown.footer.text || "<em>Empty footer</em>" }}
             />
           </div>

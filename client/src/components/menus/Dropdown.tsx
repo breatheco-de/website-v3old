@@ -131,7 +131,7 @@ function CardsDropdown({ dropdown, onNavigate }: { dropdown: CardsDropdownData; 
       
       {dropdown.footer?.text && (
         <div
-          className="mt-6 pt-4 border-t text-center text-sm text-muted-foreground"
+          className="mt-6 pt-4 border-t text-center text-sm text-muted-foreground [&_a]:text-primary [&_a]:no-underline [&_a:hover]:underline"
           dangerouslySetInnerHTML={{ __html: dropdown.footer.text }}
         />
       )}
