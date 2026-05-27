@@ -423,7 +423,7 @@ sections:
   - type: cta_banner
     section_id: cta_banner-22d9ft
     version: "1.0"
-    title: Ready to Get Hired in Tech?
+    title: Ready to Launch Your Tech Career?
     subtitle: 84% of our graduates land tech jobs. GeekForce is how. Join the next cohort and we will be with you every step of the way, for life.
     background: hsl(var(--primary))
     variant: form
