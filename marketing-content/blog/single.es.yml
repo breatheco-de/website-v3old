@@ -21,6 +21,7 @@ sections:
       src: {{ single.image | https://storage.googleapis.com/4geeks-academy-website/media/Group-original_1765419144159.webp }}
     image_full_width: false
     section_id: hero-4dyjfe
+    id: hero-j3g7yh
   - type: article
     section_id: article-631g5w
     show_toc: true
