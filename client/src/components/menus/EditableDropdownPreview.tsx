@@ -606,13 +606,9 @@ function EditableCardsPreview({
             </div>
           </div>
         ) : (
-          <div className="group/footer relative">
-            <div
-              className="text-center text-sm text-muted-foreground"
-              dangerouslySetInnerHTML={{ __html: dropdown.footer.text || "<em>Empty footer</em>" }}
-            />
+          <div className="relative">
             {!isReadOnlyStructure && (
-              <div className="absolute top-0 right-0 flex gap-1 opacity-0 group-hover/footer:opacity-100 transition-opacity">
+              <div className="flex justify-end gap-1 mb-1">
                 <button
                   onClick={() => {
                     setFooterDraft(dropdown.footer!.text);
@@ -632,6 +628,10 @@ function EditableCardsPreview({
                 </button>
               </div>
             )}
+            <div
+              className="text-center text-sm text-muted-foreground"
+              dangerouslySetInnerHTML={{ __html: dropdown.footer.text || "<em>Empty footer</em>" }}
+            />
           </div>
         )}
       </div>
