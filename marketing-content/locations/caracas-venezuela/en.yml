@@ -306,17 +306,6 @@ sections:
         comment: Started as a complete beginner, now leading a team of developers. Forever grateful.
         outcome: Promoted in 1 year
   - type: faq
-    section_id: faq-ksitf4
-    title: Frequently Asked Questions
-    related_features:
-      - certification
-      - job-guarantee
-    marginY:
-      desktop: lg none
-    background: hsl(var(--muted))
-    paddingY:
-      desktop: md lg
-  - type: faq
     title: Frequently Asked Questions about 4Geeks Academy in Caracas
     marginY:
       desktop: lg none
