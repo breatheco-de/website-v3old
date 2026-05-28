@@ -8,93 +8,44 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import type { FAQSection as FAQSectionType } from "@shared/schema";
-import { useLocation as useWouterLocation } from "wouter";
-import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
 import { useInternalNav } from "@/hooks/useInternalNav";
-import { filterFaqsByRelatedFeatures, faqItemKey, type FaqItem } from "@/lib/faqConstants";
+import { faqItemKey } from "@/lib/faqConstants";
 import { useSession } from "@/contexts/SessionContext";
-import { useSectionContext } from "@/contexts/SectionContext";
 
 interface FAQSectionProps {
   data: FAQSectionType;
 }
 
 export function FAQSection({ data }: FAQSectionProps) {
-  const { slug, contentType } = useSectionContext();
-  const programSlug = contentType === "program" ? slug : undefined;
   const handleLinkClick = useInternalNav();
-  const [pathname] = useWouterLocation();
-  const { i18n } = useTranslation();
-  const locale = i18n.language?.startsWith("es") ? "es" : "en";
   const { session } = useSession();
   const sessionLocationSlug = session.location?.slug;
-
-  const locationSlugMatch = pathname.match(/^\/(en|es)\/(location|ubicacion)\/([^/]+)/);
-  const locationSlug = locationSlugMatch ? locationSlugMatch[3] : undefined;
 
   const itemOverrides = (data as Record<string, unknown>).item_overrides as
     | Record<string, { hideOnLocations?: string[] }>
     | undefined;
 
-  // Client-side fetch is only needed for location pages (legacy related_features at root).
-  // All other pages (home, landings, etc.) rely entirely on data.items resolved server-side
-  // via dynamic_entries + permanent_filters.
-  const { data: faqsData, isLoading } = useQuery<{ items: FaqItem[] }>({
-    queryKey: ["/api/databases/frequently_asked_questions/items"],
-    enabled: !!locationSlug,
-    staleTime: 5 * 60 * 1000,
-  });
-
   const faqItems = useMemo(() => {
-    // Primary source: server-resolved items from dynamic_entries
-    let items: Array<{ question: string; answer: string }> = [...(data.items || [])];
-
-    // Location pages: prepend client-fetched location-specific FAQs
-    if (locationSlug && faqsData) {
-      const localeItems = faqsData.items.filter(f => f.locale === locale);
-      const locationItems = filterFaqsByRelatedFeatures(localeItems, {
-        location: locationSlug,
-        limit: 9,
-        programSlug,
-      });
-      items = [...locationItems, ...items];
-    }
+    // Primary: server-resolved items from dynamic_entries merge.
+    // Fallback: hardcoded_entries for static-only sections (no dynamic_entries).
+    const hardcodedEntries = (data as Record<string, unknown>).hardcoded_entries as
+      | Array<{ question: string; answer: string }>
+      | undefined;
+    let items: Array<{ question: string; answer: string }> = [
+      ...(data.items?.length ? data.items : (hardcodedEntries ?? [])),
+    ];
 
     // Apply item_overrides (hideOnLocations)
-    if (itemOverrides && Object.keys(itemOverrides).length > 0) {
-      const effectiveLocation = locationSlug || sessionLocationSlug;
-      if (effectiveLocation) {
-        items = items.filter((item) => {
-          const key = faqItemKey(item.question);
-          const override = itemOverrides[key];
-          if (override?.hideOnLocations?.includes(effectiveLocation)) {
-            return false;
-          }
-          return true;
-        });
-      }
+    if (itemOverrides && Object.keys(itemOverrides).length > 0 && sessionLocationSlug) {
+      items = items.filter((item) => {
+        const key = faqItemKey(item.question);
+        const override = itemOverrides[key];
+        return !override?.hideOnLocations?.includes(sessionLocationSlug);
+      });
     }
 
     return items;
-  }, [data.items, faqsData, locationSlug, programSlug, itemOverrides, sessionLocationSlug, locale]);
-
-  if (isLoading && !!locationSlug) {
-    return (
-      <section data-testid="section-faq">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="animate-pulse">
-            <div className="h-10 w-64 bg-muted rounded mx-auto mb-8" />
-            <div className="space-y-4">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="h-16 bg-muted rounded" />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  }, [data, itemOverrides, sessionLocationSlug]);
 
   if (faqItems.length === 0) {
     return null;

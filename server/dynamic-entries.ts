@@ -183,8 +183,12 @@ export async function resolveDynamicEntries(
         items = sortItems(items, dynamicEntries.sort);
       }
 
+      const hardcodedEntries = (dynamicEntries?.hardcoded_entries || sec.hardcoded_entries) as unknown[] | undefined;
+      const hardcodedCount = Array.isArray(hardcodedEntries) ? hardcodedEntries.length : 0;
+
       if (dynamicEntries.limit && dynamicEntries.limit > 0) {
-        items = items.slice(0, dynamicEntries.limit);
+        const remainingSlots = Math.max(0, dynamicEntries.limit - hardcodedCount);
+        items = items.slice(0, remainingSlots);
       }
 
       let resolvedItems: unknown[];
@@ -207,7 +211,6 @@ export async function resolveDynamicEntries(
         });
       }
 
-      const hardcodedEntries = (dynamicEntries?.hardcoded_entries || sec.hardcoded_entries) as unknown[] | undefined;
       const finalItems = [
         ...(Array.isArray(hardcodedEntries) ? hardcodedEntries : []),
         ...resolvedItems,
