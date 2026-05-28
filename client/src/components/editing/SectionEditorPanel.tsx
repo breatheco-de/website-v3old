@@ -1384,7 +1384,46 @@ export function SectionEditorPanel({
 
         let updated: Record<string, unknown>;
 
-        if (value && value.length > 0) {
+        const pathParts = key.split(".");
+
+        if (pathParts.length > 1) {
+          // Nested path (e.g. "dynamic_entries.permanent_filters.related_features")
+          updated = parsed;
+          if (value && value.length > 0) {
+            let current: Record<string, unknown> = updated;
+            for (let i = 0; i < pathParts.length - 1; i++) {
+              const part = pathParts[i];
+              if (!current[part] || typeof current[part] !== "object") {
+                current[part] = {};
+              }
+              current = current[part] as Record<string, unknown>;
+            }
+            current[pathParts[pathParts.length - 1]] = value;
+          } else {
+            // Delete and clean up empty parent objects
+            let current: Record<string, unknown> = updated;
+            for (let i = 0; i < pathParts.length - 1; i++) {
+              const part = pathParts[i];
+              if (!current[part] || typeof current[part] !== "object") return;
+              current = current[part] as Record<string, unknown>;
+            }
+            delete current[pathParts[pathParts.length - 1]];
+            // Clean up empty parents bottom-up
+            for (let i = pathParts.length - 2; i >= 0; i--) {
+              const parentPath = pathParts.slice(0, i);
+              let parent: Record<string, unknown> = updated;
+              for (const p of parentPath) {
+                parent = parent[p] as Record<string, unknown>;
+              }
+              const child = parent[pathParts[i]];
+              if (child && typeof child === "object" && Object.keys(child as Record<string, unknown>).length === 0) {
+                delete parent[pathParts[i]];
+              } else {
+                break;
+              }
+            }
+          }
+        } else if (value && value.length > 0) {
           if (key === "related_features") {
             updated = buildOrderedResult(parsed, key, value);
           } else {
