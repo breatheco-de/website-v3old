@@ -1,4 +1,5 @@
 import { QdrantClient } from "@qdrant/js-client-rest";
+import { createHash } from "crypto";
 import { setJobState } from "./db-job-state";
 
 const QDRANT_URL = process.env.QDRANT_URL || "http://localhost:6333";
@@ -112,9 +113,18 @@ async function generateEmbeddings(texts: string[]): Promise<number[][]> {
   return embed(texts);
 }
 
-function itemId(item: Record<string, unknown>, index: number): string {
-  const slug = item.slug ?? item.id;
-  return slug !== undefined && slug !== null ? String(slug) : String(index);
+function toQdrantId(raw: unknown, fallback: number): number | string {
+  if (raw === undefined || raw === null) return fallback;
+  const str = String(raw);
+  const asNum = Number(str);
+  if (Number.isInteger(asNum) && asNum > 0 && String(asNum) === str) return asNum;
+  const h = createHash("md5").update(str).digest("hex");
+  return `${h.slice(0,8)}-${h.slice(8,12)}-${h.slice(12,16)}-${h.slice(16,20)}-${h.slice(20,32)}`;
+}
+
+function itemId(item: Record<string, unknown>, index: number): number | string {
+  const raw = item.slug ?? item.id;
+  return toQdrantId(raw, index + 1);
 }
 
 export async function indexItems(
