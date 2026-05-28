@@ -18,10 +18,10 @@ field_mapping:
   title: title
   description: description
   language: lang
-  published_at: published_at
-  asset_type: asset_type
-  url: url
-  readme_url: readme_url
+  updated_at: updated_at
   image_url: preview
   technologies: technologies
-  seo_keywords: seo_keywords
+  content: readme.decoded
+editor:
+  image_url:
+    cache_images: true

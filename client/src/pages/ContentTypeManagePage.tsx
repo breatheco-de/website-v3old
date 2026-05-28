@@ -644,14 +644,27 @@ function DataSourceDialog({
         },
       };
 
-      await apiRequest("PUT", `/api/content-types/${contentType}/config`, payload);
+      const res = await fetch(`/api/content-types/${contentType}/config`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      let data: Record<string, unknown> = {};
+      try { data = await res.json(); } catch { /* non-JSON */ }
+
+      if (!res.ok) {
+        toast({ title: (data.error as string) || "Failed to save configuration", variant: "destructive" });
+        return;
+      }
+
       queryClient.invalidateQueries({ queryKey: ["/api/content-types", contentType, "config"] });
       queryClient.invalidateQueries({ queryKey: ["/api/content-types", contentType, "items"] });
       queryClient.invalidateQueries({ queryKey: ["/api/content-types"] });
       toast({ title: `${label} configuration saved` });
       onOpenChange(false);
-    } catch {
-      toast({ title: "Failed to save configuration", variant: "destructive" });
+    } catch (err) {
+      toast({ title: err instanceof Error ? err.message : "Failed to save configuration", variant: "destructive" });
     } finally {
       setSaving(false);
     }
