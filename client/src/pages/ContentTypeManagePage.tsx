@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { AlertTriangle, ArrowLeft, ArrowRight, Check, Clipboard, Clock, Code, Copy, Database, Download, ExternalLink, Eye, EyeOff, FileText, Folder, GitBranch, Globe, History, LayoutList, Link as LinkIcon, Loader2, MoreVertical, Plus, RefreshCw, Search, Shuffle, Trash2, Wand2, X } from "lucide-react";
-import { IconChevronDown, IconChevronRight } from "@tabler/icons-react";
+import { IconChevronDown, IconChevronRight, IconExternalLink } from "@tabler/icons-react";
 import { queryClient } from "@/lib/queryClient";
 import { useState, useMemo, useEffect, useRef, useCallback, lazy, Suspense } from "react";
 import { Link, useRoute, useLocation } from "wouter";
@@ -3413,7 +3413,18 @@ export default function ContentTypeManagePage() {
                     {urlsExpanded && (
                       <ul className="pl-4 space-y-0.5 text-xs text-muted-foreground font-mono" data-testid="affected-urls-list">
                         {dryRunResult.affected_urls.slice(0, 10).map((url) => (
-                          <li key={url}>{url}</li>
+                          <li key={url}>
+                            <a
+                              href={url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 hover:underline text-muted-foreground hover:text-foreground transition-colors"
+                              data-testid={`affected-url-link-${url}`}
+                            >
+                              {url}
+                              <IconExternalLink className="h-3 w-3 flex-shrink-0" />
+                            </a>
+                          </li>
                         ))}
                         {dryRunResult.affected_urls.length > 10 && (
                           <li className="text-muted-foreground/70 font-sans" data-testid="affected-urls-overflow">
