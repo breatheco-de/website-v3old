@@ -1,15 +1,15 @@
-import OpenAI from "openai";
 import { QdrantClient } from "@qdrant/js-client-rest";
 
 const QDRANT_URL = process.env.QDRANT_URL || "http://localhost:6333";
-const VECTOR_SIZE = 1536;
-const EMBEDDING_MODEL = "text-embedding-3-small";
-const BATCH_SIZE = 64;
+const VECTOR_SIZE = 384;
+const EMBEDDING_MODEL = "Xenova/all-MiniLM-L6-v2";
+const BATCH_SIZE = 32;
 
 const AVAILABILITY_TTL_MS = 30_000;
 
 let qdrantClient: QdrantClient | null = null;
-let openaiClient: OpenAI | null = null;
+let _embedder: ((texts: string[]) => Promise<number[][]>) | null = null;
+let _embedderLoading: Promise<void> | null = null;
 let _available: boolean | null = null;
 let _availabilityCheckedAt = 0;
 
@@ -20,13 +20,33 @@ function getQdrantClient(): QdrantClient {
   return qdrantClient;
 }
 
-function getOpenAIClient(): OpenAI {
-  if (!openaiClient) {
-    const apiKey = process.env.OPENAI_API_KEY;
-    if (!apiKey) throw new Error("OPENAI_API_KEY not set");
-    openaiClient = new OpenAI({ apiKey });
+async function getEmbedder(): Promise<(texts: string[]) => Promise<number[][]>> {
+  if (_embedder) return _embedder;
+
+  if (!_embedderLoading) {
+    _embedderLoading = (async () => {
+      const { pipeline, env } = await import("@xenova/transformers");
+      env.allowLocalModels = false;
+      const pipe = await pipeline("feature-extraction", EMBEDDING_MODEL);
+
+      _embedder = async (texts: string[]): Promise<number[][]> => {
+        const output = await pipe(texts, { pooling: "mean", normalize: true });
+        const data: number[][] = [];
+        const dims = output.dims;
+        const batchSize = dims[0];
+        const vecSize = dims[dims.length - 1];
+        for (let i = 0; i < batchSize; i++) {
+          data.push(Array.from(output.data.slice(i * vecSize, (i + 1) * vecSize) as Float32Array));
+        }
+        return data;
+      };
+
+      console.log(`[vector-search] Local embedding model "${EMBEDDING_MODEL}" loaded`);
+    })();
   }
-  return openaiClient;
+
+  await _embedderLoading;
+  return _embedder!;
 }
 
 export async function isAvailable(): Promise<boolean> {
@@ -58,15 +78,18 @@ async function ensureCollection(dbName: string): Promise<void> {
   const client = getQdrantClient();
   const name = collectionName(dbName);
   try {
-    await client.getCollection(name);
+    const info = await client.getCollection(name);
+    const existingSize = (info.config?.params?.vectors as { size?: number } | undefined)?.size;
+    if (existingSize !== undefined && existingSize !== VECTOR_SIZE) {
+      console.log(`[vector-search] Collection "${name}" has vector size ${existingSize}, expected ${VECTOR_SIZE} — recreating`);
+      await client.deleteCollection(name);
+      throw new Error("recreate");
+    }
   } catch {
     await client.createCollection(name, {
-      vectors: {
-        size: VECTOR_SIZE,
-        distance: "Cosine",
-      },
+      vectors: { size: VECTOR_SIZE, distance: "Cosine" },
     });
-    console.log(`[vector-search] Created collection "${name}"`);
+    console.log(`[vector-search] Created collection "${name}" (size=${VECTOR_SIZE})`);
   }
 }
 
@@ -83,12 +106,8 @@ function buildText(item: Record<string, unknown>, fields: string[]): string {
 }
 
 async function generateEmbeddings(texts: string[]): Promise<number[][]> {
-  const openai = getOpenAIClient();
-  const response = await openai.embeddings.create({
-    model: EMBEDDING_MODEL,
-    input: texts,
-  });
-  return response.data.map((d) => d.embedding);
+  const embed = await getEmbedder();
+  return embed(texts);
 }
 
 function itemId(item: Record<string, unknown>, index: number): string {
