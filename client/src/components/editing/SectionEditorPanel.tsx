@@ -1420,15 +1420,27 @@ export function SectionEditorPanel({
                 if (idx >= 0) arr.splice(idx, 1);
                 if (arr.length === 0) delete parent["permanent_filters"];
               }
+            } else if (Array.isArray(existingPf)) {
+              // Already handled above (this branch is unreachable, kept for safety)
             } else {
-              // Object format (backward compat) — write as plain nested key
+              // permanent_filters is absent or object format — always create/update as array
               if (value && value.length > 0) {
-                if (!parent["permanent_filters"] || typeof parent["permanent_filters"] !== "object") {
-                  parent["permanent_filters"] = {};
+                if (Array.isArray(existingPf)) {
+                  // Array already exists (handled above), this is a safety fallback
+                  const arr = existingPf as Array<{ item_property_slug: string; value: unknown }>;
+                  const idx = arr.findIndex(f => f.item_property_slug === fieldName);
+                  if (idx >= 0) {
+                    arr[idx] = { ...arr[idx], value };
+                  } else {
+                    arr.push({ item_property_slug: fieldName, value });
+                  }
+                } else {
+                  // Create fresh array format (correct canonical format)
+                  parent["permanent_filters"] = [{ item_property_slug: fieldName, value }];
                 }
-                (parent["permanent_filters"] as Record<string, unknown>)[fieldName] = value;
               } else {
-                if (parent["permanent_filters"] && typeof parent["permanent_filters"] === "object") {
+                // Clearing: if object format existed, clean it up too
+                if (existingPf && !Array.isArray(existingPf) && typeof existingPf === "object") {
                   delete (parent["permanent_filters"] as Record<string, unknown>)[fieldName];
                   if (Object.keys(parent["permanent_filters"] as Record<string, unknown>).length === 0) {
                     delete parent["permanent_filters"];
@@ -4246,8 +4258,10 @@ export function SectionEditorPanel({
                   return null;
                 }
 
-                // For dotted simple fields like "cta_button.url", skip if the parent object doesn't exist in the YAML
-                if (isSimpleField && fieldPath.includes(".")) {
+                // For dotted simple fields like "cta_button.url", skip if the parent object doesn't exist in the YAML.
+                // Exception: self-initializing editors (e.g. related-features-picker) always show — they create the structure on save.
+                const selfInitializingEditors = new Set(["related-features-picker", "faq-visibility-editor"]);
+                if (isSimpleField && fieldPath.includes(".") && !selfInitializingEditors.has(editorType)) {
                   const parentParts = fieldPath.split(".");
                   let parentExists: unknown = parsedSection;
                   for (let i = 0; i < parentParts.length - 1; i++) {
