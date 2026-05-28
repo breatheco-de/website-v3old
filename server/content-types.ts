@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
 import { getSupportedLocales, getDefaultLocale } from "./settings";
+import { markFileAsModified } from "./sync-state";
 
 export interface DatabaseConfig {
   slug: string;
@@ -365,6 +366,7 @@ export function addContentType(name: string, config: ContentTypeEntry): void {
 
   const allTypes = { ...reg.types, [name]: config };
   writeConfigWithHeader(allTypes);
+  markFileAsModified(CONFIG_PATH);
   registry = null;
 
   const dirPath = path.join(process.cwd(), "marketing-content", config.directory);
@@ -397,7 +399,9 @@ export function addContentType(name: string, config: ContentTypeEntry): void {
       "    - website",
       "",
     ].join("\n");
-    fs.writeFileSync(path.join(sampleDir, "_common.yml"), commonYml);
+    const commonYmlPath = path.join(sampleDir, "_common.yml");
+    fs.writeFileSync(commonYmlPath, commonYml);
+    markFileAsModified(commonYmlPath);
 
     for (const locale of locales) {
       const localeYml = [
@@ -411,7 +415,9 @@ export function addContentType(name: string, config: ContentTypeEntry): void {
         "sections: []",
         "",
       ].join("\n");
-      fs.writeFileSync(path.join(sampleDir, `${locale}.yml`), localeYml);
+      const localeYmlPath = path.join(sampleDir, `${locale}.yml`);
+      fs.writeFileSync(localeYmlPath, localeYml);
+      markFileAsModified(localeYmlPath);
     }
 
     console.log(`[ContentTypes] Created sample entry: marketing-content/${config.directory}/${sampleSlug}/ (${locales.length} locale(s))`);
