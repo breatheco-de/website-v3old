@@ -415,14 +415,17 @@ export function FaqItemsVisibility({
 
   const openGlobalEdit = (faqItem: DisplayItem) => {
     const allDbItems = faqsData?.items ?? [];
+    // Match by question key AND locale to avoid cross-locale collisions
     const dbIndex = allDbItems.findIndex(
-      (i) => faqItemKey(i.question) === faqItemKey(faqItem.question),
+      (i) =>
+        faqItemKey(i.question) === faqItemKey(faqItem.question) &&
+        i.locale === locale,
     );
+    // Pass the FULL DB item so non-visible fields (locale, related_features, etc.)
+    // are preserved by buildItemFromForm and not overwritten with empty defaults
+    const fullItem = dbIndex !== -1 ? (allDbItems[dbIndex] as unknown as Record<string, unknown>) : null;
     setEditState({
-      item: { question: faqItem.question, answer: faqItem.answer } as Record<
-        string,
-        unknown
-      >,
+      item: fullItem,
       title: "Edit FAQ (all pages)",
       onSave: async (builtItem) => {
         if (dbIndex === -1) throw new Error("Item not found in database");
@@ -518,8 +521,11 @@ export function FaqItemsVisibility({
     setGlobalDeleting(true);
     try {
       const allDbItems = faqsData?.items ?? [];
+      // Match by question key AND locale to avoid cross-locale collisions
       const dbIndex = allDbItems.findIndex(
-        (i) => faqItemKey(i.question) === faqItemKey(globalDeleteConfirm.question),
+        (i) =>
+          faqItemKey(i.question) === faqItemKey(globalDeleteConfirm.question) &&
+          i.locale === locale,
       );
       if (dbIndex === -1) throw new Error("Item not found in database");
       const res = await fetch(`/api/databases/${FAQ_DB_NAME}/items/${dbIndex}`, {
