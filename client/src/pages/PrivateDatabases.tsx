@@ -3829,19 +3829,50 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                         />
                       </div>
                       {hasSemanticSearch ? (
-                        <p className="text-[10px] text-muted-foreground flex items-center gap-1 pl-0.5" data-testid="text-search-mode">
-                          {semanticFetching ? (
-                            <><Loader2 className="h-2.5 w-2.5 animate-spin" /> Searching…</>
-                          ) : debouncedSearch.trim() && semanticResults ? (
-                            semanticResults.semantic ? (
-                              <><Sparkles className="h-2.5 w-2.5 text-orange-500" /> Ranked by meaning</>
-                            ) : (
-                              <><Search className="h-2.5 w-2.5" /> Keyword match (semantic index unavailable)</>
-                            )
-                          ) : (
-                            <><Sparkles className="h-2.5 w-2.5 text-orange-500" /> Semantic search</>
-                          )}
-                        </p>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <button className="text-[10px] text-muted-foreground flex items-center gap-1 pl-0.5 hover:text-foreground transition-colors cursor-pointer" data-testid="text-search-mode">
+                              {semanticFetching ? (
+                                <><Loader2 className="h-2.5 w-2.5 animate-spin" /> Searching…</>
+                              ) : debouncedSearch.trim() && semanticResults ? (
+                                semanticResults.semantic ? (
+                                  <><Sparkles className="h-2.5 w-2.5 text-orange-500" /> Ranked by meaning</>
+                                ) : (
+                                  <><Search className="h-2.5 w-2.5" /> Keyword match (semantic index unavailable)</>
+                                )
+                              ) : (
+                                <><Sparkles className="h-2.5 w-2.5 text-orange-500" /> Semantic search</>
+                              )}
+                            </button>
+                          </PopoverTrigger>
+                          <PopoverContent side="bottom" align="start" className="w-80 text-xs p-4 space-y-3">
+                            <div className="flex items-center gap-2">
+                              <Sparkles className="h-4 w-4 text-orange-500 shrink-0" />
+                              <p className="font-medium text-sm">Semantic Search</p>
+                            </div>
+                            <p className="text-muted-foreground">
+                              Instead of matching exact words, this search understands the <strong className="text-foreground">meaning</strong> of your query. Type a concept or question and it will find the most relevant entries even if they use different words.
+                            </p>
+                            <p className="text-muted-foreground">
+                              Results are ranked by similarity score — the closest matches appear first.
+                            </p>
+                            {config?.vector_search?.fields && config.vector_search.fields.length > 0 && (
+                              <div className="space-y-1">
+                                <p className="font-medium text-foreground">Indexed fields</p>
+                                <div className="flex flex-wrap gap-1">
+                                  {config.vector_search.fields.map((f) => (
+                                    <code key={f} className="bg-muted px-1.5 py-0.5 rounded text-[11px]">{f}</code>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {debouncedSearch.trim() && semanticResults && !semanticResults.semantic && (
+                              <p className="text-muted-foreground border-t pt-2">
+                                The semantic index is currently unavailable — results are from a keyword match instead.
+                              </p>
+                            )}
+                          </PopoverContent>
+                        </Popover>
                       ) : search.trim() ? (
                         <p className="text-[10px] text-muted-foreground pl-0.5" data-testid="text-search-mode">
                           Keyword match across all fields
