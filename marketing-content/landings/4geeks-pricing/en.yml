@@ -11,7 +11,7 @@ sections:
     title: "<b><span style=\"font-size: 1.5rem;\">AI Engineering Program Cost</span></b>"
     brand_mark:
       prefix: "<span style=\"font-size: 0.875rem;\"><span>And the $95K–$135K</span></span>"
-      highlight: Salaries That Follow.
+      highlight: "<span style=\"font-size: 0.875rem;\">Salaries That Follow.</span>"
       color: primary
     description: "<span style=\"font-size: 1.125rem;\">The investment is real. So is the return. Here is everything you need to decide.</span>"
     bullets:
