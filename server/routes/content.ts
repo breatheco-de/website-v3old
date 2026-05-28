@@ -917,10 +917,22 @@ export function registerContentRoutes(app: Express): void {
         return;
       }
 
-      const staticCount = contentIndex.findByType(type).length;
+      const staticEntries = contentIndex.findByType(type);
+      const staticCount = staticEntries.length;
       const hasDatabase = !!config.database?.slug;
 
       if (dryRun) {
+        const affectedUrls: string[] = [];
+        for (const entry of staticEntries) {
+          const locales = entry.locales.length > 0 ? entry.locales : Object.keys(config.url_pattern).filter(k => k !== "default");
+          for (const locale of locales) {
+            const url = contentIndex.buildUrl(type, locale, entry.slug);
+            if (url && !affectedUrls.includes(url)) {
+              affectedUrls.push(url);
+            }
+          }
+        }
+
         res.json({
           dry_run: true,
           type,
@@ -928,6 +940,7 @@ export function registerContentRoutes(app: Express): void {
           static_entry_count: staticCount,
           has_database: hasDatabase,
           database_slug: config.database?.slug || null,
+          affected_urls: affectedUrls,
           message: `Deleting "${type}" will remove its definition from content-types.yml. The ${staticCount} content file(s) in marketing-content/${config.directory}/ will NOT be deleted but will no longer be served.`,
         });
         return;

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { AlertTriangle, ArrowLeft, ArrowRight, Check, Clipboard, Clock, Code, Copy, Database, Download, ExternalLink, Eye, EyeOff, FileText, Folder, GitBranch, Globe, History, LayoutList, Link as LinkIcon, Loader2, MoreVertical, Plus, RefreshCw, Search, Shuffle, Trash2, Wand2, X } from "lucide-react";
+import { IconChevronDown, IconChevronRight } from "@tabler/icons-react";
 import { queryClient } from "@/lib/queryClient";
 import { useState, useMemo, useEffect, useRef, useCallback, lazy, Suspense } from "react";
 import { Link, useRoute, useLocation } from "wouter";
@@ -2316,7 +2317,9 @@ export default function ContentTypeManagePage() {
     database_slug: string | null;
     directory: string;
     message: string;
+    affected_urls: string[];
   } | null>(null);
+  const [urlsExpanded, setUrlsExpanded] = useState(false);
   const [dryRunLoading, setDryRunLoading] = useState(false);
 
   const [showYamlEditor, setShowYamlEditor] = useState(false);
@@ -2510,6 +2513,7 @@ export default function ContentTypeManagePage() {
   const handleOpenDeleteTypeDialog = async () => {
     setDeleteTypeConfirmInput("");
     setDryRunResult(null);
+    setUrlsExpanded(false);
     setDeleteTypeDialogOpen(true);
     setDryRunLoading(true);
     try {
@@ -3356,6 +3360,7 @@ export default function ContentTypeManagePage() {
             setDeleteTypeDialogOpen(false);
             setDeleteTypeConfirmInput("");
             setDryRunResult(null);
+            setUrlsExpanded(false);
           }
         }}
       >
@@ -3391,6 +3396,34 @@ export default function ContentTypeManagePage() {
                     </span>
                   )}
                 </div>
+                {dryRunResult.affected_urls.length > 0 && (
+                  <div className="pt-1 space-y-1" data-testid="affected-urls-section">
+                    <button
+                      type="button"
+                      className="flex items-center gap-1 text-xs font-medium text-foreground hover:underline"
+                      onClick={() => setUrlsExpanded(prev => !prev)}
+                      data-testid="button-toggle-affected-urls"
+                    >
+                      {urlsExpanded
+                        ? <IconChevronDown className="h-3 w-3" />
+                        : <IconChevronRight className="h-3 w-3" />
+                      }
+                      {dryRunResult.affected_urls.length} URL{dryRunResult.affected_urls.length !== 1 ? "s" : ""} will stop working
+                    </button>
+                    {urlsExpanded && (
+                      <ul className="pl-4 space-y-0.5 text-xs text-muted-foreground font-mono" data-testid="affected-urls-list">
+                        {dryRunResult.affected_urls.slice(0, 10).map((url) => (
+                          <li key={url}>{url}</li>
+                        ))}
+                        {dryRunResult.affected_urls.length > 10 && (
+                          <li className="text-muted-foreground/70 font-sans" data-testid="affected-urls-overflow">
+                            and {dryRunResult.affected_urls.length - 10} more…
+                          </li>
+                        )}
+                      </ul>
+                    )}
+                  </div>
+                )}
               </div>
             ) : null}
             <div className="space-y-2">
