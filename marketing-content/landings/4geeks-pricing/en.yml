@@ -428,8 +428,8 @@ sections:
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
-    title: What Your Tuition Actually Covers
-    description: The price includes the curriculum. Here is what else it includes, and why graduates keep using it long after they land their first role.
+    title: What Your Investment Unlocks
+    description: A curriculum built for the AI job market, and a personalized support system included for life.
     features:
       - icon: Robot
         title: AI-powered feedback, available 24/7
