@@ -39,7 +39,7 @@ export interface DatabaseConfig {
   };
   field_mapping?: Record<string, string>;
   filter_by_locale?: boolean;
-  editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean; cache_images?: boolean }>;
+  editor?: Record<string, { type?: string; options?: (string | { value: string; label: string })[]; populate_options?: boolean; allow_custom_values?: boolean; cache_images?: boolean; description?: string }>;
 }
 
 const VALID_DB_NAME = /^[a-z0-9_-]+$/;

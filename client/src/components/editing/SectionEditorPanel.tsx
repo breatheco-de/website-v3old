@@ -4934,11 +4934,14 @@ export function SectionEditorPanel({
                           return ((permFilters as Record<string, unknown> | undefined)?.related_features as string[]) ?? (parsedSection?.related_features as string[]) ?? [];
                         })()}
                         locale={locale || "en"}
-                        inlineItems={(() => {
+                        hardcodedItems={(() => {
                           const hardcoded = (parsedSection as Record<string, unknown>)?.hardcoded_entries as Array<{ question: string; answer: string }> | undefined;
                           const rootItems = parsedSection?.items as Array<{ question: string; answer: string }> | undefined;
-                          const combined = [...(hardcoded || []), ...(rootItems || [])];
-                          return combined.length > 0 ? combined : undefined;
+                          return [...(hardcoded || []), ...(rootItems || [])];
+                        })()}
+                        ignoredEntries={(() => {
+                          const de = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
+                          return (de?.ignored_entries as string[]) || [];
                         })()}
                         itemOverrides={
                           (parsedSection?.item_overrides as Record<string, { hideOnLocations?: string[] }>) || {}
@@ -4948,8 +4951,6 @@ export function SectionEditorPanel({
                             const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
                             if (!parsed || typeof parsed !== "object") return;
                             pushUndoState(yamlContent);
-                            // Auto-migrate root items → hardcoded_entries when editing visibility
-                            // (prepares the section for future dynamic_entries without changing rendered output)
                             if (Array.isArray(parsed.items) && (parsed.items as unknown[]).length > 0 && !parsed.dynamic_entries && !parsed.hardcoded_entries) {
                               parsed.hardcoded_entries = parsed.items;
                               delete parsed.items;
@@ -4966,6 +4967,52 @@ export function SectionEditorPanel({
                             if (onPreviewChange) onPreviewChange(parsed as Section);
                           } catch (err) {
                             console.error("Error updating item_overrides:", err);
+                          }
+                        }}
+                        onHardcodedEntriesChange={(entries) => {
+                          try {
+                            const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                            if (!parsed || typeof parsed !== "object") return;
+                            pushUndoState(yamlContent);
+                            if (Array.isArray(parsed.items) && (parsed.items as unknown[]).length > 0 && !parsed.dynamic_entries && !parsed.hardcoded_entries) {
+                              parsed.hardcoded_entries = parsed.items;
+                              delete parsed.items;
+                            }
+                            if (entries.length === 0) {
+                              delete parsed.hardcoded_entries;
+                            } else {
+                              parsed.hardcoded_entries = entries;
+                            }
+                            const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                            setYamlContent(newYaml);
+                            setHasChanges(true);
+                            setParseError(null);
+                            if (onPreviewChange) onPreviewChange(parsed as Section);
+                          } catch (err) {
+                            console.error("Error updating hardcoded_entries:", err);
+                          }
+                        }}
+                        onIgnoredEntriesChange={(keys) => {
+                          try {
+                            const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                            if (!parsed || typeof parsed !== "object") return;
+                            pushUndoState(yamlContent);
+                            if (!parsed.dynamic_entries || typeof parsed.dynamic_entries !== "object") {
+                              parsed.dynamic_entries = {};
+                            }
+                            const de = parsed.dynamic_entries as Record<string, unknown>;
+                            if (keys.length === 0) {
+                              delete de.ignored_entries;
+                            } else {
+                              de.ignored_entries = keys;
+                            }
+                            const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                            setYamlContent(newYaml);
+                            setHasChanges(true);
+                            setParseError(null);
+                            if (onPreviewChange) onPreviewChange(parsed as Section);
+                          } catch (err) {
+                            console.error("Error updating ignored_entries:", err);
                           }
                         }}
                       />

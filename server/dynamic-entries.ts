@@ -102,6 +102,15 @@ interface DynamicEntriesConfig {
   sort?: string;
   permanent_filters?: PermanentFilter[];
   user_filters?: UserFilter[];
+  ignored_entries?: string[];
+}
+
+function faqItemKey(question: string): string {
+  return question
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, "")
+    .replace(/\s+/g, "-")
+    .slice(0, 80);
 }
 
 export async function resolveDynamicEntries(
@@ -177,6 +186,14 @@ export async function resolveDynamicEntries(
             });
           });
         }
+      }
+
+      if (dynamicEntries.ignored_entries && Array.isArray(dynamicEntries.ignored_entries) && dynamicEntries.ignored_entries.length > 0) {
+        const ignoredSet = new Set(dynamicEntries.ignored_entries.map((k: string) => k.toLowerCase().trim()));
+        items = items.filter(item => {
+          const q = String((item as Record<string, unknown>).question ?? "");
+          return !ignoredSet.has(faqItemKey(q));
+        });
       }
 
       if (dynamicEntries.sort) {

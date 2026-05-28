@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/dialog";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { ItemEditModal } from "@/components/databases/ItemEditModal";
 
 interface DatabaseSummary {
   name: string;
@@ -63,7 +64,7 @@ interface DatabaseDetail {
     cache?: { ttl_hours?: number };
     field_mapping?: Record<string, string>;
     filter_by_locale?: boolean;
-    editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean; cache_images?: boolean }>;
+    editor?: Record<string, { type?: string; options?: (string | { value: string; label: string })[]; populate_options?: boolean; allow_custom_values?: boolean; cache_images?: boolean; description?: string }>;
   };
   cache_status?: {
     fetched_at: string;
@@ -1697,7 +1698,7 @@ function FieldMappingEditor({
   const [sampleData, setSampleData] = useState<{ items: Record<string, unknown>[]; count: number } | null>(null);
   const [sampleLoading, setSampleLoading] = useState(false);
 
-  const [editorHints, setEditorHints] = useState<Record<string, { type?: string; options?: string[]; cache_images?: boolean }>>(() =>
+  const [editorHints, setEditorHints] = useState<Record<string, { type?: string; options?: (string | { value: string; label: string })[]; populate_options?: boolean; allow_custom_values?: boolean; cache_images?: boolean; description?: string }>>(() =>
     config.editor ? { ...config.editor } : {}
   );
   useEffect(() => {
@@ -1706,24 +1707,34 @@ function FieldMappingEditor({
 
   const [hintDialogField, setHintDialogField] = useState<string | null>(null);
   const [hintDialogType, setHintDialogType] = useState<string>("text");
-  const [hintDialogOptions, setHintDialogOptions] = useState<string[]>([]);
+  const [hintDialogOptions, setHintDialogOptions] = useState<{ value: string; label: string }[]>([]);
   const [hintDialogNewOption, setHintDialogNewOption] = useState<string>("");
   const [hintDialogPopulateOptions, setHintDialogPopulateOptions] = useState<boolean>(false);
+  const [hintDialogAllowCustom, setHintDialogAllowCustom] = useState<boolean>(false);
+  const [hintDialogDescription, setHintDialogDescription] = useState<string>("");
 
   const openHintDialog = (field: string) => {
     const hint = editorHints[field] || {};
     setHintDialogField(field);
     setHintDialogType(hint.type || "text");
-    setHintDialogOptions(hint.options ? [...hint.options] : []);
+    setHintDialogOptions(
+      (hint.options || []).map(opt =>
+        typeof opt === "string" ? { value: opt, label: opt } : opt
+      )
+    );
     setHintDialogNewOption("");
     setHintDialogPopulateOptions(hint.populate_options ?? false);
+    setHintDialogAllowCustom(hint.allow_custom_values ?? false);
+    setHintDialogDescription(hint.description || "");
   };
 
   const addHintOption = () => {
+    const existingValues = new Set(hintDialogOptions.map(o => o.value));
     const newOpts = hintDialogNewOption
       .split(",")
       .map(s => s.trim())
-      .filter(s => s.length > 0 && !hintDialogOptions.includes(s));
+      .filter(s => s.length > 0 && !existingValues.has(s))
+      .map(v => ({ value: v, label: v }));
     if (newOpts.length === 0) return;
     setHintDialogOptions(prev => [...prev, ...newOpts]);
     setHintDialogNewOption("");
@@ -1735,10 +1746,14 @@ function FieldMappingEditor({
 
   const saveHintDialog = () => {
     if (!hintDialogField) return;
-    const hint: { type?: string; options?: string[]; populate_options?: boolean; cache_images?: boolean } = { type: hintDialogType };
+    const hint: { type?: string; options?: (string | { value: string; label: string })[]; populate_options?: boolean; allow_custom_values?: boolean; cache_images?: boolean; description?: string } = { type: hintDialogType };
+    if (hintDialogDescription.trim()) hint.description = hintDialogDescription.trim();
     if ((hintDialogType === "select" || hintDialogType === "tags")) {
-      if (hintDialogOptions.length > 0) hint.options = hintDialogOptions;
+      if (hintDialogOptions.length > 0) {
+        hint.options = hintDialogOptions.map(o => o.label === o.value ? o.value : o);
+      }
       if (hintDialogPopulateOptions) hint.populate_options = true;
+      if (hintDialogAllowCustom) hint.allow_custom_values = true;
     }
     setEditorHints((prev) => {
       const existing = prev[hintDialogField] || {};
@@ -2122,6 +2137,17 @@ function FieldMappingEditor({
                 </SelectContent>
               </Select>
             </div>
+            <div className="space-y-1">
+              <Label className="text-xs">Description (shown as hint in editor)</Label>
+              <input
+                type="text"
+                value={hintDialogDescription}
+                onChange={(e) => setHintDialogDescription(e.target.value)}
+                placeholder="e.g. Choose the programming language for this course"
+                className="w-full text-sm px-3 py-1.5 rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                data-testid="input-hint-description"
+              />
+            </div>
             {(hintDialogType === "select" || hintDialogType === "tags") && (
               <div className="space-y-2">
                 <Label className="text-xs">Options</Label>
@@ -2147,14 +2173,28 @@ function FieldMappingEditor({
                   </Button>
                 </div>
                 {hintDialogOptions.length > 0 && (
-                  <div className="border rounded-md divide-y max-h-40 overflow-y-auto">
+                  <div className="border rounded-md divide-y max-h-48 overflow-y-auto">
                     {hintDialogOptions.map((opt, idx) => (
-                      <div key={idx} className="flex items-center justify-between px-3 py-1.5 text-sm">
-                        <span className="font-mono text-xs truncate">{opt}</span>
+                      <div key={idx} className="flex items-center gap-2 px-3 py-1.5 text-sm">
+                        <span className="font-mono text-xs text-muted-foreground w-1/3 truncate flex-shrink-0">
+                          {opt.value}
+                        </span>
+                        <input
+                          type="text"
+                          value={opt.label}
+                          onChange={(e) => {
+                            const updated = [...hintDialogOptions];
+                            updated[idx] = { ...opt, label: e.target.value };
+                            setHintDialogOptions(updated);
+                          }}
+                          placeholder="Label (shown in UI)"
+                          className="flex-1 text-xs px-2 py-0.5 rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                          data-testid={`input-hint-option-label-${idx}`}
+                        />
                         <button
                           type="button"
                           onClick={() => removeHintOption(idx)}
-                          className="ml-2 text-muted-foreground hover:text-destructive"
+                          className="ml-1 text-muted-foreground hover:text-destructive flex-shrink-0"
                           data-testid={`button-remove-hint-option-${idx}`}
                         >
                           <X className="h-3.5 w-3.5" />
@@ -2176,6 +2216,18 @@ function FieldMappingEditor({
                   />
                   <span className="text-xs text-muted-foreground">
                     Also include values from existing data
+                  </span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer" data-testid="label-allow-custom">
+                  <input
+                    type="checkbox"
+                    checked={hintDialogAllowCustom}
+                    onChange={(e) => setHintDialogAllowCustom(e.target.checked)}
+                    className="h-3.5 w-3.5 rounded"
+                    data-testid="checkbox-allow-custom"
+                  />
+                  <span className="text-xs text-muted-foreground">
+                    Allow typing custom values (not in list)
                   </span>
                 </label>
               </div>
@@ -2205,7 +2257,7 @@ function FieldMappingEditor({
   );
 }
 
-function ItemEditModal({
+function _DeprecatedItemEditModal({
   dbName,
   config,
   item,
@@ -3498,21 +3550,36 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
         </Dialog>
       )}
 
-      {(editingItem !== null || isAddingItem) && config && (
+      {(editingItem !== null || isAddingItem) && (
         <ItemEditModal
           dbName={dbName}
-          config={config}
-          item={editingItem}
-          itemIndex={editingItemIndex}
-          isNew={isAddingItem}
+          item={isAddingItem ? null : editingItem}
           allItems={itemsData?.items || []}
+          onSave={async (builtItem) => {
+            let res: Response;
+            if (isAddingItem) {
+              res = await fetch(`/api/databases/${dbName}/items`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ item: builtItem }),
+              });
+            } else {
+              res = await fetch(`/api/databases/${dbName}/items/${editingItemIndex}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(builtItem),
+              });
+            }
+            if (!res.ok) {
+              const err = await res.json().catch(() => ({}));
+              throw new Error((err as { error?: string }).error || "Failed to save item");
+            }
+            void Promise.all([refetchItems(), refetchRawItems()]);
+          }}
           onClose={() => {
             setEditingItem(null);
             setEditingItemIndex(null);
             setIsAddingItem(false);
-          }}
-          onSaved={() => {
-            void Promise.all([refetchItems(), refetchRawItems()]);
           }}
         />
       )}
