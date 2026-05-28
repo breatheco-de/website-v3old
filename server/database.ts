@@ -604,7 +604,7 @@ export class DatabaseManager {
   ): Promise<{
     success: boolean;
     item_count?: number;
-    sample?: unknown;
+    samples?: unknown[];
     error?: string;
   }> {
     try {
@@ -628,7 +628,7 @@ export class DatabaseManager {
       return {
         success: true,
         item_count: items.length,
-        sample: items[0] || null,
+        samples: items.slice(0, 5) as Record<string, unknown>[],
       };
     } catch (err: unknown) {
       return {

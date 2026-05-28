@@ -1232,6 +1232,7 @@ function DatabaseConfigEditor({
   const [testResult, setTestResult] = useState<{
     success: boolean;
     item_count?: number;
+    samples?: unknown[];
     error?: string;
   } | null>(null);
   const [sampleOpen, setSampleOpen] = useState(false);
@@ -1279,6 +1280,14 @@ function DatabaseConfigEditor({
   const handleViewSample = async () => {
     setSampleOpen(true);
     if (sampleData) return;
+    // If we just ran a test, use the live samples it already fetched — no cache read needed
+    if (testResult?.success && testResult.samples && testResult.samples.length > 0) {
+      setSampleData({
+        items: testResult.samples as Record<string, unknown>[],
+        count: testResult.item_count ?? testResult.samples.length,
+      });
+      return;
+    }
     setSampleLoading(true);
     try {
       const res = await fetch(`/api/databases/${dbName}/raw-sample?limit=3`);
@@ -1392,6 +1401,7 @@ function DatabaseConfigEditor({
   const handleTest = async () => {
     setTesting(true);
     setTestResult(null);
+    setSampleData(null);
     try {
       const res = await fetch(`/api/databases/${dbName}/test`, {
         method: "POST",
@@ -1799,7 +1809,11 @@ function DatabaseConfigEditor({
                 <DialogTitle>Raw API Sample Data</DialogTitle>
                 <DialogDescription className="mt-1 space-y-0.5">
                   <span className="block">{sampleData ? `Showing ${sampleData.items.length} of ${sampleData.count} total raw items` : "Loading sample data..."}</span>
-                  <span className="block text-[11px] text-muted-foreground/70">Reflects the last cached fetch. If you recently changed query params, save and Force Refresh first.</span>
+                  {sampleData && testResult?.success && testResult.samples && sampleData.items === (testResult.samples as Record<string, unknown>[]) ? (
+                    <span className="block text-[11px] text-muted-foreground/70">Live data from the test connection — not from cache.</span>
+                  ) : (
+                    <span className="block text-[11px] text-muted-foreground/70">Reflects the last cached fetch. If you recently changed query params, save and Force Refresh first.</span>
+                  )}
                 </DialogDescription>
               </div>
               <div className="flex items-center gap-1">
