@@ -1005,6 +1005,7 @@ function CreateDatabaseDialog({
 
 function KeyValueEditor({
   label,
+  addLabel = "Add",
   pairs,
   onChange,
   keyPlaceholder,
@@ -1012,6 +1013,7 @@ function KeyValueEditor({
   testIdPrefix,
 }: {
   label: string;
+  addLabel?: string;
   pairs: KeyValuePair[];
   onChange: (pairs: KeyValuePair[]) => void;
   keyPlaceholder: string;
@@ -1029,7 +1031,7 @@ function KeyValueEditor({
           data-testid={`button-add-${testIdPrefix}`}
         >
           <Plus className="h-3 w-3 mr-1" />
-          Add
+          {addLabel}
         </Button>
       </div>
       {pairs.map((pair, i) => (
@@ -1485,6 +1487,7 @@ function DatabaseConfigEditor({
           </div>
           <KeyValueEditor
             label="Query Parameters"
+            addLabel="Add parameter"
             pairs={params}
             onChange={setParams}
             keyPlaceholder="param name"
@@ -1493,6 +1496,7 @@ function DatabaseConfigEditor({
           />
           <KeyValueEditor
             label="Headers"
+            addLabel="Add header"
             pairs={headers}
             onChange={setHeaders}
             keyPlaceholder="header name"
