@@ -135,6 +135,15 @@ export async function resolveDynamicEntries(
       } else if (dynamicEntries.database) {
         const rawItems = await databaseManager.fetchItems(dynamicEntries.database);
         items = rawItems.items as Record<string, unknown>[];
+        try {
+          const dbConfig = databaseManager.get(dynamicEntries.database);
+          if (dbConfig.filter_by_locale !== false && dbConfig.field_mapping?.locale) {
+            const localeField = dbConfig.field_mapping.locale;
+            items = items.filter(item => String(item[localeField] ?? "") === locale);
+          }
+        } catch {
+          // DB not registered or no config — skip locale filter
+        }
       } else {
         items = [];
       }

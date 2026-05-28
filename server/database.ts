@@ -38,6 +38,7 @@ export interface DatabaseConfig {
     ttl_hours?: number;
   };
   field_mapping?: Record<string, string>;
+  filter_by_locale?: boolean;
   editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean; cache_images?: boolean }>;
 }
 

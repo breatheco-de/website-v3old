@@ -2275,47 +2275,6 @@ export function SectionEditorPanel({
                 ]}
               />
             )}
-            {/* FAQ related features picker */}
-            {sectionType === "faq" && (
-              <>
-                <RelatedFeaturesPicker
-                  value={(parsedSection?.related_features as string[]) || []}
-                  onChange={(value) =>
-                    updateArrayProperty("related_features", value)
-                  }
-                  locale={locale}
-                />
-                <FaqItemsVisibility
-                  relatedFeatures={(parsedSection?.related_features as string[]) || []}
-                  locale={locale || "en"}
-                  inlineItems={
-                    (parsedSection?.items as Array<{ question: string; answer: string }>) || undefined
-                  }
-                  itemOverrides={
-                    (parsedSection?.item_overrides as Record<string, { hideOnLocations?: string[] }>) || {}
-                  }
-                  onChange={(overrides) => {
-                    try {
-                      const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
-                      if (!parsed || typeof parsed !== "object") return;
-                      pushUndoState(yamlContent);
-                      if (Object.keys(overrides).length === 0) {
-                        delete parsed.item_overrides;
-                      } else {
-                        parsed.item_overrides = overrides;
-                      }
-                      const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
-                      setYamlContent(newYaml);
-                      setHasChanges(true);
-                      setParseError(null);
-                      if (onPreviewChange) onPreviewChange(parsed as Section);
-                    } catch (err) {
-                      console.error("Error updating item_overrides:", err);
-                    }
-                  }}
-                />
-              </>
-            )}
             {/* Testimonials (grid, carousel, slide) related features picker */}
             {["testimonials_grid", "testimonials", "testimonials_slide"].includes(sectionType) && (
               <>
@@ -4824,6 +4783,54 @@ export function SectionEditorPanel({
                           ))}
                         </SelectContent>
                       </Select>
+                    </div>
+                  );
+                }
+
+                if (isSimpleField && editorType === "related-features-picker") {
+                  return (
+                    <div key={fieldPath}>
+                      <RelatedFeaturesPicker
+                        value={(parsedSection?.related_features as string[]) || []}
+                        onChange={(value) => updateArrayProperty(fieldPath, value)}
+                        locale={locale}
+                      />
+                    </div>
+                  );
+                }
+
+                if (isSimpleField && editorType === "faq-visibility-editor") {
+                  return (
+                    <div key={fieldPath}>
+                      <FaqItemsVisibility
+                        relatedFeatures={(parsedSection?.related_features as string[]) || []}
+                        locale={locale || "en"}
+                        inlineItems={
+                          (parsedSection?.items as Array<{ question: string; answer: string }>) || undefined
+                        }
+                        itemOverrides={
+                          (parsedSection?.item_overrides as Record<string, { hideOnLocations?: string[] }>) || {}
+                        }
+                        onChange={(overrides) => {
+                          try {
+                            const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                            if (!parsed || typeof parsed !== "object") return;
+                            pushUndoState(yamlContent);
+                            if (Object.keys(overrides).length === 0) {
+                              delete parsed.item_overrides;
+                            } else {
+                              parsed.item_overrides = overrides;
+                            }
+                            const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                            setYamlContent(newYaml);
+                            setHasChanges(true);
+                            setParseError(null);
+                            if (onPreviewChange) onPreviewChange(parsed as Section);
+                          } catch (err) {
+                            console.error("Error updating item_overrides:", err);
+                          }
+                        }}
+                      />
                     </div>
                   );
                 }

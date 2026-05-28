@@ -62,6 +62,7 @@ interface DatabaseDetail {
     };
     cache?: { ttl_hours?: number };
     field_mapping?: Record<string, string>;
+    filter_by_locale?: boolean;
     editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean; cache_images?: boolean }>;
   };
   cache_status?: {
@@ -1191,6 +1192,7 @@ function DatabaseConfigEditor({
   const [tokenEnvVar, setTokenEnvVar] = useState(config.source.api?.auth?.token_env_var || "");
   const [authPrefix, setAuthPrefix] = useState(config.source.api?.auth?.prefix || "Bearer");
   const [ttlHours, setTtlHours] = useState(String(config.cache?.ttl_hours ?? 24));
+  const [filterByLocale, setFilterByLocale] = useState(config.filter_by_locale !== false);
   const [params, setParams] = useState<KeyValuePair[]>(() => {
     const p = config.source.api?.params;
     if (!p || Object.keys(p).length === 0) return [];
@@ -1304,6 +1306,7 @@ function DatabaseConfigEditor({
         source: buildSourceConfig(),
         cache: { ttl_hours: ttlHours !== "" && Number.isFinite(Number(ttlHours)) ? Number(ttlHours) : 24 },
         field_mapping: config.field_mapping || undefined,
+        ...(filterByLocale ? {} : { filter_by_locale: false }),
       };
 
       const res = await fetch(`/api/databases/${dbName}/config`, {
@@ -1397,6 +1400,24 @@ function DatabaseConfigEditor({
             className="w-24"
             data-testid="input-edit-ttl"
           />
+        </div>
+      </div>
+      <div className="flex items-start gap-3 pt-1">
+        <input
+          id="edit-filter-by-locale"
+          type="checkbox"
+          checked={filterByLocale}
+          onChange={(e) => setFilterByLocale(e.target.checked)}
+          className="mt-0.5 h-4 w-4 rounded border-input accent-primary"
+          data-testid="checkbox-filter-by-locale"
+        />
+        <div className="space-y-0.5">
+          <Label htmlFor="edit-filter-by-locale" className="cursor-pointer">
+            Filter by locale
+          </Label>
+          <p className="text-xs text-muted-foreground">
+            When used as a section data source (<code>dynamic_entries</code>), only entries matching the current page&apos;s locale will be shown. Requires a <code>locale</code> field defined in the field mapping.
+          </p>
         </div>
       </div>
 

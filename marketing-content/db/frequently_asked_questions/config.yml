@@ -6,6 +6,7 @@ source:
     results_path: faqs
 cache:
   ttl_hours: 24
+filter_by_locale: true
 field_mapping:
   locale: locale
   question: question

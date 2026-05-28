@@ -7,7 +7,6 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { locations as allLocations } from "@/lib/locations";
 import { filterFaqsByRelatedFeatures, faqItemKey, type FaqItem } from "@/lib/faqConstants";
-import { getDebugToken } from "@/hooks/useDebugAuth";
 import type { Location } from "@shared/session";
 
 interface FaqItemsVisibilityProps {
@@ -198,23 +197,17 @@ export function FaqItemsVisibility({
   const hasCentralized = relatedFeatures.length > 0;
   const hasInline = inlineItems && inlineItems.length > 0;
 
-  const { data: faqsData, isLoading } = useQuery<{ faqs: FaqItem[] }>({
-    queryKey: ["/api/faqs", locale],
-    queryFn: async () => {
-      const token = getDebugToken();
-      const res = await fetch(`/api/faqs/${locale}`, {
-        headers: token ? { "X-Debug-Token": token } : {},
-      });
-      if (!res.ok) throw new Error("Failed to load FAQs");
-      return res.json();
-    },
+  const { data: faqsData, isLoading } = useQuery<{ items: FaqItem[] }>({
+    queryKey: ["/api/databases/frequently_asked_questions/items"],
     enabled: hasCentralized,
     staleTime: 5 * 60 * 1000,
   });
 
   const displayedItems = useMemo(() => {
-    if (hasCentralized && faqsData?.faqs) {
-      return filterFaqsByRelatedFeatures(faqsData.faqs, {
+    const allItems = faqsData?.items ?? [];
+    const localeItems = allItems.filter(f => f.locale === locale);
+    if (hasCentralized && localeItems.length > 0) {
+      return filterFaqsByRelatedFeatures(localeItems, {
         relatedFeatures,
         limit: 9,
       });
@@ -223,7 +216,7 @@ export function FaqItemsVisibility({
       return inlineItems!;
     }
     return [];
-  }, [faqsData, relatedFeatures, hasCentralized, hasInline, inlineItems]);
+  }, [faqsData, relatedFeatures, hasCentralized, hasInline, inlineItems, locale]);
 
   const handleItemLocationsChange = (itemKey: string, locations: string[]) => {
     const newOverrides = { ...itemOverrides };

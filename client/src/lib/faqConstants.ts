@@ -41,6 +41,7 @@ export const MAX_RELATED_FEATURES = 2;
 export const MAX_FAQ_SECTION_TOPICS = 3;
 
 export interface FaqItem {
+  locale?: string;
   question: string;
   answer: string;
   locations?: string[];

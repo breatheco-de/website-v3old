@@ -29,38 +29,40 @@ export function FAQSection({ data }: FAQSectionProps) {
   const locale = i18n.language?.startsWith("es") ? "es" : "en";
   const { session } = useSession();
   const sessionLocationSlug = session.location?.slug;
-  
-  // Detect if we're on a location page and extract location slug
+
   const locationSlugMatch = pathname.match(/^\/(en|es)\/(location|ubicacion)\/([^/]+)/);
   const locationSlug = locationSlugMatch ? locationSlugMatch[3] : undefined;
-  
-  const hasInlineItems = data.items && data.items.length > 0;
+
   const hasRelatedFeatures = data.related_features && data.related_features.length > 0;
-  
+
   const itemOverrides = (data as Record<string, unknown>).item_overrides as
     | Record<string, { hideOnLocations?: string[] }>
     | undefined;
-  
-  const { data: faqsData, isLoading } = useQuery<{ faqs: FaqItem[] }>({
-    queryKey: ["/api/faqs", locale],
+
+  const { data: faqsData, isLoading } = useQuery<{ items: FaqItem[] }>({
+    queryKey: ["/api/databases/frequently_asked_questions/items"],
     enabled: hasRelatedFeatures || !!locationSlug,
     staleTime: 5 * 60 * 1000,
   });
-  
+
   const faqItems = useMemo(() => {
-    let items: Array<{ question: string; answer: string }> = [];
-    
-    if (faqsData?.faqs && (hasRelatedFeatures || locationSlug)) {
-      items = filterFaqsByRelatedFeatures(faqsData.faqs, {
+    const localeItems = (faqsData?.items ?? []).filter(f => f.locale === locale);
+
+    let dbItems: Array<{ question: string; answer: string }> = [];
+    if (localeItems.length > 0 && (hasRelatedFeatures || locationSlug)) {
+      dbItems = filterFaqsByRelatedFeatures(localeItems, {
         relatedFeatures: locationSlug ? undefined : (hasRelatedFeatures ? data.related_features! : undefined),
         location: locationSlug,
         limit: 9,
         programSlug,
       });
-    } else if (hasInlineItems) {
-      items = data.items!;
     }
-    
+
+    let items: Array<{ question: string; answer: string }> = [
+      ...dbItems,
+      ...(data.items || []),
+    ];
+
     if (itemOverrides && Object.keys(itemOverrides).length > 0) {
       const effectiveLocation = locationSlug || sessionLocationSlug;
       if (effectiveLocation) {
@@ -74,10 +76,10 @@ export function FAQSection({ data }: FAQSectionProps) {
         });
       }
     }
-    
+
     return items;
-  }, [hasRelatedFeatures, hasInlineItems, data.related_features, data.items, faqsData, locationSlug, programSlug, itemOverrides, sessionLocationSlug]);
-  
+  }, [hasRelatedFeatures, data.related_features, data.items, faqsData, locationSlug, programSlug, itemOverrides, sessionLocationSlug, locale]);
+
   if (isLoading && (hasRelatedFeatures || locationSlug)) {
     return (
       <section data-testid="section-faq">
@@ -94,40 +96,40 @@ export function FAQSection({ data }: FAQSectionProps) {
       </section>
     );
   }
-  
+
   if (faqItems.length === 0) {
     return null;
   }
-  
+
   return (
-    <section 
+    <section
       data-testid="section-faq"
       className="max-w-6xl mx-auto px-4"
     >
       <div className="max-w-6xl mx-auto px-4">
-        <h2 
+        <h2
           className="mb-8 text-center text-foreground text-[36px]"
           data-testid="text-faq-title"
         >
           {data.title}
         </h2>
-        
+
         <div className="bg-background rounded-card border overflow-hidden">
           <Accordion type="single" collapsible>
             {faqItems.map((item, index) => (
-              <AccordionItem 
-                key={index} 
+              <AccordionItem
+                key={index}
                 value={`item-${index}`}
                 className="border-0 border-b last:border-b-0 px-6"
                 data-testid={`accordion-faq-${index}`}
               >
-                <AccordionTrigger 
+                <AccordionTrigger
                   className="text-left font-medium text-foreground hover:no-underline py-4 text-base"
                   data-testid={`button-faq-${index}`}
                 >
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent 
+                <AccordionContent
                   className="text-muted-foreground pb-4 leading-relaxed whitespace-pre-line"
                   data-testid={`text-faq-answer-${index}`}
                 >
@@ -139,7 +141,7 @@ export function FAQSection({ data }: FAQSectionProps) {
         </div>
 
         {data.cta && (data.cta.text || data.cta.button) && (
-          <div 
+          <div
             className="mt-12 text-center p-8 rounded-lg bg-muted/30 border"
             data-testid="faq-cta"
           >
