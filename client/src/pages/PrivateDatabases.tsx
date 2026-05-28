@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
@@ -1465,14 +1465,14 @@ function DatabaseConfigEditor({
         <div className="space-y-2">
           <div className="flex items-center gap-1.5">
             <Label htmlFor="edit-ttl">Cache TTL (hours)</Label>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
-              </TooltipTrigger>
-              <TooltipContent side="right" className="max-w-[220px] text-xs">
-                The entire database will be refreshed every {ttlHours || "24"} hour{Number(ttlHours) === 1 ? "" : "s"} to keep the data up to date. Set to 0 to disable automatic refresh.
-              </TooltipContent>
-            </Tooltip>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Info className="h-3.5 w-3.5 text-muted-foreground cursor-pointer" />
+              </PopoverTrigger>
+              <PopoverContent side="right" className="w-64 text-xs p-3">
+                The entire database will be re-fetched every <strong>{ttlHours || "24"} hour{Number(ttlHours) === 1 ? "" : "s"}</strong> to keep the data up to date. Set to <strong>0</strong> to disable automatic refresh.
+              </PopoverContent>
+            </Popover>
           </div>
           <Input
             id="edit-ttl"
