@@ -3452,10 +3452,26 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                       <span className="text-muted-foreground">&larr;</span>
                       <code className="text-muted-foreground truncate">{p || "null"}</code>
                       {config?.editor?.[key]?.cache_images && (
-                        <span className="inline-flex items-center gap-0.5 text-blue-500 shrink-0" title="Image caching enabled">
-                          <Image className="h-3 w-3" />
-                          <span className="text-[10px] font-medium">cached</span>
-                        </span>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <span className="inline-flex items-center gap-0.5 text-blue-500 shrink-0 cursor-pointer hover:opacity-80 transition-opacity" data-testid={`badge-cached-${key}`}>
+                              <Image className="h-3 w-3" />
+                              <span className="text-[10px] font-medium">cached</span>
+                            </span>
+                          </PopoverTrigger>
+                          <PopoverContent side="top" className="w-72 text-xs p-3 space-y-2">
+                            <p className="font-medium text-sm">Image caching enabled</p>
+                            <p className="text-muted-foreground">
+                              Images in the <code className="bg-muted px-1 rounded font-mono">{key}</code> field are downloaded from their source URLs and stored locally on this server.
+                            </p>
+                            <p className="text-muted-foreground">
+                              This avoids external image dependencies at render time, speeds up page loads, and ensures images remain available even if the source URL changes or goes down.
+                            </p>
+                            <p className="text-muted-foreground">
+                              Images are re-cached automatically the next time the database is refreshed.
+                            </p>
+                          </PopoverContent>
+                        </Popover>
                       )}
                     </div>
                   ))}
