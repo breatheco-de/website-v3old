@@ -554,6 +554,133 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
   });
 
+  // ── Helper: read raw items array from local file ─────────────
+  function readLocalItems(dbName: string): {
+    items: Record<string, unknown>[];
+    filePath: string;
+    resultsPath: string | undefined;
+  } {
+    const config = databaseManager.get(dbName);
+    if (config.source.type !== "local") {
+      throw new Error("Only local databases support item editing");
+    }
+    const localConfig = config.source.local!;
+    const filePath = path.join(process.cwd(), "marketing-content", "db", dbName, localConfig.filename);
+    const resultsPath = localConfig.results_path;
+    let rawData: unknown = resultsPath ? { [resultsPath]: [] } : [];
+    if (fs.existsSync(filePath)) {
+      rawData = safeYamlLoad(fs.readFileSync(filePath, "utf-8")) ?? rawData;
+    }
+    const items: Record<string, unknown>[] = Array.isArray(rawData)
+      ? (rawData as Record<string, unknown>[])
+      : resultsPath && typeof rawData === "object" && rawData !== null
+        ? (((rawData as Record<string, unknown>)[resultsPath] as Record<string, unknown>[]) || [])
+        : [];
+    return { items, filePath, resultsPath };
+  }
+
+  function writeLocalItems(
+    dbName: string,
+    filePath: string,
+    resultsPath: string | undefined,
+    items: Record<string, unknown>[],
+    filename: string,
+  ) {
+    const data: unknown = resultsPath ? { [resultsPath]: items } : items;
+    const yamlStr = safeYamlDump(data, { lineWidth: 120 });
+    if (!fs.existsSync(path.dirname(filePath))) {
+      throw new Error(`Database directory not found`);
+    }
+    fs.writeFileSync(filePath, yamlStr);
+    databaseManager.clearCache(dbName);
+    const relPath = `marketing-content/db/${dbName}/${filename}`;
+    markFileAsModified(relPath, "api");
+  }
+
+  app.post("/api/databases/:name/items", async (req, res) => {
+    try {
+      const dbName = req.params.name;
+      const { item, items: bulkItems } = req.body as {
+        item?: Record<string, unknown>;
+        items?: Record<string, unknown>[];
+      };
+
+      const newItems: Record<string, unknown>[] = bulkItems
+        ? bulkItems
+        : item
+          ? [item]
+          : [];
+      if (newItems.length === 0) {
+        res.status(400).json({ error: "Provide item or items in the request body" });
+        return;
+      }
+
+      const config = databaseManager.get(dbName);
+      const localConfig = config.source.local!;
+      const { items: existing, filePath, resultsPath } = readLocalItems(dbName);
+      writeLocalItems(dbName, filePath, resultsPath, [...existing, ...newItems], localConfig.filename);
+      res.json({ success: true, count: existing.length + newItems.length });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      res.status(msg.includes("not found") ? 404 : 500).json({ error: msg });
+    }
+  });
+
+  app.patch("/api/databases/:name/items/:index", async (req, res) => {
+    try {
+      const dbName = req.params.name;
+      const idx = parseInt(req.params.index, 10);
+      if (isNaN(idx) || idx < 0) {
+        res.status(400).json({ error: "Invalid index" });
+        return;
+      }
+      const newData = req.body as Record<string, unknown>;
+      if (!newData || typeof newData !== "object") {
+        res.status(400).json({ error: "Request body must be a JSON object" });
+        return;
+      }
+
+      const config = databaseManager.get(dbName);
+      const localConfig = config.source.local!;
+      const { items, filePath, resultsPath } = readLocalItems(dbName);
+      if (idx >= items.length) {
+        res.status(404).json({ error: `Item at index ${idx} not found` });
+        return;
+      }
+      items[idx] = { ...items[idx], ...newData };
+      writeLocalItems(dbName, filePath, resultsPath, items, localConfig.filename);
+      res.json({ success: true, item: items[idx] });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      res.status(msg.includes("not found") ? 404 : 500).json({ error: msg });
+    }
+  });
+
+  app.delete("/api/databases/:name/items/:index", async (req, res) => {
+    try {
+      const dbName = req.params.name;
+      const idx = parseInt(req.params.index, 10);
+      if (isNaN(idx) || idx < 0) {
+        res.status(400).json({ error: "Invalid index" });
+        return;
+      }
+
+      const config = databaseManager.get(dbName);
+      const localConfig = config.source.local!;
+      const { items, filePath, resultsPath } = readLocalItems(dbName);
+      if (idx >= items.length) {
+        res.status(404).json({ error: `Item at index ${idx} not found` });
+        return;
+      }
+      items.splice(idx, 1);
+      writeLocalItems(dbName, filePath, resultsPath, items, localConfig.filename);
+      res.json({ success: true, count: items.length });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      res.status(msg.includes("not found") ? 404 : 500).json({ error: msg });
+    }
+  });
+
   app.post("/api/databases/:name/refresh", async (req, res) => {
     try {
       const result = await databaseManager.fetchItems(req.params.name, true);

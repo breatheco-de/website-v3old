@@ -2185,6 +2185,7 @@ function FieldMappingEditor({
 }
 
 function ItemEditModal({
+  dbName,
   config,
   item,
   itemIndex,
@@ -2193,13 +2194,14 @@ function ItemEditModal({
   onClose,
   onSaved,
 }: {
+  dbName: string;
   config: DatabaseDetail["config"];
   item: Record<string, unknown> | null;
   itemIndex: number | null;
   isNew: boolean;
-  allItems: Record<string, unknown>[];
+  allItems?: Record<string, unknown>[];
   onClose: () => void;
-  onSaved: (newItems: Record<string, unknown>[]) => Promise<void>;
+  onSaved: () => void;
 }) {
   const { toast } = useToast();
   const [saving, setSaving] = useState(false);
@@ -2225,42 +2227,64 @@ function ItemEditModal({
   const setValue = (key: string, v: unknown) =>
     setFormData((prev) => ({ ...prev, [key]: v }));
 
+  const buildItem = (omitEmpty: boolean): Record<string, unknown> => {
+    const out: Record<string, unknown> = {};
+    for (const key of fields) {
+      const value = formData[key];
+      const editorType = config.editor?.[key]?.type;
+      if (editorType === "boolean") {
+        out[key] = Boolean(value);
+      } else if (editorType === "tags") {
+        const arr = Array.isArray(value) ? value : [];
+        if (arr.length > 0) {
+          out[key] = arr;
+        } else if (!omitEmpty) {
+          out[key] = [];
+        }
+      } else if (editorType === "number") {
+        if (value !== "" && value !== null && value !== undefined) {
+          const n = Number(value);
+          out[key] = isNaN(n) ? value : n;
+        } else if (!omitEmpty) {
+          out[key] = null;
+        }
+      } else {
+        if (value !== "" && value !== null && value !== undefined) {
+          out[key] = value;
+        } else if (!omitEmpty) {
+          out[key] = "";
+        }
+      }
+    }
+    return out;
+  };
+
   const handleSave = async () => {
     setSaving(true);
     try {
-      const cleanedItem: Record<string, unknown> = {};
-      for (const key of fields) {
-        const value = formData[key];
-        const editorType = config.editor?.[key]?.type;
-        if (editorType === "boolean") {
-          cleanedItem[key] = Boolean(value);
-        } else if (editorType === "tags") {
-          const arr = Array.isArray(value) ? value : [];
-          if (arr.length > 0) cleanedItem[key] = arr;
-        } else if (editorType === "number") {
-          if (value !== "" && value !== null && value !== undefined) {
-            const n = Number(value);
-            cleanedItem[key] = isNaN(n) ? value : n;
-          }
-        } else {
-          if (value !== "" && value !== null && value !== undefined) {
-            cleanedItem[key] = value;
-          }
-        }
+      let res: Response;
+      if (isNew) {
+        const payload = buildItem(true);
+        res = await fetch(`/api/databases/${dbName}/items`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ item: payload }),
+        });
+      } else {
+        const payload = buildItem(false);
+        res = await fetch(`/api/databases/${dbName}/items/${itemIndex}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
       }
 
-      const newItems = isNew
-        ? [...allItems, cleanedItem]
-        : allItems.map((it, i) => {
-            if (i !== itemIndex) return it;
-            const merged = { ...it, ...cleanedItem };
-            for (const k of fields) {
-              if (!(k in cleanedItem)) delete merged[k];
-            }
-            return merged;
-          });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to save item");
+      }
 
-      await onSaved(newItems);
+      onSaved();
       onClose();
     } catch (err) {
       toast({
@@ -2280,7 +2304,7 @@ function ItemEditModal({
     const dataOptions: string[] = editorConfig?.populate_options
       ? Array.from(
           new Set(
-            allItems
+            (allItems ?? [])
               .map((it) => it[key])
               .flat()
               .filter((v): v is string => typeof v === "string" && v.trim() !== "")
@@ -3419,9 +3443,26 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                 onClick={async () => {
                   const idx = deleteConfirmIndex;
                   setDeleteConfirmIndex(null);
-                  const currentItems = itemsData?.items || [];
-                  const newItems = currentItems.filter((_, i) => i !== idx);
-                  await handleSaveItems(newItems);
+                  setSavingItems(true);
+                  try {
+                    const res = await fetch(`/api/databases/${dbName}/items/${idx}`, {
+                      method: "DELETE",
+                    });
+                    if (!res.ok) {
+                      const err = await res.json();
+                      throw new Error(err.error || "Failed to delete item");
+                    }
+                    await Promise.all([refetchItems(), refetchRawItems()]);
+                    toast({ title: "Item deleted" });
+                  } catch (err) {
+                    toast({
+                      title: "Error deleting item",
+                      description: err instanceof Error ? err.message : String(err),
+                      variant: "destructive",
+                    });
+                  } finally {
+                    setSavingItems(false);
+                  }
                 }}
               >
                 {savingItems ? (
@@ -3438,6 +3479,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
 
       {(editingItem !== null || isAddingItem) && config && (
         <ItemEditModal
+          dbName={dbName}
           config={config}
           item={editingItem}
           itemIndex={editingItemIndex}
@@ -3448,7 +3490,9 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
             setEditingItemIndex(null);
             setIsAddingItem(false);
           }}
-          onSaved={handleSaveItems}
+          onSaved={() => {
+            void Promise.all([refetchItems(), refetchRawItems()]);
+          }}
         />
       )}
     </div>
