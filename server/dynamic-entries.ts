@@ -196,31 +196,50 @@ export async function resolveDynamicEntries(
         });
       }
 
-      if (dynamicEntries.sort) {
+      // Match-count sort: when a permanent_filter has multiple values, items that
+      // match more of those values float to the top. If an explicit sort is also
+      // configured it becomes the tiebreaker within each match-count group.
+      // If no multi-value filter exists, fall back to the explicit sort alone.
+      const multiValueFilter = permanentFilters && Array.isArray(permanentFilters)
+        ? permanentFilters.find(
+            (pf: PermanentFilter) => Array.isArray(pf.value) && (pf.value as unknown[]).length > 1
+          )
+        : null;
+
+      if (multiValueFilter) {
+        const filterValues = (multiValueFilter.value as unknown[]).map(String);
+        const slug = multiValueFilter.item_property_slug;
+        const explicitSortDesc = dynamicEntries.sort?.startsWith("-") ?? false;
+        const explicitSortField = dynamicEntries.sort
+          ? (explicitSortDesc ? dynamicEntries.sort.slice(1) : dynamicEntries.sort)
+          : null;
+
+        items = [...items].sort((a, b) => {
+          const aVal = a[slug];
+          const bVal = b[slug];
+          const aArr = Array.isArray(aVal) ? aVal.map(String) : [String(aVal ?? "")];
+          const bArr = Array.isArray(bVal) ? bVal.map(String) : [String(bVal ?? "")];
+          const aCount = filterValues.filter(v => aArr.includes(v)).length;
+          const bCount = filterValues.filter(v => bArr.includes(v)).length;
+          if (bCount !== aCount) return bCount - aCount;
+
+          // Tiebreaker: explicit sort field, or priority as default
+          const tieField = explicitSortField ?? "priority";
+          const aT = a[tieField];
+          const bT = b[tieField];
+          if (aT == null && bT == null) return 0;
+          if (aT == null) return 1;
+          if (bT == null) return -1;
+          let cmp = 0;
+          if (typeof aT === "number" && typeof bT === "number") {
+            cmp = aT - bT;
+          } else {
+            cmp = String(aT).localeCompare(String(bT));
+          }
+          return explicitSortField && explicitSortDesc ? -cmp : cmp;
+        });
+      } else if (dynamicEntries.sort) {
         items = sortItems(items, dynamicEntries.sort);
-      } else if (permanentFilters && Array.isArray(permanentFilters)) {
-        // Auto match-count sort: if any permanent_filter has multiple values,
-        // items that match more of those values float to the top.
-        // Priority field is used as a tiebreaker (lower number = higher priority).
-        const multiValueFilter = permanentFilters.find(
-          (pf: PermanentFilter) => Array.isArray(pf.value) && (pf.value as unknown[]).length > 1
-        );
-        if (multiValueFilter) {
-          const filterValues = (multiValueFilter.value as unknown[]).map(String);
-          const slug = multiValueFilter.item_property_slug;
-          items = [...items].sort((a, b) => {
-            const aVal = a[slug];
-            const bVal = b[slug];
-            const aArr = Array.isArray(aVal) ? aVal.map(String) : [String(aVal ?? "")];
-            const bArr = Array.isArray(bVal) ? bVal.map(String) : [String(bVal ?? "")];
-            const aCount = filterValues.filter(v => aArr.includes(v)).length;
-            const bCount = filterValues.filter(v => bArr.includes(v)).length;
-            if (bCount !== aCount) return bCount - aCount;
-            const aPriority = typeof a.priority === "number" ? a.priority : 2;
-            const bPriority = typeof b.priority === "number" ? b.priority : 2;
-            return aPriority - bPriority;
-          });
-        }
       }
 
       const hardcodedEntries = (dynamicEntries?.hardcoded_entries || sec.hardcoded_entries) as unknown[] | undefined;

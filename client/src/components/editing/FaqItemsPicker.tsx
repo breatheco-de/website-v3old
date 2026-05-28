@@ -336,8 +336,40 @@ export function FaqItemsPicker({
       .filter((i) => !hardcodedKeys.has(faqItemKey(i.question)))
       .filter((i) => !ignoredSet.has(faqItemKey(i.question)));
 
-    // Apply the same sort logic as the server (dynamic_entries.sort field)
-    if (sortField) {
+    // Match-count sort (mirrors server dynamic-entries logic):
+    // When multiple relatedFeatures are configured, items matching more features
+    // float to the top. The explicit sortField (if set) is the tiebreaker within
+    // each match-count group; otherwise priority is the default tiebreaker.
+    // Falls back to explicit sortField alone when relatedFeatures has ≤1 value.
+    if (relatedFeatures.length > 1) {
+      const explicitSortDesc = sortField?.startsWith("-") ?? false;
+      const explicitSortField = sortField
+        ? (explicitSortDesc ? sortField.slice(1) : sortField)
+        : null;
+
+      uniqueDbItems = [...uniqueDbItems].sort((a, b) => {
+        const aFeatures = ((a as Record<string, unknown>).related_features as string[]) || [];
+        const bFeatures = ((b as Record<string, unknown>).related_features as string[]) || [];
+        const aCount = relatedFeatures.filter((f) => aFeatures.includes(f)).length;
+        const bCount = relatedFeatures.filter((f) => bFeatures.includes(f)).length;
+        if (bCount !== aCount) return bCount - aCount;
+
+        // Tiebreaker: explicit sort field, or priority as default
+        const tieField = explicitSortField ?? "priority";
+        const aT = (a as Record<string, unknown>)[tieField];
+        const bT = (b as Record<string, unknown>)[tieField];
+        if (aT == null && bT == null) return 0;
+        if (aT == null) return 1;
+        if (bT == null) return -1;
+        let cmp = 0;
+        if (typeof aT === "number" && typeof bT === "number") {
+          cmp = aT - bT;
+        } else {
+          cmp = String(aT).localeCompare(String(bT));
+        }
+        return explicitSortField && explicitSortDesc ? -cmp : cmp;
+      });
+    } else if (sortField) {
       const desc = sortField.startsWith("-");
       const field = desc ? sortField.slice(1) : sortField;
       uniqueDbItems = [...uniqueDbItems].sort((a, b) => {
@@ -353,24 +385,6 @@ export function FaqItemsPicker({
           cmp = String(aVal).localeCompare(String(bVal));
         }
         return desc ? -cmp : cmp;
-      });
-    }
-
-    // Auto match-count sort (mirrors server dynamic-entries auto-sort):
-    // When no explicit sortField and multiple relatedFeatures are configured,
-    // items matching more features float to the top; priority is the tiebreaker.
-    if (!sortField && relatedFeatures.length > 1) {
-      uniqueDbItems = [...uniqueDbItems].sort((a, b) => {
-        const aFeatures = ((a as Record<string, unknown>).related_features as string[]) || [];
-        const bFeatures = ((b as Record<string, unknown>).related_features as string[]) || [];
-        const aCount = relatedFeatures.filter((f) => aFeatures.includes(f)).length;
-        const bCount = relatedFeatures.filter((f) => bFeatures.includes(f)).length;
-        if (bCount !== aCount) return bCount - aCount;
-        const aPriority = typeof (a as Record<string, unknown>).priority === "number"
-          ? (a as Record<string, unknown>).priority as number : 2;
-        const bPriority = typeof (b as Record<string, unknown>).priority === "number"
-          ? (b as Record<string, unknown>).priority as number : 2;
-        return aPriority - bPriority;
       });
     }
 

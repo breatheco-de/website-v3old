@@ -570,6 +570,8 @@ sections:
             - online-platform
             - certification
             - mentors-and-teachers
+        - item_property_slug: locations
+          value: all
     marginY:
       desktop: none md
     paddingY:
