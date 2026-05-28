@@ -3199,13 +3199,14 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
   );
 }
 
-function SemanticIndexKpiCard({ dbName, jobStatus, onForceRefresh }: {
+function SemanticIndexKpiCard({ dbName, jobStatus, onForceRefresh, onReindex }: {
   dbName: string;
   jobStatus?: {
     fetch: { status: string };
     index: { status: string; fetched?: number; total?: number | null; finishedAt?: string; error?: string };
   } | null;
   onForceRefresh?: () => void;
+  onReindex?: () => void;
 }) {
   const index = jobStatus?.index;
   const isRunning = index?.status === "running";
@@ -3230,7 +3231,21 @@ function SemanticIndexKpiCard({ dbName, jobStatus, onForceRefresh }: {
             <span>Indexing{index?.fetched !== undefined && index?.total ? ` ${index.fetched} of ${index.total}` : "\u2026"}</span>
           </div>
         ) : isError ? (
-          <p className="text-xs text-destructive truncate" title={index?.error}>Error: {index?.error ?? "unknown"}</p>
+          <div className="space-y-1">
+            <p className="text-xs text-destructive truncate" title={index?.error}>Error: {index?.error ?? "unknown"}</p>
+            {onReindex && (
+              <Button
+                size="sm"
+                variant="outline"
+                className="h-6 text-xs px-2"
+                onClick={onReindex}
+                data-testid="button-reindex"
+              >
+                <RefreshCw className="h-3 w-3 mr-1" />
+                Re-index
+              </Button>
+            )}
+          </div>
         ) : isDone ? (
           <p className="text-xs text-muted-foreground">
             {index?.finishedAt ? new Date(index.finishedAt).toLocaleString() : "Done"}
@@ -3256,6 +3271,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isReindexing, setIsReindexing] = useState(false);
   const [activePanel, setActivePanel] = useState<"settings" | "mappings" | null>(null);
   const [dataView, setDataView] = useState<"mapped" | "raw">("mapped");
   const [page, setPage] = useState(1);
@@ -3451,6 +3467,46 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
       });
     } finally {
       setIsRefreshing(false);
+    }
+  };
+
+  const handleRetryFetch = async () => {
+    setIsRefreshing(true);
+    setJobStatusDismissed(false);
+    try {
+      await fetch(`/api/databases/${dbName}/refresh`, { method: "POST" });
+      queryClient.invalidateQueries({ queryKey: [`/api/databases/${dbName}/job-status`] });
+      setPage(1);
+      await Promise.all([refetchItems(), refetchRawItems()]);
+    } catch (err) {
+      toast({
+        title: "Retry failed",
+        description: err instanceof Error ? err.message : String(err),
+        variant: "destructive",
+      });
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
+  const handleReindex = async () => {
+    setIsReindexing(true);
+    setJobStatusDismissed(false);
+    try {
+      const res = await fetch(`/api/databases/${dbName}/reindex`, { method: "POST" });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Re-index failed");
+      }
+      queryClient.invalidateQueries({ queryKey: [`/api/databases/${dbName}/job-status`] });
+    } catch (err) {
+      toast({
+        title: "Re-index failed",
+        description: err instanceof Error ? err.message : String(err),
+        variant: "destructive",
+      });
+    } finally {
+      setIsReindexing(false);
     }
   };
 
@@ -3776,6 +3832,23 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                       {jobStatus?.fetch.page ? ` (page ${jobStatus.fetch.page})` : ""}
                     </span>
                   </div>
+                ) : jobStatus?.fetch.status === "error" ? (
+                  <div className="space-y-1">
+                    <p className="text-xs text-destructive truncate" title={jobStatus.fetch.error} data-testid="text-fetched-at">
+                      Error: {jobStatus.fetch.error ?? "unknown"}
+                    </p>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="h-6 text-xs px-2"
+                      onClick={handleRetryFetch}
+                      disabled={isRefreshing}
+                      data-testid="button-retry-fetch"
+                    >
+                      <RefreshCw className={`h-3 w-3 mr-1 ${isRefreshing ? "animate-spin" : ""}`} />
+                      Retry
+                    </Button>
+                  </div>
                 ) : (
                   <p className="text-sm font-medium" data-testid="text-fetched-at">
                     {itemsData?.fetched_at
@@ -3794,7 +3867,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
               <CachedImagesKpiCard dbName={dbName} />
             )}
             {hasSemanticSearch && (
-              <SemanticIndexKpiCard dbName={dbName} jobStatus={jobStatus} onForceRefresh={() => setConfirmForceRefreshOpen(true)} />
+              <SemanticIndexKpiCard dbName={dbName} jobStatus={jobStatus} onForceRefresh={() => setConfirmForceRefreshOpen(true)} onReindex={handleReindex} />
             )}
           </div>
             );
@@ -4013,9 +4086,29 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                               </span>
                             </>
                           ) : jobStatus?.fetch.status === "error" ? (
-                            <span className="text-destructive">Fetch error: {jobStatus.fetch.error ?? "unknown"}</span>
+                            <>
+                              <span className="text-destructive shrink-0">Fetch error: {jobStatus.fetch.error ?? "unknown"}</span>
+                              <button
+                                className="text-muted-foreground underline underline-offset-2 hover:text-foreground cursor-pointer shrink-0"
+                                onClick={handleRetryFetch}
+                                disabled={isRefreshing}
+                                data-testid="button-banner-retry-fetch"
+                              >
+                                Retry
+                              </button>
+                            </>
                           ) : jobStatus?.index.status === "error" ? (
-                            <span className="text-destructive">Index error: {jobStatus.index.error ?? "unknown"}</span>
+                            <>
+                              <span className="text-destructive shrink-0">Index error: {jobStatus.index.error ?? "unknown"}</span>
+                              <button
+                                className="text-muted-foreground underline underline-offset-2 hover:text-foreground cursor-pointer shrink-0"
+                                onClick={handleReindex}
+                                disabled={isReindexing}
+                                data-testid="button-banner-reindex"
+                              >
+                                Re-index
+                              </button>
+                            </>
                           ) : (
                             <>
                               <Check className="h-2.5 w-2.5 shrink-0" />

@@ -669,6 +669,26 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
   });
 
+  app.post("/api/databases/:name/reindex", async (req, res) => {
+    try {
+      const name = req.params.name;
+      const config = databaseManager.get(name);
+      const vsConfig = (config as any).vector_search as { enabled?: boolean; fields?: string[] } | undefined;
+      if (!vsConfig?.enabled || !vsConfig.fields?.length) {
+        res.status(400).json({ error: "Semantic search is not enabled for this database" });
+        return;
+      }
+      const cached = await databaseManager.fetchItems(name, false);
+      const { indexItems } = await import("../vector-search");
+      indexItems(name, cached.items, vsConfig.fields).catch((err: unknown) => {
+        console.error(`[reindex] Background indexing error for "${name}":`, err);
+      });
+      res.json({ success: true, count: cached.items.length });
+    } catch (err: unknown) {
+      res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
   app.get("/api/databases/:name/job-status", (req, res) => {
     try {
       const state = getDbJobState(req.params.name);
