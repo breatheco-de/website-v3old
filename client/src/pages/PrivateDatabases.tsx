@@ -1239,6 +1239,23 @@ function DatabaseConfigEditor({
   const [sampleLoading, setSampleLoading] = useState(false);
   const [showCurl, setShowCurl] = useState(false);
   const [curlCopied, setCurlCopied] = useState(false);
+  const [webhookCopied, setWebhookCopied] = useState(false);
+
+  const { data: webhookData } = useQuery<{ configured: boolean; url?: string }>({
+    queryKey: ["/api/webhooks/clear-cache/url"],
+    staleTime: 60_000,
+  });
+
+  const webhookFullUrl = webhookData?.configured && webhookData.url
+    ? `${webhookData.url}&type=${encodeURIComponent(dbName)}`
+    : null;
+
+  const handleCopyWebhook = () => {
+    if (!webhookFullUrl) return;
+    navigator.clipboard.writeText(webhookFullUrl);
+    setWebhookCopied(true);
+    setTimeout(() => setWebhookCopied(false), 2000);
+  };
 
   const curlCommand = useMemo(() => {
     if (sourceType !== "api" || !endpoint.trim()) return null;
@@ -1510,6 +1527,37 @@ function DatabaseConfigEditor({
 
       {sourceType === "api" && (
         <>
+          {webhookData && (
+            <div className="flex items-center gap-2 rounded-md bg-muted/50 border px-3 py-2 text-xs">
+              <Webhook className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+              <span className="text-muted-foreground shrink-0">Webhook:</span>
+              {webhookFullUrl ? (
+                <>
+                  <input
+                    readOnly
+                    value={webhookFullUrl}
+                    className="flex-1 font-mono bg-transparent outline-none text-foreground min-w-0 truncate cursor-text"
+                    onFocus={(e) => e.target.select()}
+                    data-testid="input-webhook-url-settings"
+                  />
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="h-6 w-6 shrink-0"
+                    onClick={handleCopyWebhook}
+                    title={webhookCopied ? "Copied!" : "Copy webhook URL"}
+                    data-testid="button-copy-webhook-settings"
+                  >
+                    {webhookCopied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                  </Button>
+                </>
+              ) : (
+                <span className="text-muted-foreground italic">
+                  WEBHOOK_SECRET not configured — ask an administrator to set it up.
+                </span>
+              )}
+            </div>
+          )}
           <div className="space-y-2">
             <Label htmlFor="edit-endpoint">Endpoint URL</Label>
             <Input
