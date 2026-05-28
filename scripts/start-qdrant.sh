@@ -5,8 +5,9 @@ QDRANT_VERSION="v1.13.4"
 BIN_DIR=".local/bin"
 QDRANT_BIN="${BIN_DIR}/qdrant"
 STORAGE_DIR=".cache/qdrant-storage"
+MODEL_CACHE_DIR=".cache/xenova-models"
 
-mkdir -p "${BIN_DIR}" "${STORAGE_DIR}"
+mkdir -p "${BIN_DIR}" "${STORAGE_DIR}" "${MODEL_CACHE_DIR}"
 
 if [ ! -f "${QDRANT_BIN}" ]; then
   echo "[qdrant] Binary not found — downloading ${QDRANT_VERSION} for Linux x86_64..."
@@ -20,6 +21,19 @@ if [ ! -f "${QDRANT_BIN}" ]; then
   rm -rf "${TMP_DIR}"
   echo "[qdrant] Downloaded to ${QDRANT_BIN}"
 fi
+
+echo "[embedding-model] Warming up local embedding model (Xenova/all-MiniLM-L6-v2)..."
+node --input-type=module <<'EOF'
+import { pipeline, env } from "@xenova/transformers";
+env.allowLocalModels = false;
+env.cacheDir = ".cache/xenova-models";
+try {
+  await pipeline("feature-extraction", "Xenova/all-MiniLM-L6-v2");
+  console.log("[embedding-model] Model ready.");
+} catch (err) {
+  console.warn("[embedding-model] Warmup failed (search will fall back to keyword):", err.message);
+}
+EOF
 
 echo "[qdrant] Starting on port 6333 with storage at ${STORAGE_DIR}..."
 export QDRANT__SERVICE__HTTP_PORT=6333

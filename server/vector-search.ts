@@ -27,6 +27,7 @@ async function getEmbedder(): Promise<(texts: string[]) => Promise<number[][]>> 
     _embedderLoading = (async () => {
       const { pipeline, env } = await import("@xenova/transformers");
       env.allowLocalModels = false;
+      env.cacheDir = ".cache/xenova-models";
       const pipe = await pipeline("feature-extraction", EMBEDDING_MODEL);
 
       _embedder = async (texts: string[]): Promise<number[][]> => {
