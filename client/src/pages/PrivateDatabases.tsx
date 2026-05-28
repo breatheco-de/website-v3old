@@ -1797,8 +1797,9 @@ function DatabaseConfigEditor({
             <div className="flex items-start justify-between gap-2 pr-8">
               <div>
                 <DialogTitle>Raw API Sample Data</DialogTitle>
-                <DialogDescription className="mt-1">
-                  {sampleData ? `Showing ${sampleData.items.length} of ${sampleData.count} total raw items` : "Loading sample data..."}
+                <DialogDescription className="mt-1 space-y-0.5">
+                  <span className="block">{sampleData ? `Showing ${sampleData.items.length} of ${sampleData.count} total raw items` : "Loading sample data..."}</span>
+                  <span className="block text-[11px] text-muted-foreground/70">Reflects the last cached fetch. If you recently changed query params, save and Force Refresh first.</span>
                 </DialogDescription>
               </div>
               <div className="flex items-center gap-1">
