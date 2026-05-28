@@ -8,15 +8,15 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: AI Engineering Program Cost
+    title: "<b><span style=\"font-size: 1.5rem;\">AI Engineering Program Cost</span></b>"
     brand_mark:
-      prefix: "And the $95K–$135K"
+      prefix: And the $95K–$135K
       highlight: Salaries That Follow.
       color: primary
     description: "<span style=\"font-size: 1.125rem;\">The investment is real. So is the return. Here is everything you need to decide.</span>"
     bullets:
-      - text: "Flexible financing from $399/mo — built around what works for you."
-      - text: "Entry roles paying $95K–$155K. AI Engineer is the fastest-growing job of 2026."
+      - text: Flexible financing from $399/mo — built around what works for you.
+      - text: Entry roles paying $95K–$155K. AI Engineer is the fastest-growing job of 2026.
       - text: "Optional Job Guarantee*: get hired within 9 months or full tuition refund."
     image_object_fit: none
     form:
@@ -57,7 +57,7 @@ sections:
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get All the Financing and Program Details You Need
-    form_card_subtitle: "Our admissions team will walk you through every financing option and help you find the one that fits — not just answer your questions, but figure out the best path forward with you."
+    form_card_subtitle: Our admissions team will walk you through every financing option and help you find the one that fits — not just answer your questions, but figure out the best path forward with you.
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: true
     awards_marquee:
@@ -479,7 +479,7 @@ sections:
       subtitle: 4Geeks Academy Certificate
       program_name: AI Engineering
     stats:
-      - value: "{{ global.global_job_placement_rate | 84 }}%"
+      - value: {{ global.global_job_placement_rate | 84 }}%
         label: Hiring rate
         description: Graduate with the credentials, portfolio, and professional profile to get hired — not just qualified.
         benefits:
@@ -494,7 +494,7 @@ sections:
           - text: Resume, portfolio, and profiles optimized to attract recruiters and pass AI-based screening
           - text: Technical and behavioral interview preparation
           - text: Personalized job-search strategy with access to relevant hiring networks
-      - value: "{{ global.global_salary_increase | 55 }}%"
+      - value: {{ global.global_salary_increase | 55 }}%
         label: Average salary increase
         description: AI skills are exactly what companies cannot find enough of. Step into high-priority roles with immediate growth and long-term upside.
         benefits:
