@@ -30,12 +30,7 @@
 #   System default (when absent): { menu: { top: null, bottom: null } }
 #   Per-entry override: set layout.menu.top / layout.menu.bottom in _common.yml or locale files
 
-# insights_intent: intent cluster this content type belongs to for component ordering
-# recommendations. Must match an id in settings.yml > page_intents.
-# Individual pages can override this by setting insights_intent in their own YAML file.
-# Fallback when neither the page nor content type declares an intent: brand_corporate.
 program:
-  # insights_intent: product_service
   insights_intent: product_service
   directory: programs
   unique_fields:
@@ -163,3 +158,8 @@ outcome-report:
   url_pattern:
     en: /en/outcomes-report/:slug
     es: /es/informe-de-resultados/:slug
+how-to:
+  directory: how-to
+  url_pattern:
+    en: /en/how-to/:slug
+    es: /es/how-to/:slug

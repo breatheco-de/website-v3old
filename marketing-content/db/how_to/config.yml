@@ -1,0 +1,29 @@
+name: How To
+source:
+  type: api
+  api:
+    endpoint: https://breathecode.herokuapp.com/v1/registry/asset
+    results_path: results
+    params:
+      type: LESSON
+      category: how-to
+      academy: '4'
+      limit: '500'
+cache:
+  ttl_hours: 24
+field_mapping:
+  id: id
+  slug: slug
+  title: title
+  description: description
+  language: lang
+  published_at: published_at
+  asset_type: asset_type
+  url: url
+  readme_url: readme_url
+  image_url: preview
+  technologies: technologies
+  seo_keywords: seo_keywords
+editor:
+  image_url:
+    cache_images: true
