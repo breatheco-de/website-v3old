@@ -2550,9 +2550,33 @@ function FieldMappingEditor({
               </span>
             </label>
           </div>
-          <DialogFooter>
-            <Button size="sm" onClick={() => setImageCacheModalField(null)} data-testid="button-close-cache-modal">
-              Done
+          <DialogFooter className="gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                setEditorHints((prev) => {
+                  if (!imageCacheModalField) return prev;
+                  const original = config.editor?.[imageCacheModalField]?.cache_images ?? false;
+                  const current = prev[imageCacheModalField] || {};
+                  return { ...prev, [imageCacheModalField]: { ...current, cache_images: original } };
+                });
+                setImageCacheModalField(null);
+              }}
+              data-testid="button-cancel-cache-modal"
+            >
+              Cancel
+            </Button>
+            <Button
+              size="sm"
+              disabled={saving}
+              onClick={async () => {
+                setImageCacheModalField(null);
+                await handleSave();
+              }}
+              data-testid="button-save-cache-modal"
+            >
+              {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Save"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -2596,9 +2620,31 @@ function FieldMappingEditor({
               </span>
             </label>
           </div>
-          <DialogFooter>
-            <Button size="sm" onClick={() => setVectorSearchModalField(null)} data-testid="button-close-vector-modal">
-              Done
+          <DialogFooter className="gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                if (vectorSearchModalField) {
+                  const original = config.vector_search?.fields ?? [];
+                  setVectorSearchFields(original);
+                }
+                setVectorSearchModalField(null);
+              }}
+              data-testid="button-cancel-vector-modal"
+            >
+              Cancel
+            </Button>
+            <Button
+              size="sm"
+              disabled={saving}
+              onClick={async () => {
+                setVectorSearchModalField(null);
+                await handleSave();
+              }}
+              data-testid="button-save-vector-modal"
+            >
+              {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Save"}
             </Button>
           </DialogFooter>
         </DialogContent>
