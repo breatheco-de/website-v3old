@@ -743,8 +743,8 @@ sections:
       desktop: lg none
   - type: cta_banner
     version: "1.0"
-    title: Ready to build your AI career?
-    subtitle: AI Engineering is the fastest-growing job of 2026. The best time to start is now. Apply and our admissions team will be in touch shortly.
+    title: Ready to Launch a High-Paying AI Engineering Career?
+    subtitle: Our admissions team will walk you through the financing options, monthly payments, program details and everything else you need to take the step.
     background: hsl(var(--primary))
     variant: form
     form:
