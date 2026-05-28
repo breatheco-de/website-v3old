@@ -3245,6 +3245,27 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   const config = detail?.config;
   const fieldMapping = config?.field_mapping;
 
+  const hasSemanticSearch = (config?.vector_search?.fields?.length ?? 0) > 0;
+
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedSearch(search), 400);
+    return () => clearTimeout(t);
+  }, [search]);
+
+  const { data: semanticResults, isFetching: semanticFetching } = useQuery<{
+    items: Record<string, unknown>[];
+    count: number;
+    semantic: boolean;
+  }>({
+    queryKey: [`/api/databases/${dbName}/search`, debouncedSearch],
+    queryFn: () =>
+      fetch(`/api/databases/${dbName}/search?q=${encodeURIComponent(debouncedSearch)}&limit=100`)
+        .then((r) => r.json()),
+    enabled: hasSemanticSearch && debouncedSearch.trim().length > 0 && (hasFetched || !!itemsData),
+    staleTime: 10_000,
+  });
+
   const activeItems = dataView === "raw" ? rawItemsData : itemsData;
 
   const columns = useMemo(() => {
@@ -3258,16 +3279,22 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   }, [dataView, fieldMapping, activeItems?.items]);
 
   const filteredItems = useMemo(() => {
-    if (!activeItems?.items) return [];
-    let items = activeItems.items;
+    let items: Record<string, unknown>[];
 
-    if (search.trim()) {
-      const q = search.toLowerCase();
-      items = items.filter((item) =>
-        Object.values(item).some(
-          (v) => v != null && String(v).toLowerCase().includes(q)
-        )
-      );
+    if (hasSemanticSearch && debouncedSearch.trim() && semanticResults?.items) {
+      items = semanticResults.items;
+    } else if (!activeItems?.items) {
+      return [];
+    } else {
+      items = activeItems.items;
+      if (search.trim()) {
+        const q = search.toLowerCase();
+        items = items.filter((item) =>
+          Object.values(item).some(
+            (v) => v != null && String(v).toLowerCase().includes(q)
+          )
+        );
+      }
     }
 
     if (sortKey) {
@@ -3280,7 +3307,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     }
 
     return items;
-  }, [itemsData?.items, search, sortKey, sortDir]);
+  }, [activeItems?.items, semanticResults, hasSemanticSearch, debouncedSearch, search, sortKey, sortDir]);
 
   const handleSort = (key: string) => {
     if (sortKey === key) {
@@ -3790,15 +3817,36 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                 </div>
                 <div className="flex items-center gap-2">
                   {(hasFetched || itemsData) && (
-                    <div className="relative">
-                      <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-                      <Input
-                        placeholder="Search..."
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        className="pl-7 h-8 w-48 text-xs"
-                        data-testid="input-search-items"
-                      />
+                    <div className="flex flex-col gap-0.5">
+                      <div className="relative">
+                        <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+                        <Input
+                          placeholder="Search..."
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
+                          className="pl-7 h-8 w-48 text-xs"
+                          data-testid="input-search-items"
+                        />
+                      </div>
+                      {hasSemanticSearch ? (
+                        <p className="text-[10px] text-muted-foreground flex items-center gap-1 pl-0.5" data-testid="text-search-mode">
+                          {semanticFetching ? (
+                            <><Loader2 className="h-2.5 w-2.5 animate-spin" /> Searching…</>
+                          ) : debouncedSearch.trim() && semanticResults ? (
+                            semanticResults.semantic ? (
+                              <><Sparkles className="h-2.5 w-2.5 text-orange-500" /> Ranked by meaning</>
+                            ) : (
+                              <><Search className="h-2.5 w-2.5" /> Keyword match (semantic index unavailable)</>
+                            )
+                          ) : (
+                            <><Sparkles className="h-2.5 w-2.5 text-orange-500" /> Semantic search</>
+                          )}
+                        </p>
+                      ) : search.trim() ? (
+                        <p className="text-[10px] text-muted-foreground pl-0.5" data-testid="text-search-mode">
+                          Keyword match across all fields
+                        </p>
+                      ) : null}
                     </div>
                   )}
                   <Button
