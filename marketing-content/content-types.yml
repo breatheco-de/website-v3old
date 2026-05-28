@@ -124,8 +124,7 @@ blog:
     status: status
     category: cluster_slug
     tags: tags
-    lang: >-
-      function:KHZhbHVlLCBpdGVtKSA9PiB7IGNvbnN0IHYgPSBTdHJpbmcoaXRlbS5sYW5ndWFnZSB8fCAnJyk7IHJldHVybiB2ID09PSAndXMnID8gJ2VuJyA6IHY7IH0=
+    lang: language
     content: content
   indexes:
     - status
@@ -139,6 +138,8 @@ blog:
     menu:
       top: main-navbar
       bottom: main-footer
+  unique_fields:
+    - slug
 downloadable:
   insights_intent: lead_generation
   directory: downloadable

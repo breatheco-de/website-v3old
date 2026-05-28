@@ -3403,12 +3403,18 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     }
   };
 
+  const TRANSFORM_ERROR_SENTINEL = "__transform_error__";
+
   const formatCellValue = (value: unknown): string => {
     if (value === null || value === undefined) return "\u2014";
+    if (value === TRANSFORM_ERROR_SENTINEL) return "[transform error]";
     if (typeof value === "boolean") return value ? "Yes" : "No";
     if (typeof value === "object") return JSON.stringify(value);
     return String(value);
   };
+
+  const cellClassName = (value: unknown) =>
+    value === TRANSFORM_ERROR_SENTINEL ? "text-destructive" : "";
 
   return (
     <div className="space-y-4">
@@ -3991,7 +3997,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                           {columns.map((col) => (
                             <td
                               key={col}
-                              className="px-3 py-2 max-w-[200px] truncate whitespace-nowrap"
+                              className={`px-3 py-2 max-w-[200px] truncate whitespace-nowrap ${cellClassName(item[col])}`}
                               title={formatCellValue(item[col])}
                             >
                               {formatCellValue(item[col])}

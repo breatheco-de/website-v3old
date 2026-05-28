@@ -24,7 +24,8 @@ field_mapping:
   title: title
   description: description
   status: status
-  language: lang
+  language: >-
+    function:KHZhbHVlLCBpdGVtKSA9PiB7IGNvbnN0IHYgPSBTdHJpbmcoaXRlbS5sYW5ndWFnZSB8fCAnJyk7IHJldHVybiB2ID09PSAndXMnID8gJ2VuJyA6IHY7IH0=
   published_at: published_at
   updated_at: updated_at
   url: url

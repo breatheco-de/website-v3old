@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
 import { getContentTypeConfig, getLocaleKey, getFieldMapping } from "./content-types";
-import { getValueByPath, resolveFieldValue } from "./transform";
+import { getValueByPath, resolveFieldValue, isTransformer, compileTransformer, runTransformer } from "./transform";
 import { ExternalImageCacher } from "./external-image-cacher";
 import { resolveBySourceUrl } from "./image-registry";
 import { IDatabaseCache, CacheEntry, SqliteCache, CACHE_DIR } from "./db-cache";
@@ -62,6 +62,8 @@ function setValueByPath(obj: Record<string, unknown>, dotPath: string, value: un
   current[parts[parts.length - 1]] = value;
 }
 
+const TRANSFORM_ERROR_SENTINEL = "__transform_error__";
+
 function applyFieldMapping(
   item: Record<string, unknown>,
   mapping: Record<string, string>
@@ -70,6 +72,14 @@ function applyFieldMapping(
   for (const [normalizedKey, sourcePath] of Object.entries(mapping)) {
     if (sourcePath === null || sourcePath === undefined) {
       result[normalizedKey] = null;
+    } else if (isTransformer(sourcePath)) {
+      const compiled = compileTransformer(sourcePath);
+      if (!compiled) {
+        result[normalizedKey] = TRANSFORM_ERROR_SENTINEL;
+      } else {
+        const output = runTransformer(compiled, item[normalizedKey], item, { fieldPath: normalizedKey });
+        result[normalizedKey] = output === undefined ? TRANSFORM_ERROR_SENTINEL : output;
+      }
     } else {
       result[normalizedKey] = getValueByPath(item, sourcePath);
     }
