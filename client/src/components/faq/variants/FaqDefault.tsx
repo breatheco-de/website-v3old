@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import type { FAQSection as FAQSectionType } from "@shared/schema";
+import { useLocation as useWouterLocation } from "wouter";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { faqItemKey } from "@/lib/faqConstants";
 import { useSession } from "@/contexts/SessionContext";
@@ -18,8 +19,12 @@ interface FAQSectionProps {
 
 export function FAQSection({ data }: FAQSectionProps) {
   const handleLinkClick = useInternalNav();
+  const [pathname] = useWouterLocation();
   const { session } = useSession();
   const sessionLocationSlug = session.location?.slug;
+
+  const locationSlugMatch = pathname.match(/^\/(en|es)\/(location|ubicacion)\/([^/]+)/);
+  const locationSlug = locationSlugMatch ? locationSlugMatch[3] : undefined;
 
   const itemOverrides = (data as Record<string, unknown>).item_overrides as
     | Record<string, { hideOnLocations?: string[] }>
@@ -36,16 +41,19 @@ export function FAQSection({ data }: FAQSectionProps) {
     ];
 
     // Apply item_overrides (hideOnLocations)
-    if (itemOverrides && Object.keys(itemOverrides).length > 0 && sessionLocationSlug) {
-      items = items.filter((item) => {
-        const key = faqItemKey(item.question);
-        const override = itemOverrides[key];
-        return !override?.hideOnLocations?.includes(sessionLocationSlug);
-      });
+    if (itemOverrides && Object.keys(itemOverrides).length > 0) {
+      const effectiveLocation = locationSlug || sessionLocationSlug;
+      if (effectiveLocation) {
+        items = items.filter((item) => {
+          const key = faqItemKey(item.question);
+          const override = itemOverrides[key];
+          return !override?.hideOnLocations?.includes(effectiveLocation);
+        });
+      }
     }
 
     return items;
-  }, [data, itemOverrides, sessionLocationSlug]);
+  }, [data, itemOverrides, locationSlug, sessionLocationSlug]);
 
   if (faqItems.length === 0) {
     return null;
