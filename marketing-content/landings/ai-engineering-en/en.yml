@@ -641,7 +641,7 @@ sections:
     subtitle: The average 4Geeks graduate sees a 55% salary increase. Flexible financing means nothing stands between you and an AI Engineering career.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting below"
-    financing_amount: $349
+    financing_amount: $399
     tech_icons:
       - openai
       - claude
