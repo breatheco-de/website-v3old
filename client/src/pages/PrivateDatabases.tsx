@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
-import {AlertTriangle, ArrowLeft, ArrowLeftRight, ArrowRight, ArrowUpDown, Check, ChevronDown, ChevronUp, Clock, CloudUpload, Code, Database, Download, Eye, File, Image, Link as LinkIcon, Loader2, Pencil, Plus, RefreshCw, Save, Search, Server, Settings, SlidersHorizontal, Table, TestTube, Trash2, Upload, Wand2, Webhook, X} from "lucide-react";
+import {AlertTriangle, ArrowLeft, ArrowLeftRight, ArrowRight, ArrowUpDown, Check, ChevronDown, ChevronUp, Clock, CloudUpload, Code, Database, Download, Eye, File, Image, Info, Link as LinkIcon, Loader2, Pencil, Plus, RefreshCw, Save, Search, Server, Settings, SlidersHorizontal, Table, TestTube, Trash2, Upload, Wand2, Webhook, X} from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRoute, Link, useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import {
   Select,
   SelectContent,
@@ -1462,7 +1463,17 @@ function DatabaseConfigEditor({
           </Select>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="edit-ttl">Cache TTL (hours)</Label>
+          <div className="flex items-center gap-1.5">
+            <Label htmlFor="edit-ttl">Cache TTL (hours)</Label>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent side="right" className="max-w-[220px] text-xs">
+                The entire database will be refreshed every {ttlHours || "24"} hour{Number(ttlHours) === 1 ? "" : "s"} to keep the data up to date. Set to 0 to disable automatic refresh.
+              </TooltipContent>
+            </Tooltip>
+          </div>
           <Input
             id="edit-ttl"
             type="number"
