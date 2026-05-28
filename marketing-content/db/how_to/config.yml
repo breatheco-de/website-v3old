@@ -9,7 +9,6 @@ source:
       category: how-to
       academy: '4'
       limit: '500'
-      big: 'true'
       expand: readme
 cache:
   ttl_hours: 24
