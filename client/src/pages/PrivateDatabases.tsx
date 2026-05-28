@@ -1238,6 +1238,47 @@ function DatabaseConfigEditor({
       ? localFilename.trim().length > 0
       : remoteUrl.trim().length > 0;
 
+  const isDirty = useMemo(() => {
+    const origType = config.source.type === "local" || config.source.type === "remote" ? config.source.type : "api";
+    if (sourceType !== origType) return true;
+    const origResultsPath =
+      config.source.api?.results_path ||
+      config.source.local?.results_path ||
+      config.source.remote?.results_path ||
+      "";
+    if (resultsPath !== origResultsPath) return true;
+    if (String(config.cache?.ttl_hours ?? 24) !== ttlHours) return true;
+    if (sourceType === "api") {
+      if (endpoint !== (config.source.api?.endpoint || "")) return true;
+      if (tokenEnvVar !== (config.source.api?.auth?.token_env_var || "")) return true;
+      if (authPrefix !== (config.source.api?.auth?.prefix || "Bearer")) return true;
+      const origParams = config.source.api?.params ?? {};
+      const origParamPairs = Object.entries(origParams).map(([key, value]) => ({ key, value: String(value) }));
+      const filteredParams = params.filter((p) => p.key.trim());
+      if (JSON.stringify(filteredParams) !== JSON.stringify(origParamPairs)) return true;
+      const origHeaders = config.source.api?.headers ?? {};
+      const origHeaderPairs = Object.entries(origHeaders).map(([key, value]) => ({ key, value }));
+      const filteredHeaders = headers.filter((h) => h.key.trim());
+      if (JSON.stringify(filteredHeaders) !== JSON.stringify(origHeaderPairs)) return true;
+    }
+    if (sourceType === "local") {
+      if (localFilename !== (config.source.local?.filename || "")) return true;
+    }
+    if (sourceType === "remote") {
+      if (remoteUrl !== (config.source.remote?.url || "")) return true;
+    }
+    return false;
+  }, [sourceType, endpoint, resultsPath, tokenEnvVar, authPrefix, ttlHours, params, headers, localFilename, remoteUrl, config]);
+
+  useEffect(() => {
+    if (!isDirty) return;
+    const handler = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+    };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, [isDirty]);
+
   const buildSourceConfig = () => {
     if (sourceType === "local") {
       return {
@@ -1585,6 +1626,12 @@ function DatabaseConfigEditor({
           )}
         </div>
         <div className="flex items-center gap-2">
+          {isDirty && (
+            <span className="flex items-center gap-1 text-xs text-muted-foreground" data-testid="text-unsaved-changes">
+              <AlertTriangle className="h-3.5 w-3.5 text-amber-500" />
+              Unsaved changes
+            </span>
+          )}
           <Button
             variant="destructive"
             size="sm"
