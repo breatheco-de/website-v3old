@@ -206,17 +206,19 @@ export function FaqItemsVisibility({
   const displayedItems = useMemo(() => {
     const allItems = faqsData?.items ?? [];
     const localeItems = allItems.filter(f => f.locale === locale);
-    if (hasCentralized && localeItems.length > 0) {
-      return filterFaqsByRelatedFeatures(localeItems, {
-        relatedFeatures,
-        limit: 9,
-      });
-    }
-    if (hasInline) {
-      return inlineItems!;
-    }
-    return [];
-  }, [faqsData, relatedFeatures, hasCentralized, hasInline, inlineItems, locale]);
+
+    const dbItems = hasCentralized && localeItems.length > 0
+      ? filterFaqsByRelatedFeatures(localeItems, { relatedFeatures, limit: 9 })
+      : [];
+
+    const staticItems = inlineItems || [];
+
+    // Merge: static items first, then DB items (deduped by question key)
+    const staticKeys = new Set(staticItems.map(i => faqItemKey(i.question)));
+    const uniqueDbItems = dbItems.filter(i => !staticKeys.has(faqItemKey(i.question)));
+
+    return [...staticItems, ...uniqueDbItems];
+  }, [faqsData, relatedFeatures, hasCentralized, inlineItems, locale]);
 
   const handleItemLocationsChange = (itemKey: string, locations: string[]) => {
     const newOverrides = { ...itemOverrides };

@@ -1435,7 +1435,14 @@ export function SectionEditorPanel({
                     arr.push({ item_property_slug: fieldName, value });
                   }
                 } else {
-                  // Create fresh array format (correct canonical format)
+                  // Create fresh array format (correct canonical format).
+                  // Also initialize dynamic_entries defaults and migrate root items → hardcoded_entries.
+                  if (!parent["database"]) parent["database"] = "frequently_asked_questions";
+                  if (!parent["limit"]) parent["limit"] = 9;
+                  if (Array.isArray(updated.items) && (updated.items as unknown[]).length > 0 && !updated.hardcoded_entries) {
+                    updated.hardcoded_entries = updated.items;
+                    delete updated.items;
+                  }
                   parent["permanent_filters"] = [{ item_property_slug: fieldName, value }];
                 }
               } else {
@@ -4927,9 +4934,12 @@ export function SectionEditorPanel({
                           return ((permFilters as Record<string, unknown> | undefined)?.related_features as string[]) ?? (parsedSection?.related_features as string[]) ?? [];
                         })()}
                         locale={locale || "en"}
-                        inlineItems={
-                          (parsedSection?.items as Array<{ question: string; answer: string }>) || undefined
-                        }
+                        inlineItems={(() => {
+                          const hardcoded = (parsedSection as Record<string, unknown>)?.hardcoded_entries as Array<{ question: string; answer: string }> | undefined;
+                          const rootItems = parsedSection?.items as Array<{ question: string; answer: string }> | undefined;
+                          const combined = [...(hardcoded || []), ...(rootItems || [])];
+                          return combined.length > 0 ? combined : undefined;
+                        })()}
                         itemOverrides={
                           (parsedSection?.item_overrides as Record<string, { hideOnLocations?: string[] }>) || {}
                         }
@@ -4938,6 +4948,12 @@ export function SectionEditorPanel({
                             const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
                             if (!parsed || typeof parsed !== "object") return;
                             pushUndoState(yamlContent);
+                            // Auto-migrate root items → hardcoded_entries when editing visibility
+                            // (prepares the section for future dynamic_entries without changing rendered output)
+                            if (Array.isArray(parsed.items) && (parsed.items as unknown[]).length > 0 && !parsed.dynamic_entries && !parsed.hardcoded_entries) {
+                              parsed.hardcoded_entries = parsed.items;
+                              delete parsed.items;
+                            }
                             if (Object.keys(overrides).length === 0) {
                               delete parsed.item_overrides;
                             } else {
