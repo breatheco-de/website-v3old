@@ -494,6 +494,89 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
   });
 
+  app.get("/api/databases/:name/search", async (req, res) => {
+    try {
+      const dbName = req.params.name;
+      const q = (req.query.q as string || "").trim();
+      const limit = Math.min(Number(req.query.limit) || 20, 100);
+      const locale = (req.query.locale as string) || undefined;
+
+      if (!q) {
+        res.status(400).json({ error: "q parameter is required" });
+        return;
+      }
+
+      const config = databaseManager.get(dbName);
+      const vsConfig = (config as any).vector_search as { enabled?: boolean; fields?: string[] } | undefined;
+      const vectorEnabled = vsConfig?.enabled === true && Array.isArray(vsConfig.fields) && vsConfig.fields.length > 0;
+
+      const cacheResult = await databaseManager.fetchItems(dbName);
+      const allItems = cacheResult.items;
+
+      if (vectorEnabled) {
+        const { search: vectorSearch, isAvailable } = await import("../vector-search");
+        const available = await isAvailable();
+
+        if (available) {
+          const searchResults = await vectorSearch(dbName, q, limit, locale);
+
+          if (searchResults.length > 0) {
+            const slugToScore = new Map(searchResults.map((r) => [r.slug, r.score]));
+
+            let orderedItems = searchResults
+              .map((r) => allItems.find((item) => String(item.slug ?? item.id ?? "") === r.slug))
+              .filter((item): item is Record<string, unknown> => item !== undefined);
+
+            if (locale) {
+              orderedItems = orderedItems.filter((item) => {
+                const itemLocale = String(item.locale ?? item.language ?? item.lang ?? "");
+                return itemLocale.toLowerCase() === locale.toLowerCase();
+              });
+            }
+
+            res.json({
+              items: orderedItems,
+              count: orderedItems.length,
+              semantic: true,
+              scores: Object.fromEntries(
+                orderedItems.map((item) => [
+                  String(item.slug ?? item.id ?? ""),
+                  slugToScore.get(String(item.slug ?? item.id ?? "")) ?? 0,
+                ])
+              ),
+            });
+            return;
+          }
+        }
+      }
+
+      const qLower = q.toLowerCase();
+      let fallback = allItems.filter(
+        (item) =>
+          String(item.title ?? "").toLowerCase().includes(qLower) ||
+          String(item.slug ?? "").toLowerCase().includes(qLower) ||
+          String(item.description ?? "").toLowerCase().includes(qLower) ||
+          String(item.question ?? "").toLowerCase().includes(qLower)
+      );
+
+      if (locale) {
+        fallback = fallback.filter((item) => {
+          const itemLocale = String(item.locale ?? item.language ?? item.lang ?? "");
+          return itemLocale.toLowerCase() === locale.toLowerCase();
+        });
+      }
+
+      res.json({ items: fallback.slice(0, limit), count: fallback.length, semantic: false });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes("not found")) {
+        res.status(404).json({ error: msg });
+      } else {
+        res.status(500).json({ error: msg });
+      }
+    }
+  });
+
   app.get("/api/databases/:name/items", async (req, res) => {
     try {
       const result = await databaseManager.fetchItems(req.params.name);

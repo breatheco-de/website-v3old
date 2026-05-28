@@ -2322,6 +2322,11 @@ export default function ContentTypeManagePage() {
   const [deleteConfirmInput, setDeleteConfirmInput] = useState("");
   const [isDeletingEntry, setIsDeletingEntry] = useState(false);
 
+  const [semanticResults, setSemanticResults] = useState<Record<string, unknown>[] | null>(null);
+  const [semanticActive, setSemanticActive] = useState(false);
+  const [semanticLoading, setSemanticLoading] = useState(false);
+  const semanticDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const [deleteTypeDialogOpen, setDeleteTypeDialogOpen] = useState(false);
   const [deleteTypeConfirmInput, setDeleteTypeConfirmInput] = useState("");
   const [isDeletingType, setIsDeletingType] = useState(false);
@@ -2429,7 +2434,68 @@ export default function ContentTypeManagePage() {
     return stats;
   }, [items, allIndexFields]);
 
+  const dbSlug = typeConfig?.database?.slug || null;
+
+  useEffect(() => {
+    if (viewMode !== "db" || !dbSlug) {
+      setSemanticResults(null);
+      setSemanticActive(false);
+      setSemanticLoading(false);
+      if (semanticDebounceRef.current) clearTimeout(semanticDebounceRef.current);
+      return;
+    }
+
+    if (!search.trim()) {
+      setSemanticResults(null);
+      setSemanticActive(false);
+      setSemanticLoading(false);
+      if (semanticDebounceRef.current) clearTimeout(semanticDebounceRef.current);
+      return;
+    }
+
+    setSemanticLoading(true);
+
+    if (semanticDebounceRef.current) clearTimeout(semanticDebounceRef.current);
+
+    semanticDebounceRef.current = setTimeout(async () => {
+      try {
+        const localeFilter = filters[localeKey || ""] || "";
+        const params = new URLSearchParams({ q: search.trim(), limit: "50" });
+        if (localeFilter && localeFilter !== "all") params.set("locale", localeFilter);
+
+        const res = await fetch(`/api/databases/${dbSlug}/search?${params.toString()}`);
+        if (!res.ok) throw new Error(`Search failed: ${res.status}`);
+        const data = await res.json();
+
+        setSemanticResults(data.items || []);
+        setSemanticActive(data.semantic === true);
+      } catch {
+        setSemanticResults(null);
+        setSemanticActive(false);
+      } finally {
+        setSemanticLoading(false);
+      }
+    }, 300);
+
+    return () => {
+      if (semanticDebounceRef.current) clearTimeout(semanticDebounceRef.current);
+    };
+  }, [search, viewMode, dbSlug, filters, localeKey]);
+
   const filtered = useMemo(() => {
+    if (viewMode === "db" && search.trim() && semanticResults !== null) {
+      let result = semanticResults;
+      for (const [field, value] of Object.entries(filters)) {
+        if (value && value !== "all") {
+          result = result.filter((p) => {
+            const itemVal = String(p[field] || "").toLowerCase();
+            return itemVal === value.toLowerCase();
+          });
+        }
+      }
+      return result;
+    }
+
     let result = items;
 
     for (const [field, value] of Object.entries(filters)) {
@@ -2453,7 +2519,7 @@ export default function ContentTypeManagePage() {
     }
 
     return result;
-  }, [items, filters, search]);
+  }, [items, filters, search, viewMode, semanticResults]);
 
   const staticEntries = staticEntriesData?.results || [];
   const filteredStatic = useMemo(() => {
@@ -2918,6 +2984,21 @@ export default function ContentTypeManagePage() {
                   className="pl-9"
                   data-testid="input-search"
                 />
+                {viewMode === "db" && search.trim() && (
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                    {semanticLoading ? (
+                      <div className="h-3 w-3 animate-spin rounded-full border border-solid border-current border-r-transparent text-muted-foreground" />
+                    ) : semanticActive ? (
+                      <span
+                        className="text-[10px] font-medium text-primary bg-primary/10 px-1.5 py-0.5 rounded"
+                        title="Results ranked by semantic similarity"
+                        data-testid="badge-semantic-search"
+                      >
+                        semantic
+                      </span>
+                    ) : null}
+                  </div>
+                )}
               </div>
               {viewMode === "db" && allIndexFields.map((idx) => {
                 const isLocale = idx === localeKey;

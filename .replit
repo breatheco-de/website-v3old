@@ -20,6 +20,14 @@ localPort = 5000
 externalPort = 80
 
 [[ports]]
+localPort = 6333
+externalPort = 6000
+
+[[ports]]
+localPort = 6334
+externalPort = 6800
+
+[[ports]]
 localPort = 19998
 externalPort = 4200
 
@@ -62,6 +70,10 @@ args = "artifacts/mockup-sandbox: Component Preview Server"
 task = "workflow.run"
 args = "MCP Server"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Qdrant Vector Store"
+
 [[workflows.workflow]]
 name = "Start application"
 author = "agent"
@@ -92,6 +104,17 @@ author = "agent"
 task = "shell.exec"
 args = "tsx mcp-server/index.ts"
 waitForPort = 3001
+
+[workflows.workflow.metadata]
+outputType = "console"
+
+[[workflows.workflow]]
+name = "Qdrant Vector Store"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bash scripts/start-qdrant.sh"
 
 [workflows.workflow.metadata]
 outputType = "console"

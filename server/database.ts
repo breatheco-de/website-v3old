@@ -10,6 +10,11 @@ import { markFileAsModified } from "./sync-state";
 
 const DB_DIR = path.join(process.cwd(), "marketing-content", "db");
 
+export interface VectorSearchConfig {
+  enabled: boolean;
+  fields: string[];
+}
+
 export interface DatabaseConfig {
   name: string;
   description?: string;
@@ -39,6 +44,7 @@ export interface DatabaseConfig {
   };
   field_mapping?: Record<string, string>;
   editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean; cache_images?: boolean }>;
+  vector_search?: VectorSearchConfig;
 }
 
 const VALID_DB_NAME = /^[a-z0-9_-]+$/;
@@ -565,6 +571,17 @@ export class DatabaseManager {
     });
 
     ExternalImageCacher.scheduleItems(name, config, items);
+
+    const vsConfig = (config as DatabaseConfig).vector_search;
+    if (vsConfig?.enabled && vsConfig.fields?.length > 0) {
+      import("./vector-search").then(({ indexItems }) => {
+        indexItems(name, items, vsConfig.fields).catch((err) => {
+          console.error(`[DatabaseManager] Background vector indexing failed for "${name}":`, err);
+        });
+      }).catch((err) => {
+        console.error(`[DatabaseManager] Failed to import vector-search module:`, err);
+      });
+    }
 
     return { ...entry, from_cache: false };
   }
