@@ -2858,6 +2858,7 @@ function ItemEditModal({
 function CachedImagesKpiCard({ dbName }: { dbName: string }) {
   const { toast } = useToast();
   const [failedOpen, setFailedOpen] = useState(false);
+  const [confirmRefreshOpen, setConfirmRefreshOpen] = useState(false);
 
   const { data, isLoading, refetch, isFetching } = useQuery<{ cached: number; failed: number }>({
     queryKey: ["/api/image-registry/stats", dbName],
@@ -2899,7 +2900,7 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
             <Button
               size="icon"
               variant="ghost"
-              onClick={() => refetch()}
+              onClick={() => setConfirmRefreshOpen(true)}
               disabled={isFetching}
               data-testid="button-refresh-cached-stats"
             >
@@ -2920,6 +2921,35 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
           )}
         </CardContent>
       </Card>
+
+      <Dialog open={confirmRefreshOpen} onOpenChange={setConfirmRefreshOpen}>
+        <DialogContent className="sm:max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Refresh image cache stats?</DialogTitle>
+            <DialogDescription>
+              This will re-query the image registry to get the latest count of cached and failed images for <strong>{dbName}</strong>. No images will be downloaded or re-processed.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex items-center justify-end gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setConfirmRefreshOpen(false)}
+              data-testid="button-cancel-refresh-stats"
+            >
+              Cancel
+            </Button>
+            <Button
+              size="sm"
+              onClick={() => { setConfirmRefreshOpen(false); refetch(); }}
+              data-testid="button-confirm-refresh-stats"
+            >
+              <RefreshCw className="h-3.5 w-3.5 mr-1" />
+              Refresh
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={failedOpen} onOpenChange={setFailedOpen}>
         <DialogContent className="sm:max-w-lg">
