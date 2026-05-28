@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
-import {AlertTriangle, ArrowLeft, ArrowLeftRight, ArrowRight, ArrowUpDown, Check, ChevronDown, ChevronUp, Clock, CloudUpload, Code, Database, Download, Eye, File, Image, Info, Link as LinkIcon, Loader2, Pencil, Plus, RefreshCw, Save, Search, Server, Settings, SlidersHorizontal, Table, TestTube, Trash2, Upload, Wand2, Webhook, X} from "lucide-react";
+import {AlertTriangle, ArrowLeft, ArrowLeftRight, ArrowRight, ArrowUpDown, Check, ChevronDown, ChevronUp, Clock, CloudUpload, Code, Copy, Database, Download, Eye, File, Image, Info, Link as LinkIcon, Loader2, Pencil, Plus, RefreshCw, Save, Search, Server, Settings, SlidersHorizontal, Table, TestTube, Trash2, Upload, Wand2, Webhook, X} from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRoute, Link, useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -1237,6 +1237,7 @@ function DatabaseConfigEditor({
   const [sampleData, setSampleData] = useState<{ items: Record<string, unknown>[]; count: number } | null>(null);
   const [sampleLoading, setSampleLoading] = useState(false);
   const [showCurl, setShowCurl] = useState(false);
+  const [curlCopied, setCurlCopied] = useState(false);
 
   const curlCommand = useMemo(() => {
     if (sourceType !== "api" || !endpoint.trim()) return null;
@@ -1785,8 +1786,22 @@ function DatabaseConfigEditor({
           </DialogHeader>
           {showCurl && curlCommand && (
             <div className="border rounded-md overflow-hidden flex-shrink-0">
-              <div className="px-3 py-1.5 bg-muted text-xs font-medium text-muted-foreground border-b">
-                curl
+              <div className="px-3 py-1.5 bg-muted text-xs font-medium text-muted-foreground border-b flex items-center justify-between">
+                <span>curl</span>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="h-5 w-5"
+                  title={curlCopied ? "Copied!" : "Copy to clipboard"}
+                  data-testid="button-copy-curl"
+                  onClick={() => {
+                    navigator.clipboard.writeText(curlCommand);
+                    setCurlCopied(true);
+                    setTimeout(() => setCurlCopied(false), 2000);
+                  }}
+                >
+                  {curlCopied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                </Button>
               </div>
               <pre className="px-3 py-2 text-xs font-mono whitespace-pre-wrap break-all bg-background text-foreground overflow-x-auto">
                 {curlCommand}
