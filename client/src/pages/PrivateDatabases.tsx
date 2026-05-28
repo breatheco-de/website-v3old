@@ -3708,6 +3708,28 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                           </PopoverContent>
                         </Popover>
                       )}
+                      {config?.vector_search?.fields?.includes(key) && (
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <span className="inline-flex items-center gap-0.5 text-orange-500 shrink-0 cursor-pointer hover:opacity-80 transition-opacity" data-testid={`badge-semantic-${key}`}>
+                              <Sparkles className="h-3 w-3 drop-shadow-[0_0_3px_rgba(249,115,22,0.7)]" />
+                              <span className="text-[10px] font-medium">semantic</span>
+                            </span>
+                          </PopoverTrigger>
+                          <PopoverContent side="top" className="w-72 text-xs p-3 space-y-2">
+                            <p className="font-medium text-sm">Semantic search enabled</p>
+                            <p className="text-muted-foreground">
+                              The <code className="bg-muted px-1 rounded font-mono">{key}</code> field is included in the semantic search index.
+                            </p>
+                            <p className="text-muted-foreground">
+                              Its text content is embedded as a vector, enabling AI-powered similarity search — users can find entries by meaning rather than exact keyword matches.
+                            </p>
+                            <p className="text-muted-foreground">
+                              The index is updated automatically after each data fetch.
+                            </p>
+                          </PopoverContent>
+                        </Popover>
+                      )}
                     </div>
                   ))}
                 </div>
