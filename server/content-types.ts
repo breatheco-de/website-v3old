@@ -428,6 +428,21 @@ export function addContentType(name: string, config: ContentTypeEntry): void {
   console.log(`[ContentTypes] Added content type "${name}"`);
 }
 
+export function deleteContentType(name: string): void {
+  const reg = loadRegistry();
+  const singular = getType(name);
+  if (!reg.types[singular]) {
+    throw new Error(`Content type "${name}" not found`);
+  }
+
+  const allTypes = { ...reg.types };
+  delete allTypes[singular];
+  writeConfigWithHeader(allTypes);
+  markFileAsModified(CONFIG_PATH);
+  resetRegistry();
+  console.log(`[ContentTypes] Deleted content type "${singular}"`);
+}
+
 export function resetRegistry(): void {
   registry = null;
 }

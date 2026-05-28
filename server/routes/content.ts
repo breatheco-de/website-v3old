@@ -112,6 +112,7 @@ import {
   getContentTypeConfig,
   updateContentTypeConfig,
   addContentType,
+  deleteContentType,
   getDatabaseConfig,
   getLabel,
   normalizeUrlPattern,
@@ -900,6 +901,18 @@ export function registerContentRoutes(app: Express): void {
         directory: dir,
         url_pattern: normalizedPattern,
       });
+    } catch (err) {
+      res.status(400).json({ error: String(err) });
+    }
+  });
+
+  app.delete("/api/content-types/:type", (req, res) => {
+    try {
+      const { type } = req.params;
+      deleteContentType(type);
+      contentIndex.refresh();
+      clearSitemapCache();
+      res.json({ success: true, deleted: type });
     } catch (err) {
       res.status(400).json({ error: String(err) });
     }
