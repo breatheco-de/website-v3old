@@ -10,6 +10,7 @@ import {
   IconPlus,
   IconSearch,
   IconTrash,
+  IconArrowBackUp,
 } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
@@ -27,7 +28,7 @@ import {
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { locations as allLocations } from "@/lib/locations";
-import { filterFaqsByRelatedFeatures, faqItemKey, type FaqItem } from "@/lib/faqConstants";
+import { faqItemKey, type FaqItem } from "@/lib/faqConstants";
 import type { Location } from "@shared/session";
 import { FaqScopeDialog } from "@/components/editing/FaqScopeDialog";
 import { ItemEditModal } from "@/components/databases/ItemEditModal";
@@ -62,6 +63,11 @@ interface FaqItemsVisibilityProps {
   onChange: (overrides: Record<string, { hideOnLocations?: string[] }>) => void;
   onHardcodedEntriesChange?: (entries: Array<{ question: string; answer: string }>) => void;
   onIgnoredEntriesChange?: (keys: string[]) => void;
+  /** Atomic callback: adds a hardcoded entry AND an ignored key in one YAML write. */
+  onLocalizeDbEntry?: (
+    entry: { question: string; answer: string },
+    ignoredKey: string,
+  ) => void;
 }
 
 function ItemLocationPicker({
@@ -121,19 +127,19 @@ function ItemLocationPicker({
   };
 
   return (
-    <div className="border rounded-lg p-3 space-y-2">
+    <div className={`border rounded-lg p-3 space-y-2 ${source === "hardcoded" ? "bg-muted/40" : ""}`}>
       <div className="flex items-start justify-between gap-2">
-        <div className="flex items-center gap-1.5 flex-1 min-w-0">
-          {source === "hardcoded" && (
-            <Badge
-              variant="outline"
-              className="text-[9px] px-1 py-0 flex-shrink-0 text-muted-foreground"
-            >
-              local
-            </Badge>
-          )}
-          <p className="text-xs text-foreground leading-tight line-clamp-2">
+        <div className="flex items-start gap-1.5 flex-1 min-w-0">
+          <p className="text-xs text-foreground leading-tight line-clamp-2 flex-1">
             {question}
+            {source === "hardcoded" && (
+              <Badge
+                variant="outline"
+                className="text-[9px] px-1 py-0 ml-1.5 text-muted-foreground align-middle no-default-hover-elevate no-default-active-elevate"
+              >
+                only in this section
+              </Badge>
+            )}
           </p>
         </div>
         <div className="flex items-center gap-1 flex-shrink-0">
@@ -280,6 +286,7 @@ export function FaqItemsVisibility({
   onChange,
   onHardcodedEntriesChange,
   onIgnoredEntriesChange,
+  onLocalizeDbEntry,
 }: FaqItemsVisibilityProps) {
   const { toast } = useToast();
   const [expanded, setExpanded] = useState(false);
@@ -292,7 +299,7 @@ export function FaqItemsVisibility({
   const [globalDeleting, setGlobalDeleting] = useState(false);
 
   const hasCentralized = relatedFeatures.length > 0;
-  const isEditable = !!(onHardcodedEntriesChange || onIgnoredEntriesChange);
+  const isEditable = !!(onHardcodedEntriesChange || onIgnoredEntriesChange || onLocalizeDbEntry);
 
   const { data: faqsData, isLoading } = useQuery<{ items: FaqItem[] }>({
     queryKey: ["/api/databases/frequently_asked_questions/items"],
@@ -304,10 +311,17 @@ export function FaqItemsVisibility({
     const allDbItems = faqsData?.items ?? [];
     const localeItems = allDbItems.filter((f) => f.locale === locale);
 
-    const dbItems =
-      hasCentralized && localeItems.length > 0
-        ? filterFaqsByRelatedFeatures(localeItems, { relatedFeatures, limit: 9 })
-        : [];
+    // Match server order: filter by related_features (same logic, no relevance re-scoring),
+    // then preserve YAML order. No limit applied here so preview shows all candidates.
+    let dbItems: FaqItem[] = localeItems;
+    if (hasCentralized && relatedFeatures.length > 0) {
+      dbItems = localeItems.filter((faq) => {
+        const faqFeatures = faq.related_features || [];
+        return relatedFeatures.some((f) => faqFeatures.includes(f));
+      });
+    } else if (!hasCentralized) {
+      dbItems = [];
+    }
 
     const hardcodedKeys = new Set(hardcodedItems.map((i) => faqItemKey(i.question)));
     const ignoredSet = new Set(ignoredEntries);
@@ -321,6 +335,18 @@ export function FaqItemsVisibility({
       ...uniqueDbItems.map((i) => ({ ...i, _source: "db" as const })),
     ];
   }, [faqsData, relatedFeatures, hasCentralized, hardcodedItems, ignoredEntries, locale]);
+
+  // Resolve original question text for ignored entries from DB data
+  const ignoredItemsResolved = useMemo(() => {
+    if (!ignoredEntries.length) return [];
+    const allDbItems = faqsData?.items ?? [];
+    return ignoredEntries.map((key) => {
+      const found = allDbItems.find(
+        (i) => faqItemKey(i.question) === key && i.locale === locale,
+      );
+      return { key, question: found?.question ?? key };
+    });
+  }, [ignoredEntries, faqsData, locale]);
 
   const handleItemLocationsChange = (itemKey: string, locations: string[]) => {
     const newOverrides = { ...itemOverrides };
@@ -349,6 +375,7 @@ export function FaqItemsVisibility({
         };
         if (!entry.question.trim()) throw new Error("Question is required");
         onHardcodedEntriesChange?.([...hardcodedItems, entry]);
+        toast({ title: "FAQ added to this section" });
       },
     });
   };
@@ -372,6 +399,7 @@ export function FaqItemsVisibility({
         await queryClient.invalidateQueries({
           queryKey: ["/api/databases/frequently_asked_questions/items"],
         });
+        toast({ title: "FAQ added to database" });
       },
     });
   };
@@ -391,6 +419,7 @@ export function FaqItemsVisibility({
         onHardcodedEntriesChange?.(
           hardcodedItems.map((h) => (faqItemKey(h.question) === key ? entry : h)),
         );
+        toast({ title: "FAQ updated" });
       },
     });
   };
@@ -407,23 +436,29 @@ export function FaqItemsVisibility({
           answer: String(builtItem.answer || ""),
         };
         if (!entry.question.trim()) throw new Error("Question is required");
-        onHardcodedEntriesChange?.([...hardcodedItems, entry]);
-        onIgnoredEntriesChange?.([...ignoredEntries, key]);
+        // Use atomic callback if available (avoids stale-closure double-write bug)
+        if (onLocalizeDbEntry) {
+          onLocalizeDbEntry(entry, key);
+        } else {
+          onHardcodedEntriesChange?.([...hardcodedItems, entry]);
+          onIgnoredEntriesChange?.([...ignoredEntries, key]);
+        }
+        toast({ title: "FAQ saved as section-only copy" });
       },
     });
   };
 
   const openGlobalEdit = (faqItem: DisplayItem) => {
     const allDbItems = faqsData?.items ?? [];
-    // Match by question key AND locale to avoid cross-locale collisions
     const dbIndex = allDbItems.findIndex(
       (i) =>
         faqItemKey(i.question) === faqItemKey(faqItem.question) &&
         i.locale === locale,
     );
-    // Pass the FULL DB item so non-visible fields (locale, related_features, etc.)
-    // are preserved by buildItemFromForm and not overwritten with empty defaults
-    const fullItem = dbIndex !== -1 ? (allDbItems[dbIndex] as unknown as Record<string, unknown>) : null;
+    const fullItem =
+      dbIndex !== -1
+        ? (allDbItems[dbIndex] as unknown as Record<string, unknown>)
+        : null;
     setEditState({
       item: fullItem,
       title: "Edit FAQ (all pages)",
@@ -443,6 +478,7 @@ export function FaqItemsVisibility({
         await queryClient.invalidateQueries({
           queryKey: ["/api/databases/frequently_asked_questions/items"],
         });
+        toast({ title: "FAQ updated in database" });
       },
     });
   };
@@ -498,8 +534,10 @@ export function FaqItemsVisibility({
           onHardcodedEntriesChange?.(
             hardcodedItems.filter((h) => faqItemKey(h.question) !== key),
           );
+          toast({ title: "FAQ removed from this section" });
         } else {
           onIgnoredEntriesChange?.([...ignoredEntries, key]);
+          toast({ title: "FAQ hidden from this section" });
         }
       } else {
         setGlobalDeleteConfirm(item);
@@ -513,6 +551,7 @@ export function FaqItemsVisibility({
     onHardcodedEntriesChange?.(
       hardcodedItems.filter((h) => faqItemKey(h.question) !== key),
     );
+    toast({ title: "FAQ removed from this section" });
     setHardcodedDeleteConfirm(null);
   };
 
@@ -521,7 +560,6 @@ export function FaqItemsVisibility({
     setGlobalDeleting(true);
     try {
       const allDbItems = faqsData?.items ?? [];
-      // Match by question key AND locale to avoid cross-locale collisions
       const dbIndex = allDbItems.findIndex(
         (i) =>
           faqItemKey(i.question) === faqItemKey(globalDeleteConfirm.question) &&
@@ -540,6 +578,7 @@ export function FaqItemsVisibility({
       await queryClient.invalidateQueries({
         queryKey: ["/api/databases/frequently_asked_questions/items"],
       });
+      toast({ title: "FAQ deleted from database" });
       setGlobalDeleteConfirm(null);
     } catch (err) {
       toast({
@@ -678,11 +717,6 @@ export function FaqItemsVisibility({
                 {overrideCount} with overrides
               </Badge>
             )}
-            {ignoredEntries.length > 0 && (
-              <Badge variant="outline" className="text-[10px] text-muted-foreground">
-                {ignoredEntries.length} hidden
-              </Badge>
-            )}
           </Label>
           {expanded ? (
             <IconChevronUp className="h-4 w-4 text-muted-foreground flex-shrink-0 ml-auto" />
@@ -690,6 +724,15 @@ export function FaqItemsVisibility({
             <IconChevronDown className="h-4 w-4 text-muted-foreground flex-shrink-0 ml-auto" />
           )}
         </button>
+        {/* "hidden" count badge — outside the collapse button so it has no hover effect */}
+        {ignoredEntries.length > 0 && (
+          <Badge
+            variant="outline"
+            className="text-[10px] text-muted-foreground no-default-hover-elevate no-default-active-elevate pointer-events-none"
+          >
+            {ignoredEntries.length} hidden
+          </Badge>
+        )}
         {isEditable && (
           <Button
             variant="outline"
@@ -734,6 +777,40 @@ export function FaqItemsVisibility({
                 />
               );
             })}
+
+          {/* Hidden DB items section */}
+          {ignoredItemsResolved.length > 0 && (
+            <div className="mt-3 space-y-1">
+              <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider px-0.5">
+                Hidden from DB ({ignoredItemsResolved.length})
+              </p>
+              {ignoredItemsResolved.map(({ key, question }) => (
+                <div
+                  key={key}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg border border-dashed bg-muted/20"
+                >
+                  <p className="text-xs text-muted-foreground line-clamp-1 flex-1 italic">
+                    {question}
+                  </p>
+                  {onIgnoredEntriesChange && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-6 text-[10px] px-2 flex-shrink-0"
+                      onClick={() =>
+                        onIgnoredEntriesChange(ignoredEntries.filter((k) => k !== key))
+                      }
+                      data-testid={`button-restore-ignored-${key}`}
+                      title="Restore this FAQ"
+                    >
+                      <IconArrowBackUp className="h-3 w-3 mr-1" />
+                      Restore
+                    </Button>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>

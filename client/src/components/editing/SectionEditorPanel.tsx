@@ -5015,6 +5015,37 @@ export function SectionEditorPanel({
                             console.error("Error updating ignored_entries:", err);
                           }
                         }}
+                        onLocalizeDbEntry={(entry, ignoredKey) => {
+                          try {
+                            const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                            if (!parsed || typeof parsed !== "object") return;
+                            pushUndoState(yamlContent);
+                            // Migrate root items → hardcoded_entries if needed
+                            if (Array.isArray(parsed.items) && (parsed.items as unknown[]).length > 0 && !parsed.dynamic_entries && !parsed.hardcoded_entries) {
+                              parsed.hardcoded_entries = parsed.items;
+                              delete parsed.items;
+                            }
+                            // Add the new hardcoded entry
+                            const existing = (parsed.hardcoded_entries as Array<{ question: string; answer: string }>) || [];
+                            parsed.hardcoded_entries = [...existing, entry];
+                            // Add the ignored key — both in the same parse+serialize cycle
+                            if (!parsed.dynamic_entries || typeof parsed.dynamic_entries !== "object") {
+                              parsed.dynamic_entries = {};
+                            }
+                            const de = parsed.dynamic_entries as Record<string, unknown>;
+                            const existingIgnored = (de.ignored_entries as string[]) || [];
+                            if (!existingIgnored.includes(ignoredKey)) {
+                              de.ignored_entries = [...existingIgnored, ignoredKey];
+                            }
+                            const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                            setYamlContent(newYaml);
+                            setHasChanges(true);
+                            setParseError(null);
+                            if (onPreviewChange) onPreviewChange(parsed as Section);
+                          } catch (err) {
+                            console.error("Error localizing DB entry:", err);
+                          }
+                        }}
                       />
                     </div>
                   );
