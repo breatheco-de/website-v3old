@@ -528,10 +528,13 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
           const searchResults = await vectorSearch(dbName, q, limit, locale);
 
           if (searchResults.length > 0) {
-            const slugToScore = new Map(searchResults.map((r) => [r.slug, r.score]));
-
             let orderedItems = searchResults
-              .map((r) => allItems.find((item) => String(item.slug ?? item.id ?? "") === r.slug))
+              .map((r) => {
+                if (r._idx !== undefined && r._idx >= 0 && r._idx < allItems.length) {
+                  return allItems[r._idx];
+                }
+                return allItems.find((item) => String(item.slug ?? item.id ?? "") === r.slug);
+              })
               .filter((item): item is Record<string, unknown> => item !== undefined);
 
             if (locale) {
@@ -541,15 +544,21 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
               });
             }
 
+            const scoreByIdx = new Map(searchResults.map((r) => [r._idx, r.score]));
+            const scoreBySlug = new Map(searchResults.map((r) => [r.slug, r.score]));
+
             res.json({
               items: orderedItems,
               count: orderedItems.length,
               semantic: true,
               scores: Object.fromEntries(
-                orderedItems.map((item) => [
-                  String(item.slug ?? item.id ?? ""),
-                  slugToScore.get(String(item.slug ?? item.id ?? "")) ?? 0,
-                ])
+                orderedItems.map((item, i) => {
+                  const result = searchResults[i];
+                  const score = result?._idx !== undefined
+                    ? (scoreByIdx.get(result._idx) ?? 0)
+                    : (scoreBySlug.get(String(item.slug ?? item.id ?? "")) ?? 0);
+                  return [String(item.slug ?? item.id ?? i), score];
+                })
               ),
             });
             return;

@@ -159,6 +159,7 @@ export async function indexItems(
         id: itemId(item, start + i),
         vector: embeddings[i],
         payload: {
+          _idx: start + i,
           slug: String(item.slug ?? item.id ?? start + i),
           locale: typeof item.locale === "string" ? item.locale
             : typeof item.language === "string" ? item.language
@@ -200,6 +201,7 @@ export async function indexItems(
 export interface SearchResult {
   slug: string;
   score: number;
+  _idx?: number;
 }
 
 export async function search(
@@ -237,10 +239,14 @@ export async function search(
       with_payload: true,
     });
 
-    return results.map((r) => ({
-      slug: String((r.payload as Record<string, unknown>)?.slug ?? r.id),
-      score: r.score,
-    }));
+    return results.map((r) => {
+      const payload = r.payload as Record<string, unknown> | null | undefined;
+      return {
+        slug: String(payload?.slug ?? r.id),
+        score: r.score,
+        _idx: typeof payload?._idx === "number" ? payload._idx : undefined,
+      };
+    });
   } catch (err) {
     console.error(`[vector-search] Search failed for "${dbName}":`, err);
     resetAvailabilityCache();
