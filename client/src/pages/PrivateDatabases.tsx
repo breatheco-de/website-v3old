@@ -1960,6 +1960,9 @@ function FieldMappingEditor({
     setVectorSearchFields(config.vector_search?.fields ?? []);
   }, [config.vector_search]);
 
+  const [imageCacheModalField, setImageCacheModalField] = useState<string | null>(null);
+  const [vectorSearchModalField, setVectorSearchModalField] = useState<string | null>(null);
+
   const [hintDialogField, setHintDialogField] = useState<string | null>(null);
   const [hintDialogType, setHintDialogType] = useState<string>("text");
   const [hintDialogOptions, setHintDialogOptions] = useState<string[]>([]);
@@ -2252,13 +2255,8 @@ function FieldMappingEditor({
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => {
-                      setEditorHints((prev) => {
-                        const current = prev[normalizedKey] || {};
-                        return { ...prev, [normalizedKey]: { ...current, cache_images: !current.cache_images } };
-                      });
-                    }}
-                    title={editorHints[normalizedKey]?.cache_images ? "Image caching enabled — click to disable" : "Enable image caching for this field"}
+                    onClick={() => setImageCacheModalField(normalizedKey)}
+                    title={editorHints[normalizedKey]?.cache_images ? "Image caching enabled" : "Configure image caching"}
                     data-testid={`button-cache-images-${normalizedKey}`}
                   >
                     <Image className={`h-3.5 w-3.5 ${editorHints[normalizedKey]?.cache_images ? "text-blue-500" : "text-muted-foreground"}`} />
@@ -2266,14 +2264,8 @@ function FieldMappingEditor({
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => {
-                      setVectorSearchFields((prev) =>
-                        prev.includes(normalizedKey)
-                          ? prev.filter((f) => f !== normalizedKey)
-                          : [...prev, normalizedKey]
-                      );
-                    }}
-                    title={vectorSearchFields.includes(normalizedKey) ? "Included in semantic search — click to remove" : "Include in semantic search index"}
+                    onClick={() => setVectorSearchModalField(normalizedKey)}
+                    title={vectorSearchFields.includes(normalizedKey) ? "Included in semantic search" : "Configure semantic search"}
                     data-testid={`button-vector-search-${normalizedKey}`}
                   >
                     <Sparkles className={`h-3.5 w-3.5 ${vectorSearchFields.includes(normalizedKey) ? "text-violet-500" : "text-muted-foreground"}`} />
@@ -2516,6 +2508,97 @@ function FieldMappingEditor({
             >
               <Check className="h-3.5 w-3.5 mr-1" />
               Apply
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={imageCacheModalField !== null} onOpenChange={(v) => { if (!v) setImageCacheModalField(null); }}>
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Image className="h-4 w-4 text-blue-500" />
+              Image Caching
+            </DialogTitle>
+            <DialogDescription className="pt-1">
+              for <code className="font-mono text-xs bg-muted px-1 rounded">{imageCacheModalField}</code>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3 py-1">
+            <p className="text-sm text-muted-foreground">
+              When enabled, any image URLs found in this field are automatically downloaded and re-hosted on the local media server. This prevents broken images if the original source changes or goes offline, and improves page load performance.
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Caching runs in the background after each data fetch. Original URLs are preserved in the raw data.
+            </p>
+            <label className="flex items-center gap-3 cursor-pointer pt-1" data-testid="label-cache-images-toggle">
+              <Switch
+                checked={imageCacheModalField ? (editorHints[imageCacheModalField]?.cache_images ?? false) : false}
+                onCheckedChange={(checked) => {
+                  if (!imageCacheModalField) return;
+                  setEditorHints((prev) => {
+                    const current = prev[imageCacheModalField] || {};
+                    return { ...prev, [imageCacheModalField]: { ...current, cache_images: checked } };
+                  });
+                }}
+                data-testid="switch-cache-images"
+              />
+              <span className="text-sm">
+                {imageCacheModalField && editorHints[imageCacheModalField]?.cache_images
+                  ? "Image caching enabled"
+                  : "Image caching disabled"}
+              </span>
+            </label>
+          </div>
+          <DialogFooter>
+            <Button size="sm" onClick={() => setImageCacheModalField(null)} data-testid="button-close-cache-modal">
+              Done
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={vectorSearchModalField !== null} onOpenChange={(v) => { if (!v) setVectorSearchModalField(null); }}>
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-violet-500" />
+              Semantic Search
+            </DialogTitle>
+            <DialogDescription className="pt-1">
+              for <code className="font-mono text-xs bg-muted px-1 rounded">{vectorSearchModalField}</code>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3 py-1">
+            <p className="text-sm text-muted-foreground">
+              When enabled, the text content of this field is embedded into the semantic search index. This powers AI-driven similarity search — users can find entries by meaning, not just exact keywords.
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Fields with free-form text (titles, descriptions, answers) benefit most. Avoid enabling it on IDs, slugs, or short codes. Indexing runs automatically after each data fetch.
+            </p>
+            <label className="flex items-center gap-3 cursor-pointer pt-1" data-testid="label-vector-search-field-toggle">
+              <Switch
+                checked={vectorSearchModalField ? vectorSearchFields.includes(vectorSearchModalField) : false}
+                onCheckedChange={(checked) => {
+                  if (!vectorSearchModalField) return;
+                  setVectorSearchFields((prev) =>
+                    checked
+                      ? prev.includes(vectorSearchModalField) ? prev : [...prev, vectorSearchModalField]
+                      : prev.filter((f) => f !== vectorSearchModalField)
+                  );
+                }}
+                data-testid="switch-vector-search-field"
+              />
+              <span className="text-sm">
+                {vectorSearchModalField && vectorSearchFields.includes(vectorSearchModalField)
+                  ? "Included in semantic index"
+                  : "Not included in semantic index"}
+              </span>
+            </label>
+          </div>
+          <DialogFooter>
+            <Button size="sm" onClick={() => setVectorSearchModalField(null)} data-testid="button-close-vector-modal">
+              Done
             </Button>
           </DialogFooter>
         </DialogContent>
