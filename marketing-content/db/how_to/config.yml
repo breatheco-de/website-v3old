@@ -9,6 +9,7 @@ source:
       category: how-to
       academy: '4'
       limit: '500'
+      big: 'true'
 cache:
   ttl_hours: 24
 field_mapping:
@@ -24,6 +25,3 @@ field_mapping:
   image_url: preview
   technologies: technologies
   seo_keywords: seo_keywords
-editor:
-  image_url:
-    cache_images: true
