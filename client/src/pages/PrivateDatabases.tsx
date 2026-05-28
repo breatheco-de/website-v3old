@@ -2268,7 +2268,7 @@ function FieldMappingEditor({
                     title={vectorSearchFields.includes(normalizedKey) ? "Included in semantic search" : "Configure semantic search"}
                     data-testid={`button-vector-search-${normalizedKey}`}
                   >
-                    <Sparkles className={`h-3.5 w-3.5 ${vectorSearchFields.includes(normalizedKey) ? "text-violet-500" : "text-muted-foreground"}`} />
+                    <Sparkles className={`h-3.5 w-3.5 ${vectorSearchFields.includes(normalizedKey) ? "text-orange-500 drop-shadow-[0_0_4px_rgba(249,115,22,0.8)]" : "text-muted-foreground"}`} />
                   </Button>
                 </div>
                 {((editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text") || editorHints[normalizedKey]?.cache_images || vectorSearchFields.includes(normalizedKey)) ? (
@@ -2280,7 +2280,7 @@ function FieldMappingEditor({
                       <span className="text-blue-500">cached</span>
                     )}
                     {vectorSearchFields.includes(normalizedKey) && (
-                      <span className="text-violet-500">semantic</span>
+                      <span className="text-orange-500">semantic</span>
                     )}
                   </p>
                 ) : null}
@@ -2333,7 +2333,7 @@ function FieldMappingEditor({
             data-testid="switch-vector-search-enabled"
           />
           <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <Sparkles className="h-3.5 w-3.5 text-violet-500" />
+            <Sparkles className="h-3.5 w-3.5 text-orange-500" />
             Semantic search
           </span>
         </label>
@@ -2562,7 +2562,7 @@ function FieldMappingEditor({
         <DialogContent className="max-w-sm">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-violet-500" />
+              <Sparkles className="h-4 w-4 text-orange-500" />
               Semantic Search
             </DialogTitle>
             <DialogDescription className="pt-1">
