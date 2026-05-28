@@ -563,6 +563,7 @@ sections:
     dynamic_entries:
       database: frequently_asked_questions
       limit: 9
+      sort: priority
       permanent_filters:
         - item_property_slug: related_features
           value:

@@ -54,7 +54,7 @@ type EditState = {
   onlyFields?: string[];
 } | null;
 
-interface FaqItemsVisibilityProps {
+interface FaqItemsPickerProps {
   relatedFeatures: string[];
   locale: string;
   hardcodedItems: Array<{ question: string; answer: string }>;
@@ -131,7 +131,7 @@ function ItemLocationPicker({
   };
 
   return (
-    <div className={`border rounded-lg p-3 space-y-2 ${source === "hardcoded" ? "bg-muted" : ""}`}>
+    <div className={`border rounded-lg p-3 space-y-2 ${source === "hardcoded" ? "bg-secondary" : ""}`}>
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-start gap-1.5 flex-1 min-w-0">
           <p className="text-xs text-foreground leading-tight line-clamp-2 flex-1">
@@ -281,7 +281,7 @@ function ItemLocationPicker({
   );
 }
 
-export function FaqItemsVisibility({
+export function FaqItemsPicker({
   relatedFeatures,
   locale,
   hardcodedItems,
@@ -293,7 +293,7 @@ export function FaqItemsVisibility({
   onLocalizeDbEntry,
   sortField,
   limit,
-}: FaqItemsVisibilityProps) {
+}: FaqItemsPickerProps) {
   const { toast } = useToast();
   const [expanded, setExpanded] = useState(false);
 
@@ -353,6 +353,24 @@ export function FaqItemsVisibility({
           cmp = String(aVal).localeCompare(String(bVal));
         }
         return desc ? -cmp : cmp;
+      });
+    }
+
+    // Auto match-count sort (mirrors server dynamic-entries auto-sort):
+    // When no explicit sortField and multiple relatedFeatures are configured,
+    // items matching more features float to the top; priority is the tiebreaker.
+    if (!sortField && relatedFeatures.length > 1) {
+      uniqueDbItems = [...uniqueDbItems].sort((a, b) => {
+        const aFeatures = ((a as Record<string, unknown>).related_features as string[]) || [];
+        const bFeatures = ((b as Record<string, unknown>).related_features as string[]) || [];
+        const aCount = relatedFeatures.filter((f) => aFeatures.includes(f)).length;
+        const bCount = relatedFeatures.filter((f) => bFeatures.includes(f)).length;
+        if (bCount !== aCount) return bCount - aCount;
+        const aPriority = typeof (a as Record<string, unknown>).priority === "number"
+          ? (a as Record<string, unknown>).priority as number : 2;
+        const bPriority = typeof (b as Record<string, unknown>).priority === "number"
+          ? (b as Record<string, unknown>).priority as number : 2;
+        return aPriority - bPriority;
       });
     }
 

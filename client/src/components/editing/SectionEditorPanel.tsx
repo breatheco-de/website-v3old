@@ -44,7 +44,7 @@ import { IconPickerModal } from "./IconPickerModal";
 import { RelatedFeaturesPicker } from "./RelatedFeaturesPicker";
 import { TestimonialItemsPreview } from "./TestimonialItemsPreview";
 import { TableContentEditor } from "./TableContentEditor";
-import { FaqItemsVisibility } from "./FaqItemsVisibility";
+import { FaqItemsPicker } from "./FaqItemsPicker";
 import { RichTextArea } from "./RichTextArea";
 import { MarkdownEditorField } from "./MarkdownEditorField";
 import { SectionBindingDialog } from "./SectionBindingDialog";
@@ -4922,7 +4922,7 @@ export function SectionEditorPanel({
                 if (isSimpleField && editorType === "faq-visibility-editor") {
                   return (
                     <div key={fieldPath}>
-                      <FaqItemsVisibility
+                      <FaqItemsPicker
                         relatedFeatures={(() => {
                           const dynEntries = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
                           const permFilters = dynEntries?.permanent_filters;
