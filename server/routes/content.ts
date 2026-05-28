@@ -909,6 +909,30 @@ export function registerContentRoutes(app: Express): void {
   app.delete("/api/content-types/:type", (req, res) => {
     try {
       const { type } = req.params;
+      const dryRun = req.query.dry_run === "true";
+
+      const config = getContentTypeConfig(type);
+      if (!config) {
+        res.status(404).json({ error: `Content type "${type}" not found` });
+        return;
+      }
+
+      const staticCount = contentIndex.findByType(type).length;
+      const hasDatabase = !!config.database?.slug;
+
+      if (dryRun) {
+        res.json({
+          dry_run: true,
+          type,
+          directory: config.directory,
+          static_entry_count: staticCount,
+          has_database: hasDatabase,
+          database_slug: config.database?.slug || null,
+          message: `Deleting "${type}" will remove its definition from content-types.yml. The ${staticCount} content file(s) in marketing-content/${config.directory}/ will NOT be deleted but will no longer be served.`,
+        });
+        return;
+      }
+
       deleteContentType(type);
       contentIndex.refresh();
       clearSitemapCache();
