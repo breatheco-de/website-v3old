@@ -3848,13 +3848,10 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                           <PopoverContent side="bottom" align="start" className="w-80 text-xs p-4 space-y-3">
                             <div className="flex items-center gap-2">
                               <Sparkles className="h-4 w-4 text-orange-500 shrink-0" />
-                              <p className="font-medium text-sm">Semantic Search</p>
+                              <p className="font-medium text-sm">How search works here</p>
                             </div>
                             <p className="text-muted-foreground">
-                              Instead of matching exact words, this search understands the <strong className="text-foreground">meaning</strong> of your query. Type a concept or question and it will find the most relevant entries even if they use different words.
-                            </p>
-                            <p className="text-muted-foreground">
-                              Results are ranked by similarity score — the closest matches appear first.
+                              This database has semantic search enabled. When you type, the query hits the vector index after a short delay — results come back <strong className="text-foreground">sorted by meaning</strong>, not alphabetically or by exact keyword.
                             </p>
                             {config?.vector_search?.fields && config.vector_search.fields.length > 0 && (
                               <div className="space-y-1">
@@ -3866,11 +3863,15 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                                 </div>
                               </div>
                             )}
-                            {debouncedSearch.trim() && semanticResults && !semanticResults.semantic && (
-                              <p className="text-muted-foreground border-t pt-2">
-                                The semantic index is currently unavailable — results are from a keyword match instead.
-                              </p>
-                            )}
+                            <div className="border-t pt-2 space-y-1.5">
+                              <p className="font-medium text-foreground">Status indicators</p>
+                              <div className="space-y-1 text-muted-foreground">
+                                <p><span className="text-foreground font-medium">✦ Semantic search</span> — idle, index ready</p>
+                                <p><span className="text-foreground font-medium">⟳ Searching…</span> — request in flight</p>
+                                <p><span className="text-foreground font-medium">✦ Ranked by meaning</span> — results sorted by relevance</p>
+                                <p><span className="text-foreground font-medium">Keyword match</span> — index unreachable, fell back to text search</p>
+                              </div>
+                            </div>
                           </PopoverContent>
                         </Popover>
                       ) : search.trim() ? (
