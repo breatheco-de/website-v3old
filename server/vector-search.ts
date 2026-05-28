@@ -1,4 +1,5 @@
 import { QdrantClient } from "@qdrant/js-client-rest";
+import { setJobState } from "./db-job-state";
 
 const QDRANT_URL = process.env.QDRANT_URL || "http://localhost:6333";
 const VECTOR_SIZE = 384;
@@ -126,10 +127,18 @@ export async function indexItems(
     return;
   }
 
+  setJobState(dbName, "index", {
+    status: "running",
+    fetched: 0,
+    total: items.length,
+    startedAt: new Date().toISOString(),
+  });
+
   try {
     await ensureCollection(dbName);
     const client = getQdrantClient();
     const name = collectionName(dbName);
+    let indexed = 0;
 
     for (let start = 0; start < items.length; start += BATCH_SIZE) {
       const batch = items.slice(start, start + BATCH_SIZE);
@@ -149,13 +158,30 @@ export async function indexItems(
       }));
 
       await client.upsert(name, { points });
+      indexed += batch.length;
+      setJobState(dbName, "index", {
+        status: "running",
+        fetched: indexed,
+        total: items.length,
+      });
       console.log(
         `[vector-search] Indexed batch ${Math.floor(start / BATCH_SIZE) + 1} (${batch.length} items) for "${dbName}"`
       );
     }
 
+    setJobState(dbName, "index", {
+      status: "done",
+      fetched: items.length,
+      total: items.length,
+      finishedAt: new Date().toISOString(),
+    });
     console.log(`[vector-search] Indexed ${items.length} items for "${dbName}"`);
   } catch (err) {
+    setJobState(dbName, "index", {
+      status: "error",
+      error: err instanceof Error ? err.message : String(err),
+      finishedAt: new Date().toISOString(),
+    });
     console.error(`[vector-search] Failed to index "${dbName}":`, err);
     resetAvailabilityCache();
   }

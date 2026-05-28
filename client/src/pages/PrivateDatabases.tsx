@@ -3199,6 +3199,48 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
   );
 }
 
+function SemanticIndexKpiCard({ dbName, jobStatus }: {
+  dbName: string;
+  jobStatus?: {
+    fetch: { status: string };
+    index: { status: string; fetched?: number; total?: number | null; finishedAt?: string; error?: string };
+  } | null;
+}) {
+  const index = jobStatus?.index;
+  const isRunning = index?.status === "running";
+  const isError = index?.status === "error";
+  const isDone = index?.status === "done";
+
+  return (
+    <Card>
+      <CardContent className="pt-4 pb-3 space-y-1">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <Sparkles className="h-3.5 w-3.5" />
+          <span>Semantic Index</span>
+        </div>
+        <p className="text-sm font-medium" data-testid="text-semantic-index-count">
+          {index?.fetched !== undefined ? index.fetched : "\u2014"}
+          {index?.total !== undefined && index.total !== null ? ` / ${index.total}` : ""}
+        </p>
+        {isRunning ? (
+          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+            <Loader2 className="h-3 w-3 animate-spin shrink-0" />
+            <span>Indexing{index?.fetched !== undefined && index?.total ? ` ${index.fetched} of ${index.total}` : "\u2026"}</span>
+          </div>
+        ) : isError ? (
+          <p className="text-xs text-destructive truncate" title={index?.error}>Error: {index?.error ?? "unknown"}</p>
+        ) : isDone ? (
+          <p className="text-xs text-muted-foreground">
+            {index?.finishedAt ? new Date(index.finishedAt).toLocaleString() : "Done"}
+          </p>
+        ) : (
+          <p className="text-xs text-muted-foreground">Idle</p>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
 function DatabaseDetailView({ dbName }: { dbName: string }) {
   const { toast } = useToast();
   const PAGE_SIZE = 100;
@@ -3255,6 +3297,62 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   const fieldMapping = config?.field_mapping;
 
   const hasSemanticSearch = (config?.vector_search?.fields?.length ?? 0) > 0;
+
+  const [jobStatusDismissed, setJobStatusDismissed] = useState(false);
+  const [bothTerminalAt, setBothTerminalAt] = useState<number | null>(null);
+
+  const lastActivityAtRef = useRef<number>(Date.now());
+  const hasSemanticRef = useRef(hasSemanticSearch);
+  useEffect(() => { hasSemanticRef.current = hasSemanticSearch; }, [hasSemanticSearch]);
+
+  const { data: jobStatus } = useQuery<{
+    fetch: { status: string; fetched?: number; total?: number | null; page?: number; startedAt?: string; finishedAt?: string; error?: string };
+    index: { status: string; fetched?: number; total?: number | null; startedAt?: string; finishedAt?: string; error?: string };
+  }>({
+    queryKey: [`/api/databases/${dbName}/job-status`],
+    queryFn: () => fetch(`/api/databases/${dbName}/job-status`).then((r) => r.json()),
+    refetchInterval: (query) => {
+      const data = query.state.data;
+      if (!data) return 2000;
+      const eitherRunning = data.fetch?.status === "running" || data.index?.status === "running";
+      if (eitherRunning) {
+        lastActivityAtRef.current = Date.now();
+      }
+      const inactive = Date.now() - lastActivityAtRef.current;
+      if (!eitherRunning && inactive >= 10000) return false;
+      return 2000;
+    },
+  });
+
+  useEffect(() => {
+    if (!jobStatus) return;
+    if (jobStatus.fetch?.status === "running" || jobStatus.index?.status === "running") {
+      lastActivityAtRef.current = Date.now();
+    }
+    const fetchTerminal = jobStatus.fetch?.status === "done" || jobStatus.fetch?.status === "error";
+    const indexTerminal = jobStatus.index?.status === "done" || jobStatus.index?.status === "error" ||
+      (!hasSemanticSearch && jobStatus.index?.status !== "running");
+    if (fetchTerminal && indexTerminal) {
+      if (!bothTerminalAt) setBothTerminalAt(Date.now());
+    } else {
+      setBothTerminalAt(null);
+      setJobStatusDismissed(false);
+    }
+  }, [jobStatus, hasSemanticSearch]);
+
+  useEffect(() => {
+    if (!bothTerminalAt) return;
+    const timer = setTimeout(() => setJobStatusDismissed(true), 4000);
+    return () => clearTimeout(timer);
+  }, [bothTerminalAt]);
+
+  const fetchRunning = jobStatus?.fetch?.status === "running";
+  const indexRunning = jobStatus?.index?.status === "running";
+  const showJobBanner = !jobStatusDismissed && jobStatus && (
+    fetchRunning || indexRunning ||
+    jobStatus.fetch?.status === "error" || jobStatus.index?.status === "error" ||
+    (bothTerminalAt !== null)
+  );
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
   useEffect(() => {
@@ -3599,7 +3697,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
               ? Object.values(config.editor).some((f) => f.cache_images === true)
               : false;
             return (
-          <div className={`grid gap-4 ${hasCachedFields ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"}`}>
+          <div className={`grid gap-4 ${hasCachedFields && hasSemanticSearch ? "sm:grid-cols-2 lg:grid-cols-5" : hasCachedFields || hasSemanticSearch ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"}`}>
             <Card>
               <CardContent className="pt-4 pb-3 space-y-1">
                 <div className="flex items-center justify-between gap-2">
@@ -3662,13 +3760,23 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                     <WebhookUrlPopover type={dbName} variant="icon" />
                   )}
                 </div>
-                <p className="text-sm font-medium" data-testid="text-fetched-at">
-                  {itemsData?.fetched_at
-                    ? new Date(itemsData.fetched_at).toLocaleString()
-                    : detail?.cache_status?.fetched_at
-                      ? new Date(detail.cache_status.fetched_at).toLocaleString()
-                      : "\u2014"}
-                </p>
+                {fetchRunning ? (
+                  <div className="flex items-center gap-1.5" data-testid="text-fetched-at">
+                    <Loader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground shrink-0" />
+                    <span className="text-sm font-medium">
+                      Fetching{jobStatus?.fetch.fetched !== undefined ? `\u2026 ${jobStatus.fetch.fetched} items` : "\u2026"}
+                      {jobStatus?.fetch.page ? ` (page ${jobStatus.fetch.page})` : ""}
+                    </span>
+                  </div>
+                ) : (
+                  <p className="text-sm font-medium" data-testid="text-fetched-at">
+                    {itemsData?.fetched_at
+                      ? new Date(itemsData.fetched_at).toLocaleString()
+                      : detail?.cache_status?.fetched_at
+                        ? new Date(detail.cache_status.fetched_at).toLocaleString()
+                        : "\u2014"}
+                  </p>
+                )}
                 <p className="text-xs text-muted-foreground">
                   TTL: {config?.cache?.ttl_hours ?? 24}h
                 </p>
@@ -3676,6 +3784,9 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
             </Card>
             {hasCachedFields && (
               <CachedImagesKpiCard dbName={dbName} />
+            )}
+            {hasSemanticSearch && (
+              <SemanticIndexKpiCard dbName={dbName} jobStatus={jobStatus} />
             )}
           </div>
             );
@@ -3876,6 +3987,42 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                             : "Keyword match across all fields"}
                         </p>
                       ) : null}
+                      {showJobBanner && (
+                        <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground pl-0.5 mt-0.5" data-testid="job-status-banner">
+                          {fetchRunning ? (
+                            <>
+                              <Loader2 className="h-2.5 w-2.5 animate-spin shrink-0" />
+                              <span>
+                                Fetching{jobStatus?.fetch.fetched !== undefined ? ` ${jobStatus.fetch.fetched} items` : "\u2026"}
+                                {jobStatus?.fetch.page ? ` (page ${jobStatus.fetch.page})` : ""}
+                              </span>
+                            </>
+                          ) : indexRunning ? (
+                            <>
+                              <Loader2 className="h-2.5 w-2.5 animate-spin shrink-0" />
+                              <span>
+                                Indexing{jobStatus?.index.fetched !== undefined && jobStatus?.index.total ? ` ${jobStatus.index.fetched} / ${jobStatus.index.total}` : "\u2026"}
+                              </span>
+                            </>
+                          ) : jobStatus?.fetch.status === "error" ? (
+                            <span className="text-destructive">Fetch error: {jobStatus.fetch.error ?? "unknown"}</span>
+                          ) : jobStatus?.index.status === "error" ? (
+                            <span className="text-destructive">Index error: {jobStatus.index.error ?? "unknown"}</span>
+                          ) : (
+                            <>
+                              <Check className="h-2.5 w-2.5 shrink-0" />
+                              <span>Up to date</span>
+                            </>
+                          )}
+                          <button
+                            className="ml-auto text-muted-foreground/60 hover:text-muted-foreground cursor-pointer"
+                            onClick={() => setJobStatusDismissed(true)}
+                            data-testid="button-dismiss-job-banner"
+                          >
+                            <X className="h-2.5 w-2.5" />
+                          </button>
+                        </div>
+                      )}
                     </div>
                   )}
                   <Button

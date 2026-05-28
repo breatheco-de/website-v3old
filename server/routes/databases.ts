@@ -4,6 +4,7 @@ import { storage } from "../storage";
 import { geoGet, geoSet } from "../geo-cache";
 import { getQueueStats, enqueueOptimization, getPendingOptimizations, getFailedEntries, retryFailedImages, resetOptimizeSession, getOptimizeSession, enqueueExternalImage } from "../image-registry";
 import { getAllQueueState } from "../image-queue-state";
+import { getJobState as getDbJobState } from "../db-job-state";
 
 
 import * as fs from "fs";
@@ -652,6 +653,17 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     try {
       const result = await databaseManager.fetchItems(req.params.name, true);
       res.json(result);
+    } catch (err: unknown) {
+      res
+        .status(500)
+        .json({ error: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
+  app.get("/api/databases/:name/job-status", (req, res) => {
+    try {
+      const state = getDbJobState(req.params.name);
+      res.json(state);
     } catch (err: unknown) {
       res
         .status(500)
