@@ -3049,6 +3049,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   const [editingItemIndex, setEditingItemIndex] = useState<number | null>(null);
   const [isAddingItem, setIsAddingItem] = useState(false);
   const [deleteConfirmIndex, setDeleteConfirmIndex] = useState<number | null>(null);
+  const [confirmForceRefreshOpen, setConfirmForceRefreshOpen] = useState(false);
   const [savingItems, setSavingItems] = useState(false);
 
   const { data: detail, refetch: refetchDetail } = useQuery<DatabaseDetail>({
@@ -3604,7 +3605,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={handleRefresh}
+                    onClick={() => setConfirmForceRefreshOpen(true)}
                     disabled={isRefreshing}
                     data-testid="button-refresh-items"
                   >
@@ -3730,6 +3731,48 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
           </Card>
         </>
       )}
+
+      <Dialog open={confirmForceRefreshOpen} onOpenChange={setConfirmForceRefreshOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Force Refresh — are you sure?</DialogTitle>
+            <DialogDescription asChild>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p>
+                  This will <strong className="text-foreground">bypass the cache</strong> and re-fetch all data for <strong className="text-foreground">{dbName}</strong> directly from the source API or file.
+                </p>
+                <p>This means:</p>
+                <ul className="list-disc list-inside space-y-1 pl-1">
+                  <li>A live request will be made to the configured data source.</li>
+                  <li>The existing cached data will be replaced with the new response.</li>
+                  {config?.editor && Object.values(config.editor).some((f: any) => f?.cache_images) && (
+                    <li>Any fields with image caching enabled will re-download and re-store their images.</li>
+                  )}
+                </ul>
+                <p>Use <strong className="text-foreground">Fetch Data</strong> instead if you just want to view the current cache without triggering a new request.</p>
+              </div>
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex items-center justify-end gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setConfirmForceRefreshOpen(false)}
+              data-testid="button-cancel-force-refresh"
+            >
+              Cancel
+            </Button>
+            <Button
+              size="sm"
+              onClick={() => { setConfirmForceRefreshOpen(false); handleRefresh(); }}
+              data-testid="button-confirm-force-refresh"
+            >
+              <RefreshCw className="h-3.5 w-3.5 mr-1" />
+              Force Refresh
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {deleteConfirmIndex !== null && (
         <Dialog open onOpenChange={(v) => { if (!v) setDeleteConfirmIndex(null); }}>
