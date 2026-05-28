@@ -4041,6 +4041,9 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                   {config?.editor && Object.values(config.editor).some((f: any) => f?.cache_images) && (
                     <li>Any fields with image caching enabled will re-download and re-store their images.</li>
                   )}
+                  {hasSemanticSearch && (
+                    <li>The semantic search index will be <strong className="text-foreground">rebuilt in the background</strong> — embeddings will be re-generated for all items. Search will fall back to keyword matching until it finishes.</li>
+                  )}
                 </ul>
                 <p>Use <strong className="text-foreground">Fetch Data</strong> instead if you just want to view the current cache without triggering a new request.</p>
               </div>
