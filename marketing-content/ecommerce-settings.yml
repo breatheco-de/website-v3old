@@ -2,7 +2,7 @@
 # ============================
 # Controls default currency, locale, and tax behavior for all products.
 # Plans are defined here as a keyed map and referenced by plan ID in
-# per-entry ecommerce.yml files.
+# per-entry _ecommerce.yml files.
 #
 # currency:
 #   The ISO 4217 currency code used when a plan does not specify its own.

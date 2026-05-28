@@ -5,7 +5,7 @@
  * enrichment step in the CMS content loading pipeline.
  *
  * Resolution order (deep-merge):
- *   ecommerce-settings.yml plans → type-level ecommerce.yml → entry-level ecommerce.yml
+ *   ecommerce-settings.yml plans → type-level _ecommerce.yml → entry-level _ecommerce.yml
  *
  * If the loaded entry resolves to an active purchasable product, resolved plan
  * data is injected into the render context under an `ecommerce` key. Plans are

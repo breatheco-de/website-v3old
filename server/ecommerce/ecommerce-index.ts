@@ -2,11 +2,11 @@
  * Ecommerce Index — startup scanner.
  *
  * Reads marketing-content/ecommerce-settings.yml for global config and plan
- * definitions. Discovers co-located ecommerce.yml files by walking content-type
+ * definitions. Discovers co-located _ecommerce.yml files by walking content-type
  * directories under marketing-content/:
  *
- *   marketing-content/<content-type>/ecommerce.yml          — type-level defaults
- *   marketing-content/<content-type>/<slug>/ecommerce.yml   — entry-level config
+ *   marketing-content/<content-type>/_ecommerce.yml          — type-level defaults
+ *   marketing-content/<content-type>/<slug>/_ecommerce.yml   — entry-level config
  *
  * Entry-level files are deep-merged with type-level defaults to build an
  * EcommerceProduct. Only entries with purchasable: true become products.
@@ -177,7 +177,7 @@ export function scanEcommerceContent(): void {
     if (!fs.existsSync(typeDirPath)) continue;
 
     // Load type-level defaults
-    const typeConfig = loadYml(path.join(typeDirPath, "ecommerce.yml")) ?? {};
+    const typeConfig = loadYml(path.join(typeDirPath, "_ecommerce.yml")) ?? {};
 
     // Walk entry subdirectories
     const entries = fs
@@ -186,7 +186,7 @@ export function scanEcommerceContent(): void {
 
     for (const entryDir of entries) {
       const slug = entryDir.name;
-      const entryConfigPath = path.join(typeDirPath, slug, "ecommerce.yml");
+      const entryConfigPath = path.join(typeDirPath, slug, "_ecommerce.yml");
       const entryConfig = loadYml(entryConfigPath);
       if (!entryConfig) continue;
 
@@ -222,7 +222,7 @@ export function scanEcommerceContent(): void {
     }
   }
 
-  console.log(`[EcommerceIndex] Scanned ${productCount} products from co-located ecommerce.yml files`);
+  console.log(`[EcommerceIndex] Scanned ${productCount} products from co-located _ecommerce.yml files`);
 }
 
 // ------------------------------------------------------------------
@@ -235,11 +235,11 @@ export function startEcommerceWatcher(): void {
   if (watcherStarted || !fs.existsSync(MARKETING_CONTENT_DIR)) return;
   watcherStarted = true;
 
-  // Watch the full marketing-content/ tree; filter on ecommerce.yml / ecommerce-settings.yml
+  // Watch the full marketing-content/ tree; filter on _ecommerce.yml / ecommerce-settings.yml
   fs.watch(MARKETING_CONTENT_DIR, { recursive: true }, (event, filename) => {
     if (!filename) return;
     const isSettingsFile = filename === "ecommerce-settings.yml";
-    const isEcommerceFile = filename.endsWith("ecommerce.yml") || filename.endsWith("ecommerce.yaml");
+    const isEcommerceFile = filename.endsWith("_ecommerce.yml") || filename.endsWith("_ecommerce.yaml");
     if (!isSettingsFile && !isEcommerceFile) return;
     console.log(`[EcommerceIndex] File changed: ${filename} — rescanning`);
     try {

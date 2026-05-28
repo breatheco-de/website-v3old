@@ -1,5 +1,5 @@
 # Entry-level ecommerce config for the AI Reskilling Bootcamp program.
-# Merged on top of marketing-content/programs/ecommerce.yml at resolution time.
+# Merged on top of marketing-content/programs/_ecommerce.yml at resolution time.
 
 product_id: ai-reskilling-bootcamp
 name: AI Reskilling Bootcamp
