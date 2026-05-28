@@ -70,6 +70,8 @@ interface FaqItemsVisibilityProps {
   ) => void;
   /** Mirrors dynamic_entries.sort — same format as server: field name, prefix "-" for desc. */
   sortField?: string;
+  /** Mirrors dynamic_entries.limit — caps DB items after hardcoded slots are counted. */
+  limit?: number;
 }
 
 function ItemLocationPicker({
@@ -129,7 +131,7 @@ function ItemLocationPicker({
   };
 
   return (
-    <div className={`border rounded-lg p-3 space-y-2 ${source === "hardcoded" ? "bg-muted/40" : ""}`}>
+    <div className={`border rounded-lg p-3 space-y-2 ${source === "hardcoded" ? "bg-muted" : ""}`}>
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-start gap-1.5 flex-1 min-w-0">
           <p className="text-xs text-foreground leading-tight line-clamp-2 flex-1">
@@ -290,6 +292,7 @@ export function FaqItemsVisibility({
   onIgnoredEntriesChange,
   onLocalizeDbEntry,
   sortField,
+  limit,
 }: FaqItemsVisibilityProps) {
   const { toast } = useToast();
   const [expanded, setExpanded] = useState(false);
@@ -353,11 +356,17 @@ export function FaqItemsVisibility({
       });
     }
 
+    // Mirror server limit logic: limit caps total (hardcoded + DB), so DB gets remaining slots
+    if (limit && limit > 0) {
+      const remainingSlots = Math.max(0, limit - hardcodedItems.length);
+      uniqueDbItems = uniqueDbItems.slice(0, remainingSlots);
+    }
+
     return [
       ...hardcodedItems.map((i) => ({ ...i, _source: "hardcoded" as const })),
       ...uniqueDbItems.map((i) => ({ ...i, _source: "db" as const })),
     ];
-  }, [faqsData, relatedFeatures, hasCentralized, hardcodedItems, ignoredEntries, locale, sortField]);
+  }, [faqsData, relatedFeatures, hasCentralized, hardcodedItems, ignoredEntries, locale, sortField, limit]);
 
   // Resolve original question text for ignored entries from DB data
   const ignoredItemsResolved = useMemo(() => {
@@ -805,7 +814,7 @@ export function FaqItemsVisibility({
           {ignoredItemsResolved.length > 0 && (
             <div className="mt-3 space-y-1">
               <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider px-0.5">
-                Hidden from DB ({ignoredItemsResolved.length})
+                Hidden DB items ({ignoredItemsResolved.length})
               </p>
               {ignoredItemsResolved.map(({ key, question }) => (
                 <div

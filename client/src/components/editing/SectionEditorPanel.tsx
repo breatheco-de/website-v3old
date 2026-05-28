@@ -5019,6 +5019,10 @@ export function SectionEditorPanel({
                           const de = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
                           return typeof de?.sort === "string" ? de.sort : undefined;
                         })()}
+                        limit={(() => {
+                          const de = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
+                          return typeof de?.limit === "number" && de.limit > 0 ? de.limit : undefined;
+                        })()}
                         onLocalizeDbEntry={(entry, ignoredKey) => {
                           try {
                             const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
