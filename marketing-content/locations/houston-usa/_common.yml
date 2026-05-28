@@ -11,7 +11,7 @@ timezone: America/Chicago
 phone: +1 713-555-0100
 address: 1000 Main St, Houston, TX 77002
 available_programs:
-  - "full-stack"
+  - full-stack
 context:
   when_to_use: For Houston and Texas visitors or those interested in tech opportunities in the Gulf Coast region.
   target_audience: Local professionals, career changers, and residents in energy, healthcare, and startup sectors seeking coding training.
@@ -21,13 +21,12 @@ context:
     - Highlight job outcomes across energy, healthcare, and tech
 catalog:
   admission_advisors:
-    - name: "Admissions Team"
-      email: "admissions@4geeks.com"
-      calendar_url: "https://calendly.com/4geeks-admissions"
+    - name: Admissions Team
+      email: admissions@4geeks.com
+      calendar_url: https://calendly.com/4geeks-admissions
       languages:
-        - "en"
-        - "es"
-
+        - en
+        - es
 schema:
   include:
     - organization
@@ -41,3 +40,12 @@ schema:
         addressRegion: TX
         postalCode: "77002"
         addressCountry: US
+meta:
+  page_title: Coding Bootcamp in Houston, TX | 4Geeks Academy
+  description: Launch your tech career in Houston! Learn AI Engineering, Data Science, Cybersecurity & Full Stack with applied AI skills, unlimited mentorship and job guarantee.
+  robots: index, follow
+  og_image: /images/locations/houston-og.jpg
+  priority: 0.8
+  change_frequency: monthly
+  redirects:
+    - /us/coding-campus/coding-bootcamp-houston
