@@ -1865,7 +1865,7 @@ function FieldMappingEditor({
         <div className="space-y-2">
           {Object.entries(fieldMappingEntries).map(([normalizedKey, sourcePath]) => {
             const isFunction = sourcePath != null && sourcePath.startsWith("function:");
-            const isCustom = !isFunction && sourcePath != null && sourcePath !== "" && !rawFields.includes(sourcePath);
+            const isCustom = !isFunction && sourcePath != null && !rawFields.includes(sourcePath);
             const selectValue = isFunction ? "__function__" : isCustom ? "__custom__" : (sourcePath || "__none__");
             const decodedFn = isFunction ? (() => { try { return atob(sourcePath.slice("function:".length)); } catch { return sourcePath; } })() : "";
             return (
