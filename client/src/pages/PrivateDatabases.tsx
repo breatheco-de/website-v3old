@@ -1232,6 +1232,37 @@ function DatabaseConfigEditor({
     item_count?: number;
     error?: string;
   } | null>(null);
+  const [sampleOpen, setSampleOpen] = useState(false);
+  const [sampleData, setSampleData] = useState<{ items: Record<string, unknown>[]; count: number } | null>(null);
+  const [sampleLoading, setSampleLoading] = useState(false);
+
+  const handleViewSample = async () => {
+    setSampleOpen(true);
+    if (sampleData) return;
+    setSampleLoading(true);
+    try {
+      const res = await fetch(`/api/databases/${dbName}/raw-sample?limit=3`);
+      const data = await res.json();
+      setSampleData(data);
+    } catch {
+      toast({ title: "Failed to load sample data", variant: "destructive" });
+    } finally {
+      setSampleLoading(false);
+    }
+  };
+
+  const handleRefreshSample = async () => {
+    setSampleLoading(true);
+    try {
+      const res = await fetch(`/api/databases/${dbName}/raw-sample?limit=3`);
+      const data = await res.json();
+      setSampleData(data);
+    } catch {
+      toast({ title: "Failed to load sample data", variant: "destructive" });
+    } finally {
+      setSampleLoading(false);
+    }
+  };
 
   const canSave =
     sourceType === "api"
@@ -1614,19 +1645,24 @@ function DatabaseConfigEditor({
             Test Connection
           </Button>
           {testResult && (
-            <Badge variant={testResult.success ? "secondary" : "destructive"}>
-              {testResult.success ? (
-                <>
+            testResult.success ? (
+              <button
+                type="button"
+                onClick={handleViewSample}
+                data-testid="badge-test-result-success"
+                className="inline-flex items-center"
+              >
+                <Badge variant="secondary" className="cursor-pointer">
                   <Check className="h-3 w-3 mr-1" />
                   {testResult.item_count} items found
-                </>
-              ) : (
-                <>
-                  <X className="h-3 w-3 mr-1" />
-                  Failed
-                </>
-              )}
-            </Badge>
+                </Badge>
+              </button>
+            ) : (
+              <Badge variant="destructive">
+                <X className="h-3 w-3 mr-1" />
+                Failed
+              </Badge>
+            )
           )}
         </div>
         <div className="flex items-center gap-2">
@@ -1676,6 +1712,57 @@ function DatabaseConfigEditor({
           setSourceType("local");
         }}
       />
+
+      <Dialog open={sampleOpen} onOpenChange={setSampleOpen}>
+        <DialogContent className="max-w-3xl max-h-[80vh] flex flex-col">
+          <DialogHeader>
+            <div className="flex items-start justify-between gap-2 pr-8">
+              <div>
+                <DialogTitle>Raw API Sample Data</DialogTitle>
+                <DialogDescription className="mt-1">
+                  {sampleData ? `Showing ${sampleData.items.length} of ${sampleData.count} total raw items` : "Loading sample data..."}
+                </DialogDescription>
+              </div>
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={handleRefreshSample}
+                disabled={sampleLoading}
+                data-testid="button-refresh-sample-config"
+                title="Refresh sample data"
+              >
+                {sampleLoading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <RefreshCw className="h-4 w-4" />
+                )}
+              </Button>
+            </div>
+          </DialogHeader>
+          <div className="flex-1 overflow-auto">
+            {sampleLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+              </div>
+            ) : sampleData && sampleData.items.length > 0 ? (
+              <div className="space-y-3">
+                {sampleData.items.map((item, idx) => (
+                  <div key={idx} className="border rounded-md overflow-hidden">
+                    <div className="px-3 py-1.5 bg-muted text-xs font-medium text-muted-foreground border-b">
+                      Item {idx + 1}
+                    </div>
+                    <JsonViewer value={JSON.stringify(item, null, 2)} />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground py-4 text-center">
+                No raw data available. Save your config and fetch data first.
+              </p>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
         <DialogContent>
