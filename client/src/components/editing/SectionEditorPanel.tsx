@@ -5015,6 +5015,10 @@ export function SectionEditorPanel({
                             console.error("Error updating ignored_entries:", err);
                           }
                         }}
+                        sortField={(() => {
+                          const de = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
+                          return typeof de?.sort === "string" ? de.sort : undefined;
+                        })()}
                         onLocalizeDbEntry={(entry, ignoredKey) => {
                           try {
                             const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;

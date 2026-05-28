@@ -68,6 +68,8 @@ interface FaqItemsVisibilityProps {
     entry: { question: string; answer: string },
     ignoredKey: string,
   ) => void;
+  /** Mirrors dynamic_entries.sort — same format as server: field name, prefix "-" for desc. */
+  sortField?: string;
 }
 
 function ItemLocationPicker({
@@ -287,6 +289,7 @@ export function FaqItemsVisibility({
   onHardcodedEntriesChange,
   onIgnoredEntriesChange,
   onLocalizeDbEntry,
+  sortField,
 }: FaqItemsVisibilityProps) {
   const { toast } = useToast();
   const [expanded, setExpanded] = useState(false);
@@ -326,15 +329,35 @@ export function FaqItemsVisibility({
     const hardcodedKeys = new Set(hardcodedItems.map((i) => faqItemKey(i.question)));
     const ignoredSet = new Set(ignoredEntries);
 
-    const uniqueDbItems = dbItems
+    let uniqueDbItems = dbItems
       .filter((i) => !hardcodedKeys.has(faqItemKey(i.question)))
       .filter((i) => !ignoredSet.has(faqItemKey(i.question)));
+
+    // Apply the same sort logic as the server (dynamic_entries.sort field)
+    if (sortField) {
+      const desc = sortField.startsWith("-");
+      const field = desc ? sortField.slice(1) : sortField;
+      uniqueDbItems = [...uniqueDbItems].sort((a, b) => {
+        const aVal = (a as Record<string, unknown>)[field];
+        const bVal = (b as Record<string, unknown>)[field];
+        if (aVal == null && bVal == null) return 0;
+        if (aVal == null) return 1;
+        if (bVal == null) return -1;
+        let cmp = 0;
+        if (typeof aVal === "number" && typeof bVal === "number") {
+          cmp = aVal - bVal;
+        } else {
+          cmp = String(aVal).localeCompare(String(bVal));
+        }
+        return desc ? -cmp : cmp;
+      });
+    }
 
     return [
       ...hardcodedItems.map((i) => ({ ...i, _source: "hardcoded" as const })),
       ...uniqueDbItems.map((i) => ({ ...i, _source: "db" as const })),
     ];
-  }, [faqsData, relatedFeatures, hasCentralized, hardcodedItems, ignoredEntries, locale]);
+  }, [faqsData, relatedFeatures, hasCentralized, hardcodedItems, ignoredEntries, locale, sortField]);
 
   // Resolve original question text for ignored entries from DB data
   const ignoredItemsResolved = useMemo(() => {
