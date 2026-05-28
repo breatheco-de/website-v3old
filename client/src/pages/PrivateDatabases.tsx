@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/dialog";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import JsonViewer from "@/components/editing/JsonViewer";
 
 interface DatabaseSummary {
   name: string;
@@ -1741,6 +1742,19 @@ function FieldMappingEditor({
     }
   };
 
+  const handleRefreshSample = async () => {
+    setSampleLoading(true);
+    try {
+      const res = await fetch(`/api/databases/${dbName}/raw-sample?limit=3`);
+      const data = await res.json();
+      setSampleData(data);
+    } catch {
+      toast({ title: "Failed to load sample data", variant: "destructive" });
+    } finally {
+      setSampleLoading(false);
+    }
+  };
+
   const [fieldMappingEntries, setFieldMappingEntries] = useState<Record<string, string | null>>(() => {
     const fm = config.field_mapping;
     if (!fm || Object.keys(fm).length === 0) return {};
@@ -2041,10 +2055,28 @@ function FieldMappingEditor({
       <Dialog open={sampleOpen} onOpenChange={setSampleOpen}>
         <DialogContent className="max-w-3xl max-h-[80vh] flex flex-col">
           <DialogHeader>
-            <DialogTitle>Raw API Sample Data</DialogTitle>
-            <DialogDescription>
-              {sampleData ? `Showing ${sampleData.items.length} of ${sampleData.count} total raw items` : "Loading sample data..."}
-            </DialogDescription>
+            <div className="flex items-start justify-between gap-2 pr-8">
+              <div>
+                <DialogTitle>Raw API Sample Data</DialogTitle>
+                <DialogDescription className="mt-1">
+                  {sampleData ? `Showing ${sampleData.items.length} of ${sampleData.count} total raw items` : "Loading sample data..."}
+                </DialogDescription>
+              </div>
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={handleRefreshSample}
+                disabled={sampleLoading}
+                data-testid="button-refresh-sample"
+                title="Refresh sample data"
+              >
+                {sampleLoading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <RefreshCw className="h-4 w-4" />
+                )}
+              </Button>
+            </div>
           </DialogHeader>
           <div className="flex-1 overflow-auto">
             {sampleLoading ? (
@@ -2054,13 +2086,13 @@ function FieldMappingEditor({
             ) : sampleData && sampleData.items.length > 0 ? (
               <div className="space-y-3">
                 {sampleData.items.map((item, idx) => (
-                  <div key={idx} className="border rounded-md">
+                  <div key={idx} className="border rounded-md overflow-hidden">
                     <div className="px-3 py-1.5 bg-muted text-xs font-medium text-muted-foreground border-b">
                       Item {idx + 1}
                     </div>
-                    <pre className="text-xs font-mono p-3 overflow-auto whitespace-pre-wrap break-all" data-testid={`text-sample-item-${idx}`}>
-                      {JSON.stringify(item, null, 2)}
-                    </pre>
+                    <JsonViewer
+                      value={JSON.stringify(item, null, 2)}
+                    />
                   </div>
                 ))}
               </div>
