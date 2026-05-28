@@ -18,4 +18,3 @@ vector_search:
   enabled: true
   fields:
     - question
-    - answer

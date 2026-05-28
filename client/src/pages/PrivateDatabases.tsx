@@ -1953,10 +1953,8 @@ function FieldMappingEditor({
     setEditorHints(config.editor ? { ...config.editor } : {});
   }, [config.editor]);
 
-  const [vectorSearchEnabled, setVectorSearchEnabled] = useState(config.vector_search?.enabled ?? false);
   const [vectorSearchFields, setVectorSearchFields] = useState<string[]>(config.vector_search?.fields ?? []);
   useEffect(() => {
-    setVectorSearchEnabled(config.vector_search?.enabled ?? false);
     setVectorSearchFields(config.vector_search?.fields ?? []);
   }, [config.vector_search]);
 
@@ -2092,8 +2090,8 @@ function FieldMappingEditor({
         field_mapping: Object.keys(fieldMapping).length > 0 ? fieldMapping : undefined,
         editor: Object.keys(editorHints).length > 0 ? editorHints : undefined,
         vector_search: vectorSearchFields.length > 0
-          ? { enabled: vectorSearchEnabled, fields: vectorSearchFields }
-          : vectorSearchEnabled ? { enabled: true, fields: [] } : undefined,
+          ? { enabled: true, fields: vectorSearchFields }
+          : undefined,
       };
 
       const res = await fetch(`/api/databases/${dbName}/config`, {
@@ -2325,18 +2323,7 @@ function FieldMappingEditor({
         </p>
       )}
 
-      <div className="flex items-center justify-between gap-2 pt-2 border-t flex-wrap">
-        <label className="flex items-center gap-2 cursor-pointer" data-testid="label-vector-search-enabled">
-          <Switch
-            checked={vectorSearchEnabled}
-            onCheckedChange={setVectorSearchEnabled}
-            data-testid="switch-vector-search-enabled"
-          />
-          <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <Sparkles className="h-3.5 w-3.5 text-orange-500" />
-            Semantic search
-          </span>
-        </label>
+      <div className="flex items-center justify-end gap-2 pt-2 border-t flex-wrap">
         <Button
           size="sm"
           onClick={handleSave}
