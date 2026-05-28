@@ -11,30 +11,51 @@ props:
     type: string
     required: true
     example: Frequently Asked Questions
+  dynamic_entries:
+    type: object
+    required: false
+    description: Configuration for loading FAQs from the centralized database.
+    properties:
+      database:
+        type: string
+        required: false
+        example: frequently_asked_questions
+      permanent_filters:
+        type: object
+        required: false
+        description: Filters always applied when loading from the database.
+        properties:
+          related_features:
+            type: array
+            required: false
+            items:
+              type: string
+              enum:
+                - online-platform
+                - mentors-and-teachers
+                - price
+                - career-support
+                - content-and-syllabus
+                - job-guarantee
+                - full-stack
+                - cybersecurity
+                - data-science
+                - applied-ai
+                - ai-engineering
+                - outcomes
+                - scholarships
+                - rigobot
+                - learnpack
+                - certification
+            description: Select up to 3 topics to pull FAQs from centralized data. Sorted by match count and priority. Max 9 FAQs displayed.
+            example: ["career-support", "job-guarantee"]
   related_features:
     type: array
     required: false
+    deprecated: true
+    description: "Deprecated: use dynamic_entries.permanent_filters.related_features instead. Kept for backward compatibility with unmigrated YAMLs."
     items:
       type: string
-      enum:
-        - online-platform
-        - mentors-and-teachers
-        - price
-        - career-support
-        - content-and-syllabus
-        - job-guarantee
-        - full-stack
-        - cybersecurity
-        - data-science
-        - applied-ai
-        - ai-engineering
-        - outcomes
-        - scholarships
-        - rigobot
-        - learnpack
-        - certification
-    description: Select up to 3 topics to pull FAQs from centralized data. Sorted by match count and priority. Max 9 FAQs displayed.
-    example: ["career-support", "job-guarantee"]
   items:
     type: array
     required: false

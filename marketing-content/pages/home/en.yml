@@ -560,10 +560,13 @@ sections:
   - type: faq
     section_id: faq-31bv5t
     title: Frequently Asked Questions
-    related_features:
-      - online-platform
-      - certification
-      - mentors-and-teachers
+    dynamic_entries:
+      database: frequently_asked_questions
+      permanent_filters:
+        related_features:
+          - online-platform
+          - certification
+          - mentors-and-teachers
     marginY:
       desktop: none md
     paddingY:

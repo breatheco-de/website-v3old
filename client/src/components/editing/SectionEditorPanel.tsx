@@ -4788,10 +4788,15 @@ export function SectionEditorPanel({
                 }
 
                 if (isSimpleField && editorType === "related-features-picker") {
+                  const pickerValue = (() => {
+                    const dynEntries = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
+                    const permFilters = dynEntries?.permanent_filters as Record<string, unknown> | undefined;
+                    return (permFilters?.related_features as string[]) ?? (parsedSection?.related_features as string[]) ?? [];
+                  })();
                   return (
                     <div key={fieldPath}>
                       <RelatedFeaturesPicker
-                        value={(parsedSection?.related_features as string[]) || []}
+                        value={pickerValue}
                         onChange={(value) => updateArrayProperty(fieldPath, value)}
                         locale={locale}
                       />
@@ -4803,7 +4808,11 @@ export function SectionEditorPanel({
                   return (
                     <div key={fieldPath}>
                       <FaqItemsVisibility
-                        relatedFeatures={(parsedSection?.related_features as string[]) || []}
+                        relatedFeatures={(() => {
+                          const dynEntries = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
+                          const permFilters = dynEntries?.permanent_filters as Record<string, unknown> | undefined;
+                          return (permFilters?.related_features as string[]) ?? (parsedSection?.related_features as string[]) ?? [];
+                        })()}
                         locale={locale || "en"}
                         inlineItems={
                           (parsedSection?.items as Array<{ question: string; answer: string }>) || undefined
