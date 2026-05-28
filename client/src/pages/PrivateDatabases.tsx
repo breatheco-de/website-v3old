@@ -3199,17 +3199,19 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
   );
 }
 
-function SemanticIndexKpiCard({ dbName, jobStatus }: {
+function SemanticIndexKpiCard({ dbName, jobStatus, onForceRefresh }: {
   dbName: string;
   jobStatus?: {
     fetch: { status: string };
     index: { status: string; fetched?: number; total?: number | null; finishedAt?: string; error?: string };
   } | null;
+  onForceRefresh?: () => void;
 }) {
   const index = jobStatus?.index;
   const isRunning = index?.status === "running";
   const isError = index?.status === "error";
   const isDone = index?.status === "done";
+  const neverRun = !isRunning && !isError && !isDone;
 
   return (
     <Card>
@@ -3233,9 +3235,15 @@ function SemanticIndexKpiCard({ dbName, jobStatus }: {
           <p className="text-xs text-muted-foreground">
             {index?.finishedAt ? new Date(index.finishedAt).toLocaleString() : "Done"}
           </p>
-        ) : (
-          <p className="text-xs text-muted-foreground">Idle</p>
-        )}
+        ) : neverRun ? (
+          <button
+            className="text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer text-left"
+            onClick={onForceRefresh}
+            data-testid="button-semantic-index-refresh-hint"
+          >
+            Force Refresh to build index
+          </button>
+        ) : null}
       </CardContent>
     </Card>
   );
@@ -3786,7 +3794,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
               <CachedImagesKpiCard dbName={dbName} />
             )}
             {hasSemanticSearch && (
-              <SemanticIndexKpiCard dbName={dbName} jobStatus={jobStatus} />
+              <SemanticIndexKpiCard dbName={dbName} jobStatus={jobStatus} onForceRefresh={() => setConfirmForceRefreshOpen(true)} />
             )}
           </div>
             );
