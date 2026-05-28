@@ -1513,26 +1513,20 @@ function DatabaseConfigEditor({
               </PopoverContent>
             </Popover>
           </div>
-          <Input
-            id="edit-ttl"
-            type="number"
-            min="0"
-            value={ttlHours}
-            onChange={(e) => setTtlHours(e.target.value)}
-            className="w-24"
-            data-testid="input-edit-ttl"
-          />
-        </div>
-      </div>
-
-      {sourceType === "api" && (
-        <>
-          {webhookData && (
-            <div className="flex items-center gap-2 rounded-md bg-muted/50 border px-3 py-2 text-xs">
-              <Webhook className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
-              <span className="text-muted-foreground shrink-0">Webhook:</span>
-              {webhookFullUrl ? (
-                <>
+          <div className="flex items-center gap-2">
+            <Input
+              id="edit-ttl"
+              type="number"
+              min="0"
+              value={ttlHours}
+              onChange={(e) => setTtlHours(e.target.value)}
+              className="w-24"
+              data-testid="input-edit-ttl"
+            />
+            {sourceType === "api" && webhookData && (
+              webhookFullUrl ? (
+                <div className="flex items-center gap-1.5 flex-1 min-w-0 rounded-md bg-muted/50 border px-2 py-1.5 text-xs">
+                  <Webhook className="h-3 w-3 text-muted-foreground shrink-0" />
                   <input
                     readOnly
                     value={webhookFullUrl}
@@ -1543,21 +1537,24 @@ function DatabaseConfigEditor({
                   <Button
                     size="icon"
                     variant="ghost"
-                    className="h-6 w-6 shrink-0"
+                    className="h-5 w-5 shrink-0"
                     onClick={handleCopyWebhook}
                     title={webhookCopied ? "Copied!" : "Copy webhook URL"}
                     data-testid="button-copy-webhook-settings"
                   >
                     {webhookCopied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
                   </Button>
-                </>
+                </div>
               ) : (
-                <span className="text-muted-foreground italic">
-                  WEBHOOK_SECRET not configured — ask an administrator to set it up.
-                </span>
-              )}
-            </div>
-          )}
+                <p className="text-xs text-muted-foreground italic">Webhook not configured</p>
+              )
+            )}
+          </div>
+        </div>
+      </div>
+
+      {sourceType === "api" && (
+        <>
           <div className="space-y-2">
             <Label htmlFor="edit-endpoint">Endpoint URL</Label>
             <Input
