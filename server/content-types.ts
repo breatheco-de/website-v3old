@@ -348,6 +348,7 @@ export function updateContentTypeConfig(type: string, update: Partial<ContentTyp
 
   const allTypes = { ...reg.types, [singular]: merged };
   writeConfigWithHeader(allTypes);
+  markFileAsModified(CONFIG_PATH);
   resetRegistry();
   console.log(`[ContentTypes] Updated config for "${singular}"`);
 }
