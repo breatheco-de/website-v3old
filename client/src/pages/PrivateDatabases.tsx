@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
-import {AlertTriangle, ArrowLeft, ArrowLeftRight, ArrowRight, ArrowUpDown, Check, ChevronDown, ChevronUp, Clock, CloudUpload, Code, Copy, Database, Download, Eye, File, Image, Info, Link as LinkIcon, Loader2, Pencil, Plus, RefreshCw, Save, Search, Server, Settings, SlidersHorizontal, Table, TestTube, Trash2, Upload, Wand2, Webhook, X} from "lucide-react";
+import {AlertTriangle, ArrowLeft, ArrowLeftRight, ArrowRight, ArrowUpDown, Check, ChevronDown, ChevronUp, Clock, CloudUpload, Code, Copy, Database, Download, Eye, File, Image, Info, Link as LinkIcon, Loader2, Pencil, Plus, RefreshCw, Save, Search, Server, Settings, SlidersHorizontal, Sparkles, Table, TestTube, Trash2, Upload, Wand2, Webhook, X} from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRoute, Link, useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -66,6 +66,7 @@ interface DatabaseDetail {
     cache?: { ttl_hours?: number };
     field_mapping?: Record<string, string>;
     editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean; cache_images?: boolean }>;
+    vector_search?: { enabled: boolean; fields: string[] };
   };
   cache_status?: {
     fetched_at: string;
@@ -1952,6 +1953,13 @@ function FieldMappingEditor({
     setEditorHints(config.editor ? { ...config.editor } : {});
   }, [config.editor]);
 
+  const [vectorSearchEnabled, setVectorSearchEnabled] = useState(config.vector_search?.enabled ?? false);
+  const [vectorSearchFields, setVectorSearchFields] = useState<string[]>(config.vector_search?.fields ?? []);
+  useEffect(() => {
+    setVectorSearchEnabled(config.vector_search?.enabled ?? false);
+    setVectorSearchFields(config.vector_search?.fields ?? []);
+  }, [config.vector_search]);
+
   const [hintDialogField, setHintDialogField] = useState<string | null>(null);
   const [hintDialogType, setHintDialogType] = useState<string>("text");
   const [hintDialogOptions, setHintDialogOptions] = useState<string[]>([]);
@@ -2080,6 +2088,9 @@ function FieldMappingEditor({
         ...config,
         field_mapping: Object.keys(fieldMapping).length > 0 ? fieldMapping : undefined,
         editor: Object.keys(editorHints).length > 0 ? editorHints : undefined,
+        vector_search: vectorSearchFields.length > 0
+          ? { enabled: vectorSearchEnabled, fields: vectorSearchFields }
+          : vectorSearchEnabled ? { enabled: true, fields: [] } : undefined,
       };
 
       const res = await fetch(`/api/databases/${dbName}/config`, {
@@ -2252,14 +2263,32 @@ function FieldMappingEditor({
                   >
                     <Image className={`h-3.5 w-3.5 ${editorHints[normalizedKey]?.cache_images ? "text-blue-500" : "text-muted-foreground"}`} />
                   </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => {
+                      setVectorSearchFields((prev) =>
+                        prev.includes(normalizedKey)
+                          ? prev.filter((f) => f !== normalizedKey)
+                          : [...prev, normalizedKey]
+                      );
+                    }}
+                    title={vectorSearchFields.includes(normalizedKey) ? "Included in semantic search — click to remove" : "Include in semantic search index"}
+                    data-testid={`button-vector-search-${normalizedKey}`}
+                  >
+                    <Sparkles className={`h-3.5 w-3.5 ${vectorSearchFields.includes(normalizedKey) ? "text-violet-500" : "text-muted-foreground"}`} />
+                  </Button>
                 </div>
-                {(editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text") || editorHints[normalizedKey]?.cache_images ? (
+                {((editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text") || editorHints[normalizedKey]?.cache_images || vectorSearchFields.includes(normalizedKey)) ? (
                   <p className="text-[10px] text-muted-foreground ml-[6.5rem] flex items-center gap-2">
                     {editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text" && (
                       <span>editor: <code>{editorHints[normalizedKey].type}</code>{editorHints[normalizedKey].options?.length ? ` (${editorHints[normalizedKey].options!.length} options)` : ""}</span>
                     )}
                     {editorHints[normalizedKey]?.cache_images && (
                       <span className="text-blue-500">cached</span>
+                    )}
+                    {vectorSearchFields.includes(normalizedKey) && (
+                      <span className="text-violet-500">semantic</span>
                     )}
                   </p>
                 ) : null}
@@ -2304,7 +2333,18 @@ function FieldMappingEditor({
         </p>
       )}
 
-      <div className="flex items-center justify-end gap-2 pt-2 border-t">
+      <div className="flex items-center justify-between gap-2 pt-2 border-t flex-wrap">
+        <label className="flex items-center gap-2 cursor-pointer" data-testid="label-vector-search-enabled">
+          <Switch
+            checked={vectorSearchEnabled}
+            onCheckedChange={setVectorSearchEnabled}
+            data-testid="switch-vector-search-enabled"
+          />
+          <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+            <Sparkles className="h-3.5 w-3.5 text-violet-500" />
+            Semantic search
+          </span>
+        </label>
         <Button
           size="sm"
           onClick={handleSave}
