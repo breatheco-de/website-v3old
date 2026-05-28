@@ -3271,7 +3271,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     queryFn: () =>
       fetch(`/api/databases/${dbName}/search?q=${encodeURIComponent(debouncedSearch)}&limit=100`)
         .then((r) => r.json()),
-    enabled: hasSemanticSearch && debouncedSearch.trim().length > 0 && !!itemsData,
+    enabled: debouncedSearch.trim().length > 0 && !!itemsData,
     staleTime: 10_000,
   });
 
@@ -3290,14 +3290,14 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   const filteredItems = useMemo(() => {
     let items: Record<string, unknown>[];
 
-    if (hasSemanticSearch && debouncedSearch.trim() && semanticResults?.items) {
+    if (debouncedSearch.trim() && semanticResults?.items && dataView !== "raw") {
       items = semanticResults.items;
     } else if (!activeItems?.items) {
       return [];
     } else {
       items = activeItems.items;
-      if (search.trim()) {
-        const q = search.toLowerCase();
+      if (debouncedSearch.trim()) {
+        const q = debouncedSearch.toLowerCase();
         items = items.filter((item) =>
           Object.values(item).some(
             (v) => v != null && String(v).toLowerCase().includes(q)
@@ -3316,7 +3316,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     }
 
     return items;
-  }, [activeItems?.items, semanticResults, hasSemanticSearch, debouncedSearch, search, sortKey, sortDir]);
+  }, [activeItems?.items, semanticResults, debouncedSearch, dataView, sortKey, sortDir]);
 
   const handleSort = (key: string) => {
     if (sortKey === key) {
@@ -3863,9 +3863,11 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                             </div>
                           </PopoverContent>
                         </Popover>
-                      ) : search.trim() ? (
-                        <p className="text-[10px] text-muted-foreground pl-0.5" data-testid="text-search-mode">
-                          Keyword match across all fields
+                      ) : (search.trim() || semanticFetching) ? (
+                        <p className="text-[10px] text-muted-foreground flex items-center gap-1 pl-0.5" data-testid="text-search-mode">
+                          {semanticFetching
+                            ? <><Loader2 className="h-2.5 w-2.5 animate-spin" /> Searching…</>
+                            : "Keyword match across all fields"}
                         </p>
                       ) : null}
                     </div>
