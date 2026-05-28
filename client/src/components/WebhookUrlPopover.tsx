@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { IconCopy, IconCheck } from "@tabler/icons-react";
+import { IconCopy, IconCheck, IconWebhook } from "@tabler/icons-react";
 
 interface WebhookUrlResponse {
   configured: boolean;
@@ -11,9 +11,10 @@ interface WebhookUrlResponse {
 
 interface WebhookUrlPopoverProps {
   type?: string;
+  variant?: "text" | "icon";
 }
 
-export function WebhookUrlPopover({ type }: WebhookUrlPopoverProps) {
+export function WebhookUrlPopover({ type, variant = "text" }: WebhookUrlPopoverProps) {
   const [copied, setCopied] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -42,12 +43,24 @@ export function WebhookUrlPopover({ type }: WebhookUrlPopoverProps) {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <button
-          className="text-primary underline underline-offset-2 hover:opacity-80 transition-opacity text-sm"
-          data-testid="button-webhook-url-trigger"
-        >
-          webhook url
-        </button>
+        {variant === "icon" ? (
+          <Button
+            size="icon"
+            variant="ghost"
+            className="h-5 w-5 text-muted-foreground"
+            title="Webhook URL — trigger a re-fetch via HTTP"
+            data-testid="button-webhook-url-trigger-icon"
+          >
+            <IconWebhook className="h-3.5 w-3.5" />
+          </Button>
+        ) : (
+          <button
+            className="text-primary underline underline-offset-2 hover:opacity-80 transition-opacity text-sm"
+            data-testid="button-webhook-url-trigger"
+          >
+            webhook url
+          </button>
+        )}
       </PopoverTrigger>
       <PopoverContent className="w-[480px] max-w-[95vw]" align="start">
         <div className="space-y-3">
@@ -61,7 +74,7 @@ export function WebhookUrlPopover({ type }: WebhookUrlPopoverProps) {
           ) : (
             <>
               <p className="text-xs text-muted-foreground">
-                Send a <code className="font-mono bg-muted px-1 py-0.5 rounded">POST</code> request to this URL to clear the cache from any external system.
+                Send a <code className="font-mono bg-muted px-1 py-0.5 rounded">POST</code> request to this URL to trigger a re-fetch from any external system (e.g. after updating source data).
               </p>
               <div className="flex items-center gap-2">
                 <input

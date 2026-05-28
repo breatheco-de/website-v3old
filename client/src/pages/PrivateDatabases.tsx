@@ -28,6 +28,7 @@ import {
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import JsonViewer from "@/components/editing/JsonViewer";
+import { WebhookUrlPopover } from "@/components/WebhookUrlPopover";
 
 interface DatabaseSummary {
   name: string;
@@ -3360,9 +3361,14 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
             </Card>
             <Card>
               <CardContent className="pt-4 pb-3 space-y-1">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <Clock className="h-3.5 w-3.5" />
-                  <span>Last Fetched</span>
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <Clock className="h-3.5 w-3.5" />
+                    <span>Last Fetched</span>
+                  </div>
+                  {config?.source.type === "api" && (
+                    <WebhookUrlPopover type={dbName} variant="icon" />
+                  )}
                 </div>
                 <p className="text-sm font-medium" data-testid="text-fetched-at">
                   {itemsData?.fetched_at
