@@ -1236,6 +1236,26 @@ function DatabaseConfigEditor({
   const [sampleOpen, setSampleOpen] = useState(false);
   const [sampleData, setSampleData] = useState<{ items: Record<string, unknown>[]; count: number } | null>(null);
   const [sampleLoading, setSampleLoading] = useState(false);
+  const [showCurl, setShowCurl] = useState(false);
+
+  const curlCommand = useMemo(() => {
+    if (sourceType !== "api" || !endpoint.trim()) return null;
+    const filteredParams = params.filter((p) => p.key.trim());
+    const filteredHeaders = headers.filter((h) => h.key.trim());
+    let url = endpoint.trim();
+    if (filteredParams.length > 0) {
+      const qs = filteredParams.map((p) => `${encodeURIComponent(p.key)}=${encodeURIComponent(p.value)}`).join("&");
+      url += (url.includes("?") ? "&" : "?") + qs;
+    }
+    const parts = [`curl -X GET "${url}"`];
+    if (tokenEnvVar) {
+      parts.push(`  -H "Authorization: ${authPrefix || "Bearer"} $\{${tokenEnvVar}\}"`);
+    }
+    for (const h of filteredHeaders) {
+      parts.push(`  -H "${h.key}: ${h.value}"`);
+    }
+    return parts.join(" \\\n");
+  }, [sourceType, endpoint, params, headers, tokenEnvVar, authPrefix]);
 
   const handleViewSample = async () => {
     setSampleOpen(true);
@@ -1724,7 +1744,7 @@ function DatabaseConfigEditor({
         }}
       />
 
-      <Dialog open={sampleOpen} onOpenChange={setSampleOpen}>
+      <Dialog open={sampleOpen} onOpenChange={(v) => { setSampleOpen(v); if (!v) setShowCurl(false); }}>
         <DialogContent className="max-w-3xl max-h-[80vh] flex flex-col">
           <DialogHeader>
             <div className="flex items-start justify-between gap-2 pr-8">
@@ -1734,22 +1754,45 @@ function DatabaseConfigEditor({
                   {sampleData ? `Showing ${sampleData.items.length} of ${sampleData.count} total raw items` : "Loading sample data..."}
                 </DialogDescription>
               </div>
-              <Button
-                size="icon"
-                variant="ghost"
-                onClick={handleRefreshSample}
-                disabled={sampleLoading}
-                data-testid="button-refresh-sample-config"
-                title="Refresh sample data"
-              >
-                {sampleLoading ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <RefreshCw className="h-4 w-4" />
+              <div className="flex items-center gap-1">
+                {curlCommand && (
+                  <Button
+                    size="icon"
+                    variant={showCurl ? "secondary" : "ghost"}
+                    onClick={() => setShowCurl((v) => !v)}
+                    data-testid="button-toggle-curl"
+                    title={showCurl ? "Hide curl command" : "Show curl command"}
+                  >
+                    <Code className="h-4 w-4" />
+                  </Button>
                 )}
-              </Button>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={handleRefreshSample}
+                  disabled={sampleLoading}
+                  data-testid="button-refresh-sample-config"
+                  title="Refresh sample data"
+                >
+                  {sampleLoading ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <RefreshCw className="h-4 w-4" />
+                  )}
+                </Button>
+              </div>
             </div>
           </DialogHeader>
+          {showCurl && curlCommand && (
+            <div className="border rounded-md overflow-hidden flex-shrink-0">
+              <div className="px-3 py-1.5 bg-muted text-xs font-medium text-muted-foreground border-b">
+                curl
+              </div>
+              <pre className="px-3 py-2 text-xs font-mono whitespace-pre-wrap break-all bg-background text-foreground overflow-x-auto">
+                {curlCommand}
+              </pre>
+            </div>
+          )}
           <div className="flex-1 overflow-auto">
             {sampleLoading ? (
               <div className="flex items-center justify-center py-8">
