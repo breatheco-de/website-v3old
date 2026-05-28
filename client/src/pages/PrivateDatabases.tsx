@@ -25,6 +25,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import JsonViewer from "@/components/editing/JsonViewer";
@@ -84,9 +85,12 @@ interface DatasetFile {
 
 interface DatabaseItems {
   items: Record<string, unknown>[];
-  raw_count: number;
-  fetched_at: string;
-  from_cache: boolean;
+  total_count: number;
+  page: number;
+  limit: number;
+  raw_count?: number;
+  fetched_at?: string;
+  from_cache?: boolean;
 }
 
 interface KeyValuePair {
@@ -3197,14 +3201,14 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
 
 function DatabaseDetailView({ dbName }: { dbName: string }) {
   const { toast } = useToast();
+  const PAGE_SIZE = 100;
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
-  const [isFetching, setIsFetching] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [activePanel, setActivePanel] = useState<"settings" | "mappings" | null>(null);
-  const [hasFetched, setHasFetched] = useState(false);
   const [dataView, setDataView] = useState<"mapped" | "raw">("mapped");
+  const [page, setPage] = useState(1);
 
   const [editingName, setEditingName] = useState(false);
   const [editNameValue, setEditNameValue] = useState("");
@@ -3227,10 +3231,13 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   const {
     data: itemsData,
     isLoading: itemsLoading,
+    isFetching: itemsFetching,
     refetch: refetchItems,
   } = useQuery<DatabaseItems>({
-    queryKey: [`/api/databases/${dbName}/items`],
-    enabled: false,
+    queryKey: [`/api/databases/${dbName}/items`, page, PAGE_SIZE],
+    queryFn: () =>
+      fetch(`/api/databases/${dbName}/items?page=${page}&limit=${PAGE_SIZE}`).then((r) => r.json()),
+    enabled: !!dbName,
   });
 
   const {
@@ -3238,8 +3245,10 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     isLoading: rawItemsLoading,
     refetch: refetchRawItems,
   } = useQuery<DatabaseItems>({
-    queryKey: [`/api/databases/${dbName}/raw-items`],
-    enabled: false,
+    queryKey: [`/api/databases/${dbName}/raw-items`, page, PAGE_SIZE],
+    queryFn: () =>
+      fetch(`/api/databases/${dbName}/raw-items?page=${page}&limit=${PAGE_SIZE}`).then((r) => r.json()),
+    enabled: !!dbName,
   });
 
   const config = detail?.config;
@@ -3262,7 +3271,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     queryFn: () =>
       fetch(`/api/databases/${dbName}/search?q=${encodeURIComponent(debouncedSearch)}&limit=100`)
         .then((r) => r.json()),
-    enabled: hasSemanticSearch && debouncedSearch.trim().length > 0 && (hasFetched || !!itemsData),
+    enabled: hasSemanticSearch && debouncedSearch.trim().length > 0 && !!itemsData,
     staleTime: 10_000,
   });
 
@@ -3318,36 +3327,16 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     }
   };
 
-  const handleFetchData = async () => {
-    setIsFetching(true);
-    try {
-      const [mappedResult] = await Promise.all([refetchItems(), refetchRawItems()]);
-      if (mappedResult.error) {
-        toast({
-          title: "Fetch failed",
-          description: mappedResult.error instanceof Error ? mappedResult.error.message : String(mappedResult.error),
-          variant: "destructive",
-        });
-      } else {
-        setHasFetched(true);
-      }
-    } catch (err) {
-      toast({
-        title: "Fetch failed",
-        description: err instanceof Error ? err.message : String(err),
-        variant: "destructive",
-      });
-    } finally {
-      setIsFetching(false);
-    }
-  };
+  useEffect(() => {
+    setPage(1);
+  }, [dataView, search]);
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
     try {
       await fetch(`/api/databases/${dbName}/refresh`, { method: "POST" });
+      setPage(1);
       await Promise.all([refetchItems(), refetchRawItems()]);
-      setHasFetched(true);
     } catch (err) {
       toast({
         title: "Refresh failed",
@@ -3649,7 +3638,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                   <span>Items</span>
                 </div>
                 <p className="text-sm font-medium" data-testid="text-item-count">
-                  {itemsData ? itemsData.raw_count : detail?.cache_status ? detail.cache_status.item_count : isFetching || itemsLoading ? "..." : "\u2014"}
+                  {itemsData ? itemsData.raw_count ?? itemsData.total_count : detail?.cache_status ? detail.cache_status.item_count : itemsLoading || itemsFetching ? "..." : "\u2014"}
                 </p>
                 {(itemsData?.from_cache || (!itemsData && detail?.cache_status)) && (
                   <p className="text-xs text-muted-foreground">from cache</p>
@@ -3781,7 +3770,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                       </span>
                     )}
                   </CardTitle>
-                  {(hasFetched || itemsData) && (
+                  {!!itemsData && (
                     <div className="flex items-center rounded-md border overflow-visible">
                       <Button
                         variant="ghost"
@@ -3816,7 +3805,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                   )}
                 </div>
                 <div className="flex items-center gap-2">
-                  {(hasFetched || itemsData) && (
+                  {!!itemsData && (
                     <div className="flex flex-col gap-0.5">
                       <div className="relative">
                         <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
@@ -3884,20 +3873,6 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={handleFetchData}
-                    disabled={isFetching || itemsLoading || rawItemsLoading}
-                    data-testid="button-fetch-data"
-                  >
-                    {isFetching || itemsLoading || rawItemsLoading ? (
-                      <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
-                    ) : (
-                      <Download className="h-3.5 w-3.5 mr-1" />
-                    )}
-                    Fetch Data
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
                     onClick={() => setConfirmForceRefreshOpen(true)}
                     disabled={isRefreshing}
                     data-testid="button-refresh-items"
@@ -3905,35 +3880,41 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                     <RefreshCw className={`h-3.5 w-3.5 mr-1 ${isRefreshing ? "animate-spin" : ""}`} />
                     Force Refresh
                   </Button>
-                  {config?.source.type === "local" && (
-                    <Button
-                      variant={editMode ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setEditMode(!editMode)}
-                      disabled={!hasFetched && !itemsData}
-                      data-testid="button-edit-items"
-                    >
-                      <Pencil className="h-3.5 w-3.5 mr-1" />
-                      {editMode ? "Done" : "Edit Items"}
-                    </Button>
-                  )}
+                  {config?.source.type === "local" && (() => {
+                    const isMultiPage = (itemsData?.total_count ?? 0) > PAGE_SIZE;
+                    const btn = (
+                      <Button
+                        variant={editMode ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => setEditMode(!editMode)}
+                        disabled={!itemsData || isMultiPage}
+                        data-testid="button-edit-items"
+                      >
+                        <Pencil className="h-3.5 w-3.5 mr-1" />
+                        {editMode ? "Done" : "Edit Items"}
+                      </Button>
+                    );
+                    if (isMultiPage) {
+                      return (
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <span>{btn}</span>
+                          </TooltipTrigger>
+                          <TooltipContent side="bottom" className="max-w-xs text-center">
+                            Editing is disabled when the dataset spans multiple pages. Force Refresh to reload, then reduce the dataset or contact support.
+                          </TooltipContent>
+                        </Tooltip>
+                      );
+                    }
+                    return btn;
+                  })()}
                 </div>
               </div>
             </CardHeader>
             <CardContent className="px-0 pb-0">
-              {isFetching || itemsLoading || rawItemsLoading ? (
+              {itemsLoading || rawItemsLoading ? (
                 <div className="flex items-center justify-center py-12">
                   <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
-                </div>
-              ) : !hasFetched && !activeItems ? (
-                <div className="text-center py-12">
-                  <Download className="h-8 w-8 mx-auto text-muted-foreground/40 mb-3" />
-                  <p className="text-sm text-muted-foreground mb-1">
-                    Data has not been fetched yet.
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Click "Fetch Data" to load items from the datasource, or "Force Refresh" to bypass the cache.
-                  </p>
                 </div>
               ) : filteredItems.length === 0 ? (
                 <div className="text-center py-12">
@@ -4020,6 +4001,34 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                   </table>
                 </div>
               )}
+              {activeItems && activeItems.total_count > 0 && (
+                <div className="flex items-center justify-between px-4 py-3 border-t text-xs text-muted-foreground">
+                  <span data-testid="text-pagination-info">
+                    Page {activeItems.page} of {Math.ceil(activeItems.total_count / activeItems.limit)}{" "}
+                    ({activeItems.total_count} total records)
+                  </span>
+                  <div className="flex items-center gap-1">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setPage((p) => Math.max(1, p - 1))}
+                      disabled={page <= 1 || itemsLoading || rawItemsLoading}
+                      data-testid="button-page-prev"
+                    >
+                      Previous
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setPage((p) => p + 1)}
+                      disabled={page >= Math.ceil(activeItems.total_count / activeItems.limit) || itemsLoading || rawItemsLoading}
+                      data-testid="button-page-next"
+                    >
+                      Next
+                    </Button>
+                  </div>
+                </div>
+              )}
             </CardContent>
           </Card>
         </>
@@ -4045,7 +4054,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                     <li>The semantic search index will be <strong className="text-foreground">rebuilt in the background</strong> — embeddings will be re-generated for all items. Search will fall back to keyword matching until it finishes.</li>
                   )}
                 </ul>
-                <p>Use <strong className="text-foreground">Fetch Data</strong> instead if you just want to view the current cache without triggering a new request.</p>
+                <p>Data is loaded automatically from cache on page open. Use Force Refresh only when you need to pull the latest data from the source.</p>
               </div>
             </DialogDescription>
           </DialogHeader>

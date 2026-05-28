@@ -390,8 +390,14 @@ export function registerDatabasesRoutes(app: Express): void {
 
   app.get("/api/databases/:name/raw-items", (req, res) => {
     try {
+      const page = Math.max(1, parseInt(String(req.query.page || "1"), 10));
+      const limit = Math.max(1, Math.min(1000, parseInt(String(req.query.limit || "100"), 10)));
       const rawItems = databaseManager.getRawItems(req.params.name);
-      res.json({ items: rawItems || [], item_count: rawItems?.length ?? 0 });
+      const allItems = rawItems || [];
+      const total_count = allItems.length;
+      const start = (page - 1) * limit;
+      const paginatedItems = allItems.slice(start, start + limit);
+      res.json({ items: paginatedItems, total_count, page, limit });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       if (msg.includes("not found")) {
@@ -579,8 +585,13 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
   app.get("/api/databases/:name/items", async (req, res) => {
     try {
+      const page = Math.max(1, parseInt(String(req.query.page || "1"), 10));
+      const limit = Math.max(1, Math.min(1000, parseInt(String(req.query.limit || "100"), 10)));
       const result = await databaseManager.fetchItems(req.params.name);
-      res.json(result);
+      const total_count = result.items.length;
+      const start = (page - 1) * limit;
+      const paginatedItems = result.items.slice(start, start + limit);
+      res.json({ ...result, items: paginatedItems, total_count, page, limit });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       if (msg.includes("not found")) {
