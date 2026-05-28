@@ -3412,9 +3412,32 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
           <div className={`grid gap-4 ${hasCachedFields ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"}`}>
             <Card>
               <CardContent className="pt-4 pb-3 space-y-1">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <Webhook className="h-3.5 w-3.5" />
-                  <span>Source</span>
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <Webhook className="h-3.5 w-3.5" />
+                    <span>Source</span>
+                  </div>
+                  {config?.source.api?.params && Object.keys(config.source.api.params).length > 0 && (
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button size="icon" variant="ghost" className="h-6 w-6" title="View query params" data-testid="button-view-source-params">
+                          <SlidersHorizontal className="h-3.5 w-3.5" />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent side="bottom" align="end" className="w-72 p-3 space-y-2">
+                        <p className="text-xs font-medium">Query Parameters</p>
+                        <div className="space-y-1">
+                          {Object.entries(config.source.api.params).map(([k, v]) => (
+                            <div key={k} className="flex items-start gap-2 text-xs">
+                              <code className="bg-muted px-1.5 py-0.5 rounded font-mono text-foreground shrink-0">{k}</code>
+                              <span className="text-muted-foreground mt-0.5">=</span>
+                              <code className="text-muted-foreground font-mono break-all">{String(v)}</code>
+                            </div>
+                          ))}
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  )}
                 </div>
                 <p className="text-sm font-medium">{config?.source.type || "\u2014"}</p>
                 {config?.source.api?.endpoint && (
