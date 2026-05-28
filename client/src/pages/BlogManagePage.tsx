@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { WebhookUrlPopover } from "@/components/WebhookUrlPopover";
 
 interface BlogResponse {
   count: number;
@@ -1030,7 +1031,7 @@ export default function BlogManagePage() {
           <div className="flex-1 min-w-0">
             <h1 className="text-2xl font-bold" data-testid="text-page-title">Blog Management</h1>
             <p className="text-sm text-muted-foreground">
-              Overview of all blog articles and cache status
+              Overview of all blog articles and cache status — or by calling the <WebhookUrlPopover type="blog" />
             </p>
           </div>
           <div className="flex items-center gap-2 flex-wrap">

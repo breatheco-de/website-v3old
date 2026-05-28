@@ -39,6 +39,7 @@ import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { DeletePageModal } from "@/components/DebugBubble/components/DeletePageModal";
 import { CreateContentModal } from "@/components/DebugBubble/components/CreateContentModal";
 import type { SitemapUrl } from "@/components/DebugBubble/types";
+import { WebhookUrlPopover } from "@/components/WebhookUrlPopover";
 
 const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditorPanel"));
 
@@ -2706,7 +2707,7 @@ export default function ContentTypeManagePage() {
           <div className="flex-1 min-w-0">
             <h1 className="text-2xl font-bold" data-testid="text-page-title">{label} Management</h1>
             <p className="text-sm text-muted-foreground">
-              Overview of all {contentType} entries and cache status
+              Overview of all {contentType} entries and cache status{hasDb && <> — or by calling the <WebhookUrlPopover type={contentType} /></>}
             </p>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
