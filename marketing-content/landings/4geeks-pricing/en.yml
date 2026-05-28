@@ -187,7 +187,7 @@ sections:
     version: "1.0"
     variant: stats-text-card
     title: Why AI Engineering Now
-    subtitle: The talent gap is real. That is what makes this worth it.
+    subtitle: The talent gap is . That's what makes your investment worth it.
     description: AI Engineers build the intelligent systems companies urgently need. Demand is exploding, but only 3% of the workforce has the skills to fill these roles. That supply gap is what drives salaries to $95K–$135K+ at entry level. The question is not whether the investment is worth it. It is whether you want to be on the right side of that gap.
     card_color: bg-background
     background: hsl(var(--secondary))
