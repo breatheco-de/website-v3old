@@ -562,11 +562,13 @@ sections:
     title: Frequently Asked Questions
     dynamic_entries:
       database: frequently_asked_questions
+      limit: 9
       permanent_filters:
-        related_features:
-          - online-platform
-          - certification
-          - mentors-and-teachers
+        - item_property_slug: related_features
+          value:
+            - online-platform
+            - certification
+            - mentors-and-teachers
     marginY:
       desktop: none md
     paddingY:

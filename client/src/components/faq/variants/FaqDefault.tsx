@@ -33,39 +33,35 @@ export function FAQSection({ data }: FAQSectionProps) {
   const locationSlugMatch = pathname.match(/^\/(en|es)\/(location|ubicacion)\/([^/]+)/);
   const locationSlug = locationSlugMatch ? locationSlugMatch[3] : undefined;
 
-  const dynamicData = data as Record<string, unknown>;
-  const permanentFilters = (dynamicData.dynamic_entries as Record<string, unknown> | undefined)?.permanent_filters as Record<string, unknown> | undefined;
-  const relatedFeatures = (permanentFilters?.related_features as string[] | undefined) ?? (data.related_features as string[] | undefined);
-  const hasRelatedFeatures = relatedFeatures && relatedFeatures.length > 0;
-
   const itemOverrides = (data as Record<string, unknown>).item_overrides as
     | Record<string, { hideOnLocations?: string[] }>
     | undefined;
 
+  // Client-side fetch is only needed for location pages (legacy related_features at root).
+  // All other pages (home, landings, etc.) rely entirely on data.items resolved server-side
+  // via dynamic_entries + permanent_filters.
   const { data: faqsData, isLoading } = useQuery<{ items: FaqItem[] }>({
     queryKey: ["/api/databases/frequently_asked_questions/items"],
-    enabled: hasRelatedFeatures || !!locationSlug,
+    enabled: !!locationSlug,
     staleTime: 5 * 60 * 1000,
   });
 
   const faqItems = useMemo(() => {
-    const localeItems = (faqsData?.items ?? []).filter(f => f.locale === locale);
+    // Primary source: server-resolved items from dynamic_entries
+    let items: Array<{ question: string; answer: string }> = [...(data.items || [])];
 
-    let dbItems: Array<{ question: string; answer: string }> = [];
-    if (localeItems.length > 0 && (hasRelatedFeatures || locationSlug)) {
-      dbItems = filterFaqsByRelatedFeatures(localeItems, {
-        relatedFeatures: locationSlug ? undefined : (hasRelatedFeatures ? relatedFeatures! : undefined),
+    // Location pages: prepend client-fetched location-specific FAQs
+    if (locationSlug && faqsData) {
+      const localeItems = faqsData.items.filter(f => f.locale === locale);
+      const locationItems = filterFaqsByRelatedFeatures(localeItems, {
         location: locationSlug,
         limit: 9,
         programSlug,
       });
+      items = [...locationItems, ...items];
     }
 
-    let items: Array<{ question: string; answer: string }> = [
-      ...dbItems,
-      ...(data.items || []),
-    ];
-
+    // Apply item_overrides (hideOnLocations)
     if (itemOverrides && Object.keys(itemOverrides).length > 0) {
       const effectiveLocation = locationSlug || sessionLocationSlug;
       if (effectiveLocation) {
@@ -81,9 +77,9 @@ export function FAQSection({ data }: FAQSectionProps) {
     }
 
     return items;
-  }, [hasRelatedFeatures, relatedFeatures, data.items, faqsData, locationSlug, programSlug, itemOverrides, sessionLocationSlug, locale]);
+  }, [data.items, faqsData, locationSlug, programSlug, itemOverrides, sessionLocationSlug, locale]);
 
-  if (isLoading && (hasRelatedFeatures || locationSlug)) {
+  if (isLoading && !!locationSlug) {
     return (
       <section data-testid="section-faq">
         <div className="max-w-6xl mx-auto px-4">

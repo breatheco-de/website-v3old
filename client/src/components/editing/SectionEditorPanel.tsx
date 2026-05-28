@@ -1389,37 +1389,87 @@ export function SectionEditorPanel({
         if (pathParts.length > 1) {
           // Nested path (e.g. "dynamic_entries.permanent_filters.related_features")
           updated = parsed;
-          if (value && value.length > 0) {
-            let current: Record<string, unknown> = updated;
-            for (let i = 0; i < pathParts.length - 1; i++) {
+
+          // Special case: permanent_filters is a [{item_property_slug, value}] array.
+          // When the path is "*.permanent_filters.<fieldName>", write into the array item
+          // instead of creating a nested object key.
+          const pfIndex = pathParts.indexOf("permanent_filters");
+          if (pfIndex !== -1 && pfIndex === pathParts.length - 2) {
+            // Navigate to the parent of permanent_filters
+            let parent: Record<string, unknown> = updated;
+            for (let i = 0; i < pfIndex; i++) {
               const part = pathParts[i];
-              if (!current[part] || typeof current[part] !== "object") {
-                current[part] = {};
+              if (!parent[part] || typeof parent[part] !== "object") {
+                parent[part] = {};
               }
-              current = current[part] as Record<string, unknown>;
+              parent = parent[part] as Record<string, unknown>;
             }
-            current[pathParts[pathParts.length - 1]] = value;
-          } else {
-            // Delete and clean up empty parent objects
-            let current: Record<string, unknown> = updated;
-            for (let i = 0; i < pathParts.length - 1; i++) {
-              const part = pathParts[i];
-              if (!current[part] || typeof current[part] !== "object") return;
-              current = current[part] as Record<string, unknown>;
-            }
-            delete current[pathParts[pathParts.length - 1]];
-            // Clean up empty parents bottom-up
-            for (let i = pathParts.length - 2; i >= 0; i--) {
-              const parentPath = pathParts.slice(0, i);
-              let parent: Record<string, unknown> = updated;
-              for (const p of parentPath) {
-                parent = parent[p] as Record<string, unknown>;
-              }
-              const child = parent[pathParts[i]];
-              if (child && typeof child === "object" && Object.keys(child as Record<string, unknown>).length === 0) {
-                delete parent[pathParts[i]];
+            const fieldName = pathParts[pathParts.length - 1];
+            const existingPf = parent["permanent_filters"];
+            if (Array.isArray(existingPf)) {
+              // Array format — find or create the item for this fieldName
+              const arr = existingPf as Array<{ item_property_slug: string; value: unknown }>;
+              const idx = arr.findIndex(f => f.item_property_slug === fieldName);
+              if (value && value.length > 0) {
+                if (idx >= 0) {
+                  arr[idx] = { ...arr[idx], value };
+                } else {
+                  arr.push({ item_property_slug: fieldName, value });
+                }
               } else {
-                break;
+                if (idx >= 0) arr.splice(idx, 1);
+                if (arr.length === 0) delete parent["permanent_filters"];
+              }
+            } else {
+              // Object format (backward compat) — write as plain nested key
+              if (value && value.length > 0) {
+                if (!parent["permanent_filters"] || typeof parent["permanent_filters"] !== "object") {
+                  parent["permanent_filters"] = {};
+                }
+                (parent["permanent_filters"] as Record<string, unknown>)[fieldName] = value;
+              } else {
+                if (parent["permanent_filters"] && typeof parent["permanent_filters"] === "object") {
+                  delete (parent["permanent_filters"] as Record<string, unknown>)[fieldName];
+                  if (Object.keys(parent["permanent_filters"] as Record<string, unknown>).length === 0) {
+                    delete parent["permanent_filters"];
+                  }
+                }
+              }
+            }
+          } else {
+            // Generic nested object path
+            if (value && value.length > 0) {
+              let current: Record<string, unknown> = updated;
+              for (let i = 0; i < pathParts.length - 1; i++) {
+                const part = pathParts[i];
+                if (!current[part] || typeof current[part] !== "object") {
+                  current[part] = {};
+                }
+                current = current[part] as Record<string, unknown>;
+              }
+              current[pathParts[pathParts.length - 1]] = value;
+            } else {
+              // Delete and clean up empty parent objects
+              let current: Record<string, unknown> = updated;
+              for (let i = 0; i < pathParts.length - 1; i++) {
+                const part = pathParts[i];
+                if (!current[part] || typeof current[part] !== "object") return;
+                current = current[part] as Record<string, unknown>;
+              }
+              delete current[pathParts[pathParts.length - 1]];
+              // Clean up empty parents bottom-up
+              for (let i = pathParts.length - 2; i >= 0; i--) {
+                const parentPath = pathParts.slice(0, i);
+                let parent: Record<string, unknown> = updated;
+                for (const p of parentPath) {
+                  parent = parent[p] as Record<string, unknown>;
+                }
+                const child = parent[pathParts[i]];
+                if (child && typeof child === "object" && Object.keys(child as Record<string, unknown>).length === 0) {
+                  delete parent[pathParts[i]];
+                } else {
+                  break;
+                }
               }
             }
           }
@@ -4829,8 +4879,13 @@ export function SectionEditorPanel({
                 if (isSimpleField && editorType === "related-features-picker") {
                   const pickerValue = (() => {
                     const dynEntries = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
-                    const permFilters = dynEntries?.permanent_filters as Record<string, unknown> | undefined;
-                    return (permFilters?.related_features as string[]) ?? (parsedSection?.related_features as string[]) ?? [];
+                    const permFilters = dynEntries?.permanent_filters;
+                    if (Array.isArray(permFilters)) {
+                      const rfItem = (permFilters as Array<{ item_property_slug: string; value: unknown }>)
+                        .find(f => f.item_property_slug === "related_features");
+                      return (rfItem?.value as string[]) ?? [];
+                    }
+                    return ((permFilters as Record<string, unknown> | undefined)?.related_features as string[]) ?? (parsedSection?.related_features as string[]) ?? [];
                   })();
                   return (
                     <div key={fieldPath}>
@@ -4849,8 +4904,13 @@ export function SectionEditorPanel({
                       <FaqItemsVisibility
                         relatedFeatures={(() => {
                           const dynEntries = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
-                          const permFilters = dynEntries?.permanent_filters as Record<string, unknown> | undefined;
-                          return (permFilters?.related_features as string[]) ?? (parsedSection?.related_features as string[]) ?? [];
+                          const permFilters = dynEntries?.permanent_filters;
+                          if (Array.isArray(permFilters)) {
+                            const rfItem = (permFilters as Array<{ item_property_slug: string; value: unknown }>)
+                              .find(f => f.item_property_slug === "related_features");
+                            return (rfItem?.value as string[]) ?? [];
+                          }
+                          return ((permFilters as Record<string, unknown> | undefined)?.related_features as string[]) ?? (parsedSection?.related_features as string[]) ?? [];
                         })()}
                         locale={locale || "en"}
                         inlineItems={
