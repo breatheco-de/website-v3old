@@ -156,9 +156,6 @@ export default defineConfig(async () => ({
           ) {
             return 'date';
           }
-          if (id.includes('node_modules/embla-carousel')) {
-            return 'carousel';
-          }
           if (
             id.includes('node_modules/react-markdown') ||
             id.includes('node_modules/remark') ||
