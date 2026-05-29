@@ -1,4 +1,4 @@
-import { useRef, useCallback, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { AlignJustify, Bold, CaseUpper, Eraser, Italic, Unlink, List, Loader2, Palette, Space, Type } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -561,7 +561,7 @@ export function RichTextArea({
   const [activeLetterSpacing, setActiveLetterSpacing] = useState<string | null>(null);
   const [activeLineHeight, setActiveLineHeight] = useState<string | null>(null);
 
-  const detectSelectionStyle = useCallback(() => {
+  const detectSelectionStyle = () => {
     const sel = window.getSelection();
     let node: Node | null = null;
     if (sel && sel.rangeCount > 0) {
@@ -573,23 +573,23 @@ export function RichTextArea({
     const el = node.nodeType === Node.TEXT_NODE ? node.parentElement : (node as Element);
     if (!el) return null;
     return window.getComputedStyle(el as HTMLElement);
-  }, []);
+  };
 
-  const detectActiveFontSize = useCallback(() => {
+  const detectActiveFontSize = () => {
     const cs = detectSelectionStyle();
     if (!cs) { setActiveFontSize(null); return; }
     const pxVal = parseFloat(cs.fontSize);
     if (isNaN(pxVal)) { setActiveFontSize(null); return; }
     setActiveFontSize(`${(pxVal / 16).toFixed(4).replace(/\.?0+$/, "")}rem`);
-  }, [detectSelectionStyle]);
+  };
 
-  const detectActiveFontWeight = useCallback(() => {
+  const detectActiveFontWeight = () => {
     const cs = detectSelectionStyle();
     if (!cs) { setActiveFontWeight(null); return; }
     setActiveFontWeight(cs.fontWeight || null);
-  }, [detectSelectionStyle]);
+  };
 
-  const detectActiveLetterSpacing = useCallback(() => {
+  const detectActiveLetterSpacing = () => {
     const cs = detectSelectionStyle();
     if (!cs) { setActiveLetterSpacing(null); return; }
     const raw = cs.letterSpacing;
@@ -597,9 +597,9 @@ export function RichTextArea({
     const pxVal = parseFloat(raw);
     if (isNaN(pxVal)) { setActiveLetterSpacing(null); return; }
     setActiveLetterSpacing(`${pxVal}px`);
-  }, [detectSelectionStyle]);
+  };
 
-  const detectActiveLineHeight = useCallback(() => {
+  const detectActiveLineHeight = () => {
     const cs = detectSelectionStyle();
     if (!cs) { setActiveLineHeight(null); return; }
     const raw = cs.lineHeight;
@@ -608,7 +608,7 @@ export function RichTextArea({
     const fsPx = parseFloat(cs.fontSize) || 16;
     if (isNaN(pxVal) || isNaN(fsPx)) { setActiveLineHeight(null); return; }
     setActiveLineHeight(`${(pxVal / fsPx).toFixed(4).replace(/\.?0+$/, "")}`);
-  }, [detectSelectionStyle]);
+  };
 
   const [linkHoverPopover, setLinkHoverPopover] = useState<{
     anchor: HTMLAnchorElement;
@@ -649,74 +649,59 @@ export function RichTextArea({
     markLightColorSpans(editableRef.current);
   }, [value]);
 
-  const getCleanInnerHTML = useCallback(() => {
+  const getCleanInnerHTML = () => {
     if (!editableRef.current) return "";
     const clone = editableRef.current.cloneNode(true) as HTMLDivElement;
     clone.querySelectorAll("[data-preview-light]").forEach((el) => {
       el.removeAttribute("data-preview-light");
     });
     return clone.innerHTML;
-  }, []);
+  };
 
-  const handleInput = useCallback(() => {
+  const handleInput = () => {
     if (editableRef.current) {
       onChange(getCleanInnerHTML());
       markLightColorSpans(editableRef.current);
     }
-  }, [onChange, getCleanInnerHTML]);
+  };
 
-  const applyCommand = useCallback(
-    (command: string, value?: string) => {
-      editableRef.current?.focus();
-      document.execCommand(command, false, value ?? undefined);
-      handleInput();
-    },
-    [handleInput],
-  );
+  const applyCommand = (command: string, value?: string) => {
+    editableRef.current?.focus();
+    document.execCommand(command, false, value ?? undefined);
+    handleInput();
+  };
 
-  const handleBold = useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      applyCommand("bold");
-    },
-    [applyCommand],
-  );
+  const handleBold = (e: React.MouseEvent) => {
+    e.preventDefault();
+    applyCommand("bold");
+  };
 
-  const handleItalic = useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      applyCommand("italic");
-    },
-    [applyCommand],
-  );
+  const handleItalic = (e: React.MouseEvent) => {
+    e.preventDefault();
+    applyCommand("italic");
+  };
 
-  const handleBulletList = useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      applyCommand("insertUnorderedList");
-    },
-    [applyCommand],
-  );
+  const handleBulletList = (e: React.MouseEvent) => {
+    e.preventDefault();
+    applyCommand("insertUnorderedList");
+  };
 
-  const handleRemoveFormatting = useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      if (!editableRef.current) return;
-      const sel = window.getSelection();
-      const range = document.createRange();
-      range.selectNodeContents(editableRef.current);
-      sel?.removeAllRanges();
-      sel?.addRange(range);
-      document.execCommand("removeFormat");
-      editableRef.current.querySelectorAll("[style]").forEach((el) => {
-        (el as HTMLElement).removeAttribute("style");
-      });
-      onChange(editableRef.current.innerHTML);
-    },
-    [onChange],
-  );
+  const handleRemoveFormatting = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!editableRef.current) return;
+    const sel = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(editableRef.current);
+    sel?.removeAllRanges();
+    sel?.addRange(range);
+    document.execCommand("removeFormat");
+    editableRef.current.querySelectorAll("[style]").forEach((el) => {
+      (el as HTMLElement).removeAttribute("style");
+    });
+    onChange(editableRef.current.innerHTML);
+  };
 
-  const saveLinkSelection = useCallback(() => {
+  const saveLinkSelection = () => {
     const sel = window.getSelection();
     if (sel && sel.rangeCount > 0 && editableRef.current) {
       const range = sel.getRangeAt(0);
@@ -724,110 +709,92 @@ export function RichTextArea({
         savedLinkSelectionRef.current = range.cloneRange();
       }
     }
-  }, []);
+  };
 
-  const applyLink = useCallback(
-    (url: string) => {
-      if (!url?.trim()) return;
-      const sel = window.getSelection();
-      if (sel && savedLinkSelectionRef.current) {
-        try {
-          sel.removeAllRanges();
-          sel.addRange(savedLinkSelectionRef.current);
-        } catch {
-          savedLinkSelectionRef.current = null;
-        }
+  const applyLink = (url: string) => {
+    if (!url?.trim()) return;
+    const sel = window.getSelection();
+    if (sel && savedLinkSelectionRef.current) {
+      try {
+        sel.removeAllRanges();
+        sel.addRange(savedLinkSelectionRef.current);
+      } catch {
+        savedLinkSelectionRef.current = null;
       }
-      savedLinkSelectionRef.current = null;
-      editableRef.current?.focus();
-      applyCommand("createLink", url.trim());
-    },
-    [applyCommand],
-  );
+    }
+    savedLinkSelectionRef.current = null;
+    editableRef.current?.focus();
+    applyCommand("createLink", url.trim());
+  };
 
-  const handleColorSelect = useCallback(
-    (cssVar: string) => {
-      if (!cssVar) return;
-      editableRef.current?.focus();
-      applyTextColor(cssVar, editableRef, savedSelectionRef, onChange);
-      setColorOpen(false);
-      requestAnimationFrame(() => {
-        if (editableRef.current) markLightColorSpans(editableRef.current);
-      });
-    },
-    [onChange],
-  );
+  const handleColorSelect = (cssVar: string) => {
+    if (!cssVar) return;
+    editableRef.current?.focus();
+    applyTextColor(cssVar, editableRef, savedSelectionRef, onChange);
+    setColorOpen(false);
+    requestAnimationFrame(() => {
+      if (editableRef.current) markLightColorSpans(editableRef.current);
+    });
+  };
 
-  const handleFontSizeSelect = useCallback(
-    (sizeValue: string) => {
-      if (!sizeValue) return;
-      editableRef.current?.focus();
-      applyFontSize(sizeValue, editableRef, savedSelectionRef, onChange);
-      setFontSizeOpen(false);
-    },
-    [onChange],
-  );
+  const handleFontSizeSelect = (sizeValue: string) => {
+    if (!sizeValue) return;
+    editableRef.current?.focus();
+    applyFontSize(sizeValue, editableRef, savedSelectionRef, onChange);
+    setFontSizeOpen(false);
+  };
 
-  const handleLineHeightSelect = useCallback(
-    (lhValue: string) => {
-      if (!lhValue) return;
-      editableRef.current?.focus();
-      applyLineHeight(lhValue, editableRef, savedSelectionRef, onChange);
-      setLineHeightOpen(false);
-    },
-    [onChange],
-  );
+  const handleLineHeightSelect = (lhValue: string) => {
+    if (!lhValue) return;
+    editableRef.current?.focus();
+    applyLineHeight(lhValue, editableRef, savedSelectionRef, onChange);
+    setLineHeightOpen(false);
+  };
 
-  const handleFontWeightSelect = useCallback(
-    (weightValue: string) => {
-      if (!weightValue) return;
-      editableRef.current?.focus();
-      applyFontWeight(weightValue, editableRef, savedSelectionRef, onChange);
-      setFontWeightOpen(false);
-    },
-    [onChange],
-  );
+  const handleFontWeightSelect = (weightValue: string) => {
+    if (!weightValue) return;
+    editableRef.current?.focus();
+    applyFontWeight(weightValue, editableRef, savedSelectionRef, onChange);
+    setFontWeightOpen(false);
+  };
 
-  const handleLetterSpacingSelect = useCallback(
-    (spacingValue: string) => {
-      if (!spacingValue) return;
-      editableRef.current?.focus();
-      applyLetterSpacing(spacingValue, editableRef, savedSelectionRef, onChange);
-      setLetterSpacingOpen(false);
-    },
-    [onChange],
-  );
+  const handleLetterSpacingSelect = (spacingValue: string) => {
+    if (!spacingValue) return;
+    editableRef.current?.focus();
+    applyLetterSpacing(spacingValue, editableRef, savedSelectionRef, onChange);
+    setLetterSpacingOpen(false);
+  };
 
-  const handleCustomFontSizeApply = useCallback(() => {
+  const handleCustomFontSizeApply = () => {
     const px = parseFloat(customFontSizeVal);
     if (!isNaN(px) && px > 0) {
       const rem = (px / 16).toFixed(4).replace(/\.?0+$/, "") + "rem";
       handleFontSizeSelect(rem);
     }
-  }, [customFontSizeVal, handleFontSizeSelect]);
+  };
 
-  const handleCustomFontWeightApply = useCallback(() => {
+  const handleCustomFontWeightApply = () => {
     const w = parseFloat(customFontWeightVal);
     if (!isNaN(w) && w >= 100 && w <= 900) {
       handleFontWeightSelect(String(w));
     }
-  }, [customFontWeightVal, handleFontWeightSelect]);
+  };
 
-  const handleCustomLetterSpacingApply = useCallback(() => {
+  const handleCustomLetterSpacingApply = () => {
     const v = parseFloat(customLetterSpacingVal);
     if (!isNaN(v)) {
       handleLetterSpacingSelect(`${v}px`);
     }
-  }, [customLetterSpacingVal, handleLetterSpacingSelect]);
+  };
 
-  const handleCustomLineHeightApply = useCallback(() => {
+  const handleCustomLineHeightApply = () => {
     const v = parseFloat(customLineHeightVal);
     if (!isNaN(v) && v > 0) {
       handleLineHeightSelect(String(v));
     }
-  }, [customLineHeightVal, handleLineHeightSelect]);
+  };
 
-  const handlePaste = useCallback((e: React.ClipboardEvent<HTMLDivElement>) => {
+  const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
     const html = e.clipboardData.getData("text/html");
     if (!html) return;
     e.preventDefault();
@@ -842,17 +809,17 @@ export function RichTextArea({
     const clean = doc.body.innerHTML;
     document.execCommand("insertHTML", false, clean);
     handleInput();
-  }, [handleInput]);
+  };
 
-  const handleColorTriggerMouseDown = useCallback((e: React.MouseEvent) => {
+  const handleColorTriggerMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
-  }, []);
+  };
 
-  const handleColorPopoverOpen = useCallback((open: boolean) => {
+  const handleColorPopoverOpen = (open: boolean) => {
     setColorOpen(open);
-  }, []);
+  };
 
-  const handleLinkHover = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+  const handleLinkHover = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = editableRef.current;
     if (!el) return;
     const target = (e.target as Node);
@@ -863,15 +830,15 @@ export function RichTextArea({
       linkAnchorRef.current = anchorEl;
       setLinkHoverPopover({ anchor: anchorEl, rect: anchorEl.getBoundingClientRect() });
     }
-  }, []);
+  };
 
-  const handleLinkHoverLeave = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+  const handleLinkHoverLeave = (e: React.MouseEvent<HTMLDivElement>) => {
     const related = e.relatedTarget as Node | null;
     if (related && linkPopoverRef.current?.contains(related)) return;
     setLinkHoverPopover(null);
-  }, []);
+  };
 
-  const handleUnlink = useCallback(() => {
+  const handleUnlink = () => {
     const anchor = linkAnchorRef.current ?? linkHoverPopover?.anchor;
     if (!anchor || !editableRef.current) return;
     const parent = anchor.parentNode;
@@ -884,7 +851,7 @@ export function RichTextArea({
     linkAnchorRef.current = null;
     onChange(editableRef.current.innerHTML);
     setLinkHoverPopover(null);
-  }, [linkHoverPopover, onChange]);
+  };
 
   return (
     <div className={cn("rounded-md border border-input bg-background overflow-hidden", className)}>

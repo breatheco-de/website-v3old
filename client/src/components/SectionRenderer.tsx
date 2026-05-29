@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import { AlertTriangle, Link, Loader2, Trash2 } from "lucide-react";
-import { useState, useCallback, useMemo, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useContentTypesRaw } from "@/hooks/useContentTypes";
 import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn, PageSettings } from "@shared/schema";
 import { useSession } from "@/contexts/SessionContext";
@@ -546,14 +546,14 @@ function MobilePreviewFrame({ sections }: { sections: Section[] }) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // Send sections to iframe
-  const sendToIframe = useCallback(() => {
+  const sendToIframe = () => {
     const iframe = iframeRef.current;
     if (!iframe?.contentWindow) return;
 
     const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
     iframe.contentWindow.postMessage({ type: 'preview-update', sections }, '*');
     iframe.contentWindow.postMessage({ type: 'theme-update', theme }, '*');
-  }, [sections]);
+  };
 
   // Listen for iframe ready message and send sections
   useEffect(() => {
@@ -565,17 +565,17 @@ function MobilePreviewFrame({ sections }: { sections: Section[] }) {
 
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
-  }, [sendToIframe]);
+  }, [sections]);
 
   // Re-send when sections change
   useEffect(() => {
     sendToIframe();
-  }, [sections, sendToIframe]);
+  }, [sections]);
 
-  const handleIframeLoad = useCallback(() => {
+  const handleIframeLoad = () => {
     // Send after iframe loads
     setTimeout(sendToIframe, 100);
-  }, [sendToIframe]);
+  };
 
   return (
     <div className="flex justify-center bg-muted/50 min-h-screen py-8">
@@ -708,7 +708,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     return () => window.removeEventListener("variable-created-replace", handler);
   }, [contentType, slug, locale, sections, toast]);
 
-  const resolvedSections = useMemo(() => {
+  const resolvedSections = (() => {
     const hasGlobalDefs = varDefinitions && Object.keys(varDefinitions).length > 0;
     if (!hasGlobalDefs && !singleEntry) {
       return sections;
@@ -737,7 +737,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
       });
     }
     return result;
-  }, [sections, isEditMode, varDefinitions, varContext, singleEntry]);
+  })();
 
   // Dialog shown when a template section being moved has per-entry dependants
   const [moveDependantsDialog, setMoveDependantsDialog] = useState<{
@@ -754,7 +754,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     direction: "up" | "down";
   }>({ open: false, index: -1, direction: "up" });
 
-  const performMove = useCallback(async (from: number, to: number) => {
+  const performMove = async (from: number, to: number) => {
     if (!contentType || !slug || !locale) return;
     const result = await sendEditOperation(contentType, slug, locale, [
       { action: "reorder_sections", from, to }
@@ -765,9 +765,9 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     } else {
       toast({ title: "Failed to move section", description: result.error, variant: "destructive" });
     }
-  }, [contentType, slug, locale, variant, version, toast]);
+  };
 
-  const handleMoveUp = useCallback(async (index: number) => {
+  const handleMoveUp = async (index: number) => {
     if (!contentType || !slug || !locale || index <= 0) return;
 
     if (isSharedTemplate && singleEntry) {
@@ -811,9 +811,9 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     }
 
     await performMove(index, index - 1);
-  }, [contentType, slug, locale, isSharedTemplate, singleEntry, sections, performMove, toast]);
+  };
 
-  const handleMoveDown = useCallback(async (index: number) => {
+  const handleMoveDown = async (index: number) => {
     if (!contentType || !slug || !locale || index >= sections.length - 1) return;
 
     if (isSharedTemplate && singleEntry) {
@@ -857,7 +857,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     }
 
     await performMove(index, index + 1);
-  }, [contentType, slug, locale, isSharedTemplate, singleEntry, sections, performMove, toast]);
+  };
 
   const [deleteDialog, setDeleteDialog] = useState<{
     open: boolean;
@@ -902,7 +902,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     isDuplicating: boolean;
   }>({ open: false, index: -1, isDuplicating: false });
 
-  const handleDelete = useCallback(async (index: number) => {
+  const handleDelete = async (index: number) => {
     if (!contentType || !slug || !locale) return;
 
     try {
@@ -936,9 +936,9 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     }
 
     setSimpleDeleteDialog({ open: true, index, isDeleting: false });
-  }, [contentType, slug, locale, isSharedTemplate, singleEntry, sections, toast]);
+  };
 
-  const handleSimpleDeleteConfirm = useCallback(async () => {
+  const handleSimpleDeleteConfirm = async () => {
     if (!contentType || !slug || !locale) return;
     const { index } = simpleDeleteDialog;
     setSimpleDeleteDialog(prev => ({ ...prev, isDeleting: true }));
@@ -954,9 +954,9 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
       toast({ title: "Failed to delete section", description: result.error, variant: "destructive" });
     }
     setSimpleDeleteDialog({ open: false, index: -1, isDeleting: false });
-  }, [contentType, slug, locale, variant, version, simpleDeleteDialog, toast]);
+  };
 
-  const handleDbTemplateDeleteConfirm = useCallback(async () => {
+  const handleDbTemplateDeleteConfirm = async () => {
     if (!contentType || !slug || !locale) return;
     const { index } = dbTemplateDeleteDialog;
     setDbTemplateDeleteDialog(prev => ({ ...prev, isDeleting: true }));
@@ -972,9 +972,9 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
       toast({ title: "Failed to delete section", description: result.error, variant: "destructive" });
     }
     setDbTemplateDeleteDialog({ open: false, index: -1, isDeleting: false });
-  }, [contentType, slug, locale, dbTemplateDeleteDialog, toast]);
+  };
 
-  const handleDeleteThisOnly = useCallback(async () => {
+  const handleDeleteThisOnly = async () => {
     if (!contentType || !slug || !locale || !deleteDialog.bindingGroup) return;
     setDeleteDialog(prev => ({ ...prev, isDeleting: true }));
 
@@ -1001,9 +1001,9 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     } finally {
       setDeleteDialog({ open: false, index: -1, bindingGroup: null, isDeleting: false });
     }
-  }, [contentType, slug, locale, variant, version, deleteDialog, toast]);
+  };
 
-  const handleDeleteAllBound = useCallback(async () => {
+  const handleDeleteAllBound = async () => {
     if (!contentType || !slug || !locale || !deleteDialog.bindingGroup) return;
     setDeleteDialog(prev => ({ ...prev, isDeleting: true }));
 
@@ -1059,10 +1059,10 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     } finally {
       setDeleteDialog({ open: false, index: -1, bindingGroup: null, isDeleting: false });
     }
-  }, [contentType, slug, locale, variant, version, deleteDialog, toast]);
+  };
 
   // Directly deletes a per-entry section (no scope dialog needed for _perEntrySource sections)
-  const deletePerEntryDirect = useCallback(async (index: number) => {
+  const deletePerEntryDirect = async (index: number) => {
     if (!contentType || !slug || !locale) return;
     try {
       const token = getDebugToken();
@@ -1081,10 +1081,10 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     } catch {
       toast({ title: "Error deleting section", variant: "destructive" });
     }
-  }, [contentType, slug, locale, toast]);
+  };
 
   // Called when user chooses "Hide from this entry only" in the scope dialog
-  const handleDbEntryRemoveThisEntry = useCallback(async () => {
+  const handleDbEntryRemoveThisEntry = async () => {
     if (!contentType || !slug || !locale) return;
     const { index, isPerEntry } = dbEntryDeleteDialog;
     setDbEntryDeleteDialog(prev => ({ ...prev, isDeleting: true }));
@@ -1106,12 +1106,12 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
       toast({ title: "Error removing section", variant: "destructive" });
     }
     setDbEntryDeleteDialog({ open: false, index: -1, isPerEntry: false, isDeleting: false });
-  }, [contentType, slug, locale, dbEntryDeleteDialog, toast]);
+  };
 
   // Called when user chooses "Delete from shared template" in the scope dialog.
   // Prefers ID-based deletion (avoids merged-index vs. template-index divergence) but
   // falls back to mergedIndex for id-less shared sections so deletion always works.
-  const handleDbEntryDeleteAllEntries = useCallback(async () => {
+  const handleDbEntryDeleteAllEntries = async () => {
     if (!contentType || !slug || !locale) return;
     const { sectionId, mergedIndex } = dbEntryDeleteDialog;
     if (!sectionId && mergedIndex === undefined) {
@@ -1137,11 +1137,11 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     } catch {
       toast({ title: "Error deleting section", variant: "destructive" });
     }
-    setDbEntryDeleteDialog({ open: false, index: -1, isPerEntry: false, isDeleting: false });
-  }, [contentType, slug, locale, dbEntryDeleteDialog, toast]);
+    setDbEntryDeleteDialog({ open: false, index: -1, isDeleting: false, isPerEntry: false });
+  };
 
   // Restore a ghost section (per-entry removed section)
-  const handleRestoreConfirm = useCallback(async () => {
+  const handleRestoreConfirm = async () => {
     if (!contentType || !slug || !locale) return;
     const sectionId = typeof restoreDialog.section.id === "string" ? restoreDialog.section.id : null;
     if (!sectionId) {
@@ -1168,18 +1168,18 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
       toast({ title: "Error restoring section", variant: "destructive" });
     }
     setRestoreDialog({ open: false, section: {}, isRestoring: false });
-  }, [contentType, slug, locale, restoreDialog, toast]);
+  };
 
-  const handleDuplicate = useCallback(async (index: number) => {
+  const handleDuplicate = async (index: number) => {
     if (!contentType || !slug || !locale) return;
 
     const sectionToDuplicate = sections[index];
     if (!sectionToDuplicate) return;
 
     setDuplicateDialog({ open: true, index, isDuplicating: false });
-  }, [contentType, slug, locale, sections]);
+  };
 
-  const handleDuplicateConfirm = useCallback(async () => {
+  const handleDuplicateConfirm = async () => {
     if (!contentType || !slug || !locale) return;
     const { index } = duplicateDialog;
     const sectionToDuplicate = sections[index];
@@ -1197,12 +1197,12 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
       toast({ title: "Failed to duplicate section", description: result.error, variant: "destructive" });
     }
     setDuplicateDialog({ open: false, index: -1, isDuplicating: false });
-  }, [contentType, slug, locale, variant, version, sections, toast]);
+  };
 
   const isMobilePreview = isEditMode && previewBreakpoint === 'mobile';
 
   // Interleaved rendering items: live sections + ghost placeholders for per-entry removed sections
-  const interleavedItems = useMemo(() => {
+  const interleavedItems = (() => {
     if (!isEditMode || !singleEntry || !perEntryRemovedSections || perEntryRemovedSections.length === 0) {
       return null; // Fall through to regular rendering
     }
@@ -1253,7 +1253,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     }
 
     return result;
-  }, [isEditMode, singleEntry, perEntryRemovedSections, sections, resolvedSections]);
+  })();
 
   const content = (
     <>

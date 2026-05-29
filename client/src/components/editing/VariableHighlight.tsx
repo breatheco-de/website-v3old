@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useRef, useLayoutEffect as _useLayoutEffect, useCallback, useState, useEffect } from "react";
+import { createContext, useContext, useRef, useLayoutEffect as _useLayoutEffect, useState, useEffect } from "react";
 import { Braces } from "lucide-react";
 import type { ReactNode, CSSProperties, MouseEvent as ReactMouseEvent } from "react";
 import { createPortal } from "react-dom";
@@ -211,7 +211,7 @@ function SelectionFloatingButton({ sectionIndex, contentType }: { sectionIndex: 
     return () => document.removeEventListener("selectionchange", handleSelectionChange);
   }, [isEditMode]);
 
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     if (!selectedText) return;
 
     let from: number | undefined;
@@ -255,7 +255,7 @@ function SelectionFloatingButton({ sectionIndex, contentType }: { sectionIndex: 
     window.getSelection()?.removeAllRanges();
     setPosition(null);
     setSelectedText("");
-  }, [selectedText, sectionIndex, contentType]);
+  };
 
   if (!position || !isEditMode) return null;
 
@@ -303,19 +303,19 @@ export function VariableHighlightProvider({
   const wrapperRef = useRef<HTMLDivElement>(null);
   const cleanupRef = useRef<(() => void) | null>(null);
 
-  const contextValue = useMemo(() => ({
+  const contextValue = {
     definitions: definitions || {},
     context: varContext,
     isEditMode,
     contentType,
-  }), [definitions, varContext, isEditMode, contentType]);
+  };
 
   const rescanRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const observerRef = useRef<MutationObserver | null>(null);
 
   const hasVars = hasSingleVars || (definitions != null && Object.keys(definitions).length > 0);
 
-  const observeContainer = useCallback(() => {
+  const observeContainer = () => {
     if (!wrapperRef.current || observerRef.current) return;
     const observer = new MutationObserver(() => {
       if (rescanRef.current) clearTimeout(rescanRef.current);
@@ -344,7 +344,7 @@ export function VariableHighlightProvider({
       subtree: true,
     });
     observerRef.current = observer;
-  }, [definitions, varContext, isEditMode, contentType, hasVars]);
+  };
 
   useLayoutEffect(() => {
     if (cleanupRef.current) {
@@ -458,7 +458,7 @@ export function VariableModalHost() {
     };
   }, []);
 
-  const handleCreated = useCallback((variableName: string, templateSyntax: string) => {
+  const handleCreated = (variableName: string, templateSyntax: string) => {
     const current = modalStateRef.current;
 
     setModalState((prev) => ({
@@ -481,9 +481,9 @@ export function VariableModalHost() {
         },
       }),
     );
-  }, []);
+  };
 
-  const handleSingleCreated = useCallback((variableName: string, templateSyntax: string) => {
+  const handleSingleCreated = (variableName: string, templateSyntax: string) => {
     const current = modalStateRef.current;
     setActiveModal(null);
 
@@ -500,11 +500,11 @@ export function VariableModalHost() {
         },
       }),
     );
-  }, []);
+  };
 
-  const handleChooserChoice = useCallback((type: "global" | "single") => {
+  const handleChooserChoice = (type: "global" | "single") => {
     setActiveModal(type);
-  }, []);
+  };
 
   return (
     <>
@@ -544,9 +544,8 @@ export function VariableModalHost() {
 export function useVariableText() {
   const ctx = useContext(VariableHighlightContext);
 
-  return useCallback(
-    (text: ReactNode, _path?: string): ReactNode => {
-      if (typeof text !== "string") return text;
+  return (text: ReactNode, _path?: string): ReactNode => {
+    if (typeof text !== "string") return text;
 
       TEMPLATE_REGEX.lastIndex = 0;
       if (!TEMPLATE_REGEX.test(text)) return text;
@@ -631,7 +630,5 @@ export function useVariableText() {
       }
 
       return parts.length === 1 ? parts[0] : <>{parts}</>;
-    },
-    [ctx],
-  );
+  };
 }

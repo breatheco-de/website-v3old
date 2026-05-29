@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { CertificateSection as CertificateSectionType } from "@shared/schema";
 import { CertificateDisplay } from "../CertificateDisplay";
 import { cn } from "@/lib/utils";
@@ -169,12 +169,12 @@ export function CertificateSection({ data }: CertificateSectionProps) {
     return () => mediaQuery.removeEventListener('change', handler);
   }, []);
 
-  const handleIntersection = useCallback((entries: IntersectionObserverEntry[]) => {
+  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
     const [entry] = entries;
     if (entry.isIntersecting && !isVisible) {
       setIsVisible(true);
     }
-  }, [isVisible]);
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleIntersection, {

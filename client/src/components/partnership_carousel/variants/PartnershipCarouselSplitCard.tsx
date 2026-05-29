@@ -1,5 +1,5 @@
 
-import { useState, useCallback, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { UniversalImage } from "@/components/UniversalImage";
 import { Button } from "@/components/ui/button";
@@ -364,24 +364,15 @@ export default function PartnershipCarouselSplitCard({
     };
   }, [activeIndex]);
 
-  const goTo = useCallback(
-    (index: number) => {
-      if (isTransitioning) return;
-      setIsTransitioning(true);
-      setActiveIndex(((index % totalSlides) + totalSlides) % totalSlides);
-      setTimeout(() => setIsTransitioning(false), 500);
-    },
-    [totalSlides, isTransitioning],
-  );
+  const goTo = (index: number) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setActiveIndex(((index % totalSlides) + totalSlides) % totalSlides);
+    setTimeout(() => setIsTransitioning(false), 500);
+  };
 
-  const goToPrevious = useCallback(
-    () => goTo(activeIndex - 1),
-    [activeIndex, goTo],
-  );
-  const goToNext = useCallback(
-    () => goTo(activeIndex + 1),
-    [activeIndex, goTo],
-  );
+  const goToPrevious = () => goTo(activeIndex - 1);
+  const goToNext = () => goTo(activeIndex + 1);
 
   useEffect(() => {
     if (!autoplay || totalSlides <= 1) return;
@@ -400,14 +391,14 @@ export default function PartnershipCarouselSplitCard({
     };
   }, [autoplay, autoplay_interval, totalSlides]);
 
-  const handlePause = useCallback(() => {
+  const handlePause = () => {
     isPausedRef.current = true;
-  }, []);
-  const handleResume = useCallback(() => {
+  };
+  const handleResume = () => {
     isPausedRef.current = false;
-  }, []);
+  };
 
-  const carouselNav = useMemo(() => {
+  const carouselNav = (() => {
     if (totalSlides <= 1) return null;
     return (
       <div className="flex items-center justify-between px-2">
@@ -453,7 +444,7 @@ export default function PartnershipCarouselSplitCard({
         </Button>
       </div>
     );
-  }, [totalSlides, activeIndex, isTransitioning, goTo, goToPrevious, goToNext, slides]);
+  })();
 
   return (
     <section

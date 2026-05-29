@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Code, Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { IS_SERVER } from "@/lib/initialData";
@@ -77,16 +77,13 @@ export default function Page() {
   }, [page?.slug, slug, locale, setLocation]);
 
   const alternates = useAlternateUrls(location);
-  const metaWithAlternates = useMemo(() => {
-    if (!page?.meta) return undefined;
-    return { ...page.meta, alternates };
-  }, [page?.meta, alternates]);
+  const metaWithAlternates = page?.meta ? { ...page.meta, alternates } : undefined;
   usePageMeta(metaWithAlternates);
   useSchemaOrg(page?.schema);
 
-  const handleRefetch = useCallback(() => {
+  const handleRefetch = () => {
     refetch();
-  }, [refetch]);
+  };
 
   useContentAutoRefresh("page", slug, locale, handleRefetch);
 

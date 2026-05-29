@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { ArrowLeft, Check, ChevronDown, Filter, Github, Loader2, RefreshCw, Search, Server, Trash2, User, Webhook, X } from "lucide-react";
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { SitemapSearch } from "@/components/menus/SitemapSearch";
 import { Badge } from "@/components/ui/badge";
@@ -248,43 +248,41 @@ export default function SyncLogPage() {
     refetchInterval: 30000,
   });
 
-  const entries = useMemo(() => {
+  const entries = (() => {
     if (!logData?.entries) return [];
     return logData.entries.map(toParseEntry);
-  }, [logData]);
+  })();
 
-  const uniquePersons = useMemo(() => {
+  const uniquePersons = (() => {
     const persons = new Set<string>();
     for (const e of entries) {
       if (e.person) persons.add(e.person);
     }
     return Array.from(persons).sort();
-  }, [entries]);
+  })();
 
-  const filtered = useMemo(() => {
-    return entries.filter((e) => {
-      if (activeCategories.size > 0 && !activeCategories.has(e.category as Category)) return false;
-      if (activePersons.size > 0 && e.person && !activePersons.has(e.person)) return false;
-      if (search) {
-        const q = search.toLowerCase();
-        return (
-          e.message.toLowerCase().includes(q) ||
-          e.category.toLowerCase().includes(q) ||
-          (e.person || "").toLowerCase().includes(q) ||
-          e.ts.toLowerCase().includes(q)
-        );
-      }
-      return true;
-    });
-  }, [entries, activeCategories, activePersons, search]);
+  const filtered = entries.filter((e) => {
+    if (activeCategories.size > 0 && !activeCategories.has(e.category as Category)) return false;
+    if (activePersons.size > 0 && e.person && !activePersons.has(e.person)) return false;
+    if (search) {
+      const q = search.toLowerCase();
+      return (
+        e.message.toLowerCase().includes(q) ||
+        e.category.toLowerCase().includes(q) ||
+        (e.person || "").toLowerCase().includes(q) ||
+        e.ts.toLowerCase().includes(q)
+      );
+    }
+    return true;
+  });
 
-  const categoryCounts = useMemo(() => {
+  const categoryCounts = (() => {
     const counts: Record<string, number> = {};
     for (const e of entries) {
       counts[e.category] = (counts[e.category] || 0) + 1;
     }
     return counts;
-  }, [entries]);
+  })();
 
   const toggleCategory = (cat: Category) => {
     setActiveCategories((prev) => {

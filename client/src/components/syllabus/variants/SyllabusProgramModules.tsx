@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import type { SyllabusSection as SyllabusSectionType, SyllabusDefault, SyllabusLanding, SyllabusProgramModules } from "@shared/schema";
 import { Box, Check, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -293,7 +293,7 @@ function SyllabusProgramModulesVariant({ data }: { data: SyllabusProgramModules 
     return () => mobileQuery.removeEventListener('change', handler);
   }, []);
 
-  const getCardScrollPositions = useCallback(() => {
+  const getCardScrollPositions = () => {
     // Calculate cumulative scroll positions for each card based on actual widths
     const positions: number[] = [0];
     const gap = isDesktop ? 24 : isTablet ? 16 : 12;
@@ -306,9 +306,9 @@ function SyllabusProgramModulesVariant({ data }: { data: SyllabusProgramModules 
       positions.push(positions[i] + cardWidth + gap);
     }
     return positions;
-  }, [moduleCards, isDesktop, isTablet]);
+  };
 
-  const updateActiveIndex = useCallback(() => {
+  const updateActiveIndex = () => {
     if (!scrollContainerRef.current) return;
     const container = scrollContainerRef.current;
     const scrollPos = container.scrollLeft;
@@ -331,7 +331,7 @@ function SyllabusProgramModulesVariant({ data }: { data: SyllabusProgramModules 
     }
     
     setActiveIndex(closestIndex);
-  }, []);
+  };
 
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -340,9 +340,9 @@ function SyllabusProgramModulesVariant({ data }: { data: SyllabusProgramModules 
     const handleScroll = () => updateActiveIndex();
     container.addEventListener('scroll', handleScroll, { passive: true });
     return () => container.removeEventListener('scroll', handleScroll);
-  }, [updateActiveIndex]);
+  }, []);
 
-  const startMomentum = useCallback((velocity: number) => {
+  const startMomentum = (velocity: number) => {
     if (!scrollContainerRef.current || Math.abs(velocity) < 0.5) return;
     
     const friction = 0.95;
@@ -360,9 +360,9 @@ function SyllabusProgramModulesVariant({ data }: { data: SyllabusProgramModules 
     };
     
     animationRef.current = requestAnimationFrame(animate);
-  }, []);
+  };
 
-  const handleDotClick = useCallback((index: number) => {
+  const handleDotClick = (index: number) => {
     if (!scrollContainerRef.current) return;
     if (index < 0 || index >= moduleCards.length) return;
     
@@ -378,7 +378,7 @@ function SyllabusProgramModulesVariant({ data }: { data: SyllabusProgramModules 
     }
     
     setActiveIndex(index);
-  }, [isDesktop, moduleCards.length]);
+  };
 
   const handlePointerDown = (e: React.PointerEvent) => {
     if (!scrollContainerRef.current) return;

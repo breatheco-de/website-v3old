@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import {ArrowLeft, ArrowRight, Check, Clock, Database, ExternalLink, Eye, EyeOff, FileText, Globe, LayoutList, Link as LinkIcon, Loader2, MoreVertical, RefreshCw, Search, Settings, Trash2, Wand2, X} from "lucide-react";
 import { queryClient } from "@/lib/queryClient";
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -786,21 +786,19 @@ function SeoSettingsDialog({
 
   const URL_SAFE_FIELDS = new Set(["slug", "category", "lang", "status", "tags"]);
 
-  const mappedKeys = useMemo(() => {
+  const mappedKeys = (() => {
     if (!config?.field_mapping) return ["slug"];
     return Object.entries(config.field_mapping)
       .filter(([k, v]) => v != null && URL_SAFE_FIELDS.has(k))
       .map(([k]) => k);
-  }, [config]);
+  })();
 
-  const usedInPattern = useMemo(() => {
+  const usedInPattern = (() => {
     const matches = pattern.match(/:([a-z_]+)/g) || [];
     return matches.map((m) => m.slice(1));
-  }, [pattern]);
+  })();
 
-  const unknownVars = useMemo(() => {
-    return usedInPattern.filter((v) => v !== "locale" && !mappedKeys.includes(v));
-  }, [usedInPattern, mappedKeys]);
+  const unknownVars = usedInPattern.filter((v) => v !== "locale" && !mappedKeys.includes(v));
 
   const deriveLocalePattern = (basePattern: string, locale: string): string => {
     return basePattern.replace(/^\/en\//, `/${locale}/`).replace(/^\/en$/, `/${locale}`);
@@ -958,7 +956,7 @@ export default function BlogManagePage() {
 
   const posts = allPostsData?.results || [];
 
-  const kpis = useMemo(() => {
+  const kpis = (() => {
     const total = posts.length;
     const published = posts.filter((p) => p.status?.toLowerCase() === "published").length;
     const draft = posts.filter((p) => p.status?.toLowerCase() === "draft").length;
@@ -969,9 +967,9 @@ export default function BlogManagePage() {
     const privatePosts = total - publicPosts;
 
     return { total, published, draft, other, en: enPosts.length, es: esPosts.length, publicPosts, privatePosts };
-  }, [posts]);
+  })();
 
-  const filtered = useMemo(() => {
+  const filtered = (() => {
     let result = posts;
 
     if (statusFilter !== "all") {
@@ -998,7 +996,7 @@ export default function BlogManagePage() {
     }
 
     return result;
-  }, [posts, statusFilter, localeFilter, search]);
+  })();
 
   const handleClearCache = async () => {
     setClearing(true);
@@ -1014,10 +1012,10 @@ export default function BlogManagePage() {
     }
   };
 
-  const statuses = useMemo(() => {
+  const statuses = (() => {
     const set = new Set(posts.map((p) => p.status?.toLowerCase()).filter(Boolean));
     return Array.from(set).sort();
-  }, [posts]);
+  })();
 
   return (
     <div className="min-h-screen bg-background">

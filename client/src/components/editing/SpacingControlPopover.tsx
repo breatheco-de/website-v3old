@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { ArrowDown, ArrowUp, Info, Monitor, Smartphone } from "lucide-react";
 import { AlignVerticalSpaceAround } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -243,7 +243,7 @@ export function SpacingControlPopover({
   const [belowPadding, setBelowPadding] = useState<ResponsiveSpacingValues>(belowInitial.padding);
   const [belowMargin, setBelowMargin] = useState<ResponsiveSpacingValues>(belowInitial.margin);
 
-  const handleOpenChange = useCallback((open: boolean) => {
+  const handleOpenChange = (open: boolean) => {
     setIsOpen(open);
     if (open) {
       const above = parseSpacingValue(sectionAbove);
@@ -253,7 +253,7 @@ export function SpacingControlPopover({
       setBelowPadding(below.padding);
       setBelowMargin(below.margin);
     }
-  }, [sectionAbove, sectionBelow]);
+  };
 
   // Update a spacing value
   // - Editing desktop: keeps mobile undefined (inheriting) - no explicit sync needed
@@ -310,7 +310,7 @@ export function SpacingControlPopover({
     );
   };
 
-  const handleApply = useCallback(async () => {
+  const handleApply = async () => {
     if (!contentType || !slug || !locale) return;
 
     setIsSaving(true);
@@ -359,20 +359,7 @@ export function SpacingControlPopover({
     } finally {
       setIsSaving(false);
     }
-  }, [
-    contentType,
-    slug,
-    locale,
-    sectionAbove,
-    sectionBelow,
-    aboveIndex,
-    belowIndex,
-    abovePadding,
-    aboveMargin,
-    belowPadding,
-    belowMargin,
-    toast,
-  ]);
+  };
 
   if (!sectionAbove && !sectionBelow) {
     return null;

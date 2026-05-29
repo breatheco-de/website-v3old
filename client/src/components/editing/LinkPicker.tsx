@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ArrowDown, Check, ExternalLink, Link, PanelBottom, Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
@@ -136,12 +136,12 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
     enabled: !!contextPath && open,
   });
 
-  const { modals, scrollSections } = useMemo(() => {
+  const { modals, scrollSections } = (() => {
     if (contextPath && remoteSectionsData) {
       return extractSectionsFromRemote(remoteSectionsData.sections);
     }
     return extractSectionsFromYaml(allSections);
-  }, [contextPath, remoteSectionsData, allSections]);
+  })();
 
   const [activeType, setActiveType] = useState<LinkType>(() => detectLinkType(value, modals, scrollSections));
 
@@ -159,7 +159,7 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
     },
   });
 
-  const filteredSitemapUrls = useMemo(() => {
+  const filteredSitemapUrls = (() => {
     if (!searchQuery.trim()) return sitemapUrls;
     const query = searchQuery.toLowerCase();
     return sitemapUrls.filter(
@@ -167,7 +167,7 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
         entry.loc.toLowerCase().includes(query) ||
         entry.label.toLowerCase().includes(query)
     );
-  }, [sitemapUrls, searchQuery]);
+  })();
 
   const handleSelect = (url: string) => {
     onChange(url);

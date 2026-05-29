@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { ArrowDown, ArrowUp, Check, ChevronDown, ExternalLink, Image, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -568,13 +568,13 @@ export function DynamicTable({ data }: DynamicTableProps) {
   const { session } = useSession();
   const variant: TableVariant = (data.variant as TableVariant) || "default";
 
-  const filterCtx = useMemo<FilterContext>(() => ({
+  const filterCtx: FilterContext = {
     region: session.location?.region || undefined,
     country_code: (session.geo?.country_code || session.location?.country_code || "").toLowerCase() || undefined,
     city: session.geo?.city || session.location?.city || undefined,
     language: session.language,
     timezone: session.location?.timezone || session.geo?.timezone || undefined,
-  }), [session.location, session.geo, session.language]);
+  };
 
   const { data: fetchedData, isLoading, error } = useQuery<unknown>({
     queryKey: ["dynamic-table", data.endpoint],
@@ -587,7 +587,7 @@ export function DynamicTable({ data }: DynamicTableProps) {
     retry: 2,
   });
 
-  const allRows = useMemo<Record<string, unknown>[]>(() => {
+  const allRows: Record<string, unknown>[] = (() => {
     if (!fetchedData) return [];
     let arr: unknown;
     if (data.data_path) {
@@ -622,7 +622,7 @@ export function DynamicTable({ data }: DynamicTableProps) {
       });
     }
     return filtered;
-  }, [fetchedData, data.data_path, data.global_filter, sortKey, sortDir, filterCtx]);
+  })();
 
   const maxRows = data.max_rows && data.max_rows > 0 ? data.max_rows : null;
   const hasMore = maxRows !== null && allRows.length > maxRows;

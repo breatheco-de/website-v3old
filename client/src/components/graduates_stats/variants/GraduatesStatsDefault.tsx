@@ -1,5 +1,5 @@
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { UniversalImage } from "@/components/UniversalImage";
 import type { GraduatesStatsSection } from "@shared/schema";
@@ -27,19 +27,19 @@ export default function GraduatesStatsDefault({ data }: GraduatesStatsDefaultPro
   const hasMobileCarousel = (collage_images?.length ?? 0) > 0;
   const maxMobileImageIndex = Math.max((collage_images?.length ?? 1) - 1, 0);
 
-  const goToMobileImage = useCallback((index: number) => {
+  const goToMobileImage = (index: number) => {
     const clampedIndex = Math.max(0, Math.min(index, maxMobileImageIndex));
     setActiveMobileImageIndex(clampedIndex);
-  }, [maxMobileImageIndex]);
+  };
 
-  const resetTouchState = useCallback(() => {
+  const resetTouchState = () => {
     touchStartXRef.current = null;
     touchStartYRef.current = null;
     swipeDeltaXRef.current = 0;
     isHorizontalSwipeRef.current = false;
-  }, []);
+  };
 
-  const handleTouchStart = useCallback((event: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
     const touch = event.touches[0];
     if (!touch) return;
 
@@ -47,9 +47,9 @@ export default function GraduatesStatsDefault({ data }: GraduatesStatsDefaultPro
     touchStartYRef.current = touch.clientY;
     swipeDeltaXRef.current = 0;
     isHorizontalSwipeRef.current = false;
-  }, []);
+  };
 
-  const handleTouchMove = useCallback((event: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
     const touch = event.touches[0];
     if (!touch || touchStartXRef.current === null || touchStartYRef.current === null) return;
 
@@ -64,9 +64,9 @@ export default function GraduatesStatsDefault({ data }: GraduatesStatsDefaultPro
 
     event.preventDefault();
     swipeDeltaXRef.current = deltaX;
-  }, []);
+  };
 
-  const handleTouchEnd = useCallback(() => {
+  const handleTouchEnd = () => {
     if (!isHorizontalSwipeRef.current) {
       resetTouchState();
       return;
@@ -83,7 +83,7 @@ export default function GraduatesStatsDefault({ data }: GraduatesStatsDefaultPro
     }
 
     resetTouchState();
-  }, [activeMobileImageIndex, goToMobileImage, maxMobileImageIndex, resetTouchState]);
+  };
 
   useEffect(() => {
     setActiveMobileImageIndex(0);

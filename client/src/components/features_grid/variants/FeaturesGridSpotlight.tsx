@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef, useCallback, type KeyboardEvent } from "react";
+import { useState, useEffect, useRef, type KeyboardEvent } from "react";
 import type { FeaturesGridSpotlightSection, FeaturesGridHighlightItem } from "@shared/schema";
 import { Card } from "@/components/ui/card";
 import { Box } from "lucide-react";
@@ -104,21 +104,21 @@ export default function FeaturesGridSpotlight({ data }: FeaturesGridSpotlightPro
     4: "md:grid-cols-4",
   }[columns] || "md:grid-cols-3";
 
-  const clearTimer = useCallback(() => {
+  const clearTimer = () => {
     if (intervalRef.current !== null) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     }
-  }, []);
+  };
 
-  const startTimer = useCallback(() => {
+  const startTimer = () => {
     if (autoRotateMs <= 0 || itemCount < 2) return;
     
     clearTimer();
     intervalRef.current = setInterval(() => {
       setActiveIndex(prev => (prev + 1) % itemCount);
     }, autoRotateMs);
-  }, [autoRotateMs, itemCount, clearTimer]);
+  };
 
   useEffect(() => {
     if (!isPaused && autoRotateMs > 0 && itemCount >= 2) {
@@ -127,32 +127,32 @@ export default function FeaturesGridSpotlight({ data }: FeaturesGridSpotlightPro
       clearTimer();
     }
     return () => clearTimer();
-  }, [isPaused, startTimer, clearTimer, autoRotateMs, itemCount]);
+  }, [isPaused, autoRotateMs, itemCount]);
 
-  const handleMouseEnter = useCallback((index: number) => {
+  const handleMouseEnter = (index: number) => {
     if (pauseOnHover) {
       setIsPaused(true);
     }
     setActiveIndex(index);
-  }, [pauseOnHover]);
+  };
 
-  const handleMouseLeave = useCallback(() => {
+  const handleMouseLeave = () => {
     if (pauseOnHover) {
       setIsPaused(false);
     }
-  }, [pauseOnHover]);
+  };
 
-  const handleActivate = useCallback((index: number) => {
+  const handleActivate = (index: number) => {
     setActiveIndex(index);
-  }, []);
+  };
 
-  const handleDotClick = useCallback((index: number) => {
+  const handleDotClick = (index: number) => {
     setActiveIndex(index);
     setIsPaused(true);
     setTimeout(() => setIsPaused(false), 100);
-  }, []);
+  };
 
-  const handleKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
       e.preventDefault();
       setActiveIndex(prev => (prev + 1) % itemCount);
@@ -170,15 +170,15 @@ export default function FeaturesGridSpotlight({ data }: FeaturesGridSpotlightPro
       e.preventDefault();
       setActiveIndex(itemCount - 1);
     }
-  }, [itemCount]);
+  };
 
-  const handleContainerFocus = useCallback(() => {
+  const handleContainerFocus = () => {
     setIsPaused(true);
-  }, []);
+  };
 
-  const handleContainerBlur = useCallback(() => {
+  const handleContainerBlur = () => {
     setIsPaused(false);
-  }, []);
+  };
 
   return (
     <section 

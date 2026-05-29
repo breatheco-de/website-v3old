@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ArrowRight, Calendar, ChevronLeft, ChevronRight, Search, User } from "lucide-react";
 import { useLocation, useSearch } from "wouter";
 import { Card } from "@/components/ui/card";
@@ -146,7 +146,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
   const currentPage = Math.max(1, parseInt(params.get("page") || "1", 10));
   const [searchQuery, setSearchQuery] = useState("");
 
-  const userFilterOptions = useMemo(() => {
+  const userFilterOptions = (() => {
     const opts: Record<string, string[]> = {};
     for (const uf of userFilters) {
       if (uf.component_renderer === "dropdown" || uf.component_renderer === "tags") {
@@ -159,9 +159,9 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
       }
     }
     return opts;
-  }, [items, userFilters]);
+  })();
 
-  const userFiltered = useMemo(() => {
+  const userFiltered = (() => {
     if (!userFilters.length) return items;
     return items.filter(item =>
       userFilters.every(f => {
@@ -174,9 +174,9 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
         return itemVal === val;
       })
     );
-  }, [items, userFilters, userFilterValues]);
+  })();
 
-  const filteredBySearch = useMemo(() => {
+  const filteredBySearch = (() => {
     if (!searchQuery.trim()) return userFiltered;
     const query = searchQuery.toLowerCase();
     return userFiltered.filter(item =>
@@ -184,7 +184,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
       (item.description || "").toLowerCase().includes(query) ||
       (typeof item.badge === "string" ? item.badge : "").toLowerCase().includes(query)
     );
-  }, [userFiltered, searchQuery]);
+  })();
 
   const totalItems = filteredBySearch.length;
   const totalPages = perPage > 0 ? Math.ceil(totalItems / perPage) : 1;
@@ -192,15 +192,12 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
     ? filteredBySearch.slice((currentPage - 1) * perPage, currentPage * perPage)
     : filteredBySearch;
 
-  const buildPageUrl = useCallback(
-    (page: number) => {
-      const p = new URLSearchParams();
-      if (page > 1) p.set("page", String(page));
-      const qs = p.toString();
-      return `${location.split("?")[0]}${qs ? `?${qs}` : ""}`;
-    },
-    [location]
-  );
+  const buildPageUrl = (page: number) => {
+    const p = new URLSearchParams();
+    if (page > 1) p.set("page", String(page));
+    const qs = p.toString();
+    return `${location.split("?")[0]}${qs ? `?${qs}` : ""}`;
+  };
 
   const handlePageChange = (page: number) => {
     setLocation(buildPageUrl(page));
@@ -253,7 +250,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
     setUserFilterValues(prev => ({ ...prev, [slug]: value }));
   };
 
-  const pageNumbers = useMemo(() => {
+  const pageNumbers = (() => {
     const pages: (number | "...")[] = [];
     if (totalPages <= 7) {
       for (let i = 1; i <= totalPages; i++) pages.push(i);
@@ -267,7 +264,7 @@ export default function ListingCards({ data }: { data: ListingCardsData }) {
       pages.push(totalPages);
     }
     return pages;
-  }, [totalPages, currentPage]);
+  })();
 
   const gridCols =
     columns === 1 ? "grid-cols-1"

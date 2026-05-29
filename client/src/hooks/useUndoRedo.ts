@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface UndoRedoState<T> {
   undoStack: T[];
@@ -64,7 +64,7 @@ export function useUndoRedo<T>(
     }
   }, [currentState]);
 
-  const pushState = useCallback((state: T) => {
+  const pushState = (state: T) => {
     if (isRestoringRef.current) return;
     
     setHistory(prev => {
@@ -77,9 +77,9 @@ export function useUndoRedo<T>(
         redoStack: [],
       };
     });
-  }, []);
+  };
 
-  const undo = useCallback((): T | null => {
+  const undo = (): T | null => {
     let restoredState: T | null = null;
     
     setHistory(prev => {
@@ -110,9 +110,9 @@ export function useUndoRedo<T>(
     }
     
     return restoredState;
-  }, [onRestore]);
+  };
 
-  const redo = useCallback((): T | null => {
+  const redo = (): T | null => {
     let restoredState: T | null = null;
     
     setHistory(prev => {
@@ -143,11 +143,11 @@ export function useUndoRedo<T>(
     }
     
     return restoredState;
-  }, [onRestore]);
+  };
 
-  const clear = useCallback(() => {
+  const clear = () => {
     setHistory({ undoStack: [], redoStack: [] });
-  }, []);
+  };
 
   useEffect(() => {
     if (!enableKeyboardShortcuts) return;

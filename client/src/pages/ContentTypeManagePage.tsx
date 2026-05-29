@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AlertTriangle, ArrowLeft, ArrowRight, Check, Clipboard, Clock, Code, Copy, Database, Download, ExternalLink, Eye, EyeOff, FileText, Folder, GitBranch, Globe, History, LayoutList, Link as LinkIcon, Loader2, MoreVertical, Plus, RefreshCw, Search, Shuffle, Trash2, Wand2, X } from "lucide-react";
 import { IconChevronDown, IconChevronRight, IconExternalLink } from "@tabler/icons-react";
 import { queryClient } from "@/lib/queryClient";
-import { useState, useMemo, useEffect, useRef, useCallback, lazy, Suspense } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { Link, useRoute, useLocation } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -1394,7 +1394,7 @@ function FieldMappingDialog({
     requestCounters.current = {};
   }, [config]);
 
-  const validateSingleField = useCallback((key: string, source: string) => {
+  const validateSingleField = (key: string, source: string) => {
     if (isDbBacked || !source || key.startsWith("_")) return;
     const reqId = (requestCounters.current[key] || 0) + 1;
     requestCounters.current[key] = reqId;
@@ -1409,12 +1409,12 @@ function FieldMappingDialog({
         if (requestCounters.current[key] !== reqId) return;
         setValidation((prev) => ({ ...prev, [key]: null }));
       });
-  }, [contentType, isDbBacked]);
+  };
 
-  const debouncedValidate = useCallback((key: string, source: string) => {
+  const debouncedValidate = (key: string, source: string) => {
     if (debounceTimers.current[key]) clearTimeout(debounceTimers.current[key]);
     debounceTimers.current[key] = setTimeout(() => validateSingleField(key, source), 500);
-  }, [validateSingleField]);
+  };
 
   useEffect(() => {
     if (!config || isDbBacked) return;
@@ -1449,7 +1449,7 @@ function FieldMappingDialog({
     }
   };
 
-  const validateNewValue = useCallback((source: string) => {
+  const validateNewValue = (source: string) => {
     if (isDbBacked || !source) {
       setNewValueValidation(null);
       return;
@@ -1467,19 +1467,19 @@ function FieldMappingDialog({
         if (requestCounters.current["__new"] !== reqId) return;
         setNewValueValidation(null);
       });
-  }, [contentType, isDbBacked]);
+  };
 
-  const debouncedValidateNew = useCallback((source: string) => {
+  const debouncedValidateNew = (source: string) => {
     if (debounceTimers.current["__new"]) clearTimeout(debounceTimers.current["__new"]);
     debounceTimers.current["__new"] = setTimeout(() => validateNewValue(source), 500);
-  }, [validateNewValue]);
+  };
 
   const handleNewValueChange = (value: string) => {
     setNewValue(value);
     debouncedValidateNew(value.trim() || newKey.trim());
   };
 
-  const filteredAvailableProps = useMemo(() => {
+  const filteredAvailableProps = (() => {
     if (!availableProps) return { common: [], partial: [] };
     const q = newValue.toLowerCase().trim();
     if (!q) return availableProps;
@@ -1487,7 +1487,7 @@ function FieldMappingDialog({
       common: availableProps.common.filter(k => k.toLowerCase().includes(q)),
       partial: availableProps.partial.filter(p => p.key.toLowerCase().includes(q)),
     };
-  }, [availableProps, newValue]);
+  })();
 
   const handleAddField = () => {
     const key = newKey.trim();
@@ -1947,13 +1947,10 @@ function SeoSettingsDialog({
     enabled: open,
   });
 
-  const availableLocales = useMemo(
-    () => localeSettings?.supported_locales ?? [
-      { code: "en", label: "English" },
-      { code: "es", label: "Spanish" },
-    ],
-    [localeSettings]
-  );
+  const availableLocales = localeSettings?.supported_locales ?? [
+    { code: "en", label: "English" },
+    { code: "es", label: "Spanish" },
+  ];
 
   const [patternMode, setPatternMode] = useState<"non-localized" | "shorthand" | "per-locale">("shorthand");
   const [nonLocalizedPattern, setNonLocalizedPattern] = useState("");
@@ -1989,14 +1986,14 @@ function SeoSettingsDialog({
 
   const URL_SAFE_FIELDS = new Set(["slug", "category", "lang", "status", "tags"]);
 
-  const mappedKeys = useMemo(() => {
+  const mappedKeys = (() => {
     const keys: string[] = ["slug"];
     if (!config?.field_mapping) return keys;
     const fromMapping = Object.entries(config.field_mapping)
       .filter(([k, v]) => v != null && !k.startsWith("_") && URL_SAFE_FIELDS.has(k))
       .map(([k]) => k);
     return Array.from(new Set([...keys, ...fromMapping]));
-  }, [config]);
+  })();
 
   function normalizePathInput(raw: string): string {
     const trimmed = raw.trim();
@@ -2031,7 +2028,7 @@ function SeoSettingsDialog({
         ? shorthandPattern
         : (localePatterns[activeLocaleIndex]?.path ?? "");
 
-  const unknownVars = useMemo(() => {
+  const unknownVars = (() => {
     const patternsToCheck =
       patternMode === "per-locale"
         ? localePatterns.map(lp => lp.path)
@@ -2039,7 +2036,7 @@ function SeoSettingsDialog({
     const allVars = patternsToCheck.flatMap(p => (p.match(/:([a-z_]+)/g) || []).map(m => m.slice(1)));
     const unique = Array.from(new Set(allVars));
     return unique.filter(v => !mappedKeys.includes(v));
-  }, [activePattern, patternMode, localePatterns, mappedKeys]);
+  })();
 
   const sampleItem = { slug: "sample-item", category: { slug: "general" } };
 
@@ -2079,7 +2076,7 @@ function SeoSettingsDialog({
     }
   };
 
-  const previewItems = useMemo(() => {
+  const previewItems = (() => {
     if (patternMode === "non-localized") {
       const p = normalizePathInput(nonLocalizedPattern);
       return p ? [{ label: "URL", pattern: p, locale: "en" }] : [];
@@ -2100,7 +2097,7 @@ function SeoSettingsDialog({
           locale: lp.locale,
         }));
     }
-  }, [patternMode, nonLocalizedPattern, shorthandPattern, localePatterns, availableLocales]);
+  })();
 
   const handleSave = async () => {
     setSaving(true);
@@ -2391,7 +2388,7 @@ export default function ContentTypeManagePage() {
   });
 
   const urlPatterns = typeConfig?.url_pattern || {};
-  const localeKey = useMemo(() => {
+  const localeKey = (() => {
     const raw = typeConfig?.field_mapping?._locale;
     if (!raw) return null;
     const val = typeof raw === "object" ? raw.source : raw;
@@ -2404,22 +2401,22 @@ export default function ContentTypeManagePage() {
       return null;
     }
     return val;
-  }, [typeConfig?.field_mapping]);
+  })();
 
   const items = allItemsData?.results || [];
 
   const LOCALE_LABELS: Record<string, string> = { en: "English", es: "Spanish", pt: "Portuguese", fr: "French", de: "German", it: "Italian" };
 
-  const allIndexFields = useMemo(() => {
+  const allIndexFields = (() => {
     const explicit = typeConfig?.indexes || [];
     const result = [...explicit];
     if (localeKey && !result.includes(localeKey)) {
       result.push(localeKey);
     }
     return result;
-  }, [typeConfig?.indexes, localeKey]);
+  })();
 
-  const indexStats = useMemo(() => {
+  const indexStats = (() => {
     const stats: Record<string, Record<string, number>> = {};
     for (const idx of allIndexFields) {
       const counts: Record<string, number> = {};
@@ -2432,7 +2429,7 @@ export default function ContentTypeManagePage() {
       stats[idx] = counts;
     }
     return stats;
-  }, [items, allIndexFields]);
+  })();
 
   const dbSlug = typeConfig?.database?.slug || null;
 
@@ -2482,7 +2479,7 @@ export default function ContentTypeManagePage() {
     };
   }, [search, viewMode, dbSlug, filters, localeKey]);
 
-  const filtered = useMemo(() => {
+  const filtered = (() => {
     if (viewMode === "db" && search.trim() && semanticResults !== null) {
       let result = semanticResults;
       for (const [field, value] of Object.entries(filters)) {
@@ -2519,16 +2516,16 @@ export default function ContentTypeManagePage() {
     }
 
     return result;
-  }, [items, filters, search, viewMode, semanticResults]);
+  })();
 
   const staticEntries = staticEntriesData?.results || [];
-  const filteredStatic = useMemo(() => {
+  const filteredStatic = (() => {
     if (!search.trim()) return staticEntries;
     const q = search.toLowerCase();
     return staticEntries.filter(
       (e) => e.title.toLowerCase().includes(q) || e.slug.toLowerCase().includes(q)
     );
-  }, [staticEntries, search]);
+  })();
 
   const hasDb = !!typeConfig?.database?.slug;
   const defaultViewMode = hasDb ? "db" : "static";
@@ -2629,7 +2626,7 @@ export default function ContentTypeManagePage() {
     }
   };
 
-  const fetchVersionsForEntry = useCallback(async (slug: string) => {
+  const fetchVersionsForEntry = async (slug: string) => {
     if (slug in versionsData || versionsLoading.has(slug)) return;
     setVersionsLoading(prev => new Set([...prev, slug]));
     try {
@@ -2639,9 +2636,9 @@ export default function ContentTypeManagePage() {
     } finally {
       setVersionsLoading(prev => { const next = new Set(prev); next.delete(slug); return next; });
     }
-  }, [contentType, versionsData, versionsLoading]);
+  };
 
-  const handleCreateVersion = useCallback(async () => {
+  const handleCreateVersion = async () => {
     if (!createVersionEntry || !createVersionSlug) return;
     setIsCreatingVersion(true);
     try {
@@ -2664,7 +2661,7 @@ export default function ContentTypeManagePage() {
     } finally {
       setIsCreatingVersion(false);
     }
-  }, [createVersionEntry, createVersionSlug, createVersionLocale, contentType, toast]);
+  };
 
   const copyUrl = async (url: string) => {
     await navigator.clipboard.writeText(url);

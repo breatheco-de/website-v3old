@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Atom, Box, Code, Tag, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { MoleculeRenderer, type MoleculeDefinition } from "@/components/MoleculeRenderer";
@@ -25,21 +25,21 @@ export default function MoleculesShowcase() {
     queryKey: ["/api/molecules"],
   });
 
-  const allTags = useMemo(() => {
+  const allTags = (() => {
     if (!data?.molecules) return [];
     const tagSet = new Set<string>();
     data.molecules.forEach((m) => m.tags.forEach((t) => tagSet.add(t)));
     return Array.from(tagSet).sort();
-  }, [data]);
+  })();
 
-  const allComponents = useMemo(() => {
+  const allComponents = (() => {
     if (!data?.molecules) return [];
     const componentSet = new Set<string>();
     data.molecules.forEach((m) => componentSet.add(m.component));
     return Array.from(componentSet).sort();
-  }, [data]);
+  })();
 
-  const filteredMolecules = useMemo(() => {
+  const filteredMolecules = (() => {
     if (!data?.molecules) return [];
     let filtered = data.molecules;
     if (selectedTags.length > 0) {
@@ -53,7 +53,7 @@ export default function MoleculesShowcase() {
       );
     }
     return filtered;
-  }, [data, selectedTags, selectedComponents]);
+  })();
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) =>

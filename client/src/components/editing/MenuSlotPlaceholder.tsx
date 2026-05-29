@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { ArrowLeftRight, Menu, Pencil, Plus, Trash2 } from "lucide-react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
@@ -63,7 +63,7 @@ export default function MenuSlotPlaceholder({
   const isRemoving = pendingAction?.menuId === null;
   const actionLabel = isRemoving ? "Remove" : (currentMenuId ? "Change" : "Add");
 
-  const applyToAll = useCallback(async (menuId: string | null) => {
+  const applyToAll = async (menuId: string | null) => {
     setIsSaving(true);
     try {
       const body: Record<string, Record<string, string | null>> = {
@@ -78,24 +78,24 @@ export default function MenuSlotPlaceholder({
     } finally {
       setIsSaving(false);
     }
-  }, [position, contentType, onMenuChange, queryClient, toast]);
+  };
 
-  const handleMenuOptionClick = useCallback((menuId: string | null) => {
+  const handleMenuOptionClick = (menuId: string | null) => {
     setIsOpen(false);
     if (isSharedTemplate) {
       applyToAll(menuId);
     } else {
       setPendingAction({ menuId });
     }
-  }, [isSharedTemplate, applyToAll]);
+  };
 
-  const handleApplyToAll = useCallback(async () => {
+  const handleApplyToAll = async () => {
     if (!pendingAction) return;
     await applyToAll(pendingAction.menuId);
     setPendingAction(null);
-  }, [pendingAction, applyToAll]);
+  };
 
-  const handleApplyToEntry = useCallback(async () => {
+  const handleApplyToEntry = async () => {
     if (!pendingAction) return;
     setIsSaving(true);
     const fieldPath = position === "top" ? "layout.menu.top" : "layout.menu.bottom";
@@ -113,7 +113,7 @@ export default function MenuSlotPlaceholder({
       toast({ title: "Failed to update layout", description: result.error || "Unknown error", variant: "destructive" });
     }
     setIsSaving(false);
-  }, [pendingAction, position, contentType, slug, onMenuChange, queryClient, toast]);
+  };
 
   if (!editMode?.isEditMode) return null;
 

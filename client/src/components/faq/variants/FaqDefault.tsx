@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { MessageCircle } from "lucide-react";
 import {
   Accordion,
@@ -47,7 +46,7 @@ export function FAQSection({ data }: FAQSectionProps) {
     staleTime: 5 * 60 * 1000,
   });
   
-  const faqItems = useMemo(() => {
+  const faqItems = (() => {
     let items: Array<{ question: string; answer: string }> = [];
     
     if (faqsData?.faqs && (hasRelatedFeatures || locationSlug)) {
@@ -76,7 +75,7 @@ export function FAQSection({ data }: FAQSectionProps) {
     }
     
     return items;
-  }, [hasRelatedFeatures, hasInlineItems, data.related_features, data.items, faqsData, locationSlug, programSlug, itemOverrides, sessionLocationSlug]);
+  })();
   
   if (isLoading && (hasRelatedFeatures || locationSlug)) {
     return (

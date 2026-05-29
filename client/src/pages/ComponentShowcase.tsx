@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AlertTriangle, ArrowLeft, ArrowRight, ChevronRight, ChevronUp, CircleCheck, CircleX, Code, Eye, Folder, Info, Laptop, List, Maximize, Monitor, Plus, RefreshCw, Save, Smartphone, Tablet, TestTube, X } from "lucide-react";
 import { useSearch, useParams, Link, useLocation } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -179,7 +179,7 @@ function ComponentCard({
   const schema = currentVersionData?.schema;
   const examples = currentVersionData?.examples || [];
 
-  const updateUrl = useCallback((newVersion?: string, newExample?: string | null) => {
+  const updateUrl = (newVersion?: string, newExample?: string | null) => {
     const v = newVersion || selectedVersion;
     const e = newExample !== undefined ? newExample : selectedExample;
     let url = `/private/component-showcase/${componentType}`;
@@ -189,7 +189,7 @@ function ComponentCard({
     const queryString = params.toString();
     if (queryString) url += `?${queryString}`;
     setLocation(url, { replace: true });
-  }, [componentType, selectedVersion, selectedExample, setLocation]);
+  };
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -355,7 +355,7 @@ function ComponentCard({
   }, [iframeReady, isDarkMode]);
 
   
-  const handleYamlChange = useCallback((value: string) => {
+  const handleYamlChange = (value: string) => {
     setYamlContent(value);
     try {
       const parsed = jsYaml.load(value);
@@ -371,9 +371,9 @@ function ComponentCard({
         setParseError(err.message);
       }
     }
-  }, []);
+  };
 
-  const handleReset = useCallback(() => {
+  const handleReset = () => {
     if (selectedExample && examples.length > 0) {
       const example = examples.find(e => e.name === selectedExample);
       if (example) {
@@ -400,7 +400,7 @@ function ComponentCard({
       }
     }
     setParseError(null);
-  }, [selectedExample, examples, schema, componentType]);
+  };
 
   const handleVersionChange = (version: string) => {
     if (version === '__add_new__') {
@@ -424,7 +424,7 @@ function ComponentCard({
     }
   };
 
-  const handleValidate = useCallback(async () => {
+  const handleValidate = async () => {
     setIsValidating(true);
     setValidationResult(null);
     try {
@@ -440,7 +440,7 @@ function ComponentCard({
     } finally {
       setIsValidating(false);
     }
-  }, [componentType, selectedVersion, toast]);
+  };
 
   const examplePath = `marketing-content/component-registry/${componentType}/${selectedVersion}/examples/`;
 

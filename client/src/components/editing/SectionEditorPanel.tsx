@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AlertTriangle, Check, ChevronDown, CloudUpload, Code, Database, ExternalLink, HelpCircle, Image, Info, Laptop, Link, Unlink, Loader2, MapPin, Monitor, Pencil, Plus, Redo2, RefreshCw, Save, Search, Settings, Smartphone, Trash2, Undo2, Upload, Video, X } from "lucide-react";
 import { IconGitBranch } from "@tabler/icons-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -238,7 +238,7 @@ function ShowOnLocationsPicker({
 
   const hasLocations = value.length > 0;
 
-  const grouped = useMemo(() => {
+  const grouped = (() => {
     const groups: Record<string, Location[]> = {};
     const searchLower = search.toLowerCase();
     for (const loc of allLocations) {
@@ -255,7 +255,7 @@ function ShowOnLocationsPicker({
       groups[region].push(loc);
     }
     return groups;
-  }, [search]);
+  })();
 
   const regionLabels: Record<string, string> = {
     "usa-canada": "USA & Canada",
@@ -606,7 +606,7 @@ export function SectionEditorPanel({
   const hasVariableFields = !!(section as Record<string, unknown>)._variableFields;
 
   // Map from section field path → template key (e.g. "image.src" → "thumbnail")
-  const variableFieldToTemplateKey = useMemo(() => {
+  const variableFieldToTemplateKey = (() => {
     const vf = (section as Record<string, unknown>)._variableFields as Record<string, string> | undefined;
     if (!vf) return {} as Record<string, string>;
     const result: Record<string, string> = {};
@@ -618,7 +618,7 @@ export function SectionEditorPanel({
       }
     }
     return result;
-  }, [section]);
+  })();
 
   // Set of template keys that are currently overridden in the DB
   const { data: dbOverridesData, refetch: refetchDbOverrides } = useQuery<{ overrides: Record<string, unknown> }>({
@@ -636,10 +636,10 @@ export function SectionEditorPanel({
   const hasDbOverrides = Object.keys(dbOverrides).length > 0;
 
   // Check if a specific field path has a DB override
-  const fieldHasOverride = useCallback((fieldPath: string): boolean => {
+  const fieldHasOverride = (fieldPath: string): boolean => {
     const templateKey = variableFieldToTemplateKey[fieldPath];
     return !!templateKey && templateKey in dbOverrides;
-  }, [variableFieldToTemplateKey, dbOverrides]);
+  };
 
   // Track which template key is currently being reset (to disable button and show spinner)
   const [resettingField, setResettingField] = useState<string | null>(null);
@@ -688,12 +688,9 @@ export function SectionEditorPanel({
     members: Array<{ contentType: string; slug: string; sectionIndex: number }>;
   } | null;
 
-  const boundSiblings = useMemo(() => {
-    if (!bindingGroup) return [];
-    return bindingGroup.members.filter(
-      m => !(m.contentType === contentType && m.slug === slug && m.sectionIndex === sectionIndex)
-    );
-  }, [bindingGroup, contentType, slug, sectionIndex]);
+  const boundSiblings = !bindingGroup ? [] : bindingGroup.members.filter(
+    m => !(m.contentType === contentType && m.slug === slug && m.sectionIndex === sectionIndex)
+  );
 
   // Icon picker state
   const [iconPickerOpen, setIconPickerOpen] = useState(false);
@@ -774,24 +771,21 @@ export function SectionEditorPanel({
     };
   }, [slug, sectionIndex]);
 
-  const handleUndoRedoRestore = useCallback(
-    (content: string) => {
-      setYamlContent(content);
-      setHasChanges(true);
-      try {
-        const parsed = safeYamlLoad(content) as Section;
-        setParseError(null);
-        if (parsed && typeof parsed === "object" && onPreviewChange) {
-          onPreviewChange(parsed);
-        }
-      } catch (error) {
-        if (error instanceof Error) {
-          setParseError(error.message);
-        }
+  const handleUndoRedoRestore = (content: string) => {
+    setYamlContent(content);
+    setHasChanges(true);
+    try {
+      const parsed = safeYamlLoad(content) as Section;
+      setParseError(null);
+      if (parsed && typeof parsed === "object" && onPreviewChange) {
+        onPreviewChange(parsed);
       }
-    },
-    [onPreviewChange],
-  );
+    } catch (error) {
+      if (error instanceof Error) {
+        setParseError(error.message);
+      }
+    }
+  };
 
   const {
     pushState: pushUndoState,
@@ -929,8 +923,7 @@ export function SectionEditorPanel({
     (p) => p !== "local",
   );
 
-  const handleImageUpload = useCallback(
-    async (files: FileList | File[]) => {
+  const handleImageUpload = async (files: FileList | File[]) => {
       if (!files.length || !imagePickerTarget) return;
       const file = files[0];
       const allowed = [
@@ -1000,13 +993,10 @@ export function SectionEditorPanel({
         });
       } finally {
         setUploading(false);
-      }
-    },
-    [imagePickerTarget, refetchRegistry, toast],
-  );
+    }
+  };
 
-  const handleVideoUpload = useCallback(
-    async (files: FileList | File[]) => {
+  const handleVideoUpload = async (files: FileList | File[]) => {
       if (!files.length || !videoPickerTarget) return;
       const file = files[0];
       const allowed = [".mp4", ".webm", ".mov", ".ogg", ".m4v"];
@@ -1064,11 +1054,9 @@ export function SectionEditorPanel({
       } finally {
         setVideoUploading(false);
       }
-    },
-    [videoPickerTarget, refetchRegistry, toast],
-  );
+  };
 
-  const filteredGalleryVideos = useMemo(() => {
+  const filteredGalleryVideos = (() => {
     if (!imageRegistry?.images) return [];
     const videoExts = [".mp4", ".webm", ".mov", ".ogg", ".m4v"];
     const searchLower = videoGallerySearch.toLowerCase();
@@ -1084,14 +1072,14 @@ export function SectionEditorPanel({
         );
       })
       .sort((a, b) => (b[1].usage_count ?? 0) - (a[1].usage_count ?? 0));
-  }, [imageRegistry, videoGallerySearch]);
+  })();
 
   useEffect(() => {
     setVisibleVideoCount(48);
   }, [videoGallerySearch, videoPickerOpen]);
 
   // Filter and sort gallery images by usage count (most used first)
-  const filteredGalleryImages = useMemo(() => {
+  const filteredGalleryImages = (() => {
     if (!imageRegistry?.images) return [];
     const searchLower = imageGallerySearch.toLowerCase();
     const tagFilter = imagePickerTarget?.tagFilter?.toLowerCase();
@@ -1112,7 +1100,7 @@ export function SectionEditorPanel({
         );
       })
       .sort((a, b) => (b[1].usage_count ?? 0) - (a[1].usage_count ?? 0));
-  }, [imageRegistry, imageGallerySearch, imagePickerTarget?.tagFilter]);
+  })();
 
   // Reset visible count when search changes or modal opens
   useEffect(() => {
@@ -1120,13 +1108,13 @@ export function SectionEditorPanel({
   }, [imageGallerySearch, imagePickerOpen]);
 
   // Parse current YAML to extract props
-  const parsedSection = useMemo(() => {
+  const parsedSection = (() => {
     try {
       return safeYamlLoad(yamlContent) as Record<string, unknown> | null;
     } catch {
       return null;
     }
-  }, [yamlContent]);
+  })();
 
   const currentBackground = (parsedSection?.background as string) || "";
   const currentShowOn = (parsedSection?.showOn as string) || "";
@@ -1162,37 +1150,33 @@ export function SectionEditorPanel({
     }
   }, [section, slug]); // intentionally excludes templateSectionsData — see comment above
 
-  const handleYamlChange = useCallback(
-    (value: string) => {
-      // Save the initial state on first edit so user can undo back to it
-      if (!hasChanges && initialYamlRef.current && yamlContent !== value) {
-        pushUndoState(initialYamlRef.current);
+  const handleYamlChange = (value: string) => {
+    // Save the initial state on first edit so user can undo back to it
+    if (!hasChanges && initialYamlRef.current && yamlContent !== value) {
+      pushUndoState(initialYamlRef.current);
+    }
+
+    setYamlContent(value);
+    setHasChanges(true);
+
+    // Validate YAML on change and trigger live preview
+    try {
+      const parsed = safeYamlLoad(value) as Section;
+      setParseError(null);
+
+      // Trigger live preview if valid section
+      if (parsed && typeof parsed === "object" && onPreviewChange) {
+        onPreviewChange(parsed);
       }
-
-      setYamlContent(value);
-      setHasChanges(true);
-
-      // Validate YAML on change and trigger live preview
-      try {
-        const parsed = safeYamlLoad(value) as Section;
-        setParseError(null);
-
-        // Trigger live preview if valid section
-        if (parsed && typeof parsed === "object" && onPreviewChange) {
-          onPreviewChange(parsed);
-        }
-      } catch (error) {
-        if (error instanceof Error) {
-          setParseError(error.message);
-        }
+    } catch (error) {
+      if (error instanceof Error) {
+        setParseError(error.message);
       }
-    },
-    [onPreviewChange, hasChanges, yamlContent, pushUndoState],
-  );
+    }
+  };
 
   // Update a specific property in the YAML
-  const updateProperty = useCallback(
-    (key: string, value: string) => {
+  const updateProperty = (key: string, value: string) => {
       try {
         const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
         if (!parsed || typeof parsed !== "object") return;
@@ -1260,14 +1244,11 @@ export function SectionEditorPanel({
       } catch (error) {
         console.error("Error updating property:", error);
       }
-    },
-    [yamlContent, onPreviewChange, pushUndoState],
-  );
+  };
 
   // Update a property with a raw value (e.g. boolean) so YAML dumps natively (layout_reversed: true)
-  const updatePropertyWithValue = useCallback(
-    (key: string, value: unknown) => {
-      try {
+  const updatePropertyWithValue = (key: string, value: unknown) => {
+    try {
         const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
         if (!parsed || typeof parsed !== "object") return;
 
@@ -1331,14 +1312,11 @@ export function SectionEditorPanel({
       } catch (error) {
         console.error("Error updating property:", error);
       }
-    },
-    [yamlContent, onPreviewChange, pushUndoState],
-  );
+  };
 
   // Update an array property in the YAML (e.g., related_features)
   // For related_features, insert after title to maintain YAML structure
-  const updateArrayProperty = useCallback(
-    (key: string, value: string[]) => {
+  const updateArrayProperty = (key: string, value: string[]) => {
       try {
         const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
         if (!parsed || typeof parsed !== "object") return;
@@ -1417,13 +1395,10 @@ export function SectionEditorPanel({
       } catch (error) {
         console.error("Error updating array property:", error);
       }
-    },
-    [yamlContent, onPreviewChange, pushUndoState],
-  );
+  };
 
   // Update a specific field in an array item (supports nested paths like "signup_card.features")
-  const updateArrayItemField = useCallback(
-    (
+  const updateArrayItemField = (
       arrayPath: string,
       index: number,
       field: string,
@@ -1491,13 +1466,10 @@ export function SectionEditorPanel({
       } catch (error) {
         console.error("Error updating array item:", error);
       }
-    },
-    [yamlContent, onPreviewChange, pushUndoState],
-  );
+  };
 
   // Update multiple fields of an array item at once (avoids stale state issues)
-  const updateArrayItemFields = useCallback(
-    (arrayPath: string, index: number, updates: Record<string, string>) => {
+  const updateArrayItemFields = (arrayPath: string, index: number, updates: Record<string, string>) => {
       try {
         const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
         if (!parsed || typeof parsed !== "object") return;
@@ -1540,13 +1512,10 @@ export function SectionEditorPanel({
       } catch (error) {
         console.error("Error updating array item fields:", error);
       }
-    },
-    [yamlContent, onPreviewChange, pushUndoState],
-  );
+  };
 
   // Add a new item to an array field
-  const addArrayItem = useCallback(
-    (arrayPath: string, defaultItem: Record<string, unknown>) => {
+  const addArrayItem = (arrayPath: string, defaultItem: Record<string, unknown>) => {
       try {
         const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
         if (!parsed || typeof parsed !== "object") return;
@@ -1595,13 +1564,10 @@ export function SectionEditorPanel({
       } catch (error) {
         console.error("Error adding array item:", error);
       }
-    },
-    [yamlContent, onPreviewChange, pushUndoState],
-  );
+  };
 
   // Remove an item from an array field
-  const removeArrayItem = useCallback(
-    (arrayPath: string, indexToRemove: number) => {
+  const removeArrayItem = (arrayPath: string, indexToRemove: number) => {
       try {
         const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
         if (!parsed || typeof parsed !== "object") return;
@@ -1647,13 +1613,10 @@ export function SectionEditorPanel({
       } catch (error) {
         console.error("Error removing array item:", error);
       }
-    },
-    [yamlContent, onPreviewChange, pushUndoState],
-  );
+  };
 
   // Replace an entire array field
-  const updateArrayField = useCallback(
-    (arrayPath: string, newArray: Record<string, unknown>[]) => {
+  const updateArrayField = (arrayPath: string, newArray: Record<string, unknown>[]) => {
       try {
         const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
         if (!parsed || typeof parsed !== "object") return;
@@ -1699,9 +1662,7 @@ export function SectionEditorPanel({
       } catch (error) {
         console.error("Error updating array field:", error);
       }
-    },
-    [yamlContent, onPreviewChange, pushUndoState],
-  );
+  };
 
   // Get configured field editors from the component registry API
   const sectionType = (section as { type: string }).type || "";
@@ -1721,7 +1682,7 @@ export function SectionEditorPanel({
   });
 
   // Get configured fields for current section type, filtering by variant
-  const configuredFields = useMemo(() => {
+  const configuredFields = (() => {
     const rawFields = allFieldEditors?.[sectionType] || {};
     const result: Record<string, EditorType> = {};
 
@@ -1747,10 +1708,10 @@ export function SectionEditorPanel({
     }
 
     return result;
-  }, [allFieldEditors, sectionType, parsedSection?.variant]);
+  })();
 
   // Render icon from name using shared icon utility
-  const renderIconByName = useCallback((iconName: string) => {
+  const renderIconByName = (iconName: string) => {
     if (!iconName) {
       return <HelpCircle className="h-5 w-5 text-muted-foreground" />;
     }
@@ -1759,30 +1720,27 @@ export function SectionEditorPanel({
       return <HelpCircle className="h-5 w-5 text-muted-foreground" />;
     }
     return <IconComponent className="h-5 w-5" />;
-  }, []);
+  };
 
   // Handle icon picker selection
-  const handleIconSelect = useCallback(
-    (iconName: string) => {
-      if (nestedUpdateFn) {
-        nestedUpdateFn(iconName);
-        setNestedUpdateFn(null);
-        setIconPickerTarget(null);
-      } else if (iconPickerTarget) {
-        updateArrayItemField(
-          iconPickerTarget.arrayField,
-          iconPickerTarget.index,
-          iconPickerTarget.field,
-          iconName,
-        );
-        setIconPickerTarget(null);
-      }
-    },
-    [iconPickerTarget, nestedUpdateFn, updateArrayItemField],
-  );
+  const handleIconSelect = (iconName: string) => {
+    if (nestedUpdateFn) {
+      nestedUpdateFn(iconName);
+      setNestedUpdateFn(null);
+      setIconPickerTarget(null);
+    } else if (iconPickerTarget) {
+      updateArrayItemField(
+        iconPickerTarget.arrayField,
+        iconPickerTarget.index,
+        iconPickerTarget.field,
+        iconName,
+      );
+      setIconPickerTarget(null);
+    }
+  };
 
   // Shared save logic - returns true on success
-  const saveToServer = useCallback(async (): Promise<{
+  const saveToServer = async (): Promise<{
     success: boolean;
     warning?: string;
   }> => {
@@ -1863,21 +1821,10 @@ export function SectionEditorPanel({
     } finally {
       setIsSaving(false);
     }
-  }, [
-    yamlContent,
-    sectionIndex,
-    contentType,
-    slug,
-    locale,
-    variant,
-    version,
-    onUpdate,
-    pageHistory,
-    allSections,
-  ]);
+  };
 
   // Save without closing editor
-  const executeSave = useCallback(async () => {
+  const executeSave = async () => {
     const result = await saveToServer();
     if (result && result.success) {
       if (result.warning) {
@@ -1893,10 +1840,10 @@ export function SectionEditorPanel({
         });
       }
     }
-  }, [saveToServer, toast]);
+  };
 
   // Save section only for this specific DB entry (per-entry override)
-  const savePerEntryOnly = useCallback(async () => {
+  const savePerEntryOnly = async () => {
     if (!contentType || !slug || !locale) return;
     setScopeDialogOpen(false);
     let parsed: Section;
@@ -1946,9 +1893,9 @@ export function SectionEditorPanel({
     } finally {
       setIsSaving(false);
     }
-  }, [contentType, slug, locale, sectionIndex, yamlContent, onUpdate, pageHistory, allSections, toast]);
+  };
 
-  const handleSave = useCallback(async () => {
+  const handleSave = async () => {
     const isPerEntrySection = !!(section as Record<string, unknown>)._perEntrySource;
     if (isSharedTemplate && singleEntry && !isPerEntrySection) {
       // On a DB entry page with a shared-template section: ask scope first.
@@ -1962,10 +1909,10 @@ export function SectionEditorPanel({
       return;
     }
     await executeSave();
-  }, [boundSiblings.length, executeSave, isSharedTemplate, singleEntry, section]);
+  };
 
   // Handle close with unsaved changes warning
-  const handleClose = useCallback(() => {
+  const handleClose = () => {
     if (hasChanges) {
       const confirmed = window.confirm(
         "You have unsaved changes. Are you sure you want to close without saving?",
@@ -1977,7 +1924,7 @@ export function SectionEditorPanel({
       onPreviewChange(null);
     }
     onClose();
-  }, [hasChanges, onClose, onPreviewChange]);
+  };
 
   const STORAGE_KEY = "section-editor-width";
   const DEFAULT_WIDTH = 480;
@@ -2005,7 +1952,7 @@ export function SectionEditorPanel({
     } catch {}
   }, [panelWidth]);
 
-  const handleDragStart = useCallback((e: React.MouseEvent) => {
+  const handleDragStart = (e: React.MouseEvent) => {
     e.preventDefault();
     isDraggingRef.current = true;
     dragStartXRef.current = e.clientX;
@@ -2029,7 +1976,7 @@ export function SectionEditorPanel({
     };
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
-  }, [panelWidth]);
+  };
 
   return (
     <div

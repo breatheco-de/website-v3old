@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { ChevronLeft, ChevronRight, Github, Linkedin } from "lucide-react";
 import type { ProjectShowcaseSection, ProjectsShowcaseSection, ProjectShowcaseItem } from "@shared/schema";
 import { Button } from "@/components/ui/button";
@@ -29,13 +29,13 @@ function SingleProjectShowcase({ item, background = "bg-background", alternateBa
   const mediaItems = media || [];
   const hasCarousel = mediaItems.length > 1;
 
-  const goToPrevious = useCallback(() => {
+  const goToPrevious = () => {
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : mediaItems.length - 1));
-  }, [mediaItems.length]);
+  };
 
-  const goToNext = useCallback(() => {
+  const goToNext = () => {
     setCurrentIndex((prev) => (prev < mediaItems.length - 1 ? prev + 1 : 0));
-  }, [mediaItems.length]);
+  };
 
   const bgClass = alternateBackground ? "bg-muted" : background;
 

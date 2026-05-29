@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { FileCode, List, Maximize2, Minimize2, Pencil, Save, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -58,14 +58,11 @@ export function MarkdownEditorField({
 }: MarkdownEditorFieldProps) {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const tocItems = useMemo(() => extractTocFromMarkdown(value), [value]);
+  const tocItems = extractTocFromMarkdown(value);
   const charCount = value.length;
   const wordCount = value.trim() ? value.trim().split(/\s+/).length : 0;
 
-  const previewLines = useMemo(() => {
-    const lines = value.split("\n").filter((l) => l.trim().length > 0);
-    return lines.slice(0, 6);
-  }, [value]);
+  const previewLines = value.split("\n").filter((l) => l.trim().length > 0).slice(0, 6);
 
   return (
     <>
@@ -186,45 +183,39 @@ function MarkdownEditorModal({
     }
   }, [open]);
 
-  const handleSave = useCallback(() => {
+  const handleSave = () => {
     onChange(draft);
     onOpenChange(false);
-  }, [draft, onChange, onOpenChange]);
+  };
 
-  const handleCancel = useCallback(() => {
+  const handleCancel = () => {
     onOpenChange(false);
-  }, [onOpenChange]);
+  };
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "s") {
-        e.preventDefault();
-        handleSave();
-      }
-      if (e.key === "Escape") {
-        e.preventDefault();
-        handleCancel();
-      }
-    },
-    [handleSave, handleCancel]
-  );
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === "s") {
+      e.preventDefault();
+      handleSave();
+    }
+    if (e.key === "Escape") {
+      e.preventDefault();
+      handleCancel();
+    }
+  };
 
-  const handleTabKey = useCallback(
-    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      if (e.key === "Tab") {
-        e.preventDefault();
-        const textarea = e.currentTarget;
-        const start = textarea.selectionStart;
-        const end = textarea.selectionEnd;
-        const newValue = draft.substring(0, start) + "  " + draft.substring(end);
-        setDraft(newValue);
-        requestAnimationFrame(() => {
-          textarea.selectionStart = textarea.selectionEnd = start + 2;
-        });
-      }
-    },
-    [draft]
-  );
+  const handleTabKey = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Tab") {
+      e.preventDefault();
+      const textarea = e.currentTarget;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const newValue = draft.substring(0, start) + "  " + draft.substring(end);
+      setDraft(newValue);
+      requestAnimationFrame(() => {
+        textarea.selectionStart = textarea.selectionEnd = start + 2;
+      });
+    }
+  };
 
   const charCount = draft.length;
   const wordCount = draft.trim() ? draft.trim().split(/\s+/).length : 0;

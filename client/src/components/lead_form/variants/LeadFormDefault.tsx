@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Check, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -322,7 +322,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
     queryKey: ["/api/form-options", locale],
   });
 
-  const landingRegions = useMemo(() => {
+  const landingRegions = (() => {
     if (!hasLandingLocations || !formOptions?.locations) return null;
     const regionSlugs = new Set<string>();
     for (const locSlug of landingLocations!) {
@@ -330,7 +330,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
       if (found) regionSlugs.add(found.region);
     }
     return regionSlugs.size > 0 ? Array.from(regionSlugs) : null;
-  }, [hasLandingLocations, landingLocations, formOptions?.locations]);
+  })();
 
   const singleLandingRegion = landingRegions && landingRegions.length === 1 ? landingRegions[0] : null;
   const multipleLandingRegions = landingRegions && landingRegions.length > 1 ? landingRegions : null;
@@ -391,7 +391,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
   };
 
   const programFieldSlugs = getFieldConfig("program").slugs;
-  const visiblePrograms = useMemo(() => {
+  const visiblePrograms = (() => {
     if (!formOptions?.programs) return [];
     // An empty slugs array is treated the same as "not configured" — show all programs.
     // This avoids an empty dropdown when slugs is accidentally set to [].
@@ -399,7 +399,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
     return programFieldSlugs
       .map(slug => formOptions.programs.find(p => p.slug === slug || p.bc_slug === slug))
       .filter((p): p is NonNullable<typeof p> => p !== undefined);
-  }, [formOptions?.programs, programFieldSlugs]);
+  })();
 
   const form = useForm<FormValues>({
     defaultValues: {

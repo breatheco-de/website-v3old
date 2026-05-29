@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef, lazy, Suspense, useMemo } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { AlertTriangle, ArrowDown, ArrowLeftRight, ArrowUp, Check, ChevronLeft, ChevronRight, Clock3, Code, Copy, Eye, History, Link, Loader2, Monitor, MoreVertical, Pencil, Smartphone, Space, Sparkles, Trash2, Unlink, X } from "lucide-react";
 import { IconPin, IconEdit, IconArrowBackUp } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
@@ -408,11 +408,11 @@ export function EditableSection({ children, section, index, sectionType, content
     enabled: !!editMode?.isEditMode,
   });
 
-  const brokenImageIds = useMemo(() => {
+  const brokenImageIds = (() => {
     if (!imageRegistry?.images) return [];
     const ids = collectImageIds(section);
     return Array.from(new Set(ids.filter(id => !(id in imageRegistry.images))));
-  }, [section, imageRegistry]);
+  })();
   const boundSiblingCount = isBound ? (bindingData.group!.members.length - 1) : 0;
   const boundSiblings = (bindingData?.group?.members ?? [])
     .filter((m) => {
@@ -431,9 +431,7 @@ export function EditableSection({ children, section, index, sectionType, content
   const selectedVariant = variants[selectedVariantIndex] || "";
   
   // Get examples for the currently selected variant
-  const examplesForCurrentVariant = useMemo(() => {
-    return examplesWithVariants.filter(e => e.variant === selectedVariant);
-  }, [examplesWithVariants, selectedVariant]);
+  const examplesForCurrentVariant = examplesWithVariants.filter(e => e.variant === selectedVariant);
   
   const currentExample = examplesForCurrentVariant[selectedExampleIndex] || null;
 
@@ -567,7 +565,7 @@ export function EditableSection({ children, section, index, sectionType, content
   }, [swapPopoverOpen, sectionType, currentExample]);
 
   // Cycle through variants
-  const cycleVariant = useCallback((direction: number) => {
+  const cycleVariant = (direction: number) => {
     if (variants.length === 0) return;
     setSelectedVariantIndex(prev => {
       let next = prev + direction;
@@ -575,10 +573,10 @@ export function EditableSection({ children, section, index, sectionType, content
       if (next >= variants.length) next = 0;
       return next;
     });
-  }, [variants.length]);
+  };
 
   // Cycle through examples within current variant
-  const cycleExample = useCallback((direction: number) => {
+  const cycleExample = (direction: number) => {
     if (examplesForCurrentVariant.length <= 1) return;
     setSelectedExampleIndex(prev => {
       let next = prev + direction;
@@ -586,10 +584,10 @@ export function EditableSection({ children, section, index, sectionType, content
       if (next >= examplesForCurrentVariant.length) next = 0;
       return next;
     });
-  }, [examplesForCurrentVariant.length]);
+  };
 
   // Handle AI adaptation of the selected variant
-  const handleAdaptWithAI = useCallback(async () => {
+  const handleAdaptWithAI = async () => {
     if (!currentExample?.yaml || !contentType || !slug || !sectionType) return;
     
     setIsAdapting(true);
@@ -655,9 +653,9 @@ export function EditableSection({ children, section, index, sectionType, content
     } finally {
       setIsAdapting(false);
     }
-  }, [currentExample, contentType, slug, sectionType, selectedVersion, toast]);
+  };
 
-  const executeSwap = useCallback(async (sectionToSave: Section) => {
+  const executeSwap = async (sectionToSave: Section) => {
     if (!contentType || !slug) return;
     setIsConfirming(true);
     try {
@@ -696,9 +694,9 @@ export function EditableSection({ children, section, index, sectionType, content
     } finally {
       setIsConfirming(false);
     }
-  }, [contentType, slug, locale, index, isSharedTemplate, toast]);
+  };
 
-  const handleConfirmSwap = useCallback(async () => {
+  const handleConfirmSwap = async () => {
     const sectionToSave = hasAdapted && adaptedSection ? adaptedSection : previewSection;
     if (!sectionToSave || !contentType || !slug) return;
 
@@ -709,10 +707,10 @@ export function EditableSection({ children, section, index, sectionType, content
     }
 
     await executeSwap(sectionToSave);
-  }, [previewSection, adaptedSection, hasAdapted, contentType, slug, isSharedTemplate, executeSwap]);
+  };
   
   // Open review code modal with adapted section YAML
-  const handleOpenReviewCode = useCallback(() => {
+  const handleOpenReviewCode = () => {
     if (!adaptedSection) return;
     // Convert adapted section to YAML for editing
     const { type, ...sectionData } = adaptedSection as Record<string, unknown>;
@@ -720,10 +718,10 @@ export function EditableSection({ children, section, index, sectionType, content
     setReviewCodeYaml(yamlStr);
     setReviewCodeError(null); // Clear any previous errors
     setShowReviewCodeModal(true);
-  }, [adaptedSection]);
+  };
   
   // Core AI apply logic — parse reviewed YAML and save
-  const executeAIApply = useCallback(async () => {
+  const executeAIApply = async () => {
     if (!contentType || !slug) return;
     setIsConfirming(true);
     setReviewCodeError(null);
@@ -789,10 +787,10 @@ export function EditableSection({ children, section, index, sectionType, content
     } finally {
       setIsConfirming(false);
     }
-  }, [reviewCodeYaml, sectionType, contentType, slug, locale, index, isSharedTemplate, toast, pageHistory]);
+  };
 
   // Apply changes from the review code modal — gates through DB template warning (if shared), then binding confirm if bound
-  const handleApplyReviewedCode = useCallback(async () => {
+  const handleApplyReviewedCode = async () => {
     if (!contentType || !slug) return;
 
     const doApply = async () => {
@@ -811,9 +809,9 @@ export function EditableSection({ children, section, index, sectionType, content
     }
 
     await doApply();
-  }, [contentType, slug, isSharedTemplate, isBound, boundSiblings.length, executeAIApply]);
+  };
   
-  const handleXSpacingOpen = useCallback((open: boolean) => {
+  const handleXSpacingOpen = (open: boolean) => {
     setXSpacingOpen(open);
     if (open) {
       const pad = parseXSpacing((currentSection as SectionLayout).paddingX);
@@ -825,9 +823,9 @@ export function EditableSection({ children, section, index, sectionType, content
       setPadLinked(pad.desktop.left === pad.desktop.right);
       setMarLinked(mar.desktop.left === mar.desktop.right);
     }
-  }, [currentSection]);
+  };
 
-  const updateXValue = useCallback((
+  const updateXValue = (
     setter: React.Dispatch<React.SetStateAction<XSpacingValues>>,
     breakpoint: XBreakpoint,
     pos: "left" | "right",
@@ -839,9 +837,9 @@ export function EditableSection({ children, section, index, sectionType, content
       }
       return { ...prev, mobile: { ...prev.mobile, [pos]: value } };
     });
-  }, []);
+  };
 
-  const updateXBoth = useCallback((
+  const updateXBoth = (
     setter: React.Dispatch<React.SetStateAction<XSpacingValues>>,
     breakpoint: XBreakpoint,
     value: string
@@ -852,18 +850,18 @@ export function EditableSection({ children, section, index, sectionType, content
       }
       return { ...prev, mobile: { left: value, right: value } };
     });
-  }, []);
+  };
 
-  const toXResponsiveSpacing = useCallback((values: XSpacingValues): ResponsiveSpacing => {
+  const toXResponsiveSpacing = (values: XSpacingValues): ResponsiveSpacing => {
     const desktopStr = combineLR(values.desktop.left, values.desktop.right);
     const mobileStr = combineLR(values.mobile.left, values.mobile.right);
     if (mobileStr === "none") {
       return { desktop: desktopStr };
     }
     return { mobile: mobileStr, desktop: desktopStr };
-  }, []);
+  };
 
-  const handleApplyXSpacing = useCallback(async () => {
+  const handleApplyXSpacing = async () => {
     if (!contentType || !slug || !locale) return;
     setXSaving(true);
     try {
@@ -919,9 +917,9 @@ export function EditableSection({ children, section, index, sectionType, content
     } finally {
       setXSaving(false);
     }
-  }, [contentType, slug, locale, index, currentSection, xPadding, xMargin, xMaxWidth, toXResponsiveSpacing, toast]);
+  };
 
-  const handleResetPatch = useCallback(async () => {
+  const handleResetPatch = async () => {
     if (!contentType || !slug || !locale) return;
     const sectionId = typeof (section as Record<string, unknown>).id === "string"
       ? (section as Record<string, unknown>).id as string
@@ -950,18 +948,18 @@ export function EditableSection({ children, section, index, sectionType, content
     } finally {
       setIsResettingPatch(false);
     }
-  }, [contentType, slug, locale, section, toast]);
+  };
 
-  const handleOpenEditor = useCallback((e: React.MouseEvent) => {
+  const handleOpenEditor = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsEditorOpen(true);
-  }, []);
+  };
   
-  const handleCloseEditor = useCallback(() => {
+  const handleCloseEditor = () => {
     setIsEditorOpen(false);
-  }, []);
+  };
 
-  const handleXDefaultConfirm = useCallback(async () => {
+  const handleXDefaultConfirm = async () => {
     if (!xDefaultConfirmData || !contentType) return;
     try {
       await fetch(`/api/content-type/${contentType}/single-defaults`, {
@@ -976,12 +974,12 @@ export function EditableSection({ children, section, index, sectionType, content
     } catch {}
     setXDefaultConfirmOpen(false);
     setXDefaultConfirmData(null);
-  }, [xDefaultConfirmData, contentType, toast]);
+  };
 
-  const handleUpdate = useCallback((updatedSection: Section) => {
+  const handleUpdate = (updatedSection: Section) => {
     setCurrentSection(updatedSection);
     setWasLocallyUpdated(true);
-  }, []);
+  };
   
   const renderedContent = wasLocallyUpdated ? renderSection(currentSection, index) : children;
 

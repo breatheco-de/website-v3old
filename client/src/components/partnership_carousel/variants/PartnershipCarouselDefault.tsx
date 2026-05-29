@@ -1,5 +1,5 @@
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { UniversalImage } from "@/components/UniversalImage";
 import { Button } from "@/components/ui/button";
@@ -170,24 +170,15 @@ export default function PartnershipCarouselDefault({ data }: PartnershipCarousel
     return () => observer.disconnect();
   }, [slides]);
 
-  const goTo = useCallback(
-    (index: number) => {
-      if (isTransitioning) return;
-      setIsTransitioning(true);
-      setActiveIndex(((index % totalSlides) + totalSlides) % totalSlides);
-      setTimeout(() => setIsTransitioning(false), 400);
-    },
-    [totalSlides, isTransitioning],
-  );
+  const goTo = (index: number) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setActiveIndex(((index % totalSlides) + totalSlides) % totalSlides);
+    setTimeout(() => setIsTransitioning(false), 400);
+  };
 
-  const goToPrevious = useCallback(
-    () => goTo(activeIndex - 1),
-    [activeIndex, goTo],
-  );
-  const goToNext = useCallback(
-    () => goTo(activeIndex + 1),
-    [activeIndex, goTo],
-  );
+  const goToPrevious = () => goTo(activeIndex - 1);
+  const goToNext = () => goTo(activeIndex + 1);
 
   useEffect(() => {
     if (!autoplay || totalSlides <= 1) return;
@@ -206,12 +197,12 @@ export default function PartnershipCarouselDefault({ data }: PartnershipCarousel
     };
   }, [autoplay, autoplay_interval, totalSlides]);
 
-  const handlePause = useCallback(() => {
+  const handlePause = () => {
     isPausedRef.current = true;
-  }, []);
-  const handleResume = useCallback(() => {
+  };
+  const handleResume = () => {
     isPausedRef.current = false;
-  }, []);
+  };
 
   const currentSlide = slides[activeIndex];
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ArrowLeft, RefreshCw } from "lucide-react";
 import { useSearch, useParams } from "wouter";
 import jsYaml from "js-yaml";
@@ -35,12 +35,12 @@ export default function ComponentPreview() {
   const [isStandalone, setIsStandalone] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const reportHeight = useCallback(() => {
+  const reportHeight = () => {
     if (containerRef.current && window.parent !== window) {
       const height = containerRef.current.scrollHeight;
       window.parent.postMessage({ type: 'preview-height', height }, '*');
     }
-  }, []);
+  };
 
   useEffect(() => {
     const isInIframe = window.parent !== window;

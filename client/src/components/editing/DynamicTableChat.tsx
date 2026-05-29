@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Loader2, RefreshCw, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -98,11 +98,11 @@ export function DynamicTableChat({
     title: currentTitle,
   });
 
-  const scrollToBottom = useCallback(() => {
+  const scrollToBottom = () => {
     setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
-  }, []);
+  };
 
-  const fetchData = useCallback(async () => {
+  const fetchData = async () => {
     if (!endpoint) return;
     setDataLoading(true);
     setError(null);
@@ -137,7 +137,7 @@ export function DynamicTableChat({
     } finally {
       setDataLoading(false);
     }
-  }, [endpoint, dataPath]);
+  };
 
   const prevEndpointRef = useRef(endpoint);
   useEffect(() => {
@@ -155,13 +155,14 @@ export function DynamicTableChat({
     if (!dataLoaded && endpoint) {
       fetchData();
     }
-  }, [endpoint, dataLoaded, fetchData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [endpoint, dataLoaded]);
 
   useEffect(() => {
     setActiveConfig({ columns: currentColumns, title: currentTitle });
   }, [currentColumns, currentTitle]);
 
-  const handleSend = useCallback(async () => {
+  const handleSend = async () => {
     if (!input.trim() || sending || !dataLoaded) return;
 
     const userMsg: ChatMessage = { role: "user", content: input };
@@ -195,7 +196,7 @@ export function DynamicTableChat({
     } finally {
       setSending(false);
     }
-  }, [input, sending, dataLoaded, messages, activeConfig, dataArray, availableKeys, locale, onApplyConfig, scrollToBottom]);
+  };
 
   if (dataLoading) {
     return (

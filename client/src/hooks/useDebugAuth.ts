@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, createContext, useContext, createElement, type ReactNode } from "react";
+import { useState, useEffect, createContext, useContext, createElement, type ReactNode } from "react";
 import { setAuthToken } from "@/lib/sessionHeaders";
 
 const DEBUG_SESSION_KEY = "debug_validated";
@@ -162,7 +162,7 @@ export function DebugAuthProvider({ children }: { children: ReactNode }) {
   const isDevelopment = import.meta.env.DEV;
   const isDebugMode = isDebugModeActive();
 
-  const validateToken = useCallback(async (skipCache = false) => {
+  const validateToken = async (skipCache = false) => {
     const urlParams = new URLSearchParams(window.location.search);
     const urlToken = urlParams.get("token");
     
@@ -269,17 +269,17 @@ export function DebugAuthProvider({ children }: { children: ReactNode }) {
     }
 
     setIsLoading(false);
-  }, []);
+  };
 
   useEffect(() => {
     validateToken(false);
-  }, [validateToken]);
+  }, []);
 
-  const retryValidation = useCallback(() => {
+  const retryValidation = () => {
     return validateToken(true);
-  }, [validateToken]);
+  };
 
-  const validateManualToken = useCallback(async (manualToken: string) => {
+  const validateManualToken = async (manualToken: string) => {
     if (!manualToken.trim()) return;
     
     setHasToken(true);
@@ -331,9 +331,9 @@ export function DebugAuthProvider({ children }: { children: ReactNode }) {
     }
 
     setIsLoading(false);
-  }, []);
+  };
 
-  const checkSession = useCallback(async (): Promise<{ valid: boolean; expired?: boolean; networkError?: boolean }> => {
+  const checkSession = async (): Promise<{ valid: boolean; expired?: boolean; networkError?: boolean }> => {
     const cachedToken = localStorage.getItem(DEBUG_TOKEN_KEY);
     
     if (!cachedToken) {
@@ -375,9 +375,9 @@ export function DebugAuthProvider({ children }: { children: ReactNode }) {
       console.error("Session check error:", error);
       return { valid: false, networkError: true };
     }
-  }, []);
+  };
 
-  const clearToken = useCallback(() => {
+  const clearToken = () => {
     localStorage.removeItem(DEBUG_SESSION_KEY);
     localStorage.removeItem(DEBUG_SESSION_EXPIRY_KEY);
     localStorage.removeItem(DEBUG_TOKEN_KEY);
@@ -387,11 +387,11 @@ export function DebugAuthProvider({ children }: { children: ReactNode }) {
     setHasToken(false);
     setIsValidated(false);
     setCapabilities(DEFAULT_CAPABILITIES);
-  }, []);
+  };
 
-  const hasCapability = useCallback((capability: string, contentType?: string): boolean => {
+  const hasCapability = (capability: string, contentType?: string): boolean => {
     return grantHasCapability(capabilities, capability, contentType);
-  }, [capabilities]);
+  };
 
   const canEdit = grantHasCapability(capabilities, "content_edit_text") ||
                   grantHasCapability(capabilities, "content_edit_structure") ||

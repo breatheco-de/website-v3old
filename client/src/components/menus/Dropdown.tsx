@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect as _useLayoutEffect, useCallback, useEffect } from "react";
+import { useState, useRef, useLayoutEffect as _useLayoutEffect, useEffect } from "react";
 import { ChevronDown, ChevronRight, Code, BarChart3, Shield, Brain, Medal, GraduationCap, Building } from "lucide-react";
 import { InternalLink } from "@/components/InternalLink";
 
@@ -353,7 +353,7 @@ export function Dropdown({ label, href, dropdown, controlledOpen, onOpenChange }
     }
   };
 
-  const positionPanel = useCallback(() => {
+  const positionPanel = () => {
     const trigger = triggerRef.current;
     const panel = panelRef.current;
     if (!trigger || !panel) return;
@@ -378,7 +378,7 @@ export function Dropdown({ label, href, dropdown, controlledOpen, onOpenChange }
 
     const relativeLeft = idealLeft - triggerRect.left;
     panel.style.left = `${relativeLeft}px`;
-  }, [dropdown.type, isWideDropdown]);
+  };
 
   useLayoutEffect(() => {
     if (!isOpen) return;
@@ -386,11 +386,11 @@ export function Dropdown({ label, href, dropdown, controlledOpen, onOpenChange }
 
     window.addEventListener("resize", positionPanel);
     return () => window.removeEventListener("resize", positionPanel);
-  }, [isOpen, positionPanel]);
+  }, [isOpen]);
   
-  const closeOnNavigate = useCallback(() => {
+  const closeOnNavigate = () => {
     setIsOpen(false);
-  }, [setIsOpen]);
+  };
 
   const renderDropdownContent = () => {
     switch (dropdown.type) {

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo } from "react";
+import { useEffect, useRef } from "react";
 
 interface WorkflowAnimationProps {
   className?: string;
@@ -38,13 +38,10 @@ export function WorkflowAnimation({ className = "" }: WorkflowAnimationProps) {
   const particlesRef = useRef<Particle[]>([]);
   const timeRef = useRef(0);
 
-  const prefersReducedMotion = useMemo(() => {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  }, []);
+  const prefersReducedMotion = typeof window === "undefined" ? false : window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // Define workflow nodes
-  const nodes: Node[] = useMemo(() => [
+  const nodes: Node[] = [
     { x: 0.08, y: 0.5, label: "Rigobot", icon: "R", size: 28 },
     { x: 0.25, y: 0.25, label: "OpenAI", icon: "◆", size: 20 },
     { x: 0.25, y: 0.75, label: "Python", icon: "Py", size: 20 },
@@ -53,16 +50,16 @@ export function WorkflowAnimation({ className = "" }: WorkflowAnimationProps) {
     { x: 0.75, y: 0.25, label: "Git", icon: "◇", size: 20 },
     { x: 0.75, y: 0.75, label: "GitHub", icon: "◉", size: 20 },
     { x: 0.92, y: 0.5, label: "Output", icon: "→", size: 24 },
-  ], []);
+  ];
 
   // Define paths between nodes (from index to index)
-  const paths = useMemo(() => [
+  const paths = [
     [0, 1], [0, 2],
     [1, 3], [2, 4],
     [3, 5], [4, 6],
     [3, 4],
     [5, 7], [6, 7],
-  ], []);
+  ];
 
   useEffect(() => {
     const canvas = canvasRef.current;

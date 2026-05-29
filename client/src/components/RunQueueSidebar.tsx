@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { ChevronDown, ChevronRight, Search, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -63,10 +63,7 @@ export default function RunQueueSidebar({ open, onOpenChange, runs, onClearRuns 
   const [searchOpen, setSearchOpen] = useState<Record<string, boolean>>({});
   const [searchText, setSearchText] = useState<Record<string, string>>({});
 
-  const orderedRuns = useMemo(
-    () => [...runs].sort((a, b) => b.startedAt - a.startedAt),
-    [runs],
-  );
+  const orderedRuns = [...runs].sort((a, b) => b.startedAt - a.startedAt);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>

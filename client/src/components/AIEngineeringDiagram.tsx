@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Brain, Cloud, Database, LayoutGrid, ScatterChart } from "lucide-react";
 
 interface DiagramNode {
@@ -47,16 +47,13 @@ const nodes: DiagramNode[] = [
 export function AIEngineeringDiagram({ className = "" }: AIEngineeringDiagramProps) {
   const [activeNode, setActiveNode] = useState<string | null>(null);
   
-  const prefersReducedMotion = useMemo(() => {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  }, []);
+  const prefersReducedMotion = typeof window === "undefined" ? false : window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const activeDescription = useMemo(() => {
+  const activeDescription = (() => {
     if (!activeNode) return "AI Engineering connects models, data, infrastructure, and applications into intelligent systems.";
     const node = nodes.find(n => n.id === activeNode);
     return node?.description || "";
-  }, [activeNode]);
+  })();
 
   return (
     <div className={`relative ${className}`} data-testid="ai-engineering-diagram">

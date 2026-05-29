@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { MessageCircle, X } from "lucide-react";
 import { useLocation } from "wouter";
 import { ChatPanel } from "@/components/ChatPanel";
@@ -60,7 +60,7 @@ export function ChatWidget() {
       .catch(() => setConfig({ enabled: false, page_patterns: [], content_types: [] }));
   }, []);
 
-  const shouldShow = useCallback(() => {
+  const shouldShow = () => {
     if (!config?.enabled) return false;
     if (pathname.startsWith("/private/")) return false;
 
@@ -89,7 +89,7 @@ export function ChatWidget() {
     }
 
     return matchesPattern || matchesContentType;
-  }, [config, pathname]);
+  };
 
   const startConversation = async () => {
     if (conversationId || isStarting) return;

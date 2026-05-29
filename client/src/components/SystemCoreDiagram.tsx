@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getTechBrandIcon } from "@/lib/tech-brand-icons";
 
 interface SystemCoreDiagramProps {
@@ -39,10 +39,7 @@ export function SystemCoreDiagram({ className = "" }: SystemCoreDiagramProps) {
   const animationRef = useRef<number>();
   const timeRef = useRef(0);
   
-  const prefersReducedMotion = useMemo(() => {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  }, []);
+  const prefersReducedMotion = typeof window === "undefined" ? false : window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // Initialize particles
   useEffect(() => {

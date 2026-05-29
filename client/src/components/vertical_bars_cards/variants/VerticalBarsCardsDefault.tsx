@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 
 interface YearValue {
@@ -53,7 +53,7 @@ export function VerticalBarsCards({ data }: VerticalBarsCardsProps) {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // Measure card positions relative to grid container
-  const measureCards = useCallback(() => {
+  const measureCards = () => {
     if (!gridRef.current) return;
     
     const gridRect = gridRef.current.getBoundingClientRect();
@@ -71,14 +71,14 @@ export function VerticalBarsCards({ data }: VerticalBarsCardsProps) {
     });
     
     setCardRects(rects);
-  }, []);
+  };
 
   // Measure on mount and resize
   useEffect(() => {
     measureCards();
     window.addEventListener("resize", measureCards);
     return () => window.removeEventListener("resize", measureCards);
-  }, [measureCards, data.metrics.length]);
+  }, [data.metrics.length]);
 
   // Re-measure after initial render
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AlertTriangle, ArrowLeft, Blocks, ChevronDown, ChevronUp, FileInput, LayoutGrid, Link, Moon, Palette, Plus, Save, Search, Sun, Trash2, Undo2 } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, apiRequestWithAuth, queryClient } from "@/lib/queryClient";
@@ -598,39 +598,39 @@ interface PaletteAccordionProps {
 }
 
 function PaletteAccordion({ palette, label, entries, knownCssVars, previewMode, onChange }: PaletteAccordionProps) {
-  const handleEntryChange = useCallback((index: number, updated: PaletteEntry) => {
+  const handleEntryChange = (index: number, updated: PaletteEntry) => {
     const next = [...entries];
     next[index] = updated;
     onChange(palette, next);
-  }, [entries, onChange, palette]);
+  };
 
-  const handleDelete = useCallback((index: number) => {
+  const handleDelete = (index: number) => {
     const next = entries.filter((_, i) => i !== index);
     onChange(palette, next);
-  }, [entries, onChange, palette]);
+  };
 
-  const handleMoveUp = useCallback((index: number) => {
+  const handleMoveUp = (index: number) => {
     if (index === 0) return;
     const next = [...entries];
     [next[index - 1], next[index]] = [next[index], next[index - 1]];
     onChange(palette, next);
-  }, [entries, onChange, palette]);
+  };
 
-  const handleMoveDown = useCallback((index: number) => {
+  const handleMoveDown = (index: number) => {
     if (index >= entries.length - 1) return;
     const next = [...entries];
     [next[index], next[index + 1]] = [next[index + 1], next[index]];
     onChange(palette, next);
-  }, [entries, onChange, palette]);
+  };
 
-  const handleAdd = useCallback(() => {
+  const handleAdd = () => {
     const newEntry: PaletteEntry = {
       id: `entry-${Date.now()}`,
       label: "New entry",
       cssVar: "--primary",
     };
     onChange(palette, [...entries, newEntry]);
-  }, [entries, onChange, palette]);
+  };
 
   return (
     <AccordionItem value={palette} data-testid={`palette-accordion-${palette}`}>
@@ -695,7 +695,7 @@ function getGroupTag(molecule: MoleculeDefinition): string {
 }
 
 function AtomGroups({ molecules }: { molecules: MoleculeDefinition[] }) {
-  const grouped = useMemo(() => {
+  const grouped = (() => {
     const map: Record<string, MoleculeDefinition[]> = {};
     for (const m of molecules) {
       const tag = getGroupTag(m);
@@ -703,7 +703,7 @@ function AtomGroups({ molecules }: { molecules: MoleculeDefinition[] }) {
       map[tag].push(m);
     }
     return map;
-  }, [molecules]);
+  })();
 
   return (
     <div className="space-y-8">
@@ -804,15 +804,11 @@ function ImportExampleDialog({ open, onClose, registryData, onImport, previewMod
   const [saving, setSaving] = useState(false);
   const [previewKey, setPreviewKey] = useState(0);
 
-  const registryVersionForType = useCallback(
-    (type: string) => registryData?.components.find((c) => c.type === type)?.versions[0] ?? "v1.0",
-    [registryData]
-  );
+  const registryVersionForType = (type: string) =>
+    registryData?.components.find((c) => c.type === type)?.versions[0] ?? "v1.0";
 
-  const friendlyComponentName = useCallback(
-    (type: string) => registryData?.components.find((c) => c.type === type)?.name ?? type,
-    [registryData]
-  );
+  const friendlyComponentName = (type: string) =>
+    registryData?.components.find((c) => c.type === type)?.name ?? type;
 
   useEffect(() => {
     if (open) {
@@ -864,17 +860,13 @@ function ImportExampleDialog({ open, onClose, registryData, onImport, previewMod
     enabled: !!expandedPage,
   });
 
-  const filteredSections = useMemo(() => {
-    return sectionsData?.sections ?? [];
-  }, [sectionsData]);
+  const filteredSections = sectionsData?.sections ?? [];
 
-  const filteredPages = useMemo(() => {
-    if (!pageSearch.trim()) return sitemapUrls;
-    const q = pageSearch.toLowerCase();
-    return sitemapUrls.filter(
-      (e) => e.loc.toLowerCase().includes(q) || e.label.toLowerCase().includes(q)
-    );
-  }, [sitemapUrls, pageSearch]);
+  const filteredPages = !pageSearch.trim()
+    ? sitemapUrls
+    : sitemapUrls.filter(
+        (e) => e.loc.toLowerCase().includes(pageSearch.toLowerCase()) || e.label.toLowerCase().includes(pageSearch.toLowerCase())
+      );
 
   const handlePageClick = (entry: SitemapEntry) => {
     const pagePath = normalizePagePath(extractPath(entry.loc));
@@ -1225,7 +1217,7 @@ export default function ThemeEditor() {
   const dragStartX = useRef(0);
   const dragStartWidth = useRef(0);
 
-  const handleDragStart = useCallback((e: React.MouseEvent) => {
+  const handleDragStart = (e: React.MouseEvent) => {
     isDragging.current = true;
     dragStartX.current = e.clientX;
     dragStartWidth.current = sidebarWidth;
@@ -1247,7 +1239,7 @@ export default function ThemeEditor() {
     };
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseup", onUp);
-  }, [sidebarWidth]);
+  };
 
   const [confirmedExamples, setConfirmedExamples] = useState<PreviewExample[]>([]);
   const confirmedExamplesRef = useRef<PreviewExample[]>([]);
@@ -1327,11 +1319,11 @@ export default function ThemeEditor() {
     queryKey: ["/api/component-registry"],
   });
 
-  const addRowComponentVersions = useMemo(() => {
+  const addRowComponentVersions = (() => {
     if (!addRow?.component || !registryData) return [];
     const comp = registryData.components.find((c) => c.type === addRow.component);
     return comp?.versions || [];
-  }, [addRow?.component, registryData]);
+  })();
 
   const { data: addRowExamplesData } = useQuery<{ examples: ExampleItem[] }>({
     queryKey: ["/api/component-registry", addRow?.component, addRow?.version, "examples"],
@@ -1364,7 +1356,7 @@ export default function ThemeEditor() {
     }
   }, [themeData]);
 
-  const savePreviewExamples = useCallback(async (examples: PreviewExample[]) => {
+  const savePreviewExamples = async (examples: PreviewExample[]) => {
     try {
       const toSave = examples.filter((e) => !e.pageUrl);
       await apiRequest("PUT", "/api/theme/preview-examples", toSave);
@@ -1372,7 +1364,7 @@ export default function ThemeEditor() {
     } catch {
       toast({ title: "Save failed", description: "Could not save preview examples.", variant: "destructive" });
     }
-  }, [toast]);
+  };
 
   useEffect(() => {
     const onPreviewReady = (event: MessageEvent) => {
@@ -1409,12 +1401,12 @@ export default function ThemeEditor() {
 
   const activeColors = previewMode === "light" ? lightColors : darkColors;
 
-  const knownCssVars = useMemo(() => {
+  const knownCssVars = (() => {
     const vars = new Set<string>();
     for (const key of Object.keys(themeData?.colors?.light || {})) vars.add(key);
     for (const key of Object.keys(themeData?.colors?.dark || {})) vars.add(key);
     return vars;
-  }, [themeData]);
+  })();
 
   const handleColorChange = (token: string, value: string) => {
     if (previewMode === "light") {
@@ -1424,14 +1416,14 @@ export default function ThemeEditor() {
     }
   };
 
-  const previewStyle = useMemo(() => {
+  const previewStyle = (() => {
     const vars: Record<string, string> = {};
     const colors = previewMode === "light" ? lightColors : darkColors;
     for (const [k, v] of Object.entries(colors)) {
       if (k !== "--radius") vars[k] = v;
     }
     return vars as React.CSSProperties;
-  }, [lightColors, darkColors, previewMode]);
+  })();
 
   const radiusValue = parseFloat(activeColors["--radius"] || "0.75") || 0.75;
 
@@ -1495,15 +1487,13 @@ export default function ThemeEditor() {
     if (themeData?.accents) setAccents(themeData.accents);
   };
 
-  const handlePaletteChange = useCallback((palette: "backgrounds" | "text" | "accents", entries: PaletteEntry[]) => {
+  const handlePaletteChange = (palette: "backgrounds" | "text" | "accents", entries: PaletteEntry[]) => {
     if (palette === "backgrounds") setBackgrounds(entries);
     else if (palette === "text") setTextPalette(entries);
     else if (palette === "accents") setAccents(entries);
-  }, []);
+  };
 
-  const atomMolecules = useMemo(() => {
-    return (moleculesData?.molecules || []).filter((m) => m.tags.includes("theme-preview"));
-  }, [moleculesData]);
+  const atomMolecules = (moleculesData?.molecules || []).filter((m) => m.tags.includes("theme-preview"));
 
   return (
     <>

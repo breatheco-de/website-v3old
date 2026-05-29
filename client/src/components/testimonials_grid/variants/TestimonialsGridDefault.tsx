@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { Linkedin, Star } from "lucide-react";
 import type { TestimonialsGridSection as TestimonialsGridSectionType } from "@shared/schema";
 import { UniversalVideo } from "@/components/UniversalVideo";
@@ -214,11 +213,9 @@ export function TestimonialsGrid({ data }: TestimonialsGridProps) {
     staleTime: 5 * 60 * 1000,
   });
 
-  const validTestimonials = useMemo(() => {
-    return (bankData?.testimonials ?? []).filter(isValidTestimonial);
-  }, [bankData]);
+  const validTestimonials = (bankData?.testimonials ?? []).filter(isValidTestimonial);
 
-  const items: GridItem[] = useMemo(() => {
+  const items: GridItem[] = (() => {
     if (validTestimonials.length === 0) return [];
     let gridItems: GridItem[];
     if (relatedFeatures.length > 0) {
@@ -228,7 +225,7 @@ export function TestimonialsGrid({ data }: TestimonialsGridProps) {
       gridItems = sorted.slice(0, limit).map((t) => mapBankToGridItem(t, itemStyles));
     }
     return distributeVideosAcrossColumns(gridItems, columns);
-  }, [relatedFeatures, validTestimonials, limit, itemStyles, columns]);
+  })();
 
   const title = data.title;
   const subtitle = data.subtitle;

@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { AlertTriangle, Check, ChevronDown, Copy, Info, Pencil, Plus, RefreshCw, Trash2, Undo2, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -207,15 +207,15 @@ function prettifyJS(raw: string): string {
 
 function FunctionCodePopover({ rawCode }: { rawCode: string }) {
   const [open, setOpen] = useState(false);
-  const js = useMemo(() => {
+  const js = (() => {
     try {
       return atob(rawCode.slice("function:".length));
     } catch {
       return rawCode;
     }
-  }, [rawCode]);
-  const pretty = useMemo(() => prettifyJS(js), [js]);
-  const tokens = useMemo(() => highlightJS(pretty), [pretty]);
+  })();
+  const pretty = prettifyJS(js);
+  const tokens = highlightJS(pretty);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -337,20 +337,14 @@ export function CreateContentModal({
 
   const isTypeChanged = !!(duplicatingPage && createContentType !== duplicatingPage.contentType);
 
-  const creatableTypes = useMemo(() => {
-    if (!rawContentTypes) return [];
-    return rawContentTypes.filter((ct) => !ct.has_database);
-  }, [rawContentTypes]);
+  const creatableTypes = !rawContentTypes ? [] : rawContentTypes.filter((ct) => !ct.has_database);
 
-  const selectedTypeData = useMemo(
-    () => rawContentTypes?.find((ct) => ct.name === createContentType),
-    [rawContentTypes, createContentType]
-  );
+  const selectedTypeData = rawContentTypes?.find((ct) => ct.name === createContentType);
 
-  const extraUniqueFields = useMemo(() => {
+  const extraUniqueFields = (() => {
     const unique = selectedTypeData?.unique_fields ?? ["slug"];
     return unique.filter((f) => f !== "slug" && f !== "title" && f !== "locale");
-  }, [selectedTypeData]);
+  })();
 
   const hasStep2 = extraUniqueFields.length > 0;
 
@@ -361,7 +355,7 @@ export function CreateContentModal({
     staleTime: 60000,
   });
 
-  const { editableNonUniqueFields, computedFields } = useMemo(() => {
+  const { editableNonUniqueFields, computedFields } = (() => {
     const fm = typeConfig?.field_mapping ?? {};
     const uniqueSet = new Set(selectedTypeData?.unique_fields ?? ["slug"]);
     const skip = new Set(["slug", "title", "locale"]);
@@ -379,22 +373,22 @@ export function CreateContentModal({
       }
     }
     return { editableNonUniqueFields: editable, computedFields: computed };
-  }, [typeConfig, selectedTypeData]);
+  })();
 
-  const sourceSlug = useMemo(() => {
+  const sourceSlug = (() => {
     if (!duplicatingPage) return undefined;
     const parts = duplicatingPage.loc.replace(/\/$/, "").split("/").filter(Boolean);
     return parts[parts.length - 1] ?? undefined;
-  }, [duplicatingPage]);
+  })();
 
-  const sourceLocale = useMemo(() => {
+  const sourceLocale = (() => {
     if (!duplicatingPage) return undefined;
     if (duplicatingPage.locale) return duplicatingPage.locale;
     for (const loc of supportedLocales) {
       if (duplicatingPage.loc.includes(`/${loc.code}/`)) return loc.code;
     }
     return undefined;
-  }, [duplicatingPage, supportedLocales]);
+  })();
 
   const { data: exampleData, isLoading: exampleLoading } = useQuery<EntryFieldsResponse>({
     queryKey: ["/api/content-types", createContentType, "entry-fields"],

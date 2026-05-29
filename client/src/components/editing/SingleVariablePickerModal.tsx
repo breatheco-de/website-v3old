@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useCallback } from "react";
+import { useState, useRef } from "react";
 import { AlertTriangle, Check, Loader2, Plus, Search, X } from "lucide-react";
 import {
   Dialog,
@@ -70,13 +70,11 @@ export function SingleVariablePickerModal({
 
   const isDbBacked = !!typeConfig?.database?.slug;
   const fieldMapping = typeConfig?.field_mapping || {};
-  const fields = useMemo(() => {
-    return Object.entries(fieldMapping)
-      .filter(([key]) => !key.startsWith("_"))
-      .map(([key, source]) => ({ key, source: source as string }));
-  }, [fieldMapping]);
+  const fields = Object.entries(fieldMapping)
+    .filter(([key]) => !key.startsWith("_"))
+    .map(([key, source]) => ({ key, source: source as string }));
 
-  const filteredFields = useMemo(() => {
+  const filteredFields = (() => {
     if (!search.trim()) return fields;
     const q = search.toLowerCase();
     return fields.filter(
@@ -84,9 +82,9 @@ export function SingleVariablePickerModal({
         f.key.toLowerCase().includes(q) ||
         f.source.toLowerCase().includes(q),
     );
-  }, [fields, search]);
+  })();
 
-  const filteredAvailableProps = useMemo(() => {
+  const filteredAvailableProps = (() => {
     if (!availableProps) return { common: [], partial: [] };
     const q = newFieldSource.toLowerCase().trim();
     if (!q) return availableProps;
@@ -94,9 +92,9 @@ export function SingleVariablePickerModal({
       common: availableProps.common.filter(k => k.toLowerCase().includes(q)),
       partial: availableProps.partial.filter(p => p.key.toLowerCase().includes(q)),
     };
-  }, [availableProps, newFieldSource]);
+  })();
 
-  const validateField = useCallback((source: string) => {
+  const validateField = (source: string) => {
     if (isDbBacked || !source) {
       setValidation(null);
       return;
@@ -113,7 +111,7 @@ export function SingleVariablePickerModal({
         if (requestCounter.current !== reqId) return;
         setValidation(null);
       });
-  }, [contentType, isDbBacked]);
+  };
 
   const handleSelectField = (key: string) => {
     setSelectedField(key);

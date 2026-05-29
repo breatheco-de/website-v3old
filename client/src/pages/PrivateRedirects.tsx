@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AlertTriangle, ArrowLeft, ArrowRight, ChevronDown, ChevronRight, ChevronUp, CircleCheck, ExternalLink, Info, Plus, Route, Search, ShieldCheck, TestTube, Trash2, Wrench, X } from "lucide-react";
 import { getDebugUserName } from "@/hooks/useDebugAuth";
 import { useQuery } from "@tanstack/react-query";
@@ -166,7 +166,7 @@ export default function PrivateRedirects() {
     setIsAuthorized(isDebugModeActive());
   }, []);
 
-  const runValidation = useCallback(async () => {
+  const runValidation = async () => {
     setIsValidating(true);
     setValidationExpanded(false);
     try {
@@ -181,7 +181,7 @@ export default function PrivateRedirects() {
     } finally {
       setIsValidating(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
     if (isAuthorized) {
@@ -304,7 +304,7 @@ export default function PrivateRedirects() {
   const stripLocalePrefix = (url: string) =>
     url.replace(/^\/(en|es)(\/|$)/, "/");
 
-  const fetchLocaleUrls = useCallback(async (url: string) => {
+  const fetchLocaleUrls = async (url: string) => {
     try {
       const res = await fetch(
         `/api/debug/redirects/locale-urls?url=${encodeURIComponent(url)}`,
@@ -316,7 +316,7 @@ export default function PrivateRedirects() {
     } catch {
       setLocaleUrls({});
     }
-  }, []);
+  };
 
   const handleOpenAddDialog = () => {
     setNewFrom("");
@@ -439,7 +439,7 @@ export default function PrivateRedirects() {
 
   const [removingFrom, setRemovingFrom] = useState<string | null>(null);
 
-  const removeIssueFromValidation = useCallback((redirectUrl: string) => {
+  const removeIssueFromValidation = (redirectUrl: string) => {
     setValidationResult((prev) => {
       if (!prev) return prev;
       const matchesUrl = (issue: ValidationIssue) => issue.message.includes(`"${redirectUrl}"`);
@@ -449,7 +449,7 @@ export default function PrivateRedirects() {
         warnings: prev.warnings.filter((w) => !matchesUrl(w)),
       };
     });
-  }, []);
+  };
 
   const handleRemoveFromFile = async (redirectUrl: string, source: string) => {
     const key = `${redirectUrl}::${source}`;

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
+import { createContext, useContext, useState, useEffect, useRef } from 'react';
 import type { Session, Location, UTMParams, WorkerMessage, WorkerResponse } from '@shared/session';
 import { defaultSession } from '@shared/session';
 import { 
@@ -117,7 +117,7 @@ export function SessionProvider({ children }: SessionProviderProps) {
     };
   }, []);
 
-  const setLocation = useCallback((slug: string) => {
+  const setLocation = (slug: string) => {
     const location = getLocationBySlug(slug);
     if (location) {
       setSession(prev => {
@@ -130,17 +130,17 @@ export function SessionProvider({ children }: SessionProviderProps) {
         return updated;
       });
     }
-  }, []);
+  };
 
-  const setLanguage = useCallback((lang: 'en' | 'es') => {
+  const setLanguage = (lang: 'en' | 'es') => {
     setSession(prev => {
       const updated = { ...prev, language: lang, timestamp: Date.now() };
       saveSession(updated);
       return updated;
     });
-  }, []);
+  };
 
-  const updateUTM = useCallback((utm: Partial<UTMParams>) => {
+  const updateUTM = (utm: Partial<UTMParams>) => {
     setSession(prev => {
       const updated = { 
         ...prev, 
@@ -150,7 +150,7 @@ export function SessionProvider({ children }: SessionProviderProps) {
       saveSession(updated);
       return updated;
     });
-  }, []);
+  };
 
   const nearestLocations = locations
     .filter(loc => loc.visibility === 'listed' && loc.slug !== 'online')
@@ -172,9 +172,9 @@ export function SessionProvider({ children }: SessionProviderProps) {
       return distA - distB;
     });
 
-  const getLocationsByRegion = useCallback((region: Location['region']) => {
+  const getLocationsByRegion = (region: Location['region']) => {
     return locations.filter(loc => loc.region === region && loc.visibility === 'listed');
-  }, []);
+  };
 
   useEffect(() => {
     setSessionHeaders(

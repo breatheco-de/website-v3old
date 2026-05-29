@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import {AlertTriangle, ArrowLeft, ArrowLeftRight, ArrowRight, ArrowUpDown, Check, ChevronDown, ChevronUp, Clock, CloudUpload, Code, Copy, Database, Download, Eye, File, HelpCircle, Image, Info, Link as LinkIcon, Loader2, Pencil, Plus, RefreshCw, Save, Search, Server, Settings, SlidersHorizontal, Sparkles, Table, TestTube, Trash2, Upload, Wand2, Webhook, X} from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRoute, Link, useLocation } from "wouter";
@@ -431,7 +431,7 @@ function CreateDatabaseDialog({
   } | null>(null);
   const [fields, setFields] = useState<FieldEntry[]>([]);
 
-  const resetForm = useCallback(() => {
+  const resetForm = () => {
     setStep(1);
     setDisplayName("");
     setSlug("");
@@ -452,7 +452,7 @@ function CreateDatabaseDialog({
     setTestResult(null);
     setFields([]);
     setSaving(false);
-  }, []);
+  };
 
   const handleNameChange = (val: string) => {
     setDisplayName(val);
@@ -1263,7 +1263,7 @@ function DatabaseConfigEditor({
     setTimeout(() => setWebhookCopied(false), 2000);
   };
 
-  const curlCommand = useMemo(() => {
+  const curlCommand = (() => {
     if (sourceType !== "api" || !endpoint.trim()) return null;
     const filteredParams = params.filter((p) => p.key.trim());
     const filteredHeaders = headers.filter((h) => h.key.trim());
@@ -1280,7 +1280,7 @@ function DatabaseConfigEditor({
       parts.push(`  -H "${h.key}: ${h.value}"`);
     }
     return parts.join(" \\\n");
-  }, [sourceType, endpoint, params, headers, tokenEnvVar, authPrefix]);
+  })();
 
   const handleViewSample = async () => {
     setSampleOpen(true);
@@ -1325,7 +1325,7 @@ function DatabaseConfigEditor({
       ? localFilename.trim().length > 0
       : remoteUrl.trim().length > 0;
 
-  const isDirty = useMemo(() => {
+  const isDirty = (() => {
     const origType = config.source.type === "local" || config.source.type === "remote" ? config.source.type : "api";
     if (sourceType !== origType) return true;
     const origResultsPath =
@@ -1355,7 +1355,7 @@ function DatabaseConfigEditor({
       if (remoteUrl !== (config.source.remote?.url || "")) return true;
     }
     return false;
-  }, [sourceType, endpoint, resultsPath, tokenEnvVar, authPrefix, ttlHours, params, headers, localFilename, remoteUrl, config]);
+  })();
 
   useEffect(() => {
     if (!isDirty) return;
@@ -3434,7 +3434,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
 
   const activeItems = dataView === "raw" ? rawItemsData : itemsData;
 
-  const columns = useMemo(() => {
+  const columns = (() => {
     if (dataView === "mapped" && fieldMapping && Object.keys(fieldMapping).length > 0) {
       return Object.keys(fieldMapping);
     }
@@ -3442,9 +3442,9 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
       return Object.keys(activeItems.items[0]);
     }
     return [];
-  }, [dataView, fieldMapping, activeItems?.items]);
+  })();
 
-  const filteredItems = useMemo(() => {
+  const filteredItems = (() => {
     let items: Record<string, unknown>[];
 
     if (debouncedSearch.trim() && semanticResults?.items && dataView !== "raw") {
@@ -3473,7 +3473,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     }
 
     return items;
-  }, [activeItems?.items, semanticResults, debouncedSearch, dataView, sortKey, sortDir]);
+  })();
 
   const handleSort = (key: string) => {
     if (sortKey === key) {

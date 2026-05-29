@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useMemo, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { AlertTriangle, ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Check, ChevronDown, ChevronRight, Code, ExternalLink, Link, Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -170,24 +170,21 @@ function PreviewTable({ config, sampleData, action }: PreviewTableProps) {
   const PREVIEW_LIMIT = 5;
   const hasMore = sampleData.length > PREVIEW_LIMIT;
 
-  const previewRows = useMemo(() => {
-    let rows = expanded ? [...sampleData] : sampleData.slice(0, PREVIEW_LIMIT);
-    if (sortKey) {
-      rows = [...rows].sort((a, b) => {
-        const aVal = getNestedValue(a, sortKey);
-        const bVal = getNestedValue(b, sortKey);
-        if (aVal == null && bVal == null) return 0;
-        if (aVal == null) return 1;
-        if (bVal == null) return -1;
-        if (typeof aVal === "number" && typeof bVal === "number") {
-          return sortDir === "asc" ? aVal - bVal : bVal - aVal;
-        }
-        const cmp = String(aVal).localeCompare(String(bVal));
-        return sortDir === "asc" ? cmp : -cmp;
-      });
-    }
-    return rows;
-  }, [sampleData, sortKey, sortDir, expanded]);
+  let previewRows = expanded ? [...sampleData] : sampleData.slice(0, PREVIEW_LIMIT);
+  if (sortKey) {
+    previewRows = [...previewRows].sort((a, b) => {
+      const aVal = getNestedValue(a, sortKey);
+      const bVal = getNestedValue(b, sortKey);
+      if (aVal == null && bVal == null) return 0;
+      if (aVal == null) return 1;
+      if (bVal == null) return -1;
+      if (typeof aVal === "number" && typeof bVal === "number") {
+        return sortDir === "asc" ? aVal - bVal : bVal - aVal;
+      }
+      const cmp = String(aVal).localeCompare(String(bVal));
+      return sortDir === "asc" ? cmp : -cmp;
+    });
+  }
 
   const handleSort = (key: string) => {
     if (sortKey === key) {
@@ -338,11 +335,11 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
     actionHref: "",
   });
 
-  const updateState = useCallback((updates: Partial<StepState>) => {
+  const updateState = (updates: Partial<StepState>) => {
     setState((prev) => ({ ...prev, ...updates }));
-  }, []);
+  };
 
-  const handleFetchUrl = useCallback(async () => {
+  const handleFetchUrl = async () => {
     if (!state.url.trim()) {
       setError("Please enter a URL");
       return;
@@ -411,32 +408,29 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
     } finally {
       setLoading(false);
     }
-  }, [state.url, updateState]);
+  };
 
-  const handleSelectArray = useCallback(
-    (key: string) => {
-      const data = state.rawData as Record<string, unknown>;
-      const arr = data[key] as Record<string, unknown>[];
-      const consistency = checkConsistency(arr);
-      updateState({
-        selectedArrayPath: key,
-        dataArray: arr,
-        availableKeys: consistency.keys,
-      });
-      if (!consistency.consistent) {
-        setStep("consistency");
-      } else {
-        setStep("columns-prompt");
-      }
-    },
-    [state.rawData, updateState]
-  );
+  const handleSelectArray = (key: string) => {
+    const data = state.rawData as Record<string, unknown>;
+    const arr = data[key] as Record<string, unknown>[];
+    const consistency = checkConsistency(arr);
+    updateState({
+      selectedArrayPath: key,
+      dataArray: arr,
+      availableKeys: consistency.keys,
+    });
+    if (!consistency.consistent) {
+      setStep("consistency");
+    } else {
+      setStep("columns-prompt");
+    }
+  };
 
-  const scrollChatToBottom = useCallback(() => {
+  const scrollChatToBottom = () => {
     setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
-  }, []);
+  };
 
-  const handleAnalyzeData = useCallback(async () => {
+  const handleAnalyzeData = async () => {
     if (state.dataAnalysis) return;
     updateState({ analysisLoading: true });
     setError(null);
@@ -452,9 +446,9 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
       updateState({ analysisLoading: false });
       setError(err instanceof Error ? err.message : "Failed to analyze data");
     }
-  }, [state.dataAnalysis, state.dataArray, state.availableKeys, locale, updateState]);
+  };
 
-  const handleGenerateColumns = useCallback(async () => {
+  const handleGenerateColumns = async () => {
     if (!state.columnsPrompt.trim()) {
       setError("Please describe the columns you want");
       return;
@@ -482,9 +476,9 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
       setError(err instanceof Error ? err.message : "AI failed to generate table configuration");
       setStep("columns-prompt");
     }
-  }, [state.columnsPrompt, state.dataArray, state.availableKeys, locale, updateState]);
+  };
 
-  const handleRefine = useCallback(async () => {
+  const handleRefine = async () => {
     if (!state.refinementPrompt.trim() || !state.tableConfig) return;
 
     const userMsg: ChatMessage = { role: "user", content: state.refinementPrompt };
@@ -511,9 +505,9 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
     } finally {
       setRefining(false);
     }
-  }, [state.refinementPrompt, state.tableConfig, state.chatMessages, state.dataArray, state.availableKeys, locale, updateState, scrollChatToBottom]);
+  };
 
-  const handleFinish = useCallback(() => {
+  const handleFinish = () => {
     if (!state.tableConfig) return;
     const config: DynamicTableConfig = {
       endpoint: state.url,
@@ -528,7 +522,7 @@ export function TableBuilderWizard({ onComplete, onCancel, locale }: TableBuilde
       };
     }
     onComplete(config);
-  }, [state, onComplete]);
+  };
 
   return (
     <Card className="p-6 max-w-3xl mx-auto">

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useMemo, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { ImageRef, ImageEntry, ImagePreset } from "@shared/schema";
 import SolidCard from "./SolidCard";
@@ -47,14 +47,14 @@ export function useImageRegistry() {
 
   const registry = data ?? null;
 
-  const reverseMap = useMemo<Map<string, ImageEntry>>(() => {
+  const reverseMap: Map<string, ImageEntry> = (() => {
     if (!registry?.images) return new Map();
     const map = new Map<string, ImageEntry>();
     for (const entry of Object.values(registry.images)) {
       if (entry.src) map.set(entry.src, entry);
     }
     return map;
-  }, [registry?.images]);
+  })();
 
   return { registry, loading: isLoading, reverseMap };
 }
@@ -112,10 +112,10 @@ export function UniversalImage({
   const [hasError, setHasError] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
-  const imgRefCallback = useCallback((el: HTMLImageElement | null) => {
+  const imgRefCallback = (el: HTMLImageElement | null) => {
     (imgRef as React.MutableRefObject<HTMLImageElement | null>).current = el;
     onImgRef?.(el);
-  }, [onImgRef]);
+  };
   const {
     isPriority: isPrioritySection,
     sectionIndex,

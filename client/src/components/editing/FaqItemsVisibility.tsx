@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Check, ChevronDown, ChevronUp, EyeOff, MapPin, Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Badge } from "@/components/ui/badge";
@@ -34,7 +34,7 @@ function ItemLocationPicker({
 
   const hasOverrides = hideOnLocations.length > 0;
 
-  const grouped = useMemo(() => {
+  const grouped = (() => {
     const groups: Record<string, Location[]> = {};
     const searchLower = search.toLowerCase();
     for (const loc of allLocations) {
@@ -51,7 +51,7 @@ function ItemLocationPicker({
       groups[region].push(loc);
     }
     return groups;
-  }, [search]);
+  })();
 
   const regionLabels: Record<string, string> = {
     "usa-canada": "USA & Canada",
@@ -212,7 +212,7 @@ export function FaqItemsVisibility({
     staleTime: 5 * 60 * 1000,
   });
 
-  const displayedItems = useMemo(() => {
+  const displayedItems = (() => {
     if (hasCentralized && faqsData?.faqs) {
       return filterFaqsByRelatedFeatures(faqsData.faqs, {
         relatedFeatures,
@@ -223,7 +223,7 @@ export function FaqItemsVisibility({
       return inlineItems!;
     }
     return [];
-  }, [faqsData, relatedFeatures, hasCentralized, hasInline, inlineItems]);
+  })();
 
   const handleItemLocationsChange = (itemKey: string, locations: string[]) => {
     const newOverrides = { ...itemOverrides };

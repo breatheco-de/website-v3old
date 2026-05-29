@@ -3,7 +3,7 @@ import { queryClient as defaultQueryClient } from "./lib/queryClient";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { lazy, Suspense, useMemo, useState, useEffect } from "react";
+import { lazy, Suspense, useState, useEffect } from "react";
 import NotFound from "@/pages/not-found";
 import { SessionProvider } from "@/contexts/SessionContext";
 import { EditModeWrapper } from "@/components/editing/EditModeWrapper";
@@ -119,7 +119,7 @@ function useDynamicRoutes() {
     staleTime: Infinity,
   });
 
-  const routes = useMemo(() => {
+  const routes = (() => {
     if (!contentTypes) return [];
 
     const routes: Array<{
@@ -176,7 +176,7 @@ function useDynamicRoutes() {
     }
 
     return routes;
-  }, [contentTypes]);
+  })();
 
   return { routes, isLoading };
 }

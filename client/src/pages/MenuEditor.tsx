@@ -2,7 +2,7 @@ import { useParams, useLocation } from "wouter";
 import { ArrowLeft, Braces, Check, ChevronDown, ChevronRight, Code, ExternalLink, FileCode, GripVertical, Info, Link as LinkIcon, Megaphone, Menu, Plus, RefreshCw, Save, Search, Trash2 } from "lucide-react";
 import { getDebugUserName } from "@/hooks/useDebugAuth";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import yaml from "js-yaml";
 import { escapeTemplateVars, escapeObjectVars, unescapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
@@ -725,12 +725,12 @@ function PagePickerPopover({
     },
   });
 
-  const filtered = useMemo(() => {
+  const filtered = (() => {
     const q = search.toLowerCase();
     return q
       ? sitemapUrls.filter((e) => e.loc.toLowerCase().includes(q) || e.label.toLowerCase().includes(q))
       : sitemapUrls;
-  }, [sitemapUrls, search]);
+  })();
 
   const extractPath = (loc: string) => {
     try { return new URL(loc).pathname; } catch { return loc; }
@@ -1133,7 +1133,7 @@ export default function MenuEditor() {
   
   const isEnglish = locale === "en";
 
-  const parsedResult = useMemo<{ data: MenuData | null; error: string | null }>(() => {
+  const parsedResult: { data: MenuData | null; error: string | null } = (() => {
     if (!yamlSource) return { data: null, error: null };
     try {
       const { escaped, map } = escapeTemplateVars(yamlSource);
@@ -1142,7 +1142,7 @@ export default function MenuEditor() {
     } catch (e) {
       return { data: null, error: e instanceof Error ? e.message : "Invalid YAML" };
     }
-  }, [yamlSource]);
+  })();
 
   const menuData = parsedResult.data;
 
@@ -1150,7 +1150,7 @@ export default function MenuEditor() {
     setYamlError(parsedResult.error);
   }, [parsedResult.error]);
 
-  const updateYamlFromData = useCallback((newData: MenuData) => {
+  const updateYamlFromData = (newData: MenuData) => {
     try {
       const newYaml = safeYamlDump(newData, {
         indent: 2,
@@ -1163,7 +1163,7 @@ export default function MenuEditor() {
     } catch (e) {
       console.error("Failed to serialize YAML:", e);
     }
-  }, []);
+  };
 
   const { data, isLoading, error, refetch } = useQuery<MenuResponse>({
     queryKey: ["/api/menus", menuName, locale],
@@ -1421,13 +1421,13 @@ export default function MenuEditor() {
     setHasChanges(newYaml !== originalYaml);
   };
 
-  const handleCmUpdate = useCallback((update: import("@codemirror/view").ViewUpdate) => {
+  const handleCmUpdate = (update: import("@codemirror/view").ViewUpdate) => {
     const sel = update.state.selection.main;
     const text = sel.empty ? "" : update.state.sliceDoc(sel.from, sel.to);
     setSelectedText(text);
-  }, []);
+  };
 
-  const handleVariableCreated = useCallback((_varName: string, templateSyntax: string) => {
+  const handleVariableCreated = (_varName: string, templateSyntax: string) => {
     const ref = activeEditorRef.current === "sidebar" ? cmSidebarRef : cmRef;
     const view = ref.current?.view;
     if (!view) return;
@@ -1440,7 +1440,7 @@ export default function MenuEditor() {
 
     const newVal = view.state.doc.toString();
     handleYamlEdit(newVal);
-  }, [handleYamlEdit]);
+  };
 
   const toggleExpand = (index: number) => {
     const newExpanded = new Set(expandedItems);

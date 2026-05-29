@@ -1,6 +1,6 @@
 import Marquee from "@/lib/marquee";
 import { Flag } from "lucide-react";
-import { useState, useRef, useCallback, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
@@ -467,14 +467,14 @@ export default function TestimonialsSlide({ data }: TestimonialsSlideProps) {
     enabled: useBankData,
   });
 
-  const serverItems: TestimonialsSlideTestimonial[] = useMemo(() => {
+  const serverItems: TestimonialsSlideTestimonial[] = (() => {
     if (!hasServerItems) return [];
     const valid = (data.items || []).filter(isValidBankForSlide);
     const sorted = sortBankForSlide(valid, relatedFeatures);
     return sorted.slice(0, limitVal).map(mapBankToSlideItem);
-  }, [hasServerItems, data.items, relatedFeatures, limitVal]);
+  })();
 
-  const bankItems: TestimonialsSlideTestimonial[] = useMemo(() => {
+  const bankItems: TestimonialsSlideTestimonial[] = (() => {
     if (!useBankData || !bankData?.testimonials) return [];
     const valid = bankData.testimonials.filter(isValidBankForSlide);
     const filtered = valid.filter((t) => {
@@ -483,7 +483,7 @@ export default function TestimonialsSlide({ data }: TestimonialsSlideProps) {
     });
     const sorted = sortBankForSlide(filtered, relatedFeatures);
     return sorted.slice(0, limitVal).map(mapBankToSlideItem);
-  }, [useBankData, bankData, relatedFeatures, limitVal]);
+  })();
   
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -503,21 +503,21 @@ export default function TestimonialsSlide({ data }: TestimonialsSlideProps) {
     return () => mediaQuery.removeEventListener('change', handler);
   }, []);
 
-  const handleInteractionStart = useCallback(() => {
+  const handleInteractionStart = () => {
     if (prefersReducedMotion) return;
     if (resumeTimeoutRef.current) {
       clearTimeout(resumeTimeoutRef.current);
       resumeTimeoutRef.current = null;
     }
     setIsPlaying(false);
-  }, [prefersReducedMotion]);
+  };
 
-  const handleInteractionEnd = useCallback(() => {
+  const handleInteractionEnd = () => {
     if (prefersReducedMotion) return;
     resumeTimeoutRef.current = setTimeout(() => {
       setIsPlaying(true);
     }, 500);
-  }, [prefersReducedMotion]);
+  };
 
   const defaultFallback = isSpanish ? DEFAULT_TESTIMONIALS_ES : DEFAULT_TESTIMONIALS;
   const hasYamlTestimonials = !!(data.testimonials && data.testimonials.length > 0);

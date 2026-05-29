@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import Marquee from "@/lib/marquee";
 import type { WhosHiringSection as WhosHiringSectionType } from "@shared/schema";
 import UniversalImage from "@/components/UniversalImage";
@@ -161,7 +161,7 @@ export default function WhosHiringCarousel({ data }: WhosHiringCarouselProps) {
     return () => mobileQuery.removeEventListener("change", handler);
   }, []);
 
-  const mosaicGroups = useMemo(() => {
+  const mosaicGroups = (() => {
     const groups: MosaicGroup[] = [];
     const patterns: Array<"stack" | "hero"> = ["stack", "hero"];
     
@@ -190,7 +190,7 @@ export default function WhosHiringCarousel({ data }: WhosHiringCarouselProps) {
     }
     
     return groups;
-  }, [logos]);
+  })();
 
   if (logos.length === 0) {
     return null;

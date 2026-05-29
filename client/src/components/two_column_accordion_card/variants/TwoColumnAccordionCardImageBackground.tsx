@@ -1,5 +1,5 @@
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Accordion,
@@ -54,9 +54,9 @@ export default function TwoColumnAccordionCardImageBackground({ data }: TwoColum
   const mediaRef = useRef<HTMLDivElement>(null);
   const rafId = useRef<number>(0);
 
-  const handleVideoCanPlay = useCallback(() => {
+  const handleVideoCanPlay = () => {
     setVideoReady(true);
-  }, []);
+  };
 
   useEffect(() => {
     const section = sectionRef.current;

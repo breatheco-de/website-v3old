@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Star, ChevronLeft, ChevronRight, ChevronDown, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { ListPressMentionsSection } from "@shared/schema";
@@ -67,14 +67,14 @@ export default function ListPressMentionsFeaturedShowcase({ data }: ListPressMen
     setCurrentPage(0);
   }, [cardsPerPage]);
 
-  const resetTouchState = useCallback(() => {
+  const resetTouchState = () => {
     touchStartXRef.current = null;
     touchStartYRef.current = null;
     swipeDeltaXRef.current = 0;
     isHorizontalSwipeRef.current = false;
-  }, []);
+  };
 
-  const handleTouchStart = useCallback((event: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
     if (cardsPerPage !== 1) return;
     const touch = event.touches[0];
     if (!touch) return;
@@ -83,9 +83,9 @@ export default function ListPressMentionsFeaturedShowcase({ data }: ListPressMen
     touchStartYRef.current = touch.clientY;
     swipeDeltaXRef.current = 0;
     isHorizontalSwipeRef.current = false;
-  }, [cardsPerPage]);
+  };
 
-  const handleTouchMove = useCallback((event: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
     if (cardsPerPage !== 1) return;
     const touch = event.touches[0];
     if (!touch || touchStartXRef.current === null || touchStartYRef.current === null) return;
@@ -101,9 +101,9 @@ export default function ListPressMentionsFeaturedShowcase({ data }: ListPressMen
 
     event.preventDefault();
     swipeDeltaXRef.current = deltaX;
-  }, [cardsPerPage]);
+  };
 
-  const handleTouchEnd = useCallback(() => {
+  const handleTouchEnd = () => {
     if (cardsPerPage !== 1) {
       resetTouchState();
       return;
@@ -124,7 +124,7 @@ export default function ListPressMentionsFeaturedShowcase({ data }: ListPressMen
     }
 
     resetTouchState();
-  }, [cardsPerPage, currentPage, totalPages, resetTouchState]);
+  };
 
   const bgStyle: React.CSSProperties = {};
   if (data.background) {

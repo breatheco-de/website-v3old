@@ -1,4 +1,4 @@
-import { createContext, useContext, useCallback, useMemo, useEffect, useState, useRef } from "react";
+import { createContext, useContext, useEffect, useState, useRef } from "react";
 import type { Section } from "@shared/schema";
 import { usePageHistory } from "@/hooks/usePageHistory";
 import { editContent } from "@/lib/contentApi";
@@ -56,7 +56,7 @@ export function PageHistoryProvider({ children, enabled = true }: PageHistoryPro
     pageContextRef.current = pageContext;
   }, [pageContext]);
   
-  const saveCurrentSnapshot = useCallback((description: string) => {
+  const saveCurrentSnapshot = (description: string) => {
     const ctx = pageContextRef.current;
     if (!ctx) {
       console.warn("[PageHistory] No page context, cannot save snapshot");
@@ -66,81 +66,78 @@ export function PageHistoryProvider({ children, enabled = true }: PageHistoryPro
     if (currentSections && currentSections.length > 0) {
       pushSnapshot(currentSections, description);
     }
-  }, [pushSnapshot]);
+  };
 
-  const handleRestore = useCallback(
-    async (event: CustomEvent<{ sections: Section[]; type: "undo" | "redo" }>) => {
-      if (!pageContext) {
-        console.warn("[PageHistory] No page context set, cannot restore");
-        return;
+  const handleRestore = async (event: CustomEvent<{ sections: Section[]; type: "undo" | "redo" }>) => {
+    if (!pageContext) {
+      console.warn("[PageHistory] No page context set, cannot restore");
+      return;
+    }
+
+    const { sections, type } = event.detail;
+    if (!sections || sections.length === 0) {
+      return;
+    }
+
+    setIsRestoring(true);
+
+    try {
+      const currentSections = pageContext.getCurrentSections();
+      
+      // When undoing, push current state to redo stack
+      // When redoing, push current state to undo stack (without clearing redo)
+      if (type === "undo") {
+        pushToRedoStack(currentSections, "Estado antes de deshacer");
+      } else if (type === "redo") {
+        pushToUndoStackNoRedoClear(currentSections, "Estado antes de rehacer");
       }
 
-      const { sections, type } = event.detail;
-      if (!sections || sections.length === 0) {
-        return;
-      }
+      const result = await editContent({
+        contentType: pageContext.contentType,
+        slug: pageContext.slug,
+        locale: pageContext.locale,
+        variant: pageContext.variant,
+        version: pageContext.version,
+        operations: [
+          {
+            action: "replace_all_sections",
+            sections: sections as unknown as Record<string, unknown>[],
+          },
+        ],
+      });
 
-      setIsRestoring(true);
-
-      try {
-        const currentSections = pageContext.getCurrentSections();
-        
-        // When undoing, push current state to redo stack
-        // When redoing, push current state to undo stack (without clearing redo)
-        if (type === "undo") {
-          pushToRedoStack(currentSections, "Estado antes de deshacer");
-        } else if (type === "redo") {
-          pushToUndoStackNoRedoClear(currentSections, "Estado antes de rehacer");
-        }
-
-        const result = await editContent({
+      if (result.success) {
+        pageContext.onSectionsRestore(sections);
+        emitContentUpdated({
           contentType: pageContext.contentType,
           slug: pageContext.slug,
           locale: pageContext.locale,
-          variant: pageContext.variant,
-          version: pageContext.version,
-          operations: [
-            {
-              action: "replace_all_sections",
-              sections: sections as unknown as Record<string, unknown>[],
-            },
-          ],
         });
 
-        if (result.success) {
-          pageContext.onSectionsRestore(sections);
-          emitContentUpdated({
-            contentType: pageContext.contentType,
-            slug: pageContext.slug,
-            locale: pageContext.locale,
-          });
-
-          toast({
-            title: type === "undo" ? "Cambio deshecho" : "Cambio rehecho",
-            description: type === "undo" 
-              ? "Se restauró el estado anterior de la página"
-              : "Se restauró el estado siguiente de la página",
-          });
-        } else {
-          toast({
-            title: "Error",
-            description: result.error || "No se pudo restaurar el estado",
-            variant: "destructive",
-          });
-        }
-      } catch (error) {
-        console.error("[PageHistory] Error restoring:", error);
+        toast({
+          title: type === "undo" ? "Cambio deshecho" : "Cambio rehecho",
+          description: type === "undo" 
+            ? "Se restauró el estado anterior de la página"
+            : "Se restauró el estado siguiente de la página",
+        });
+      } else {
         toast({
           title: "Error",
-          description: "Error al restaurar el estado de la página",
+          description: result.error || "No se pudo restaurar el estado",
           variant: "destructive",
         });
-      } finally {
-        setIsRestoring(false);
       }
-    },
-    [pageContext, pushToRedoStack, pushToUndoStackNoRedoClear, toast]
-  );
+    } catch (error) {
+      console.error("[PageHistory] Error restoring:", error);
+      toast({
+        title: "Error",
+        description: "Error al restaurar el estado de la página",
+        variant: "destructive",
+      });
+    } finally {
+      setIsRestoring(false);
+    }
+  };
 
   useEffect(() => {
     const handler = (event: Event) => {
@@ -150,22 +147,19 @@ export function PageHistoryProvider({ children, enabled = true }: PageHistoryPro
     return () => {
       window.removeEventListener("page-history-restore", handler);
     };
-  }, [handleRestore]);
+  }, [pageContext, pushToRedoStack, pushToUndoStackNoRedoClear, toast]);
 
-  const value = useMemo(
-    () => ({
-      pushSnapshot,
-      saveCurrentSnapshot,
-      canUndo,
-      canRedo,
-      undoCount,
-      redoCount,
-      clearHistory,
-      isRestoring,
-      setPageContext,
-    }),
-    [pushSnapshot, saveCurrentSnapshot, canUndo, canRedo, undoCount, redoCount, clearHistory, isRestoring]
-  );
+  const value: PageHistoryContextValue = {
+    pushSnapshot,
+    saveCurrentSnapshot,
+    canUndo,
+    canRedo,
+    undoCount,
+    redoCount,
+    clearHistory,
+    isRestoring,
+    setPageContext,
+  };
 
   return (
     <PageHistoryContext.Provider value={value}>

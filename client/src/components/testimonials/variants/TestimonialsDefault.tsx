@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -122,7 +122,7 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
     enabled: useBankData,
   });
 
-  const bankItems: TestimonialItem[] = useMemo(() => {
+  const bankItems: TestimonialItem[] = (() => {
     if (!useBankData || !bankData?.testimonials) return [];
     const valid = bankData.testimonials.filter(isValidBankTestimonial);
     const filtered = valid.filter((t) => {
@@ -131,7 +131,7 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
     });
     const sorted = sortBankTestimonials(filtered, relatedFeatures);
     return sorted.slice(0, limit).map(mapBankToItem);
-  }, [useBankData, bankData, relatedFeatures, limit]);
+  })();
 
   const hardcodedItems = data?.items || testimonials?.map(t => ({
     name: t.name,
@@ -177,7 +177,7 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
   const extendedItems = isDesktopOrTablet ? [...items, ...items, ...items] : items;
   const originalLength = items.length;
 
-  const updateCardTransforms = useCallback(() => {
+  const updateCardTransforms = () => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
@@ -243,9 +243,9 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
     
     // Update active index (modulo to get original item index)
     setActiveIndex(closestIndex % originalLength);
-  }, [extendedItems.length, originalLength, cardWidth, cardSpacing, isDesktopOrTablet]);
+  };
 
-  const checkInfiniteLoop = useCallback(() => {
+  const checkInfiniteLoop = () => {
     // Disable infinite loop on mobile to prevent blinking
     if (!isDesktopOrTablet) return;
     if (isResettingRef.current) return;
@@ -272,19 +272,19 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
         updateCardTransforms();
       });
     }
-  }, [originalLength, updateCardTransforms, cardSpacing, isDesktopOrTablet]);
+  };
 
-  const handleScroll = useCallback(() => {
+  const handleScroll = () => {
     checkInfiniteLoop();
 
     if (rafRef.current) {
       cancelAnimationFrame(rafRef.current);
     }
     rafRef.current = requestAnimationFrame(updateCardTransforms);
-  }, [checkInfiniteLoop, updateCardTransforms]);
+  };
 
   // Smooth scroll animation to target
-  const animateScrollTo = useCallback((targetScroll: number, duration: number = 300) => {
+  const animateScrollTo = (targetScroll: number, duration: number = 300) => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
@@ -312,10 +312,10 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
     };
 
     requestAnimationFrame(animate);
-  }, [checkInfiniteLoop, updateCardTransforms]);
+  };
 
   // Navigate to specific card by original index
-  const navigateToCard = useCallback((targetOriginalIndex: number) => {
+  const navigateToCard = (targetOriginalIndex: number) => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
@@ -325,10 +325,10 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
     const targetScroll = (targetExtendedIndex * cardSpacing) + (cardWidth / 2) - containerCenter;
     
     animateScrollTo(targetScroll, 300);
-  }, [originalLength, animateScrollTo, cardWidth, cardSpacing]);
+  };
 
   // Snap to nearest card center
-  const snapToNearestCard = useCallback(() => {
+  const snapToNearestCard = () => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
@@ -353,10 +353,10 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
     
     // Animate to target
     animateScrollTo(targetScroll, 250);
-  }, [extendedItems.length, animateScrollTo, cardWidth, cardSpacing]);
+  };
 
   // Drag handlers
-  const handleDragStart = useCallback((clientX: number) => {
+  const handleDragStart = (clientX: number) => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
@@ -365,9 +365,9 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
     scrollStartRef.current = container.scrollLeft;
     container.style.cursor = 'grabbing';
     document.body.style.userSelect = 'none';
-  }, []);
+  };
 
-  const handleDragMove = useCallback((clientX: number) => {
+  const handleDragMove = (clientX: number) => {
     if (!isDraggingRef.current) return;
 
     const container = scrollContainerRef.current;
@@ -375,9 +375,9 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
 
     const deltaX = (dragStartXRef.current - clientX) * DRAG_MULTIPLIER;
     container.scrollLeft = scrollStartRef.current + deltaX;
-  }, []);
+  };
 
-  const handleDragEnd = useCallback(() => {
+  const handleDragEnd = () => {
     if (!isDraggingRef.current) return;
     
     const container = scrollContainerRef.current;
@@ -389,23 +389,23 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
 
     // Smooth snap to nearest card
     snapToNearestCard();
-  }, [snapToNearestCard]);
+  };
 
   // Mouse events
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+  const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
     handleDragStart(e.clientX);
-  }, [handleDragStart]);
+  };
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
+  const handleMouseMove = (e: MouseEvent) => {
     handleDragMove(e.clientX);
-  }, [handleDragMove]);
+  };
 
-  const handleMouseUp = useCallback(() => {
+  const handleMouseUp = () => {
     if (isDraggingRef.current) {
       handleDragEnd();
     }
-  }, [handleDragEnd]);
+  };
 
   // Touch tracking for determining horizontal vs vertical swipe
   const touchStartYRef = useRef(0);
@@ -429,17 +429,17 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
     }
 
     requestAnimationFrame(updateCardTransforms);
-  }, [items.length, originalLength, updateCardTransforms, cardWidth, cardSpacing, isDesktopOrTablet]);
+  }, [items.length, originalLength, cardWidth, cardSpacing, isDesktopOrTablet]);
 
   // Native touch handlers (needed for { passive: false } to allow preventDefault)
-  const nativeTouchStart = useCallback((e: TouchEvent) => {
+  const nativeTouchStart = (e: TouchEvent) => {
     const touch = e.touches[0];
     touchStartYRef.current = touch.clientY;
     isHorizontalSwipeRef.current = null;
     handleDragStart(touch.clientX);
-  }, [handleDragStart]);
+  };
 
-  const nativeTouchMove = useCallback((e: TouchEvent) => {
+  const nativeTouchMove = (e: TouchEvent) => {
     if (!isDraggingRef.current) return;
     
     const touch = e.touches[0];
@@ -459,12 +459,12 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
       // Cancel our drag if user is scrolling vertically
       isDraggingRef.current = false;
     }
-  }, [handleDragMove]);
+  };
 
-  const nativeTouchEnd = useCallback(() => {
+  const nativeTouchEnd = () => {
     isHorizontalSwipeRef.current = null;
     handleDragEnd();
-  }, [handleDragEnd]);
+  };
 
   // Set up listeners
   useEffect(() => {

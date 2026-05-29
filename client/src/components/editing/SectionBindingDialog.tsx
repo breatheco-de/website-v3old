@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { AlertTriangle, ArrowRight, Check, Link, Unlink, Loader2, Pencil, Plus, Search, Trash2, X } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -118,45 +118,14 @@ export function SectionBindingDialog({
     enabled: open && !existingGroup,
   });
 
-  const matchingGroups = useMemo(() => {
-    if (!allGroupsData?.groups) return [];
-    return allGroupsData.groups.filter(g => g.component === component && g.locale === locale);
-  }, [allGroupsData, component, locale]);
+  const matchingGroups = !allGroupsData?.groups ? [] : allGroupsData.groups.filter(g => g.component === component && g.locale === locale);
 
-  const availableCandidates = useMemo(() => {
-    return candidates.filter(c => !(c.contentType === contentType && c.slug === slug && c.sectionIndex === sectionIndex));
-  }, [candidates, contentType, slug, sectionIndex]);
+  const availableCandidates = candidates.filter(c => !(c.contentType === contentType && c.slug === slug && c.sectionIndex === sectionIndex));
 
-  const selectableCandidates = useMemo(() => {
-    return availableCandidates.filter(c => !c.alreadyBound);
-  }, [availableCandidates]);
+  const selectableCandidates = availableCandidates.filter(c => !c.alreadyBound);
 
-  const filteredCandidates = useMemo(() => {
-    return availableCandidates
-      .filter(c => {
-        if (!search) return true;
-        const lower = search.toLowerCase();
-        return (
-          c.slug.toLowerCase().includes(lower) ||
-          c.localeSlug?.toLowerCase().includes(lower) ||
-          c.title?.toLowerCase().includes(lower) ||
-          c.contentType.toLowerCase().includes(lower)
-        );
-      });
-  }, [availableCandidates, search]);
-
-  const existingMemberKeys = useMemo(() => {
-    if (!existingGroup) return new Set<string>();
-    return new Set(existingGroup.members.map(m => candidateKey(m)));
-  }, [existingGroup]);
-
-  const addMoreCandidates = useMemo(() => {
-    if (!existingGroup) return [];
-    return candidates.filter(c => !existingMemberKeys.has(candidateKey(c)) && !c.alreadyBound);
-  }, [candidates, existingMemberKeys, existingGroup]);
-
-  const filteredAddMoreCandidates = useMemo(() => {
-    return addMoreCandidates.filter(c => {
+  const filteredCandidates = availableCandidates
+    .filter(c => {
       if (!search) return true;
       const lower = search.toLowerCase();
       return (
@@ -166,7 +135,21 @@ export function SectionBindingDialog({
         c.contentType.toLowerCase().includes(lower)
       );
     });
-  }, [addMoreCandidates, search]);
+
+  const existingMemberKeys = !existingGroup ? new Set<string>() : new Set(existingGroup.members.map(m => candidateKey(m)));
+
+  const addMoreCandidates = !existingGroup ? [] : candidates.filter(c => !existingMemberKeys.has(candidateKey(c)) && !c.alreadyBound);
+
+  const filteredAddMoreCandidates = addMoreCandidates.filter(c => {
+    if (!search) return true;
+    const lower = search.toLowerCase();
+    return (
+      c.slug.toLowerCase().includes(lower) ||
+      c.localeSlug?.toLowerCase().includes(lower) ||
+      c.title?.toLowerCase().includes(lower) ||
+      c.contentType.toLowerCase().includes(lower)
+    );
+  });
 
   const createBindingMutation = useMutation({
     mutationFn: async ({ members, name }: { members: Array<{ contentType: string; slug: string; sectionIndex: number }>; name?: string }) => {

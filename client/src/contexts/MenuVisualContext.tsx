@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, type ReactNode } from "react";
+import { createContext, useContext, type ReactNode } from "react";
 
 export interface MenuVisualContextValue {
   isCompact: boolean;
@@ -23,13 +23,10 @@ interface MenuVisualProviderProps {
 
 export function MenuVisualContextProvider({ children, value }: MenuVisualProviderProps) {
   const parentValue = useContext(MenuVisualContext);
-  const mergedValue = useMemo(
-    () => ({
-      ...parentValue,
-      ...value,
-    }),
-    [parentValue, value],
-  );
+  const mergedValue = {
+    ...parentValue,
+    ...value,
+  };
 
   return <MenuVisualContext.Provider value={mergedValue}>{children}</MenuVisualContext.Provider>;
 }

@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { AlertTriangle, ArrowLeft, Code, Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearch } from "wouter";
@@ -95,9 +95,9 @@ export default function PrivatePreview() {
   usePageMeta(content?.meta);
   useSchemaOrg(content?.schema);
 
-  const handleRefetch = useCallback(() => {
+  const handleRefetch = () => {
     refetch();
-  }, [refetch]);
+  };
 
   useEffect(() => {
     if (!content || isLoading) return;

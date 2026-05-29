@@ -45,7 +45,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Link } from "wouter";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
 import type { ImageRegistry } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
@@ -589,16 +589,16 @@ export default function MediaGallery() {
     }
   };
 
-  const rerunImageHealthChecks = useCallback(async () => {
+  const rerunImageHealthChecks = async () => {
     const validationRes = await apiRequest("POST", "/api/validation/run", {
       validators: IMAGE_HEALTH_VALIDATORS,
       includeArtifacts: true,
     });
     const validationData: ValidationRunResult = await validationRes.json();
     setValidationResult(validationData);
-  }, []);
+  };
 
-  const startOptimizationPoller = useCallback((initialFallback: number) => {
+  const startOptimizationPoller = (initialFallback: number) => {
     if (optimizePollerRef.current) clearInterval(optimizePollerRef.current);
     optimizePollerRef.current = setInterval(async () => {
       try {
@@ -632,7 +632,7 @@ export default function MediaGallery() {
         setOptimizing(false);
       }
     }, 1500);
-  }, [toast]);
+  };
 
   useEffect(() => {
     (async () => {
@@ -884,9 +884,9 @@ export default function MediaGallery() {
   const visibleImages = filteredImages.slice(0, visibleCount);
   const hasMore = visibleCount < filteredImages.length;
 
-  const loadMore = useCallback(() => {
+  const loadMore = () => {
     setVisibleCount(prev => Math.min(prev + PAGE_SIZE, filteredImages.length));
-  }, [filteredImages.length]);
+  };
 
   const handleRunMigrateScript = async () => {
     setScriptMigrateRunning(true);

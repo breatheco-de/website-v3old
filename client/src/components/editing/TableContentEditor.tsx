@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useMemo, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ArrowDown, ArrowUp, ChevronDown, Code, Filter, Loader2, Send, Table, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -129,16 +129,16 @@ function PreviewTable({ config, sampleData, filterFunction, filterCtx }: Preview
   const [expanded, setExpanded] = useState(false);
   const PREVIEW_LIMIT = 5;
 
-  const displayData = useMemo(() => {
+  const displayData = (() => {
     if (filterFunction) {
       return executeGlobalFilterClient(filterFunction, sampleData, filterCtx);
     }
     return sampleData;
-  }, [sampleData, filterFunction, filterCtx]);
+  })();
 
   const hasMore = displayData.length > PREVIEW_LIMIT;
 
-  const previewRows = useMemo(() => {
+  const previewRows = (() => {
     let rows = expanded ? [...displayData] : displayData.slice(0, PREVIEW_LIMIT);
     if (sortKey) {
       rows = [...rows].sort((a, b) => {
@@ -155,7 +155,7 @@ function PreviewTable({ config, sampleData, filterFunction, filterCtx }: Preview
       });
     }
     return rows;
-  }, [displayData, sortKey, sortDir, expanded]);
+  })();
 
   const handleSort = (key: string) => {
     if (sortKey === key) {
@@ -311,13 +311,13 @@ export function TableContentEditor({
   const chatEndRef = useRef<HTMLDivElement>(null);
   const { session } = useSession();
 
-  const filterCtx = useMemo<FilterContext>(() => ({
+  const filterCtx: FilterContext = {
     region: session.location?.region || undefined,
     country_code: (session.geo?.country_code || session.location?.country_code || "").toLowerCase() || undefined,
     city: session.geo?.city || session.location?.city || undefined,
     language: session.language,
     timezone: session.location?.timezone || session.geo?.timezone || undefined,
-  }), [session.location, session.geo, session.language]);
+  };
 
   const [activeConfig, setActiveConfig] = useState<TableConfig>({
     columns: currentColumns,
@@ -325,9 +325,9 @@ export function TableContentEditor({
   });
   const [activeFilter, setActiveFilter] = useState<string | undefined>(currentFilter);
 
-  const scrollToBottom = useCallback(() => {
+  const scrollToBottom = () => {
     setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
-  }, []);
+  };
 
   useEffect(() => {
     if (!endpoint) return;
@@ -369,7 +369,7 @@ export function TableContentEditor({
     })();
   }, [endpoint, dataPath]);
 
-  const handleSend = useCallback(async () => {
+  const handleSend = async () => {
     if (!input.trim() || sending || !dataLoaded) return;
 
     const userMsg: ChatMessage = { role: "user", content: input };
@@ -423,14 +423,14 @@ export function TableContentEditor({
     } finally {
       setSending(false);
     }
-  }, [input, sending, dataLoaded, messages, activeConfig, activeFilter, dataArray, availableKeys, locale, mode, onApplyContent, onApplyFilter, scrollToBottom]);
+  };
 
-  const handleRemoveFilter = useCallback(() => {
+  const handleRemoveFilter = () => {
     setActiveFilter(undefined);
     onRemoveFilter?.();
     const sysMsg: ChatMessage = { role: "ai", content: "Filter removed. All rows are now visible." };
     setMessages((prev) => [...prev, sysMsg]);
-  }, [onRemoveFilter]);
+  };
 
   if (dataLoading) {
     return (

@@ -1,6 +1,5 @@
 import {
   useRef,
-  useCallback,
   useEffect,
   type AnchorHTMLAttributes,
   type MouseEvent,
@@ -45,22 +44,19 @@ export function InternalLink({
     prefetchedRef.current = false;
   }, [href]);
 
-  const handleMouseEnter = useCallback(
-    (e: MouseEvent<HTMLAnchorElement>) => {
-      onMouseEnter?.(e);
-      if (
-        !useSpaNav ||
-        prefetch === "none" ||
-        prefetchedRef.current ||
-        !isPrefetchableHref(href)
-      ) {
-        return;
-      }
-      prefetchedRef.current = true;
-      prefetchNavigationHref(href);
-    },
-    [href, prefetch, onMouseEnter, useSpaNav],
-  );
+  const handleMouseEnter = (e: MouseEvent<HTMLAnchorElement>) => {
+    onMouseEnter?.(e);
+    if (
+      !useSpaNav ||
+      prefetch === "none" ||
+      prefetchedRef.current ||
+      !isPrefetchableHref(href)
+    ) {
+      return;
+    }
+    prefetchedRef.current = true;
+    prefetchNavigationHref(href);
+  };
 
   const externalProps =
     isExternal && target === undefined

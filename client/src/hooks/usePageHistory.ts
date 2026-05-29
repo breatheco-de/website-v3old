@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { Section } from "@shared/schema";
 
 interface PageSnapshot {
@@ -41,7 +41,7 @@ export function usePageHistory(
   const [undoStack, setUndoStack] = useState<PageSnapshot[]>([]);
   const [redoStack, setRedoStack] = useState<PageSnapshot[]>([]);
   
-  const isEditableElementFocused = useCallback((): boolean => {
+  const isEditableElementFocused = (): boolean => {
     const activeElement = document.activeElement;
     if (!activeElement) return false;
 
@@ -64,66 +64,57 @@ export function usePageHistory(
     if (role && radixRoles.includes(role)) return true;
 
     return false;
-  }, []);
+  };
 
-  const pushSnapshot = useCallback(
-    (sections: Section[], description: string) => {
-      if (!enabled) return;
+  const pushSnapshot = (sections: Section[], description: string) => {
+    if (!enabled) return;
 
-      const snapshot: PageSnapshot = {
-        sections: deepClone(sections),
-        timestamp: Date.now(),
-        description,
-      };
+    const snapshot: PageSnapshot = {
+      sections: deepClone(sections),
+      timestamp: Date.now(),
+      description,
+    };
 
-      setUndoStack((prev) => {
-        const newStack = [...prev, snapshot];
-        if (newStack.length > maxHistory) {
-          return newStack.slice(-maxHistory);
-        }
-        return newStack;
-      });
+    setUndoStack((prev) => {
+      const newStack = [...prev, snapshot];
+      if (newStack.length > maxHistory) {
+        return newStack.slice(-maxHistory);
+      }
+      return newStack;
+    });
 
-      setRedoStack([]);
-    },
-    [enabled, maxHistory]
-  );
+    setRedoStack([]);
+  };
 
-  const pushToRedoStack = useCallback(
-    (sections: Section[], description: string) => {
-      const snapshot: PageSnapshot = {
-        sections: deepClone(sections),
-        timestamp: Date.now(),
-        description,
-      };
-      setRedoStack((prev) => [...prev, snapshot]);
-    },
-    []
-  );
+  const pushToRedoStack = (sections: Section[], description: string) => {
+    const snapshot: PageSnapshot = {
+      sections: deepClone(sections),
+      timestamp: Date.now(),
+      description,
+    };
+    setRedoStack((prev) => [...prev, snapshot]);
+  };
   
   // Push to undo stack without clearing redo stack (used during redo operation)
-  const pushToUndoStackNoRedoClear = useCallback(
-    (sections: Section[], description: string) => {
-      if (!enabled) return;
+  const pushToUndoStackNoRedoClear = (sections: Section[], description: string) => {
+    if (!enabled) return;
 
-      const snapshot: PageSnapshot = {
-        sections: deepClone(sections),
-        timestamp: Date.now(),
-        description,
-      };
+    const snapshot: PageSnapshot = {
+      sections: deepClone(sections),
+      timestamp: Date.now(),
+      description,
+    };
 
-      setUndoStack((prev) => {
-        const newStack = [...prev, snapshot];
-        if (newStack.length > maxHistory) {
-          return newStack.slice(-maxHistory);
-        }
-        return newStack;
-      });
-    },
-    [enabled, maxHistory]
-  );
+    setUndoStack((prev) => {
+      const newStack = [...prev, snapshot];
+      if (newStack.length > maxHistory) {
+        return newStack.slice(-maxHistory);
+      }
+      return newStack;
+    });
+  };
   
-  const undo = useCallback((): Section[] | null => {
+  const undo = (): Section[] | null => {
     if (undoStack.length === 0) return null;
 
     const lastSnapshot = undoStack[undoStack.length - 1];
@@ -131,9 +122,9 @@ export function usePageHistory(
     setUndoStack((prev) => prev.slice(0, -1));
     
     return deepClone(lastSnapshot.sections);
-  }, [undoStack]);
+  };
 
-  const redo = useCallback((): Section[] | null => {
+  const redo = (): Section[] | null => {
     if (redoStack.length === 0) return null;
 
     const lastSnapshot = redoStack[redoStack.length - 1];
@@ -141,12 +132,12 @@ export function usePageHistory(
     setRedoStack((prev) => prev.slice(0, -1));
     
     return deepClone(lastSnapshot.sections);
-  }, [redoStack]);
+  };
 
-  const clearHistory = useCallback(() => {
+  const clearHistory = () => {
     setUndoStack([]);
     setRedoStack([]);
-  }, []);
+  };
 
   useEffect(() => {
     if (!enabled) return;

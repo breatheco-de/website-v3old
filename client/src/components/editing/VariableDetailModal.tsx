@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AlertTriangle, ArrowRight, Check, ChevronDown, ChevronUp, ChevronsUpDown, Filter, Pencil, Plus, Trash2, X } from "lucide-react";
 import {
   Dialog,
@@ -339,116 +339,101 @@ export function VariableDetailModal({
     return -1;
   })();
 
-  const invalidateAndRefetch = useCallback(async () => {
+  const invalidateAndRefetch = async () => {
     await refetch();
     queryClient.invalidateQueries({ queryKey: ["/api/variables"] });
-  }, [refetch]);
+  };
 
-  const handleSetDefault = useCallback(
-    async (value: string) => {
-      try {
-        await apiRequest("PUT", `/api/variables/${effectiveVarName}`, {
-          action: "set_default",
-          value,
-        });
-        await invalidateAndRefetch();
-        setEditingDefault(false);
-        toast({ title: "Default updated" });
-      } catch (err) {
-        toast({
-          title: "Failed to save",
-          description: err instanceof Error ? err.message : "Unknown error",
-          variant: "destructive",
-        });
-      }
-    },
-    [effectiveVarName, invalidateAndRefetch, toast],
-  );
+  const handleSetDefault = async (value: string) => {
+    try {
+      await apiRequest("PUT", `/api/variables/${effectiveVarName}`, {
+        action: "set_default",
+        value,
+      });
+      await invalidateAndRefetch();
+      setEditingDefault(false);
+      toast({ title: "Default updated" });
+    } catch (err) {
+      toast({
+        title: "Failed to save",
+        description: err instanceof Error ? err.message : "Unknown error",
+        variant: "destructive",
+      });
+    }
+  };
 
-  const handleAddCondition = useCallback(
-    async (query: Record<string, string>, value: string) => {
-      try {
-        await apiRequest("PUT", `/api/variables/${effectiveVarName}`, {
-          action: "add_condition",
-          condition: { query, value },
-        });
-        await invalidateAndRefetch();
-        setAddingCondition(false);
-        toast({ title: "Condition added" });
-      } catch (err) {
-        toast({
-          title: "Failed to add condition",
-          description: err instanceof Error ? err.message : "Unknown error",
-          variant: "destructive",
-        });
-      }
-    },
-    [effectiveVarName, invalidateAndRefetch, toast],
-  );
+  const handleAddCondition = async (query: Record<string, string>, value: string) => {
+    try {
+      await apiRequest("PUT", `/api/variables/${effectiveVarName}`, {
+        action: "add_condition",
+        condition: { query, value },
+      });
+      await invalidateAndRefetch();
+      setAddingCondition(false);
+      toast({ title: "Condition added" });
+    } catch (err) {
+      toast({
+        title: "Failed to add condition",
+        description: err instanceof Error ? err.message : "Unknown error",
+        variant: "destructive",
+      });
+    }
+  };
 
-  const handleUpdateCondition = useCallback(
-    async (index: number, query: Record<string, string>, value: string) => {
-      try {
-        await apiRequest("PUT", `/api/variables/${effectiveVarName}`, {
-          action: "update_condition",
-          index,
-          condition: { query, value },
-        });
-        await invalidateAndRefetch();
-        setEditingConditionIndex(null);
-        toast({ title: "Condition updated" });
-      } catch (err) {
-        toast({
-          title: "Failed to update condition",
-          description: err instanceof Error ? err.message : "Unknown error",
-          variant: "destructive",
-        });
-      }
-    },
-    [effectiveVarName, invalidateAndRefetch, toast],
-  );
+  const handleUpdateCondition = async (index: number, query: Record<string, string>, value: string) => {
+    try {
+      await apiRequest("PUT", `/api/variables/${effectiveVarName}`, {
+        action: "update_condition",
+        index,
+        condition: { query, value },
+      });
+      await invalidateAndRefetch();
+      setEditingConditionIndex(null);
+      toast({ title: "Condition updated" });
+    } catch (err) {
+      toast({
+        title: "Failed to update condition",
+        description: err instanceof Error ? err.message : "Unknown error",
+        variant: "destructive",
+      });
+    }
+  };
 
-  const handleDeleteCondition = useCallback(
-    async (index: number) => {
-      try {
-        await apiRequest("DELETE", `/api/variables/${effectiveVarName}`, {
-          action: "delete_condition",
-          index,
-        });
-        await invalidateAndRefetch();
-        toast({ title: "Condition removed" });
-      } catch (err) {
-        toast({
-          title: "Failed to delete condition",
-          description: err instanceof Error ? err.message : "Unknown error",
-          variant: "destructive",
-        });
-      }
-    },
-    [effectiveVarName, invalidateAndRefetch, toast],
-  );
+  const handleDeleteCondition = async (index: number) => {
+    try {
+      await apiRequest("DELETE", `/api/variables/${effectiveVarName}`, {
+        action: "delete_condition",
+        index,
+      });
+      await invalidateAndRefetch();
+      toast({ title: "Condition removed" });
+    } catch (err) {
+      toast({
+        title: "Failed to delete condition",
+        description: err instanceof Error ? err.message : "Unknown error",
+        variant: "destructive",
+      });
+    }
+  };
 
-  const handleReorderCondition = useCallback(
-    async (fromIndex: number, toIndex: number) => {
-      try {
-        await apiRequest("PUT", `/api/variables/${effectiveVarName}`, {
-          action: "reorder_conditions",
-          fromIndex,
-          toIndex,
-        });
-        await invalidateAndRefetch();
-      } catch (err) {
-        toast({
-          title: "Failed to reorder",
-          description: err instanceof Error ? err.message : "Unknown error",
-          variant: "destructive",
-        });
-      }
-    },
-    [effectiveVarName, invalidateAndRefetch, toast],
-  );
+  const handleReorderCondition = async (fromIndex: number, toIndex: number) => {
+    try {
+      await apiRequest("PUT", `/api/variables/${effectiveVarName}`, {
+        action: "reorder_conditions",
+        fromIndex,
+        toIndex,
+      });
+      await invalidateAndRefetch();
+    } catch (err) {
+      toast({
+        title: "Failed to reorder",
+        description: err instanceof Error ? err.message : "Unknown error",
+        variant: "destructive",
+      });
+    }
+  };
 
-  const handleCreate = useCallback(async () => {
+  const handleCreate = async () => {
     const baseName = createName.trim().replace(/\s+/g, "_").toLowerCase();
     if (!baseName) {
       toast({
@@ -491,9 +476,9 @@ export function VariableDetailModal({
     } finally {
       setCreateSaving(false);
     }
-  }, [createName, inlineDefault, definitions, invalidateAndRefetch, toast, onCreated]);
+  };
 
-  const handleUseExisting = useCallback(() => {
+  const handleUseExisting = () => {
     if (!existingVarName) {
       toast({
         title: "Select a variable",
@@ -510,28 +495,25 @@ export function VariableDetailModal({
     onCreated?.(existingVarName, templateSyntax);
     setInspectVarName(existingVarName);
     setCurrentMode("inspect");
-  }, [existingVarName, inlineDefault, toast, onCreated]);
+  };
 
   const existingVarNames = definitions ? Object.keys(definitions).sort() : [];
 
-  const handleNameChange = useCallback(
-    (rawValue: string) => {
-      const sanitized = rawValue.replace(/[^a-zA-Z0-9_.]/g, "_");
-      setCreateName(sanitized);
+  const handleNameChange = (rawValue: string) => {
+    const sanitized = rawValue.replace(/[^a-zA-Z0-9_.]/g, "_");
+    setCreateName(sanitized);
+    setNameAvailable(null);
+    if (nameCheckTimerRef.current) clearTimeout(nameCheckTimerRef.current);
+    const normalized = sanitized.trim().replace(/\s+/g, "_").toLowerCase();
+    if (!normalized) {
       setNameAvailable(null);
-      if (nameCheckTimerRef.current) clearTimeout(nameCheckTimerRef.current);
-      const normalized = sanitized.trim().replace(/\s+/g, "_").toLowerCase();
-      if (!normalized) {
-        setNameAvailable(null);
-        return;
-      }
-      const fullName = normalized.startsWith("global.") ? normalized : `global.${normalized}`;
-      nameCheckTimerRef.current = setTimeout(() => {
-        setNameAvailable(!definitions?.[fullName]);
-      }, 500);
-    },
-    [definitions],
-  );
+      return;
+    }
+    const fullName = normalized.startsWith("global.") ? normalized : `global.${normalized}`;
+    nameCheckTimerRef.current = setTimeout(() => {
+      setNameAvailable(!definitions?.[fullName]);
+    }, 500);
+  };
 
   const resolvedCreateValue = (() => {
     if (createSubMode === "existing") {
@@ -556,23 +538,20 @@ export function VariableDetailModal({
     enabled: currentMode === "inspect" && activeTab === "rename" && !!effectiveVarName,
   });
 
-  const handleRenameNameChange = useCallback(
-    (rawValue: string) => {
-      const sanitized = rawValue.replace(/[^a-zA-Z0-9_.]/g, "_");
-      setRenameTo(sanitized);
+  const handleRenameNameChange = (rawValue: string) => {
+    const sanitized = rawValue.replace(/[^a-zA-Z0-9_.]/g, "_");
+    setRenameTo(sanitized);
+    setRenameAvailable(null);
+    if (renameCheckTimerRef.current) clearTimeout(renameCheckTimerRef.current);
+    const normalized = sanitized.trim().replace(/\s+/g, "_").toLowerCase();
+    if (!normalized || normalized === effectiveVarName) {
       setRenameAvailable(null);
-      if (renameCheckTimerRef.current) clearTimeout(renameCheckTimerRef.current);
-      const normalized = sanitized.trim().replace(/\s+/g, "_").toLowerCase();
-      if (!normalized || normalized === effectiveVarName) {
-        setRenameAvailable(null);
-        return;
-      }
-      renameCheckTimerRef.current = setTimeout(() => {
-        setRenameAvailable(!definitions?.[normalized]);
-      }, 400);
-    },
-    [definitions, effectiveVarName],
-  );
+      return;
+    }
+    renameCheckTimerRef.current = setTimeout(() => {
+      setRenameAvailable(!definitions?.[normalized]);
+    }, 400);
+  };
 
   const renameMutation = useMutation({
     mutationFn: async (newName: string) => {
@@ -611,7 +590,7 @@ export function VariableDetailModal({
     },
   });
 
-  const handleRename = useCallback(() => {
+  const handleRename = () => {
     const normalized = renameTo.trim().replace(/\s+/g, "_").toLowerCase();
     if (!normalized || !renameAvailable) return;
 
@@ -623,7 +602,7 @@ export function VariableDetailModal({
     }
 
     renameMutation.mutate(normalized);
-  }, [renameTo, renameAvailable, renameMutation]);
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

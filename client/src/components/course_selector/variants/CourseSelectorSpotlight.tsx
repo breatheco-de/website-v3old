@@ -1,5 +1,5 @@
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Check, ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import type { CourseSelectorSection, CourseItem } from "@shared/schema";
 import { resolveColorVar, hslColor } from "../shared";
@@ -30,10 +30,7 @@ function SpotlightTagItem({ icon, text }: { icon: string; text: string }) {
 }
 
 function FeaturedCourseCard({ course }: { course: CourseItem }) {
-  const resolved: ResolvedColor = useMemo(
-    () => resolveColorVar(course.course_background),
-    [course.course_background]
-  );
+  const resolved: ResolvedColor = resolveColorVar(course.course_background);
   const handleLinkClick = useInternalNav();
   const Icon = course.icon ? getIcon(course.icon) : null;
   const vt = useVariableText();
@@ -170,10 +167,7 @@ function FeaturedCourseCard({ course }: { course: CourseItem }) {
 }
 
 function SmallCourseCard({ course }: { course: CourseItem }) {
-  const resolved: ResolvedColor = useMemo(
-    () => resolveColorVar(course.course_background),
-    [course.course_background]
-  );
+  const resolved: ResolvedColor = resolveColorVar(course.course_background);
   const handleLinkClick = useInternalNav();
   const Icon = course.icon ? getIcon(course.icon) : null;
   const vt = useVariableText();
@@ -307,19 +301,19 @@ export default function CourseSelectorSpotlight({ data }: CourseSelectorSpotligh
 
   const maxMobileIndex = courses.length - 1;
 
-  const goToCourse = useCallback((index: number) => {
+  const goToCourse = (index: number) => {
     const clampedIndex = Math.max(0, Math.min(index, maxMobileIndex));
     setActiveMobileIndex(clampedIndex);
-  }, [maxMobileIndex]);
+  };
 
-  const resetTouchState = useCallback(() => {
+  const resetTouchState = () => {
     touchStartXRef.current = null;
     touchStartYRef.current = null;
     swipeDeltaXRef.current = 0;
     isHorizontalSwipeRef.current = false;
-  }, []);
+  };
 
-  const handleTouchStart = useCallback((event: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
     const touch = event.touches[0];
     if (!touch) return;
 
@@ -327,9 +321,9 @@ export default function CourseSelectorSpotlight({ data }: CourseSelectorSpotligh
     touchStartYRef.current = touch.clientY;
     swipeDeltaXRef.current = 0;
     isHorizontalSwipeRef.current = false;
-  }, []);
+  };
 
-  const handleTouchMove = useCallback((event: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
     const touch = event.touches[0];
     if (!touch || touchStartXRef.current === null || touchStartYRef.current === null) return;
 
@@ -344,9 +338,9 @@ export default function CourseSelectorSpotlight({ data }: CourseSelectorSpotligh
 
     event.preventDefault();
     swipeDeltaXRef.current = deltaX;
-  }, []);
+  };
 
-  const handleTouchEnd = useCallback(() => {
+  const handleTouchEnd = () => {
     if (!isHorizontalSwipeRef.current) {
       resetTouchState();
       return;
@@ -363,7 +357,7 @@ export default function CourseSelectorSpotlight({ data }: CourseSelectorSpotligh
     }
 
     resetTouchState();
-  }, [activeMobileIndex, goToCourse, maxMobileIndex, resetTouchState]);
+  };
 
   useEffect(() => {
     setActiveMobileIndex(0);

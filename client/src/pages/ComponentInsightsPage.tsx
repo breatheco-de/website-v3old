@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest, apiFetch } from "@/lib/queryClient";
 import { Button } from "@/components/ui/button";
@@ -61,12 +61,12 @@ function PairingsTable({
   const [sortKey, setSortKey] = useState<SortKey>("count");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
 
-  const filtered = useMemo(() => {
+  const filtered = (() => {
     if (!filterNode) return pairings;
     return pairings.filter((p) => p.from === filterNode || p.to === filterNode);
-  }, [pairings, filterNode]);
+  })();
 
-  const sorted = useMemo(() => {
+  const sorted = (() => {
     const arr = [...filtered];
     arr.sort((a, b) => {
       const av = a[sortKey] as string | number;
@@ -77,7 +77,7 @@ function PairingsTable({
       return sortDir === "asc" ? (av as number) - (bv as number) : (bv as number) - (av as number);
     });
     return arr;
-  }, [filtered, sortKey, sortDir]);
+  })();
 
   function toggle(col: SortKey) {
     if (col === sortKey) {
@@ -188,14 +188,14 @@ function SuggestPanel({ data }: { data: ComponentInsightsData }) {
   const [intent, setIntent] = useState<string>("__global__");
   const [rankBy, setRankBy] = useState<"frequency" | "pmi">("frequency");
 
-  const allComponentTypes = useMemo(() => {
+  const allComponentTypes = (() => {
     const types = new Set<string>();
     for (const p of data.global.pairings) {
       types.add(p.from);
       types.add(p.to);
     }
     return Array.from(types).sort();
-  }, [data]);
+  })();
 
   const suggestions = useQuery<ComponentPairing[]>({
     queryKey: ["/api/private/component-insights/suggest", afterType, intent, rankBy],

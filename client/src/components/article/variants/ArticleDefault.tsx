@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { MouseEvent, ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -125,14 +125,14 @@ function TocSide({ items }: { items: TocItem[] }) {
     };
   }, [items]);
 
-  const handleClick = useCallback((e: MouseEvent<HTMLAnchorElement>, id: string) => {
+  const handleClick = (e: MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
       setActiveId(id);
     }
-  }, []);
+  };
 
   return (
     <nav
@@ -179,7 +179,7 @@ export function Article({ data }: ArticleProps) {
     max_width = "lg",
   } = data;
 
-  const tocItems = useMemo(() => (show_toc ? extractTocItems(content) : []), [content, show_toc]);
+  const tocItems = show_toc ? extractTocItems(content) : [];
 
   const showSideToc = show_toc && toc_position === "side" && tocItems.length > 0;
   const showTopToc = show_toc && toc_position === "top" && tocItems.length > 0;
@@ -188,7 +188,7 @@ export function Article({ data }: ArticleProps) {
 
   const slugCountsRef = useRef<Record<string, number>>({});
 
-  const getHeadingId = useCallback((text: string) => {
+  const getHeadingId = (text: string) => {
     let id = slugify(text);
     const counts = slugCountsRef.current;
     if (counts[id] !== undefined) {
@@ -198,7 +198,7 @@ export function Article({ data }: ArticleProps) {
       counts[id] = 0;
     }
     return id;
-  }, []);
+  };
 
   slugCountsRef.current = {};
 

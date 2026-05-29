@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { AlertTriangle, File, Loader2, Save, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -87,16 +87,16 @@ export default function RawFileEditorPanel({ contentType, slug, locale, variantS
     fetchFiles();
   }, [contentType, slug, locale]);
 
-  const handleChange = useCallback((value: string) => {
+  const handleChange = (value: string) => {
     if (activeFile === "locale") {
       setLocaleContent(value);
     } else {
       setCommonContent(value);
     }
     setHasChanges(true);
-  }, [activeFile]);
+  };
 
-  const executeSave = useCallback(async (filesToSave: { filePath: string; content: string }[]) => {
+  const executeSave = async (filesToSave: { filePath: string; content: string }[]) => {
     setSaving(true);
     try {
       const token = getDebugToken();
@@ -132,9 +132,9 @@ export default function RawFileEditorPanel({ contentType, slug, locale, variantS
     } finally {
       setSaving(false);
     }
-  }, [localeFile, commonFile, localeContent, commonContent, toast, onSaved]);
+  };
 
-  const handleSave = useCallback(async () => {
+  const handleSave = async () => {
     const filesToSave: { filePath: string; content: string }[] = [];
 
     if (localeFile && localeContent !== localeFile.content) {
@@ -163,26 +163,26 @@ export default function RawFileEditorPanel({ contentType, slug, locale, variantS
     }
 
     await executeSave(filesToSave);
-  }, [localeFile, commonFile, localeContent, commonContent, toast, executeSave]);
+  };
 
-  const handleConfirmSaveAnyway = useCallback(async () => {
+  const handleConfirmSaveAnyway = async () => {
     if (!pendingSave) return;
     const files = pendingSave.filesToSave;
     setPendingSave(null);
     await executeSave(files);
-  }, [pendingSave, executeSave]);
+  };
 
-  const handleCancelSave = useCallback(() => {
+  const handleCancelSave = () => {
     setPendingSave(null);
-  }, []);
+  };
 
-  const handleClose = useCallback(() => {
+  const handleClose = () => {
     if (hasChanges) {
       const confirm = window.confirm("You have unsaved changes. Close without saving?");
       if (!confirm) return;
     }
     onClose();
-  }, [hasChanges, onClose]);
+  };
 
   const currentContent = activeFile === "locale" ? localeContent : commonContent;
   const currentFile = activeFile === "locale" ? localeFile : commonFile;

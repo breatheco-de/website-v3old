@@ -4,7 +4,7 @@ export { EditableDropdownPreview, EditableLinkItem, EditableText } from "./Edita
 export { MobileNav } from "./MobileNav";
 export { TypewriterAnnouncement, type TypewriterAnnouncementProps } from "./TypewriterAnnouncement";
 
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { SimpleLink } from "./SimpleLink";
 import { Dropdown, type DropdownProps } from "./Dropdown";
 import { TypewriterAnnouncement } from "./TypewriterAnnouncement";
@@ -139,12 +139,12 @@ export function Navbar({ config }: { config: NavbarConfig }) {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const { isCompact } = useMenuVisualContext();
 
-  const handleOpenChange = useCallback((label: string) => (open: boolean) => {
+  const handleOpenChange = (label: string) => (open: boolean) => {
     setActiveDropdown((prev) => {
       if (open) return label;
       return prev === label ? null : prev;
     });
-  }, []);
+  };
 
   if (!config?.navbar?.items) {
     return null;

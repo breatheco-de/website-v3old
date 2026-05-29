@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState } from "react";
 import { Check, Wrench, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -168,7 +168,7 @@ export function RedirectConflictResolverModal({
   const [resolving, setResolving] = useState(false);
   const [pendingAction, setPendingAction] = useState<{ fileToRemove: string; keepFile: string } | null>(null);
 
-  const handleResolve = useCallback(async (fileToRemoveFrom: string) => {
+  const handleResolve = async (fileToRemoveFrom: string) => {
     if (!conflict) return;
     setResolving(true);
     try {
@@ -191,12 +191,12 @@ export function RedirectConflictResolverModal({
     } finally {
       setResolving(false);
     }
-  }, [conflict, onOpenChange, onResolved, toast]);
+  };
 
-  const handleClose = useCallback((isOpen: boolean) => {
+  const handleClose = (isOpen: boolean) => {
     if (!isOpen) setPendingAction(null);
     onOpenChange(isOpen);
-  }, [onOpenChange]);
+  };
 
   if (!conflict) return null;
 
@@ -372,13 +372,13 @@ export function useRedirectConflictResolver() {
   const [resolveModalOpen, setResolveModalOpen] = useState(false);
   const [activeConflict, setActiveConflict] = useState<RedirectConflictInfo | null>(null);
 
-  const openResolver = useCallback((issue: ValidatorIssue) => {
+  const openResolver = (issue: ValidatorIssue) => {
     const conflict = parseRedirectConflict(issue);
     if (conflict) {
       setActiveConflict(conflict);
       setResolveModalOpen(true);
     }
-  }, []);
+  };
 
   return {
     resolveModalOpen,

@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { HelpCircle, Loader2, Search } from "lucide-react";
 import {
   Dialog,
@@ -36,17 +36,15 @@ export function IconPickerModal({
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const filteredIcons = useMemo(() => {
+  const filteredIcons = (() => {
     if (!search.trim()) {
       return allIconNames;
     }
     const searchLower = search.toLowerCase();
     return allIconNames.filter((name) => iconMatchesSearch(name, searchLower));
-  }, [search]);
+  })();
 
-  const visibleIcons = useMemo(() => {
-    return filteredIcons.slice(0, visibleCount);
-  }, [filteredIcons, visibleCount]);
+  const visibleIcons = filteredIcons.slice(0, visibleCount);
 
   const hasMore = visibleCount < filteredIcons.length;
 
@@ -61,7 +59,7 @@ export function IconPickerModal({
     }
   }, [open]);
 
-  const loadMore = useCallback(() => {
+  const loadMore = () => {
     if (!hasMore || isLoadingMore) return;
     
     setIsLoadingMore(true);
@@ -69,16 +67,16 @@ export function IconPickerModal({
       setVisibleCount((prev) => Math.min(prev + ICONS_PER_LOAD, filteredIcons.length));
       setIsLoadingMore(false);
     });
-  }, [hasMore, isLoadingMore, filteredIcons.length]);
+  };
 
-  const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const target = e.currentTarget;
     const scrollBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
     
     if (scrollBottom < 100 && hasMore && !isLoadingMore) {
       loadMore();
     }
-  }, [hasMore, isLoadingMore, loadMore]);
+  };
 
   const handleSelect = (iconName: string) => {
     onSelect(iconName);

@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 interface LocaleUrlsResponse {
@@ -20,17 +19,15 @@ export function useAlternateUrls(urlPath: string | null): Record<string, string>
     staleTime: Infinity,
   });
 
-  return useMemo(() => {
-    const urls = data?.urls;
-    if (!urls || Object.keys(urls).length < 2) return undefined;
-    const origin = typeof window !== "undefined" ? window.location.origin : "";
-    const alternates: Record<string, string> = {};
-    for (const [locale, path] of Object.entries(urls)) {
-      alternates[locale] = `${origin}${path}`;
-    }
-    if (urls["en"]) {
-      alternates["x-default"] = `${origin}${urls["en"]}`;
-    }
-    return alternates;
-  }, [data]);
+  const urls = data?.urls;
+  if (!urls || Object.keys(urls).length < 2) return undefined;
+  const origin = typeof window !== "undefined" ? window.location.origin : "";
+  const alternates: Record<string, string> = {};
+  for (const [locale, path] of Object.entries(urls)) {
+    alternates[locale] = `${origin}${path}`;
+  }
+  if (urls["en"]) {
+    alternates["x-default"] = `${origin}${urls["en"]}`;
+  }
+  return alternates;
 }

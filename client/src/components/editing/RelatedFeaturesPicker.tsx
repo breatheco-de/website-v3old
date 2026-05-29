@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useState } from "react";
 import { Check } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { useQuery } from "@tanstack/react-query";
@@ -65,11 +65,9 @@ export function RelatedFeaturesPicker({ value, onChange, locale = "en", context 
   });
 
   const faqs = faqsData?.faqs ?? [];
-  const testimonials = useMemo(() => {
-    return (testimonialsData?.testimonials ?? []).filter(isValidTestimonial);
-  }, [testimonialsData]);
+  const testimonials = (testimonialsData?.testimonials ?? []).filter(isValidTestimonial);
 
-  const featureCounts = useMemo(() => {
+  const featureCounts = (() => {
     const counts: Record<string, number> = {};
 
     for (const feature of AVAILABLE_RELATED_FEATURES) {
@@ -83,9 +81,9 @@ export function RelatedFeaturesPicker({ value, onChange, locale = "en", context 
     }
 
     return counts;
-  }, [faqs, testimonials, isTestimonials]);
+  })();
 
-  const totalForSelection = useMemo(() => {
+  const totalForSelection = (() => {
     if (selectedFeatures.length === 0) return 0;
     if (isTestimonials) {
       return filterTestimonialsByFeatures(testimonials, selectedFeatures).length;
@@ -93,7 +91,7 @@ export function RelatedFeaturesPicker({ value, onChange, locale = "en", context 
     return filterFaqsByRelatedFeatures(faqs, {
       relatedFeatures: selectedFeatures,
     }).length;
-  }, [selectedFeatures, faqs, testimonials, isTestimonials]);
+  })();
 
   const toggleFeature = (feature: RelatedFeature) => {
     if (selectedFeatures.includes(feature)) {

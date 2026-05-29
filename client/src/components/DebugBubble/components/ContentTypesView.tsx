@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { AlertTriangle, ArrowLeft, ChevronDown, ChevronRight, Database, ExternalLink, FileText, Folder, Loader2, Plus, RefreshCw, Trash2 } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Link } from "wouter";
@@ -231,7 +231,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
 
   const effectiveDir = directory || name;
 
-  const filePreview = useMemo(() => {
+  const filePreview = (() => {
     if (!name) return null;
     const dir = effectiveDir;
     const defaultLocale = localeSettings?.default_locale ?? "en";
@@ -244,7 +244,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
       sampleDir: `sample-${name}/`,
       sampleFiles: ["_common.yml", ...localeFiles.map(l => `${l}.yml`)],
     };
-  }, [name, effectiveDir, defaultLocales, patternMode, localeSettings]);
+  })();
 
   function resetForm() {
     setName("");

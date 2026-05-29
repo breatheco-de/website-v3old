@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, useEffect, useMemo } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { subscribeToContentUpdates } from "@/lib/contentEvents";
 
@@ -60,20 +60,18 @@ export function SyncProvider({ children }: SyncProviderProps) {
     refetchOnWindowFocus: true,
   });
 
-  const isBehind = useMemo(() => {
-    return syncStatus?.status === 'behind' || syncStatus?.status === 'diverged';
-  }, [syncStatus]);
+  const isBehind = syncStatus?.status === 'behind' || syncStatus?.status === 'diverged';
 
-  const editingDisabled = useMemo(() => {
+  const editingDisabled = (() => {
     if (forceCommitEnabled) return false;
     return isBehind && syncStatus?.syncEnabled === true;
-  }, [isBehind, syncStatus?.syncEnabled, forceCommitEnabled]);
+  })();
 
-  const enableForceCommit = useCallback(() => {
+  const enableForceCommit = () => {
     setForceCommitEnabled(true);
-  }, []);
+  };
 
-  const checkForConflicts = useCallback(async () => {
+  const checkForConflicts = async () => {
     try {
       const response = await fetch('/api/github/conflict-info');
       if (response.ok) {
@@ -83,9 +81,9 @@ export function SyncProvider({ children }: SyncProviderProps) {
     } catch (error) {
       console.error('Error checking for conflicts:', error);
     }
-  }, []);
+  };
 
-  const syncWithRemote = useCallback(async (): Promise<boolean> => {
+  const syncWithRemote = async (): Promise<boolean> => {
     try {
       const response = await fetch('/api/github/sync', {
         method: 'POST',
@@ -104,13 +102,13 @@ export function SyncProvider({ children }: SyncProviderProps) {
       console.error('Error syncing with remote:', error);
       return false;
     }
-  }, [refreshSyncStatus, queryClient]);
+  };
 
   useEffect(() => {
     if (syncStatus?.syncEnabled && isBehind) {
       checkForConflicts();
     }
-  }, [syncStatus?.syncEnabled, isBehind, checkForConflicts]);
+  }, [syncStatus?.syncEnabled, isBehind]);
 
   // Subscribe to content updates and refresh sync status when content is edited
   useEffect(() => {

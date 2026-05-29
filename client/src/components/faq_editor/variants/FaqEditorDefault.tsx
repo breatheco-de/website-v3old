@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, Filter, Pencil, Plus, Save, Search, Trash2, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -157,7 +157,7 @@ export function FaqEditor({ data }: FaqEditorProps) {
     return matchesSearch && matchesFeature;
   });
 
-  const handleAddFaq = useCallback(() => {
+  const handleAddFaq = () => {
     setEditingFaq({
       question: "",
       answer: "",
@@ -168,24 +168,21 @@ export function FaqEditor({ data }: FaqEditorProps) {
     });
     setEditingIndex(null);
     setIsDialogOpen(true);
-  }, []);
+  };
 
-  const handleEditFaq = useCallback((faq: FaqItem, index: number) => {
+  const handleEditFaq = (faq: FaqItem, index: number) => {
     setEditingFaq({ ...faq });
     setEditingIndex(index);
     setIsDialogOpen(true);
-  }, []);
+  };
 
-  const handleDeleteFaq = useCallback(
-    (index: number) => {
-      const newFaqs = [...faqs];
-      newFaqs.splice(index, 1);
-      saveMutation.mutate(newFaqs);
-    },
-    [faqs, saveMutation]
-  );
+  const handleDeleteFaq = (index: number) => {
+    const newFaqs = [...faqs];
+    newFaqs.splice(index, 1);
+    saveMutation.mutate(newFaqs);
+  };
 
-  const handleSaveFaq = useCallback(() => {
+  const handleSaveFaq = () => {
     if (!editingFaq) return;
 
     const newFaqs = [...faqs];
@@ -204,20 +201,17 @@ export function FaqEditor({ data }: FaqEditorProps) {
     setIsDialogOpen(false);
     setEditingFaq(null);
     setEditingIndex(null);
-  }, [editingFaq, editingIndex, faqs, saveMutation]);
+  };
 
-  const handleMoveFaq = useCallback(
-    (index: number, direction: "up" | "down") => {
-      const newFaqs = [...faqs];
-      const targetIndex = direction === "up" ? index - 1 : index + 1;
-      if (targetIndex < 0 || targetIndex >= newFaqs.length) return;
-      [newFaqs[index], newFaqs[targetIndex]] = [newFaqs[targetIndex], newFaqs[index]];
-      saveMutation.mutate(newFaqs);
-    },
-    [faqs, saveMutation]
-  );
+  const handleMoveFaq = (index: number, direction: "up" | "down") => {
+    const newFaqs = [...faqs];
+    const targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= newFaqs.length) return;
+    [newFaqs[index], newFaqs[targetIndex]] = [newFaqs[targetIndex], newFaqs[index]];
+    saveMutation.mutate(newFaqs);
+  };
 
-  const toggleFeature = useCallback((feature: string) => {
+  const toggleFeature = (feature: string) => {
     if (!editingFaq) return;
     const features = editingFaq.related_features || [];
     if (features.includes(feature)) {
@@ -227,9 +221,9 @@ export function FaqEditor({ data }: FaqEditorProps) {
     } else {
       toast({ title: "Maximum reached", description: `You can select up to ${MAX_FEATURES} related features.`, variant: "destructive" });
     }
-  }, [editingFaq, toast]);
+  };
 
-  const toggleLocation = useCallback((location: string) => {
+  const toggleLocation = (location: string) => {
     if (!editingFaq) return;
     const locations = editingFaq.locations || ["all"];
     if (location === "all") {
@@ -241,7 +235,7 @@ export function FaqEditor({ data }: FaqEditorProps) {
       const newLocations = locations.filter((l) => l !== "all");
       setEditingFaq({ ...editingFaq, locations: [...newLocations, location] });
     }
-  }, [editingFaq]);
+  };
 
   const groupedFaqs = faqs.reduce((groups, faq) => {
     const features = faq.related_features?.length ? faq.related_features : ["general"];

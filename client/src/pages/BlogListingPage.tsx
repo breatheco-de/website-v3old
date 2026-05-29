@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState } from "react";
 import { ArrowRight, Calendar, ChevronLeft, ChevronRight, Loader2, Search, User } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { IS_SERVER } from "@/lib/initialData";
@@ -132,7 +132,7 @@ export default function BlogListingPage() {
 
   const urlPattern = blogConfig?.url_pattern?.[locale] || `/${locale}/blog/:slug`;
 
-  const filteredPosts = useMemo(() => {
+  const filteredPosts = (() => {
     if (!data?.results) return [];
     if (!searchQuery.trim()) return data.results;
     const query = searchQuery.toLowerCase();
@@ -142,21 +142,18 @@ export default function BlogListingPage() {
         post.description?.toLowerCase().includes(query) ||
         (post.category?.slug || "").toLowerCase().includes(query)
     );
-  }, [data?.results, searchQuery]);
+  })();
 
   const categories = data?.categories || [];
   const totalPages = data?.totalPages || 1;
 
-  const buildPageUrl = useCallback(
-    (page: number, category?: string) => {
-      const p = new URLSearchParams();
-      if (page > 1) p.set("page", String(page));
-      if (category) p.set("category", category);
-      const qs = p.toString();
-      return `/${locale}/blog${qs ? `?${qs}` : ""}`;
-    },
-    [locale]
-  );
+  const buildPageUrl = (page: number, category?: string) => {
+    const p = new URLSearchParams();
+    if (page > 1) p.set("page", String(page));
+    if (category) p.set("category", category);
+    const qs = p.toString();
+    return `/${locale}/blog${qs ? `?${qs}` : ""}`;
+  };
 
   const handleCategoryClick = (cat: string) => {
     const next = activeCategory === cat ? "" : cat;
@@ -168,7 +165,7 @@ export default function BlogListingPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const pageNumbers = useMemo(() => {
+  const pageNumbers = (() => {
     const pages: (number | "...")[] = [];
     if (totalPages <= 7) {
       for (let i = 1; i <= totalPages; i++) pages.push(i);
@@ -182,7 +179,7 @@ export default function BlogListingPage() {
       pages.push(totalPages);
     }
     return pages;
-  }, [totalPages, currentPage]);
+  })();
 
   if (isLoading && !IS_SERVER) {
     return (

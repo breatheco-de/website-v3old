@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { IS_SERVER } from "@/lib/initialData";
@@ -73,16 +73,13 @@ export default function ContentTypeDetail({ type, slug, locale, urlPattern }: Co
   }, [data?.slug, slug, effectiveLocale, urlPattern, setLocation]);
 
   const alternates = useAlternateUrls(currentLocation);
-  const metaWithAlternates = useMemo(() => {
-    if (!data?.meta) return undefined;
-    return { ...(data.meta as object), alternates };
-  }, [data?.meta, alternates]);
+  const metaWithAlternates = data?.meta ? { ...(data.meta as object), alternates } : undefined;
   usePageMeta(metaWithAlternates);
   useSchemaOrg(data?.schema);
 
-  const handleRefetch = useCallback(() => {
+  const handleRefetch = () => {
     refetch();
-  }, [refetch]);
+  };
 
   useContentAutoRefresh(type, slug, effectiveLocale, handleRefetch);
 

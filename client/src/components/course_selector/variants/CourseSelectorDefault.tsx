@@ -1,5 +1,5 @@
 
-import { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ArrowRight, Check, ChevronDown, Clock } from "lucide-react";
 import type { CourseSelectorSection, CourseItem } from "@shared/schema";
 import { Button } from "@/components/ui/button";
@@ -209,13 +209,11 @@ export default function CourseSelectorDefault({ data }: CourseSelectorDefaultPro
   const courses = data.courses;
   const activeCourse = courses[activeIndex];
 
-  const resolved = useMemo(() => {
-    return resolveColorVar(activeCourse?.course_background);
-  }, [activeCourse?.course_background]);
+  const resolved = resolveColorVar(activeCourse?.course_background);
 
-  const handleTabClick = useCallback((index: number) => {
+  const handleTabClick = (index: number) => {
     setActiveIndex(index);
-  }, []);
+  };
 
   if (!courses || courses.length === 0) return null;
 

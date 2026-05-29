@@ -1,4 +1,4 @@
-import { createContext, useContext, useRef, useCallback } from "react";
+import { createContext, useContext, useRef } from "react";
 
 export interface ImagePickerTarget {
   arrayPath?: string;
@@ -37,11 +37,11 @@ const ImagePickerContext = createContext<ImagePickerContextValue | null>(null);
 export function ImagePickerProvider({ children }: { children: React.ReactNode }) {
   const registrationRef = useRef<ImagePickerRegistration | null>(null);
 
-  const registerPicker = useCallback((reg: ImagePickerRegistration | null) => {
+  const registerPicker = (reg: ImagePickerRegistration | null) => {
     registrationRef.current = reg;
-  }, []);
+  };
 
-  const openImagePicker = useCallback((options: OpenImagePickerOptions) => {
+  const openImagePicker = (options: OpenImagePickerOptions) => {
     if (!registrationRef.current) return;
 
     const { id, alt, currentRegistryId, fieldContext } = options;
@@ -64,7 +64,7 @@ export function ImagePickerProvider({ children }: { children: React.ReactNode })
     }
 
     registrationRef.current.openPicker(baseTarget);
-  }, []);
+  };
 
   return (
     <ImagePickerContext.Provider value={{ registerPicker, openImagePicker }}>

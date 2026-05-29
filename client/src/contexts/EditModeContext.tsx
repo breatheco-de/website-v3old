@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, useMemo, useEffect, useRef } from "react";
+import { createContext, useContext, useState, useEffect, useRef } from "react";
 import type { Section, EditOperation } from "@shared/schema";
 import { editContent } from "@/lib/contentApi";
 import { navigate } from "wouter/use-browser-location";
@@ -98,15 +98,14 @@ export function EditModeProvider({ children }: EditModeProviderProps) {
   const contentTypesMap = useContentTypes();
   const contentTypesRef = useRef(contentTypesMap);
 
-
-  const setPreviewBreakpoint = useCallback((breakpoint: PreviewBreakpoint) => {
+  const setPreviewBreakpoint = (breakpoint: PreviewBreakpoint) => {
     setPreviewBreakpointState(breakpoint);
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem(PREVIEW_BREAKPOINT_KEY, breakpoint);
     }
-  }, []);
+  };
 
-  const togglePreviewBreakpoint = useCallback(() => {
+  const togglePreviewBreakpoint = () => {
     setPreviewBreakpointState(prev => {
       const next = prev === 'desktop' ? 'mobile' : 'desktop';
       if (typeof localStorage !== 'undefined') {
@@ -114,9 +113,9 @@ export function EditModeProvider({ children }: EditModeProviderProps) {
       }
       return next;
     });
-  }, []);
+  };
 
-  const persistEditMode = useCallback((value: boolean) => {
+  const persistEditMode = (value: boolean) => {
     if (typeof localStorage !== 'undefined') {
       if (value) {
         localStorage.setItem(EDIT_MODE_KEY, 'true');
@@ -124,20 +123,20 @@ export function EditModeProvider({ children }: EditModeProviderProps) {
         localStorage.removeItem(EDIT_MODE_KEY);
       }
     }
-  }, []);
+  };
 
-  const enableEditMode = useCallback(() => {
+  const enableEditMode = () => {
     setIsEditMode(true);
     persistEditMode(true);
-  }, [persistEditMode]);
+  };
 
-  const disableEditMode = useCallback(() => {
+  const disableEditMode = () => {
     setIsEditMode(false);
     persistEditMode(false);
     setSelectedSectionIndex(null);
-  }, [persistEditMode]);
+  };
 
-  const toggleEditMode = useCallback(() => {
+  const toggleEditMode = () => {
     setIsEditMode(prev => {
       const next = !prev;
       persistEditMode(next);
@@ -146,30 +145,28 @@ export function EditModeProvider({ children }: EditModeProviderProps) {
       }
       return next;
     });
-  }, [persistEditMode]);
+  };
 
-  const addPendingChange = useCallback((pageKey: string, operation: EditOperation) => {
+  const addPendingChange = (pageKey: string, operation: EditOperation) => {
     setPendingChanges(prev => {
       const next = new Map(prev);
       const existing = next.get(pageKey) || [];
       next.set(pageKey, [...existing, operation]);
       return next;
     });
-  }, []);
+  };
 
-  const clearPendingChanges = useCallback((pageKey: string) => {
+  const clearPendingChanges = (pageKey: string) => {
     setPendingChanges(prev => {
       const next = new Map(prev);
       next.delete(pageKey);
       return next;
     });
-  }, []);
+  };
 
-  const hasPendingChanges = useMemo(() => {
-    return pendingChanges.size > 0 && Array.from(pendingChanges.values()).some(ops => ops.length > 0);
-  }, [pendingChanges]);
+  const hasPendingChanges = pendingChanges.size > 0 && Array.from(pendingChanges.values()).some(ops => ops.length > 0);
 
-  const saveChanges = useCallback(async (
+  const saveChanges = async (
     pageKey: string,
     contentType: string,
     slug: string,
@@ -202,7 +199,7 @@ export function EditModeProvider({ children }: EditModeProviderProps) {
     } finally {
       setIsSaving(false);
     }
-  }, [pendingChanges, clearPendingChanges]);
+  };
 
   useEffect(() => {
     contentTypesRef.current = contentTypesMap;
@@ -230,7 +227,7 @@ export function EditModeProvider({ children }: EditModeProviderProps) {
     return () => document.removeEventListener('click', handleClick, true);
   }, [isEditMode]);
 
-  const value = useMemo(() => ({
+  const value: EditModeContextValue = {
     isEditMode,
     enableEditMode,
     disableEditMode,
@@ -246,22 +243,7 @@ export function EditModeProvider({ children }: EditModeProviderProps) {
     previewBreakpoint,
     setPreviewBreakpoint,
     togglePreviewBreakpoint,
-  }), [
-    isEditMode,
-    enableEditMode,
-    disableEditMode,
-    toggleEditMode,
-    selectedSectionIndex,
-    pendingChanges,
-    addPendingChange,
-    clearPendingChanges,
-    hasPendingChanges,
-    isSaving,
-    saveChanges,
-    previewBreakpoint,
-    setPreviewBreakpoint,
-    togglePreviewBreakpoint,
-  ]);
+  };
 
   return (
     <EditModeContext.Provider value={value}>

@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Search, Link, ExternalLink, Check } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -55,7 +55,7 @@ export function SitemapSearch({ value, onChange, placeholder = "/page-url", test
     },
   });
 
-  const filteredUrls = useMemo(() => {
+  const filteredUrls = (() => {
     if (!searchQuery.trim()) return sitemapUrls;
     const query = searchQuery.toLowerCase();
     return sitemapUrls.filter(
@@ -63,11 +63,9 @@ export function SitemapSearch({ value, onChange, placeholder = "/page-url", test
         entry.loc.toLowerCase().includes(query) ||
         entry.label.toLowerCase().includes(query)
     );
-  }, [sitemapUrls, searchQuery]);
+  })();
 
-  const isCurrentValueInSitemap = useMemo(() => {
-    return sitemapUrls.some((entry) => extractPath(entry.loc) === value);
-  }, [sitemapUrls, value]);
+  const isCurrentValueInSitemap = sitemapUrls.some((entry) => extractPath(entry.loc) === value);
 
   const handleSelect = (url: string) => {
     onChange(url, false);

@@ -1,5 +1,5 @@
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useRef } from "react";
 import { ChevronDown, ChevronLeft, ChevronRight, Circle, Flag } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
@@ -201,10 +201,10 @@ function TwoColumnCardsLayout({ tab, tabIndex }: { tab: CareerSupportTab; tabInd
   const extraMobileRightBullets = rightBullets.slice(2);
   const hasMobileRightExpandableContent =
     extraMobileRightBullets.length > 0 || (tab.right_logos?.length ?? 0) > 0;
-  const toggleMobileRightExpanded = useCallback(() => {
+  const toggleMobileRightExpanded = () => {
     if (!hasMobileRightExpandableContent) return;
     setIsMobileRightExpanded((prev) => !prev);
-  }, [hasMobileRightExpandableContent]);
+  };
 
   return (
     <div
@@ -644,13 +644,13 @@ function TextWithTestimonialsCarouselLayout({
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = testimonials.length;
 
-  const goNext = useCallback(() => {
+  const goNext = () => {
     setCurrentSlide((prev) => (prev + 1) % totalSlides);
-  }, [totalSlides]);
+  };
 
-  const goPrev = useCallback(() => {
+  const goPrev = () => {
     setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
-  }, [totalSlides]);
+  };
 
   return (
     <div
@@ -802,25 +802,22 @@ export default function CareerSupportExplain({ data }: CareerSupportExplainProps
   const [activeTab, setActiveTab] = useState(0);
   const touchStartX = useRef<number | null>(null);
 
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+  const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
-  }, []);
+  };
 
-  const handleTouchEnd = useCallback(
-    (e: React.TouchEvent) => {
-      if (touchStartX.current === null) return;
-      const diff = touchStartX.current - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 50) {
-        if (diff > 0) {
-          setActiveTab((prev) => (prev + 1) % tabs.length);
-        } else {
-          setActiveTab((prev) => (prev - 1 + tabs.length) % tabs.length);
-        }
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        setActiveTab((prev) => (prev + 1) % tabs.length);
+      } else {
+        setActiveTab((prev) => (prev - 1 + tabs.length) % tabs.length);
       }
-      touchStartX.current = null;
-    },
-    [tabs.length],
-  );
+    }
+    touchStartX.current = null;
+  };
 
   return (
     <section

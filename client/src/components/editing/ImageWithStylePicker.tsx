@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { ChevronDown, Image } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -58,10 +58,7 @@ export function ImageWithStylePicker({
 
   const [pickerOpen, setPickerOpen] = useState(false);
 
-  const displaySrc = useMemo(() => {
-    if (!value) return "";
-    return imageRegistry?.images?.[value]?.src || value;
-  }, [value, imageRegistry]);
+  const displaySrc = !value ? "" : (imageRegistry?.images?.[value]?.src || value);
 
   const handleSave = async (src: string, pickedAlt: string, registryId: string | undefined) => {
     onChangeSrc(src, pickedAlt, registryId);

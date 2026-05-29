@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {AlertTriangle, ArrowLeft, ArrowRight, Check, ChevronDown, Clipboard, Code, Crosshair, FileText, Gauge, Globe, Image, Info, LayoutGrid, Link as LinkIcon, Loader2, Play, RefreshCw, Save, Search, Sparkles, Stethoscope, Wrench, X} from "lucide-react";
-import { useState, useMemo, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -216,7 +216,7 @@ function StatusBadge({ status }: { status: "passed" | "failed" | "warning" }) {
 
 
 function IssueRow({ issue, onResolve }: { issue: ValidatorIssue; onResolve?: (issue: ValidatorIssue) => void }) {
-  const conflict = useMemo(() => parseRedirectConflict(issue), [issue]);
+  const conflict = parseRedirectConflict(issue);
   const navUrl = issue.fix?.type === "manual" && issue.fix?.url ? issue.fix.url : null;
 
   return (
@@ -395,10 +395,10 @@ function ValidatorCard({
     },
   });
 
-  const allIssues = useMemo(() => [...v.errors, ...v.warnings], [v.errors, v.warnings]);
+  const allIssues = [...v.errors, ...v.warnings];
   const hasIssues = allIssues.length > 0;
 
-  const apiFixes = useMemo(() => {
+  const apiFixes = (() => {
     const map = new Map<string, { label: string; count: number }>();
     for (const issue of allIssues) {
       if (issue.fix?.type === "api" && issue.fix.fixerName) {
@@ -408,9 +408,9 @@ function ValidatorCard({
       }
     }
     return Array.from(map.entries()).map(([name, { label, count }]) => ({ name, label, count }));
-  }, [allIssues]);
+  })();
 
-  const scriptFixes = useMemo(() => {
+  const scriptFixes = (() => {
     const map = new Map<string, { label: string; command: string; count: number }>();
     for (const issue of allIssues) {
       if (issue.fix?.type === "script" && issue.fix.command) {
@@ -421,9 +421,9 @@ function ValidatorCard({
       }
     }
     return Array.from(map.values());
-  }, [allIssues]);
+  })();
 
-  const fixSummary = useMemo(() => {
+  const fixSummary = (() => {
     let auto = 0, needPrompt = 0, script = 0, manual = 0;
     for (const issue of allIssues) {
       if (!issue.fix || issue.fix.type === "manual") manual++;
@@ -432,7 +432,7 @@ function ValidatorCard({
       else if (issue.fix.type === "script") script++;
     }
     return { auto, needPrompt, script, manual };
-  }, [allIssues]);
+  })();
 
   const hasFixHints = allIssues.some((i) => i.fix && i.fix.type !== "manual");
 
@@ -730,7 +730,7 @@ function GlobalHealthTab() {
     },
   });
 
-  const filteredValidators = useMemo(() => {
+  const filteredValidators = (() => {
     if (!results) return [];
     return results.validators.filter((v) => {
       if (search && !v.name.toLowerCase().includes(search.toLowerCase()) && !v.description.toLowerCase().includes(search.toLowerCase())) {
@@ -744,7 +744,7 @@ function GlobalHealthTab() {
       }
       return true;
     });
-  }, [results, search, severityFilter, categoryFilter]);
+  })();
 
   const categories: { key: CategoryFilter; label: string }[] = [
     { key: "all", label: "All" },
@@ -959,7 +959,7 @@ function PageAnalysisTab() {
     enabled: !!selectedUrl,
   });
 
-  const groupedPages = useMemo(() => {
+  const groupedPages = (() => {
     if (!pagesData?.pages) return {};
     const filtered = pagesData.pages.filter(
       (p) =>
@@ -973,7 +973,7 @@ function PageAnalysisTab() {
       groups[key].push(p);
     }
     return groups;
-  }, [pagesData, searchTerm]);
+  })();
 
   return (
     <div className="space-y-6">

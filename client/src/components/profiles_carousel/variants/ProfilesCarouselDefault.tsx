@@ -1,5 +1,5 @@
 
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Linkedin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { UniversalImage } from "@/components/UniversalImage";
@@ -144,15 +144,15 @@ export default function ProfilesCarousel({ data }: ProfilesCarouselProps) {
     setCurrentPage(0);
   }, [itemsPerPage]);
 
-  const totalPages = useMemo(() => Math.ceil(profiles.length / itemsPerPage), [profiles.length, itemsPerPage]);
+  const totalPages = Math.ceil(profiles.length / itemsPerPage);
 
-  const pages = useMemo(() => {
+  const pages = (() => {
     const result: ProfileCard[][] = [];
     for (let i = 0; i < profiles.length; i += itemsPerPage) {
       result.push(profiles.slice(i, i + itemsPerPage));
     }
     return result;
-  }, [profiles, itemsPerPage]);
+  })();
 
   const gridColsClass = itemsPerPage === 1 ? 'grid-cols-1' : itemsPerPage === 2 ? 'grid-cols-2' : itemsPerPage === 3 ? 'grid-cols-3' : 'grid-cols-4';
 

@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 interface ContentTypeEntry {
@@ -31,18 +30,16 @@ export function useContentTypesRaw() {
 export function useContentTypes() {
   const { data } = useContentTypesRaw();
 
-  return useMemo(() => {
-    if (!data) return null;
+  if (!data) return null;
 
-    const map: ContentTypesMap = {};
-    for (const item of data) {
-      map[item.name] = {
-        directory: item.directory,
-        url_pattern: item.url_pattern,
-      };
-    }
-    return map;
-  }, [data]);
+  const map: ContentTypesMap = {};
+  for (const item of data) {
+    map[item.name] = {
+      directory: item.directory,
+      url_pattern: item.url_pattern,
+    };
+  }
+  return map;
 }
 
 export function getTypeFromFolder(configs: ContentTypesMap, folder: string): string {

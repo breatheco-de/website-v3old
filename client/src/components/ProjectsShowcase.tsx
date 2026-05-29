@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { ChevronLeft, ChevronRight, Github, Linkedin } from "lucide-react";
 import type { ProjectsShowcaseSection, ProjectShowcaseItem } from "@shared/schema";
 import { Button } from "@/components/ui/button";
@@ -24,13 +24,13 @@ function SingleProject({ project, mediaPosition, background }: SingleProjectProp
   const mediaItems = media || [];
   const hasCarousel = mediaItems.length > 1;
 
-  const goToPrevious = useCallback(() => {
+  const goToPrevious = () => {
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : mediaItems.length - 1));
-  }, [mediaItems.length]);
+  };
 
-  const goToNext = useCallback(() => {
+  const goToNext = () => {
     setCurrentIndex((prev) => (prev < mediaItems.length - 1 ? prev + 1 : 0));
-  }, [mediaItems.length]);
+  };
 
   const renderMedia = () => {
     if (mediaItems.length > 0) {

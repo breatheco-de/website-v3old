@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { ChevronDown, Star } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -62,7 +62,7 @@ export function TestimonialItemsPreview({
     staleTime: 5 * 60 * 1000,
   });
 
-  const filteredItems = useMemo(() => {
+  const filteredItems = (() => {
     const all = (bankData?.testimonials ?? []).filter(isValidTestimonial);
     if (relatedFeatures.length === 0) {
       return all.slice(0, 30);
@@ -85,7 +85,7 @@ export function TestimonialItemsPreview({
         return (b.priority ?? 0) - (a.priority ?? 0);
       })
       .slice(0, 30);
-  }, [bankData, relatedFeatures]);
+  })();
 
   if (isLoading) {
     return (

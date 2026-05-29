@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { SectionRenderer } from "@/components/SectionRenderer";
 import type { Section } from "@shared/schema";
 
@@ -8,12 +8,12 @@ export default function PreviewFrame() {
   const [isStandalone, setIsStandalone] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const reportHeight = useCallback(() => {
+  const reportHeight = () => {
     if (containerRef.current && window.parent !== window) {
       const height = containerRef.current.scrollHeight;
       window.parent.postMessage({ type: 'preview-height', height }, '*');
     }
-  }, []);
+  };
 
   useEffect(() => {
     const isInIframe = window.parent !== window;

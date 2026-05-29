@@ -1,5 +1,5 @@
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -31,13 +31,13 @@ export default function WhosHiringGrid({ data }: WhosHiringGridProps) {
     }
   }, [currentPage, totalPages]);
 
-  const goToPrevious = useCallback(() => {
+  const goToPrevious = () => {
     setCurrentPage((prev) => (prev > 0 ? prev - 1 : totalPages - 1));
-  }, [totalPages]);
+  };
 
-  const goToNext = useCallback(() => {
+  const goToNext = () => {
     setCurrentPage((prev) => (prev < totalPages - 1 ? prev + 1 : 0));
-  }, [totalPages]);
+  };
 
   const currentLogos = logos.slice(
     currentPage * LOGOS_PER_PAGE,

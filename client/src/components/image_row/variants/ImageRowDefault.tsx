@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { hasHtmlTags, getTextLength, sliceHtml } from "@/lib/htmlTypewriter";
 import { useTypewriter } from "@/hooks/useTypewriter";
@@ -45,11 +45,8 @@ function TypewriterText({
   isEditMode,
   className = "",
 }: TypewriterTextProps) {
-  const isHtml = useMemo(() => hasHtmlTags(text), [text]);
-  const totalChars = useMemo(
-    () => (isHtml ? getTextLength(text) : text.length),
-    [text, isHtml],
-  );
+  const isHtml = hasHtmlTags(text);
+  const totalChars = isHtml ? getTextLength(text) : text.length;
 
   const animText = isHtml ? " ".repeat(totalChars) : text;
   const enabled = !isEditMode && isActive;
@@ -124,24 +121,21 @@ function HighlightSlideshow({
 }: HighlightSlideshowProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const clearTimer = useCallback(() => {
+  const clearTimer = () => {
     if (timerRef.current) {
       clearInterval(timerRef.current);
       timerRef.current = null;
     }
-  }, []);
+  };
 
-  const goToSlide = useCallback(
-    (index: number) => {
-      if (index === currentSlide) return;
-      setCurrentSlide(index);
-    },
-    [currentSlide],
-  );
+  const goToSlide = (index: number) => {
+    if (index === currentSlide) return;
+    setCurrentSlide(index);
+  };
 
-  const nextSlide = useCallback(() => {
+  const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
-  }, [slides.length]);
+  };
 
   useEffect(() => {
     clearTimer();

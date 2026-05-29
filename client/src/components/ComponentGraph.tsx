@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useCallback, useMemo } from "react";
+import { useRef, useEffect, useState } from "react";
 import ForceGraph2D from "react-force-graph-2d";
 import type { ForceGraphMethods, NodeObject, LinkObject } from "react-force-graph-2d";
 import type { ComponentPairing } from "@shared/schema";
@@ -69,7 +69,7 @@ export default function ComponentGraph({
   }, []);
 
   // Derived graph data
-  const { nodes, links, neighborSet, maxDegree, hubThreshold } = useMemo(() => {
+  const { nodes, links, neighborSet, maxDegree, hubThreshold } = (() => {
     // Sort by PMI descending and slice to the edge limit
     const sorted = [...pairings].sort((a, b) => b.pmi - a.pmi);
     const limitMap: Record<EdgeMode, number> = { top20: 20, top40: 40, all: Infinity };
@@ -116,7 +116,7 @@ export default function ComponentGraph({
     const hubThreshold = Math.max(2, sortedDeg[q80idx] ?? 2);
 
     return { nodes, links, neighborSet, maxDegree, hubThreshold };
-  }, [pairings, edgeMode]);
+  })();
 
   // Tune d3 charge force on mount and when nodes change.
   // We also call zoomToFit here after a short delay so the initial layout
@@ -138,124 +138,106 @@ export default function ComponentGraph({
   }, [nodes]);
 
   // Also zoom to fit when simulation fully stops
-  const handleEngineStop = useCallback(() => {
+  const handleEngineStop = () => {
     graphRef.current?.zoomToFit(400, 48);
-  }, []);
+  };
 
   // Node radius: min 3px, max ~8px
-  const nodeRadius = useCallback(
-    (n: GraphNode) => NODE_BASE_RADIUS + (n.degree / maxDegree) * NODE_BASE_RADIUS * 2.5,
-    [maxDegree]
-  );
+  const nodeRadius = (n: GraphNode) => NODE_BASE_RADIUS + (n.degree / maxDegree) * NODE_BASE_RADIUS * 2.5;
 
-  const isNeighbor = useCallback(
-    (a: string, b: string) => neighborSet.get(a)?.has(b) ?? false,
-    [neighborSet]
-  );
+  const isNeighbor = (a: string, b: string) => neighborSet.get(a)?.has(b) ?? false;
 
   // ── Color callbacks ──────────────────────────────────────────────────────
 
-  const nodeColor = useCallback(
-    (raw: NodeObject<GraphNode>): string => {
-      const n = raw as GraphNode;
-      const focused = hoveredNode ?? selectedNode;
-      if (!focused) return cssColor("--primary");
-      if (n.id === focused) return cssColor("--primary");
-      if (isNeighbor(focused, n.id)) return cssColor("--primary", 0.55);
-      return cssColor("--primary", FADE_OPACITY);
-    },
-    [hoveredNode, selectedNode, isNeighbor]
-  );
+  const nodeColor = (raw: NodeObject<GraphNode>): string => {
+    const n = raw as GraphNode;
+    const focused = hoveredNode ?? selectedNode;
+    if (!focused) return cssColor("--primary");
+    if (n.id === focused) return cssColor("--primary");
+    if (isNeighbor(focused, n.id)) return cssColor("--primary", 0.55);
+    return cssColor("--primary", FADE_OPACITY);
+  };
 
-  const linkColor = useCallback(
-    (raw: LinkObject<GraphNode, GraphLink>): string => {
-      const l = raw as GraphLink;
-      const focused = hoveredNode ?? selectedNode;
-      const src = nodeId(l.source);
-      const tgt = nodeId(l.target);
-      // Edges always use --muted-foreground so they're light in both themes
-      if (!focused) return cssColor("--muted-foreground", 0.3);
-      if (src === focused || tgt === focused) return cssColor("--primary", 0.75);
-      return cssColor("--muted-foreground", FADE_OPACITY);
-    },
-    [hoveredNode, selectedNode]
-  );
+  const linkColor = (raw: LinkObject<GraphNode, GraphLink>): string => {
+    const l = raw as GraphLink;
+    const focused = hoveredNode ?? selectedNode;
+    const src = nodeId(l.source);
+    const tgt = nodeId(l.target);
+    // Edges always use --muted-foreground so they're light in both themes
+    if (!focused) return cssColor("--muted-foreground", 0.3);
+    if (src === focused || tgt === focused) return cssColor("--primary", 0.75);
+    return cssColor("--muted-foreground", FADE_OPACITY);
+  };
 
   // ── Custom canvas node drawing ───────────────────────────────────────────
 
-  const nodeCanvasObject = useCallback(
-    (raw: NodeObject<GraphNode>, ctx: CanvasRenderingContext2D, globalScale: number) => {
-      const n = raw as GraphNode & { x: number; y: number };
-      const focused = hoveredNode ?? selectedNode;
-      const r = nodeRadius(n);
-      const isHub = n.degree >= hubThreshold;
-      const isFocused = focused === n.id;
-      const isNeighborOfFocus = focused ? isNeighbor(focused, n.id) : false;
+  const nodeCanvasObject = (raw: NodeObject<GraphNode>, ctx: CanvasRenderingContext2D, globalScale: number) => {
+    const n = raw as GraphNode & { x: number; y: number };
+    const focused = hoveredNode ?? selectedNode;
+    const r = nodeRadius(n);
+    const isHub = n.degree >= hubThreshold;
+    const isFocused = focused === n.id;
+    const isNeighborOfFocus = focused ? isNeighbor(focused, n.id) : false;
 
-      // Circle
+    // Circle
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, r, 0, 2 * Math.PI);
+    ctx.fillStyle = nodeColor(raw);
+    ctx.fill();
+
+    // Outline ring for selected node
+    if (selectedNode === n.id) {
+      ctx.strokeStyle = cssColor("--primary");
+      ctx.lineWidth = 1.5 / globalScale;
+      ctx.stroke();
+    }
+
+    // Labels — always visible for all nodes; faded for non-focused when something is focused
+    {
+      const fadeAlpha = focused && !isFocused && !isNeighborOfFocus ? FADE_OPACITY * 1.5 : 1;
+      const fontWeight = isHub ? 600 : 400;
+      const fontPx = (isHub ? LABEL_FONT_PX + 1 : LABEL_FONT_PX) / globalScale;
+      ctx.font = `${fontWeight} ${fontPx}px Inter,sans-serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "top";
+
+      const labelY = n.y + r + 3 / globalScale;
+      const textW = ctx.measureText(n.id).width;
+      const padX = 3 / globalScale;
+      const padY = 2 / globalScale;
+      const boxH = fontPx + padY * 2;
+
+      // Solid pill background for maximum contrast
+      const bgAlpha = focused && !isFocused && !isNeighborOfFocus ? 0.06 : 0.88;
+      ctx.fillStyle = cssColor("--background", bgAlpha);
       ctx.beginPath();
-      ctx.arc(n.x, n.y, r, 0, 2 * Math.PI);
-      ctx.fillStyle = nodeColor(raw);
+      const rx = boxH / 2;
+      const bx = n.x - textW / 2 - padX;
+      const by = labelY - padY;
+      const bw = textW + padX * 2;
+      ctx.roundRect(bx, by, bw, boxH, rx);
       ctx.fill();
 
-      // Outline ring for selected node
-      if (selectedNode === n.id) {
-        ctx.strokeStyle = cssColor("--primary");
-        ctx.lineWidth = 1.5 / globalScale;
-        ctx.stroke();
-      }
-
-      // Labels — always visible for all nodes; faded for non-focused when something is focused
-      {
-        const fadeAlpha = focused && !isFocused && !isNeighborOfFocus ? FADE_OPACITY * 1.5 : 1;
-        const fontWeight = isHub ? 600 : 400;
-        const fontPx = (isHub ? LABEL_FONT_PX + 1 : LABEL_FONT_PX) / globalScale;
-        ctx.font = `${fontWeight} ${fontPx}px Inter,sans-serif`;
-        ctx.textAlign = "center";
-        ctx.textBaseline = "top";
-
-        const labelY = n.y + r + 3 / globalScale;
-        const textW = ctx.measureText(n.id).width;
-        const padX = 3 / globalScale;
-        const padY = 2 / globalScale;
-        const boxH = fontPx + padY * 2;
-
-        // Solid pill background for maximum contrast
-        const bgAlpha = focused && !isFocused && !isNeighborOfFocus ? 0.06 : 0.88;
-        ctx.fillStyle = cssColor("--background", bgAlpha);
-        ctx.beginPath();
-        const rx = boxH / 2;
-        const bx = n.x - textW / 2 - padX;
-        const by = labelY - padY;
-        const bw = textW + padX * 2;
-        ctx.roundRect(bx, by, bw, boxH, rx);
-        ctx.fill();
-
-        // Label text
-        ctx.fillStyle = cssColor("--foreground", fadeAlpha);
-        ctx.fillText(n.id, n.x, labelY);
-      }
-    },
-    [hoveredNode, selectedNode, nodeColor, nodeRadius, isNeighbor, hubThreshold]
-  );
+      // Label text
+      ctx.fillStyle = cssColor("--foreground", fadeAlpha);
+      ctx.fillText(n.id, n.x, labelY);
+    }
+  };
 
   // ── Interaction handlers ─────────────────────────────────────────────────
 
-  const handleNodeHover = useCallback((raw: NodeObject<GraphNode> | null) => {
+  const handleNodeHover = (raw: NodeObject<GraphNode> | null) => {
     const n = raw as GraphNode | null;
     setHoveredNode(n ? n.id : null);
     if (containerRef.current) {
       containerRef.current.style.cursor = n ? "pointer" : "default";
     }
-  }, []);
+  };
 
-  const handleNodeClick = useCallback(
-    (raw: NodeObject<GraphNode>) => {
-      const n = raw as GraphNode;
-      if (onNodeClick) onNodeClick(selectedNode === n.id ? null : n.id);
-    },
-    [onNodeClick, selectedNode]
-  );
+  const handleNodeClick = (raw: NodeObject<GraphNode>) => {
+    const n = raw as GraphNode;
+    if (onNodeClick) onNodeClick(selectedNode === n.id ? null : n.id);
+  };
 
   if (pairings.length === 0) {
     return (

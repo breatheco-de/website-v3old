@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AlertTriangle, ArrowRight, Award, BarChart2, Blocks, Book, Brain, Building2, Check, ClipboardList, Columns, Columns2, CreditCard, FolderCode, HelpCircle, Image, Info, List, ListFilter, MessageSquare, MousePointerClick, PanelBottom, RefreshCw, Rocket, ScatterChart, Search, Sparkles, Star, Table, Trophy, Users, Wand2, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import jsYaml from "js-yaml";
@@ -274,7 +274,7 @@ export default function ComponentPickerModal({
     enabled: isOpen,
   });
 
-  const componentsList: ComponentInfo[] = useMemo(() => {
+  const componentsList: ComponentInfo[] = (() => {
     if (!registryData?.components) return [];
     
     const RESERVED_COMPONENT_NAMES = ["common", "_common", "shared", "_shared", "utils", "_utils"];
@@ -287,9 +287,9 @@ export default function ComponentPickerModal({
         icon: iconMap[comp.type] || Blocks,
         description: comp.description || "",
       }));
-  }, [registryData]);
+  })();
 
-  const filteredComponentsList = useMemo(() => {
+  const filteredComponentsList = (() => {
     if (!componentSearch.trim()) return componentsList;
     const searchLower = componentSearch.toLowerCase();
     return componentsList.filter(
@@ -298,36 +298,34 @@ export default function ComponentPickerModal({
         comp.type.toLowerCase().includes(searchLower) ||
         comp.description.toLowerCase().includes(searchLower)
     );
-  }, [componentsList, componentSearch]);
+  })();
 
-  const alreadyUsedTypes = useMemo(() => {
+  const alreadyUsedTypes = (() => {
     const sections = (singleEntry?.sections as Array<{ type: string }> | undefined) ?? [];
     return new Set(sections.map((s) => s.type));
-  }, [singleEntry]);
+  })();
 
-  const suggestedComponents = useMemo(() => {
-    return suggestions
-      .map((s) => componentsList.find((c) => c.type === s.type))
-      .filter((c): c is ComponentInfo => !!c)
-      .map((c) => {
-        const s = suggestions.find((sg) => sg.type === c.type)!;
-        return { ...c, suggestion: s };
-      });
-  }, [suggestions, componentsList]);
+  const suggestedComponents = suggestions
+    .map((s) => componentsList.find((c) => c.type === s.type))
+    .filter((c): c is ComponentInfo => !!c)
+    .map((c) => {
+      const s = suggestions.find((sg) => sg.type === c.type)!;
+      return { ...c, suggestion: s };
+    });
 
-  const prevSectionLabel = useMemo(() => {
+  const prevSectionLabel = (() => {
     const sections = (singleEntry?.sections as Array<{ type: string }> | undefined) ?? [];
     const prevSection = insertIndex > 0 ? sections[insertIndex - 1] : null;
     if (!prevSection) return null;
     const comp = componentsList.find((c) => c.type === prevSection.type);
     return comp?.label ?? prevSection.type;
-  }, [singleEntry, insertIndex, componentsList]);
+  })();
 
-  const intentLabel = useMemo(() => {
+  const intentLabel = (() => {
     if (!contentType) return null;
     const intent = CONTENT_TYPE_INTENT[contentType] ?? "brand_corporate";
     return INTENT_LABELS[intent] ?? intent;
-  }, [contentType]);
+  })();
 
   useEffect(() => {
     if (selectedComponent) {
@@ -373,9 +371,7 @@ export default function ComponentPickerModal({
     }
   }, [selectedComponent, selectedVersion]);
 
-  const selectedExampleData = useMemo(() => {
-    return examples.find(e => e.slug === selectedExample) || null;
-  }, [examples, selectedExample]);
+  const selectedExampleData = examples.find(e => e.slug === selectedExample) || null;
 
   useEffect(() => {
     if (!isOpen) {
@@ -457,7 +453,7 @@ export default function ComponentPickerModal({
     }
   }, [suggestionsLoading, isLoadingRegistry, isOpen, step, suggestions.length, componentsList.length]);
 
-  const handleSelectComponent = useCallback((component: ComponentInfo) => {
+  const handleSelectComponent = (component: ComponentInfo) => {
     setSelectedComponent(component);
     if (component.type === "dynamic_table") {
       setStep("wizard");
@@ -469,9 +465,9 @@ export default function ComponentPickerModal({
     setSelectedVersion("");
     setSelectedExample("");
     setSelectedRelatedFeatures([]);
-  }, []);
+  };
 
-  const handleBack = useCallback(() => {
+  const handleBack = () => {
     setStep("select");
     setSelectedComponent(null);
     setVersions([]);
@@ -480,9 +476,9 @@ export default function ComponentPickerModal({
     setSelectedExample("");
     setSelectedRelatedFeatures([]);
     setComponentSearch("");
-  }, []);
+  };
 
-  const executeWizardComplete = useCallback(async (config: DynamicTableConfig) => {
+  const executeWizardComplete = async (config: DynamicTableConfig) => {
     if (!contentType || !slug || !locale) return;
 
     setIsAdding(true);
@@ -547,10 +543,10 @@ export default function ComponentPickerModal({
     } finally {
       setIsAdding(false);
     }
-  }, [contentType, slug, locale, variant, version, insertIndex, onClose, toast]);
+  };
 
   /** Per-entry variant of wizard add — sends the wizard section to /api/per-entry-section-add */
-  const executePerEntryWizardComplete = useCallback(async (config: DynamicTableConfig) => {
+  const executePerEntryWizardComplete = async (config: DynamicTableConfig) => {
     if (!contentType || !slug || !locale) return;
     setIsAdding(true);
     try {
@@ -582,9 +578,9 @@ export default function ComponentPickerModal({
     } finally {
       setIsAdding(false);
     }
-  }, [contentType, slug, locale, insertIndex, onClose, toast]);
+  };
 
-  const handleWizardComplete = useCallback(async (config: DynamicTableConfig) => {
+  const handleWizardComplete = async (config: DynamicTableConfig) => {
     if (addScope === "entry") {
       await executePerEntryWizardComplete(config);
       return;
@@ -599,9 +595,9 @@ export default function ComponentPickerModal({
       return;
     }
     await executeWizardComplete(config);
-  }, [addScope, isSharedTemplate, executeWizardComplete, executePerEntryWizardComplete]);
+  };
 
-  const executeAddSection = useCallback(async () => {
+  const executeAddSection = async () => {
     if (!selectedExampleData || !selectedComponent || !contentType || !slug || !locale) {
       return;
     }
@@ -727,9 +723,9 @@ export default function ComponentPickerModal({
     } finally {
       setIsAdding(false);
     }
-  }, [selectedExampleData, selectedComponent, selectedVersion, contentType, slug, locale, variant, version, insertIndex, onClose, useAiAdaptation, selectedRelatedFeatures, toast]);
+  };
 
-  const executePerEntryAddSection = useCallback(async () => {
+  const executePerEntryAddSection = async () => {
     if (!selectedExampleData || !selectedComponent || !contentType || !slug || !locale) return;
     setIsAdding(true);
     try {
@@ -760,9 +756,9 @@ export default function ComponentPickerModal({
     } finally {
       setIsAdding(false);
     }
-  }, [selectedExampleData, selectedComponent, selectedVersion, contentType, slug, locale, selectedRelatedFeatures, onClose, toast]);
+  };
 
-  const handleAddSection = useCallback(async () => {
+  const handleAddSection = async () => {
     if (addScope === "entry") {
       await executePerEntryAddSection();
       return;
@@ -777,18 +773,18 @@ export default function ComponentPickerModal({
       return;
     }
     await executeAddSection();
-  }, [addScope, isSharedTemplate, executeAddSection, executePerEntryAddSection]);
+  };
 
-  const previewUrl = useMemo(() => {
+  const previewUrl = (() => {
     if (!selectedComponent || !selectedVersion || !selectedExample) {
       return null;
     }
     const exampleData = examples.find(e => e.slug === selectedExample);
     if (!exampleData) return null;
     return `/private/component-showcase/${selectedComponent.type}/preview?version=${selectedVersion}&example=${encodeURIComponent(exampleData.name)}&debug=false`;
-  }, [selectedComponent, selectedVersion, selectedExample, examples]);
+  })();
 
-  const groupedExamples = useMemo(() => {
+  const groupedExamples = (() => {
     const grouped = examples.reduce((acc, ex) => {
       const variant = ex.variant;
       if (!acc[variant]) acc[variant] = [];
@@ -807,9 +803,9 @@ export default function ComponentPickerModal({
     });
     
     return { grouped, sortedVariants };
-  }, [examples]);
+  })();
 
-  const exampleSelectItems = useMemo(() => {
+  const exampleSelectItems = (() => {
     const { grouped, sortedVariants } = groupedExamples;
     
     if (sortedVariants.length === 0) {
@@ -836,7 +832,7 @@ export default function ComponentPickerModal({
         ))}
       </SelectGroup>
     ));
-  }, [groupedExamples]);
+  })();
 
   return (
     <>

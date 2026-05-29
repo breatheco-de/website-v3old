@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense, useMemo, useCallback, useRef } from "react";
+import { useState, useEffect, lazy, Suspense, useRef } from "react";
 import { AlertTriangle, ArrowRight, ArrowUp, Award, BarChart2, Blocks, Book, Brain, Bug, Building2, Columns2, CreditCard, File, Folder, FolderCode, HelpCircle, Image, MessageSquare, PanelBottom, Rocket, Sparkles, Table, Users, X } from "lucide-react";
 import { IconGitFork } from "@tabler/icons-react";
 import { subscribeToContentUpdates } from "@/lib/contentEvents";
@@ -152,7 +152,7 @@ export function DebugBubble() {
     staleTime: 60000,
   });
 
-  const filteredComponents = useMemo(() => {
+  const filteredComponents = (() => {
     const components = componentRegistryData?.components?.filter(c => c.type !== "_common") || [];
     if (!componentSearch) return components;
     const q = componentSearch.toLowerCase();
@@ -161,7 +161,7 @@ export function DebugBubble() {
       c.name.toLowerCase().includes(q) ||
       c.description.toLowerCase().includes(q)
     );
-  }, [componentRegistryData, componentSearch]);
+  })();
   const [tokenInput, setTokenInput] = useState("");
   const [pendingAutoEditMode, setPendingAutoEditMode] = useState(() => {
     if (typeof window === 'undefined') return false;
@@ -307,7 +307,7 @@ export function DebugBubble() {
   const [pageDiagnosticsLoading, setPageDiagnosticsLoading] = useState(false);
 
   // Detect current content info from URL
-  const contentInfo = useMemo(() => detectContentInfo(pathname, contentTypesMap, homePageSettings ?? null), [pathname, contentTypesMap, homePageSettings]);
+  const contentInfo = detectContentInfo(pathname, contentTypesMap, homePageSettings ?? null);
 
   useEffect(() => {
     setNewSlugValue("");
@@ -395,15 +395,9 @@ export function DebugBubble() {
       .finally(() => setPageDiagnosticsLoading(false));
   }, [pathname, isDebugMode, contentInfo.type, contentInfo.slug, contentTypesMap]);
 
-  const pageErrorCount = useMemo(() => {
-    if (!pageDiagnostics) return 0;
-    return pageDiagnostics.issues?.filter(i => i.type === "error").length || 0;
-  }, [pageDiagnostics]);
+  const pageErrorCount = !pageDiagnostics ? 0 : (pageDiagnostics.issues?.filter(i => i.type === "error").length || 0);
 
-  const pageWarningCount = useMemo(() => {
-    if (!pageDiagnostics) return 0;
-    return pageDiagnostics.issues?.filter(i => i.type === "warning").length || 0;
-  }, [pageDiagnostics]);
+  const pageWarningCount = !pageDiagnostics ? 0 : (pageDiagnostics.issues?.filter(i => i.type === "warning").length || 0);
 
   // Auto-enable edit mode after successful token validation
   useEffect(() => {
@@ -754,7 +748,7 @@ export function DebugBubble() {
   };
 
   // Handle session check (validates without clearing cache first)
-  const fetchSeoPreview = useCallback(async () => {
+  const fetchSeoPreview = async () => {  // eslint-disable-next-line react-hooks/exhaustive-deps
     if (!contentInfo.type || !contentInfo.slug) return;
     setSeoLoading(true);
     setSeoData(null);
@@ -804,7 +798,7 @@ export function DebugBubble() {
     } finally {
       setSeoLoading(false);
     }
-  }, [contentInfo.type, contentInfo.slug, pathname, i18n.language, toast]);
+  };
 
   const getEffectiveLocale = (): string => {
     if (pathname.startsWith("/private/preview/")) {
@@ -1708,10 +1702,7 @@ export function DebugBubble() {
   // Show fork bubble only on /private/preview routes when versioning.yml has ≥ 1 variant.
   // versioning.yml only lists alternate/test variants — the default is implicit — so even
   // a single entry means there are effectively 2 variants to switch between.
-  const forkVariantCount = useMemo(() => {
-    if (!versioningData?.versioning) return 0;
-    return Math.max(...Object.values(versioningData.versioning).map((ld) => ld?.variants?.length ?? 0));
-  }, [versioningData]);
+  const forkVariantCount = !versioningData?.versioning ? 0 : Math.max(...Object.values(versioningData.versioning).map((ld) => ld?.variants?.length ?? 0));
 
   const showForkBubble = !shouldHide &&
     versioningData?.hasVersioningFile &&
@@ -1719,11 +1710,8 @@ export function DebugBubble() {
     forkVariantCount >= 1;
 
   const search = useSearch();
-  const activeVariant = useMemo(() => new URLSearchParams(search).get("variant"), [search]);
-  const activeVariantLabel = useMemo(
-    () => activeVariant ? activeVariant.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : null,
-    [activeVariant]
-  );
+  const activeVariant = new URLSearchParams(search).get("variant");
+  const activeVariantLabel = activeVariant ? activeVariant.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : null;
 
   return (
     <div className="fixed bottom-4 left-4 z-50 flex flex-col gap-2 items-start" data-testid="debug-bubble">

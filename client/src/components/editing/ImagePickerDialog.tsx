@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useMemo, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Check, CloudUpload, Crop as CropIcon, Loader2, Search, Upload, X } from "lucide-react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import ReactCrop from "react-image-crop";
@@ -133,7 +133,7 @@ export function ImagePickerDialog({
     selectedIndices: Set<number>;
   }>({ open: false, usages: [], checking: false, applying: false, selectedIndices: new Set() });
 
-  const cropSizeSuggestions = useMemo(() => {
+  const cropSizeSuggestions = (() => {
     const suggestions: Array<{ value: string; label: string; width: number; height: number }> = [];
     const seen = new Set<string>();
 
@@ -182,7 +182,7 @@ export function ImagePickerDialog({
     }
 
     return suggestions;
-  }, [imageRegistry, selectedRegistryId, renderPreset, renderedSize, cropTargetHeight]);
+  })();
 
   useEffect(() => {
     if (open) {
@@ -216,7 +216,7 @@ export function ImagePickerDialog({
     return () => container.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const childrenByParent = useMemo(() => {
+  const childrenByParent = (() => {
     const map: Record<string, Array<[string, ImageEntry]>> = {};
     if (!imageRegistry?.images) return map;
     for (const [id, img] of Object.entries(imageRegistry.images)) {
@@ -226,9 +226,9 @@ export function ImagePickerDialog({
       }
     }
     return map;
-  }, [imageRegistry]);
+  })();
 
-  const filteredImages = useMemo(() => {
+  const filteredImages = (() => {
     if (!imageRegistry?.images) return [];
     const searchLower = search.toLowerCase();
     const tagLower = tagFilter?.toLowerCase();
@@ -246,15 +246,11 @@ export function ImagePickerDialog({
         );
       })
       .sort((a, b) => (b[1].usage_count ?? 0) - (a[1].usage_count ?? 0));
-  }, [imageRegistry, search, tagFilter]);
+  })();
 
-  const selectedDisplaySrc = useMemo(() => {
-    if (!selectedSrc) return "";
-    return imageRegistry?.images?.[selectedSrc]?.src || selectedSrc;
-  }, [selectedSrc, imageRegistry]);
+  const selectedDisplaySrc = !selectedSrc ? "" : (imageRegistry?.images?.[selectedSrc]?.src || selectedSrc);
 
-  const handleUpload = useCallback(
-    async (files: FileList | File[]) => {
+  const handleUpload = async (files: FileList | File[]) => {
       if (!files.length) return;
       const file = files[0];
       const allowed = [".png", ".jpg", ".jpeg", ".webp", ".svg", ".avif", ".gif"];
@@ -305,12 +301,10 @@ export function ImagePickerDialog({
         });
       } finally {
         setUploading(false);
-      }
-    },
-    [queryClient, toast],
-  );
+    }
+  };
 
-  const handleSave = useCallback(async () => {
+  const handleSave = async () => {
     setSaving(true);
     try {
       await onSave(selectedSrc, selectedAlt, selectedRegistryId);
@@ -324,9 +318,9 @@ export function ImagePickerDialog({
     } finally {
       setSaving(false);
     }
-  }, [onSave, selectedSrc, selectedAlt, selectedRegistryId, onOpenChange, toast]);
+  };
 
-  const checkFamilyAndSave = useCallback(async () => {
+  const checkFamilyAndSave = async () => {
     if (!imageRegistry?.images || !selectedRegistryId) {
       await handleSave();
       return;
@@ -385,9 +379,9 @@ export function ImagePickerDialog({
       });
       await handleSave();
     }
-  }, [imageRegistry, selectedRegistryId, childrenByParent, handleSave, toast]);
+  };
 
-  const handleBulkReplaceAndSave = useCallback(async () => {
+  const handleBulkReplaceAndSave = async () => {
     if (!selectedRegistryId || !selectedSrc) return;
 
     // Build per-file replacements only for selected, non-binding usages
@@ -429,18 +423,18 @@ export function ImagePickerDialog({
         variant: "destructive",
       });
     }
-  }, [bulkModal.usages, bulkModal.selectedIndices, selectedRegistryId, selectedSrc, handleSave, toast]);
+  };
 
   const handleClose = () => {
     onOpenChange(false);
   };
 
-  const handleRemove = useCallback(() => {
+  const handleRemove = () => {
     onRemove?.();
     onOpenChange(false);
-  }, [onRemove, onOpenChange]);
+  };
 
-  const handleOpenCrop = useCallback(() => {
+  const handleOpenCrop = () => {
     setCropState({ unit: "%", x: 0, y: 0, width: 100, height: 100 });
     if (selectedRegistryId && imageRegistry?.images?.[selectedRegistryId]) {
       const entry = imageRegistry.images[selectedRegistryId];
@@ -456,9 +450,9 @@ export function ImagePickerDialog({
       setCropQuality(85);
     }
     setCropPanelOpen(true);
-  }, [selectedRegistryId, imageRegistry]);
+  };
 
-  const handleCropApply = useCallback(async () => {
+  const handleCropApply = async () => {
     if (!selectedRegistryId) return;
     setCropProcessing(true);
     try {
@@ -509,7 +503,7 @@ export function ImagePickerDialog({
     } finally {
       setCropProcessing(false);
     }
-  }, [selectedRegistryId, cropState, cropTargetWidth, cropTargetHeight, cropQuality, queryClient, toast]);
+  };
 
   const cropSrc = selectedRegistryId
     ? (imageRegistry?.images?.[selectedRegistryId]?.src ?? selectedDisplaySrc)

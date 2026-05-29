@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -272,7 +272,7 @@ export default function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) 
   const contentTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const activeSideRef = useRef<ActiveSide | null>(null);
 
-  const switchToSide = useCallback((side: ActiveSide) => {
+  const switchToSide = (side: ActiveSide) => {
     if (side === activeSideRef.current) return;
     activeSideRef.current = side;
     setActiveSide(side);
@@ -281,7 +281,7 @@ export default function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) 
     contentTimerRef.current = setTimeout(() => {
       setContentExpandedSide(side);
     }, 350);
-  }, []);
+  };
 
   useEffect(() => {
     return () => {
@@ -311,17 +311,17 @@ export default function DoubleCTAExpandable({ data }: DoubleCTAExpandableProps) 
     return () => observer.disconnect();
   }, [hasAnimated, switchToSide]);
 
-  const handleHoverLeft = useCallback(() => {
+  const handleHoverLeft = () => {
     if (activeSide !== "left") {
       switchToSide("left");
     }
-  }, [switchToSide]);
+  };
 
-  const handleHoverRight = useCallback(() => {
+  const handleHoverRight = () => {
     if (activeSide !== "right") {
       switchToSide("right");
     }
-  }, [switchToSide]);
+  };
 
   const isEqual = activeSide === null;
 

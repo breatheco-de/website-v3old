@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { AlertTriangle, ArrowDown, ArrowUp, ChevronDown, ChevronRight, ExternalLink, Github, Pencil, RefreshCw, Save, Trash2, Undo2, Webhook, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -122,7 +122,7 @@ export function SyncModal({
     }
   }, [pushAllConfirmOpen, localOnlyFiles.length]);
 
-  const handleDownloadClick = useCallback((file: string, source: string) => {
+  const handleDownloadClick = (file: string, source: string) => {
     if (source === 'conflict') {
       setConfirmPullFile(file);
       return;
@@ -132,9 +132,9 @@ export function SyncModal({
     } else {
       handleFilePull(file);
     }
-  }, [skipBulkPrompt, nonConflictIncoming.length, handleFilePull, setConfirmPullFile]);
+  };
 
-  const handleBulkPull = useCallback(async () => {
+  const handleBulkPull = async () => {
     setIsBulkPulling(true);
     setBulkPullPromptFile(null);
     for (const change of nonConflictIncoming) {
@@ -151,7 +151,7 @@ export function SyncModal({
     }
     fetchPendingChanges();
     setIsBulkPulling(false);
-  }, [nonConflictIncoming, handleFilePull, fetchPendingChanges]);
+  };
 
   return (
     <>

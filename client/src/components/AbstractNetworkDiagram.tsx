@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface AbstractNetworkDiagramProps {
   className?: string;
@@ -26,10 +26,7 @@ export function AbstractNetworkDiagram({ className = "" }: AbstractNetworkDiagra
   const [particles, setParticles] = useState<{ x: number; y: number; size: number; speed: number; angle: number }[]>([]);
   const animationRef = useRef<number>();
   
-  const prefersReducedMotion = useMemo(() => {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  }, []);
+  const prefersReducedMotion = typeof window === "undefined" ? false : window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   useEffect(() => {
     const initialParticles = Array.from({ length: 20 }, () => ({

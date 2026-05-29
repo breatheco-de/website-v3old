@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -58,24 +58,24 @@ export function Modal({ data, landingLocations }: ModalProps) {
   const showClose = data.show_close !== false;
   const sizeClass = SIZE_CLASSES[data.size || "md"] || SIZE_CLASSES.md;
 
-  const checkHash = useCallback(() => {
+  const checkHash = () => {
     const hash = window.location.hash.replace("#", "");
     setIsOpen(hash === sectionId);
-  }, [sectionId]);
+  };
 
   useEffect(() => {
     checkHash();
 
     window.addEventListener("hashchange", checkHash);
     return () => window.removeEventListener("hashchange", checkHash);
-  }, [checkHash]);
+  }, [sectionId]);
 
-  const handleClose = useCallback(() => {
+  const handleClose = () => {
     setIsOpen(false);
     if (window.location.hash === `#${sectionId}`) {
       history.replaceState(null, "", window.location.pathname + window.location.search);
     }
-  }, [sectionId]);
+  };
 
   if (isEditMode) {
     return (
