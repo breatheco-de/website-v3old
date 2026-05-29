@@ -123,4 +123,3 @@ export function FAQSection({ data }: FAQSectionProps) {
 }
 
 export default FAQSection;
-git 
