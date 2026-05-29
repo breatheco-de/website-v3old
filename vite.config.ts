@@ -122,6 +122,13 @@ export default defineConfig(async () => ({
     rolldownOptions: {
       output: {
         manualChunks(id) {
+          // Keep all shadcn/local UI components in one chunk to prevent
+          // Rolldown 1.x from auto-splitting them into tiny individual
+          // chunks, which triggers a runtime interop-helper export bug
+          // (missing export 't', 'r', etc. from rolldown-runtime-*.js).
+          if (id.includes('/client/src/components/ui/')) {
+            return 'ui-components';
+          }
           if (id.includes('recharts') || id.includes('victory-vendor')) {
             return 'charts';
           }
