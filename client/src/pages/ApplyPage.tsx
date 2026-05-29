@@ -78,7 +78,7 @@ export default function ApplyPage() {
             />
           );
         }
-        return renderSection(section as Parameters<typeof renderSection>[0], index);
+        return renderSection(section as Parameters<typeof renderSection>[0], index, { url: window.location.pathname });
       })}
       <Footer />
     </div>

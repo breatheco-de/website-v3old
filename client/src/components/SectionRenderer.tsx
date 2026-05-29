@@ -516,7 +516,12 @@ function LazySection({ section, index }: { section: Section; index: number }) {
   return <Component key={index} data={section} />;
 }
 
-export function renderSection(section: Section, index: number): React.ReactNode {
+export interface SectionPageContext {
+  url?: string;
+  yamlFile?: string;
+}
+
+export function renderSection(section: Section, index: number, pageContext?: SectionPageContext): React.ReactNode {
   const sectionType = (section as { type: string }).type;
   const sectionVariant = normalizeSectionVariant(
     (section as { variant?: string }).variant ?? "default",
@@ -524,7 +529,12 @@ export function renderSection(section: Section, index: number): React.ReactNode 
 
   if (!hasSectionType(sectionType)) {
     if (process.env.NODE_ENV === "development") {
-      console.warn(`[SectionRenderer] Unknown section type: "${sectionType}"`);
+      const url = pageContext?.url ?? (typeof window !== "undefined" ? window.location.pathname : undefined);
+      const yamlFile = pageContext?.yamlFile;
+      const lines = [`[SectionRenderer] Unknown section type: "${sectionType}"`];
+      if (url) lines.push(`  URL:  ${url}`);
+      if (yamlFile) lines.push(`  File: ${yamlFile}`);
+      console.warn(lines.join("\n"));
     }
     return null;
   }
@@ -1318,7 +1328,23 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           const rawSection = sections[index];
           const sectionType = (section as { type: string }).type;
           const loadStrategy = isEditMode ? "eager" : resolveLoadStrategy(rawSection, index, settings);
-          const renderedContent = renderSection(section, index);
+
+          const pageContext: SectionPageContext = {
+            url: typeof window !== "undefined" ? window.location.pathname : undefined,
+          };
+          if (contentType && slug && locale && rawContentTypes) {
+            const ctEntry = rawContentTypes.find((ct) => ct.name === contentType);
+            if (ctEntry) {
+              const dir = ctEntry.directory;
+              if (singleEntry) {
+                pageContext.yamlFile = `marketing-content/${dir}/single.${locale}.yml`;
+              } else {
+                pageContext.yamlFile = `marketing-content/${dir}/${slug}/_common.yml`;
+              }
+            }
+          }
+
+          const renderedContent = renderSection(section, index, pageContext);
           const wrapperStyles = getSectionWrapperStyles(section);
           const innerStyles: CSSProperties = {
             maxWidth: "var(--section-mw)",
