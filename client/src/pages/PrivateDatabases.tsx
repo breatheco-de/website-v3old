@@ -1962,6 +1962,11 @@ function FieldMappingEditor({
     setVectorSearchFields(config.vector_search?.fields ?? []);
   }, [config.vector_search]);
 
+  const [keywordSearchFields, setKeywordSearchFields] = useState<string[]>((config as any).search_fields ?? []);
+  useEffect(() => {
+    setKeywordSearchFields((config as any).search_fields ?? []);
+  }, [(config as any).search_fields]);
+
   const [imageCacheModalField, setImageCacheModalField] = useState<string | null>(null);
   const [vectorSearchModalField, setVectorSearchModalField] = useState<string | null>(null);
 
@@ -2096,6 +2101,7 @@ function FieldMappingEditor({
         vector_search: vectorSearchFields.length > 0
           ? { enabled: true, fields: vectorSearchFields }
           : undefined,
+        search_fields: keywordSearchFields.length > 0 ? keywordSearchFields : undefined,
       };
 
       const res = await fetch(`/api/databases/${dbName}/config`, {
@@ -2267,19 +2273,30 @@ function FieldMappingEditor({
                     variant="ghost"
                     size="icon"
                     onClick={() => setVectorSearchModalField(normalizedKey)}
-                    title={vectorSearchFields.includes(normalizedKey) ? "Included in semantic search" : "Configure semantic search"}
+                    title={
+                      vectorSearchFields.includes(normalizedKey) && keywordSearchFields.includes(normalizedKey)
+                        ? "Semantic + keyword search configured"
+                        : vectorSearchFields.includes(normalizedKey)
+                          ? "Included in semantic search"
+                          : keywordSearchFields.includes(normalizedKey)
+                            ? "Included in keyword search"
+                            : "Configure search settings"
+                    }
                     data-testid={`button-vector-search-${normalizedKey}`}
                   >
-                    <Sparkles className={`h-3.5 w-3.5 ${vectorSearchFields.includes(normalizedKey) ? "text-orange-500 drop-shadow-[0_0_4px_rgba(249,115,22,0.8)]" : "text-muted-foreground"}`} />
+                    <Sparkles className={`h-3.5 w-3.5 ${vectorSearchFields.includes(normalizedKey) ? "text-orange-500 drop-shadow-[0_0_4px_rgba(249,115,22,0.8)]" : keywordSearchFields.includes(normalizedKey) ? "text-primary" : "text-muted-foreground"}`} />
                   </Button>
                 </div>
-                {((editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text") || editorHints[normalizedKey]?.cache_images || vectorSearchFields.includes(normalizedKey)) ? (
+                {((editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text") || editorHints[normalizedKey]?.cache_images || vectorSearchFields.includes(normalizedKey) || keywordSearchFields.includes(normalizedKey)) ? (
                   <p className="text-[10px] text-muted-foreground ml-[6.5rem] flex items-center gap-2">
                     {editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text" && (
                       <span>editor: <code>{editorHints[normalizedKey].type}</code>{editorHints[normalizedKey].options?.length ? ` (${editorHints[normalizedKey].options!.length} options)` : ""}</span>
                     )}
                     {editorHints[normalizedKey]?.cache_images && (
                       <span className="text-blue-500">cached</span>
+                    )}
+                    {keywordSearchFields.includes(normalizedKey) && (
+                      <span className="text-foreground">keyword</span>
                     )}
                     {vectorSearchFields.includes(normalizedKey) && (
                       <span className="text-orange-500">semantic</span>
@@ -2577,39 +2594,57 @@ function FieldMappingEditor({
         <DialogContent className="max-w-sm">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-orange-500" />
-              Semantic Search
+              <Search className="h-4 w-4" />
+              Search Settings
             </DialogTitle>
             <DialogDescription className="pt-1">
               for <code className="font-mono text-xs bg-muted px-1 rounded">{vectorSearchModalField}</code>
             </DialogDescription>
           </DialogHeader>
-          <div className="space-y-3 py-1">
-            <p className="text-sm text-muted-foreground">
-              When enabled, the text content of this field is embedded into the semantic search index. This powers AI-driven similarity search — users can find entries by meaning, not just exact keywords.
-            </p>
-            <p className="text-xs text-muted-foreground">
-              Fields with free-form text (titles, descriptions, answers) benefit most. Avoid enabling it on IDs, slugs, or short codes. Indexing runs automatically after each data fetch.
-            </p>
-            <label className="flex items-center gap-3 cursor-pointer pt-1" data-testid="label-vector-search-field-toggle">
-              <Switch
-                checked={vectorSearchModalField ? vectorSearchFields.includes(vectorSearchModalField) : false}
-                onCheckedChange={(checked) => {
-                  if (!vectorSearchModalField) return;
-                  setVectorSearchFields((prev) =>
-                    checked
-                      ? prev.includes(vectorSearchModalField) ? prev : [...prev, vectorSearchModalField]
-                      : prev.filter((f) => f !== vectorSearchModalField)
-                  );
-                }}
-                data-testid="switch-vector-search-field"
-              />
-              <span className="text-sm">
-                {vectorSearchModalField && vectorSearchFields.includes(vectorSearchModalField)
-                  ? "Included in semantic index"
-                  : "Not included in semantic index"}
-              </span>
-            </label>
+          <div className="space-y-4 py-1">
+            <div className="space-y-2">
+              <label className="flex items-center gap-3 cursor-pointer" data-testid="label-keyword-search-field-toggle">
+                <Switch
+                  checked={vectorSearchModalField ? keywordSearchFields.includes(vectorSearchModalField) : false}
+                  onCheckedChange={(checked) => {
+                    if (!vectorSearchModalField) return;
+                    setKeywordSearchFields((prev) =>
+                      checked
+                        ? prev.includes(vectorSearchModalField) ? prev : [...prev, vectorSearchModalField]
+                        : prev.filter((f) => f !== vectorSearchModalField)
+                    );
+                  }}
+                  data-testid="switch-keyword-search-field"
+                />
+                <div>
+                  <p className="text-sm font-medium">Keyword search</p>
+                  <p className="text-xs text-muted-foreground">Include in text-based search across this database.</p>
+                </div>
+              </label>
+            </div>
+            <div className="border-t pt-4 space-y-2">
+              <label className="flex items-center gap-3 cursor-pointer" data-testid="label-vector-search-field-toggle">
+                <Switch
+                  checked={vectorSearchModalField ? vectorSearchFields.includes(vectorSearchModalField) : false}
+                  onCheckedChange={(checked) => {
+                    if (!vectorSearchModalField) return;
+                    setVectorSearchFields((prev) =>
+                      checked
+                        ? prev.includes(vectorSearchModalField) ? prev : [...prev, vectorSearchModalField]
+                        : prev.filter((f) => f !== vectorSearchModalField)
+                    );
+                  }}
+                  data-testid="switch-vector-search-field"
+                />
+                <div>
+                  <p className="text-sm font-medium flex items-center gap-1.5">
+                    <Sparkles className="h-3.5 w-3.5 text-orange-500" />
+                    Semantic search
+                  </p>
+                  <p className="text-xs text-muted-foreground">Embed this field into the AI vector index for meaning-based search. Best for free-form text — avoid IDs or short codes.</p>
+                </div>
+              </label>
+            </div>
           </div>
           <DialogFooter className="gap-2">
             <Button
@@ -2617,8 +2652,8 @@ function FieldMappingEditor({
               size="sm"
               onClick={() => {
                 if (vectorSearchModalField) {
-                  const original = config.vector_search?.fields ?? [];
-                  setVectorSearchFields(original);
+                  setVectorSearchFields(config.vector_search?.fields ?? []);
+                  setKeywordSearchFields((config as any).search_fields ?? []);
                 }
                 setVectorSearchModalField(null);
               }}
