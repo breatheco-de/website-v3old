@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { AlertTriangle, Check, ChevronDown, Copy, Info, Pencil, Plus, RefreshCw, Trash2, Undo2, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -355,7 +355,7 @@ export function CreateContentModal({
     staleTime: 60000,
   });
 
-  const { editableNonUniqueFields, computedFields } = (() => {
+  const { editableNonUniqueFields, computedFields } = useMemo(() => {
     const fm = typeConfig?.field_mapping ?? {};
     const uniqueSet = new Set(selectedTypeData?.unique_fields ?? ["slug"]);
     const skip = new Set(["slug", "title", "locale"]);
@@ -373,7 +373,7 @@ export function CreateContentModal({
       }
     }
     return { editableNonUniqueFields: editable, computedFields: computed };
-  })();
+  }, [typeConfig, selectedTypeData]);
 
   const sourceSlug = (() => {
     if (!duplicatingPage) return undefined;

@@ -1,0 +1,18 @@
+injected.js:37 Warning: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+    at CreateContentModal (https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/src/components/DebugBubble/components/CreateContentModal.tsx:245:38)
+    at div
+    at DebugBubble (https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/src/components/DebugBubble/index.tsx:85:26)
+    at Suspense
+    at ClientOnly (https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/src/App.tsx?t=1780086826087:679:23)
+    at ImagePickerProvider (https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/src/contexts/ImagePickerContext.tsx:7:39)
+    at EditModeInner (https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/src/components/editing/EditModeWrapper.tsx:47:26)
+    at SyncWrapper (https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/src/components/editing/EditModeWrapper.tsx:13:24)
+    at PageHistoryProvider (https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/src/contexts/PageHistoryContext.tsx:11:39)
+    at EditModeProvider (https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/src/contexts/EditModeContext.tsx:57:36)
+    at EditModeWrapper (https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/src/components/editing/EditModeWrapper.tsx:97:35)
+    at Provider (https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.d…runner/workspace/node_modules/.vite/deps/dist-Dpi2z-3Z.js?v=cf6e8b40:32:12)
+    at TooltipProvider (https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.d…kspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=cf6e8b40:25:10)
+    at DebugAuthProvider (https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/src/hooks/useDebugAuth.ts:104:37)
+    at SessionProvider (https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/src/contexts/SessionContext.tsx:21:35)
+    at QueryClientProvider (https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.d…kspace/node_modules/.vite/deps/@tanstack_react-query.js?v=cf6e8b40:2283:30)
+    at App (https://72ebe23e-b4ff-4d6d-91d4-3fd3478c7a09-00-1gihg1kbib7l6.worf.replit.dev/src/App.tsx?t=1780086826087:700:2)
