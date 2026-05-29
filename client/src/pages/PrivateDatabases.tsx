@@ -3944,6 +3944,25 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                           </PopoverContent>
                         </Popover>
                       )}
+                      {(config as any)?.search_fields?.includes(key) && (
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <span className="inline-flex items-center gap-0.5 text-foreground shrink-0 cursor-pointer hover:opacity-80 transition-opacity" data-testid={`badge-keyword-${key}`}>
+                              <Search className="h-3 w-3" />
+                              <span className="text-[10px] font-medium">keyword</span>
+                            </span>
+                          </PopoverTrigger>
+                          <PopoverContent side="top" className="w-72 text-xs p-3 space-y-2">
+                            <p className="font-medium text-sm">Keyword search enabled</p>
+                            <p className="text-muted-foreground">
+                              The <code className="bg-muted px-1 rounded font-mono">{key}</code> field is included in text-based keyword search.
+                            </p>
+                            <p className="text-muted-foreground">
+                              When a user searches this database, the query is matched against the text content of this field using simple string matching.
+                            </p>
+                          </PopoverContent>
+                        </Popover>
+                      )}
                       {config?.vector_search?.fields?.includes(key) && (
                         <Popover>
                           <PopoverTrigger asChild>
