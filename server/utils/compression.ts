@@ -53,7 +53,7 @@ export function compressionMiddleware(
     if (decided) return;
     decided = true;
 
-    if (!isCompressible(res)) {
+    if (res.headersSent || !isCompressible(res)) {
       skipped = true;
       return;
     }
