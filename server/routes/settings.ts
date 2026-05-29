@@ -626,7 +626,7 @@ export function registerSettingsRoutes(app: Express): void {
     const options = {
       hostname: parsed.hostname,
       port: parsed.port || (parsed.protocol === "https:" ? 443 : 80),
-      path: parsed.pathname || "/",
+      path: "/healthy",
       method: "HEAD",
       timeout: 8000,
       headers: { "User-Agent": "sGTM-connection-test/1.0" },
