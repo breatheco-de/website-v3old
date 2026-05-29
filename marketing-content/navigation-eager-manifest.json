@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-05-21T18:38:33.480Z",
+  "generatedAt": "2026-05-29T17:32:46.662Z",
   "defaultEagerCount": 3,
   "paths": {
     "/": {
@@ -44,6 +44,10 @@
         [
           "apply_form",
           "default"
+        ],
+        [
+          "breadcrumb",
+          "default"
         ]
       ],
       "leadForm": true
@@ -82,6 +86,10 @@
         [
           "modal",
           "default"
+        ],
+        [
+          "awards_marquee",
+          "default"
         ]
       ],
       "leadForm": true
@@ -94,6 +102,10 @@
         ],
         [
           "modal",
+          "default"
+        ],
+        [
+          "awards_marquee",
           "default"
         ]
       ],
@@ -199,11 +211,11 @@
           "productShowcase"
         ],
         [
-          "career_support_explain",
+          "graduates_stats",
           "default"
         ],
         [
-          "graduates_stats",
+          "career_support_explain",
           "default"
         ]
       ]
@@ -1075,30 +1087,6 @@
       ],
       "leadForm": true
     },
-    "/es/becas": {
-      "eager": [
-        [
-          "hero",
-          "simpleTwoColumn"
-        ],
-        [
-          "features_grid",
-          "cardHeader"
-        ],
-        [
-          "partnership_carousel",
-          "split-card"
-        ]
-      ]
-    },
-    "/es/blog": {
-      "eager": [
-        [
-          "list_cards",
-          "default"
-        ]
-      ]
-    },
     "/es/contactanos": {
       "eager": [
         [
@@ -1124,23 +1112,6 @@
         ],
         [
           "sticky_cta",
-          "default"
-        ]
-      ],
-      "leadForm": true
-    },
-    "/es/egresados-y-proyectos": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "modal",
-          "default"
-        ],
-        [
-          "project_showcase",
           "default"
         ]
       ],
@@ -1175,54 +1146,6 @@
         ]
       ]
     },
-    "/es/geeks-vs-otros": {
-      "eager": [
-        [
-          "hero",
-          "simpleTwoColumn"
-        ],
-        [
-          "comparison_table",
-          "default"
-        ],
-        [
-          "two_column_accordion_card",
-          "image_background"
-        ]
-      ]
-    },
-    "/es/learnpack": {
-      "eager": [
-        [
-          "hero",
-          "simpleTwoColumn"
-        ],
-        [
-          "article",
-          "default"
-        ],
-        [
-          "faq",
-          "default"
-        ]
-      ]
-    },
-    "/es/plataforma-online": {
-      "eager": [
-        [
-          "hero",
-          "simpleTwoColumn"
-        ],
-        [
-          "article",
-          "default"
-        ],
-        [
-          "faq",
-          "default"
-        ]
-      ]
-    },
     "/es/premios": {
       "eager": [
         [
@@ -1240,34 +1163,18 @@
       ],
       "leadForm": true
     },
-    "/es/prensa": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "list_press_mentions",
-          "default"
-        ],
-        [
-          "value_proof_panel",
-          "default"
-        ]
-      ]
-    },
     "/es/programas-de-carrera/ciberseguridad": {
       "eager": [
+        [
+          "breadcrumb",
+          "default"
+        ],
         [
           "hero",
           "course"
         ],
         [
           "modal",
-          "default"
-        ],
-        [
-          "awards_marquee",
           "default"
         ]
       ],
@@ -1276,15 +1183,15 @@
     "/es/programas-de-carrera/ciencia-de-datos-ml": {
       "eager": [
         [
+          "breadcrumb",
+          "default"
+        ],
+        [
           "hero",
           "course"
         ],
         [
           "modal",
-          "default"
-        ],
-        [
-          "awards_marquee",
           "default"
         ]
       ],
@@ -1293,15 +1200,14 @@
     "/es/programas-de-carrera/desarrollo-full-stack": {
       "eager": [
         [
-          "hero",
-          "course"
+          "breadcrumb",
+          "default"
         ],
         [
-          "modal",
-          "default"
+          "hero",
+          "course"
         ]
-      ],
-      "leadForm": true
+      ]
     },
     "/es/programas-de-carrera/ingenieria-ia": {
       "eager": [
@@ -1311,6 +1217,10 @@
         ],
         [
           "modal",
+          "default"
+        ],
+        [
+          "awards_marquee",
           "default"
         ]
       ],
@@ -1329,34 +1239,6 @@
       ],
       "leadForm": true
     },
-    "/es/resultados": {
-      "eager": [
-        [
-          "hero",
-          "simpleTwoColumn"
-        ],
-        [
-          "vertical_bars_cards",
-          "default"
-        ]
-      ]
-    },
-    "/es/rigobot": {
-      "eager": [
-        [
-          "hero",
-          "simpleTwoColumn"
-        ],
-        [
-          "article",
-          "default"
-        ],
-        [
-          "faq",
-          "default"
-        ]
-      ]
-    },
     "/es/sobre-la-academia": {
       "eager": [
         [
@@ -1373,38 +1255,6 @@
         ]
       ]
     },
-    "/es/soporte-geekpal": {
-      "eager": [
-        [
-          "hero",
-          "productShowcase"
-        ],
-        [
-          "banner",
-          "default"
-        ],
-        [
-          "human_and_ai_duo",
-          "default"
-        ]
-      ]
-    },
-    "/es/soporte-profesional-geekforce": {
-      "eager": [
-        [
-          "hero",
-          "productShowcase"
-        ],
-        [
-          "career_support_explain",
-          "default"
-        ],
-        [
-          "graduates_stats",
-          "default"
-        ]
-      ]
-    },
     "/es/terminos-y-condiciones": {
       "eager": [
         [
@@ -1417,38 +1267,6 @@
         ]
       ],
       "leadForm": true
-    },
-    "/es/testimonios": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "testimonials_grid",
-          "default"
-        ]
-      ]
-    },
-    "/es/trabaja-con-nosotros": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "two_column",
-          "default"
-        ],
-        [
-          "faq",
-          "default"
-        ]
-      ]
     },
     "/es/trabajo-garantizado": {
       "eager": [
@@ -1466,151 +1284,7 @@
         ]
       ]
     },
-    "/es/ubicacion/atlanta-usa": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/austin-usa": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/barcelona-espana": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/berlin-alemania": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/bogota-colombia": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/buenosaires-argentina": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
     "/es/ubicacion/caracas-venezuela": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/chicago-usa": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/ciudad-de-mexico": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/ciudad-de-panama": {
       "eager": [
         [
           "hero",
@@ -1642,151 +1316,7 @@
         ]
       ]
     },
-    "/es/ubicacion/dallas-usa": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/dublin-irlanda": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/hamburgo-alemania": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/houston-usa": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/lapaz-bolivia": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/lima-peru": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/lisboa-portugal": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/losangeles-usa": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
     "/es/ubicacion/madrid-spain": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/malaga-espana": {
       "eager": [
         [
           "hero",
@@ -1818,136 +1348,7 @@
         ]
       ]
     },
-    "/es/ubicacion/milan-italia": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/montevideo-uruguay": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/munich-alemania": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/nueva-york-usa": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
     "/es/ubicacion/orlando-usa": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/quito-ecuador": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/remoto": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "banner",
-          "default"
-        ],
-        [
-          "two_column",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/resto-de-europa": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "modal",
-          "default"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ]
-      ],
-      "leadForm": true
-    },
-    "/es/ubicacion/roma-italia": {
       "eager": [
         [
           "hero",
@@ -1978,51 +1379,6 @@
           "default"
         ]
       ]
-    },
-    "/es/ubicacion/toronto-canada": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/ubicacion/valencia-espana": {
-      "eager": [
-        [
-          "hero",
-          "singleColumn"
-        ],
-        [
-          "awards_marquee",
-          "default"
-        ],
-        [
-          "banner",
-          "default"
-        ]
-      ]
-    },
-    "/es/upcoming-dates": {
-      "eager": [
-        [
-          "dynamic_table",
-          "comparison"
-        ],
-        [
-          "sticky_cta",
-          "default"
-        ]
-      ],
-      "leadForm": true
     }
   }
 }

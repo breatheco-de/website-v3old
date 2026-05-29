@@ -3,13 +3,17 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
+// Vite 6+ removed isSsrBuild from the defineConfig callback.
+// Detect SSR build by checking the CLI arguments instead.
+const isSsrBuild = process.argv.includes("--ssr");
+
 /** Runs on `vite build` (client pass only), writes marketing-content/navigation-eager-manifest.json */
-function navigationEagerManifestPlugin(isSsrBuild: boolean): Plugin {
+function navigationEagerManifestPlugin(isSsr: boolean): Plugin {
   return {
     name: "navigation-eager-manifest",
     apply: "build",
     async buildStart() {
-      if (isSsrBuild) return;
+      if (isSsr) return;
       const { regenerateNavigationEagerManifest } = await import(
         "./server/navigation-eager-manifest.ts"
       );
@@ -18,9 +22,9 @@ function navigationEagerManifestPlugin(isSsrBuild: boolean): Plugin {
   };
 }
 
-export default defineConfig(async ({ isSsrBuild }) => ({
+export default defineConfig(async () => ({
   plugins: [
-    navigationEagerManifestPlugin(!!isSsrBuild),
+    navigationEagerManifestPlugin(isSsrBuild),
     react(),
     runtimeErrorOverlay(),
     ...(process.env.NODE_ENV !== "production" &&

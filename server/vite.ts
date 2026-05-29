@@ -86,10 +86,11 @@ export async function setupVite(app: Express, server: Server) {
   // dist/client/src instead of <root>/client/src.
   const projectRoot = path.resolve(import.meta.dirname, "..");
 
-  // vite.config.ts exports an async factory (defineConfig with isSsrBuild flag).
+  // vite.config.ts exports an async factory via defineConfig.
   // We must call it to get the resolved config object before spreading.
+  // Note: isSsrBuild was removed from the callback params in Vite 6+; omit it here.
   const resolvedViteConfig = typeof viteConfig === "function"
-    ? await (viteConfig as Function)({ mode: "development", command: "serve", isSsrBuild: false })
+    ? await (viteConfig as Function)({ mode: "development", command: "serve" })
     : viteConfig;
 
   const vite = await createViteServer({
