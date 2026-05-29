@@ -1719,7 +1719,7 @@ function FieldMappingEditor({
     setHintDialogType(hint.type || "text");
     setHintDialogOptions(
       (hint.options || []).map(opt =>
-        typeof opt === "string" ? { value: opt, label: opt } : opt
+        typeof opt === "string" ? { value: opt, label: "" } : opt
       )
     );
     setHintDialogNewOption("");
@@ -1734,7 +1734,7 @@ function FieldMappingEditor({
       .split(",")
       .map(s => s.trim())
       .filter(s => s.length > 0 && !existingValues.has(s))
-      .map(v => ({ value: v, label: v }));
+      .map(v => ({ value: v, label: "" }));
     if (newOpts.length === 0) return;
     setHintDialogOptions(prev => [...prev, ...newOpts]);
     setHintDialogNewOption("");
@@ -1750,7 +1750,7 @@ function FieldMappingEditor({
     if (hintDialogDescription.trim()) hint.description = hintDialogDescription.trim();
     if ((hintDialogType === "select" || hintDialogType === "tags")) {
       if (hintDialogOptions.length > 0) {
-        hint.options = hintDialogOptions.map(o => o.label === o.value ? o.value : o);
+        hint.options = hintDialogOptions.map(o => o.label.trim() ? o : o.value);
       }
       if (hintDialogPopulateOptions) hint.populate_options = true;
       if (hintDialogAllowCustom) hint.allow_custom_values = true;
@@ -2181,10 +2181,10 @@ function FieldMappingEditor({
                         </span>
                         <input
                           type="text"
-                          value={opt.label === opt.value ? "" : opt.label}
+                          value={opt.label}
                           onChange={(e) => {
                             const updated = [...hintDialogOptions];
-                            updated[idx] = { ...opt, label: e.target.value || opt.value };
+                            updated[idx] = { ...opt, label: e.target.value };
                             setHintDialogOptions(updated);
                           }}
                           placeholder="Label shown when selecting this option (optional)"
