@@ -3947,9 +3947,8 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                       {(config as any)?.search_fields?.includes(key) && (
                         <Popover>
                           <PopoverTrigger asChild>
-                            <span className="inline-flex items-center gap-0.5 text-foreground shrink-0 cursor-pointer hover:opacity-80 transition-opacity" data-testid={`badge-keyword-${key}`}>
+                            <span className="inline-flex items-center text-orange-500 shrink-0 cursor-pointer hover:opacity-80 transition-opacity" data-testid={`badge-keyword-${key}`}>
                               <Search className="h-3 w-3" />
-                              <span className="text-[10px] font-medium">keyword</span>
                             </span>
                           </PopoverTrigger>
                           <PopoverContent side="top" className="w-72 text-xs p-3 space-y-2">
