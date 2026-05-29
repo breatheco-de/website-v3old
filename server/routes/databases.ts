@@ -567,13 +567,18 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       }
 
       const qLower = q.toLowerCase();
-      let fallback = allItems.filter(
-        (item) =>
-          String(item.title ?? "").toLowerCase().includes(qLower) ||
-          String(item.slug ?? "").toLowerCase().includes(qLower) ||
-          String(item.description ?? "").toLowerCase().includes(qLower) ||
-          String(item.question ?? "").toLowerCase().includes(qLower)
-      );
+      const keywordFields = vsConfig?.fields?.length
+        ? vsConfig.fields
+        : null;
+      let fallback = allItems.filter((item) => {
+        const fieldsToCheck = keywordFields ?? Object.keys(item);
+        return fieldsToCheck.some((f) => {
+          const val = item[f];
+          if (val === null || val === undefined) return false;
+          if (typeof val === "object") return JSON.stringify(val).toLowerCase().includes(qLower);
+          return String(val).toLowerCase().includes(qLower);
+        });
+      });
 
       if (locale) {
         fallback = fallback.filter((item) => {
