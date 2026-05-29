@@ -20,6 +20,7 @@ const AIKnowledge = lazy(() => import("@/pages/AIKnowledge"));
 const AIConversations = lazy(() => import("@/pages/AIConversations"));
 const AIKnowledgeBlocks = lazy(() => import("@/pages/AIKnowledgeBlocks"));
 const ThemeEditor = lazy(() => import("@/pages/ThemeEditor"));
+const TrackingPage = lazy(() => import("@/pages/TrackingPage"));
 const ComponentInsightsPage = lazy(() => import("@/pages/ComponentInsightsPage"));
 const StoreProductsPage = lazy(() => import("@/pages/StoreProductsPage"));
 const StorePlansPage = lazy(() => import("@/pages/StorePlansPage"));
@@ -69,6 +70,7 @@ export default function PrivateRouter() {
         <Route path="/private/component-insights" component={ComponentInsightsPage} />
         <Route path="/private/store/products" component={StoreProductsPage} />
         <Route path="/private/store/plans" component={StorePlansPage} />
+        <Route path="/private/tracking" component={TrackingPage} />
       </Switch>
     </Suspense>
   );

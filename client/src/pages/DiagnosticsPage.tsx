@@ -1419,6 +1419,12 @@ export default function DiagnosticsPage() {
                   Page Speed
                 </Button>
               </Link>
+              <Link href="/private/tracking">
+                <Button variant="outline" size="sm" data-testid="button-tracking">
+                  <BarChart2 className="h-3.5 w-3.5" />
+                  Tracking
+                </Button>
+              </Link>
               <TabsList data-testid="tabs-diagnostics">
                 <TabsTrigger value="global-health" data-testid="tab-global-health">Global Health</TabsTrigger>
                 <TabsTrigger value="page-analysis" data-testid="tab-page-analysis">Page Analysis</TabsTrigger>
