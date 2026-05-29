@@ -2,27 +2,27 @@ settings:
   loading:
     eager_count: 3
 meta:
-  page_title: Become an AI Engineer in 20 Weeks | 4Geeks
-  description: Launch your AI career with hands-on training, unlimited 1:1 mentorship, and job guarantee. Start earning $95K-$135K as an AI Engineer.
+  page_title: AI Engineering Program Cost & Pricing | 4Geeks
+  description: "AI Engineering at 4Geeks costs $14,999. Finance from $399/mo. 84% hiring rate, $95K-$135K average starting salary. Optional Job Guarantee: get hired in 9 months or full tuition refund."
 sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: Build with AI.
+    title: "<span style=\"font-size: 2.25rem;\"><span style=\"font-size: 3.75rem;\"><b></b></span></span><span style=\"font-size: 2.25rem;\"><span><span><b></b></span></span></span><span style=\"font-size: 3.75rem;\"><span><span><span><b>And the <span style=\"color: hsl(var(--primary));\">$95K–$135K&nbsp;</span></b></span></span></span><div><span><span><span><b><span style=\"color: hsl(var(--primary));\"></span></b></span></span><span style=\"color: hsl(var(--secondary-foreground));\"><span><span><b>Salaries t</b></span></span></span></span><span style=\"color: hsl(var(--secondary-foreground)); font-weight: 700;\">hat Fo</span><span style=\"font-weight: 700; color: rgb(0, 7, 26);\">llow.</span></div></span><div><span style=\"font-size: 2.25rem; font-weight: 700; color: rgb(0, 7, 26);\"></span></div>"
     brand_mark:
-      prefix: Break Your Career
-      highlight: Ceiling.
+      prefix: "<span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\"><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 1.5rem;\"><span style=\"font-size: 2.25rem;\"><span style=\"font-weight: 300;\"><span style=\"font-weight: 400;\"><span style=\"font-weight: 400;\"><span>AI Engineering Program Cost</span></span></span></span></span></span></span>"
+      highlight: "<br><span style=\"font-size: 0.875rem;\"></span>"
       color: primary
-    description: "<span style=\"font-size: 1.125rem;\">AI Engineering is the fastest-growing job of 2026. 1.3M new roles. 42× growth since 2023. Build the skills with our intensive 24-week program and land roles paying $95K–$135K+.</span>"
+    description: "The investment is real. So is the return: at an average AI Engineering starting salary, most graduates earn back their full tuition within 3 months on the job."
     bullets:
-      - text: Engineer a complete AI-native business across 10 real-world milestones
-      - text: Unlimited 1:1 mentorship and career support that doesn't stop at graduation
-      - text: "Job Guarantee option: get hired within 9 months or we'll refund your tuition"
+      - text: Flexible financing from $399/mo — built around what works for you.
+      - text: Entry roles paying $95K–$155K. AI Engineer is the fastest-growing job of 2026.
+      - text: "Optional Job Guarantee*: get hired within 9 months or full tuition refund."
     image_object_fit: none
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Start Your Application
+      submit_label: Get All the Information You Need
       tags: website-lead
       fields:
         email:
@@ -44,7 +44,7 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Check your inbox! Your syllabus is on the way.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       terms_url: /terms-and-conditions
       privacy_url: /privacy-policy
       consent:
@@ -56,8 +56,8 @@ sections:
       show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
-    form_card_title: Get the AI Engineering Program Overview
-    form_card_subtitle: "Fill in your details and we'll send you the complete program overview: curriculum, pricing,financing options and more. It only takes 2 minutes."
+    form_card_title: Get All the Financing and Program Details You Need
+    form_card_subtitle: Our admissions team will walk you through every financing option and help you find the one that fits you best.
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: true
     awards_marquee:
@@ -107,13 +107,13 @@ sections:
   - type: sticky_cta
     section_id: sticky_cta-k7207r
     version: "1.0"
-    heading: Ready to start your AI career?
-    button_label: Apply Now
+    heading: Ready to start your AI Engineering career?
+    button_label: Start Your Application
     show_dismiss: false
     form:
       variant: inline
       conversion_name: student_application
-      submit_label: Submit Application
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -132,13 +132,13 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Thanks! We'll be in touch within 24 hours.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
     paddingY:
       desktop: none
     load: eager
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
-    subheading: 6,000+ graduates worldwide. Now thiriving in tech.
+    subheading: 6,000+ graduates worldwide. Now thriving in tech.
     stats:
       - value: 84%
         label: Average hiring rate
@@ -187,8 +187,8 @@ sections:
     version: "1.0"
     variant: stats-text-card
     title: Why AI Engineering Now
-    subtitle: The talent gap is real. This is your opportunity.
-    description: AI Engineers build intelligent systems, automate workflows, and deliver the AI-powered systems companies urgently need. Demand is exploding, but only 3% of the workforce has the skills to fill these roles. That's not a problem. That's your opening.
+    subtitle: The talent gap is real. It makes your investment more than worth it.
+    description: AI Engineers build the intelligent systems companies urgently need. Demand is exploding, but only 3% of the workforce has the skills to fill these roles. That supply gap is what drives salaries to $95K–$135K+ at entry level — and what makes the return on your investment as clear as it gets.".
     card_color: bg-background
     background: hsl(var(--secondary))
     items:
@@ -205,6 +205,52 @@ sections:
     paddingY:
       mobile: none md
       desktop: none md
+  - type: pricing
+    section_id: pricing-8pb379
+    version: "1.0"
+    variant: product
+    title: Tuition and Financing Options
+    subtitle: Flexible financing so nothing stands between you and a high-paying AI Engineering career. The average graduate sees a 55% salary increase. That return starts here.
+    discount_text: "Full Payment Discount: Save 10% with upfront payment."
+    financing_text: "Credit-Based Financing: starting below"
+    financing_amount: $399
+    tech_icons:
+      - openai
+      - claude
+      - python
+      - pandas
+      - numpy
+      - scikitlearn
+      - pytorch
+      - matplotlib
+      - react
+      - nextjs
+      - tailwindcss
+      - nodejs
+      - vercel
+      - supabase
+      - git
+      - github
+      - postman
+      - n8n
+    features_title: Multiple ways to get started.
+    features:
+      - icon: IconCheck
+        text: <b>Full tuition is $14,999.</b> Pay upfront and save 10%, or split into 6 interest-free monthly payments.
+      - icon: IconCheck
+        text: Finance over 24 to 60 months through our lending partners starting at $399/mo.
+      - icon: IconCheck
+        text: Partial scholarships available for highly qualified applicants.
+        use_rigobot_icon: true
+      - icon: IconCheck
+        text: "Add the Job Guarantee* for $2,000: get hired within 9 months or get your full tuition back.<div><span style=\"font-size: 0.75rem;\">*Not available for all regions. Terms and Conditions Apply.</span></div>"
+    cta:
+      text: Get Financing Details
+      url: "#hero-form"
+      variant: primary
+    paddingY:
+      mobile: lg none
+      desktop: lg
   - type: syllabus
     variant: program-modules
     program_title: AI Native Full Stack — Program Modules
@@ -382,8 +428,8 @@ sections:
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
-    title: The Most Personalized Path to an AI Career
-    description: From AI-powered feedback to unlimited 1:1 mentorship and lifelong career support, every part of the experience is built around you.
+    title: What Your Investment Unlocks
+    description: A curriculum built for the AI job market, and a personalized support system included for life.
     features:
       - icon: Robot
         title: AI-powered feedback, available 24/7
@@ -398,7 +444,7 @@ sections:
       - icon: Headset
         title: Unlimited 1:1 mentorship, for life
         description: ""
-        show_rigobot_logo: true
+        show_rigobot_logo: false
         bullets:
           - text: Lifelong access to 1:1 technical mentorship
           - text: "7:1 student-to-mentor ratio: so your mentor knows your name"
@@ -408,7 +454,7 @@ sections:
       - icon: TrendingUp
         title: Career support built for the AI job market
         description: ""
-        show_rigobot_logo: true
+        show_rigobot_logo: false
         bullets:
           - text: Lifelong 1:1 career coaching
           - text: Resume and portfolio built to pass AI-based screening
@@ -450,7 +496,7 @@ sections:
           - text: Personalized job-search strategy with access to relevant hiring networks
       - value: {{ global.global_salary_increase | 55 }}%
         label: Average salary increase
-        description: AI skills are exactly what companies can't find enough of. Step into high-priority roles with immediate growth and long-term upside.
+        description: AI skills are exactly what companies cannot find enough of. Step into high-priority roles with immediate growth and long-term upside.
         benefits:
           - text: "AI Software Engineer: {{ global.average_salary_ai_engineer | $115K–$165K }}"
           - text: "Forward-Deployed Engineer: {{ global.average_salary_ai_fluent_software_developer | $125K–$185K }}"
@@ -475,7 +521,7 @@ sections:
       desktop: lg
     background: hsl(var(--muted))
   - type: testimonials_slide
-    title: They Made the Switch. Here's What Happened.
+    title: They Made the Switch. Here is What Happened.
     description: "Different backgrounds, one outcome: a career in tech that pays."
     dynamic_entries:
       database: testimonials_en
@@ -582,7 +628,7 @@ sections:
           name: Costa Rica
           iso: cr
         contributor: CINDE-BID
-        description: Luis came to the program without any previous experience, He is now a software developer working on a tech firm in Costa Rica.
+        description: Luis came to the program without any previous experience. He is now a software developer working on a tech firm in Costa Rica.
         achievement: He got a 50% increase in his salary
       - name: Leandro Matonte
         img: https://storage.googleapis.com/4geeks-academy-website/media/Leandro_1764725403142.jpeg
@@ -591,100 +637,15 @@ sections:
           name: Uruguay
           iso: uy
         contributor: UTEC-BID
-        description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills that will help with his decision of being a computer scientist graduate. Now he is a software developer at a tech firm in Uruguay.
+        description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-731ujk
-  - type: features_quad
-    version: "1.0"
-    variant: default
-    heading: Is This Program Right for You?
-    description: If you're nodding at all four, this is for you.
-    cards:
-      - icon: Clock
-        title: You're ready to commit
-        description: 20-24 hours/week for 24 weeks. Live classes, real projects, real intensity. You bring the commitment, we deliver the results.
-      - icon: IconBriefcase
-        title: You want a career, not a certificate
-        description: You're here to build with AI, land a high-paying role, and make a real career change. That's exactly what this program is built for.
-      - icon: Users
-        title: You want support that actually shows up
-        description: Clear milestones, expert instructors, and unlimited 1:1 mentorship every step of the way.
-      - icon: Sparkles
-        title: You're playing the long game
-        description: You're ready to move into one of the fastest-growing, highest-paying fields of the next decade and you want the skills to back it up.
-    background: hsl(210 100% 50% / 0.05)
-    marginY:
-      desktop: none lg
-    paddingY:
-      desktop: none
-    section_id: features_quad-xffhpo
-  - type: mentorship
-    version: v1.0
-    title: Mentorship & Support
-    subtitle: You're never alone in your learning journey
-    cards:
-      - icon: user
-        title: 1-on-1 Mentorship
-        description: Weekly sessions with experienced developers who guide you through challenges and help you grow professionally.
-      - icon: users
-        title: Career Coaching
-        description: Dedicated career coaches help you build your resume, prepare for interviews, and connect with hiring partners.
-      - icon: headset
-        title: 24/7 Community Support
-        description: Join our Slack community of students and alumni. Get help anytime from peers who understand your journey.
-    section_id: mentorship-clo9o1
-  - type: pricing
-    section_id: pricing-8pb379
-    version: "1.0"
-    variant: product
-    title: Learn AI Engineering. Launch a Career That Pays.
-    subtitle: The average 4Geeks graduate sees a 55% salary increase. Flexible financing means nothing stands between you and an AI Engineering career.
-    discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Credit-Based Financing: starting below"
-    financing_amount: $399
-    tech_icons:
-      - openai
-      - claude
-      - python
-      - pandas
-      - numpy
-      - scikitlearn
-      - pytorch
-      - matplotlib
-      - react
-      - nextjs
-      - tailwindcss
-      - nodejs
-      - vercel
-      - supabase
-      - git
-      - github
-      - postman
-      - n8n
-    features_title: Multiple ways to get started.
-    features:
-      - icon: IconCheck
-        text: Full tuition is $14,999. Pay upfront and save 10%, or split into 6 interest-free monthly payments.
-      - icon: IconCheck
-        text: Finance over 24 to 60 months through our lending partners starting at $349/mo.
-      - icon: IconCheck
-        text: Partial scholarships available for highly qualified applicants.
-        use_rigobot_icon: true
-      - icon: IconCheck
-        text: "Add the Job Guarantee* for $2,000 : get hired within 9 months or get your full tuition back.<div><span style=\"font-size: 0.75rem;\">*Not available for all regions. Terms and Conditions Apply.</span></div>"
-    cta:
-      text: Start Your Application
-      url: "#hero-form"
-      variant: primary
-    paddingY:
-      mobile: lg none
-      desktop: lg
   - type: why_learn_ai
     variant: laptop-edge
     laptop_image:
       image_id: laptop
     title: Land the Job. Or Your Money Back.
-    description: "<span style=\"font-size: 1.5rem;\"><span><span></span></span></span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span><span style=\"line-height: 1.625;\"><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span></span><span style=\"line-height: 1.625;\"><span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\">Our AI engineering program comes with the option of adding a Job Guarantee.*</span></span></span></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Not hired within 9 months?&nbsp;</span><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Full tuition refund.&nbsp;</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">That's how confident we are in what we built.</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span></span></span></div></span><span style=\"line-height: 1.1;\"><span><span><span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"><br></span></div></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span><span></span></span></span></div><div><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">*The Job Guarantee is not available in all regions.&nbsp;</span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\">Terms and conditions apply.</a></div></div></span></span></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div>"
+    description: "<span style=\"line-height: 1.625;\"><span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\">Our AI engineering program comes with the option of adding a Job Guarantee.*</span></span></span></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Not hired within 9 months?&nbsp;</span><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Full tuition refund.&nbsp;</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">That's how confident we are in what we built.</span></div></span></span></span></div></span><div><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">*The Job Guarantee is not available in all regions.&nbsp;</span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem;\">Terms and conditions apply.</a></div>"
     section_id: why_learn_ai-9pbrek
     marginY:
       desktop: md lg
@@ -782,8 +743,8 @@ sections:
       desktop: lg none
   - type: cta_banner
     version: "1.0"
-    title: Ready to build your AI career?
-    subtitle: AI Engineering is the fastest-growing job of 2026. The best time to start is now. Apply and our admissions team will be in touch shortly.
+    title: Ready to Launch a High-Paying AI Engineering Career?
+    subtitle: Our admissions team will walk you through the financing options, monthly payments, program details and everything else you need to take the step.
     background: hsl(var(--primary))
     variant: form
     form:
@@ -812,7 +773,7 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Application received. Our admissions team will be in touch within minutes — check your inbox.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:
         email: true
         marketing: true
@@ -836,5 +797,3 @@ sections:
       desktop: none
     marginY:
       desktop: sm none
-    slug: prueba-lorena
-    title: prueba
