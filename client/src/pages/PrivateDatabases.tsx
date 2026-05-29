@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
-import {AlertTriangle, ArrowLeft, ArrowLeftRight, ArrowRight, ArrowUpDown, Check, ChevronDown, ChevronUp, Clock, CloudUpload, Code, Copy, Database, Download, Eye, File, Image, Info, Link as LinkIcon, Loader2, Pencil, Plus, RefreshCw, Save, Search, Server, Settings, SlidersHorizontal, Sparkles, Table, TestTube, Trash2, Upload, Wand2, Webhook, X} from "lucide-react";
+import {AlertTriangle, ArrowLeft, ArrowLeftRight, ArrowRight, ArrowUpDown, Check, ChevronDown, ChevronUp, Clock, CloudUpload, Code, Copy, Database, Download, Eye, File, HelpCircle, Image, Info, Link as LinkIcon, Loader2, Pencil, Plus, RefreshCw, Save, Search, Server, Settings, SlidersHorizontal, Sparkles, Table, TestTube, Trash2, Upload, Wand2, Webhook, X} from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRoute, Link, useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -4067,59 +4067,79 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                           data-testid="input-search-items"
                         />
                       </div>
-                      {hasSemanticSearch ? (
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <button className="text-[10px] text-muted-foreground flex items-center gap-1 pl-0.5 hover:text-foreground transition-colors cursor-pointer" data-testid="text-search-mode">
-                              {semanticFetching ? (
-                                <><Loader2 className="h-2.5 w-2.5 animate-spin" /> Searching…</>
-                              ) : debouncedSearch.trim() && semanticResults ? (
-                                semanticResults.semantic ? (
-                                  <><Sparkles className="h-2.5 w-2.5 text-orange-500" /> Ranked by meaning</>
-                                ) : (
-                                  <><Search className="h-2.5 w-2.5" /> Keyword match (semantic index unavailable)</>
-                                )
-                              ) : (
-                                <><Sparkles className="h-2.5 w-2.5 text-orange-500" /> Semantic search</>
-                              )}
-                            </button>
-                          </PopoverTrigger>
-                          <PopoverContent side="bottom" align="start" className="w-80 text-xs p-4 space-y-3">
-                            <div className="flex items-center gap-2">
-                              <Sparkles className="h-4 w-4 text-orange-500 shrink-0" />
-                              <p className="font-medium text-sm">How search works here</p>
-                            </div>
-                            <p className="text-muted-foreground">
-                              This database has semantic search enabled. When you type, the query hits the vector index after a short delay — results come back <strong className="text-foreground">sorted by meaning</strong>, not alphabetically or by exact keyword.
-                            </p>
-                            {config?.vector_search?.fields && config.vector_search.fields.length > 0 && (
-                              <div className="space-y-1">
-                                <p className="font-medium text-foreground">Indexed fields</p>
-                                <div className="flex flex-wrap gap-1">
-                                  {config.vector_search.fields.map((f) => (
-                                    <code key={f} className="bg-muted px-1.5 py-0.5 rounded text-[11px]">{f}</code>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                            <div className="border-t pt-2 space-y-1.5">
-                              <p className="font-medium text-foreground">Status indicators</p>
-                              <div className="space-y-1 text-muted-foreground">
-                                <p><span className="text-foreground font-medium">✦ Semantic search</span> — idle, index ready</p>
-                                <p><span className="text-foreground font-medium">⟳ Searching…</span> — request in flight</p>
-                                <p><span className="text-foreground font-medium">✦ Ranked by meaning</span> — results sorted by relevance</p>
-                                <p><span className="text-foreground font-medium">Keyword match</span> — index unreachable, fell back to text search</p>
-                              </div>
-                            </div>
-                          </PopoverContent>
-                        </Popover>
-                      ) : (search.trim() || semanticFetching) ? (
-                        <p className="text-[10px] text-muted-foreground flex items-center gap-1 pl-0.5" data-testid="text-search-mode">
-                          {semanticFetching
+                      {(() => {
+                        const searchFields = (config as any)?.search_fields as string[] | undefined;
+                        const hasKeywordFields = (searchFields?.length ?? 0) > 0;
+                        const label = hasSemanticSearch
+                          ? semanticFetching
                             ? <><Loader2 className="h-2.5 w-2.5 animate-spin" /> Searching…</>
-                            : "Keyword match across all fields"}
-                        </p>
-                      ) : null}
+                            : debouncedSearch.trim() && semanticResults
+                              ? semanticResults.semantic
+                                ? <><Sparkles className="h-2.5 w-2.5 text-orange-500" /> Ranked by meaning</>
+                                : <><Search className="h-2.5 w-2.5" /> Keyword fallback</>
+                              : <><Sparkles className="h-2.5 w-2.5 text-orange-500" /> Semantic search</>
+                          : semanticFetching
+                            ? <><Loader2 className="h-2.5 w-2.5 animate-spin" /> Searching…</>
+                            : <><HelpCircle className="h-2.5 w-2.5" /> How search works</>;
+                        return (
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <button className="text-[10px] text-muted-foreground flex items-center gap-1 pl-0.5 hover:text-foreground transition-colors cursor-pointer" data-testid="text-search-mode">
+                                {label}
+                              </button>
+                            </PopoverTrigger>
+                            <PopoverContent side="bottom" align="start" className="w-80 text-xs p-4 space-y-3">
+                              <div className="flex items-center gap-2">
+                                <Search className="h-4 w-4 shrink-0" />
+                                <p className="font-medium text-sm">How search works here</p>
+                              </div>
+                              {hasSemanticSearch ? (
+                                <>
+                                  <p className="text-muted-foreground">
+                                    This database has <strong className="text-foreground">semantic search</strong> enabled. Queries hit the vector index — results are sorted by <strong className="text-foreground">meaning</strong>, not exact keyword match.
+                                  </p>
+                                  {config?.vector_search?.fields && config.vector_search.fields.length > 0 && (
+                                    <div className="space-y-1">
+                                      <p className="font-medium text-foreground">Semantic fields</p>
+                                      <div className="flex flex-wrap gap-1">
+                                        {config.vector_search.fields.map((f) => (
+                                          <code key={f} className="bg-muted px-1.5 py-0.5 rounded text-[11px]">{f}</code>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  )}
+                                  <p className="text-muted-foreground">
+                                    If the semantic index is unavailable, search falls back to keyword matching.
+                                  </p>
+                                </>
+                              ) : hasKeywordFields ? (
+                                <>
+                                  <p className="text-muted-foreground">
+                                    This database uses <strong className="text-foreground">keyword search</strong>. Your query is matched as plain text against the configured fields.
+                                  </p>
+                                  <div className="space-y-1">
+                                    <p className="font-medium text-foreground">Searched fields</p>
+                                    <div className="flex flex-wrap gap-1">
+                                      {searchFields!.map((f) => (
+                                        <code key={f} className="bg-muted px-1.5 py-0.5 rounded text-[11px]">{f}</code>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <p className="text-muted-foreground">
+                                    No specific search fields are configured. Your query is matched as plain text <strong className="text-foreground">across all fields</strong> in this database.
+                                  </p>
+                                  <p className="text-muted-foreground">
+                                    To narrow which fields are searched, open <strong className="text-foreground">Settings → Field Mappings</strong> and enable keyword or semantic search on individual fields.
+                                  </p>
+                                </>
+                              )}
+                            </PopoverContent>
+                          </Popover>
+                        );
+                      })()}
                       {showJobBanner && (
                         <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground pl-0.5 mt-0.5" data-testid="job-status-banner">
                           {fetchRunning ? (

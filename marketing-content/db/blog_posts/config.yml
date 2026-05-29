@@ -43,3 +43,6 @@ field_mapping:
 editor:
   preview_image:
     cache_images: true
+search_fields:
+  - title
+  - slug
