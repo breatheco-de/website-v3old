@@ -46,6 +46,7 @@ import { TestimonialItemsPreview } from "./TestimonialItemsPreview";
 import { TableContentEditor } from "./TableContentEditor";
 import { FaqItemsPicker } from "./FaqItemsPicker";
 import { DbFieldValuesPicker } from "./DbFieldValuesPicker";
+import { SearchableMultiSelect } from "@/components/ui/searchable-multi-select";
 import { RichTextArea } from "./RichTextArea";
 import { MarkdownEditorField } from "./MarkdownEditorField";
 import { SectionBindingDialog } from "./SectionBindingDialog";
@@ -234,187 +235,46 @@ function ShowOnLocationsPicker({
   value,
   onChange,
 }: ShowOnLocationsPickerProps) {
-  const [open, setOpen] = useState(false);
-  const [search, setSearch] = useState("");
-
-  const hasLocations = value.length > 0;
-
-  const grouped = useMemo(() => {
-    const groups: Record<string, Location[]> = {};
-    const searchLower = search.toLowerCase();
-    for (const loc of allLocations) {
-      if (loc.visibility !== "listed") continue;
-      if (
-        searchLower &&
-        !loc.name.toLowerCase().includes(searchLower) &&
-        !loc.country.toLowerCase().includes(searchLower) &&
-        !loc.slug.toLowerCase().includes(searchLower)
-      )
-        continue;
-      const region = loc.region;
-      if (!groups[region]) groups[region] = [];
-      groups[region].push(loc);
-    }
-    return groups;
-  }, [search]);
-
-  const regionLabels: Record<string, string> = {
-    "usa-canada": "USA & Canada",
-    latam: "Latin America",
-    europe: "Europe",
-    online: "Online",
-  };
-
-  const toggleLocation = (slug: string) => {
-    if (value.includes(slug)) {
-      onChange(value.filter((s) => s !== slug));
-    } else {
-      onChange([...value, slug]);
-    }
-  };
-
-  const removeLocation = (slug: string) => {
-    onChange(value.filter((s) => s !== slug));
-  };
+  const options = useMemo(
+    () =>
+      allLocations
+        .filter((loc) => loc.visibility === "listed")
+        .map((loc) => ({
+          value: loc.slug,
+          label: `${loc.name}, ${loc.country}`,
+          group: loc.region,
+          prefix: (
+            <span className="text-base leading-none">
+              {countryCodeToFlag(loc.country_code)}
+            </span>
+          ),
+          badgeLabel: loc.name,
+          searchTerms: [loc.slug, loc.country],
+        })),
+    [],
+  );
 
   return (
-    <div className="space-y-2">
-      <div className="flex items-center justify-between gap-3">
-        <Label className="text-sm font-medium whitespace-nowrap flex items-center gap-1.5">
+    <SearchableMultiSelect
+      options={options}
+      value={value}
+      onChange={onChange}
+      label={
+        <>
           <MapPin className="h-3.5 w-3.5" />
           Show on locations
-        </Label>
-        <div className="flex items-center gap-1.5">
-          {hasLocations && (
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-destructive"
-              data-testid="button-clear-locations-inline"
-              onClick={() => onChange([])}
-            >
-              Clear
-            </Button>
-          )}
-          <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              size="sm"
-              data-testid="button-edit-locations"
-            >
-              {hasLocations ? (
-                <Pencil className="h-3.5 w-3.5" />
-              ) : (
-                <>
-                  <Plus className="h-3.5 w-3.5 mr-1" />
-                  <span>Add filter</span>
-                </>
-              )}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-72 p-0 z-[10000]" align="end">
-            <div className="p-2 border-b">
-              <div className="relative">
-                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="Search locations..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="w-full pl-8 pr-3 py-1.5 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                  data-testid="input-location-filter-search"
-                  autoFocus
-                />
-              </div>
-            </div>
-            <ScrollArea className="h-[240px]">
-              <div className="p-1">
-                {Object.entries(grouped).map(([region, locs]) => (
-                  <div key={region} className="mb-1">
-                    <div className="px-2 py-1 text-xs font-semibold text-muted-foreground">
-                      {regionLabels[region] || region}
-                    </div>
-                    {locs.map((loc) => {
-                      const isSelected = value.includes(loc.slug);
-                      return (
-                        <button
-                          key={loc.slug}
-                          type="button"
-                          onClick={() => toggleLocation(loc.slug)}
-                          className={`flex items-center gap-2 w-full px-2 py-1.5 text-sm rounded-md transition-colors ${
-                            isSelected
-                              ? "bg-primary/10 text-foreground"
-                              : "text-muted-foreground hover:bg-muted"
-                          }`}
-                          data-testid={`button-location-toggle-${loc.slug}`}
-                        >
-                          <span className="text-base leading-none">
-                            {countryCodeToFlag(loc.country_code)}
-                          </span>
-                          <span className="flex-1 text-left truncate">
-                            {loc.name}, {loc.country}
-                          </span>
-                          {isSelected && (
-                            <Check className="h-3.5 w-3.5 text-primary flex-shrink-0" />
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                ))}
-                {Object.keys(grouped).length === 0 && (
-                  <div className="text-center py-4 text-sm text-muted-foreground">
-                    No locations found
-                  </div>
-                )}
-              </div>
-            </ScrollArea>
-            {hasLocations && (
-              <div className="p-2 border-t">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="w-full text-destructive"
-                  onClick={() => {
-                    onChange([]);
-                    setOpen(false);
-                  }}
-                  data-testid="button-clear-location-filters"
-                >
-                  Clear all filters
-                </Button>
-              </div>
-            )}
-          </PopoverContent>
-        </Popover>
-      </div>
-    </div>
-      {hasLocations && (
-        <div className="flex flex-wrap gap-1.5">
-          {value.map((slug) => {
-            const loc = getLocationBySlug(slug);
-            if (!loc) return null;
-            return (
-              <Badge key={slug} variant="secondary" className="gap-1 pr-1">
-                <span className="text-xs leading-none">
-                  {countryCodeToFlag(loc.country_code)}
-                </span>
-                <span>{loc.name}</span>
-                <button
-                  type="button"
-                  onClick={() => removeLocation(slug)}
-                  className="ml-0.5 rounded-full p-0.5 hover:bg-muted"
-                  data-testid={`button-remove-location-${slug}`}
-                >
-                  <X className="h-3 w-3" />
-                </button>
-              </Badge>
-            );
-          })}
-        </div>
-      )}
-    </div>
+        </>
+      }
+      searchPlaceholder="Search locations..."
+      groupLabels={{
+        "usa-canada": "USA & Canada",
+        latam: "Latin America",
+        europe: "Europe",
+        online: "Online",
+      }}
+      testIdPrefix="location"
+      emptyMessage="No locations found"
+    />
   );
 }
 
