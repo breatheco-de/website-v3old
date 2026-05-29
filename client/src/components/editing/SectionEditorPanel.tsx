@@ -4899,8 +4899,8 @@ export function SectionEditorPanel({
                   );
                 }
 
-                if (isSimpleField && editorType.startsWith("db-field-values-picker:")) {
-                  const parts = editorType.split(":");
+                if (isSimpleField && editorType === "db-field-values-picker") {
+                  const parts = editorTypeRaw.split(":");
                   const database = parts[1] ?? "";
                   const dbField = parts[2] ?? "";
                   const currentValue = (() => {
