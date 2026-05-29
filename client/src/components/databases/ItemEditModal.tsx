@@ -182,6 +182,10 @@ export function ItemEditModal({
     try {
       const payload = buildItemFromForm(fields, formData, config?.editor, isNew);
       await onSave(payload);
+      toast({
+        title: isNew ? "Item added" : "Item saved",
+        description: isNew ? "The new entry was created successfully." : "Your changes were saved.",
+      });
       onClose();
     } catch (err) {
       toast({
