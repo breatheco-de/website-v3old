@@ -4305,34 +4305,18 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                     <RefreshCw className={`h-3.5 w-3.5 mr-1 ${isRefreshing ? "animate-spin" : ""}`} />
                     Force Refresh
                   </Button>
-                  {config?.source.type === "local" && (() => {
-                    const isMultiPage = (itemsData?.total_count ?? 0) > PAGE_SIZE;
-                    const btn = (
-                      <Button
-                        variant={editMode ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => setEditMode(!editMode)}
-                        disabled={!itemsData || isMultiPage}
-                        data-testid="button-edit-items"
-                      >
-                        <Pencil className="h-3.5 w-3.5 mr-1" />
-                        {editMode ? "Done" : "Edit Items"}
-                      </Button>
-                    );
-                    if (isMultiPage) {
-                      return (
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <span>{btn}</span>
-                          </TooltipTrigger>
-                          <TooltipContent side="bottom" className="max-w-xs text-center">
-                            Editing is disabled when the dataset spans multiple pages. Force Refresh to reload, then reduce the dataset or contact support.
-                          </TooltipContent>
-                        </Tooltip>
-                      );
-                    }
-                    return btn;
-                  })()}
+                  {config?.source.type === "local" && (
+                    <Button
+                      variant={editMode ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setEditMode(!editMode)}
+                      disabled={!itemsData}
+                      data-testid="button-edit-items"
+                    >
+                      <Pencil className="h-3.5 w-3.5 mr-1" />
+                      {editMode ? "Done" : "Edit Items"}
+                    </Button>
+                  )}
                 </div>
               </div>
             </CardHeader>
@@ -4391,7 +4375,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                                   variant="ghost"
                                   onClick={() => {
                                     setEditingItem(item);
-                                    setEditingItemIndex(i);
+                                    setEditingItemIndex((page - 1) * PAGE_SIZE + i);
                                     setIsAddingItem(false);
                                   }}
                                   disabled={savingItems}
