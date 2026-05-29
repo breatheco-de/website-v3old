@@ -74,6 +74,10 @@ args = "MCP Server"
 task = "workflow.run"
 args = "Qdrant Vector Store"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Production Preview"
+
 [[workflows.workflow]]
 name = "Start application"
 author = "agent"
@@ -118,6 +122,18 @@ args = "bash scripts/start-qdrant.sh"
 
 [workflows.workflow.metadata]
 outputType = "console"
+
+[[workflows.workflow]]
+name = "Production Preview"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run build && npm run start"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
 
 [agent]
 integrations = ["javascript_openai_ai_integrations:1.0.0"]
