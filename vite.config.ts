@@ -25,7 +25,13 @@ function navigationEagerManifestPlugin(isSsr: boolean): Plugin {
 export default defineConfig(async () => ({
   plugins: [
     navigationEagerManifestPlugin(isSsrBuild),
-    react(),
+    react({
+      babel: {
+        plugins: [
+          ['babel-plugin-react-compiler', { target: '18' }],
+        ],
+      },
+    }),
     runtimeErrorOverlay(),
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
