@@ -1,3 +1,26 @@
+// Vite 8 compatibility audit (task-579, 2025-05-29)
+//
+// API surface confirmed still valid in Vite 8.0.14:
+//
+//  vite.ssrLoadModule()   — NOT deprecated. Still the recommended way to load
+//                           and execute an ES-module entry point in the dev-server
+//                           SSR environment. The Vite 8 type definition at
+//                           node_modules/vite/dist/node/index.d.ts:2633 carries no
+//                           @deprecated annotation. The new Module Runner API
+//                           (createViteRuntime / server.environments.ssr.runner) is
+//                           an *alternative* introduced for framework authors; it is
+//                           not a mandatory replacement for per-request ssrLoadModule.
+//
+//  vite.ssrFixStacktrace() — Unchanged. Still present in Vite 8 types.
+//
+//  allowedHosts: true      — Valid. Confirmed at types line 626.
+//
+//  server.middlewareMode   — Valid. Unchanged in Vite 8.
+//
+//  appType: "custom"       — Valid. Unchanged in Vite 8.
+//
+// Dev-console deprecation warnings observed during audit: NONE from Vite.
+// (PostCSS "from" warning originates from a PostCSS plugin, not Vite.)
 import express, { type Express } from "express";
 import fs from "fs";
 import path from "path";

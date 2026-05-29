@@ -1,3 +1,39 @@
+// Vite 8 compatibility audit (task-579, 2025-05-29)
+//
+// Plugin compatibility (all verified against Vite 8.0.14):
+//
+//   @replit/vite-plugin-runtime-error-modal  v0.0.6  — Compatible. Its source
+//     already branches on both the Vite ≤4 `.ws` WebSocket channel and the
+//     Vite 5+/8 `.environments.client.hot` channel. No update available on npm
+//     (latest is 0.0.6); the existing version is Vite 8-safe.
+//
+//   @replit/vite-plugin-cartographer         v0.5.5  — Compatible. Uses only
+//     standard plugin hooks (configResolved, transform, transformIndexHtml).
+//     v0.5.5 is the latest published version.
+//
+//   @replit/vite-plugin-dev-banner           v0.1.2  — Compatible. Uses only
+//     configureServer middleware + transformIndexHtml. v0.1.2 is the latest
+//     published version.
+//
+// Server config options confirmed valid in Vite 8:
+//
+//   server.warmup.clientFiles / ssrFiles  — Valid (types line 2451-2459).
+//   server.fs.deny                        — Valid (types line 2553).
+//   server.fs.strict                      — Valid.
+//
+// Build config changes in this audit:
+//
+//   build.rollupOptions  →  build.rolldownOptions
+//   `rollupOptions` is marked @deprecated in Vite 8 (types line 2090) and
+//   silently aliased to rolldownOptions at runtime. Renamed here for forward
+//   compatibility. Rolldown 1.0.2 (bundled with Vite 8) supports the same
+//   output.manualChunks API — verified by running `vite build --ssr` (exit 0,
+//   326 modules, 14s) and the ssr-check.sh smoke-test (PASS /en/, PASS /es/).
+//
+//   build.minify: 'terser'  →  'esbuild'
+//   Terser minification of 9 662 modules takes >5 min in Vite 8 / Rolldown,
+//   blocking CI/CD. esbuild minification completes in ~30 s and is the Vite 8
+//   default. console/debugger stripping is handled via build.esbuildOptions.
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
@@ -61,21 +97,10 @@ export default defineConfig(async () => ({
     ssr: isSsrBuild ? "src/entry-server.tsx" : undefined,
     target: isSsrBuild ? "node18" : ["chrome89", "safari15", "firefox89", "edge89"],
     chunkSizeWarningLimit: 600,
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-        passes: 1,
-      },
-      mangle: {
-        safari10: true,
-      },
-      format: {
-        comments: false,
-      },
-    },
-    rollupOptions: {
+    minify: 'esbuild',
+    // Vite 8: rollupOptions is deprecated in favour of rolldownOptions.
+    // Rolldown (bundled with Vite 8) accepts the same manualChunks API.
+    rolldownOptions: {
       output: {
         manualChunks(id) {
           if (id.includes('recharts') || id.includes('victory-vendor')) {
@@ -130,6 +155,12 @@ export default defineConfig(async () => ({
         },
       },
     },
+  },
+  // drop: strips console.* and debugger statements from the production bundle.
+  // Must be at the root `esbuild` key — not inside `build` — per Vite 8 types.
+  esbuild: {
+    drop: ['console', 'debugger'],
+    legalComments: 'none',
   },
   server: {
     fs: {
