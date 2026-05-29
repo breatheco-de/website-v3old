@@ -117,67 +117,11 @@ export default defineConfig(async () => ({
     target: isSsrBuild ? "node18" : ["chrome89", "safari15", "firefox89", "edge89"],
     chunkSizeWarningLimit: 600,
     minify: 'esbuild',
-    // Vite 8: rollupOptions is deprecated in favour of rolldownOptions.
-    // Rolldown (bundled with Vite 8) accepts the same manualChunks API.
-    rolldownOptions: {
-      output: {
-        manualChunks(id) {
-          // Keep all shadcn/local UI components in one chunk to prevent
-          // Rolldown 1.x from auto-splitting them into tiny individual
-          // chunks, which triggers a runtime interop-helper export bug
-          // (missing export 't', 'r', etc. from rolldown-runtime-*.js).
-          if (id.includes('/client/src/components/ui/')) {
-            return 'ui-components';
-          }
-          if (id.includes('recharts') || id.includes('victory-vendor')) {
-            return 'charts';
-          }
-          if (id.includes('framer-motion')) {
-            return 'framer';
-          }
-          if (id.includes('@tanstack')) {
-            return 'tanstack';
-          }
-          if (id.includes('react-icons')) {
-            return 'icons-react';
-          }
-          if (id.includes('lucide-react')) {
-            return 'icons-lucide';
-          }
-          if (id.includes('@radix-ui')) {
-            return 'radix-ui';
-          }
-          if (id.includes('i18next') || id.includes('react-i18next')) {
-            return 'i18n';
-          }
-          if (
-            id.includes('node_modules/zod') ||
-            id.includes('node_modules/react-hook-form') ||
-            id.includes('@hookform/resolvers')
-          ) {
-            return 'forms';
-          }
-          if (
-            id.includes('node_modules/date-fns') ||
-            id.includes('node_modules/react-day-picker')
-          ) {
-            return 'date';
-          }
-          if (
-            id.includes('node_modules/react-markdown') ||
-            id.includes('node_modules/remark') ||
-            id.includes('node_modules/micromark') ||
-            id.includes('node_modules/mdast') ||
-            id.includes('node_modules/unified') ||
-            id.includes('node_modules/hast') ||
-            id.includes('node_modules/rehype') ||
-            id.includes('node_modules/vfile')
-          ) {
-            return 'markdown';
-          }
-        },
-      },
-    },
+    // manualChunks removed: Rolldown 1.x has a CJS/ESM interop bug where
+    // manually-chunked modules reference named exports ('t', 'r', etc.) from
+    // the rolldown-runtime chunk that are never actually exported, causing
+    // "does not provide an export named 'x'" SyntaxErrors in production.
+    // Rolldown handles dynamic-import-based splitting correctly on its own.
   },
   // drop: strips console.* and debugger statements from the production bundle.
   // Must be at the root `esbuild` key — not inside `build` — per Vite 8 types.
