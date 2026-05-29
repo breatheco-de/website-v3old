@@ -3965,9 +3965,8 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                       {config?.vector_search?.fields?.includes(key) && (
                         <Popover>
                           <PopoverTrigger asChild>
-                            <span className="inline-flex items-center gap-0.5 text-orange-500 shrink-0 cursor-pointer hover:opacity-80 transition-opacity" data-testid={`badge-semantic-${key}`}>
+                            <span className="inline-flex items-center text-orange-500 shrink-0 cursor-pointer hover:opacity-80 transition-opacity" data-testid={`badge-semantic-${key}`}>
                               <Sparkles className="h-3 w-3 drop-shadow-[0_0_3px_rgba(249,115,22,0.7)]" />
-                              <span className="text-[10px] font-medium">semantic</span>
                             </span>
                           </PopoverTrigger>
                           <PopoverContent side="top" className="w-72 text-xs p-3 space-y-2">
