@@ -161,8 +161,15 @@ sections:
   - type: faq
     section_id: faq-ipauts
     title: Preguntas frecuentes
-    related_features:
-      - content-and-syllabus
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - content-and-syllabus
+        - item_property_slug: locations
+          value: all
     marginY:
       desktop: none md
   - type: cta_banner

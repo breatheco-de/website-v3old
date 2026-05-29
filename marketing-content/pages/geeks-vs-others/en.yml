@@ -241,10 +241,17 @@ sections:
     section_id: whos_hiring-tzyhs7
   - type: faq
     title: Frequently Asked Questions
-    related_features:
-      - online-platform
-      - certification
-      - career-support
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - online-platform
+            - certification
+            - career-support
+        - item_property_slug: locations
+          value: all
     item_overrides:
       do-i-get-a-job-after-completing-the-program:
         hideOnLocations:

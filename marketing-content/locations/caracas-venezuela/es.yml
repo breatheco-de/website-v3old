@@ -342,9 +342,16 @@ sections:
   - type: faq
     section_id: faq-hi8cfl
     title: Preguntas Frecuentes
-    related_features:
-      - certification
-      - job-guarantee
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - certification
+            - job-guarantee
+        - item_property_slug: locations
+          value: caracas-venezuela
     marginY:
       desktop: lg none
     background: hsl(var(--muted))

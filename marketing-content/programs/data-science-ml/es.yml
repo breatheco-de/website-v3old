@@ -534,8 +534,15 @@ sections:
   - type: faq
     section_id: faq-1fjtnp
     title: Preguntas frecuentes
-    related_features:
-      - data-science
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - data-science
+        - item_property_slug: locations
+          value: all
     item_overrides:
       cunto-tiempo-toma-completar-el-programa-de-data-science:
         hideOnLocations:

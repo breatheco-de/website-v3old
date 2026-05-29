@@ -423,10 +423,17 @@ sections:
   - type: faq
     section_id: faq-zy4zfm
     title: Preguntas frecuentes
-    related_features:
-      - scholarships
-      - job-guarantee
-      - online-platform
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - scholarships
+            - job-guarantee
+            - online-platform
+        - item_property_slug: locations
+          value: all
     paddingY:
       desktop: lg md
     item_overrides:
@@ -541,10 +548,17 @@ sections:
   - type: faq
     section_id: faq-ba6kjh
     title: Preguntas frecuentes
-    related_features:
-      - online-platform
-      - scholarships
-      - outcomes
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - online-platform
+            - scholarships
+            - outcomes
+        - item_property_slug: locations
+          value: all
     item_overrides:
       consigo-trabajo-despus-de-completar-el-programa:
         hideOnLocations:

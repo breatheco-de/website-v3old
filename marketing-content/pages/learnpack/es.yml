@@ -110,8 +110,15 @@ sections:
   - type: faq
     section_id: faq-o7ylnr
     title: Preguntas frecuentes
-    related_features:
-      - learnpack
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - learnpack
+        - item_property_slug: locations
+          value: all
     marginY:
       desktop: none md
   - type: cta_banner

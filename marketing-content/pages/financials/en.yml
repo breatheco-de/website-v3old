@@ -532,9 +532,16 @@ sections:
   - type: faq
     section_id: faq-ffcm64
     title: Frequently Asked Questions
-    related_features:
-      - price
-      - certification
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - price
+            - certification
+        - item_property_slug: locations
+          value: all
     marginY:
       desktop: lg none
     paddingY:
