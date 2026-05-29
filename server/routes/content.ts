@@ -212,7 +212,7 @@ export function registerContentRoutes(app: Express): void {
     res.json(programs);
   });
 
-  app.get("/api/career-programs/:slug", (req, res) => {
+  app.get("/api/career-programs/:slug", async (req, res) => {
     const { slug } = req.params;
     const locale = normalizeLocale(req.query.locale as string);
     const forceVariant = req.query.force_variant as string | undefined;
@@ -250,6 +250,9 @@ export function registerContentRoutes(app: Express): void {
     }
 
     const programData = program as unknown as Record<string, unknown>;
+    if (Array.isArray(programData.sections)) {
+      programData.sections = await resolveDynamicEntries(programData.sections, locale) as any;
+    }
     const programRaw = contentIndex.loadMergedContent("program", slug, locale);
     const layout = resolveLayout("program", programRaw.data || {});
     const singleEntry = buildSingleEntryFromContent("program", programData);
