@@ -25,3 +25,6 @@ field_mapping:
 editor:
   image_url:
     cache_images: true
+search_fields:
+  - title
+  - slug
