@@ -2133,7 +2133,7 @@ function FieldMappingEditor({
                   <SelectItem value="number">number — numeric</SelectItem>
                   <SelectItem value="boolean">boolean — toggle</SelectItem>
                   <SelectItem value="select">select — dropdown</SelectItem>
-                  <SelectItem value="tags">tags — multi-value</SelectItem>
+                  <SelectItem value="tags">multi select — multi-value</SelectItem>
                 </SelectContent>
               </Select>
             </div>
