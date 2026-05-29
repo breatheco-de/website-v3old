@@ -38,7 +38,6 @@ import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
-import { compression } from "vite-plugin-compression2";
 
 // Vite 6+ removed isSsrBuild from the defineConfig callback.
 // Detect SSR build by checking the CLI arguments instead.
@@ -70,24 +69,6 @@ export default defineConfig(async () => ({
       },
     }),
     runtimeErrorOverlay(),
-    // Emit pre-compressed .br (Brotli) and .gz (gzip) sidecars for all JS/CSS/font
-    // assets during `vite build` (client pass only). The server reads these sidecar
-    // files via express-static-gzip and sets the correct Content-Encoding header,
-    // so compression happens once at build time with no per-request CPU overhead.
-    ...(!isSsrBuild
-      ? [
-          compression({
-            algorithm: "brotliCompress",
-            exclude: [/\.(br|gz|png|jpg|jpeg|webp|avif|gif|svg|ico)$/],
-            threshold: 1024,
-          }),
-          compression({
-            algorithm: "gzip",
-            exclude: [/\.(br|gz|png|jpg|jpeg|webp|avif|gif|svg|ico)$/],
-            threshold: 1024,
-          }),
-        ]
-      : []),
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [
@@ -117,30 +98,70 @@ export default defineConfig(async () => ({
     target: isSsrBuild ? "node18" : ["chrome89", "safari15", "firefox89", "edge89"],
     chunkSizeWarningLimit: 600,
     minify: 'esbuild',
-    // manualChunks removed: Rolldown 1.x has a CJS/ESM interop bug where
-    // manually-chunked modules reference named exports ('t', 'r', etc.) from
-    // the rolldown-runtime chunk that are never actually exported, causing
-    // "does not provide an export named 'x'" SyntaxErrors in production.
-    // Rolldown handles dynamic-import-based splitting correctly on its own.
+    // Vite 8: rollupOptions is deprecated in favour of rolldownOptions.
+    // Rolldown (bundled with Vite 8) accepts the same manualChunks API.
+    rolldownOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('recharts') || id.includes('victory-vendor')) {
+            return 'charts';
+          }
+          if (id.includes('framer-motion')) {
+            return 'framer';
+          }
+          if (id.includes('@tanstack')) {
+            return 'tanstack';
+          }
+          if (id.includes('react-icons')) {
+            return 'icons-react';
+          }
+          if (id.includes('lucide-react')) {
+            return 'icons-lucide';
+          }
+          if (id.includes('@radix-ui')) {
+            return 'radix-ui';
+          }
+          if (id.includes('i18next') || id.includes('react-i18next')) {
+            return 'i18n';
+          }
+          if (
+            id.includes('node_modules/zod') ||
+            id.includes('node_modules/react-hook-form') ||
+            id.includes('@hookform/resolvers')
+          ) {
+            return 'forms';
+          }
+          if (
+            id.includes('node_modules/date-fns') ||
+            id.includes('node_modules/react-day-picker')
+          ) {
+            return 'date';
+          }
+          if (id.includes('node_modules/embla-carousel')) {
+            return 'carousel';
+          }
+          if (
+            id.includes('node_modules/react-markdown') ||
+            id.includes('node_modules/remark') ||
+            id.includes('node_modules/micromark') ||
+            id.includes('node_modules/mdast') ||
+            id.includes('node_modules/unified') ||
+            id.includes('node_modules/hast') ||
+            id.includes('node_modules/rehype') ||
+            id.includes('node_modules/vfile')
+          ) {
+            return 'markdown';
+          }
+        },
+      },
+    },
   },
-  // NOTE: esbuild.drop was removed (2026-05-29).
-  //
-  // Root-level esbuild.drop:['console','debugger'] was causing two bugs:
-  //
-  //   1. PRODUCTION: When esbuild runs as the per-chunk minifier, `drop` triggers
-  //      extra DCE inside each chunk in isolation. Rolldown's runtime helper chunks
-  //      export single-letter bindings ('t', 'r', …) that are consumed by other
-  //      chunks. esbuild treated them as dead locals and stripped them, producing
-  //      "does not provide an export named 't'" SyntaxErrors at runtime.
-  //
-  //   2. DEV: Vite 8 logs "Both esbuild and oxc options were set. oxc options will
-  //      be used and esbuild options will be ignored." OXC is the active transformer;
-  //      esbuild options were silently ignored, making the setting both noisy and
-  //      ineffective.
-  //
-  // console.* and debugger statements are left in the production bundle. They are
-  // harmless (no sensitive data is logged) and the bundle size impact is negligible
-  // compared to the correctness bugs introduced by forcing esbuild DCE here.
+  // drop: strips console.* and debugger statements from the production bundle.
+  // Must be at the root `esbuild` key — not inside `build` — per Vite 8 types.
+  esbuild: {
+    drop: ['console', 'debugger'],
+    legalComments: 'none',
+  },
   server: {
     fs: {
       strict: true,

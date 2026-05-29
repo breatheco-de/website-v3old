@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation } from "wouter";
 
 type DataLayerEvent = {
@@ -10,19 +10,21 @@ type DataLayerEvent = {
 
 export function usePageTracking() {
   const [location] = useLocation();
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
     const dataLayer = (window as unknown as { dataLayer: DataLayerEvent[] }).dataLayer || [];
     (window as unknown as { dataLayer: DataLayerEvent[] }).dataLayer = dataLayer;
-
-    const timer = setTimeout(() => {
-      dataLayer.push({
-        event: "website-route-change",
-        pagePath: location,
-        pageTitle: document.title,
-      });
-    }, 0);
-
-    return () => clearTimeout(timer);
+    
+    dataLayer.push({
+      event: "website-route-change",
+      pagePath: location,
+      pageTitle: document.title,
+    });
   }, [location]);
 }

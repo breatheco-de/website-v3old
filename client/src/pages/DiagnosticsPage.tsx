@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import {AlertTriangle, ArrowLeft, ArrowRight, BarChart2, Check, ChevronDown, Clipboard, Code, Crosshair, FileText, Gauge, Globe, Image, Info, LayoutGrid, Link as LinkIcon, Loader2, Play, RefreshCw, Save, Search, Sparkles, Stethoscope, Wrench, X} from "lucide-react";
+import {AlertTriangle, ArrowLeft, ArrowRight, Check, ChevronDown, Clipboard, Code, Crosshair, FileText, Gauge, Globe, Image, Info, LayoutGrid, Link as LinkIcon, Loader2, Play, RefreshCw, Save, Search, Sparkles, Stethoscope, Wrench, X} from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
@@ -1417,12 +1417,6 @@ export default function DiagnosticsPage() {
                 <Button variant="outline" size="sm" data-testid="button-page-speed">
                   <Gauge className="h-3.5 w-3.5" />
                   Page Speed
-                </Button>
-              </Link>
-              <Link href="/private/tracking">
-                <Button variant="outline" size="sm" data-testid="button-tracking">
-                  <BarChart2 className="h-3.5 w-3.5" />
-                  Tracking
                 </Button>
               </Link>
               <TabsList data-testid="tabs-diagnostics">

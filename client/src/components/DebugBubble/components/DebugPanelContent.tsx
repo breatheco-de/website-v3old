@@ -698,13 +698,6 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 indicator="arrow"
                 testId="link-theme-editor"
               />
-              <MenuItem
-                icon={BarChart2}
-                label="Tracking"
-                href="/private/tracking"
-                indicator="arrow"
-                testId="link-tracking"
-              />
             </ExpandableMenuItem>
 
             <div className="flex items-center justify-between w-full px-3 py-2 rounded-md text-sm">
