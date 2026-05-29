@@ -107,7 +107,7 @@ sections:
     bullet_groups:
       - title: Slack Community
         description: Get real-time help from mentors, alumni, and peers through our active, theme specific channels; from coding support, to job boards and career advice (and yes, there's coding humor too!).
-        icon: BrandSlack
+        icon: python
         badge: 6,000+ Members
         accent_color: primary
       - title: 4Geeks.com

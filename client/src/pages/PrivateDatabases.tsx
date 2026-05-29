@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
-import {AlertTriangle, ArrowLeft, ArrowLeftRight, ArrowRight, ArrowUpDown, Check, ChevronDown, ChevronUp, Clock, CloudUpload, Code, Database, Download, Eye, File, Image, Link as LinkIcon, Loader2, Pencil, Plus, RefreshCw, Save, Search, Server, Settings, SlidersHorizontal, Table, TestTube, Trash2, Upload, Wand2, Webhook, X} from "lucide-react";
+import {AlertTriangle, ArrowLeft, ArrowLeftRight, ArrowRight, ArrowUpDown, Check, ChevronDown, ChevronUp, Clock, CloudUpload, Code, Copy, Database, Download, Eye, File, HelpCircle, Image, Info, Link as LinkIcon, Loader2, Pencil, Plus, RefreshCw, Save, Search, Server, Settings, SlidersHorizontal, Sparkles, Table, TestTube, Trash2, Upload, Wand2, Webhook, X} from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRoute, Link, useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
@@ -24,9 +25,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { ItemEditModal } from "@/components/databases/ItemEditModal";
+import JsonViewer from "@/components/editing/JsonViewer";
+import { WebhookUrlPopover } from "@/components/WebhookUrlPopover";
 
 interface DatabaseSummary {
   name: string;
@@ -65,6 +69,7 @@ interface DatabaseDetail {
     field_mapping?: Record<string, string>;
     filter_by_locale?: boolean;
     editor?: Record<string, { type?: string; options?: (string | { value: string; label: string })[]; populate_options?: boolean; allow_custom_values?: boolean; cache_images?: boolean; description?: string }>;
+    vector_search?: { enabled: boolean; fields: string[] };
   };
   cache_status?: {
     fetched_at: string;
@@ -82,9 +87,12 @@ interface DatasetFile {
 
 interface DatabaseItems {
   items: Record<string, unknown>[];
-  raw_count: number;
-  fetched_at: string;
-  from_cache: boolean;
+  total_count: number;
+  page: number;
+  limit: number;
+  raw_count?: number;
+  fetched_at?: string;
+  from_cache?: boolean;
 }
 
 interface KeyValuePair {
@@ -1006,6 +1014,7 @@ function CreateDatabaseDialog({
 
 function KeyValueEditor({
   label,
+  addLabel = "Add",
   pairs,
   onChange,
   keyPlaceholder,
@@ -1013,6 +1022,7 @@ function KeyValueEditor({
   testIdPrefix,
 }: {
   label: string;
+  addLabel?: string;
   pairs: KeyValuePair[];
   onChange: (pairs: KeyValuePair[]) => void;
   keyPlaceholder: string;
@@ -1030,7 +1040,7 @@ function KeyValueEditor({
           data-testid={`button-add-${testIdPrefix}`}
         >
           <Plus className="h-3 w-3 mr-1" />
-          Add
+          {addLabel}
         </Button>
       </div>
       {pairs.map((pair, i) => (
@@ -1230,8 +1240,86 @@ function DatabaseConfigEditor({
   const [testResult, setTestResult] = useState<{
     success: boolean;
     item_count?: number;
+    samples?: unknown[];
     error?: string;
   } | null>(null);
+  const [sampleOpen, setSampleOpen] = useState(false);
+  const [sampleData, setSampleData] = useState<{ items: Record<string, unknown>[]; count: number } | null>(null);
+  const [sampleLoading, setSampleLoading] = useState(false);
+  const [showCurl, setShowCurl] = useState(false);
+  const [curlCopied, setCurlCopied] = useState(false);
+  const [webhookCopied, setWebhookCopied] = useState(false);
+
+  const { data: webhookData } = useQuery<{ configured: boolean; url?: string }>({
+    queryKey: ["/api/webhooks/clear-cache/url"],
+    staleTime: 60_000,
+  });
+
+  const webhookFullUrl = webhookData?.configured && webhookData.url
+    ? `${webhookData.url}&type=${encodeURIComponent(dbName)}`
+    : null;
+
+  const handleCopyWebhook = () => {
+    if (!webhookFullUrl) return;
+    navigator.clipboard.writeText(webhookFullUrl);
+    setWebhookCopied(true);
+    setTimeout(() => setWebhookCopied(false), 2000);
+  };
+
+  const curlCommand = useMemo(() => {
+    if (sourceType !== "api" || !endpoint.trim()) return null;
+    const filteredParams = params.filter((p) => p.key.trim());
+    const filteredHeaders = headers.filter((h) => h.key.trim());
+    let url = endpoint.trim();
+    if (filteredParams.length > 0) {
+      const qs = filteredParams.map((p) => `${encodeURIComponent(p.key)}=${encodeURIComponent(p.value)}`).join("&");
+      url += (url.includes("?") ? "&" : "?") + qs;
+    }
+    const parts = [`curl -X GET "${url}"`];
+    if (tokenEnvVar) {
+      parts.push(`  -H "Authorization: ${authPrefix || "Bearer"} $\{${tokenEnvVar}\}"`);
+    }
+    for (const h of filteredHeaders) {
+      parts.push(`  -H "${h.key}: ${h.value}"`);
+    }
+    return parts.join(" \\\n");
+  }, [sourceType, endpoint, params, headers, tokenEnvVar, authPrefix]);
+
+  const handleViewSample = async () => {
+    setSampleOpen(true);
+    if (sampleData) return;
+    // If we just ran a test, use the live samples it already fetched — no cache read needed
+    if (testResult?.success && testResult.samples && testResult.samples.length > 0) {
+      setSampleData({
+        items: testResult.samples as Record<string, unknown>[],
+        count: testResult.item_count ?? testResult.samples.length,
+      });
+      return;
+    }
+    setSampleLoading(true);
+    try {
+      const res = await fetch(`/api/databases/${dbName}/raw-sample?limit=3`);
+      const data = await res.json();
+      setSampleData(data);
+    } catch {
+      toast({ title: "Failed to load sample data", variant: "destructive" });
+    } finally {
+      setSampleLoading(false);
+    }
+  };
+
+  const handleRefreshSample = async () => {
+    setSampleLoading(true);
+    try {
+      const res = await fetch(`/api/databases/${dbName}/raw-sample?limit=3`);
+      const data = await res.json();
+      setSampleData(data);
+    } catch {
+      toast({ title: "Failed to load sample data", variant: "destructive" });
+    } finally {
+      setSampleLoading(false);
+    }
+  };
 
   const canSave =
     sourceType === "api"
@@ -1239,6 +1327,47 @@ function DatabaseConfigEditor({
       : sourceType === "local"
       ? localFilename.trim().length > 0
       : remoteUrl.trim().length > 0;
+
+  const isDirty = useMemo(() => {
+    const origType = config.source.type === "local" || config.source.type === "remote" ? config.source.type : "api";
+    if (sourceType !== origType) return true;
+    const origResultsPath =
+      config.source.api?.results_path ||
+      config.source.local?.results_path ||
+      config.source.remote?.results_path ||
+      "";
+    if (resultsPath !== origResultsPath) return true;
+    if (String(config.cache?.ttl_hours ?? 24) !== ttlHours) return true;
+    if (sourceType === "api") {
+      if (endpoint !== (config.source.api?.endpoint || "")) return true;
+      if (tokenEnvVar !== (config.source.api?.auth?.token_env_var || "")) return true;
+      if (authPrefix !== (config.source.api?.auth?.prefix || "Bearer")) return true;
+      const origParams = config.source.api?.params ?? {};
+      const origParamPairs = Object.entries(origParams).map(([key, value]) => ({ key, value: String(value) }));
+      const filteredParams = params.filter((p) => p.key.trim());
+      if (JSON.stringify(filteredParams) !== JSON.stringify(origParamPairs)) return true;
+      const origHeaders = config.source.api?.headers ?? {};
+      const origHeaderPairs = Object.entries(origHeaders).map(([key, value]) => ({ key, value }));
+      const filteredHeaders = headers.filter((h) => h.key.trim());
+      if (JSON.stringify(filteredHeaders) !== JSON.stringify(origHeaderPairs)) return true;
+    }
+    if (sourceType === "local") {
+      if (localFilename !== (config.source.local?.filename || "")) return true;
+    }
+    if (sourceType === "remote") {
+      if (remoteUrl !== (config.source.remote?.url || "")) return true;
+    }
+    return false;
+  }, [sourceType, endpoint, resultsPath, tokenEnvVar, authPrefix, ttlHours, params, headers, localFilename, remoteUrl, config]);
+
+  useEffect(() => {
+    if (!isDirty) return;
+    const handler = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+    };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, [isDirty]);
 
   const buildSourceConfig = () => {
     if (sourceType === "local") {
@@ -1280,6 +1409,7 @@ function DatabaseConfigEditor({
   const handleTest = async () => {
     setTesting(true);
     setTestResult(null);
+    setSampleData(null);
     try {
       const res = await fetch(`/api/databases/${dbName}/test`, {
         method: "POST",
@@ -1391,16 +1521,54 @@ function DatabaseConfigEditor({
           </Select>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="edit-ttl">Cache TTL (hours)</Label>
-          <Input
-            id="edit-ttl"
-            type="number"
-            min="0"
-            value={ttlHours}
-            onChange={(e) => setTtlHours(e.target.value)}
-            className="w-24"
-            data-testid="input-edit-ttl"
-          />
+          <div className="flex items-center gap-1.5">
+            <Label htmlFor="edit-ttl">Cache TTL (hours)</Label>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Info className="h-3.5 w-3.5 text-muted-foreground cursor-pointer" />
+              </PopoverTrigger>
+              <PopoverContent side="right" className="w-64 text-xs p-3">
+                The entire database will be re-fetched every <strong>{ttlHours || "24"} hour{Number(ttlHours) === 1 ? "" : "s"}</strong> to keep the data up to date. Set to <strong>0</strong> to disable automatic refresh.
+              </PopoverContent>
+            </Popover>
+          </div>
+          <div className="flex items-center gap-2">
+            <Input
+              id="edit-ttl"
+              type="number"
+              min="0"
+              value={ttlHours}
+              onChange={(e) => setTtlHours(e.target.value)}
+              className="w-24"
+              data-testid="input-edit-ttl"
+            />
+            {sourceType === "api" && webhookData && (
+              webhookFullUrl ? (
+                <div className="flex items-center gap-1.5 flex-1 min-w-0 rounded-md bg-muted/50 border px-2 py-1.5 text-xs">
+                  <Webhook className="h-3 w-3 text-muted-foreground shrink-0" />
+                  <input
+                    readOnly
+                    value={webhookFullUrl}
+                    className="flex-1 font-mono bg-transparent outline-none text-foreground min-w-0 truncate cursor-text"
+                    onFocus={(e) => e.target.select()}
+                    data-testid="input-webhook-url-settings"
+                  />
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="h-5 w-5 shrink-0"
+                    onClick={handleCopyWebhook}
+                    title={webhookCopied ? "Copied!" : "Copy webhook URL"}
+                    data-testid="button-copy-webhook-settings"
+                  >
+                    {webhookCopied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                  </Button>
+                </div>
+              ) : (
+                <p className="text-xs text-muted-foreground italic">Webhook not configured</p>
+              )
+            )}
+          </div>
         </div>
       </div>
       <div className="flex items-start gap-3 pt-1">
@@ -1465,6 +1633,7 @@ function DatabaseConfigEditor({
           </div>
           <KeyValueEditor
             label="Query Parameters"
+            addLabel="Add parameter"
             pairs={params}
             onChange={setParams}
             keyPlaceholder="param name"
@@ -1473,6 +1642,7 @@ function DatabaseConfigEditor({
           />
           <KeyValueEditor
             label="Headers"
+            addLabel="Add header"
             pairs={headers}
             onChange={setHeaders}
             keyPlaceholder="header name"
@@ -1590,22 +1760,33 @@ function DatabaseConfigEditor({
             Test Connection
           </Button>
           {testResult && (
-            <Badge variant={testResult.success ? "secondary" : "destructive"}>
-              {testResult.success ? (
-                <>
+            testResult.success ? (
+              <button
+                type="button"
+                onClick={handleViewSample}
+                data-testid="badge-test-result-success"
+                className="inline-flex items-center"
+              >
+                <Badge variant="secondary" className="cursor-pointer">
                   <Check className="h-3 w-3 mr-1" />
                   {testResult.item_count} items found
-                </>
-              ) : (
-                <>
-                  <X className="h-3 w-3 mr-1" />
-                  Failed
-                </>
-              )}
-            </Badge>
+                </Badge>
+              </button>
+            ) : (
+              <Badge variant="destructive">
+                <X className="h-3 w-3 mr-1" />
+                Failed
+              </Badge>
+            )
           )}
         </div>
         <div className="flex items-center gap-2">
+          {isDirty && (
+            <span className="flex items-center gap-1 text-xs text-muted-foreground" data-testid="text-unsaved-changes">
+              <AlertTriangle className="h-3.5 w-3.5 text-amber-500" />
+              Unsaved changes
+            </span>
+          )}
           <Button
             variant="destructive"
             size="sm"
@@ -1646,6 +1827,99 @@ function DatabaseConfigEditor({
           setSourceType("local");
         }}
       />
+
+      <Dialog open={sampleOpen} onOpenChange={(v) => { setSampleOpen(v); if (!v) setShowCurl(false); }}>
+        <DialogContent className="max-w-3xl max-h-[80vh] flex flex-col">
+          <DialogHeader>
+            <div className="flex items-start justify-between gap-2 pr-8">
+              <div>
+                <DialogTitle>Raw API Sample Data</DialogTitle>
+                <DialogDescription className="mt-1 space-y-0.5">
+                  <span className="block">{sampleData ? `Showing ${sampleData.items.length} of ${sampleData.count} total raw items` : "Loading sample data..."}</span>
+                  {sampleData && testResult?.success && testResult.samples && sampleData.items === (testResult.samples as Record<string, unknown>[]) ? (
+                    <span className="block text-[11px] text-muted-foreground/70">Live data from the test connection — not from cache.</span>
+                  ) : (
+                    <span className="block text-[11px] text-muted-foreground/70">Reflects the last cached fetch. If you recently changed query params, save and Force Refresh first.</span>
+                  )}
+                </DialogDescription>
+              </div>
+              <div className="flex items-center gap-1">
+                {curlCommand && (
+                  <Button
+                    size="icon"
+                    variant={showCurl ? "secondary" : "ghost"}
+                    onClick={() => setShowCurl((v) => !v)}
+                    data-testid="button-toggle-curl"
+                    title={showCurl ? "Hide curl command" : "Show curl command"}
+                  >
+                    <Code className="h-4 w-4" />
+                  </Button>
+                )}
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={handleRefreshSample}
+                  disabled={sampleLoading}
+                  data-testid="button-refresh-sample-config"
+                  title="Refresh sample data"
+                >
+                  {sampleLoading ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <RefreshCw className="h-4 w-4" />
+                  )}
+                </Button>
+              </div>
+            </div>
+          </DialogHeader>
+          {showCurl && curlCommand && (
+            <div className="border rounded-md overflow-hidden flex-shrink-0">
+              <div className="px-3 py-1.5 bg-muted text-xs font-medium text-muted-foreground border-b flex items-center justify-between">
+                <span>curl</span>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="h-5 w-5"
+                  title={curlCopied ? "Copied!" : "Copy to clipboard"}
+                  data-testid="button-copy-curl"
+                  onClick={() => {
+                    navigator.clipboard.writeText(curlCommand);
+                    setCurlCopied(true);
+                    setTimeout(() => setCurlCopied(false), 2000);
+                  }}
+                >
+                  {curlCopied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                </Button>
+              </div>
+              <pre className="px-3 py-2 text-xs font-mono whitespace-pre-wrap break-all bg-background text-foreground overflow-x-auto">
+                {curlCommand}
+              </pre>
+            </div>
+          )}
+          <div className="flex-1 overflow-auto">
+            {sampleLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+              </div>
+            ) : sampleData && sampleData.items.length > 0 ? (
+              <div className="space-y-3">
+                {sampleData.items.map((item, idx) => (
+                  <div key={idx} className="border rounded-md overflow-hidden">
+                    <div className="px-3 py-1.5 bg-muted text-xs font-medium text-muted-foreground border-b">
+                      Item {idx + 1}
+                    </div>
+                    <JsonViewer value={JSON.stringify(item, null, 2)} />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground py-4 text-center">
+                No raw data available. Save your config and fetch data first.
+              </p>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
         <DialogContent>
@@ -1704,6 +1978,19 @@ function FieldMappingEditor({
   useEffect(() => {
     setEditorHints(config.editor ? { ...config.editor } : {});
   }, [config.editor]);
+
+  const [vectorSearchFields, setVectorSearchFields] = useState<string[]>(config.vector_search?.fields ?? []);
+  useEffect(() => {
+    setVectorSearchFields(config.vector_search?.fields ?? []);
+  }, [config.vector_search]);
+
+  const [keywordSearchFields, setKeywordSearchFields] = useState<string[]>((config as any).search_fields ?? []);
+  useEffect(() => {
+    setKeywordSearchFields((config as any).search_fields ?? []);
+  }, [(config as any).search_fields]);
+
+  const [imageCacheModalField, setImageCacheModalField] = useState<string | null>(null);
+  const [vectorSearchModalField, setVectorSearchModalField] = useState<string | null>(null);
 
   const [hintDialogField, setHintDialogField] = useState<string | null>(null);
   const [hintDialogType, setHintDialogType] = useState<string>("text");
@@ -1777,6 +2064,19 @@ function FieldMappingEditor({
     }
   };
 
+  const handleRefreshSample = async () => {
+    setSampleLoading(true);
+    try {
+      const res = await fetch(`/api/databases/${dbName}/raw-sample?limit=3`);
+      const data = await res.json();
+      setSampleData(data);
+    } catch {
+      toast({ title: "Failed to load sample data", variant: "destructive" });
+    } finally {
+      setSampleLoading(false);
+    }
+  };
+
   const [fieldMappingEntries, setFieldMappingEntries] = useState<Record<string, string | null>>(() => {
     const fm = config.field_mapping;
     if (!fm || Object.keys(fm).length === 0) return {};
@@ -1834,6 +2134,10 @@ function FieldMappingEditor({
         ...config,
         field_mapping: Object.keys(fieldMapping).length > 0 ? fieldMapping : undefined,
         editor: Object.keys(editorHints).length > 0 ? editorHints : undefined,
+        vector_search: vectorSearchFields.length > 0
+          ? { enabled: true, fields: vectorSearchFields }
+          : undefined,
+        search_fields: keywordSearchFields.length > 0 ? keywordSearchFields : undefined,
       };
 
       const res = await fetch(`/api/databases/${dbName}/config`, {
@@ -1901,7 +2205,7 @@ function FieldMappingEditor({
         <div className="space-y-2">
           {Object.entries(fieldMappingEntries).map(([normalizedKey, sourcePath]) => {
             const isFunction = sourcePath != null && sourcePath.startsWith("function:");
-            const isCustom = !isFunction && sourcePath != null && sourcePath !== "" && !rawFields.includes(sourcePath);
+            const isCustom = !isFunction && sourcePath != null && !rawFields.includes(sourcePath);
             const selectValue = isFunction ? "__function__" : isCustom ? "__custom__" : (sourcePath || "__none__");
             const decodedFn = isFunction ? (() => { try { return atob(sourcePath.slice("function:".length)); } catch { return sourcePath; } })() : "";
             return (
@@ -1995,25 +2299,43 @@ function FieldMappingEditor({
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => {
-                      setEditorHints((prev) => {
-                        const current = prev[normalizedKey] || {};
-                        return { ...prev, [normalizedKey]: { ...current, cache_images: !current.cache_images } };
-                      });
-                    }}
-                    title={editorHints[normalizedKey]?.cache_images ? "Image caching enabled — click to disable" : "Enable image caching for this field"}
+                    onClick={() => setImageCacheModalField(normalizedKey)}
+                    title={editorHints[normalizedKey]?.cache_images ? "Image caching enabled" : "Configure image caching"}
                     data-testid={`button-cache-images-${normalizedKey}`}
                   >
                     <Image className={`h-3.5 w-3.5 ${editorHints[normalizedKey]?.cache_images ? "text-blue-500" : "text-muted-foreground"}`} />
                   </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setVectorSearchModalField(normalizedKey)}
+                    title={
+                      vectorSearchFields.includes(normalizedKey) && keywordSearchFields.includes(normalizedKey)
+                        ? "Semantic + keyword search configured"
+                        : vectorSearchFields.includes(normalizedKey)
+                          ? "Included in semantic search"
+                          : keywordSearchFields.includes(normalizedKey)
+                            ? "Included in keyword search"
+                            : "Configure search settings"
+                    }
+                    data-testid={`button-vector-search-${normalizedKey}`}
+                  >
+                    <Sparkles className={`h-3.5 w-3.5 ${vectorSearchFields.includes(normalizedKey) ? "text-orange-500 drop-shadow-[0_0_4px_rgba(249,115,22,0.8)]" : keywordSearchFields.includes(normalizedKey) ? "text-primary" : "text-muted-foreground"}`} />
+                  </Button>
                 </div>
-                {(editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text") || editorHints[normalizedKey]?.cache_images ? (
+                {((editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text") || editorHints[normalizedKey]?.cache_images || vectorSearchFields.includes(normalizedKey) || keywordSearchFields.includes(normalizedKey)) ? (
                   <p className="text-[10px] text-muted-foreground ml-[6.5rem] flex items-center gap-2">
                     {editorHints[normalizedKey]?.type && editorHints[normalizedKey].type !== "text" && (
                       <span>editor: <code>{editorHints[normalizedKey].type}</code>{editorHints[normalizedKey].options?.length ? ` (${editorHints[normalizedKey].options!.length} options)` : ""}</span>
                     )}
                     {editorHints[normalizedKey]?.cache_images && (
                       <span className="text-blue-500">cached</span>
+                    )}
+                    {keywordSearchFields.includes(normalizedKey) && (
+                      <span className="text-foreground">keyword</span>
+                    )}
+                    {vectorSearchFields.includes(normalizedKey) && (
+                      <span className="text-orange-500">semantic</span>
                     )}
                   </p>
                 ) : null}
@@ -2058,7 +2380,7 @@ function FieldMappingEditor({
         </p>
       )}
 
-      <div className="flex items-center justify-end gap-2 pt-2 border-t">
+      <div className="flex items-center justify-end gap-2 pt-2 border-t flex-wrap">
         <Button
           size="sm"
           onClick={handleSave}
@@ -2077,10 +2399,28 @@ function FieldMappingEditor({
       <Dialog open={sampleOpen} onOpenChange={setSampleOpen}>
         <DialogContent className="max-w-3xl max-h-[80vh] flex flex-col">
           <DialogHeader>
-            <DialogTitle>Raw API Sample Data</DialogTitle>
-            <DialogDescription>
-              {sampleData ? `Showing ${sampleData.items.length} of ${sampleData.count} total raw items` : "Loading sample data..."}
-            </DialogDescription>
+            <div className="flex items-start justify-between gap-2 pr-8">
+              <div>
+                <DialogTitle>Raw API Sample Data</DialogTitle>
+                <DialogDescription className="mt-1">
+                  {sampleData ? `Showing ${sampleData.items.length} of ${sampleData.count} total raw items` : "Loading sample data..."}
+                </DialogDescription>
+              </div>
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={handleRefreshSample}
+                disabled={sampleLoading}
+                data-testid="button-refresh-sample"
+                title="Refresh sample data"
+              >
+                {sampleLoading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <RefreshCw className="h-4 w-4" />
+                )}
+              </Button>
+            </div>
           </DialogHeader>
           <div className="flex-1 overflow-auto">
             {sampleLoading ? (
@@ -2090,13 +2430,13 @@ function FieldMappingEditor({
             ) : sampleData && sampleData.items.length > 0 ? (
               <div className="space-y-3">
                 {sampleData.items.map((item, idx) => (
-                  <div key={idx} className="border rounded-md">
+                  <div key={idx} className="border rounded-md overflow-hidden">
                     <div className="px-3 py-1.5 bg-muted text-xs font-medium text-muted-foreground border-b">
                       Item {idx + 1}
                     </div>
-                    <pre className="text-xs font-mono p-3 overflow-auto whitespace-pre-wrap break-all" data-testid={`text-sample-item-${idx}`}>
-                      {JSON.stringify(item, null, 2)}
-                    </pre>
+                    <JsonViewer
+                      value={JSON.stringify(item, null, 2)}
+                    />
                   </div>
                 ))}
               </div>
@@ -2249,6 +2589,161 @@ function FieldMappingEditor({
             >
               <Check className="h-3.5 w-3.5 mr-1" />
               Apply
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={imageCacheModalField !== null} onOpenChange={(v) => { if (!v) setImageCacheModalField(null); }}>
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Image className="h-4 w-4 text-blue-500" />
+              Image Caching
+            </DialogTitle>
+            <DialogDescription className="pt-1">
+              for <code className="font-mono text-xs bg-muted px-1 rounded">{imageCacheModalField}</code>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3 py-1">
+            <p className="text-sm text-muted-foreground">
+              When enabled, any image URLs found in this field are automatically downloaded and re-hosted on the local media server. This prevents broken images if the original source changes or goes offline, and improves page load performance.
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Caching runs in the background after each data fetch. Original URLs are preserved in the raw data.
+            </p>
+            <label className="flex items-center gap-3 cursor-pointer pt-1" data-testid="label-cache-images-toggle">
+              <Switch
+                checked={imageCacheModalField ? (editorHints[imageCacheModalField]?.cache_images ?? false) : false}
+                onCheckedChange={(checked) => {
+                  if (!imageCacheModalField) return;
+                  setEditorHints((prev) => {
+                    const current = prev[imageCacheModalField] || {};
+                    return { ...prev, [imageCacheModalField]: { ...current, cache_images: checked } };
+                  });
+                }}
+                data-testid="switch-cache-images"
+              />
+              <span className="text-sm">
+                {imageCacheModalField && editorHints[imageCacheModalField]?.cache_images
+                  ? "Image caching enabled"
+                  : "Image caching disabled"}
+              </span>
+            </label>
+          </div>
+          <DialogFooter className="gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                setEditorHints((prev) => {
+                  if (!imageCacheModalField) return prev;
+                  const original = config.editor?.[imageCacheModalField]?.cache_images ?? false;
+                  const current = prev[imageCacheModalField] || {};
+                  return { ...prev, [imageCacheModalField]: { ...current, cache_images: original } };
+                });
+                setImageCacheModalField(null);
+              }}
+              data-testid="button-cancel-cache-modal"
+            >
+              Cancel
+            </Button>
+            <Button
+              size="sm"
+              disabled={saving}
+              onClick={async () => {
+                setImageCacheModalField(null);
+                await handleSave();
+              }}
+              data-testid="button-save-cache-modal"
+            >
+              {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Save"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={vectorSearchModalField !== null} onOpenChange={(v) => { if (!v) setVectorSearchModalField(null); }}>
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Search className="h-4 w-4" />
+              Search Settings
+            </DialogTitle>
+            <DialogDescription className="pt-1">
+              for <code className="font-mono text-xs bg-muted px-1 rounded">{vectorSearchModalField}</code>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-1">
+            <div className="space-y-2">
+              <label className="flex items-center gap-3 cursor-pointer" data-testid="label-keyword-search-field-toggle">
+                <Switch
+                  checked={vectorSearchModalField ? keywordSearchFields.includes(vectorSearchModalField) : false}
+                  onCheckedChange={(checked) => {
+                    if (!vectorSearchModalField) return;
+                    setKeywordSearchFields((prev) =>
+                      checked
+                        ? prev.includes(vectorSearchModalField) ? prev : [...prev, vectorSearchModalField]
+                        : prev.filter((f) => f !== vectorSearchModalField)
+                    );
+                  }}
+                  data-testid="switch-keyword-search-field"
+                />
+                <div>
+                  <p className="text-sm font-medium">Keyword search</p>
+                  <p className="text-xs text-muted-foreground">Include in text-based search across this database.</p>
+                </div>
+              </label>
+            </div>
+            <div className="border-t pt-4 space-y-2">
+              <label className="flex items-center gap-3 cursor-pointer" data-testid="label-vector-search-field-toggle">
+                <Switch
+                  checked={vectorSearchModalField ? vectorSearchFields.includes(vectorSearchModalField) : false}
+                  onCheckedChange={(checked) => {
+                    if (!vectorSearchModalField) return;
+                    setVectorSearchFields((prev) =>
+                      checked
+                        ? prev.includes(vectorSearchModalField) ? prev : [...prev, vectorSearchModalField]
+                        : prev.filter((f) => f !== vectorSearchModalField)
+                    );
+                  }}
+                  data-testid="switch-vector-search-field"
+                />
+                <div>
+                  <p className="text-sm font-medium flex items-center gap-1.5">
+                    <Sparkles className="h-3.5 w-3.5 text-orange-500" />
+                    Semantic search
+                  </p>
+                  <p className="text-xs text-muted-foreground">Embed this field into the AI vector index for meaning-based search. Best for free-form text — avoid IDs or short codes.</p>
+                </div>
+              </label>
+            </div>
+          </div>
+          <DialogFooter className="gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                if (vectorSearchModalField) {
+                  setVectorSearchFields(config.vector_search?.fields ?? []);
+                  setKeywordSearchFields((config as any).search_fields ?? []);
+                }
+                setVectorSearchModalField(null);
+              }}
+              data-testid="button-cancel-vector-modal"
+            >
+              Cancel
+            </Button>
+            <Button
+              size="sm"
+              disabled={saving}
+              onClick={async () => {
+                setVectorSearchModalField(null);
+                await handleSave();
+              }}
+              data-testid="button-save-vector-modal"
+            >
+              {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Save"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -2667,6 +3162,7 @@ function _DeprecatedItemEditModal({
 function CachedImagesKpiCard({ dbName }: { dbName: string }) {
   const { toast } = useToast();
   const [failedOpen, setFailedOpen] = useState(false);
+  const [confirmRefreshOpen, setConfirmRefreshOpen] = useState(false);
 
   const { data, isLoading, refetch, isFetching } = useQuery<{ cached: number; failed: number }>({
     queryKey: ["/api/image-registry/stats", dbName],
@@ -2708,7 +3204,7 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
             <Button
               size="icon"
               variant="ghost"
-              onClick={() => refetch()}
+              onClick={() => setConfirmRefreshOpen(true)}
               disabled={isFetching}
               data-testid="button-refresh-cached-stats"
             >
@@ -2729,6 +3225,35 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
           )}
         </CardContent>
       </Card>
+
+      <Dialog open={confirmRefreshOpen} onOpenChange={setConfirmRefreshOpen}>
+        <DialogContent className="sm:max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Refresh image cache stats?</DialogTitle>
+            <DialogDescription>
+              This will re-query the image registry to get the latest count of cached and failed images for <strong>{dbName}</strong>. No images will be downloaded or re-processed.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex items-center justify-end gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setConfirmRefreshOpen(false)}
+              data-testid="button-cancel-refresh-stats"
+            >
+              Cancel
+            </Button>
+            <Button
+              size="sm"
+              onClick={() => { setConfirmRefreshOpen(false); refetch(); }}
+              data-testid="button-confirm-refresh-stats"
+            >
+              <RefreshCw className="h-3.5 w-3.5 mr-1" />
+              Refresh
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={failedOpen} onOpenChange={setFailedOpen}>
         <DialogContent className="sm:max-w-lg">
@@ -2806,16 +3331,82 @@ function CachedImagesKpiCard({ dbName }: { dbName: string }) {
   );
 }
 
+function SemanticIndexKpiCard({ dbName, jobStatus, onForceRefresh, onReindex }: {
+  dbName: string;
+  jobStatus?: {
+    fetch: { status: string };
+    index: { status: string; fetched?: number; total?: number | null; finishedAt?: string; error?: string };
+  } | null;
+  onForceRefresh?: () => void;
+  onReindex?: () => void;
+}) {
+  const index = jobStatus?.index;
+  const isRunning = index?.status === "running";
+  const isError = index?.status === "error";
+  const isDone = index?.status === "done";
+  const neverRun = !isRunning && !isError && !isDone;
+
+  return (
+    <Card>
+      <CardContent className="pt-4 pb-3 space-y-1">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <Sparkles className="h-3.5 w-3.5" />
+          <span>Semantic Index</span>
+        </div>
+        <p className="text-sm font-medium" data-testid="text-semantic-index-count">
+          {index?.fetched !== undefined ? index.fetched : "\u2014"}
+          {index?.total !== undefined && index.total !== null ? ` / ${index.total}` : ""}
+        </p>
+        {isRunning ? (
+          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+            <Loader2 className="h-3 w-3 animate-spin shrink-0" />
+            <span>Indexing{index?.fetched !== undefined && index?.total ? ` ${index.fetched} of ${index.total}` : "\u2026"}</span>
+          </div>
+        ) : isError ? (
+          <div className="space-y-1">
+            <p className="text-xs text-destructive truncate" title={index?.error}>Error: {index?.error ?? "unknown"}</p>
+            {onReindex && (
+              <Button
+                size="sm"
+                variant="outline"
+                className="h-6 text-xs px-2"
+                onClick={onReindex}
+                data-testid="button-reindex"
+              >
+                <RefreshCw className="h-3 w-3 mr-1" />
+                Re-index
+              </Button>
+            )}
+          </div>
+        ) : isDone ? (
+          <p className="text-xs text-muted-foreground">
+            {index?.finishedAt ? new Date(index.finishedAt).toLocaleString() : "Done"}
+          </p>
+        ) : neverRun ? (
+          <button
+            className="text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer text-left"
+            onClick={onForceRefresh}
+            data-testid="button-semantic-index-refresh-hint"
+          >
+            Force Refresh to build index
+          </button>
+        ) : null}
+      </CardContent>
+    </Card>
+  );
+}
+
 function DatabaseDetailView({ dbName }: { dbName: string }) {
   const { toast } = useToast();
+  const PAGE_SIZE = 100;
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
-  const [isFetching, setIsFetching] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isReindexing, setIsReindexing] = useState(false);
   const [activePanel, setActivePanel] = useState<"settings" | "mappings" | null>(null);
-  const [hasFetched, setHasFetched] = useState(false);
   const [dataView, setDataView] = useState<"mapped" | "raw">("mapped");
+  const [page, setPage] = useState(1);
 
   const [editingName, setEditingName] = useState(false);
   const [editNameValue, setEditNameValue] = useState("");
@@ -2828,6 +3419,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   const [editingItemIndex, setEditingItemIndex] = useState<number | null>(null);
   const [isAddingItem, setIsAddingItem] = useState(false);
   const [deleteConfirmIndex, setDeleteConfirmIndex] = useState<number | null>(null);
+  const [confirmForceRefreshOpen, setConfirmForceRefreshOpen] = useState(false);
   const [savingItems, setSavingItems] = useState(false);
 
   const { data: detail, refetch: refetchDetail } = useQuery<DatabaseDetail>({
@@ -2837,10 +3429,13 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   const {
     data: itemsData,
     isLoading: itemsLoading,
+    isFetching: itemsFetching,
     refetch: refetchItems,
   } = useQuery<DatabaseItems>({
-    queryKey: [`/api/databases/${dbName}/items`],
-    enabled: false,
+    queryKey: [`/api/databases/${dbName}/items`, page, PAGE_SIZE],
+    queryFn: () =>
+      fetch(`/api/databases/${dbName}/items?page=${page}&limit=${PAGE_SIZE}`).then((r) => r.json()),
+    enabled: !!dbName,
   });
 
   const {
@@ -2848,12 +3443,91 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     isLoading: rawItemsLoading,
     refetch: refetchRawItems,
   } = useQuery<DatabaseItems>({
-    queryKey: [`/api/databases/${dbName}/raw-items`],
-    enabled: false,
+    queryKey: [`/api/databases/${dbName}/raw-items`, page, PAGE_SIZE],
+    queryFn: () =>
+      fetch(`/api/databases/${dbName}/raw-items?page=${page}&limit=${PAGE_SIZE}`).then((r) => r.json()),
+    enabled: !!dbName,
   });
 
   const config = detail?.config;
   const fieldMapping = config?.field_mapping;
+
+  const hasSemanticSearch = (config?.vector_search?.fields?.length ?? 0) > 0;
+
+  const [jobStatusDismissed, setJobStatusDismissed] = useState(false);
+  const [bothTerminalAt, setBothTerminalAt] = useState<number | null>(null);
+
+  const lastActivityAtRef = useRef<number>(Date.now());
+  const hasSemanticRef = useRef(hasSemanticSearch);
+  useEffect(() => { hasSemanticRef.current = hasSemanticSearch; }, [hasSemanticSearch]);
+
+  const { data: jobStatus } = useQuery<{
+    fetch: { status: string; fetched?: number; total?: number | null; page?: number; startedAt?: string; finishedAt?: string; error?: string };
+    index: { status: string; fetched?: number; total?: number | null; startedAt?: string; finishedAt?: string; error?: string };
+  }>({
+    queryKey: [`/api/databases/${dbName}/job-status`],
+    queryFn: () => fetch(`/api/databases/${dbName}/job-status`).then((r) => r.json()),
+    refetchInterval: (query) => {
+      const data = query.state.data;
+      if (!data) return 2000;
+      const eitherRunning = data.fetch?.status === "running" || data.index?.status === "running";
+      if (eitherRunning) {
+        lastActivityAtRef.current = Date.now();
+      }
+      const inactive = Date.now() - lastActivityAtRef.current;
+      if (!eitherRunning && inactive >= 10000) return false;
+      return 2000;
+    },
+  });
+
+  useEffect(() => {
+    if (!jobStatus) return;
+    if (jobStatus.fetch?.status === "running" || jobStatus.index?.status === "running") {
+      lastActivityAtRef.current = Date.now();
+    }
+    const fetchTerminal = jobStatus.fetch?.status === "done" || jobStatus.fetch?.status === "error";
+    const indexTerminal = jobStatus.index?.status === "done" || jobStatus.index?.status === "error" ||
+      (!hasSemanticSearch && jobStatus.index?.status !== "running");
+    if (fetchTerminal && indexTerminal) {
+      if (!bothTerminalAt) setBothTerminalAt(Date.now());
+    } else {
+      setBothTerminalAt(null);
+      setJobStatusDismissed(false);
+    }
+  }, [jobStatus, hasSemanticSearch]);
+
+  useEffect(() => {
+    if (!bothTerminalAt) return;
+    const timer = setTimeout(() => setJobStatusDismissed(true), 4000);
+    return () => clearTimeout(timer);
+  }, [bothTerminalAt]);
+
+  const fetchRunning = jobStatus?.fetch?.status === "running";
+  const indexRunning = jobStatus?.index?.status === "running";
+  const showJobBanner = !jobStatusDismissed && jobStatus && (
+    fetchRunning || indexRunning ||
+    jobStatus.fetch?.status === "error" || jobStatus.index?.status === "error" ||
+    (bothTerminalAt !== null)
+  );
+
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedSearch(search), 400);
+    return () => clearTimeout(t);
+  }, [search]);
+
+  const { data: semanticResults, isFetching: semanticFetching } = useQuery<{
+    items: Record<string, unknown>[];
+    count: number;
+    semantic: boolean;
+  }>({
+    queryKey: [`/api/databases/${dbName}/search`, debouncedSearch],
+    queryFn: () =>
+      fetch(`/api/databases/${dbName}/search?q=${encodeURIComponent(debouncedSearch)}&limit=100`)
+        .then((r) => r.json()),
+    enabled: debouncedSearch.trim().length > 0 && !!itemsData,
+    staleTime: 10_000,
+  });
 
   const activeItems = dataView === "raw" ? rawItemsData : itemsData;
 
@@ -2868,16 +3542,22 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   }, [dataView, fieldMapping, activeItems?.items]);
 
   const filteredItems = useMemo(() => {
-    if (!activeItems?.items) return [];
-    let items = activeItems.items;
+    let items: Record<string, unknown>[];
 
-    if (search.trim()) {
-      const q = search.toLowerCase();
-      items = items.filter((item) =>
-        Object.values(item).some(
-          (v) => v != null && String(v).toLowerCase().includes(q)
-        )
-      );
+    if (debouncedSearch.trim() && semanticResults?.items && dataView !== "raw") {
+      items = semanticResults.items;
+    } else if (!activeItems?.items) {
+      return [];
+    } else {
+      items = activeItems.items;
+      if (debouncedSearch.trim()) {
+        const q = debouncedSearch.toLowerCase();
+        items = items.filter((item) =>
+          Object.values(item).some(
+            (v) => v != null && String(v).toLowerCase().includes(q)
+          )
+        );
+      }
     }
 
     if (sortKey) {
@@ -2890,7 +3570,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     }
 
     return items;
-  }, [itemsData?.items, search, sortKey, sortDir]);
+  }, [activeItems?.items, semanticResults, debouncedSearch, dataView, sortKey, sortDir]);
 
   const handleSort = (key: string) => {
     if (sortKey === key) {
@@ -2901,36 +3581,16 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     }
   };
 
-  const handleFetchData = async () => {
-    setIsFetching(true);
-    try {
-      const [mappedResult] = await Promise.all([refetchItems(), refetchRawItems()]);
-      if (mappedResult.error) {
-        toast({
-          title: "Fetch failed",
-          description: mappedResult.error instanceof Error ? mappedResult.error.message : String(mappedResult.error),
-          variant: "destructive",
-        });
-      } else {
-        setHasFetched(true);
-      }
-    } catch (err) {
-      toast({
-        title: "Fetch failed",
-        description: err instanceof Error ? err.message : String(err),
-        variant: "destructive",
-      });
-    } finally {
-      setIsFetching(false);
-    }
-  };
+  useEffect(() => {
+    setPage(1);
+  }, [dataView, search]);
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
     try {
       await fetch(`/api/databases/${dbName}/refresh`, { method: "POST" });
+      setPage(1);
       await Promise.all([refetchItems(), refetchRawItems()]);
-      setHasFetched(true);
     } catch (err) {
       toast({
         title: "Refresh failed",
@@ -2939,6 +3599,46 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
       });
     } finally {
       setIsRefreshing(false);
+    }
+  };
+
+  const handleRetryFetch = async () => {
+    setIsRefreshing(true);
+    setJobStatusDismissed(false);
+    try {
+      await fetch(`/api/databases/${dbName}/refresh`, { method: "POST" });
+      queryClient.invalidateQueries({ queryKey: [`/api/databases/${dbName}/job-status`] });
+      setPage(1);
+      await Promise.all([refetchItems(), refetchRawItems()]);
+    } catch (err) {
+      toast({
+        title: "Retry failed",
+        description: err instanceof Error ? err.message : String(err),
+        variant: "destructive",
+      });
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
+  const handleReindex = async () => {
+    setIsReindexing(true);
+    setJobStatusDismissed(false);
+    try {
+      const res = await fetch(`/api/databases/${dbName}/reindex`, { method: "POST" });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Re-index failed");
+      }
+      queryClient.invalidateQueries({ queryKey: [`/api/databases/${dbName}/job-status`] });
+    } catch (err) {
+      toast({
+        title: "Re-index failed",
+        description: err instanceof Error ? err.message : String(err),
+        variant: "destructive",
+      });
+    } finally {
+      setIsReindexing(false);
     }
   };
 
@@ -2997,12 +3697,18 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     }
   };
 
+  const TRANSFORM_ERROR_SENTINEL = "__transform_error__";
+
   const formatCellValue = (value: unknown): string => {
     if (value === null || value === undefined) return "\u2014";
+    if (value === TRANSFORM_ERROR_SENTINEL) return "[transform error]";
     if (typeof value === "boolean") return value ? "Yes" : "No";
     if (typeof value === "object") return JSON.stringify(value);
     return String(value);
   };
+
+  const cellClassName = (value: unknown) =>
+    value === TRANSFORM_ERROR_SENTINEL ? "text-destructive" : "";
 
   return (
     <div className="space-y-4">
@@ -3187,12 +3893,35 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
               ? Object.values(config.editor).some((f) => f.cache_images === true)
               : false;
             return (
-          <div className={`grid gap-4 ${hasCachedFields ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"}`}>
+          <div className={`grid gap-4 ${hasCachedFields && hasSemanticSearch ? "sm:grid-cols-2 lg:grid-cols-5" : hasCachedFields || hasSemanticSearch ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"}`}>
             <Card>
               <CardContent className="pt-4 pb-3 space-y-1">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <Webhook className="h-3.5 w-3.5" />
-                  <span>Source</span>
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <Webhook className="h-3.5 w-3.5" />
+                    <span>Source</span>
+                  </div>
+                  {config?.source.api?.params && Object.keys(config.source.api.params).length > 0 && (
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button size="icon" variant="ghost" className="h-6 w-6" title="View query params" data-testid="button-view-source-params">
+                          <SlidersHorizontal className="h-3.5 w-3.5" />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent side="bottom" align="end" className="w-72 p-3 space-y-2">
+                        <p className="text-xs font-medium">Query Parameters</p>
+                        <div className="space-y-1">
+                          {Object.entries(config.source.api.params).map(([k, v]) => (
+                            <div key={k} className="flex items-start gap-2 text-xs">
+                              <code className="bg-muted px-1.5 py-0.5 rounded font-mono text-foreground shrink-0">{k}</code>
+                              <span className="text-muted-foreground mt-0.5">=</span>
+                              <code className="text-muted-foreground font-mono break-all">{String(v)}</code>
+                            </div>
+                          ))}
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  )}
                 </div>
                 <p className="text-sm font-medium">{config?.source.type || "\u2014"}</p>
                 {config?.source.api?.endpoint && (
@@ -3209,7 +3938,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                   <span>Items</span>
                 </div>
                 <p className="text-sm font-medium" data-testid="text-item-count">
-                  {itemsData ? itemsData.raw_count : detail?.cache_status ? detail.cache_status.item_count : isFetching || itemsLoading ? "..." : "\u2014"}
+                  {itemsData ? itemsData.raw_count ?? itemsData.total_count : detail?.cache_status ? detail.cache_status.item_count : itemsLoading || itemsFetching ? "..." : "\u2014"}
                 </p>
                 {(itemsData?.from_cache || (!itemsData && detail?.cache_status)) && (
                   <p className="text-xs text-muted-foreground">from cache</p>
@@ -3218,17 +3947,49 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
             </Card>
             <Card>
               <CardContent className="pt-4 pb-3 space-y-1">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <Clock className="h-3.5 w-3.5" />
-                  <span>Last Fetched</span>
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <Clock className="h-3.5 w-3.5" />
+                    <span>Last Fetched</span>
+                  </div>
+                  {config?.source.type === "api" && (
+                    <WebhookUrlPopover type={dbName} variant="icon" />
+                  )}
                 </div>
-                <p className="text-sm font-medium" data-testid="text-fetched-at">
-                  {itemsData?.fetched_at
-                    ? new Date(itemsData.fetched_at).toLocaleString()
-                    : detail?.cache_status?.fetched_at
-                      ? new Date(detail.cache_status.fetched_at).toLocaleString()
-                      : "\u2014"}
-                </p>
+                {fetchRunning ? (
+                  <div className="flex items-center gap-1.5" data-testid="text-fetched-at">
+                    <Loader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground shrink-0" />
+                    <span className="text-sm font-medium">
+                      Fetching{jobStatus?.fetch.fetched !== undefined ? `\u2026 ${jobStatus.fetch.fetched} items` : "\u2026"}
+                      {jobStatus?.fetch.page ? ` (page ${jobStatus.fetch.page})` : ""}
+                    </span>
+                  </div>
+                ) : jobStatus?.fetch.status === "error" ? (
+                  <div className="space-y-1">
+                    <p className="text-xs text-destructive truncate" title={jobStatus.fetch.error} data-testid="text-fetched-at">
+                      Error: {jobStatus.fetch.error ?? "unknown"}
+                    </p>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="h-6 text-xs px-2"
+                      onClick={handleRetryFetch}
+                      disabled={isRefreshing}
+                      data-testid="button-retry-fetch"
+                    >
+                      <RefreshCw className={`h-3 w-3 mr-1 ${isRefreshing ? "animate-spin" : ""}`} />
+                      Retry
+                    </Button>
+                  </div>
+                ) : (
+                  <p className="text-sm font-medium" data-testid="text-fetched-at">
+                    {itemsData?.fetched_at
+                      ? new Date(itemsData.fetched_at).toLocaleString()
+                      : detail?.cache_status?.fetched_at
+                        ? new Date(detail.cache_status.fetched_at).toLocaleString()
+                        : "\u2014"}
+                  </p>
+                )}
                 <p className="text-xs text-muted-foreground">
                   TTL: {config?.cache?.ttl_hours ?? 24}h
                 </p>
@@ -3236,6 +3997,9 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
             </Card>
             {hasCachedFields && (
               <CachedImagesKpiCard dbName={dbName} />
+            )}
+            {hasSemanticSearch && (
+              <SemanticIndexKpiCard dbName={dbName} jobStatus={jobStatus} onForceRefresh={() => setConfirmForceRefreshOpen(true)} onReindex={handleReindex} />
             )}
           </div>
             );
@@ -3256,10 +4020,65 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                       <span className="text-muted-foreground">&larr;</span>
                       <code className="text-muted-foreground truncate">{p || "null"}</code>
                       {config?.editor?.[key]?.cache_images && (
-                        <span className="inline-flex items-center gap-0.5 text-blue-500 shrink-0" title="Image caching enabled">
-                          <Image className="h-3 w-3" />
-                          <span className="text-[10px] font-medium">cached</span>
-                        </span>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <span className="inline-flex items-center gap-0.5 text-blue-500 shrink-0 cursor-pointer hover:opacity-80 transition-opacity" data-testid={`badge-cached-${key}`}>
+                              <Image className="h-3 w-3" />
+                              <span className="text-[10px] font-medium">cached</span>
+                            </span>
+                          </PopoverTrigger>
+                          <PopoverContent side="top" className="w-72 text-xs p-3 space-y-2">
+                            <p className="font-medium text-sm">Image caching enabled</p>
+                            <p className="text-muted-foreground">
+                              Images in the <code className="bg-muted px-1 rounded font-mono">{key}</code> field are downloaded from their source URLs and stored locally on this server.
+                            </p>
+                            <p className="text-muted-foreground">
+                              This avoids external image dependencies at render time, speeds up page loads, and ensures images remain available even if the source URL changes or goes down.
+                            </p>
+                            <p className="text-muted-foreground">
+                              Images are re-cached automatically the next time the database is refreshed.
+                            </p>
+                          </PopoverContent>
+                        </Popover>
+                      )}
+                      {(config as any)?.search_fields?.includes(key) && (
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <span className="inline-flex items-center text-orange-500 shrink-0 cursor-pointer hover:opacity-80 transition-opacity" data-testid={`badge-keyword-${key}`}>
+                              <Search className="h-3 w-3" />
+                            </span>
+                          </PopoverTrigger>
+                          <PopoverContent side="top" className="w-72 text-xs p-3 space-y-2">
+                            <p className="font-medium text-sm">Keyword search enabled</p>
+                            <p className="text-muted-foreground">
+                              The <code className="bg-muted px-1 rounded font-mono">{key}</code> field is included in text-based keyword search.
+                            </p>
+                            <p className="text-muted-foreground">
+                              When a user searches this database, the query is matched against the text content of this field using simple string matching.
+                            </p>
+                          </PopoverContent>
+                        </Popover>
+                      )}
+                      {config?.vector_search?.fields?.includes(key) && (
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <span className="inline-flex items-center text-orange-500 shrink-0 cursor-pointer hover:opacity-80 transition-opacity" data-testid={`badge-semantic-${key}`}>
+                              <Sparkles className="h-3 w-3 drop-shadow-[0_0_3px_rgba(249,115,22,0.7)]" />
+                            </span>
+                          </PopoverTrigger>
+                          <PopoverContent side="top" className="w-72 text-xs p-3 space-y-2">
+                            <p className="font-medium text-sm">Semantic search enabled</p>
+                            <p className="text-muted-foreground">
+                              The <code className="bg-muted px-1 rounded font-mono">{key}</code> field is included in the semantic search index.
+                            </p>
+                            <p className="text-muted-foreground">
+                              Its text content is embedded as a vector, enabling AI-powered similarity search — users can find entries by meaning rather than exact keyword matches.
+                            </p>
+                            <p className="text-muted-foreground">
+                              The index is updated automatically after each data fetch.
+                            </p>
+                          </PopoverContent>
+                        </Popover>
                       )}
                     </div>
                   ))}
@@ -3298,7 +4117,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                       </span>
                     )}
                   </CardTitle>
-                  {(hasFetched || itemsData) && (
+                  {!!itemsData && (
                     <div className="flex items-center rounded-md border overflow-visible">
                       <Button
                         variant="ghost"
@@ -3333,71 +4152,194 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                   )}
                 </div>
                 <div className="flex items-center gap-2">
-                  {(hasFetched || itemsData) && (
-                    <div className="relative">
-                      <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-                      <Input
-                        placeholder="Search..."
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        className="pl-7 h-8 w-48 text-xs"
-                        data-testid="input-search-items"
-                      />
+                  {!!itemsData && (
+                    <div className="flex flex-col gap-0.5">
+                      <div className="relative">
+                        <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+                        <Input
+                          placeholder="Search..."
+                          value={search}
+                          onChange={(e) => setSearch(e.target.value)}
+                          className="pl-7 h-8 w-48 text-xs"
+                          data-testid="input-search-items"
+                        />
+                      </div>
+                      {(() => {
+                        const searchFields = (config as any)?.search_fields as string[] | undefined;
+                        const hasKeywordFields = (searchFields?.length ?? 0) > 0;
+                        const label = hasSemanticSearch
+                          ? semanticFetching
+                            ? <><Loader2 className="h-2.5 w-2.5 animate-spin" /> Searching…</>
+                            : debouncedSearch.trim() && semanticResults
+                              ? semanticResults.semantic
+                                ? <><Sparkles className="h-2.5 w-2.5 text-orange-500" /> Ranked by meaning</>
+                                : <><Search className="h-2.5 w-2.5" /> Keyword fallback</>
+                              : <><Sparkles className="h-2.5 w-2.5 text-orange-500" /> Semantic search</>
+                          : semanticFetching
+                            ? <><Loader2 className="h-2.5 w-2.5 animate-spin" /> Searching…</>
+                            : <><HelpCircle className="h-2.5 w-2.5" /> How search works</>;
+                        return (
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <button className="text-[10px] text-muted-foreground flex items-center gap-1 pl-0.5 hover:text-foreground transition-colors cursor-pointer" data-testid="text-search-mode">
+                                {label}
+                              </button>
+                            </PopoverTrigger>
+                            <PopoverContent side="bottom" align="start" className="w-80 text-xs p-4 space-y-3">
+                              <div className="flex items-center gap-2">
+                                <Search className="h-4 w-4 shrink-0" />
+                                <p className="font-medium text-sm">How search works here</p>
+                              </div>
+                              {hasSemanticSearch ? (
+                                <>
+                                  <p className="text-muted-foreground">
+                                    This database has <strong className="text-foreground">semantic search</strong> enabled. Queries hit the vector index — results are sorted by <strong className="text-foreground">meaning</strong>, not exact keyword match.
+                                  </p>
+                                  {config?.vector_search?.fields && config.vector_search.fields.length > 0 && (
+                                    <div className="space-y-1">
+                                      <p className="font-medium text-foreground">Semantic fields</p>
+                                      <div className="flex flex-wrap gap-1">
+                                        {config.vector_search.fields.map((f) => (
+                                          <code key={f} className="bg-muted px-1.5 py-0.5 rounded text-[11px]">{f}</code>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  )}
+                                  <p className="text-muted-foreground">
+                                    If the semantic index is unavailable, search falls back to keyword matching.
+                                  </p>
+                                </>
+                              ) : hasKeywordFields ? (
+                                <>
+                                  <p className="text-muted-foreground">
+                                    This database uses <strong className="text-foreground">keyword search</strong>. Your query is matched as plain text against the configured fields.
+                                  </p>
+                                  <div className="space-y-1">
+                                    <p className="font-medium text-foreground">Searched fields</p>
+                                    <div className="flex flex-wrap gap-1">
+                                      {searchFields!.map((f) => (
+                                        <code key={f} className="bg-muted px-1.5 py-0.5 rounded text-[11px]">{f}</code>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <p className="text-muted-foreground">
+                                    No specific search fields are configured. Your query is matched as plain text <strong className="text-foreground">across all fields</strong> in this database.
+                                  </p>
+                                  <p className="text-muted-foreground">
+                                    To narrow which fields are searched, open <strong className="text-foreground">Settings → Field Mappings</strong> and enable keyword or semantic search on individual fields.
+                                  </p>
+                                </>
+                              )}
+                            </PopoverContent>
+                          </Popover>
+                        );
+                      })()}
+                      {showJobBanner && (
+                        <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground pl-0.5 mt-0.5" data-testid="job-status-banner">
+                          {fetchRunning ? (
+                            <>
+                              <Loader2 className="h-2.5 w-2.5 animate-spin shrink-0" />
+                              <span>
+                                Fetching{jobStatus?.fetch.fetched !== undefined ? ` ${jobStatus.fetch.fetched} items` : "\u2026"}
+                                {jobStatus?.fetch.page ? ` (page ${jobStatus.fetch.page})` : ""}
+                              </span>
+                            </>
+                          ) : indexRunning ? (
+                            <>
+                              <Loader2 className="h-2.5 w-2.5 animate-spin shrink-0" />
+                              <span>
+                                Indexing{jobStatus?.index.fetched !== undefined && jobStatus?.index.total ? ` ${jobStatus.index.fetched} / ${jobStatus.index.total}` : "\u2026"}
+                              </span>
+                            </>
+                          ) : jobStatus?.fetch.status === "error" ? (
+                            <>
+                              <span className="text-destructive shrink-0">Fetch error: {jobStatus.fetch.error ?? "unknown"}</span>
+                              <button
+                                className="text-muted-foreground underline underline-offset-2 hover:text-foreground cursor-pointer shrink-0"
+                                onClick={handleRetryFetch}
+                                disabled={isRefreshing}
+                                data-testid="button-banner-retry-fetch"
+                              >
+                                Retry
+                              </button>
+                            </>
+                          ) : jobStatus?.index.status === "error" ? (
+                            <>
+                              <span className="text-destructive shrink-0">Index error: {jobStatus.index.error ?? "unknown"}</span>
+                              <button
+                                className="text-muted-foreground underline underline-offset-2 hover:text-foreground cursor-pointer shrink-0"
+                                onClick={handleReindex}
+                                disabled={isReindexing}
+                                data-testid="button-banner-reindex"
+                              >
+                                Re-index
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              <Check className="h-2.5 w-2.5 shrink-0" />
+                              <span>Up to date</span>
+                            </>
+                          )}
+                          <button
+                            className="ml-auto text-muted-foreground/60 hover:text-muted-foreground cursor-pointer"
+                            onClick={() => setJobStatusDismissed(true)}
+                            data-testid="button-dismiss-job-banner"
+                          >
+                            <X className="h-2.5 w-2.5" />
+                          </button>
+                        </div>
+                      )}
                     </div>
                   )}
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={handleFetchData}
-                    disabled={isFetching || itemsLoading || rawItemsLoading}
-                    data-testid="button-fetch-data"
-                  >
-                    {isFetching || itemsLoading || rawItemsLoading ? (
-                      <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
-                    ) : (
-                      <Download className="h-3.5 w-3.5 mr-1" />
-                    )}
-                    Fetch Data
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleRefresh}
+                    onClick={() => setConfirmForceRefreshOpen(true)}
                     disabled={isRefreshing}
                     data-testid="button-refresh-items"
                   >
                     <RefreshCw className={`h-3.5 w-3.5 mr-1 ${isRefreshing ? "animate-spin" : ""}`} />
                     Force Refresh
                   </Button>
-                  {config?.source.type === "local" && (
-                    <Button
-                      variant={editMode ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setEditMode(!editMode)}
-                      disabled={!hasFetched && !itemsData}
-                      data-testid="button-edit-items"
-                    >
-                      <Pencil className="h-3.5 w-3.5 mr-1" />
-                      {editMode ? "Done" : "Edit Items"}
-                    </Button>
-                  )}
+                  {config?.source.type === "local" && (() => {
+                    const isMultiPage = (itemsData?.total_count ?? 0) > PAGE_SIZE;
+                    const btn = (
+                      <Button
+                        variant={editMode ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => setEditMode(!editMode)}
+                        disabled={!itemsData || isMultiPage}
+                        data-testid="button-edit-items"
+                      >
+                        <Pencil className="h-3.5 w-3.5 mr-1" />
+                        {editMode ? "Done" : "Edit Items"}
+                      </Button>
+                    );
+                    if (isMultiPage) {
+                      return (
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <span>{btn}</span>
+                          </TooltipTrigger>
+                          <TooltipContent side="bottom" className="max-w-xs text-center">
+                            Editing is disabled when the dataset spans multiple pages. Force Refresh to reload, then reduce the dataset or contact support.
+                          </TooltipContent>
+                        </Tooltip>
+                      );
+                    }
+                    return btn;
+                  })()}
                 </div>
               </div>
             </CardHeader>
             <CardContent className="px-0 pb-0">
-              {isFetching || itemsLoading || rawItemsLoading ? (
+              {itemsLoading || rawItemsLoading ? (
                 <div className="flex items-center justify-center py-12">
                   <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
-                </div>
-              ) : !hasFetched && !activeItems ? (
-                <div className="text-center py-12">
-                  <Download className="h-8 w-8 mx-auto text-muted-foreground/40 mb-3" />
-                  <p className="text-sm text-muted-foreground mb-1">
-                    Data has not been fetched yet.
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Click "Fetch Data" to load items from the datasource, or "Force Refresh" to bypass the cache.
-                  </p>
                 </div>
               ) : filteredItems.length === 0 ? (
                 <div className="text-center py-12">
@@ -3472,7 +4414,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                           {columns.map((col) => (
                             <td
                               key={col}
-                              className="px-3 py-2 max-w-[200px] truncate whitespace-nowrap"
+                              className={`px-3 py-2 max-w-[200px] truncate whitespace-nowrap ${cellClassName(item[col])}`}
                               title={formatCellValue(item[col])}
                             >
                               {formatCellValue(item[col])}
@@ -3484,10 +4426,83 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                   </table>
                 </div>
               )}
+              {activeItems && activeItems.total_count > 0 && (
+                <div className="flex items-center justify-between px-4 py-3 border-t text-xs text-muted-foreground">
+                  <span data-testid="text-pagination-info">
+                    Page {activeItems.page} of {Math.ceil(activeItems.total_count / activeItems.limit)}{" "}
+                    ({activeItems.total_count} total records)
+                  </span>
+                  <div className="flex items-center gap-1">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setPage((p) => Math.max(1, p - 1))}
+                      disabled={page <= 1 || itemsLoading || rawItemsLoading}
+                      data-testid="button-page-prev"
+                    >
+                      Previous
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setPage((p) => p + 1)}
+                      disabled={page >= Math.ceil(activeItems.total_count / activeItems.limit) || itemsLoading || rawItemsLoading}
+                      data-testid="button-page-next"
+                    >
+                      Next
+                    </Button>
+                  </div>
+                </div>
+              )}
             </CardContent>
           </Card>
         </>
       )}
+
+      <Dialog open={confirmForceRefreshOpen} onOpenChange={setConfirmForceRefreshOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Force Refresh — are you sure?</DialogTitle>
+            <DialogDescription asChild>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p>
+                  This will <strong className="text-foreground">bypass the cache</strong> and re-fetch all data for <strong className="text-foreground">{dbName}</strong> directly from the source API or file.
+                </p>
+                <p>This means:</p>
+                <ul className="list-disc list-inside space-y-1 pl-1">
+                  <li>A live request will be made to the configured data source.</li>
+                  <li>The existing cached data will be replaced with the new response.</li>
+                  {config?.editor && Object.values(config.editor).some((f: any) => f?.cache_images) && (
+                    <li>Any fields with image caching enabled will re-download and re-store their images.</li>
+                  )}
+                  {hasSemanticSearch && (
+                    <li>The semantic search index will be <strong className="text-foreground">rebuilt in the background</strong> — embeddings will be re-generated for all items. Search will fall back to keyword matching until it finishes.</li>
+                  )}
+                </ul>
+                <p>Data is loaded automatically from cache on page open. Use Force Refresh only when you need to pull the latest data from the source.</p>
+              </div>
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex items-center justify-end gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setConfirmForceRefreshOpen(false)}
+              data-testid="button-cancel-force-refresh"
+            >
+              Cancel
+            </Button>
+            <Button
+              size="sm"
+              onClick={() => { setConfirmForceRefreshOpen(false); handleRefresh(); }}
+              data-testid="button-confirm-force-refresh"
+            >
+              <RefreshCw className="h-3.5 w-3.5 mr-1" />
+              Force Refresh
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {deleteConfirmIndex !== null && (
         <Dialog open onOpenChange={(v) => { if (!v) setDeleteConfirmIndex(null); }}>

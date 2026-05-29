@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { AlertTriangle, ArrowLeft, ArrowRight, Check, Clipboard, Clock, Code, Copy, Database, Download, ExternalLink, Eye, EyeOff, FileText, Folder, GitBranch, Globe, History, LayoutList, Link as LinkIcon, Loader2, MoreVertical, Plus, RefreshCw, Search, Shuffle, Trash2, Wand2, X } from "lucide-react";
+import { IconChevronDown, IconChevronRight, IconExternalLink } from "@tabler/icons-react";
 import { queryClient } from "@/lib/queryClient";
 import { useState, useMemo, useEffect, useRef, useCallback, lazy, Suspense } from "react";
 import { Link, useRoute, useLocation } from "wouter";
@@ -38,6 +39,7 @@ import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { DeletePageModal } from "@/components/DebugBubble/components/DeletePageModal";
 import { CreateContentModal } from "@/components/DebugBubble/components/CreateContentModal";
 import type { SitemapUrl } from "@/components/DebugBubble/types";
+import { WebhookUrlPopover } from "@/components/WebhookUrlPopover";
 
 const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditorPanel"));
 
@@ -642,14 +644,27 @@ function DataSourceDialog({
         },
       };
 
-      await apiRequest("PUT", `/api/content-types/${contentType}/config`, payload);
+      const res = await fetch(`/api/content-types/${contentType}/config`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      let data: Record<string, unknown> = {};
+      try { data = await res.json(); } catch { /* non-JSON */ }
+
+      if (!res.ok) {
+        toast({ title: (data.error as string) || "Failed to save configuration", variant: "destructive" });
+        return;
+      }
+
       queryClient.invalidateQueries({ queryKey: ["/api/content-types", contentType, "config"] });
       queryClient.invalidateQueries({ queryKey: ["/api/content-types", contentType, "items"] });
       queryClient.invalidateQueries({ queryKey: ["/api/content-types"] });
       toast({ title: `${label} configuration saved` });
       onOpenChange(false);
-    } catch {
-      toast({ title: "Failed to save configuration", variant: "destructive" });
+    } catch (err) {
+      toast({ title: err instanceof Error ? err.message : "Failed to save configuration", variant: "destructive" });
     } finally {
       setSaving(false);
     }
@@ -2307,6 +2322,25 @@ export default function ContentTypeManagePage() {
   const [deleteConfirmInput, setDeleteConfirmInput] = useState("");
   const [isDeletingEntry, setIsDeletingEntry] = useState(false);
 
+  const [semanticResults, setSemanticResults] = useState<Record<string, unknown>[] | null>(null);
+  const [semanticActive, setSemanticActive] = useState(false);
+  const [semanticLoading, setSemanticLoading] = useState(false);
+  const semanticDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [deleteTypeDialogOpen, setDeleteTypeDialogOpen] = useState(false);
+  const [deleteTypeConfirmInput, setDeleteTypeConfirmInput] = useState("");
+  const [isDeletingType, setIsDeletingType] = useState(false);
+  const [dryRunResult, setDryRunResult] = useState<{
+    static_entry_count: number;
+    has_database: boolean;
+    database_slug: string | null;
+    directory: string;
+    message: string;
+    affected_urls: string[];
+  } | null>(null);
+  const [urlsExpanded, setUrlsExpanded] = useState(false);
+  const [dryRunLoading, setDryRunLoading] = useState(false);
+
   const [showYamlEditor, setShowYamlEditor] = useState(false);
   const [yamlEditorInfo, setYamlEditorInfo] = useState<{ contentType: string; slug: string; locale: string } | null>(null);
 
@@ -2400,7 +2434,68 @@ export default function ContentTypeManagePage() {
     return stats;
   }, [items, allIndexFields]);
 
+  const dbSlug = typeConfig?.database?.slug || null;
+
+  useEffect(() => {
+    if (viewMode !== "db" || !dbSlug) {
+      setSemanticResults(null);
+      setSemanticActive(false);
+      setSemanticLoading(false);
+      if (semanticDebounceRef.current) clearTimeout(semanticDebounceRef.current);
+      return;
+    }
+
+    if (!search.trim()) {
+      setSemanticResults(null);
+      setSemanticActive(false);
+      setSemanticLoading(false);
+      if (semanticDebounceRef.current) clearTimeout(semanticDebounceRef.current);
+      return;
+    }
+
+    setSemanticLoading(true);
+
+    if (semanticDebounceRef.current) clearTimeout(semanticDebounceRef.current);
+
+    semanticDebounceRef.current = setTimeout(async () => {
+      try {
+        const localeFilter = filters[localeKey || ""] || "";
+        const params = new URLSearchParams({ q: search.trim(), limit: "50" });
+        if (localeFilter && localeFilter !== "all") params.set("locale", localeFilter);
+
+        const res = await fetch(`/api/databases/${dbSlug}/search?${params.toString()}`);
+        if (!res.ok) throw new Error(`Search failed: ${res.status}`);
+        const data = await res.json();
+
+        setSemanticResults(data.items || []);
+        setSemanticActive(data.semantic === true);
+      } catch {
+        setSemanticResults(null);
+        setSemanticActive(false);
+      } finally {
+        setSemanticLoading(false);
+      }
+    }, 300);
+
+    return () => {
+      if (semanticDebounceRef.current) clearTimeout(semanticDebounceRef.current);
+    };
+  }, [search, viewMode, dbSlug, filters, localeKey]);
+
   const filtered = useMemo(() => {
+    if (viewMode === "db" && search.trim() && semanticResults !== null) {
+      let result = semanticResults;
+      for (const [field, value] of Object.entries(filters)) {
+        if (value && value !== "all") {
+          result = result.filter((p) => {
+            const itemVal = String(p[field] || "").toLowerCase();
+            return itemVal === value.toLowerCase();
+          });
+        }
+      }
+      return result;
+    }
+
     let result = items;
 
     for (const [field, value] of Object.entries(filters)) {
@@ -2424,7 +2519,7 @@ export default function ContentTypeManagePage() {
     }
 
     return result;
-  }, [items, filters, search]);
+  }, [items, filters, search, viewMode, semanticResults]);
 
   const staticEntries = staticEntriesData?.results || [];
   const filteredStatic = useMemo(() => {
@@ -2492,6 +2587,45 @@ export default function ContentTypeManagePage() {
       toast({ title: "Failed to clear cache", variant: "destructive" });
     } finally {
       setClearing(false);
+    }
+  };
+
+  const handleOpenDeleteTypeDialog = async () => {
+    setDeleteTypeConfirmInput("");
+    setDryRunResult(null);
+    setUrlsExpanded(false);
+    setDeleteTypeDialogOpen(true);
+    setDryRunLoading(true);
+    try {
+      const res = await fetch(`/api/content-types/${contentType}?dry_run=true`, { method: "DELETE" });
+      const data = await res.json();
+      if (res.ok) {
+        setDryRunResult(data);
+      }
+    } catch {
+    } finally {
+      setDryRunLoading(false);
+    }
+  };
+
+  const handleDeleteType = async () => {
+    if (deleteTypeConfirmInput !== contentType) return;
+    setIsDeletingType(true);
+    try {
+      const res = await apiRequest("DELETE", `/api/content-types/${contentType}`);
+      const data = await res.json();
+      if (data.success) {
+        toast({ title: "Content type deleted", description: `"${contentType}" has been removed from content-types.yml.` });
+        setDeleteTypeDialogOpen(false);
+        queryClient.invalidateQueries({ queryKey: ["/api/content-types"] });
+        navigate("/");
+      } else {
+        toast({ title: "Failed to delete content type", description: data.error || "Unknown error", variant: "destructive" });
+      }
+    } catch (err) {
+      toast({ title: "Failed to delete content type", description: String(err), variant: "destructive" });
+    } finally {
+      setIsDeletingType(false);
     }
   };
 
@@ -2652,7 +2786,7 @@ export default function ContentTypeManagePage() {
           <div className="flex-1 min-w-0">
             <h1 className="text-2xl font-bold" data-testid="text-page-title">{label} Management</h1>
             <p className="text-sm text-muted-foreground">
-              Overview of all {contentType} entries and cache status
+              Overview of all {contentType} entries and cache status{hasDb && <> — or by calling the <WebhookUrlPopover type={contentType} /></>}
             </p>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
@@ -2708,6 +2842,24 @@ export default function ContentTypeManagePage() {
               <LinkIcon className="h-4 w-4 mr-1" />
               URLs
             </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon" data-testid="button-more-actions">
+                  <MoreVertical className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={handleOpenDeleteTypeDialog}
+                  className="text-destructive focus:text-destructive"
+                  data-testid="button-delete-content-type"
+                >
+                  <Trash2 className="h-4 w-4 mr-2" />
+                  Delete Content Type
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
 
@@ -2832,6 +2984,21 @@ export default function ContentTypeManagePage() {
                   className="pl-9"
                   data-testid="input-search"
                 />
+                {viewMode === "db" && search.trim() && (
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                    {semanticLoading ? (
+                      <div className="h-3 w-3 animate-spin rounded-full border border-solid border-current border-r-transparent text-muted-foreground" />
+                    ) : semanticActive ? (
+                      <span
+                        className="text-[10px] font-medium text-primary bg-primary/10 px-1.5 py-0.5 rounded"
+                        title="Results ranked by semantic similarity"
+                        data-testid="badge-semantic-search"
+                      >
+                        semantic
+                      </span>
+                    ) : null}
+                  </div>
+                )}
               </div>
               {viewMode === "db" && allIndexFields.map((idx) => {
                 const isLocale = idx === localeKey;
@@ -3280,6 +3447,138 @@ export default function ContentTypeManagePage() {
           </CardContent>
         </Card>
       </div>
+
+      <Dialog
+        open={deleteTypeDialogOpen}
+        onOpenChange={(open) => {
+          if (!open) {
+            setDeleteTypeDialogOpen(false);
+            setDeleteTypeConfirmInput("");
+            setDryRunResult(null);
+            setUrlsExpanded(false);
+          }
+        }}
+      >
+        <DialogContent className="sm:max-w-[480px]" data-testid="dialog-delete-content-type">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-destructive" />
+              Delete Content Type
+            </DialogTitle>
+            <DialogDescription>
+              This action cannot be undone. The content type definition will be permanently removed from{" "}
+              <span className="font-mono text-xs">content-types.yml</span> and synced to GitHub.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            {dryRunLoading ? (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground py-2">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Checking impact…
+              </div>
+            ) : dryRunResult ? (
+              <div className="rounded-md border bg-muted/50 p-3 space-y-2 text-sm" data-testid="text-dry-run-result">
+                <p className="text-foreground">{dryRunResult.message}</p>
+                <div className="flex flex-wrap gap-3 text-xs text-muted-foreground pt-1">
+                  <span>
+                    <span className="font-medium text-foreground">{dryRunResult.static_entry_count}</span> content file{dryRunResult.static_entry_count !== 1 ? "s" : ""} in{" "}
+                    <span className="font-mono">marketing-content/{dryRunResult.directory}/</span>
+                  </span>
+                  {dryRunResult.has_database && (
+                    <span className="inline-flex items-center gap-1">
+                      <Database className="h-3 w-3" />
+                      Connected to <span className="font-mono">{dryRunResult.database_slug}</span>
+                    </span>
+                  )}
+                </div>
+                {dryRunResult.affected_urls.length > 0 && (
+                  <div className="pt-1 space-y-1" data-testid="affected-urls-section">
+                    <button
+                      type="button"
+                      className="flex items-center gap-1 text-xs font-medium text-foreground hover:underline"
+                      onClick={() => setUrlsExpanded(prev => !prev)}
+                      data-testid="button-toggle-affected-urls"
+                    >
+                      {urlsExpanded
+                        ? <IconChevronDown className="h-3 w-3" />
+                        : <IconChevronRight className="h-3 w-3" />
+                      }
+                      {dryRunResult.affected_urls.length} URL{dryRunResult.affected_urls.length !== 1 ? "s" : ""} will stop working
+                    </button>
+                    {urlsExpanded && (
+                      <ul className="pl-4 space-y-0.5 text-xs text-muted-foreground font-mono" data-testid="affected-urls-list">
+                        {dryRunResult.affected_urls.slice(0, 10).map((url) => (
+                          <li key={url}>
+                            <a
+                              href={url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 hover:underline text-muted-foreground hover:text-foreground transition-colors"
+                              data-testid={`affected-url-link-${url}`}
+                            >
+                              {url}
+                              <IconExternalLink className="h-3 w-3 flex-shrink-0" />
+                            </a>
+                          </li>
+                        ))}
+                        {dryRunResult.affected_urls.length > 10 && (
+                          <li className="text-muted-foreground/70 font-sans" data-testid="affected-urls-overflow">
+                            and {dryRunResult.affected_urls.length - 10} more…
+                          </li>
+                        )}
+                      </ul>
+                    )}
+                  </div>
+                )}
+              </div>
+            ) : null}
+            <div className="space-y-2">
+              <label className="text-sm font-medium" htmlFor="delete-type-confirm">
+                Type <span className="font-mono font-bold">{contentType}</span> to confirm
+              </label>
+              <Input
+                id="delete-type-confirm"
+                value={deleteTypeConfirmInput}
+                onChange={(e) => setDeleteTypeConfirmInput(e.target.value)}
+                placeholder={contentType}
+                data-testid="input-delete-type-confirm"
+                autoComplete="off"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setDeleteTypeDialogOpen(false);
+                setDeleteTypeConfirmInput("");
+                setDryRunResult(null);
+              }}
+              data-testid="button-cancel-delete-content-type"
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleDeleteType}
+              disabled={deleteTypeConfirmInput !== contentType || isDeletingType}
+              data-testid="button-confirm-delete-content-type"
+            >
+              {isDeletingType ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                  Deleting…
+                </>
+              ) : (
+                <>
+                  <Trash2 className="h-4 w-4 mr-2" />
+                  Delete Content Type
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <DataSourceDialog open={dsDialogOpen} onOpenChange={setDsDialogOpen} contentType={contentType} />
       <FieldMappingDialog open={mappingDialogOpen} onOpenChange={setMappingDialogOpen} contentType={contentType} />

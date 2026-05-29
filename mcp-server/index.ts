@@ -5,6 +5,7 @@ import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/
 import { registerPageTools } from "./tools/pages.js";
 import { registerComponentTools } from "./tools/components.js";
 import { registerUserTools } from "./tools/user.js";
+import { registerExplainTools } from "./tools/explain.js";
 import {
   registerClient,
   lookupClient,
@@ -155,6 +156,7 @@ function createMcpServer(mcpAuthor?: string, mcpToken?: string): McpServer {
   registerPageTools(mcp, mcpAuthor, mcpToken);
   registerComponentTools(mcp, mcpToken);
   registerUserTools(mcp, mcpToken);
+  registerExplainTools(mcp);
   return mcp;
 }
 

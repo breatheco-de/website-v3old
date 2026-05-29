@@ -2,13 +2,19 @@ import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
 import { getContentTypeConfig, getLocaleKey, getFieldMapping } from "./content-types";
-import { getValueByPath, resolveFieldValue } from "./transform";
+import { getValueByPath, resolveFieldValue, isTransformer, compileTransformer, runTransformer } from "./transform";
 import { ExternalImageCacher } from "./external-image-cacher";
 import { resolveBySourceUrl } from "./image-registry";
 import { IDatabaseCache, CacheEntry, SqliteCache, CACHE_DIR } from "./db-cache";
 import { markFileAsModified } from "./sync-state";
+import { setJobState } from "./db-job-state";
 
 const DB_DIR = path.join(process.cwd(), "marketing-content", "db");
+
+export interface VectorSearchConfig {
+  enabled: boolean;
+  fields: string[];
+}
 
 export interface DatabaseConfig {
   name: string;
@@ -40,6 +46,8 @@ export interface DatabaseConfig {
   field_mapping?: Record<string, string>;
   filter_by_locale?: boolean;
   editor?: Record<string, { type?: string; options?: (string | { value: string; label: string })[]; populate_options?: boolean; allow_custom_values?: boolean; cache_images?: boolean; description?: string }>;
+  vector_search?: VectorSearchConfig;
+  search_fields?: string[];
 }
 
 const VALID_DB_NAME = /^[a-z0-9_-]+$/;
@@ -57,6 +65,8 @@ function setValueByPath(obj: Record<string, unknown>, dotPath: string, value: un
   current[parts[parts.length - 1]] = value;
 }
 
+const TRANSFORM_ERROR_SENTINEL = "__transform_error__";
+
 function applyFieldMapping(
   item: Record<string, unknown>,
   mapping: Record<string, string>
@@ -65,6 +75,14 @@ function applyFieldMapping(
   for (const [normalizedKey, sourcePath] of Object.entries(mapping)) {
     if (sourcePath === null || sourcePath === undefined) {
       result[normalizedKey] = null;
+    } else if (isTransformer(sourcePath)) {
+      const compiled = compileTransformer(sourcePath);
+      if (!compiled) {
+        result[normalizedKey] = TRANSFORM_ERROR_SENTINEL;
+      } else {
+        const output = runTransformer(compiled, item[normalizedKey], item, { fieldPath: normalizedKey });
+        result[normalizedKey] = output === undefined ? TRANSFORM_ERROR_SENTINEL : output;
+      }
     } else {
       result[normalizedKey] = getValueByPath(item, sourcePath);
     }
@@ -176,7 +194,8 @@ async function fetchFromRemote(
 }
 
 async function fetchFromApi(
-  apiConfig: NonNullable<DatabaseConfig["source"]["api"]>
+  apiConfig: NonNullable<DatabaseConfig["source"]["api"]>,
+  dbName?: string
 ): Promise<unknown[]> {
   const headers: Record<string, string> = {
     Accept: "application/json",
@@ -244,41 +263,78 @@ async function fetchFromApi(
   if (isNaN(offset)) offset = 0;
   let page = 0;
 
-  while (true) {
-    const url = new URL(apiConfig.endpoint);
-    for (const [key, value] of Object.entries(baseParams)) {
-      url.searchParams.set(key, String(value));
-    }
-    url.searchParams.set("limit", String(pageSize));
-    url.searchParams.set("offset", String(offset));
+  if (dbName) {
+    setJobState(dbName, "fetch", {
+      status: "running",
+      fetched: 0,
+      total: null,
+      page: 0,
+      startedAt: new Date().toISOString(),
+    });
+  }
 
-    console.log(
-      `[fetchFromApi] Fetching page ${page + 1} (offset=${offset}, limit=${pageSize}) from ${apiConfig.endpoint}`
-    );
+  try {
+    while (true) {
+      const url = new URL(apiConfig.endpoint);
+      for (const [key, value] of Object.entries(baseParams)) {
+        url.searchParams.set(key, String(value));
+      }
+      url.searchParams.set("limit", String(pageSize));
+      url.searchParams.set("offset", String(offset));
 
-    const response = await fetch(url.toString(), { headers });
-    if (!response.ok) {
-      throw new Error(
-        `API returned ${response.status}: ${await response.text().catch(() => "")}`
+      console.log(
+        `[fetchFromApi] Fetching page ${page + 1} (offset=${offset}, limit=${pageSize}) from ${apiConfig.endpoint}`
       );
+
+      const response = await fetch(url.toString(), { headers });
+      if (!response.ok) {
+        throw new Error(
+          `API returned ${response.status}: ${await response.text().catch(() => "")}`
+        );
+      }
+
+      const data = await response.json();
+      const items = getValueByPath(data, apiConfig.results_path!) as unknown[];
+      if (!Array.isArray(items)) {
+        throw new Error(
+          `results_path "${apiConfig.results_path}" did not resolve to an array`
+        );
+      }
+
+      allItems.push(...items);
+
+      if (dbName) {
+        setJobState(dbName, "fetch", {
+          status: "running",
+          fetched: allItems.length,
+          page: page + 1,
+        });
+      }
+
+      if (items.length < pageSize) {
+        break;
+      }
+
+      offset += pageSize;
+      page++;
     }
-
-    const data = await response.json();
-    const items = getValueByPath(data, apiConfig.results_path!) as unknown[];
-    if (!Array.isArray(items)) {
-      throw new Error(
-        `results_path "${apiConfig.results_path}" did not resolve to an array`
-      );
+  } catch (err) {
+    if (dbName) {
+      setJobState(dbName, "fetch", {
+        status: "error",
+        error: err instanceof Error ? err.message : String(err),
+        finishedAt: new Date().toISOString(),
+      });
     }
+    throw err;
+  }
 
-    allItems.push(...items);
-
-    if (items.length < pageSize) {
-      break;
-    }
-
-    offset += pageSize;
-    page++;
+  if (dbName) {
+    setJobState(dbName, "fetch", {
+      status: "done",
+      fetched: allItems.length,
+      finishedAt: new Date().toISOString(),
+    });
   }
 
   console.log(`[fetchFromApi] Fetched ${allItems.length} total items from ${apiConfig.endpoint}`);
@@ -518,7 +574,7 @@ export class DatabaseManager {
 
     if (config.source.type === "api") {
       if (!config.source.api) throw new Error("API source config missing");
-      rawItems = await fetchFromApi(config.source.api);
+      rawItems = await fetchFromApi(config.source.api, name);
     } else if (config.source.type === "local") {
       if (!config.source.local) throw new Error("Local source config missing");
       rawItems = await fetchFromLocal(name, config.source.local);
@@ -567,6 +623,17 @@ export class DatabaseManager {
 
     ExternalImageCacher.scheduleItems(name, config, items);
 
+    const vsConfig = (config as DatabaseConfig).vector_search;
+    if (vsConfig?.enabled && vsConfig.fields?.length > 0) {
+      import("./vector-search").then(({ indexItems }) => {
+        indexItems(name, items, vsConfig.fields).catch((err) => {
+          console.error(`[DatabaseManager] Background vector indexing failed for "${name}":`, err);
+        });
+      }).catch((err) => {
+        console.error(`[DatabaseManager] Failed to import vector-search module:`, err);
+      });
+    }
+
     return { ...entry, from_cache: false };
   }
 
@@ -605,7 +672,7 @@ export class DatabaseManager {
   ): Promise<{
     success: boolean;
     item_count?: number;
-    sample?: unknown;
+    samples?: unknown[];
     error?: string;
   }> {
     try {
@@ -629,7 +696,7 @@ export class DatabaseManager {
       return {
         success: true,
         item_count: items.length,
-        sample: items[0] || null,
+        samples: items.slice(0, 5) as Record<string, unknown>[],
       };
     } catch (err: unknown) {
       return {

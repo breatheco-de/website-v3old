@@ -4,6 +4,7 @@ import { storage } from "../storage";
 import { geoGet, geoSet } from "../geo-cache";
 import { getQueueStats, enqueueOptimization, getPendingOptimizations, getFailedEntries, retryFailedImages, resetOptimizeSession, getOptimizeSession, enqueueExternalImage } from "../image-registry";
 import { getAllQueueState } from "../image-queue-state";
+import { getJobState as getDbJobState } from "../db-job-state";
 
 
 import * as fs from "fs";
@@ -390,8 +391,14 @@ export function registerDatabasesRoutes(app: Express): void {
 
   app.get("/api/databases/:name/raw-items", (req, res) => {
     try {
+      const page = Math.max(1, parseInt(String(req.query.page || "1"), 10));
+      const limit = Math.max(1, Math.min(1000, parseInt(String(req.query.limit || "100"), 10)));
       const rawItems = databaseManager.getRawItems(req.params.name);
-      res.json({ items: rawItems || [], item_count: rawItems?.length ?? 0 });
+      const allItems = rawItems || [];
+      const total_count = allItems.length;
+      const start = (page - 1) * limit;
+      const paginatedItems = allItems.slice(start, start + limit);
+      res.json({ items: paginatedItems, total_count, page, limit });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       if (msg.includes("not found")) {
@@ -494,10 +501,115 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
   });
 
+  app.get("/api/databases/:name/search", async (req, res) => {
+    try {
+      const dbName = req.params.name;
+      const q = (req.query.q as string || "").trim();
+      const limit = Math.min(Number(req.query.limit) || 20, 100);
+      const locale = (req.query.locale as string) || undefined;
+
+      if (!q) {
+        res.status(400).json({ error: "q parameter is required" });
+        return;
+      }
+
+      const config = databaseManager.get(dbName);
+      const vsConfig = (config as any).vector_search as { enabled?: boolean; fields?: string[] } | undefined;
+      const vectorEnabled = vsConfig?.enabled === true && Array.isArray(vsConfig.fields) && vsConfig.fields.length > 0;
+
+      const cacheResult = await databaseManager.fetchItems(dbName);
+      const allItems = cacheResult.items;
+
+      if (vectorEnabled) {
+        const { search: vectorSearch, isAvailable } = await import("../vector-search");
+        const available = await isAvailable();
+
+        if (available) {
+          const searchResults = await vectorSearch(dbName, q, limit, locale);
+
+          if (searchResults.length > 0) {
+            let orderedItems = searchResults
+              .map((r) => {
+                if (r._idx !== undefined && r._idx >= 0 && r._idx < allItems.length) {
+                  return allItems[r._idx];
+                }
+                return allItems.find((item) => String(item.slug ?? item.id ?? "") === r.slug);
+              })
+              .filter((item): item is Record<string, unknown> => item !== undefined);
+
+            if (locale) {
+              orderedItems = orderedItems.filter((item) => {
+                const itemLocale = String(item.locale ?? item.language ?? item.lang ?? "");
+                return itemLocale.toLowerCase() === locale.toLowerCase();
+              });
+            }
+
+            const scoreByIdx = new Map(searchResults.map((r) => [r._idx, r.score]));
+            const scoreBySlug = new Map(searchResults.map((r) => [r.slug, r.score]));
+
+            res.json({
+              items: orderedItems,
+              count: orderedItems.length,
+              semantic: true,
+              scores: Object.fromEntries(
+                orderedItems.map((item, i) => {
+                  const result = searchResults[i];
+                  const score = result?._idx !== undefined
+                    ? (scoreByIdx.get(result._idx) ?? 0)
+                    : (scoreBySlug.get(String(item.slug ?? item.id ?? "")) ?? 0);
+                  return [String(item.slug ?? item.id ?? i), score];
+                })
+              ),
+            });
+            return;
+          }
+        }
+      }
+
+      const qLower = q.toLowerCase();
+      const searchFieldsConfig = (config as any).search_fields as string[] | undefined;
+      const keywordFields = searchFieldsConfig?.length
+        ? searchFieldsConfig
+        : vsConfig?.fields?.length
+          ? vsConfig.fields
+          : null;
+      let fallback = allItems.filter((item) => {
+        const fieldsToCheck = keywordFields ?? Object.keys(item);
+        return fieldsToCheck.some((f) => {
+          const val = item[f];
+          if (val === null || val === undefined) return false;
+          if (typeof val === "object") return JSON.stringify(val).toLowerCase().includes(qLower);
+          return String(val).toLowerCase().includes(qLower);
+        });
+      });
+
+      if (locale) {
+        fallback = fallback.filter((item) => {
+          const itemLocale = String(item.locale ?? item.language ?? item.lang ?? "");
+          return itemLocale.toLowerCase() === locale.toLowerCase();
+        });
+      }
+
+      res.json({ items: fallback.slice(0, limit), count: fallback.length, semantic: false });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      if (msg.includes("not found")) {
+        res.status(404).json({ error: msg });
+      } else {
+        res.status(500).json({ error: msg });
+      }
+    }
+  });
+
   app.get("/api/databases/:name/items", async (req, res) => {
     try {
+      const page = Math.max(1, parseInt(String(req.query.page || "1"), 10));
+      const limit = Math.max(1, Math.min(1000, parseInt(String(req.query.limit || "100"), 10)));
       const result = await databaseManager.fetchItems(req.params.name);
-      res.json(result);
+      const total_count = result.items.length;
+      const start = (page - 1) * limit;
+      const paginatedItems = result.items.slice(start, start + limit);
+      res.json({ ...result, items: paginatedItems, total_count, page, limit });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       if (msg.includes("not found")) {
@@ -685,6 +797,37 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     try {
       const result = await databaseManager.fetchItems(req.params.name, true);
       res.json(result);
+    } catch (err: unknown) {
+      res
+        .status(500)
+        .json({ error: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
+  app.post("/api/databases/:name/reindex", async (req, res) => {
+    try {
+      const name = req.params.name;
+      const config = databaseManager.get(name);
+      const vsConfig = (config as any).vector_search as { enabled?: boolean; fields?: string[] } | undefined;
+      if (!vsConfig?.enabled || !vsConfig.fields?.length) {
+        res.status(400).json({ error: "Semantic search is not enabled for this database" });
+        return;
+      }
+      const cached = await databaseManager.fetchItems(name, false);
+      const { indexItems } = await import("../vector-search");
+      indexItems(name, cached.items, vsConfig.fields).catch((err: unknown) => {
+        console.error(`[reindex] Background indexing error for "${name}":`, err);
+      });
+      res.json({ success: true, count: cached.items.length });
+    } catch (err: unknown) {
+      res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
+  app.get("/api/databases/:name/job-status", (req, res) => {
+    try {
+      const state = getDbJobState(req.params.name);
+      res.json(state);
     } catch (err: unknown) {
       res
         .status(500)

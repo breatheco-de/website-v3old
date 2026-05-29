@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react";
-import { ArrowLeft, ChevronDown, ChevronRight, Database, ExternalLink, FileText, Folder, Plus, RefreshCw } from "lucide-react";
+import { useState, useMemo, useEffect } from "react";
+import { AlertTriangle, ArrowLeft, ChevronDown, ChevronRight, Database, ExternalLink, FileText, Folder, Loader2, Plus, RefreshCw, Trash2 } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { queryClient, apiRequest } from "@/lib/queryClient";
@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogFooter,
@@ -39,6 +40,157 @@ interface LocaleEntry {
 interface LocaleSettings {
   default_locale: string;
   supported_locales: LocaleEntry[];
+}
+
+interface DryRunResult {
+  dry_run: true;
+  type: string;
+  directory: string;
+  static_entry_count: number;
+  has_database: boolean;
+  database_slug: string | null;
+  message: string;
+}
+
+function DeleteContentTypeDialog({
+  contentType,
+  onClose,
+}: {
+  contentType: ContentTypeSummary | null;
+  onClose: () => void;
+}) {
+  const { toast } = useToast();
+  const open = contentType !== null;
+  const [confirmInput, setConfirmInput] = useState("");
+  const [dryRunResult, setDryRunResult] = useState<DryRunResult | null>(null);
+  const [dryRunLoading, setDryRunLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    if (!contentType) return;
+    let cancelled = false;
+    setConfirmInput("");
+    setDryRunResult(null);
+    setDryRunLoading(true);
+    fetch(`/api/content-types/${contentType.name}?dry_run=true`, { method: "DELETE" })
+      .then((res) => res.json())
+      .then((data) => { if (!cancelled) setDryRunResult(data); })
+      .catch(() => {})
+      .finally(() => { if (!cancelled) setDryRunLoading(false); });
+    return () => { cancelled = true; };
+  }, [contentType?.name]);
+
+  const handleClose = () => {
+    setConfirmInput("");
+    setDryRunResult(null);
+    onClose();
+  };
+
+  const handleDelete = async () => {
+    if (!contentType || confirmInput !== contentType.name) return;
+    setIsDeleting(true);
+    try {
+      const res = await apiRequest("DELETE", `/api/content-types/${contentType.name}`);
+      const data = await res.json();
+      if (data.success) {
+        queryClient.invalidateQueries({ queryKey: ["/api/content-types"] });
+        toast({ title: "Content type deleted", description: `"${contentType.name}" has been removed from content-types.yml.` });
+        handleClose();
+      } else {
+        toast({ title: "Failed to delete content type", description: data.error || "Unknown error", variant: "destructive" });
+      }
+    } catch (err) {
+      toast({ title: "Failed to delete content type", description: String(err), variant: "destructive" });
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  return (
+    <Dialog
+      open={open}
+      onOpenChange={(v) => { if (!v) handleClose(); }}
+    >
+      <DialogContent className="sm:max-w-[480px]" data-testid="dialog-delete-content-type">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <AlertTriangle className="h-5 w-5 text-destructive" />
+            Delete Content Type
+          </DialogTitle>
+          <DialogDescription>
+            This action cannot be undone. The content type definition will be permanently removed from{" "}
+            <span className="font-mono text-xs">content-types.yml</span> and synced to GitHub.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="space-y-4">
+          {dryRunLoading ? (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground py-2">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              Checking impact&hellip;
+            </div>
+          ) : dryRunResult ? (
+            <div className="rounded-md border bg-muted/50 p-3 space-y-2 text-sm" data-testid="text-dry-run-result">
+              <p className="text-foreground">{dryRunResult.message}</p>
+              <div className="flex flex-wrap gap-3 text-xs text-muted-foreground pt-1">
+                <span>
+                  <span className="font-medium text-foreground">{dryRunResult.static_entry_count}</span>{" "}
+                  content file{dryRunResult.static_entry_count !== 1 ? "s" : ""} in{" "}
+                  <span className="font-mono">marketing-content/{dryRunResult.directory}/</span>
+                </span>
+                {dryRunResult.has_database && (
+                  <span className="inline-flex items-center gap-1">
+                    <Database className="h-3 w-3" />
+                    Connected to <span className="font-mono">{dryRunResult.database_slug}</span>
+                  </span>
+                )}
+              </div>
+            </div>
+          ) : null}
+          <div className="space-y-2">
+            <Label htmlFor="delete-type-confirm-inline">
+              Type <span className="font-mono font-bold">{contentType?.name}</span> to confirm
+            </Label>
+            <Input
+              id="delete-type-confirm-inline"
+              value={confirmInput}
+              onChange={(e) => setConfirmInput(e.target.value)}
+              placeholder={contentType?.name ?? ""}
+              autoComplete="off"
+              data-testid="input-delete-type-confirm"
+            />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button
+            variant="outline"
+            onClick={handleClose}
+            disabled={isDeleting}
+            data-testid="button-cancel-delete-content-type"
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="destructive"
+            onClick={handleDelete}
+            disabled={confirmInput !== contentType?.name || isDeleting}
+            data-testid="button-confirm-delete-content-type"
+          >
+            {isDeleting ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                Deleting&hellip;
+              </>
+            ) : (
+              <>
+                <Trash2 className="h-4 w-4 mr-2" />
+                Delete Content Type
+              </>
+            )}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
 }
 
 function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (v: boolean) => void }) {
@@ -374,6 +526,7 @@ function CreateContentTypeDialog({ open, onOpenChange }: { open: boolean; onOpen
 
 export function ContentTypesView({ setMenuView }: ContentTypesViewProps) {
   const [createOpen, setCreateOpen] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<ContentTypeSummary | null>(null);
   const { data, isLoading } = useQuery<ContentTypeSummary[]>({
     queryKey: ["/api/content-types"],
   });
@@ -421,7 +574,7 @@ export function ContentTypesView({ setMenuView }: ContentTypesViewProps) {
             data.map((ct) => (
               <div
                 key={ct.name}
-                className="flex items-center gap-3 px-3 py-2 rounded-md text-sm"
+                className="flex items-center gap-1 px-3 py-2 rounded-md text-sm group"
                 data-testid={`row-content-type-${ct.name}`}
               >
                 <a
@@ -447,6 +600,20 @@ export function ContentTypesView({ setMenuView }: ContentTypesViewProps) {
                   </div>
                   <ExternalLink className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
                 </a>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      onClick={() => setDeleteTarget(ct)}
+                      className="p-1 rounded-md text-muted-foreground hover-elevate opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
+                      data-testid={`button-delete-content-type-${ct.name}`}
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="left" className="text-xs">
+                    Delete content type
+                  </TooltipContent>
+                </Tooltip>
               </div>
             ))
           )}
@@ -454,6 +621,7 @@ export function ContentTypesView({ setMenuView }: ContentTypesViewProps) {
       </div>
 
       <CreateContentTypeDialog open={createOpen} onOpenChange={setCreateOpen} />
+      <DeleteContentTypeDialog contentType={deleteTarget} onClose={() => setDeleteTarget(null)} />
     </>
   );
 }

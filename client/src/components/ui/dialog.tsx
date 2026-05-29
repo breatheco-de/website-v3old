@@ -33,10 +33,19 @@ interface DialogContentProps extends React.ComponentPropsWithoutRef<typeof Dialo
   hideClose?: boolean;
 }
 
+function restorePointerEvents() {
+  document.body.style.removeProperty("pointer-events");
+  // react-remove-scroll also stamps pointer-events:none on siblings of the
+  // portal root. Clean those up too so nothing in the page stays blocked.
+  document.querySelectorAll<HTMLElement>("[data-radix-scroll-lock-wrapper], [data-remove-scroll-bar]").forEach((el) => {
+    el.style.removeProperty("pointer-events");
+  });
+}
+
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   DialogContentProps
->(({ className, children, hideClose, ...props }, ref) => (
+>(({ className, children, hideClose, onCloseAutoFocus, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
     <DialogPrimitive.Content
@@ -45,6 +54,10 @@ const DialogContent = React.forwardRef<
         "fixed left-[50%] top-[50%] z-[10000] grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 pointer-events-none data-[state=open]:pointer-events-auto data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
         className
       )}
+      onCloseAutoFocus={(e) => {
+        restorePointerEvents();
+        onCloseAutoFocus?.(e);
+      }}
       {...props}
     >
       {children}

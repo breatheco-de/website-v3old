@@ -296,6 +296,26 @@ interface AppProps {
 function App({ ssrQueryClient }: AppProps = {}) {
   const client = ssrQueryClient || defaultQueryClient;
 
+  // Safety-net: Radix UI sometimes leaves pointer-events:none on document.body
+  // after a dialog closes (race between close animation and react-remove-scroll
+  // cleanup). The primary fix is in dialog.tsx's onCloseAutoFocus, but this
+  // MutationObserver catches any remaining edge-cases (e.g. programmatic closes
+  // where onCloseAutoFocus never fires).
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      if (document.body.style.pointerEvents === "none") {
+        const hasOpenDialog = document.querySelector(
+          '[role="dialog"][data-state="open"]'
+        );
+        if (!hasOpenDialog) {
+          document.body.style.removeProperty("pointer-events");
+        }
+      }
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ["style"] });
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <QueryClientProvider client={client}>
       <SessionProvider>

@@ -14,3 +14,9 @@ field_mapping:
   related_features: related_features
   last_updated: last_updated
   priority: priority
+vector_search:
+  enabled: true
+  fields:
+    - question
+search_fields:
+  - question

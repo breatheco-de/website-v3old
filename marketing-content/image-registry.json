@@ -19081,6 +19081,600 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/4geeks-og-image-1280w.webp"
         }
       ]
+    },
+    "how_to-cd69e2e00b08dd34b7f5aa408243d0c46d90913b-5f264a18": {
+      "src": "https://storage.googleapis.com/media-breathecode/cd69e2e00b08dd34b7f5aa408243d0c46d90913bf349c53b1071ed516cae87dc",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/cd69e2e00b08dd34b7f5aa408243d0c46d90913bf349c53b1071ed516cae87dc",
+      "usage_count": 0,
+      "source_item": "how-to-create-diagram-classes",
+      "width": 1884,
+      "height": 867,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-cebabe7c9f00f173522e67d03fb41e5781aa52a5-7e090a92": {
+      "src": "https://storage.googleapis.com/media-breathecode/cebabe7c9f00f173522e67d03fb41e5781aa52a53414184dd6f7596bcd173f58",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/cebabe7c9f00f173522e67d03fb41e5781aa52a53414184dd6f7596bcd173f58",
+      "usage_count": 0,
+      "source_item": "how-to-consume-an-api-in-python",
+      "width": 1887,
+      "height": 864,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-eca3865196ddf619457d4b47bb0cd207567d1cbe-4215b97f": {
+      "src": "https://storage.googleapis.com/screenshots-breathecode/eca3865196ddf619457d4b47bb0cd207567d1cbe0fc36d8f70c7b27588e360e8",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/screenshots-breathecode/eca3865196ddf619457d4b47bb0cd207567d1cbe0fc36d8f70c7b27588e360e8",
+      "usage_count": 0,
+      "source_item": "automation-no-code",
+      "width": 1200,
+      "height": 630,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-38cce03588db7af7411bb12ac26929b6810f8755-71cc0950": {
+      "src": "https://storage.googleapis.com/media-breathecode/38cce03588db7af7411bb12ac26929b6810f87553f2abaefe80d3f6ee8f706c3",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/38cce03588db7af7411bb12ac26929b6810f87553f2abaefe80d3f6ee8f706c3",
+      "usage_count": 0,
+      "source_item": "how-to-update-python-in-terminal",
+      "width": 1915,
+      "height": 929,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-450a24d470c35d3e300f2a48fcd3f72ffb6c59d7-1aa415b0": {
+      "src": "https://storage.googleapis.com/screenshots-breathecode/450a24d470c35d3e300f2a48fcd3f72ffb6c59d7480349828dcfd91f5a7e6e61",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/screenshots-breathecode/450a24d470c35d3e300f2a48fcd3f72ffb6c59d7480349828dcfd91f5a7e6e61",
+      "usage_count": 0,
+      "source_item": "install-nvm-linux",
+      "width": 1200,
+      "height": 630,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-f55c184ce8921bf8f032a8abe9fe29062cc76bea-b98a7a82": {
+      "src": "https://storage.googleapis.com/screenshots-breathecode/f55c184ce8921bf8f032a8abe9fe29062cc76beabc073b64b6b1e4fcff655c4d",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/screenshots-breathecode/f55c184ce8921bf8f032a8abe9fe29062cc76beabc073b64b6b1e4fcff655c4d",
+      "usage_count": 0,
+      "source_item": "install-node-nvm-mac-osx",
+      "width": 1200,
+      "height": 630,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-5a4cef567172014fc36af7b3298084c8d8795b90-454afce6": {
+      "src": "https://storage.googleapis.com/screenshots-breathecode/5a4cef567172014fc36af7b3298084c8d8795b9026d7506b3492821fae21512d",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/screenshots-breathecode/5a4cef567172014fc36af7b3298084c8d8795b9026d7506b3492821fae21512d",
+      "usage_count": 0,
+      "source_item": "what-is-pyenv-and-how-to-install-pyenv",
+      "width": 1200,
+      "height": 630,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-b5eff29d2910275c3fa034c10bfe2b6dfa48bf1a-82669643": {
+      "src": "https://storage.googleapis.com/screenshots-breathecode/b5eff29d2910275c3fa034c10bfe2b6dfa48bf1a814428b631a5f7c28d0e7b7b",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/screenshots-breathecode/b5eff29d2910275c3fa034c10bfe2b6dfa48bf1a814428b631a5f7c28d0e7b7b",
+      "usage_count": 0,
+      "source_item": "how-to-get-python-list-length",
+      "width": 1200,
+      "height": 630,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-87d52d903fcdac4d425f4b41b44da4f7158fb13a-86f82aa8": {
+      "src": "https://storage.googleapis.com/media-breathecode/87d52d903fcdac4d425f4b41b44da4f7158fb13a55972ed59b2dd4e52c83915e",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/87d52d903fcdac4d425f4b41b44da4f7158fb13a55972ed59b2dd4e52c83915e",
+      "usage_count": 0,
+      "source_item": "how-to-reverse-string-in-python",
+      "width": 2928,
+      "height": 1588,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-106c764edfb0d7ef9c979aaaccea9b0c2860cc8c-97609798": {
+      "src": "https://storage.googleapis.com/media-breathecode/106c764edfb0d7ef9c979aaaccea9b0c2860cc8c283f8d0ea89779ddb05cdbdb",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/106c764edfb0d7ef9c979aaaccea9b0c2860cc8c283f8d0ea89779ddb05cdbdb",
+      "usage_count": 0,
+      "source_item": "how-to-split-a-string-in-python",
+      "width": 1752,
+      "height": 941,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-5a0569b2bf9233b671ca9681ec00fdb721bf987f-659d8d0e": {
+      "src": "https://storage.googleapis.com/media-breathecode/5a0569b2bf9233b671ca9681ec00fdb721bf987fc176a9db175caee3d9127334",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/5a0569b2bf9233b671ca9681ec00fdb721bf987fc176a9db175caee3d9127334",
+      "usage_count": 0,
+      "source_item": "clone-array-javascript",
+      "width": 1759,
+      "height": 947,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-9ddeff5e26fc8e1671b850551af24aefd30899e0-5fee6b65": {
+      "src": "https://storage.googleapis.com/media-breathecode/9ddeff5e26fc8e1671b850551af24aefd30899e077a82fed18cb841ad705f7fb",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/9ddeff5e26fc8e1671b850551af24aefd30899e077a82fed18cb841ad705f7fb",
+      "usage_count": 0,
+      "source_item": "javascript-array-flatten",
+      "width": 1702,
+      "height": 962,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-0f4c9394bbc0cab3085c36017299fb47ceba78c2-3adc1596": {
+      "src": "https://storage.googleapis.com/media-breathecode/0f4c9394bbc0cab3085c36017299fb47ceba78c21564bb79c2746179221db30f",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/0f4c9394bbc0cab3085c36017299fb47ceba78c21564bb79c2746179221db30f",
+      "usage_count": 0,
+      "source_item": "javascript-array-last",
+      "width": 1774,
+      "height": 959,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-8273c97b42be9fe0b51ef6d81a2cccb9c99d8fc7-b7f45609": {
+      "src": "https://storage.googleapis.com/media-breathecode/8273c97b42be9fe0b51ef6d81a2cccb9c99d8fc75815366c1fdf517c37f5c119",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/8273c97b42be9fe0b51ef6d81a2cccb9c99d8fc75815366c1fdf517c37f5c119",
+      "usage_count": 0,
+      "source_item": "how-to-install-python",
+      "width": 1749,
+      "height": 940,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-befc68805b21129a8bddb8b19c2cf837475a10d7-0986beb4": {
+      "src": "https://storage.googleapis.com/media-breathecode/befc68805b21129a8bddb8b19c2cf837475a10d7013ad834eed91abf2b5c012e",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/befc68805b21129a8bddb8b19c2cf837475a10d7013ad834eed91abf2b5c012e",
+      "usage_count": 0,
+      "source_item": "regex-examples",
+      "width": 1910,
+      "height": 929,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-74a4eb661206cb34cd0e2e0ae832995e199d0e00-303a0dfd": {
+      "src": "https://storage.googleapis.com/media-breathecode/74a4eb661206cb34cd0e2e0ae832995e199d0e006579b8ee9613598cb0535f11",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/74a4eb661206cb34cd0e2e0ae832995e199d0e006579b8ee9613598cb0535f11",
+      "usage_count": 0,
+      "source_item": "react-global-context",
+      "width": 1722,
+      "height": 968,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-b134edc5365958ebb35f66a58a2624f733437c0d-ebbb4cbe": {
+      "src": "https://storage.googleapis.com/media-breathecode/b134edc5365958ebb35f66a58a2624f733437c0d40efdc714a2819226d2b7bf6",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/b134edc5365958ebb35f66a58a2624f733437c0d40efdc714a2819226d2b7bf6",
+      "usage_count": 0,
+      "source_item": "regex-letter",
+      "width": 2940,
+      "height": 1616,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-e11e4f8294be4dadde20f422452e28a6552f0e26-5b5f0727": {
+      "src": "https://storage.googleapis.com/media-breathecode/e11e4f8294be4dadde20f422452e28a6552f0e26bf0d680d3cdc7cab52ce7766",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/e11e4f8294be4dadde20f422452e28a6552f0e26bf0d680d3cdc7cab52ce7766",
+      "usage_count": 0,
+      "source_item": "pandas-data-cleaning",
+      "width": 2938,
+      "height": 1616,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-0767b8051255ae572ec8b23320c3d8b1763ef810-2846fdfe": {
+      "src": "https://storage.googleapis.com/media-breathecode/0767b8051255ae572ec8b23320c3d8b1763ef8106bd5fd31c5472cf73d7457a9",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/0767b8051255ae572ec8b23320c3d8b1763ef8106bd5fd31c5472cf73d7457a9",
+      "usage_count": 0,
+      "source_item": "javascript-array-clear",
+      "width": 2940,
+      "height": 1616,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-925efcacda218e80b2ac802a484a9cbeea4e6fc8-8eaad037": {
+      "src": "https://storage.googleapis.com/media-breathecode/925efcacda218e80b2ac802a484a9cbeea4e6fc817628f4509ddf06e8a1b6588",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/925efcacda218e80b2ac802a484a9cbeea4e6fc817628f4509ddf06e8a1b6588",
+      "usage_count": 0,
+      "source_item": "how-to-round-in-python",
+      "width": 1947,
+      "height": 970,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-40b7c19bf05dfc1b5bb0b71af95b0e1b4d34a491-259f0651": {
+      "src": "https://storage.googleapis.com/media-breathecode/40b7c19bf05dfc1b5bb0b71af95b0e1b4d34a4911396904c89b6cbc468ecd256",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/40b7c19bf05dfc1b5bb0b71af95b0e1b4d34a4911396904c89b6cbc468ecd256",
+      "usage_count": 0,
+      "source_item": "javascript-array-fill",
+      "width": 1947,
+      "height": 970,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-8fc2dbac0c20520e0cf9b895af3bdab64c40b45b-31aebfe7": {
+      "src": "https://storage.googleapis.com/media-breathecode/8fc2dbac0c20520e0cf9b895af3bdab64c40b45bf138a0d8bfdb53146979737e",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/8fc2dbac0c20520e0cf9b895af3bdab64c40b45bf138a0d8bfdb53146979737e",
+      "usage_count": 0,
+      "source_item": "javascript-array-last-element",
+      "width": 2182,
+      "height": 880,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-bd40d75dd5e867d5584a2ee646a9b0a9650c1dcd-ec7adb05": {
+      "src": "https://storage.googleapis.com/media-breathecode/bd40d75dd5e867d5584a2ee646a9b0a9650c1dcd99019cee3197676bee706db8",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/bd40d75dd5e867d5584a2ee646a9b0a9650c1dcd99019cee3197676bee706db8",
+      "usage_count": 0,
+      "source_item": "javascript-array-every",
+      "width": 2229,
+      "height": 902,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-16d2ceaa12f5c774a8a8d798c521abe557c0da17-8237789c": {
+      "src": "https://storage.googleapis.com/media-breathecode/16d2ceaa12f5c774a8a8d798c521abe557c0da17017c596f1470c3c4f6179686",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/16d2ceaa12f5c774a8a8d798c521abe557c0da17017c596f1470c3c4f6179686",
+      "usage_count": 0,
+      "source_item": "How-to-Install-Javascript",
+      "width": 1706,
+      "height": 910,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-screenshot-202023-05-15-20160155-5348b4f9": {
+      "src": "https://storage.googleapis.com/screenshots-breathecode/Screenshot%202023-05-15%20160155.png",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/screenshots-breathecode/Screenshot%202023-05-15%20160155.png",
+      "usage_count": 0,
+      "source_item": "javascript-array-some-method",
+      "width": 1919,
+      "height": 926,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-1a15695d40f511bc8dca2db98f60d8de205abcb7-2ef805a6": {
+      "src": "https://storage.googleapis.com/media-breathecode/1a15695d40f511bc8dca2db98f60d8de205abcb72df1c330e119686569980691",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/1a15695d40f511bc8dca2db98f60d8de205abcb72df1c330e119686569980691",
+      "usage_count": 0,
+      "source_item": "javascript-array-intersection",
+      "width": 1811,
+      "height": 900,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-screenshot-202023-04-17-20172102-3c0bacfd": {
+      "src": "https://storage.googleapis.com/screenshots-breathecode/Screenshot%202023-04-17%20172102.png",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/screenshots-breathecode/Screenshot%202023-04-17%20172102.png",
+      "usage_count": 0,
+      "source_item": "javascript-array-slice",
+      "width": 1912,
+      "height": 928,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-ed14b88a9a1a6f9699fffc370b37a14e5b363034-a7e118c2": {
+      "src": "https://storage.googleapis.com/media-breathecode/ed14b88a9a1a6f9699fffc370b37a14e5b3630348812b16537cc38c934b0a7c1",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/ed14b88a9a1a6f9699fffc370b37a14e5b3630348812b16537cc38c934b0a7c1",
+      "usage_count": 0,
+      "source_item": "how-to-concatenate-strings-on-python",
+      "width": 1367,
+      "height": 620,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-screenshot-20230213-050426-png-c0cb98d0": {
+      "src": "https://breathecode.herokuapp.com/v1/media/file/screenshot-20230213-050426-png?",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://breathecode.herokuapp.com/v1/media/file/screenshot-20230213-050426-png?",
+      "usage_count": 0,
+      "source_item": "how-to-exit-python-in-terminal",
+      "width": 1365,
+      "height": 615,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-7c5ed95d7861d5d4c06da59cefb43b802ad91c1a-7a4edf8a": {
+      "src": "https://storage.googleapis.com/media-breathecode/7c5ed95d7861d5d4c06da59cefb43b802ad91c1a93fad0e1319594db62516c92",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/7c5ed95d7861d5d4c06da59cefb43b802ad91c1a93fad0e1319594db62516c92",
+      "usage_count": 0,
+      "source_item": "regex-for-whitespace",
+      "width": 1919,
+      "height": 929,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-5e95055cf083d0cd130b2b4c67bea4aac08991f2-00bcb70a": {
+      "src": "https://storage.googleapis.com/media-breathecode/5e95055cf083d0cd130b2b4c67bea4aac08991f2088e27bb2114ed0e02febc2f",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/5e95055cf083d0cd130b2b4c67bea4aac08991f2088e27bb2114ed0e02febc2f",
+      "usage_count": 0,
+      "source_item": "what-does-double-equal-mean-in-python",
+      "width": 1894,
+      "height": 927,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-downtown-miami-how-to-convert-list-to-st-3f0c6ce0": {
+      "src": "https://storage.googleapis.com/screenshots-breathecode/downtown-miami-how-to-convert-list-to-string-in-python.png",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/screenshots-breathecode/downtown-miami-how-to-convert-list-to-string-in-python.png",
+      "usage_count": 0,
+      "source_item": "convert-list-to-string-in-python",
+      "width": 1024,
+      "height": 707,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
+    },
+    "how_to-4a3f25618b942551ef83ae31798d22c5c69a7815-59d4d626": {
+      "src": "https://storage.googleapis.com/media-breathecode/4a3f25618b942551ef83ae31798d22c5c69a781588d27a5b577723374eadbed3",
+      "alt": "Image from how_to",
+      "tags": [
+        "how_to"
+      ],
+      "source_url": "https://storage.googleapis.com/media-breathecode/4a3f25618b942551ef83ae31798d22c5c69a781588d27a5b577723374eadbed3",
+      "usage_count": 0,
+      "source_item": "ask",
+      "width": 1920,
+      "height": 887,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     }
   }
 }
