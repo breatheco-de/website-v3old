@@ -14,11 +14,15 @@ export function usePageTracking() {
   useEffect(() => {
     const dataLayer = (window as unknown as { dataLayer: DataLayerEvent[] }).dataLayer || [];
     (window as unknown as { dataLayer: DataLayerEvent[] }).dataLayer = dataLayer;
-    
-    dataLayer.push({
-      event: "website-route-change",
-      pagePath: location,
-      pageTitle: document.title,
-    });
+
+    const timer = setTimeout(() => {
+      dataLayer.push({
+        event: "website-route-change",
+        pagePath: location,
+        pageTitle: document.title,
+      });
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, [location]);
 }
