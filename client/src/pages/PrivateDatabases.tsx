@@ -2181,13 +2181,13 @@ function FieldMappingEditor({
                         </span>
                         <input
                           type="text"
-                          value={opt.label}
+                          value={opt.label === opt.value ? "" : opt.label}
                           onChange={(e) => {
                             const updated = [...hintDialogOptions];
-                            updated[idx] = { ...opt, label: e.target.value };
+                            updated[idx] = { ...opt, label: e.target.value || opt.value };
                             setHintDialogOptions(updated);
                           }}
-                          placeholder="Label (shown in UI)"
+                          placeholder="Label shown when selecting this option (optional)"
                           className="flex-1 text-xs px-2 py-0.5 rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
                           data-testid={`input-hint-option-label-${idx}`}
                         />

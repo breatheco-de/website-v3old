@@ -81,6 +81,20 @@ function buildItemFromForm(
       } else if (!omitEmpty) {
         out[key] = null;
       }
+    } else if (editorType === "select") {
+      const opts = (editor?.[key]?.options ?? []).map((o) =>
+        typeof o === "string" ? o : o.value,
+      );
+      const allNumeric =
+        opts.length > 0 && opts.every((o) => /^-?\d+(\.\d+)?$/.test(String(o)));
+      if (allNumeric && value !== "" && value !== null && value !== undefined) {
+        const n = Number(value);
+        out[key] = isNaN(n) ? value : n;
+      } else if (value !== "" && value !== null && value !== undefined) {
+        out[key] = value;
+      } else if (!omitEmpty) {
+        out[key] = "";
+      }
     } else {
       if (value !== "" && value !== null && value !== undefined) {
         out[key] = value;
