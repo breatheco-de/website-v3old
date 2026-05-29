@@ -22,7 +22,9 @@ export function FAQSection({ data }: FAQSectionProps) {
   const { session } = useSession();
   const sessionLocationSlug = session.location?.slug;
 
-  const locationSlugMatch = pathname.match(/^\/(en|es)\/(location|ubicacion)\/([^/]+)/);
+  const locationSlugMatch = pathname.match(
+    /^\/(en|es)\/(location|ubicacion)\/([^/]+)/,
+  );
   const locationSlug = locationSlugMatch ? locationSlugMatch[3] : undefined;
 
   const itemOverrides = (data as Record<string, unknown>).item_overrides as
@@ -30,7 +32,8 @@ export function FAQSection({ data }: FAQSectionProps) {
     | undefined;
 
   const faqItems = (() => {
-    const hardcodedEntries = (data as Record<string, unknown>).hardcoded_entries as
+    const hardcodedEntries = (data as Record<string, unknown>)
+      .hardcoded_entries as
       | Array<{ question: string; answer: string }>
       | undefined;
     let items: Array<{ question: string; answer: string }> = [
@@ -51,16 +54,12 @@ export function FAQSection({ data }: FAQSectionProps) {
     return items;
   })();
 
-
   if (faqItems.length === 0) {
     return null;
   }
 
   return (
-    <section
-      data-testid="section-faq"
-      className="max-w-6xl mx-auto px-4"
-    >
+    <section data-testid="section-faq" className="max-w-6xl mx-auto px-4">
       <div className="max-w-6xl mx-auto px-4">
         <h2
           className="mb-8 text-center text-foreground text-[36px]"
@@ -110,7 +109,12 @@ export function FAQSection({ data }: FAQSectionProps) {
             )}
             {data.cta.button && (
               <Button asChild data-testid="button-faq-cta">
-                <a href={data.cta.button.url} onClick={handleLinkClick} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={data.cta.button.url}
+                  onClick={handleLinkClick}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {data.cta.button.label}
                 </a>
               </Button>
