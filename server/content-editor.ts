@@ -198,6 +198,46 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
     // We must NOT write variable-field changes back to that shared file — instead
     // we patch only the specific entry in the database file cache.
     if (isSharedTemplate) {
+      // If every operation is a top-level update_field (e.g. writing `meta`),
+      // redirect the write to the per-entry locale file so we don't pollute the
+      // shared template. Create the folder / file automatically if they don't exist.
+      if (
+        contentIndex.isDatabaseBacked(contentType) &&
+        operations.every(op => op.action === "update_field" && !op.path.startsWith("sections."))
+      ) {
+        const folder = contentIndex.getFolderName(contentType);
+        const resolvedSlug = contentIndex.resolveBaseSlug(slug, contentType);
+        const entryDir = path.join(process.cwd(), "marketing-content", folder, resolvedSlug);
+        const perEntryLocalePath = path.join(entryDir, `${locale}.yml`);
+
+        if (!fs.existsSync(entryDir)) {
+          fs.mkdirSync(entryDir, { recursive: true });
+        }
+        const commonPath = path.join(entryDir, "_common.yml");
+        if (!fs.existsSync(commonPath)) {
+          fs.writeFileSync(commonPath, "", "utf-8");
+        }
+
+        let perEntryData: Record<string, unknown> = {};
+        if (fs.existsSync(perEntryLocalePath)) {
+          const raw = fs.readFileSync(perEntryLocalePath, "utf-8");
+          perEntryData = (contentIndex.safeYamlLoad(raw) as Record<string, unknown>) || {};
+        }
+
+        for (const op of operations) {
+          if (op.value === undefined || op.value === null) {
+            delete perEntryData[op.path];
+          } else {
+            setValueAtPath(perEntryData, op.path, op.value);
+          }
+        }
+
+        const updatedYaml = safeYamlDump(perEntryData, { lineWidth: -1, noRefs: true, quotingType: '"', forceQuotes: false });
+        fs.writeFileSync(perEntryLocalePath, updatedYaml, "utf-8");
+        markFileAsModified(perEntryLocalePath, request.author);
+        return { success: true };
+      }
+
       return handleSharedTemplateEdit({ contentType, slug, locale, operations, localeData, filePath, author: request.author });
     }
 
@@ -775,8 +815,20 @@ export function editCommonContent(request: CommonEditRequest): { success: boolea
   const { contentType, slug, operations, author } = request;
 
   try {
-    const commonPath = contentIndex.getCommonFilePath(contentType, slug);
-    if (!fs.existsSync(commonPath)) {
+    let commonPath = contentIndex.getCommonFilePath(contentType, slug);
+
+    // For DB-backed entries: always write to the per-slug _common.yml,
+    // creating the folder and an empty file if they don't yet exist.
+    if (contentIndex.isDatabaseBacked(contentType)) {
+      const folder = contentIndex.getFolderName(contentType);
+      const resolvedSlug = contentIndex.resolveBaseSlug(slug, contentType);
+      const perSlugCommonPath = path.join(process.cwd(), "marketing-content", folder, resolvedSlug, "_common.yml");
+      if (!fs.existsSync(perSlugCommonPath)) {
+        fs.mkdirSync(path.dirname(perSlugCommonPath), { recursive: true });
+        fs.writeFileSync(perSlugCommonPath, "", "utf-8");
+      }
+      commonPath = perSlugCommonPath;
+    } else if (!fs.existsSync(commonPath)) {
       return { success: false, error: `_common.yml not found for ${contentType}/${slug}` };
     }
 
