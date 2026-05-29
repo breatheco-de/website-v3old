@@ -96,6 +96,16 @@ async function ensureCollection(dbName: string): Promise<void> {
   }
 }
 
+async function recreateCollection(dbName: string): Promise<void> {
+  const client = getQdrantClient();
+  const name = collectionName(dbName);
+  try { await client.deleteCollection(name); } catch {}
+  await client.createCollection(name, {
+    vectors: { size: VECTOR_SIZE, distance: "Cosine" },
+  });
+  console.log(`[vector-search] Recreated collection "${name}" (size=${VECTOR_SIZE})`);
+}
+
 function buildText(item: Record<string, unknown>, fields: string[]): string {
   return fields
     .map((f) => {
@@ -145,7 +155,7 @@ export async function indexItems(
   });
 
   try {
-    await ensureCollection(dbName);
+    await recreateCollection(dbName);
     const client = getQdrantClient();
     const name = collectionName(dbName);
     let indexed = 0;
