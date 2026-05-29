@@ -13,6 +13,7 @@ sections:
     image_full_width: false
     image:
       src: {{ single.image | https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-learnpack-logo-jpg-d58de33d-736x414.webp }}
+    id: hero-0ggr1k
   - type: article
     section_id: article-2i1h11
     show_toc: true
@@ -41,24 +42,6 @@ sections:
     paddingY:
       desktop: sm
     id: faq-kpnock
-  - type: bullet_tabs_showcase
-    version: "1.0"
-    heading: Ideate and specify what to build next
-    subheading: Transform your ideas into actionable tasks seamlessly
-    image_position: right
-    tabs:
-      - label: Collaborative documents
-        description: Work together on specifications and requirements in real-time
-        image_id: placeholder_career_guidance
-      - label: Inline comments
-        description: Add contextual feedback directly where it matters most
-        image_id: placeholder_career_guidance
-      - label: Text-to-issue commands
-        description: Seamlessly move between ideation and execution
-        image_id: students_collaborating
-    section_id: bullet_tabs_showcase-fkpfy5
-    paddingY:
-      desktop: sm
   - type: cta_banner
     version: "1.0"
     variant: form

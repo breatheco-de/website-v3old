@@ -45,6 +45,7 @@ import { RelatedFeaturesPicker } from "./RelatedFeaturesPicker";
 import { TestimonialItemsPreview } from "./TestimonialItemsPreview";
 import { TableContentEditor } from "./TableContentEditor";
 import { FaqItemsPicker } from "./FaqItemsPicker";
+import { DbFieldValuesPicker } from "./DbFieldValuesPicker";
 import { RichTextArea } from "./RichTextArea";
 import { MarkdownEditorField } from "./MarkdownEditorField";
 import { SectionBindingDialog } from "./SectionBindingDialog";
@@ -4268,7 +4269,8 @@ export function SectionEditorPanel({
                 // For dotted simple fields like "cta_button.url", skip if the parent object doesn't exist in the YAML.
                 // Exception: self-initializing editors (e.g. related-features-picker) always show — they create the structure on save.
                 const selfInitializingEditors = new Set(["related-features-picker", "faq-visibility-editor"]);
-                if (isSimpleField && fieldPath.includes(".") && !selfInitializingEditors.has(editorType)) {
+                const isSelfInitializing = selfInitializingEditors.has(editorType) || editorType.startsWith("db-field-values-picker");
+                if (isSimpleField && fieldPath.includes(".") && !isSelfInitializing) {
                   const parentParts = fieldPath.split(".");
                   let parentExists: unknown = parsedSection;
                   for (let i = 0; i < parentParts.length - 1; i++) {
@@ -4897,6 +4899,35 @@ export function SectionEditorPanel({
                   );
                 }
 
+                if (isSimpleField && editorType.startsWith("db-field-values-picker:")) {
+                  const parts = editorType.split(":");
+                  const database = parts[1] ?? "";
+                  const dbField = parts[2] ?? "";
+                  const currentValue = (() => {
+                    const dynEntries = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
+                    const permFilters = dynEntries?.permanent_filters;
+                    if (Array.isArray(permFilters)) {
+                      const item = (permFilters as Array<{ item_property_slug: string; value: unknown }>)
+                        .find(f => f.item_property_slug === dbField);
+                      if (item) {
+                        const v = item.value;
+                        return Array.isArray(v) ? (v as string[]) : [String(v)];
+                      }
+                    }
+                    return [];
+                  })();
+                  return (
+                    <div key={fieldPath}>
+                      <DbFieldValuesPicker
+                        database={database}
+                        field={dbField}
+                        value={currentValue}
+                        onChange={(value) => updateArrayProperty(fieldPath, value)}
+                      />
+                    </div>
+                  );
+                }
+
                 if (isSimpleField && editorType === "related-features-picker") {
                   const pickerValue = (() => {
                     const dynEntries = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
@@ -4923,15 +4954,19 @@ export function SectionEditorPanel({
                   return (
                     <div key={fieldPath}>
                       <FaqItemsPicker
-                        relatedFeatures={(() => {
+                        permanentFilters={(() => {
                           const dynEntries = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
                           const permFilters = dynEntries?.permanent_filters;
                           if (Array.isArray(permFilters)) {
-                            const rfItem = (permFilters as Array<{ item_property_slug: string; value: unknown }>)
-                              .find(f => f.item_property_slug === "related_features");
-                            return (rfItem?.value as string[]) ?? [];
+                            return permFilters as Array<{ item_property_slug: string; value: string | string[] }>;
                           }
-                          return ((permFilters as Record<string, unknown> | undefined)?.related_features as string[]) ?? (parsedSection?.related_features as string[]) ?? [];
+                          // Legacy fallback: root-level related_features → wrap as single filter
+                          const rfLegacy = ((permFilters as Record<string, unknown> | undefined)?.related_features as string[])
+                            ?? (parsedSection?.related_features as string[])
+                            ?? [];
+                          return rfLegacy.length > 0
+                            ? [{ item_property_slug: "related_features", value: rfLegacy }]
+                            : [];
                         })()}
                         locale={locale || "en"}
                         hardcodedItems={(() => {

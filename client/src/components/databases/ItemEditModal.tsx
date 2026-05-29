@@ -118,7 +118,6 @@ export function ItemEditModal({
   const { toast } = useToast();
   const [saving, setSaving] = useState(false);
   const [tagInput, setTagInput] = useState<Record<string, string>>({});
-  const [expandedTagFields, setExpandedTagFields] = useState<Record<string, boolean>>({});
 
   const isNew = item === null;
 
@@ -269,12 +268,8 @@ export function ItemEditModal({
           if (!tags.includes(trimmed)) setValue(key, [...tags, trimmed]);
           setTagInput((prev) => ({ ...prev, [key]: "" }));
         };
+
         if (mergedOptions.length > 0) {
-          const COLLAPSE_THRESHOLD = 8;
-          const isExpanded = !!expandedTagFields[key];
-          const visibleOptions = isExpanded
-            ? mergedOptions
-            : mergedOptions.slice(0, COLLAPSE_THRESHOLD);
           const optionValues = new Set(mergedOptions.map((o) => o.value));
           const customTags = tags.filter((t) => !optionValues.has(t));
           const toggle = (opt: { value: string; label: string }) => {
@@ -284,92 +279,163 @@ export function ItemEditModal({
               setValue(key, [...tags, opt.value]);
             }
           };
+
+          // ≤ 10 options: badge grid — click to select/deselect
+          if (mergedOptions.length <= 10) {
+            return (
+              <div className="space-y-2" data-testid={`tags-${key}`}>
+                <div className="flex flex-wrap gap-1.5">
+                  {mergedOptions.map((opt) => {
+                    const selected = tags.includes(opt.value);
+                    return (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => toggle(opt)}
+                        data-testid={`button-tag-${key}-${opt.value}`}
+                        className="inline-flex"
+                      >
+                        <Badge
+                          variant={selected ? "default" : "outline"}
+                          className={selected ? "" : "text-muted-foreground"}
+                        >
+                          {selected && <IconCheck className="h-3 w-3 mr-1" />}
+                          {opt.label}
+                        </Badge>
+                      </button>
+                    );
+                  })}
+                </div>
+                {customTags.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5">
+                    {customTags.map((tag, ti) => (
+                      <Badge key={ti} variant="secondary" className="gap-1">
+                        {tag}
+                        <button
+                          type="button"
+                          onClick={() => setValue(key, tags.filter((t) => t !== tag))}
+                          data-testid={`button-remove-custom-tag-${key}-${ti}`}
+                        >
+                          <IconX className="h-3 w-3" />
+                        </button>
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+                {canAddCustom && (
+                  <div className="flex gap-2">
+                    <Input
+                      value={inputVal}
+                      onChange={(e) =>
+                        setTagInput((prev) => ({ ...prev, [key]: e.target.value }))
+                      }
+                      placeholder="Add new value..."
+                      className="h-8 text-sm flex-1"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          addTag();
+                        }
+                      }}
+                      data-testid={`input-tag-${key}`}
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      disabled={!inputVal.trim()}
+                      onClick={addTag}
+                      data-testid={`button-add-tag-${key}`}
+                    >
+                      <IconPlus className="h-3.5 w-3.5" />
+                    </Button>
+                  </div>
+                )}
+              </div>
+            );
+          }
+
+          // > 10 options: searchable combobox
+          const filteredOptions = inputVal
+            ? mergedOptions.filter(
+                (o) =>
+                  o.label.toLowerCase().includes(inputVal.toLowerCase()) ||
+                  o.value.toLowerCase().includes(inputVal.toLowerCase()),
+              )
+            : mergedOptions;
           return (
             <div className="space-y-2" data-testid={`tags-${key}`}>
-              <div className="flex flex-wrap gap-1.5">
-                {visibleOptions.map((opt) => {
-                  const selected = tags.includes(opt.value);
-                  return (
-                    <button
-                      key={opt.value}
-                      type="button"
-                      onClick={() => toggle(opt)}
-                      data-testid={`button-tag-${key}-${opt.value}`}
-                      className="inline-flex"
-                    >
-                      <Badge
-                        variant={selected ? "default" : "outline"}
-                        className={selected ? "" : "text-muted-foreground"}
-                      >
-                        {selected && <IconCheck className="h-3 w-3 mr-1" />}
-                        {opt.label}
+              {tags.length > 0 && (
+                <div className="flex flex-wrap gap-1.5">
+                  {tags.map((tag) => {
+                    const opt = mergedOptions.find((o) => o.value === tag);
+                    return (
+                      <Badge key={tag} variant="secondary" className="gap-1">
+                        {opt?.label ?? tag}
+                        <button
+                          type="button"
+                          onClick={() => setValue(key, tags.filter((t) => t !== tag))}
+                          data-testid={`button-remove-tag-${key}-${tag}`}
+                        >
+                          <IconX className="h-3 w-3" />
+                        </button>
                       </Badge>
-                    </button>
-                  );
-                })}
-                {mergedOptions.length > COLLAPSE_THRESHOLD && (
+                    );
+                  })}
+                </div>
+              )}
+              <Input
+                value={inputVal}
+                onChange={(e) =>
+                  setTagInput((prev) => ({ ...prev, [key]: e.target.value }))
+                }
+                placeholder="Search options..."
+                className="h-8 text-sm"
+                data-testid={`input-tag-search-${key}`}
+              />
+              <div className="border rounded-md max-h-44 overflow-y-auto divide-y">
+                {filteredOptions.length === 0 ? (
+                  <p className="text-xs text-muted-foreground text-center py-3">
+                    No options match
+                  </p>
+                ) : (
+                  filteredOptions.map((opt) => {
+                    const selected = tags.includes(opt.value);
+                    return (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => toggle(opt)}
+                        className={`flex items-center gap-2 w-full px-3 py-2 text-sm text-left hover-elevate ${
+                          selected ? "text-foreground" : "text-muted-foreground"
+                        }`}
+                        data-testid={`button-tag-${key}-${opt.value}`}
+                      >
+                        <span className="flex-1">{opt.label}</span>
+                        {selected && (
+                          <IconCheck className="h-3.5 w-3.5 flex-shrink-0" />
+                        )}
+                      </button>
+                    );
+                  })
+                )}
+                {canAddCustom && inputVal.trim() && !mergedOptions.some((o) => o.value === inputVal.trim()) && (
                   <button
                     type="button"
-                    onClick={() =>
-                      setExpandedTagFields((prev) => ({ ...prev, [key]: !prev[key] }))
-                    }
-                    data-testid={`button-tag-expand-${key}`}
-                    className="inline-flex"
+                    onClick={addTag}
+                    className="flex items-center gap-2 w-full px-3 py-2 text-sm text-muted-foreground hover-elevate"
+                    data-testid={`button-add-custom-tag-${key}`}
                   >
-                    <Badge variant="outline" className="text-muted-foreground">
-                      {isExpanded ? "Show less" : `Show all (${mergedOptions.length})`}
-                    </Badge>
+                    <IconPlus className="h-3.5 w-3.5" />
+                    Add "{inputVal.trim()}"
                   </button>
                 )}
               </div>
-              {customTags.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
-                  {customTags.map((tag, ti) => (
-                    <Badge key={ti} variant="secondary" className="gap-1">
-                      {tag}
-                      <button
-                        type="button"
-                        onClick={() => setValue(key, tags.filter((t) => t !== tag))}
-                        data-testid={`button-remove-custom-tag-${key}-${ti}`}
-                      >
-                        <IconX className="h-3 w-3" />
-                      </button>
-                    </Badge>
-                  ))}
-                </div>
-              )}
-              {canAddCustom && (
-                <div className="flex gap-2">
-                  <Input
-                    value={inputVal}
-                    onChange={(e) =>
-                      setTagInput((prev) => ({ ...prev, [key]: e.target.value }))
-                    }
-                    placeholder="Add new value..."
-                    className="h-8 text-sm flex-1"
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        e.preventDefault();
-                        addTag();
-                      }
-                    }}
-                    data-testid={`input-tag-${key}`}
-                  />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    disabled={!inputVal.trim()}
-                    onClick={addTag}
-                    data-testid={`button-add-tag-${key}`}
-                  >
-                    <IconPlus className="h-3.5 w-3.5" />
-                  </Button>
-                </div>
-              )}
             </div>
           );
         }
+
+        // No options configured: free-form tag input
         return (
           <div className="space-y-2">
             {tags.length > 0 && (

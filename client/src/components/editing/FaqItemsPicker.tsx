@@ -55,7 +55,8 @@ type EditState = {
 } | null;
 
 interface FaqItemsPickerProps {
-  relatedFeatures: string[];
+  /** All permanent_filters from dynamic_entries — applied in the preview to mirror server logic. */
+  permanentFilters: Array<{ item_property_slug: string; value: string | string[] }>;
   locale: string;
   hardcodedItems: Array<{ question: string; answer: string }>;
   ignoredEntries: string[];
@@ -282,7 +283,7 @@ function ItemLocationPicker({
 }
 
 export function FaqItemsPicker({
-  relatedFeatures,
+  permanentFilters,
   locale,
   hardcodedItems,
   ignoredEntries,
@@ -304,7 +305,7 @@ export function FaqItemsPicker({
   const [globalDeleteConfirm, setGlobalDeleteConfirm] = useState<DisplayItem | null>(null);
   const [globalDeleting, setGlobalDeleting] = useState(false);
 
-  const hasCentralized = relatedFeatures.length > 0;
+  const hasCentralized = permanentFilters.length > 0;
   const isEditable = !!(onHardcodedEntriesChange || onIgnoredEntriesChange || onLocalizeDbEntry);
 
   const { data: faqsData, isLoading } = useQuery<{ items: FaqItem[] }>({
@@ -317,16 +318,19 @@ export function FaqItemsPicker({
     const allDbItems = faqsData?.items ?? [];
     const localeItems = allDbItems.filter((f) => f.locale === locale);
 
-    // Match server order: filter by related_features (same logic, no relevance re-scoring),
-    // then preserve YAML order. No limit applied here so preview shows all candidates.
-    let dbItems: FaqItem[] = localeItems;
-    if (hasCentralized && relatedFeatures.length > 0) {
-      dbItems = localeItems.filter((faq) => {
-        const faqFeatures = faq.related_features || [];
-        return relatedFeatures.some((f) => faqFeatures.includes(f));
+    // Start with all locale items if centralized, otherwise empty (mirrors server logic)
+    let dbItems: FaqItem[] = hasCentralized ? localeItems : [];
+
+    // Apply ALL permanent_filters — exact mirror of server dynamic-entries.ts logic
+    for (const pf of permanentFilters) {
+      const filterValues = (Array.isArray(pf.value) ? pf.value : [pf.value]).map(String);
+      dbItems = dbItems.filter((item) => {
+        const itemVal = (item as Record<string, unknown>)[pf.item_property_slug];
+        return filterValues.some((v) => {
+          if (Array.isArray(itemVal)) return itemVal.map(String).includes(v);
+          return String(itemVal ?? "") === v;
+        });
       });
-    } else if (!hasCentralized) {
-      dbItems = [];
     }
 
     const hardcodedKeys = new Set(hardcodedItems.map((i) => faqItemKey(i.question)));
@@ -336,22 +340,27 @@ export function FaqItemsPicker({
       .filter((i) => !hardcodedKeys.has(faqItemKey(i.question)))
       .filter((i) => !ignoredSet.has(faqItemKey(i.question)));
 
-    // Match-count sort (mirrors server dynamic-entries logic):
-    // When multiple relatedFeatures are configured, items matching more features
-    // float to the top. The explicit sortField (if set) is the tiebreaker within
-    // each match-count group; otherwise priority is the default tiebreaker.
-    // Falls back to explicit sortField alone when relatedFeatures has ≤1 value.
-    if (relatedFeatures.length > 1) {
+    // Match-count sort: find the first multi-value filter (mirrors server dynamic-entries logic).
+    // Items matching more of the filter values float to the top; sortField is the tiebreaker.
+    const multiValueFilter = permanentFilters.find(
+      (pf) => Array.isArray(pf.value) && (pf.value as string[]).length > 1,
+    );
+
+    if (multiValueFilter) {
+      const filterValues = (multiValueFilter.value as string[]).map(String);
+      const slug = multiValueFilter.item_property_slug;
       const explicitSortDesc = sortField?.startsWith("-") ?? false;
       const explicitSortField = sortField
         ? (explicitSortDesc ? sortField.slice(1) : sortField)
         : null;
 
       uniqueDbItems = [...uniqueDbItems].sort((a, b) => {
-        const aFeatures = ((a as Record<string, unknown>).related_features as string[]) || [];
-        const bFeatures = ((b as Record<string, unknown>).related_features as string[]) || [];
-        const aCount = relatedFeatures.filter((f) => aFeatures.includes(f)).length;
-        const bCount = relatedFeatures.filter((f) => bFeatures.includes(f)).length;
+        const aVal = (a as Record<string, unknown>)[slug];
+        const bVal = (b as Record<string, unknown>)[slug];
+        const aArr = Array.isArray(aVal) ? aVal.map(String) : [String(aVal ?? "")];
+        const bArr = Array.isArray(bVal) ? bVal.map(String) : [String(bVal ?? "")];
+        const aCount = filterValues.filter((v) => aArr.includes(v)).length;
+        const bCount = filterValues.filter((v) => bArr.includes(v)).length;
         if (bCount !== aCount) return bCount - aCount;
 
         // Tiebreaker: explicit sort field, or priority as default
@@ -398,7 +407,7 @@ export function FaqItemsPicker({
       ...hardcodedItems.map((i) => ({ ...i, _source: "hardcoded" as const })),
       ...uniqueDbItems.map((i) => ({ ...i, _source: "db" as const })),
     ];
-  }, [faqsData, relatedFeatures, hasCentralized, hardcodedItems, ignoredEntries, locale, sortField, limit]);
+  }, [faqsData, permanentFilters, hasCentralized, hardcodedItems, ignoredEntries, locale, sortField, limit]);
 
   // Resolve original question text for ignored entries from DB data
   const ignoredItemsResolved = useMemo(() => {
