@@ -123,12 +123,24 @@ export default defineConfig(async () => ({
     // "does not provide an export named 'x'" SyntaxErrors in production.
     // Rolldown handles dynamic-import-based splitting correctly on its own.
   },
-  // drop: strips console.* and debugger statements from the production bundle.
-  // Must be at the root `esbuild` key — not inside `build` — per Vite 8 types.
-  esbuild: {
-    drop: ['console', 'debugger'],
-    legalComments: 'none',
-  },
+  // NOTE: esbuild.drop was removed (2026-05-29).
+  //
+  // Root-level esbuild.drop:['console','debugger'] was causing two bugs:
+  //
+  //   1. PRODUCTION: When esbuild runs as the per-chunk minifier, `drop` triggers
+  //      extra DCE inside each chunk in isolation. Rolldown's runtime helper chunks
+  //      export single-letter bindings ('t', 'r', …) that are consumed by other
+  //      chunks. esbuild treated them as dead locals and stripped them, producing
+  //      "does not provide an export named 't'" SyntaxErrors at runtime.
+  //
+  //   2. DEV: Vite 8 logs "Both esbuild and oxc options were set. oxc options will
+  //      be used and esbuild options will be ignored." OXC is the active transformer;
+  //      esbuild options were silently ignored, making the setting both noisy and
+  //      ineffective.
+  //
+  // console.* and debugger statements are left in the production bundle. They are
+  // harmless (no sensitive data is logged) and the bundle size impact is negligible
+  // compared to the correctness bugs introduced by forcing esbuild DCE here.
   server: {
     fs: {
       strict: true,
