@@ -21,3 +21,4 @@ schema:
     - organization
     - website
     - courses:ai-engineering
+    - courses:full-stack

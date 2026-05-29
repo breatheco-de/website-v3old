@@ -578,7 +578,9 @@ sections:
             - certification
             - mentors-and-teachers
         - item_property_slug: locations
-          value: all
+          value:
+            - all
+            - bogota-colombia
   - type: cta_banner
     section_id: cta_banner-y7nw0f
     version: "1.0"
