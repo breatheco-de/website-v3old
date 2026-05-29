@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, apiFetch, queryClient } from "@/lib/queryClient";
 import { CONVERSION_NAMES, TRACKING_EVENTS } from "@/lib/tracking";
@@ -413,34 +414,42 @@ function EventsSection() {
 export default function TrackingPage() {
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
-        <div className="flex items-center gap-3">
-          <Link href="/private/diagnostics">
-            <Button variant="ghost" size="icon" data-testid="button-back-tracking">
-              <IconArrowLeft className="h-4 w-4" />
-            </Button>
-          </Link>
-          <div className="flex items-center gap-2">
-            <IconChartBar className="h-6 w-6 text-muted-foreground" />
-            <div>
-              <h1 className="text-xl font-semibold" data-testid="text-tracking-title">Tracking</h1>
-              <p className="text-sm text-muted-foreground">Analytics &amp; event configuration</p>
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <Tabs defaultValue="events">
+          <div className="flex items-center gap-3 mb-8">
+            <Link href="/private/diagnostics">
+              <Button variant="ghost" size="icon" data-testid="button-back-tracking">
+                <IconArrowLeft className="h-4 w-4" />
+              </Button>
+            </Link>
+            <div className="flex items-center gap-2 flex-1">
+              <IconChartBar className="h-6 w-6 text-muted-foreground" />
+              <div>
+                <h1 className="text-xl font-semibold" data-testid="text-tracking-title">Tracking</h1>
+                <p className="text-sm text-muted-foreground">Analytics &amp; event configuration</p>
+              </div>
             </div>
+            <TabsList data-testid="tabs-tracking">
+              <TabsTrigger value="events" data-testid="tab-tracked-events">
+                Tracked Events
+              </TabsTrigger>
+              <TabsTrigger value="gtm" data-testid="tab-tag-manager">
+                Tag Manager
+              </TabsTrigger>
+            </TabsList>
           </div>
-        </div>
 
-        <div className="space-y-2">
-          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Google Tag Manager</h2>
-          <GTMSection />
-        </div>
+          <TabsContent value="events" className="space-y-2">
+            <p className="text-sm text-muted-foreground mb-4">
+              All events currently fired into <code className="font-mono text-xs">window.dataLayer</code>. Auto-generated from the source constants in <code className="font-mono text-xs">@/lib/tracking</code>.
+            </p>
+            <EventsSection />
+          </TabsContent>
 
-        <div className="space-y-2">
-          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Tracked Events</h2>
-          <p className="text-sm text-muted-foreground">
-            All events currently fired into <code className="font-mono text-xs">window.dataLayer</code>. This list is auto-generated from the source constants in <code className="font-mono text-xs">@/lib/tracking</code>.
-          </p>
-          <EventsSection />
-        </div>
+          <TabsContent value="gtm">
+            <GTMSection />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
