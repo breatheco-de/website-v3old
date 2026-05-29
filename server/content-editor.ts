@@ -608,7 +608,7 @@ function writeTopLevelFieldsToPerEntryFile(opts: {
 }): { success: boolean; error?: string } {
   const { contentType, slug, locale, operations, author } = opts;
   try {
-    const perEntryDir = contentIndex.getContentFolderPath(contentType, slug);
+    const perEntryDir = path.join(process.cwd(), "marketing-content", getFolder(contentType), slug);
     const perEntryPath = path.join(perEntryDir, `${locale}.yml`);
 
     if (!fs.existsSync(perEntryDir)) {
