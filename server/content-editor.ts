@@ -198,6 +198,15 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
     // We must NOT write variable-field changes back to that shared file — instead
     // we patch only the specific entry in the database file cache.
     if (isSharedTemplate) {
+      // Top-level field ops (e.g. "meta", "schema") must NEVER touch the shared
+      // template — they belong in the per-entry locale file for this slug.
+      // Create it if it doesn't exist yet.
+      const allTopLevelFields = operations.length > 0 && operations.every(
+        op => op.action === "update_field" && !op.path.startsWith("sections.")
+      );
+      if (allTopLevelFields) {
+        return writeTopLevelFieldsToPerEntryFile({ contentType, slug, locale, operations, author: request.author });
+      }
       return handleSharedTemplateEdit({ contentType, slug, locale, operations, localeData, filePath, author: request.author });
     }
 
@@ -585,6 +594,52 @@ function writeStructuralChangesToTemplate(opts: {
 }
 
 /**
+ * Writes top-level field ops (e.g. `meta`) to a DB-backed entry's per-entry locale
+ * file (`{slug}/en.yml`), creating it and its parent directory if absent.
+ * Called when `editContent` detects all ops are top-level update_field while the
+ * loaded file is the shared template — those fields must never touch the template.
+ */
+function writeTopLevelFieldsToPerEntryFile(opts: {
+  contentType: string;
+  slug: string;
+  locale: string;
+  operations: EditOperation[];
+  author?: string;
+}): { success: boolean; error?: string } {
+  const { contentType, slug, locale, operations, author } = opts;
+  try {
+    const perEntryDir = contentIndex.getContentFolderPath(contentType, slug);
+    const perEntryPath = path.join(perEntryDir, `${locale}.yml`);
+
+    if (!fs.existsSync(perEntryDir)) {
+      fs.mkdirSync(perEntryDir, { recursive: true });
+    }
+
+    let entryData: Record<string, unknown> = {};
+    if (fs.existsSync(perEntryPath)) {
+      const raw = fs.readFileSync(perEntryPath, "utf-8");
+      entryData = (yaml.load(raw) as Record<string, unknown>) || {};
+    }
+
+    for (const op of operations) {
+      if (op.value === null || op.value === undefined) {
+        delete entryData[op.path as string];
+      } else {
+        setValueAtPath(entryData, op.path as string, op.value);
+      }
+    }
+
+    const dumped = safeYamlDump(entryData, { lineWidth: -1, noRefs: true });
+    fs.writeFileSync(perEntryPath, dumped, "utf-8");
+    markFileAsModified(perEntryPath, author);
+    return { success: true };
+  } catch (err) {
+    console.error("[writeTopLevelFieldsToPerEntryFile] Error:", err);
+    return { success: false, error: err instanceof Error ? err.message : "Unknown error" };
+  }
+}
+
+/**
  * Handles section/field saves for DB-backed single-page templates (e.g. blog posts,
  * programs). Instead of writing to the shared `single.en.yml` template, we identify
  * which changed fields are template variable expressions (`{{ single.X | ... }}`),
@@ -777,7 +832,8 @@ export function editCommonContent(request: CommonEditRequest): { success: boolea
   try {
     const commonPath = contentIndex.getCommonFilePath(contentType, slug);
     if (!fs.existsSync(commonPath)) {
-      return { success: false, error: `_common.yml not found for ${contentType}/${slug}` };
+      fs.mkdirSync(path.dirname(commonPath), { recursive: true });
+      fs.writeFileSync(commonPath, "{}\n", "utf-8");
     }
 
     const raw = fs.readFileSync(commonPath, "utf-8");
