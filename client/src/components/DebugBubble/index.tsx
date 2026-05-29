@@ -954,25 +954,11 @@ export function DebugBubble() {
       if (token) headers["X-Debug-Token"] = token;
       const author = await resolveAuthorName();
 
-      // Save meta to {locale}.yml — meta is locale-specific (title, description, canonical, redirects)
-      const metaRes = await fetch("/api/content/edit", {
-        method: "POST",
-        headers,
-        body: JSON.stringify({
-          contentType: apiContentType,
-          slug: contentInfo.slug,
-          locale,
-          author: author || undefined,
-          operations: [{ action: "update_field", path: "meta", value: existingMeta }],
-        }),
-      });
+      const operations: Array<{ action: string; path: string; value: unknown }> = [
+        { action: "update_field", path: "meta", value: existingMeta },
+        { action: "update_field", path: "schema", value: Object.keys(schemaValue).length > 0 ? schemaValue : null },
+      ];
 
-      if (!metaRes.ok) {
-        const errData = await metaRes.json().catch(() => ({}));
-        throw new Error(errData.error || "Failed to save meta");
-      }
-
-      // Save schema to _common.yml — schema (include/overrides) is not locale-specific
       const res = await fetch("/api/content/edit-common", {
         method: "POST",
         headers,
@@ -980,13 +966,13 @@ export function DebugBubble() {
           contentType: apiContentType,
           slug: contentInfo.slug,
           author: author || undefined,
-          operations: [{ action: "update_field", path: "schema", value: Object.keys(schemaValue).length > 0 ? schemaValue : null }],
+          operations,
         }),
       });
-
+      
       if (!res.ok) {
         const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.error || "Failed to save schema");
+        throw new Error(errData.error || "Failed to save");
       }
 
       if (contentInfo.type === "landing" && seoAvailableLocations.length > 0) {
