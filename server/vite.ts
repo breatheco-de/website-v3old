@@ -22,8 +22,10 @@
 // Dev-console deprecation warnings observed during audit: NONE from Vite.
 // (PostCSS "from" warning originates from a PostCSS plugin, not Vite.)
 import express, { type Express } from "express";
+import expressStaticGzip from "express-static-gzip";
 import fs from "fs";
 import path from "path";
+import { PassThrough } from "node:stream";
 import { createServer as createViteServer, createLogger } from "vite";
 import { type Server } from "http";
 import viteConfig from "../vite.config";
@@ -213,22 +215,87 @@ export async function setupVite(app: Express, server: Server) {
   });
 }
 
-let ssrRenderFn: ((url: string, payload: unknown) => Promise<string>) | null = null;
+type SsrRenderFn = (url: string, payload: unknown) => Promise<string>;
+type SsrStreamFn = (
+  url: string,
+  payload: unknown,
+  dest: import("node:stream").Writable,
+  onShellReadyCb?: () => void,
+) => Promise<void>;
+
+interface SsrModule {
+  render: SsrRenderFn | null;
+  renderToStream: SsrStreamFn | null;
+}
+
+let ssrModule: SsrModule | null = null;
 let ssrModuleLoaded = false;
 
-async function getSsrRender() {
-  if (ssrModuleLoaded) return ssrRenderFn;
+async function getSsrModule(): Promise<SsrModule> {
+  if (ssrModuleLoaded) return ssrModule!;
   ssrModuleLoaded = true;
+  ssrModule = { render: null, renderToStream: null };
   try {
     const ssrBundlePath = path.resolve(import.meta.dirname, "server", "entry-server.js");
     if (fs.existsSync(ssrBundlePath)) {
       const mod = await import(ssrBundlePath);
-      ssrRenderFn = mod.render;
+      ssrModule.render = mod.render ?? null;
+      ssrModule.renderToStream = mod.renderToStream ?? null;
     }
   } catch (e) {
     console.warn("[SSR] Could not load SSR bundle:", (e as Error).stack ?? e);
   }
-  return ssrRenderFn;
+  return ssrModule;
+}
+
+/**
+ * Build the head and tail HTML fragments around the React root element,
+ * applying all HTML transforms (preload hints, meta tags, schema JSON-LD,
+ * initial data payload, non-blocking CSS) so they can be sent to the client
+ * before and after the streamed React body respectively.
+ */
+function buildHtmlFragments(
+  rawIndexHtml: string,
+  initialDataPayload: unknown,
+  ssrSchemaHtml: string | undefined,
+  url: string,
+): { headHtml: string; tailHtml: string } {
+  let html = rawIndexHtml;
+
+  const preloadUrls = resolvePreloadHints(initialDataPayload);
+  const preloadTags = buildPreloadTags(preloadUrls);
+  html = injectPreloadTags(html, preloadTags);
+  html = injectSsrMetaTags(html, initialDataPayload);
+
+  if (ssrSchemaHtml && html.includes("</head>")) {
+    html = html.replace("</head>", `${ssrSchemaHtml}\n</head>`);
+  }
+
+  html = applyNonBlockingCss(html);
+
+  // Split at the root element so we can stream React between them.
+  // Replace <div id="root"></div> → <div id="root"> (open) + </div> (in tail).
+  const ROOT_PLACEHOLDER = '<div id="root"></div>';
+  const splitIdx = html.indexOf(ROOT_PLACEHOLDER);
+
+  let beforeRoot: string;
+  let afterRoot: string;
+  if (splitIdx !== -1) {
+    beforeRoot = html.slice(0, splitIdx) + '<div id="root">';
+    afterRoot = "</div>" + html.slice(splitIdx + ROOT_PLACEHOLDER.length);
+  } else {
+    // Fallback: no root placeholder found — write full HTML in head, empty tail.
+    beforeRoot = html;
+    afterRoot = "";
+  }
+
+  // Inject __INITIAL_DATA__ script just before </body> (in the tail fragment).
+  if (initialDataPayload) {
+    const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(initialDataPayload).replace(/</g, "\\u003c")}</script>`;
+    afterRoot = afterRoot.replace("</body>", scriptTag + "</body>");
+  }
+
+  return { headHtml: beforeRoot, tailHtml: afterRoot };
 }
 
 export function serveStatic(app: Express) {
@@ -240,7 +307,20 @@ export function serveStatic(app: Express) {
     );
   }
 
-  app.use(express.static(distPath, { index: false }));
+  // expressStaticGzip checks for .br / .gz sidecar files (emitted by
+  // vite-plugin-compression2 at build time) and sets the correct
+  // Content-Encoding header automatically, keeping Cache-Control: immutable.
+  app.use(
+    expressStaticGzip(distPath, {
+      enableBrotli: true,
+      orderPreference: ["br", "gz"],
+      serveStatic: {
+        index: false,
+        maxAge: "1y",
+        immutable: true,
+      },
+    }),
+  );
 
   const indexHtmlPath = path.resolve(distPath, "index.html");
 
@@ -253,56 +333,71 @@ export function serveStatic(app: Express) {
     const skipSsr = cleanUrlForSsr.startsWith("/private/");
 
     try {
-      const render = !skipSsr ? await getSsrRender() : null;
-      if (render) {
+      const { renderToStream, render } = await getSsrModule();
+
+      if ((renderToStream || render) && !skipSsr) {
         const indexHtml = await fs.promises.readFile(indexHtmlPath, "utf-8");
         const initialDataPayload = await resolveInitialData(url).catch(() => null);
-        const appHtml = await render(url, initialDataPayload);
 
-        let html = indexHtml.replace(
-          '<div id="root"></div>',
-          `<div id="root">${appHtml}</div>`,
+        const { headHtml, tailHtml } = buildHtmlFragments(
+          indexHtml,
+          initialDataPayload,
+          ssrSchemaHtml,
+          url,
         );
 
-        const preloadUrls = resolvePreloadHints(initialDataPayload);
-        const preloadTags = buildPreloadTags(preloadUrls);
-        html = injectPreloadTags(html, preloadTags);
-        html = injectSsrMetaTags(html, initialDataPayload);
+        // Prefer true streaming via renderToStream (lower TTFB).
+        // CRITICAL: headHtml is written only from inside onShellReadyCb,
+        // which fires synchronously within onShellReady — before any bytes
+        // are piped. If onShellError fires instead, the promise rejects
+        // without any bytes written, allowing the outer catch to send a
+        // complete buffered fallback.
+        if (renderToStream) {
+          const passthrough = new PassThrough();
+          passthrough.on("data", (chunk: Buffer | string) => res.write(chunk));
+          passthrough.on("end", () => {
+            res.write(tailHtml);
+            res.end();
+          });
+          passthrough.on("error", (err) => {
+            console.warn("[SSR] Stream pipe error:", err);
+            if (!res.writableEnded) res.end();
+          });
 
-        if (ssrSchemaHtml && html.includes("</head>")) {
-          html = html.replace("</head>", `${ssrSchemaHtml}\n</head>`);
+          // Abort streaming if the client disconnects before the shell is ready.
+          const onClientClose = () => {
+            if (!res.writableEnded) passthrough.destroy();
+          };
+          _req.on("close", onClientClose);
+
+          await renderToStream(url, initialDataPayload, passthrough, () => {
+            // onShellReady fires — safe to commit headers and flush head.
+            _req.off("close", onClientClose);
+            res.status(status).setHeader("Content-Type", "text/html");
+            res.write(headHtml);
+          });
+          return;
         }
 
-        if (initialDataPayload) {
-          const scriptTag = `<script id="__INITIAL_DATA__" type="application/json">${JSON.stringify(initialDataPayload).replace(/</g, "\\u003c")}</script>`;
-          html = html.replace("</body>", scriptTag + "</body>");
+        // Fallback to buffered render (older bundle without renderToStream).
+        if (render) {
+          const appHtml = await render(url, initialDataPayload);
+          const fullHtml = headHtml + appHtml + tailHtml;
+          res.status(status).set({ "Content-Type": "text/html" }).send(fullHtml);
+          return;
         }
-
-        html = applyNonBlockingCss(html);
-
-        res.status(status).set({ "Content-Type": "text/html" }).send(html);
-        return;
       }
     } catch (e) {
       console.warn("[SSR] Production render failed, falling back:", (e as Error).stack ?? e);
     }
 
-    if (ssrSchemaHtml) {
-      try {
-        let html = await fs.promises.readFile(indexHtmlPath, "utf-8");
-        if (html.includes("</head>")) {
-          html = html.replace("</head>", `${ssrSchemaHtml}\n</head>`);
-        }
-        html = applyNonBlockingCss(html);
-        res.status(status).set({ "Content-Type": "text/html" }).send(html);
-        return;
-      } catch {
-        // fall through to sendFile
-      }
-    }
-
+    // Client-only fallback (no SSR bundle, or SSR threw).
     try {
       let html = await fs.promises.readFile(indexHtmlPath, "utf-8");
+
+      if (ssrSchemaHtml && html.includes("</head>")) {
+        html = html.replace("</head>", `${ssrSchemaHtml}\n</head>`);
+      }
       html = applyNonBlockingCss(html);
       res.status(status).set({ "Content-Type": "text/html" }).send(html);
     } catch {

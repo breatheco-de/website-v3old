@@ -38,6 +38,7 @@ import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+import { compression } from "vite-plugin-compression2";
 
 // Vite 6+ removed isSsrBuild from the defineConfig callback.
 // Detect SSR build by checking the CLI arguments instead.
@@ -69,6 +70,24 @@ export default defineConfig(async () => ({
       },
     }),
     runtimeErrorOverlay(),
+    // Emit pre-compressed .br (Brotli) and .gz (gzip) sidecars for all JS/CSS/font
+    // assets during `vite build` (client pass only). The server reads these sidecar
+    // files via express-static-gzip and sets the correct Content-Encoding header,
+    // so compression happens once at build time with no per-request CPU overhead.
+    ...(!isSsrBuild
+      ? [
+          compression({
+            algorithm: "brotliCompress",
+            exclude: [/\.(br|gz|png|jpg|jpeg|webp|avif|gif|svg|ico)$/],
+            threshold: 1024,
+          }),
+          compression({
+            algorithm: "gzip",
+            exclude: [/\.(br|gz|png|jpg|jpeg|webp|avif|gif|svg|ico)$/],
+            threshold: 1024,
+          }),
+        ]
+      : []),
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [

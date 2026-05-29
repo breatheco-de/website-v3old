@@ -3,7 +3,7 @@ import { registerRoutes, startBackgroundSync } from "./routes/index";
 import { setupVite, serveStatic, log } from "./vite";
 import { fallbackRedirectMiddleware } from "./redirects";
 import { initialDataMiddleware } from "./initial-data-middleware";
-import compression from "compression";
+import { compressionMiddleware } from "./utils/compression";
 import cookieParser from "cookie-parser";
 import path from "path";
 import { setAutoCommitCallback } from "./sync-state";
@@ -56,15 +56,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use('/attached_assets', express.static(path.join(process.cwd(), 'attached_assets')));
 app.use('/marketing-content/images', express.static(path.join(process.cwd(), 'marketing-content', 'images')));
 
-app.use(compression({
-  filter: (req, res) => {
-    if (req.headers['x-no-compression']) {
-      return false;
-    }
-    return compression.filter(req, res);
-  },
-  level: 6,
-}));
+app.use(compressionMiddleware);
 
 app.use((req, res, next) => {
   const ext = req.path.split('.').pop();
