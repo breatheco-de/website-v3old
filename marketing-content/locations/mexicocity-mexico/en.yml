@@ -314,9 +314,16 @@ sections:
   - type: faq
     section_id: faq-nh2kll
     title: Frequently Asked Questions
-    related_features:
-      - certification
-      - job-guarantee
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - certification
+            - job-guarantee
+        - item_property_slug: locations
+          value: mexicocity-mexico
     marginY:
       desktop: lg none
     background: hsl(var(--muted))

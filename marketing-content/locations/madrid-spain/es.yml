@@ -338,10 +338,17 @@ sections:
   - type: faq
     section_id: faq-9w7vzc
     title: Preguntas frecuentes
-    related_features:
-      - certification
-      - content-and-syllabus
-      - scholarships
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - certification
+            - content-and-syllabus
+            - scholarships
+        - item_property_slug: locations
+          value: madrid-spain
     marginY:
       desktop: lg none
     paddingY:

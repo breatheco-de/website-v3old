@@ -617,8 +617,15 @@ sections:
   - type: faq
     section_id: faq-am87zr
     title: Frequently Asked Questions
-    related_features:
-      - cybersecurity
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - cybersecurity
+        - item_property_slug: locations
+          value: all
     paddingY:
       desktop: md
     background: hsl(var(--muted))

@@ -2,7 +2,7 @@ sections:
   - type: faq
     version: v1.0
     title: Frequently Asked Questions
-    items:
+    hardcoded_entries:
       - question: Do I need prior coding experience?
         answer: No prior experience is required. Our program is designed to take you from complete beginner to job-ready developer. We start with the fundamentals and progressively build your skills.
       - question: How long does the program take to complete?
