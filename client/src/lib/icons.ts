@@ -40,6 +40,8 @@ export const CUSTOM_ICON_NAMES = [
   "PeopleGroup",
   "Rocket",
   "Security",
+  "Slack",
+  "BrandSlack",
   "StairsWithFlag",
   "Target",
 ];

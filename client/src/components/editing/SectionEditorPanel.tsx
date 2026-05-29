@@ -44,7 +44,9 @@ import { IconPickerModal } from "./IconPickerModal";
 import { RelatedFeaturesPicker } from "./RelatedFeaturesPicker";
 import { TestimonialItemsPreview } from "./TestimonialItemsPreview";
 import { TableContentEditor } from "./TableContentEditor";
-import { FaqItemsVisibility } from "./FaqItemsVisibility";
+import { FaqItemsPicker } from "./FaqItemsPicker";
+import { DbFieldValuesPicker } from "./DbFieldValuesPicker";
+import { SearchableMultiSelect } from "@/components/ui/searchable-multi-select";
 import { RichTextArea } from "./RichTextArea";
 import { MarkdownEditorField } from "./MarkdownEditorField";
 import { SectionBindingDialog } from "./SectionBindingDialog";
@@ -233,187 +235,42 @@ function ShowOnLocationsPicker({
   value,
   onChange,
 }: ShowOnLocationsPickerProps) {
-  const [open, setOpen] = useState(false);
-  const [search, setSearch] = useState("");
-
-  const hasLocations = value.length > 0;
-
-  const grouped = (() => {
-    const groups: Record<string, Location[]> = {};
-    const searchLower = search.toLowerCase();
-    for (const loc of allLocations) {
-      if (loc.visibility !== "listed") continue;
-      if (
-        searchLower &&
-        !loc.name.toLowerCase().includes(searchLower) &&
-        !loc.country.toLowerCase().includes(searchLower) &&
-        !loc.slug.toLowerCase().includes(searchLower)
-      )
-        continue;
-      const region = loc.region;
-      if (!groups[region]) groups[region] = [];
-      groups[region].push(loc);
-    }
-    return groups;
-  })();
-
-  const regionLabels: Record<string, string> = {
-    "usa-canada": "USA & Canada",
-    latam: "Latin America",
-    europe: "Europe",
-    online: "Online",
-  };
-
-  const toggleLocation = (slug: string) => {
-    if (value.includes(slug)) {
-      onChange(value.filter((s) => s !== slug));
-    } else {
-      onChange([...value, slug]);
-    }
-  };
-
-  const removeLocation = (slug: string) => {
-    onChange(value.filter((s) => s !== slug));
-  };
+  const options = allLocations
+    .filter((loc) => loc.visibility === "listed")
+    .map((loc) => ({
+      value: loc.slug,
+      label: `${loc.name}, ${loc.country}`,
+      group: loc.region,
+      prefix: (
+        <span className="text-base leading-none">
+          {countryCodeToFlag(loc.country_code)}
+        </span>
+      ),
+      badgeLabel: loc.name,
+      searchTerms: [loc.slug, loc.country],
+    }));
 
   return (
-    <div className="space-y-2">
-      <div className="flex items-center justify-between gap-3">
-        <Label className="text-sm font-medium whitespace-nowrap flex items-center gap-1.5">
+    <SearchableMultiSelect
+      options={options}
+      value={value}
+      onChange={onChange}
+      label={
+        <>
           <MapPin className="h-3.5 w-3.5" />
           Show on locations
-        </Label>
-        <div className="flex items-center gap-1.5">
-          {hasLocations && (
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-destructive"
-              data-testid="button-clear-locations-inline"
-              onClick={() => onChange([])}
-            >
-              Clear
-            </Button>
-          )}
-          <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              size="sm"
-              data-testid="button-edit-locations"
-            >
-              {hasLocations ? (
-                <Pencil className="h-3.5 w-3.5" />
-              ) : (
-                <>
-                  <Plus className="h-3.5 w-3.5 mr-1" />
-                  <span>Add filter</span>
-                </>
-              )}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-72 p-0 z-[10000]" align="end">
-            <div className="p-2 border-b">
-              <div className="relative">
-                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="Search locations..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="w-full pl-8 pr-3 py-1.5 text-sm rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
-                  data-testid="input-location-filter-search"
-                  autoFocus
-                />
-              </div>
-            </div>
-            <ScrollArea className="h-[240px]">
-              <div className="p-1">
-                {Object.entries(grouped).map(([region, locs]) => (
-                  <div key={region} className="mb-1">
-                    <div className="px-2 py-1 text-xs font-semibold text-muted-foreground">
-                      {regionLabels[region] || region}
-                    </div>
-                    {locs.map((loc) => {
-                      const isSelected = value.includes(loc.slug);
-                      return (
-                        <button
-                          key={loc.slug}
-                          type="button"
-                          onClick={() => toggleLocation(loc.slug)}
-                          className={`flex items-center gap-2 w-full px-2 py-1.5 text-sm rounded-md transition-colors ${
-                            isSelected
-                              ? "bg-primary/10 text-foreground"
-                              : "text-muted-foreground hover:bg-muted"
-                          }`}
-                          data-testid={`button-location-toggle-${loc.slug}`}
-                        >
-                          <span className="text-base leading-none">
-                            {countryCodeToFlag(loc.country_code)}
-                          </span>
-                          <span className="flex-1 text-left truncate">
-                            {loc.name}, {loc.country}
-                          </span>
-                          {isSelected && (
-                            <Check className="h-3.5 w-3.5 text-primary flex-shrink-0" />
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                ))}
-                {Object.keys(grouped).length === 0 && (
-                  <div className="text-center py-4 text-sm text-muted-foreground">
-                    No locations found
-                  </div>
-                )}
-              </div>
-            </ScrollArea>
-            {hasLocations && (
-              <div className="p-2 border-t">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="w-full text-destructive"
-                  onClick={() => {
-                    onChange([]);
-                    setOpen(false);
-                  }}
-                  data-testid="button-clear-location-filters"
-                >
-                  Clear all filters
-                </Button>
-              </div>
-            )}
-          </PopoverContent>
-        </Popover>
-      </div>
-    </div>
-      {hasLocations && (
-        <div className="flex flex-wrap gap-1.5">
-          {value.map((slug) => {
-            const loc = getLocationBySlug(slug);
-            if (!loc) return null;
-            return (
-              <Badge key={slug} variant="secondary" className="gap-1 pr-1">
-                <span className="text-xs leading-none">
-                  {countryCodeToFlag(loc.country_code)}
-                </span>
-                <span>{loc.name}</span>
-                <button
-                  type="button"
-                  onClick={() => removeLocation(slug)}
-                  className="ml-0.5 rounded-full p-0.5 hover:bg-muted"
-                  data-testid={`button-remove-location-${slug}`}
-                >
-                  <X className="h-3 w-3" />
-                </button>
-              </Badge>
-            );
-          })}
-        </div>
-      )}
-    </div>
+        </>
+      }
+      searchPlaceholder="Search locations..."
+      groupLabels={{
+        "usa-canada": "USA & Canada",
+        latam: "Latin America",
+        europe: "Europe",
+        online: "Online",
+      }}
+      testIdPrefix="location"
+      emptyMessage="No locations found"
+    />
   );
 }
 
@@ -1362,7 +1219,115 @@ export function SectionEditorPanel({
 
         let updated: Record<string, unknown>;
 
-        if (value && value.length > 0) {
+        const pathParts = key.split(".");
+
+        if (pathParts.length > 1) {
+          // Nested path (e.g. "dynamic_entries.permanent_filters.related_features")
+          updated = parsed;
+
+          // Special case: permanent_filters is a [{item_property_slug, value}] array.
+          // When the path is "*.permanent_filters.<fieldName>", write into the array item
+          // instead of creating a nested object key.
+          const pfIndex = pathParts.indexOf("permanent_filters");
+          if (pfIndex !== -1 && pfIndex === pathParts.length - 2) {
+            // Navigate to the parent of permanent_filters
+            let parent: Record<string, unknown> = updated;
+            for (let i = 0; i < pfIndex; i++) {
+              const part = pathParts[i];
+              if (!parent[part] || typeof parent[part] !== "object") {
+                parent[part] = {};
+              }
+              parent = parent[part] as Record<string, unknown>;
+            }
+            const fieldName = pathParts[pathParts.length - 1];
+            const existingPf = parent["permanent_filters"];
+            if (Array.isArray(existingPf)) {
+              // Array format — find or create the item for this fieldName
+              const arr = existingPf as Array<{ item_property_slug: string; value: unknown }>;
+              const idx = arr.findIndex(f => f.item_property_slug === fieldName);
+              if (value && value.length > 0) {
+                if (idx >= 0) {
+                  arr[idx] = { ...arr[idx], value };
+                } else {
+                  arr.push({ item_property_slug: fieldName, value });
+                }
+              } else {
+                if (idx >= 0) arr.splice(idx, 1);
+                if (arr.length === 0) delete parent["permanent_filters"];
+              }
+            } else if (Array.isArray(existingPf)) {
+              // Already handled above (this branch is unreachable, kept for safety)
+            } else {
+              // permanent_filters is absent or object format — always create/update as array
+              if (value && value.length > 0) {
+                if (Array.isArray(existingPf)) {
+                  // Array already exists (handled above), this is a safety fallback
+                  const arr = existingPf as Array<{ item_property_slug: string; value: unknown }>;
+                  const idx = arr.findIndex(f => f.item_property_slug === fieldName);
+                  if (idx >= 0) {
+                    arr[idx] = { ...arr[idx], value };
+                  } else {
+                    arr.push({ item_property_slug: fieldName, value });
+                  }
+                } else {
+                  // Create fresh array format (correct canonical format).
+                  // Also initialize dynamic_entries defaults and migrate root items → hardcoded_entries.
+                  if (!parent["database"]) parent["database"] = "frequently_asked_questions";
+                  if (!parent["limit"]) parent["limit"] = 9;
+                  if (Array.isArray(updated.items) && (updated.items as unknown[]).length > 0 && !updated.hardcoded_entries) {
+                    updated.hardcoded_entries = updated.items;
+                    delete updated.items;
+                  }
+                  parent["permanent_filters"] = [{ item_property_slug: fieldName, value }];
+                }
+              } else {
+                // Clearing: if object format existed, clean it up too
+                if (existingPf && !Array.isArray(existingPf) && typeof existingPf === "object") {
+                  delete (parent["permanent_filters"] as Record<string, unknown>)[fieldName];
+                  if (Object.keys(parent["permanent_filters"] as Record<string, unknown>).length === 0) {
+                    delete parent["permanent_filters"];
+                  }
+                }
+              }
+            }
+          } else {
+            // Generic nested object path
+            if (value && value.length > 0) {
+              let current: Record<string, unknown> = updated;
+              for (let i = 0; i < pathParts.length - 1; i++) {
+                const part = pathParts[i];
+                if (!current[part] || typeof current[part] !== "object") {
+                  current[part] = {};
+                }
+                current = current[part] as Record<string, unknown>;
+              }
+              current[pathParts[pathParts.length - 1]] = value;
+            } else {
+              // Delete and clean up empty parent objects
+              let current: Record<string, unknown> = updated;
+              for (let i = 0; i < pathParts.length - 1; i++) {
+                const part = pathParts[i];
+                if (!current[part] || typeof current[part] !== "object") return;
+                current = current[part] as Record<string, unknown>;
+              }
+              delete current[pathParts[pathParts.length - 1]];
+              // Clean up empty parents bottom-up
+              for (let i = pathParts.length - 2; i >= 0; i--) {
+                const parentPath = pathParts.slice(0, i);
+                let parent: Record<string, unknown> = updated;
+                for (const p of parentPath) {
+                  parent = parent[p] as Record<string, unknown>;
+                }
+                const child = parent[pathParts[i]];
+                if (child && typeof child === "object" && Object.keys(child as Record<string, unknown>).length === 0) {
+                  delete parent[pathParts[i]];
+                } else {
+                  break;
+                }
+              }
+            }
+          }
+        } else if (value && value.length > 0) {
           if (key === "related_features") {
             updated = buildOrderedResult(parsed, key, value);
           } else {
@@ -2221,47 +2186,6 @@ export function SectionEditorPanel({
                   { id: "form", label: "Form" },
                 ]}
               />
-            )}
-            {/* FAQ related features picker */}
-            {sectionType === "faq" && (
-              <>
-                <RelatedFeaturesPicker
-                  value={(parsedSection?.related_features as string[]) || []}
-                  onChange={(value) =>
-                    updateArrayProperty("related_features", value)
-                  }
-                  locale={locale}
-                />
-                <FaqItemsVisibility
-                  relatedFeatures={(parsedSection?.related_features as string[]) || []}
-                  locale={locale || "en"}
-                  inlineItems={
-                    (parsedSection?.items as Array<{ question: string; answer: string }>) || undefined
-                  }
-                  itemOverrides={
-                    (parsedSection?.item_overrides as Record<string, { hideOnLocations?: string[] }>) || {}
-                  }
-                  onChange={(overrides) => {
-                    try {
-                      const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
-                      if (!parsed || typeof parsed !== "object") return;
-                      pushUndoState(yamlContent);
-                      if (Object.keys(overrides).length === 0) {
-                        delete parsed.item_overrides;
-                      } else {
-                        parsed.item_overrides = overrides;
-                      }
-                      const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
-                      setYamlContent(newYaml);
-                      setHasChanges(true);
-                      setParseError(null);
-                      if (onPreviewChange) onPreviewChange(parsed as Section);
-                    } catch (err) {
-                      console.error("Error updating item_overrides:", err);
-                    }
-                  }}
-                />
-              </>
             )}
             {/* Testimonials (grid, carousel, slide) related features picker */}
             {["testimonials_grid", "testimonials", "testimonials_slide"].includes(sectionType) && (
@@ -4145,8 +4069,11 @@ export function SectionEditorPanel({
                   return null;
                 }
 
-                // For dotted simple fields like "cta_button.url", skip if the parent object doesn't exist in the YAML
-                if (isSimpleField && fieldPath.includes(".")) {
+                // For dotted simple fields like "cta_button.url", skip if the parent object doesn't exist in the YAML.
+                // Exception: self-initializing editors (e.g. related-features-picker) always show — they create the structure on save.
+                const selfInitializingEditors = new Set(["related-features-picker", "faq-visibility-editor"]);
+                const isSelfInitializing = selfInitializingEditors.has(editorType) || editorType.startsWith("db-field-values-picker");
+                if (isSimpleField && fieldPath.includes(".") && !isSelfInitializing) {
                   const parentParts = fieldPath.split(".");
                   let parentExists: unknown = parsedSection;
                   for (let i = 0; i < parentParts.length - 1; i++) {
@@ -4771,6 +4698,201 @@ export function SectionEditorPanel({
                           ))}
                         </SelectContent>
                       </Select>
+                    </div>
+                  );
+                }
+
+                if (isSimpleField && editorType === "db-field-values-picker") {
+                  const parts = editorTypeRaw.split(":");
+                  const database = parts[1] ?? "";
+                  const dbField = parts[2] ?? "";
+                  const currentValue = (() => {
+                    const dynEntries = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
+                    const permFilters = dynEntries?.permanent_filters;
+                    if (Array.isArray(permFilters)) {
+                      const item = (permFilters as Array<{ item_property_slug: string; value: unknown }>)
+                        .find(f => f.item_property_slug === dbField);
+                      if (item) {
+                        const v = item.value;
+                        return Array.isArray(v) ? (v as string[]) : [String(v)];
+                      }
+                    }
+                    return [];
+                  })();
+                  return (
+                    <div key={fieldPath}>
+                      <DbFieldValuesPicker
+                        database={database}
+                        field={dbField}
+                        value={currentValue}
+                        onChange={(value) => updateArrayProperty(fieldPath, value)}
+                      />
+                    </div>
+                  );
+                }
+
+                if (isSimpleField && editorType === "related-features-picker") {
+                  const pickerValue = (() => {
+                    const dynEntries = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
+                    const permFilters = dynEntries?.permanent_filters;
+                    if (Array.isArray(permFilters)) {
+                      const rfItem = (permFilters as Array<{ item_property_slug: string; value: unknown }>)
+                        .find(f => f.item_property_slug === "related_features");
+                      return (rfItem?.value as string[]) ?? [];
+                    }
+                    return ((permFilters as Record<string, unknown> | undefined)?.related_features as string[]) ?? (parsedSection?.related_features as string[]) ?? [];
+                  })();
+                  return (
+                    <div key={fieldPath}>
+                      <RelatedFeaturesPicker
+                        value={pickerValue}
+                        onChange={(value) => updateArrayProperty(fieldPath, value)}
+                        locale={locale}
+                      />
+                    </div>
+                  );
+                }
+
+                if (isSimpleField && editorType === "faq-visibility-editor") {
+                  return (
+                    <div key={fieldPath}>
+                      <FaqItemsPicker
+                        permanentFilters={(() => {
+                          const dynEntries = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
+                          const permFilters = dynEntries?.permanent_filters;
+                          if (Array.isArray(permFilters)) {
+                            return permFilters as Array<{ item_property_slug: string; value: string | string[] }>;
+                          }
+                          // Legacy fallback: root-level related_features → wrap as single filter
+                          const rfLegacy = ((permFilters as Record<string, unknown> | undefined)?.related_features as string[])
+                            ?? (parsedSection?.related_features as string[])
+                            ?? [];
+                          return rfLegacy.length > 0
+                            ? [{ item_property_slug: "related_features", value: rfLegacy }]
+                            : [];
+                        })()}
+                        locale={locale || "en"}
+                        hardcodedItems={(() => {
+                          const hardcoded = (parsedSection as Record<string, unknown>)?.hardcoded_entries as Array<{ question: string; answer: string }> | undefined;
+                          const rootItems = parsedSection?.items as Array<{ question: string; answer: string }> | undefined;
+                          return [...(hardcoded || []), ...(rootItems || [])];
+                        })()}
+                        ignoredEntries={(() => {
+                          const de = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
+                          return (de?.ignored_entries as string[]) || [];
+                        })()}
+                        itemOverrides={
+                          (parsedSection?.item_overrides as Record<string, { hideOnLocations?: string[] }>) || {}
+                        }
+                        onChange={(overrides) => {
+                          try {
+                            const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                            if (!parsed || typeof parsed !== "object") return;
+                            pushUndoState(yamlContent);
+                            if (Array.isArray(parsed.items) && (parsed.items as unknown[]).length > 0 && !parsed.dynamic_entries && !parsed.hardcoded_entries) {
+                              parsed.hardcoded_entries = parsed.items;
+                              delete parsed.items;
+                            }
+                            if (Object.keys(overrides).length === 0) {
+                              delete parsed.item_overrides;
+                            } else {
+                              parsed.item_overrides = overrides;
+                            }
+                            const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                            setYamlContent(newYaml);
+                            setHasChanges(true);
+                            setParseError(null);
+                            if (onPreviewChange) onPreviewChange(parsed as Section);
+                          } catch (err) {
+                            console.error("Error updating item_overrides:", err);
+                          }
+                        }}
+                        onHardcodedEntriesChange={(entries) => {
+                          try {
+                            const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                            if (!parsed || typeof parsed !== "object") return;
+                            pushUndoState(yamlContent);
+                            if (Array.isArray(parsed.items) && (parsed.items as unknown[]).length > 0 && !parsed.dynamic_entries && !parsed.hardcoded_entries) {
+                              parsed.hardcoded_entries = parsed.items;
+                              delete parsed.items;
+                            }
+                            if (entries.length === 0) {
+                              delete parsed.hardcoded_entries;
+                            } else {
+                              parsed.hardcoded_entries = entries;
+                            }
+                            const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                            setYamlContent(newYaml);
+                            setHasChanges(true);
+                            setParseError(null);
+                            if (onPreviewChange) onPreviewChange(parsed as Section);
+                          } catch (err) {
+                            console.error("Error updating hardcoded_entries:", err);
+                          }
+                        }}
+                        onIgnoredEntriesChange={(keys) => {
+                          try {
+                            const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                            if (!parsed || typeof parsed !== "object") return;
+                            pushUndoState(yamlContent);
+                            if (!parsed.dynamic_entries || typeof parsed.dynamic_entries !== "object") {
+                              parsed.dynamic_entries = {};
+                            }
+                            const de = parsed.dynamic_entries as Record<string, unknown>;
+                            if (keys.length === 0) {
+                              delete de.ignored_entries;
+                            } else {
+                              de.ignored_entries = keys;
+                            }
+                            const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                            setYamlContent(newYaml);
+                            setHasChanges(true);
+                            setParseError(null);
+                            if (onPreviewChange) onPreviewChange(parsed as Section);
+                          } catch (err) {
+                            console.error("Error updating ignored_entries:", err);
+                          }
+                        }}
+                        sortField={(() => {
+                          const de = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
+                          return typeof de?.sort === "string" ? de.sort : undefined;
+                        })()}
+                        limit={(() => {
+                          const de = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
+                          return typeof de?.limit === "number" && de.limit > 0 ? de.limit : undefined;
+                        })()}
+                        onLocalizeDbEntry={(entry, ignoredKey) => {
+                          try {
+                            const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                            if (!parsed || typeof parsed !== "object") return;
+                            pushUndoState(yamlContent);
+                            // Migrate root items → hardcoded_entries if needed
+                            if (Array.isArray(parsed.items) && (parsed.items as unknown[]).length > 0 && !parsed.dynamic_entries && !parsed.hardcoded_entries) {
+                              parsed.hardcoded_entries = parsed.items;
+                              delete parsed.items;
+                            }
+                            // Add the new hardcoded entry
+                            const existing = (parsed.hardcoded_entries as Array<{ question: string; answer: string }>) || [];
+                            parsed.hardcoded_entries = [...existing, entry];
+                            // Add the ignored key — both in the same parse+serialize cycle
+                            if (!parsed.dynamic_entries || typeof parsed.dynamic_entries !== "object") {
+                              parsed.dynamic_entries = {};
+                            }
+                            const de = parsed.dynamic_entries as Record<string, unknown>;
+                            const existingIgnored = (de.ignored_entries as string[]) || [];
+                            if (!existingIgnored.includes(ignoredKey)) {
+                              de.ignored_entries = [...existingIgnored, ignoredKey];
+                            }
+                            const newYaml = safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' });
+                            setYamlContent(newYaml);
+                            setHasChanges(true);
+                            setParseError(null);
+                            if (onPreviewChange) onPreviewChange(parsed as Section);
+                          } catch (err) {
+                            console.error("Error localizing DB entry:", err);
+                          }
+                        }}
+                      />
                     </div>
                   );
                 }

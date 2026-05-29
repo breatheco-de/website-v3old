@@ -235,10 +235,17 @@ sections:
     section_id: whos_hiring-2xpv9w
   - type: faq
     title: Preguntas frecuentes
-    related_features:
-      - online-platform
-      - certification
-      - career-support
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - online-platform
+            - certification
+            - career-support
+        - item_property_slug: locations
+          value: all
     item_overrides:
       consigo-trabajo-despus-de-completar-el-programa:
         hideOnLocations:

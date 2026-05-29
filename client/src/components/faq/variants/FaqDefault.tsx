@@ -8,125 +8,83 @@ import {
 import { Button } from "@/components/ui/button";
 import type { FAQSection as FAQSectionType } from "@shared/schema";
 import { useLocation as useWouterLocation } from "wouter";
-import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
 import { useInternalNav } from "@/hooks/useInternalNav";
-import { filterFaqsByRelatedFeatures, faqItemKey, type FaqItem } from "@/lib/faqConstants";
+import { faqItemKey } from "@/lib/faqConstants";
 import { useSession } from "@/contexts/SessionContext";
-import { useSectionContext } from "@/contexts/SectionContext";
 
 interface FAQSectionProps {
   data: FAQSectionType;
 }
 
 export function FAQSection({ data }: FAQSectionProps) {
-  const { slug, contentType } = useSectionContext();
-  const programSlug = contentType === "program" ? slug : undefined;
   const handleLinkClick = useInternalNav();
   const [pathname] = useWouterLocation();
-  const { i18n } = useTranslation();
-  const locale = i18n.language?.startsWith("es") ? "es" : "en";
   const { session } = useSession();
   const sessionLocationSlug = session.location?.slug;
-  
-  // Detect if we're on a location page and extract location slug
+
   const locationSlugMatch = pathname.match(/^\/(en|es)\/(location|ubicacion)\/([^/]+)/);
   const locationSlug = locationSlugMatch ? locationSlugMatch[3] : undefined;
-  
-  const hasInlineItems = data.items && data.items.length > 0;
-  const hasRelatedFeatures = data.related_features && data.related_features.length > 0;
-  
+
   const itemOverrides = (data as Record<string, unknown>).item_overrides as
     | Record<string, { hideOnLocations?: string[] }>
     | undefined;
-  
-  const { data: faqsData, isLoading } = useQuery<{ faqs: FaqItem[] }>({
-    queryKey: ["/api/faqs", locale],
-    enabled: hasRelatedFeatures || !!locationSlug,
-    staleTime: 5 * 60 * 1000,
-  });
-  
+
   const faqItems = (() => {
-    let items: Array<{ question: string; answer: string }> = [];
-    
-    if (faqsData?.faqs && (hasRelatedFeatures || locationSlug)) {
-      items = filterFaqsByRelatedFeatures(faqsData.faqs, {
-        relatedFeatures: locationSlug ? undefined : (hasRelatedFeatures ? data.related_features! : undefined),
-        location: locationSlug,
-        limit: 9,
-        programSlug,
-      });
-    } else if (hasInlineItems) {
-      items = data.items!;
-    }
-    
+    const hardcodedEntries = (data as Record<string, unknown>).hardcoded_entries as
+      | Array<{ question: string; answer: string }>
+      | undefined;
+    let items: Array<{ question: string; answer: string }> = [
+      ...(data.items?.length ? data.items : (hardcodedEntries ?? [])),
+    ];
+
     if (itemOverrides && Object.keys(itemOverrides).length > 0) {
       const effectiveLocation = locationSlug || sessionLocationSlug;
       if (effectiveLocation) {
         items = items.filter((item) => {
           const key = faqItemKey(item.question);
           const override = itemOverrides[key];
-          if (override?.hideOnLocations?.includes(effectiveLocation)) {
-            return false;
-          }
-          return true;
+          return !override?.hideOnLocations?.includes(effectiveLocation);
         });
       }
     }
-    
+
     return items;
   })();
-  
-  if (isLoading && (hasRelatedFeatures || locationSlug)) {
-    return (
-      <section data-testid="section-faq">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="animate-pulse">
-            <div className="h-10 w-64 bg-muted rounded mx-auto mb-8" />
-            <div className="space-y-4">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="h-16 bg-muted rounded" />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
-  
+
+
   if (faqItems.length === 0) {
     return null;
   }
-  
+
   return (
-    <section 
+    <section
       data-testid="section-faq"
       className="max-w-6xl mx-auto px-4"
     >
       <div className="max-w-6xl mx-auto px-4">
-        <h2 
+        <h2
           className="mb-8 text-center text-foreground text-[36px]"
           data-testid="text-faq-title"
         >
           {data.title}
         </h2>
-        
+
         <div className="bg-background rounded-card border overflow-hidden">
           <Accordion type="single" collapsible>
             {faqItems.map((item, index) => (
-              <AccordionItem 
-                key={index} 
+              <AccordionItem
+                key={index}
                 value={`item-${index}`}
                 className="border-0 border-b last:border-b-0 px-6"
                 data-testid={`accordion-faq-${index}`}
               >
-                <AccordionTrigger 
+                <AccordionTrigger
                   className="text-left font-medium text-foreground hover:no-underline py-4 text-base"
                   data-testid={`button-faq-${index}`}
                 >
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent 
+                <AccordionContent
                   className="text-muted-foreground pb-4 leading-relaxed whitespace-pre-line"
                   data-testid={`text-faq-answer-${index}`}
                 >
@@ -138,7 +96,7 @@ export function FAQSection({ data }: FAQSectionProps) {
         </div>
 
         {data.cta && (data.cta.text || data.cta.button) && (
-          <div 
+          <div
             className="mt-12 text-center p-8 rounded-lg bg-muted/30 border"
             data-testid="faq-cta"
           >
@@ -165,3 +123,4 @@ export function FAQSection({ data }: FAQSectionProps) {
 }
 
 export default FAQSection;
+git 

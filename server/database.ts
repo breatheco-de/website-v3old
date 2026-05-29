@@ -44,7 +44,8 @@ export interface DatabaseConfig {
     ttl_hours?: number;
   };
   field_mapping?: Record<string, string>;
-  editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean; cache_images?: boolean }>;
+  filter_by_locale?: boolean;
+  editor?: Record<string, { type?: string; options?: (string | { value: string; label: string })[]; populate_options?: boolean; allow_custom_values?: boolean; cache_images?: boolean; description?: string }>;
   vector_search?: VectorSearchConfig;
   search_fields?: string[];
 }

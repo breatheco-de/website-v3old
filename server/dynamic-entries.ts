@@ -102,6 +102,15 @@ interface DynamicEntriesConfig {
   sort?: string;
   permanent_filters?: PermanentFilter[];
   user_filters?: UserFilter[];
+  ignored_entries?: string[];
+}
+
+function faqItemKey(question: string): string {
+  return question
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, "")
+    .replace(/\s+/g, "-")
+    .slice(0, 80);
 }
 
 export async function resolveDynamicEntries(
@@ -135,6 +144,15 @@ export async function resolveDynamicEntries(
       } else if (dynamicEntries.database) {
         const rawItems = await databaseManager.fetchItems(dynamicEntries.database);
         items = rawItems.items as Record<string, unknown>[];
+        try {
+          const dbConfig = databaseManager.get(dynamicEntries.database);
+          if (dbConfig.filter_by_locale !== false && dbConfig.field_mapping?.locale) {
+            const localeField = dbConfig.field_mapping.locale;
+            items = items.filter(item => String(item[localeField] ?? "") === locale);
+          }
+        } catch {
+          // DB not registered or no config — skip locale filter
+        }
       } else {
         items = [];
       }
@@ -170,12 +188,66 @@ export async function resolveDynamicEntries(
         }
       }
 
-      if (dynamicEntries.sort) {
+      if (dynamicEntries.ignored_entries && Array.isArray(dynamicEntries.ignored_entries) && dynamicEntries.ignored_entries.length > 0) {
+        const ignoredSet = new Set(dynamicEntries.ignored_entries.map((k: string) => k.toLowerCase().trim()));
+        items = items.filter(item => {
+          const q = String((item as Record<string, unknown>).question ?? "");
+          return !ignoredSet.has(faqItemKey(q));
+        });
+      }
+
+      // Match-count sort: when a permanent_filter has multiple values, items that
+      // match more of those values float to the top. If an explicit sort is also
+      // configured it becomes the tiebreaker within each match-count group.
+      // If no multi-value filter exists, fall back to the explicit sort alone.
+      const multiValueFilter = permanentFilters && Array.isArray(permanentFilters)
+        ? permanentFilters.find(
+            (pf: PermanentFilter) => Array.isArray(pf.value) && (pf.value as unknown[]).length > 1
+          )
+        : null;
+
+      if (multiValueFilter) {
+        const filterValues = (multiValueFilter.value as unknown[]).map(String);
+        const slug = multiValueFilter.item_property_slug;
+        const explicitSortDesc = dynamicEntries.sort?.startsWith("-") ?? false;
+        const explicitSortField = dynamicEntries.sort
+          ? (explicitSortDesc ? dynamicEntries.sort.slice(1) : dynamicEntries.sort)
+          : null;
+
+        items = [...items].sort((a, b) => {
+          const aVal = a[slug];
+          const bVal = b[slug];
+          const aArr = Array.isArray(aVal) ? aVal.map(String) : [String(aVal ?? "")];
+          const bArr = Array.isArray(bVal) ? bVal.map(String) : [String(bVal ?? "")];
+          const aCount = filterValues.filter(v => aArr.includes(v)).length;
+          const bCount = filterValues.filter(v => bArr.includes(v)).length;
+          if (bCount !== aCount) return bCount - aCount;
+
+          // Tiebreaker: explicit sort field, or priority as default
+          const tieField = explicitSortField ?? "priority";
+          const aT = a[tieField];
+          const bT = b[tieField];
+          if (aT == null && bT == null) return 0;
+          if (aT == null) return 1;
+          if (bT == null) return -1;
+          let cmp = 0;
+          if (typeof aT === "number" && typeof bT === "number") {
+            cmp = aT - bT;
+          } else {
+            cmp = String(aT).localeCompare(String(bT));
+          }
+          return explicitSortField && explicitSortDesc ? -cmp : cmp;
+        });
+      } else if (dynamicEntries.sort) {
         items = sortItems(items, dynamicEntries.sort);
       }
 
+      const hardcodedEntries = (dynamicEntries?.hardcoded_entries || sec.hardcoded_entries) as unknown[] | undefined;
+      const hardcodedCount = Array.isArray(hardcodedEntries) ? hardcodedEntries.length : 0;
+
       if (dynamicEntries.limit && dynamicEntries.limit > 0) {
-        items = items.slice(0, dynamicEntries.limit);
+        const remainingSlots = Math.max(0, dynamicEntries.limit - hardcodedCount);
+        items = items.slice(0, remainingSlots);
       }
 
       let resolvedItems: unknown[];
@@ -198,7 +270,6 @@ export async function resolveDynamicEntries(
         });
       }
 
-      const hardcodedEntries = (dynamicEntries?.hardcoded_entries || sec.hardcoded_entries) as unknown[] | undefined;
       const finalItems = [
         ...(Array.isArray(hardcodedEntries) ? hardcodedEntries : []),
         ...resolvedItems,

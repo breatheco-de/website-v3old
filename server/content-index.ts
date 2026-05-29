@@ -1157,21 +1157,36 @@ class ContentIndex {
     variant?: string,
     version?: number
   ): string {
+    // For DB-backed types, getContentFolderPath falls back to the type root when
+    // the per-entry directory doesn't exist yet. That makes perSlugPath resolve to
+    // `{typeRoot}/{locale}.yml` (e.g. `blog/en.yml`) — a path that must never be
+    // treated as a valid per-entry file. Derive the slug dir directly instead.
+    if (this.isDatabaseBacked(contentType)) {
+      const typeRoot = path.join(MARKETING_CONTENT_PATH, this.getFolderName(contentType));
+      const resolved = this.resolveBaseSlug(slug, contentType);
+      const slugDir = path.join(typeRoot, resolved);
+
+      if (variant && variant !== "default") {
+        return path.join(slugDir, `${variant}.${locale}.yml`);
+      }
+
+      const perSlugPath = path.join(slugDir, `${locale}.yml`);
+      if (fs.existsSync(perSlugPath)) return perSlugPath;
+
+      const singlePath = path.join(typeRoot, `single.${locale}.yml`);
+      if (fs.existsSync(singlePath)) return singlePath;
+
+      return perSlugPath;
+    }
+
     const folder = this.getContentFolderPath(contentType, slug);
 
     if (variant && variant !== "default") {
       return path.join(folder, `${variant}.${locale}.yml`);
     }
 
-
     const perSlugPath = path.join(folder, `${locale}.yml`);
     if (fs.existsSync(perSlugPath)) return perSlugPath;
-
-    if (this.isDatabaseBacked(contentType)) {
-      const typeRoot = path.join(MARKETING_CONTENT_PATH, this.getFolderName(contentType));
-      const singlePath = path.join(typeRoot, `single.${locale}.yml`);
-      if (fs.existsSync(singlePath)) return singlePath;
-    }
 
     return perSlugPath;
   }

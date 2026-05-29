@@ -88,8 +88,15 @@ sections:
   - type: faq
     section_id: faq-ierxt4
     title: Preguntas frecuentes
-    related_features:
-      - rigobot
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - rigobot
+        - item_property_slug: locations
+          value: all
     marginY:
       desktop: none md
   - type: cta_banner

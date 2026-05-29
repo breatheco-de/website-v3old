@@ -52,8 +52,8 @@ export function RelatedFeaturesPicker({ value, onChange, locale = "en", context 
   const isTestimonials = context === "testimonials";
   const maxSelection = context === "faq" ? MAX_FAQ_SECTION_TOPICS : MAX_RELATED_FEATURES;
 
-  const { data: faqsData } = useQuery<{ faqs: FaqItem[] }>({
-    queryKey: ["/api/faqs", locale],
+  const { data: faqsData } = useQuery<{ items: FaqItem[] }>({
+    queryKey: ["/api/databases/frequently_asked_questions/items"],
     staleTime: 5 * 60 * 1000,
     enabled: !isTestimonials,
   });

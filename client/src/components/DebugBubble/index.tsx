@@ -948,25 +948,42 @@ export function DebugBubble() {
       if (token) headers["X-Debug-Token"] = token;
       const author = await resolveAuthorName();
 
-      const operations: Array<{ action: string; path: string; value: unknown }> = [
-        { action: "update_field", path: "meta", value: existingMeta },
-        { action: "update_field", path: "schema", value: Object.keys(schemaValue).length > 0 ? schemaValue : null },
-      ];
+      // meta fields (page_title, description, og_image, etc.) are locale-specific
+      // → write to the locale file (en.yml / es.yml) via edit-sections
+      const metaRes = await fetch("/api/content/edit-sections", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          contentType: apiContentType,
+          slug: contentInfo.slug,
+          locale,
+          author: author || undefined,
+          operations: [
+            { action: "update_field", path: "meta", value: Object.keys(existingMeta).length > 0 ? existingMeta : null },
+          ],
+        }),
+      });
+      if (!metaRes.ok) {
+        const errData = await metaRes.json().catch(() => ({}));
+        throw new Error(errData.error || "Failed to save meta");
+      }
 
-      const res = await fetch("/api/content/edit-common", {
+      // schema (schema.org include/overrides) is locale-agnostic → _common.yml
+      const schemaRes = await fetch("/api/content/edit-common", {
         method: "POST",
         headers,
         body: JSON.stringify({
           contentType: apiContentType,
           slug: contentInfo.slug,
           author: author || undefined,
-          operations,
+          operations: [
+            { action: "update_field", path: "schema", value: Object.keys(schemaValue).length > 0 ? schemaValue : null },
+          ],
         }),
       });
-      
-      if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.error || "Failed to save");
+      if (!schemaRes.ok) {
+        const errData = await schemaRes.json().catch(() => ({}));
+        throw new Error(errData.error || "Failed to save schema");
       }
 
       if (contentInfo.type === "landing" && seoAvailableLocations.length > 0) {

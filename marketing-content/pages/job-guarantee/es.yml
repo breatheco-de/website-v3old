@@ -309,8 +309,15 @@ sections:
     section_id: faq-5lon20
     version: "1.0"
     title: Preguntas frecuentes sobre la Garantía de Empleo
-    related_features:
-      - job-guarantee
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - job-guarantee
+        - item_property_slug: locations
+          value: all
     paddingY:
       desktop: none
     marginY:

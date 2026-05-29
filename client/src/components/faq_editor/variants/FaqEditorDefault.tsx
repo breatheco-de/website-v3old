@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { ChevronDown, ChevronUp, Filter, Pencil, Plus, Save, Search, Trash2, X } from "lucide-react";
+import { useState } from "react";
+import { Filter, Pencil, Plus, Save, Search, Trash2, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -72,9 +72,10 @@ const AVAILABLE_LOCATIONS = [
 
 const MAX_FEATURES = 2;
 
-type RelatedFeature = typeof AVAILABLE_FEATURES[number];
+const DB_NAME = "frequently_asked_questions";
 
 interface FaqItem {
+  locale?: string;
   question: string;
   answer: string;
   locations?: string[];
@@ -104,11 +105,13 @@ export function FaqEditor({ data }: FaqEditorProps) {
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const { data: faqsData, isLoading, error } = useQuery<{ faqs: FaqItem[] }>({
-    queryKey: ["/api/faqs", locale],
+  const QUERY_KEY = [`/api/databases/${DB_NAME}/items`];
+
+  const { data: faqsData, isLoading, error } = useQuery<{ items: FaqItem[] }>({
+    queryKey: QUERY_KEY,
     queryFn: async () => {
       const token = getDebugToken();
-      const res = await fetch(`/api/faqs/${locale}`, {
+      const res = await fetch(`/api/databases/${DB_NAME}/items`, {
         headers: token ? { "X-Debug-Token": token } : {},
       });
       if (!res.ok) throw new Error("Failed to load FAQs");
@@ -116,33 +119,84 @@ export function FaqEditor({ data }: FaqEditorProps) {
     },
   });
 
-  const saveMutation = useMutation({
-    mutationFn: async (faqs: FaqItem[]) => {
+  const allFaqs = faqsData?.items ?? [];
+  const faqs = allFaqs.filter(f => f.locale === locale);
+
+  const addMutation = useMutation({
+    mutationFn: async (faq: FaqItem) => {
       const token = getDebugToken();
-      const res = await fetch(`/api/faqs/${locale}`, {
+      const res = await fetch(`/api/databases/${DB_NAME}/items`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           ...(token ? { "X-Debug-Token": token } : {}),
         },
-        body: JSON.stringify({ faqs }),
+        body: JSON.stringify({ item: { ...faq, locale } }),
       });
       if (!res.ok) {
         const err = await res.json();
-        throw new Error(err.error || "Failed to save FAQs");
+        throw new Error(err.error || "Failed to add FAQ");
       }
       return res.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/faqs", locale] });
-      toast({ title: "FAQs saved", description: "Changes have been saved to the YAML file." });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+      toast({ title: "FAQ added", description: "New FAQ has been saved." });
     },
     onError: (err: Error) => {
       toast({ title: "Error", description: err.message, variant: "destructive" });
     },
   });
 
-  const faqs = faqsData?.faqs ?? [];
+  const editMutation = useMutation({
+    mutationFn: async ({ index, faq }: { index: number; faq: FaqItem }) => {
+      const token = getDebugToken();
+      const res = await fetch(`/api/databases/${DB_NAME}/items/${index}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { "X-Debug-Token": token } : {}),
+        },
+        body: JSON.stringify(faq),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to update FAQ");
+      }
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+      toast({ title: "FAQ updated", description: "Changes have been saved." });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Error", description: err.message, variant: "destructive" });
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: async (index: number) => {
+      const token = getDebugToken();
+      const res = await fetch(`/api/databases/${DB_NAME}/items/${index}`, {
+        method: "DELETE",
+        headers: token ? { "X-Debug-Token": token } : {},
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to delete FAQ");
+      }
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+      toast({ title: "FAQ deleted" });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Error", description: err.message, variant: "destructive" });
+    },
+  });
+
+  const isMutating = addMutation.isPending || editMutation.isPending || deleteMutation.isPending;
 
   const filteredFaqs = faqs.filter((faq) => {
     const matchesSearch =
@@ -170,45 +224,36 @@ export function FaqEditor({ data }: FaqEditorProps) {
     setIsDialogOpen(true);
   };
 
-  const handleEditFaq = (faq: FaqItem, index: number) => {
+  const handleEditFaq = (faq: FaqItem) => {
+    const globalIndex = allFaqs.indexOf(faq);
     setEditingFaq({ ...faq });
-    setEditingIndex(index);
+    setEditingIndex(globalIndex);
     setIsDialogOpen(true);
   };
 
-  const handleDeleteFaq = (index: number) => {
-    const newFaqs = [...faqs];
-    newFaqs.splice(index, 1);
-    saveMutation.mutate(newFaqs);
+  const handleDeleteFaq = (faq: FaqItem) => {
+    const globalIndex = allFaqs.indexOf(faq);
+    if (globalIndex === -1) return;
+    deleteMutation.mutate(globalIndex);
   };
 
   const handleSaveFaq = () => {
     if (!editingFaq) return;
 
-    const newFaqs = [...faqs];
     const updatedFaq = {
       ...editingFaq,
       last_updated: new Date().toISOString().split("T")[0],
     };
 
     if (editingIndex !== null) {
-      newFaqs[editingIndex] = updatedFaq;
+      editMutation.mutate({ index: editingIndex, faq: updatedFaq });
     } else {
-      newFaqs.push(updatedFaq);
+      addMutation.mutate(updatedFaq);
     }
 
-    saveMutation.mutate(newFaqs);
     setIsDialogOpen(false);
     setEditingFaq(null);
     setEditingIndex(null);
-  };
-
-  const handleMoveFaq = (index: number, direction: "up" | "down") => {
-    const newFaqs = [...faqs];
-    const targetIndex = direction === "up" ? index - 1 : index + 1;
-    if (targetIndex < 0 || targetIndex >= newFaqs.length) return;
-    [newFaqs[index], newFaqs[targetIndex]] = [newFaqs[targetIndex], newFaqs[index]];
-    saveMutation.mutate(newFaqs);
   };
 
   const toggleFeature = (feature: string) => {
@@ -273,9 +318,9 @@ export function FaqEditor({ data }: FaqEditorProps) {
                 </h3>
                 <Accordion type="single" collapsible className="bg-card rounded-lg border">
                   {faqList.map((faq, index) => (
-                    <AccordionItem 
-                      key={`${feature}-${index}`} 
-                      value={`${feature}-item-${index}`} 
+                    <AccordionItem
+                      key={`${feature}-${index}`}
+                      value={`${feature}-item-${index}`}
                       className="border-0 border-b last:border-b-0 px-6"
                     >
                       <AccordionTrigger className="text-left font-medium hover:no-underline py-4">
@@ -366,10 +411,10 @@ export function FaqEditor({ data }: FaqEditorProps) {
           </div>
 
           <div className="space-y-3">
-            {filteredFaqs.map((faq, index) => {
-              const originalIndex = faqs.indexOf(faq);
+            {filteredFaqs.map((faq) => {
+              const globalIndex = allFaqs.indexOf(faq);
               return (
-                <Card key={originalIndex} className="p-4" data-testid={`card-faq-${originalIndex}`}>
+                <Card key={globalIndex} className="p-4" data-testid={`card-faq-${globalIndex}`}>
                   <div className="flex items-start gap-4">
                     <div className="flex-1 min-w-0">
                       <h3 className="font-medium text-foreground mb-1 truncate">{faq.question}</h3>
@@ -391,16 +436,17 @@ export function FaqEditor({ data }: FaqEditorProps) {
                       <Button
                         size="icon"
                         variant="ghost"
-                        onClick={() => handleEditFaq(faq, originalIndex)}
-                        data-testid={`button-edit-faq-${originalIndex}`}
+                        onClick={() => handleEditFaq(faq)}
+                        data-testid={`button-edit-faq-${globalIndex}`}
                       >
                         <Pencil className="w-4 h-4" />
                       </Button>
                       <Button
                         size="icon"
                         variant="ghost"
-                        onClick={() => handleDeleteFaq(originalIndex)}
-                        data-testid={`button-delete-faq-${originalIndex}`}
+                        onClick={() => handleDeleteFaq(faq)}
+                        disabled={isMutating}
+                        data-testid={`button-delete-faq-${globalIndex}`}
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
@@ -496,7 +542,7 @@ export function FaqEditor({ data }: FaqEditorProps) {
                 </label>
                 <div className="flex flex-wrap gap-2 max-h-48 overflow-y-auto p-1">
                   {AVAILABLE_LOCATIONS.map((location) => {
-                    const isSelected = editingFaq.locations?.includes(location) || 
+                    const isSelected = editingFaq.locations?.includes(location) ||
                       (location === "all" && (!editingFaq.locations || editingFaq.locations.length === 0));
                     return (
                       <Badge
@@ -522,11 +568,11 @@ export function FaqEditor({ data }: FaqEditorProps) {
             </Button>
             <Button
               onClick={handleSaveFaq}
-              disabled={!editingFaq?.question || !editingFaq?.answer || saveMutation.isPending}
+              disabled={!editingFaq?.question || !editingFaq?.answer || isMutating}
               data-testid="button-save-faq"
             >
               <Save className="w-4 h-4 mr-2" />
-              {saveMutation.isPending ? "Saving..." : "Save FAQ"}
+              {isMutating ? "Saving..." : "Save FAQ"}
             </Button>
           </DialogFooter>
         </DialogContent>

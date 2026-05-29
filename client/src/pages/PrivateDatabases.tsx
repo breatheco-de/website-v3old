@@ -28,6 +28,7 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { ItemEditModal } from "@/components/databases/ItemEditModal";
 import JsonViewer from "@/components/editing/JsonViewer";
 import { WebhookUrlPopover } from "@/components/WebhookUrlPopover";
 
@@ -66,7 +67,8 @@ interface DatabaseDetail {
     };
     cache?: { ttl_hours?: number };
     field_mapping?: Record<string, string>;
-    editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean; cache_images?: boolean }>;
+    filter_by_locale?: boolean;
+    editor?: Record<string, { type?: string; options?: (string | { value: string; label: string })[]; populate_options?: boolean; allow_custom_values?: boolean; cache_images?: boolean; description?: string }>;
     vector_search?: { enabled: boolean; fields: string[] };
   };
   cache_status?: {
@@ -1201,6 +1203,7 @@ function DatabaseConfigEditor({
   const [tokenEnvVar, setTokenEnvVar] = useState(config.source.api?.auth?.token_env_var || "");
   const [authPrefix, setAuthPrefix] = useState(config.source.api?.auth?.prefix || "Bearer");
   const [ttlHours, setTtlHours] = useState(String(config.cache?.ttl_hours ?? 24));
+  const [filterByLocale, setFilterByLocale] = useState(config.filter_by_locale !== false);
   const [params, setParams] = useState<KeyValuePair[]>(() => {
     const p = config.source.api?.params;
     if (!p || Object.keys(p).length === 0) return [];
@@ -1434,6 +1437,7 @@ function DatabaseConfigEditor({
         source: buildSourceConfig(),
         cache: { ttl_hours: ttlHours !== "" && Number.isFinite(Number(ttlHours)) ? Number(ttlHours) : 24 },
         field_mapping: config.field_mapping || undefined,
+        ...(filterByLocale ? {} : { filter_by_locale: false }),
       };
 
       const res = await fetch(`/api/databases/${dbName}/config`, {
@@ -1565,6 +1569,24 @@ function DatabaseConfigEditor({
               )
             )}
           </div>
+        </div>
+      </div>
+      <div className="flex items-start gap-3 pt-1">
+        <input
+          id="edit-filter-by-locale"
+          type="checkbox"
+          checked={filterByLocale}
+          onChange={(e) => setFilterByLocale(e.target.checked)}
+          className="mt-0.5 h-4 w-4 rounded border-input accent-primary"
+          data-testid="checkbox-filter-by-locale"
+        />
+        <div className="space-y-0.5">
+          <Label htmlFor="edit-filter-by-locale" className="cursor-pointer">
+            Filter by locale
+          </Label>
+          <p className="text-xs text-muted-foreground">
+            When used as a section data source (<code>dynamic_entries</code>), only entries matching the current page&apos;s locale will be shown. Requires a <code>locale</code> field defined in the field mapping.
+          </p>
         </div>
       </div>
 
@@ -1950,7 +1972,7 @@ function FieldMappingEditor({
   const [sampleData, setSampleData] = useState<{ items: Record<string, unknown>[]; count: number } | null>(null);
   const [sampleLoading, setSampleLoading] = useState(false);
 
-  const [editorHints, setEditorHints] = useState<Record<string, { type?: string; options?: string[]; cache_images?: boolean }>>(() =>
+  const [editorHints, setEditorHints] = useState<Record<string, { type?: string; options?: (string | { value: string; label: string })[]; populate_options?: boolean; allow_custom_values?: boolean; cache_images?: boolean; description?: string }>>(() =>
     config.editor ? { ...config.editor } : {}
   );
   useEffect(() => {
@@ -1972,24 +1994,34 @@ function FieldMappingEditor({
 
   const [hintDialogField, setHintDialogField] = useState<string | null>(null);
   const [hintDialogType, setHintDialogType] = useState<string>("text");
-  const [hintDialogOptions, setHintDialogOptions] = useState<string[]>([]);
+  const [hintDialogOptions, setHintDialogOptions] = useState<{ value: string; label: string }[]>([]);
   const [hintDialogNewOption, setHintDialogNewOption] = useState<string>("");
   const [hintDialogPopulateOptions, setHintDialogPopulateOptions] = useState<boolean>(false);
+  const [hintDialogAllowCustom, setHintDialogAllowCustom] = useState<boolean>(false);
+  const [hintDialogDescription, setHintDialogDescription] = useState<string>("");
 
   const openHintDialog = (field: string) => {
     const hint = editorHints[field] || {};
     setHintDialogField(field);
     setHintDialogType(hint.type || "text");
-    setHintDialogOptions(hint.options ? [...hint.options] : []);
+    setHintDialogOptions(
+      (hint.options || []).map(opt =>
+        typeof opt === "string" ? { value: opt, label: "" } : opt
+      )
+    );
     setHintDialogNewOption("");
     setHintDialogPopulateOptions(hint.populate_options ?? false);
+    setHintDialogAllowCustom(hint.allow_custom_values ?? false);
+    setHintDialogDescription(hint.description || "");
   };
 
   const addHintOption = () => {
+    const existingValues = new Set(hintDialogOptions.map(o => o.value));
     const newOpts = hintDialogNewOption
       .split(",")
       .map(s => s.trim())
-      .filter(s => s.length > 0 && !hintDialogOptions.includes(s));
+      .filter(s => s.length > 0 && !existingValues.has(s))
+      .map(v => ({ value: v, label: "" }));
     if (newOpts.length === 0) return;
     setHintDialogOptions(prev => [...prev, ...newOpts]);
     setHintDialogNewOption("");
@@ -2001,10 +2033,14 @@ function FieldMappingEditor({
 
   const saveHintDialog = () => {
     if (!hintDialogField) return;
-    const hint: { type?: string; options?: string[]; populate_options?: boolean; cache_images?: boolean } = { type: hintDialogType };
+    const hint: { type?: string; options?: (string | { value: string; label: string })[]; populate_options?: boolean; allow_custom_values?: boolean; cache_images?: boolean; description?: string } = { type: hintDialogType };
+    if (hintDialogDescription.trim()) hint.description = hintDialogDescription.trim();
     if ((hintDialogType === "select" || hintDialogType === "tags")) {
-      if (hintDialogOptions.length > 0) hint.options = hintDialogOptions;
+      if (hintDialogOptions.length > 0) {
+        hint.options = hintDialogOptions.map(o => o.label.trim() ? o : o.value);
+      }
       if (hintDialogPopulateOptions) hint.populate_options = true;
+      if (hintDialogAllowCustom) hint.allow_custom_values = true;
     }
     setEditorHints((prev) => {
       const existing = prev[hintDialogField] || {};
@@ -2437,9 +2473,20 @@ function FieldMappingEditor({
                   <SelectItem value="number">number — numeric</SelectItem>
                   <SelectItem value="boolean">boolean — toggle</SelectItem>
                   <SelectItem value="select">select — dropdown</SelectItem>
-                  <SelectItem value="tags">tags — multi-value</SelectItem>
+                  <SelectItem value="tags">multi select — multi-value</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+            <div className="space-y-1">
+              <Label className="text-xs">Description (shown as hint in editor)</Label>
+              <input
+                type="text"
+                value={hintDialogDescription}
+                onChange={(e) => setHintDialogDescription(e.target.value)}
+                placeholder="e.g. Choose the programming language for this course"
+                className="w-full text-sm px-3 py-1.5 rounded-md border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                data-testid="input-hint-description"
+              />
             </div>
             {(hintDialogType === "select" || hintDialogType === "tags") && (
               <div className="space-y-2">
@@ -2466,14 +2513,28 @@ function FieldMappingEditor({
                   </Button>
                 </div>
                 {hintDialogOptions.length > 0 && (
-                  <div className="border rounded-md divide-y max-h-40 overflow-y-auto">
+                  <div className="border rounded-md divide-y max-h-48 overflow-y-auto">
                     {hintDialogOptions.map((opt, idx) => (
-                      <div key={idx} className="flex items-center justify-between px-3 py-1.5 text-sm">
-                        <span className="font-mono text-xs truncate">{opt}</span>
+                      <div key={idx} className="flex items-center gap-2 px-3 py-1.5 text-sm">
+                        <span className="font-mono text-xs text-muted-foreground w-1/3 truncate flex-shrink-0">
+                          {opt.value}
+                        </span>
+                        <input
+                          type="text"
+                          value={opt.label}
+                          onChange={(e) => {
+                            const updated = [...hintDialogOptions];
+                            updated[idx] = { ...opt, label: e.target.value };
+                            setHintDialogOptions(updated);
+                          }}
+                          placeholder="Label shown when selecting this option (optional)"
+                          className="flex-1 text-xs px-2 py-0.5 rounded border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                          data-testid={`input-hint-option-label-${idx}`}
+                        />
                         <button
                           type="button"
                           onClick={() => removeHintOption(idx)}
-                          className="ml-2 text-muted-foreground hover:text-destructive"
+                          className="ml-1 text-muted-foreground hover:text-destructive flex-shrink-0"
                           data-testid={`button-remove-hint-option-${idx}`}
                         >
                           <X className="h-3.5 w-3.5" />
@@ -2495,6 +2556,18 @@ function FieldMappingEditor({
                   />
                   <span className="text-xs text-muted-foreground">
                     Also include values from existing data
+                  </span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer" data-testid="label-allow-custom">
+                  <input
+                    type="checkbox"
+                    checked={hintDialogAllowCustom}
+                    onChange={(e) => setHintDialogAllowCustom(e.target.checked)}
+                    className="h-3.5 w-3.5 rounded"
+                    data-testid="checkbox-allow-custom"
+                  />
+                  <span className="text-xs text-muted-foreground">
+                    Allow typing custom values (not in list)
                   </span>
                 </label>
               </div>
@@ -2679,7 +2752,8 @@ function FieldMappingEditor({
   );
 }
 
-function ItemEditModal({
+function _DeprecatedItemEditModal({
+  dbName,
   config,
   item,
   itemIndex,
@@ -2688,13 +2762,14 @@ function ItemEditModal({
   onClose,
   onSaved,
 }: {
+  dbName: string;
   config: DatabaseDetail["config"];
   item: Record<string, unknown> | null;
   itemIndex: number | null;
   isNew: boolean;
-  allItems: Record<string, unknown>[];
+  allItems?: Record<string, unknown>[];
   onClose: () => void;
-  onSaved: (newItems: Record<string, unknown>[]) => Promise<void>;
+  onSaved: () => void;
 }) {
   const { toast } = useToast();
   const [saving, setSaving] = useState(false);
@@ -2720,42 +2795,64 @@ function ItemEditModal({
   const setValue = (key: string, v: unknown) =>
     setFormData((prev) => ({ ...prev, [key]: v }));
 
+  const buildItem = (omitEmpty: boolean): Record<string, unknown> => {
+    const out: Record<string, unknown> = {};
+    for (const key of fields) {
+      const value = formData[key];
+      const editorType = config.editor?.[key]?.type;
+      if (editorType === "boolean") {
+        out[key] = Boolean(value);
+      } else if (editorType === "tags") {
+        const arr = Array.isArray(value) ? value : [];
+        if (arr.length > 0) {
+          out[key] = arr;
+        } else if (!omitEmpty) {
+          out[key] = [];
+        }
+      } else if (editorType === "number") {
+        if (value !== "" && value !== null && value !== undefined) {
+          const n = Number(value);
+          out[key] = isNaN(n) ? value : n;
+        } else if (!omitEmpty) {
+          out[key] = null;
+        }
+      } else {
+        if (value !== "" && value !== null && value !== undefined) {
+          out[key] = value;
+        } else if (!omitEmpty) {
+          out[key] = "";
+        }
+      }
+    }
+    return out;
+  };
+
   const handleSave = async () => {
     setSaving(true);
     try {
-      const cleanedItem: Record<string, unknown> = {};
-      for (const key of fields) {
-        const value = formData[key];
-        const editorType = config.editor?.[key]?.type;
-        if (editorType === "boolean") {
-          cleanedItem[key] = Boolean(value);
-        } else if (editorType === "tags") {
-          const arr = Array.isArray(value) ? value : [];
-          if (arr.length > 0) cleanedItem[key] = arr;
-        } else if (editorType === "number") {
-          if (value !== "" && value !== null && value !== undefined) {
-            const n = Number(value);
-            cleanedItem[key] = isNaN(n) ? value : n;
-          }
-        } else {
-          if (value !== "" && value !== null && value !== undefined) {
-            cleanedItem[key] = value;
-          }
-        }
+      let res: Response;
+      if (isNew) {
+        const payload = buildItem(true);
+        res = await fetch(`/api/databases/${dbName}/items`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ item: payload }),
+        });
+      } else {
+        const payload = buildItem(false);
+        res = await fetch(`/api/databases/${dbName}/items/${itemIndex}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
       }
 
-      const newItems = isNew
-        ? [...allItems, cleanedItem]
-        : allItems.map((it, i) => {
-            if (i !== itemIndex) return it;
-            const merged = { ...it, ...cleanedItem };
-            for (const k of fields) {
-              if (!(k in cleanedItem)) delete merged[k];
-            }
-            return merged;
-          });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to save item");
+      }
 
-      await onSaved(newItems);
+      onSaved();
       onClose();
     } catch (err) {
       toast({
@@ -2775,7 +2872,7 @@ function ItemEditModal({
     const dataOptions: string[] = editorConfig?.populate_options
       ? Array.from(
           new Set(
-            allItems
+            (allItems ?? [])
               .map((it) => it[key])
               .flat()
               .filter((v): v is string => typeof v === "string" && v.trim() !== "")
@@ -4208,34 +4305,18 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                     <RefreshCw className={`h-3.5 w-3.5 mr-1 ${isRefreshing ? "animate-spin" : ""}`} />
                     Force Refresh
                   </Button>
-                  {config?.source.type === "local" && (() => {
-                    const isMultiPage = (itemsData?.total_count ?? 0) > PAGE_SIZE;
-                    const btn = (
-                      <Button
-                        variant={editMode ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => setEditMode(!editMode)}
-                        disabled={!itemsData || isMultiPage}
-                        data-testid="button-edit-items"
-                      >
-                        <Pencil className="h-3.5 w-3.5 mr-1" />
-                        {editMode ? "Done" : "Edit Items"}
-                      </Button>
-                    );
-                    if (isMultiPage) {
-                      return (
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <span>{btn}</span>
-                          </TooltipTrigger>
-                          <TooltipContent side="bottom" className="max-w-xs text-center">
-                            Editing is disabled when the dataset spans multiple pages. Force Refresh to reload, then reduce the dataset or contact support.
-                          </TooltipContent>
-                        </Tooltip>
-                      );
-                    }
-                    return btn;
-                  })()}
+                  {config?.source.type === "local" && (
+                    <Button
+                      variant={editMode ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setEditMode(!editMode)}
+                      disabled={!itemsData}
+                      data-testid="button-edit-items"
+                    >
+                      <Pencil className="h-3.5 w-3.5 mr-1" />
+                      {editMode ? "Done" : "Edit Items"}
+                    </Button>
+                  )}
                 </div>
               </div>
             </CardHeader>
@@ -4294,7 +4375,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                                   variant="ghost"
                                   onClick={() => {
                                     setEditingItem(item);
-                                    setEditingItemIndex(i);
+                                    setEditingItemIndex((page - 1) * PAGE_SIZE + i);
                                     setIsAddingItem(false);
                                   }}
                                   disabled={savingItems}
@@ -4434,9 +4515,26 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                 onClick={async () => {
                   const idx = deleteConfirmIndex;
                   setDeleteConfirmIndex(null);
-                  const currentItems = itemsData?.items || [];
-                  const newItems = currentItems.filter((_, i) => i !== idx);
-                  await handleSaveItems(newItems);
+                  setSavingItems(true);
+                  try {
+                    const res = await fetch(`/api/databases/${dbName}/items/${idx}`, {
+                      method: "DELETE",
+                    });
+                    if (!res.ok) {
+                      const err = await res.json();
+                      throw new Error(err.error || "Failed to delete item");
+                    }
+                    await Promise.all([refetchItems(), refetchRawItems()]);
+                    toast({ title: "Item deleted" });
+                  } catch (err) {
+                    toast({
+                      title: "Error deleting item",
+                      description: err instanceof Error ? err.message : String(err),
+                      variant: "destructive",
+                    });
+                  } finally {
+                    setSavingItems(false);
+                  }
                 }}
               >
                 {savingItems ? (
@@ -4451,19 +4549,37 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
         </Dialog>
       )}
 
-      {(editingItem !== null || isAddingItem) && config && (
+      {(editingItem !== null || isAddingItem) && (
         <ItemEditModal
-          config={config}
-          item={editingItem}
-          itemIndex={editingItemIndex}
-          isNew={isAddingItem}
+          dbName={dbName}
+          item={isAddingItem ? null : editingItem}
           allItems={itemsData?.items || []}
+          onSave={async (builtItem) => {
+            let res: Response;
+            if (isAddingItem) {
+              res = await fetch(`/api/databases/${dbName}/items`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ item: builtItem }),
+              });
+            } else {
+              res = await fetch(`/api/databases/${dbName}/items/${editingItemIndex}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(builtItem),
+              });
+            }
+            if (!res.ok) {
+              const err = await res.json().catch(() => ({}));
+              throw new Error((err as { error?: string }).error || "Failed to save item");
+            }
+            void Promise.all([refetchItems(), refetchRawItems()]);
+          }}
           onClose={() => {
             setEditingItem(null);
             setEditingItemIndex(null);
             setIsAddingItem(false);
           }}
-          onSaved={handleSaveItems}
         />
       )}
     </div>

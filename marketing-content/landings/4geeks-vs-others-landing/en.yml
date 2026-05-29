@@ -701,10 +701,17 @@ sections:
   - type: faq
     version: v1.0
     title: Real Questions. Honest Answers
-    related_features:
-      - job-guarantee
-      - outcomes
-      - career-support
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - job-guarantee
+            - outcomes
+            - career-support
+        - item_property_slug: locations
+          value: all
     section_id: faq-qubzh4
     background: hsl(var(--sidebar-background))
     marginY:

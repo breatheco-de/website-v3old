@@ -410,7 +410,7 @@ sections:
       desktop: none md
   - type: faq
     title: Preguntas Frecuentes
-    items:
+    hardcoded_entries:
       - question: ¿Qué requisitos previos necesito para el curso de IA Aplicada?
         answer: No se requieren conocimientos previos de programación. Nuestro programa comienza con conceptos fundamentales y progresa hacia el uso avanzado de herramientas de IA. Si eres nuevo en el mundo digital, contamos con materiales preparatorios para ayudarte a comenzar.
         locations:
@@ -441,9 +441,16 @@ sections:
           - all
         related_features: []
         priority: 0
-    related_features:
-      - applied-ai
-      - mentors-and-teachers
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - applied-ai
+            - mentors-and-teachers
+        - item_property_slug: locations
+          value: all
     item_overrides:
       how-long-does-the-program-take:
         hideOnLocations:

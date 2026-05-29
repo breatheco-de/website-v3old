@@ -336,9 +336,13 @@ sections:
   - type: faq
     section_id: faq-yax92n
     title: Frequently Asked Questions
-    related_features:
-      - certification
-      - job-guarantee
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      sort: priority
+      permanent_filters:
+        - item_property_slug: locations
+          value: losangeles-usa
     marginY:
       desktop: lg none
     background: hsl(var(--muted))

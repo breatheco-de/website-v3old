@@ -301,9 +301,13 @@ sections:
   - type: faq
     section_id: faq-luxb7w
     title: Preguntas Frecuentes
-    related_features:
-      - certification
-      - job-guarantee
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      sort: priority
+      permanent_filters:
+        - item_property_slug: locations
+          value: dallas-usa
     marginY:
       desktop: lg none
     background: hsl(var(--muted))

@@ -213,7 +213,7 @@ export function registerContentRoutes(app: Express): void {
     res.json(programs);
   });
 
-  app.get("/api/career-programs/:slug", (req, res) => {
+  app.get("/api/career-programs/:slug", async (req, res) => {
     const { slug } = req.params;
     const locale = normalizeLocale(req.query.locale as string);
     const forceVariant = req.query.force_variant as string | undefined;
@@ -251,6 +251,9 @@ export function registerContentRoutes(app: Express): void {
     }
 
     const programData = program as unknown as Record<string, unknown>;
+    if (Array.isArray(programData.sections)) {
+      programData.sections = await resolveDynamicEntries(programData.sections, locale) as any;
+    }
     const programRaw = contentIndex.loadMergedContent("program", slug, locale);
     const layout = resolveLayout("program", programRaw.data || {});
     const singleEntry = buildSingleEntryFromContent("program", programData);
@@ -2136,82 +2139,4 @@ Important: Only include mappings where you are confident the field exists. Use d
     }
   });
 
-  app.get("/api/faqs/:locale", (req, res) => {
-    const { locale } = req.params;
-    const normalizedLocale = normalizeLocale(locale);
-
-    const faqsPath = path.join(
-      process.cwd(),
-      "marketing-content",
-      "faqs",
-      `${normalizedLocale}.yml`,
-    );
-
-    if (!fs.existsSync(faqsPath)) {
-      res.status(404).json({ error: "FAQs not found for locale" });
-      return;
-    }
-
-    try {
-      const content = fs.readFileSync(faqsPath, "utf8");
-      const data = safeYamlLoad(content) as { faqs: unknown[] };
-      res.json(data);
-    } catch (error) {
-      console.error("Error loading FAQs:", error);
-      res.status(500).json({ error: "Failed to load FAQs" });
-    }
-  });
-
-  // Save centralized FAQs to YAML file (edit mode only)
-  app.post("/api/faqs/:locale", async (req, res) => {
-    try {
-      const { locale } = req.params;
-      const normalizedLocale = normalizeLocale(locale);
-
-      const auth = await requireCapability(req, res, "content_edit_text", "faq");
-      if (!auth.authorized) return;
-
-      const { faqs } = req.body;
-
-      if (!faqs || !Array.isArray(faqs)) {
-        res.status(400).json({ error: "Missing required field: faqs (array)" });
-        return;
-      }
-
-      const faqsPath = path.join(
-        process.cwd(),
-        "marketing-content",
-        "faqs",
-        `${normalizedLocale}.yml`,
-      );
-
-      // Generate YAML with comment header
-      const header = `# Centralized FAQ Data - ${normalizedLocale === "en" ? "English" : "Spanish"}
-# All FAQs should be stored here and referenced by pages via related_features filter
-# No HTML tags - plain text only
-
-`;
-      const yamlContent =
-        header +
-        safeYamlDump(
-          { faqs },
-          {
-            lineWidth: -1,
-            quotingType: '"',
-            forceQuotes: false,
-            flowLevel: -1,
-          },
-        );
-
-      fs.writeFileSync(faqsPath, yamlContent, "utf8");
-
-      // Clear relevant caches (FAQs have no sitemap entries — skip clearSitemapCache)
-      invalidateContentCaches();
-
-      res.json({ success: true });
-    } catch (error) {
-      console.error("Error saving FAQs:", error);
-      res.status(500).json({ error: "Failed to save FAQs" });
-    }
-  });
 }

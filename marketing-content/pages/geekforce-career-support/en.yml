@@ -367,8 +367,15 @@ sections:
   - type: faq
     section_id: faq-kf5oiw
     title: Frequently Asked Questions
-    related_features:
-      - career-support
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - career-support
+        - item_property_slug: locations
+          value: all
     item_overrides:
       do-i-get-a-job-after-completing-the-program:
         hideOnLocations:

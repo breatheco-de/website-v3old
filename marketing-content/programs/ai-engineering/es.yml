@@ -687,7 +687,7 @@ sections:
   - type: faq
     section_id: faq-rj0tg6
     title: Preguntas frecuentes
-    items:
+    hardcoded_entries:
       - question: ¿Qué requisitos previos necesito para Ingeniería de IA?
         answer: Se recomienda conocimiento básico de programación, pero no es obligatorio. Nuestro programa comienza con conceptos fundamentales y avanza hasta ingeniería de IA avanzada. Si eres nuevo en programación, tenemos materiales preparatorios para ayudarte a comenzar.
         locations:

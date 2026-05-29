@@ -312,7 +312,7 @@ sections:
     background: hsl(var(--muted))
     paddingY:
       desktop: md lg
-    items:
+    hardcoded_entries:
       - question: What types of bootcamps does 4Geeks Academy offer in Caracas?
         answer: In Caracas, we offer Full Stack Developer bootcamps where you'll learn to build complete web applications. We also have Data Science & ML programs for those interested in data analysis and artificial intelligence.
       - question: What makes 4Geeks Academy different from other bootcamps in Venezuela?

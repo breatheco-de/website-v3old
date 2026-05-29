@@ -94,8 +94,15 @@ sections:
     section_id: faq-cumj8r
     version: v1.0
     title: Preguntas frecuentes
-    related_features:
-      - outcomes
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - outcomes
+        - item_property_slug: locations
+          value: all
     marginY:
       desktop: none md
   - type: cta_banner

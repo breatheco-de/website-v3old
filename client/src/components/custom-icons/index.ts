@@ -18,6 +18,7 @@ import Rigobot from "./Rigobot";
 import RigobotIconTiny from "./RigobotIconTiny";
 import Rocket from "./Rocket";
 import Security from "./Security";
+import Slack from "./Slack";
 import StairsWithFlag from "./StairsWithFlag";
 import CustomTarget from "./CustomTarget";
 
@@ -48,6 +49,8 @@ const customIcons: Record<string, React.ComponentType<{
   RigobotIconTiny,
   Rocket,
   Security,
+  Slack,
+  BrandSlack: Slack,
   StairsWithFlag,
   CustomTarget,
 };
@@ -77,6 +80,7 @@ export {
   RigobotIconTiny,
   Rocket,
   Security,
+  Slack,
   StairsWithFlag,
   CustomTarget,
 };
