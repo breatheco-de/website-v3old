@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useLocation } from "wouter";
 
 type DataLayerEvent = {
@@ -10,14 +10,8 @@ type DataLayerEvent = {
 
 export function usePageTracking() {
   const [location] = useLocation();
-  const isFirstRender = useRef(true);
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-
     const dataLayer = (window as unknown as { dataLayer: DataLayerEvent[] }).dataLayer || [];
     (window as unknown as { dataLayer: DataLayerEvent[] }).dataLayer = dataLayer;
     
