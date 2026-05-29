@@ -46,6 +46,7 @@ export interface DatabaseConfig {
   field_mapping?: Record<string, string>;
   editor?: Record<string, { type?: string; options?: string[]; populate_options?: boolean; cache_images?: boolean }>;
   vector_search?: VectorSearchConfig;
+  search_fields?: string[];
 }
 
 const VALID_DB_NAME = /^[a-z0-9_-]+$/;

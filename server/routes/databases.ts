@@ -567,9 +567,12 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       }
 
       const qLower = q.toLowerCase();
-      const keywordFields = vsConfig?.fields?.length
-        ? vsConfig.fields
-        : null;
+      const searchFieldsConfig = (config as any).search_fields as string[] | undefined;
+      const keywordFields = searchFieldsConfig?.length
+        ? searchFieldsConfig
+        : vsConfig?.fields?.length
+          ? vsConfig.fields
+          : null;
       let fallback = allItems.filter((item) => {
         const fieldsToCheck = keywordFields ?? Object.keys(item);
         return fieldsToCheck.some((f) => {
