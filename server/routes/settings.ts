@@ -619,53 +619,43 @@ export function registerSettingsRoutes(app: Express): void {
       return res.status(400).json({ reachable: false, reason: "URL must use http or https protocol." });
     }
 
-    const http2 = await import("http");
-    const https2 = await import("https");
-    const protocol = parsed.protocol === "https:" ? https2 : http2;
-
-    const options = {
-      hostname: parsed.hostname,
-      port: parsed.port || (parsed.protocol === "https:" ? 443 : 80),
-      path: "/healthy",
-      method: "GET",
-      timeout: 8000,
-      headers: { "User-Agent": "sGTM-connection-test/1.0" },
-    };
+    const testUrl = `${parsed.protocol}//${parsed.host}/healthy`;
 
     try {
-      await new Promise<void>((resolve, reject) => {
-        const probeReq = protocol.request(options, (probeRes) => {
-          const status = probeRes.statusCode ?? 0;
-          probeRes.resume();
-          if (status >= 200 && status < 400) {
-            resolve();
-          } else if (status >= 400 && status < 500) {
-            reject(new Error(`HTTP ${status} — the server responded but returned a client error. Check that the URL is correct.`));
-          } else if (status >= 500) {
-            reject(new Error(`HTTP ${status} — the sGTM server returned a server error.`));
-          } else {
-            reject(new Error(`HTTP ${status} — unexpected response from server.`));
-          }
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 8000);
+      let probeRes: Response;
+      try {
+        probeRes = await fetch(testUrl, {
+          method: "GET",
+          signal: controller.signal,
+          headers: { "User-Agent": "sGTM-connection-test/1.0" },
+          redirect: "follow",
         });
-        probeReq.on("timeout", () => {
-          probeReq.destroy();
-          reject(new Error("Connection timed out (8 s). Check the URL and network."));
-        });
-        probeReq.on("error", (err: NodeJS.ErrnoException) => {
-          if (err.code === "ENOTFOUND" || err.code === "EAI_AGAIN") {
-            reject(new Error(`DNS resolution failed — hostname "${parsed.hostname}" not found.`));
-          } else if (err.code === "ECONNREFUSED") {
-            reject(new Error(`Connection refused at ${parsed.hostname}:${options.port}.`));
-          } else {
-            reject(new Error(err.message || String(err)));
-          }
-        });
-        probeReq.end();
-      });
+      } finally {
+        clearTimeout(timer);
+      }
 
-      return res.json({ reachable: true });
+      const status = probeRes.status;
+      if (status >= 200 && status < 400) {
+        return res.json({ reachable: true });
+      } else if (status >= 400 && status < 500) {
+        return res.json({ reachable: false, reason: `HTTP ${status} — server responded but returned a client error. Check that the URL is correct.` });
+      } else {
+        return res.json({ reachable: false, reason: `HTTP ${status} — server returned an unexpected response.` });
+      }
     } catch (err: any) {
-      return res.json({ reachable: false, reason: err.message || String(err) });
+      if (err.name === "AbortError") {
+        return res.json({ reachable: false, reason: "Connection timed out (8 s). Check the URL and network." });
+      }
+      const msg: string = err.message || String(err);
+      if (msg.includes("ENOTFOUND") || msg.includes("EAI_AGAIN")) {
+        return res.json({ reachable: false, reason: `DNS resolution failed — hostname "${parsed.hostname}" not found.` });
+      }
+      if (msg.includes("ECONNREFUSED")) {
+        return res.json({ reachable: false, reason: `Connection refused at ${parsed.host}.` });
+      }
+      return res.json({ reachable: false, reason: msg });
     }
   });
   // Menus API - list all menu files (excludes translation files like .es.yml)
