@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import {
   IconArrowLeft,
+  IconBraces,
   IconChartBar,
   IconChevronDown,
   IconChevronUp,
@@ -19,6 +20,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
@@ -313,39 +315,107 @@ function GTMSection() {
   );
 }
 
+const SAMPLE_USER_ID = "a1b2c3d4-e5f6-7890-abcd-ef1234567890";
+
+interface TrackingEvent {
+  name: string;
+  trigger: string;
+  payload: Record<string, unknown>;
+}
+
 interface EventGroup {
   title: string;
   description: string;
-  events: { name: string; trigger: string; fields: string }[];
+  events: TrackingEvent[];
 }
 
+const GENERAL_EVENT_PAYLOADS: Record<string, Record<string, unknown>> = {
+  page_view: {
+    event: "page_view",
+    user_id: SAMPLE_USER_ID,
+    pagePath: "/en/apply",
+    pageTitle: "Apply Now – 4Geeks Academy",
+  },
+  experiment_exposure: {
+    event: "experiment_exposure",
+    user_id: SAMPLE_USER_ID,
+    experiment_id: "hero-variant-test",
+    variant: "B",
+  },
+  cta_click: {
+    event: "cta_click",
+    user_id: SAMPLE_USER_ID,
+    label: "Apply Now",
+    section: "hero",
+    destination: "/en/apply",
+  },
+  video_play: {
+    event: "video_play",
+    user_id: SAMPLE_USER_ID,
+    video_id: "dQw4w9WgXcQ",
+    title: "Why 4Geeks Academy",
+  },
+  scroll_depth: {
+    event: "scroll_depth",
+    user_id: SAMPLE_USER_ID,
+    depth: 50,
+    page: "/en/apply",
+  },
+};
+
 function EventsSection() {
-  const routeEvents: EventGroup["events"] = [
+  const [selectedEvent, setSelectedEvent] = useState<TrackingEvent | null>(null);
+
+  const routeEvents: TrackingEvent[] = [
     {
       name: "website-route-change",
       trigger: "Client-side navigation (not first load)",
-      fields: "pagePath, pageTitle",
+      payload: {
+        event: "website-route-change",
+        pagePath: "/en/apply",
+        pageTitle: "Apply Now – 4Geeks Academy",
+      },
     },
   ];
 
-  const visitorContextEvents: EventGroup["events"] = [
+  const visitorContextEvents: TrackingEvent[] = [
     {
       name: "visitor context object",
       trigger: "Once on first load, after geo + user ID resolve",
-      fields: "user_id, visitor_location_city, visitor_location_country, visitor_location_slug, UTM params",
+      payload: {
+        user_id: SAMPLE_USER_ID,
+        visitor_location_city: "Miami",
+        visitor_location_country: "United States",
+        visitor_location_slug: "miami-usa",
+        visitor_language: "en",
+        visitor_latitude: 25.7701,
+        visitor_longitude: -80.1928,
+        utm_source: "google",
+        utm_medium: "cpc",
+        utm_campaign: "bootcamp-2024",
+      },
     },
   ];
 
-  const conversionEvents: EventGroup["events"] = CONVERSION_NAMES.map((name) => ({
+  const conversionEvents: TrackingEvent[] = CONVERSION_NAMES.map((name) => ({
     name,
     trigger: "Form submission",
-    fields: "user_id, email_hash, program, location, formentry_id, attribution_id, referral_key",
+    payload: {
+      event: name,
+      user_id: SAMPLE_USER_ID,
+      email_hash: "3f2a1b4c8d9e0f12",
+      program: "ai-engineering",
+      location: "miami-usa",
+      formentry_id: 12345,
+      attribution_id: "attr_abc123",
+      referral_key: "ref_xyz789",
+    },
   }));
 
-  const generalEvents: EventGroup["events"] = TRACKING_EVENTS.map((name) => ({
+  const generalEvents: TrackingEvent[] = TRACKING_EVENTS.map((name) => ({
     name,
     trigger: "Various interactions",
-    fields: "user_id, event-specific payload",
+    payload: GENERAL_EVENT_PAYLOADS[name] ?? { event: name, user_id: SAMPLE_USER_ID },
   }));
 
   const groups: EventGroup[] = [
@@ -372,42 +442,68 @@ function EventsSection() {
   ];
 
   return (
-    <div className="space-y-4">
-      {groups.map((group) => (
-        <Card key={group.title}>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base">{group.title}</CardTitle>
-            <p className="text-sm text-muted-foreground">{group.description}</p>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm" data-testid={`table-events-${group.title.toLowerCase().replace(/\s+/g, "-")}`}>
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-left py-2 pr-4 text-xs font-medium text-muted-foreground w-1/3">Event / Push</th>
-                    <th className="text-left py-2 pr-4 text-xs font-medium text-muted-foreground w-1/4">Trigger</th>
-                    <th className="text-left py-2 text-xs font-medium text-muted-foreground">Key fields</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {group.events.map((ev) => (
-                    <tr key={ev.name} className="border-b last:border-0">
-                      <td className="py-2 pr-4 align-top">
-                        <Badge variant="secondary" className="font-mono text-xs">
-                          {ev.name}
-                        </Badge>
-                      </td>
-                      <td className="py-2 pr-4 align-top text-muted-foreground text-xs">{ev.trigger}</td>
-                      <td className="py-2 align-top text-muted-foreground text-xs font-mono">{ev.fields}</td>
+    <>
+      <div className="space-y-4">
+        {groups.map((group) => (
+          <Card key={group.title}>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base">{group.title}</CardTitle>
+              <p className="text-sm text-muted-foreground">{group.description}</p>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm" data-testid={`table-events-${group.title.toLowerCase().replace(/\s+/g, "-")}`}>
+                  <thead>
+                    <tr className="border-b">
+                      <th className="text-left py-2 pr-4 text-xs font-medium text-muted-foreground w-2/5">Event / Push</th>
+                      <th className="text-left py-2 pr-4 text-xs font-medium text-muted-foreground">Trigger</th>
+                      <th className="py-2 text-xs font-medium text-muted-foreground text-right">Payload</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
+                  </thead>
+                  <tbody>
+                    {group.events.map((ev) => (
+                      <tr key={ev.name} className="border-b last:border-0">
+                        <td className="py-2 pr-4 align-middle">
+                          <Badge variant="secondary" className="font-mono text-xs">
+                            {ev.name}
+                          </Badge>
+                        </td>
+                        <td className="py-2 pr-4 align-middle text-muted-foreground text-xs">{ev.trigger}</td>
+                        <td className="py-2 align-middle text-right">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-7 px-2 text-xs gap-1.5"
+                            onClick={() => setSelectedEvent(ev)}
+                            data-testid={`button-show-payload-${ev.name}`}
+                          >
+                            <IconBraces className="h-3.5 w-3.5" />
+                            Show payload
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      <Dialog open={!!selectedEvent} onOpenChange={(open) => { if (!open) setSelectedEvent(null); }}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="font-mono text-sm font-semibold">
+              {selectedEvent?.name}
+            </DialogTitle>
+          </DialogHeader>
+          <pre className="rounded-md bg-muted px-4 py-3 text-xs font-mono overflow-x-auto whitespace-pre leading-relaxed" data-testid="text-payload-json">
+            {selectedEvent ? JSON.stringify(selectedEvent.payload, null, 2) : ""}
+          </pre>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 
