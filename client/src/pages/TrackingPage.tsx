@@ -323,7 +323,7 @@ function EventsSection() {
   const routeEvents: EventGroup["events"] = [
     {
       name: "website-route-change",
-      trigger: "Every client-side navigation",
+      trigger: "Client-side navigation (not first load)",
       fields: "pagePath, pageTitle",
     },
   ];
