@@ -1,13 +1,17 @@
-import { CONVERSION_NAMES } from "../marketing-content/component-registry/_common/schema";
-
 /**
  * Validates a section's `form` config.
  *
  * Returns null if the section has no `form` key or the config is valid.
  * Returns a human-readable error string if `form.conversion_name` is missing
- * or not one of the known CONVERSION_NAMES.
+ * or not one of the provided conversionNames list.
+ *
+ * When conversionNames is omitted the value check is skipped — only presence
+ * of a non-empty conversion_name is enforced.
  */
-export function validateFormSection(section: Record<string, unknown>): string | null {
+export function validateFormSection(
+  section: Record<string, unknown>,
+  conversionNames?: string[]
+): string | null {
   if (!("form" in section)) return null;
 
   const form = section.form as Record<string, unknown> | null | undefined;
@@ -19,11 +23,14 @@ export function validateFormSection(section: Record<string, unknown>): string | 
   const conversionName = form.conversion_name;
 
   if (conversionName === undefined || conversionName === null || conversionName === "") {
-    return `section.form.conversion_name is required. Valid values: ${CONVERSION_NAMES.join(", ")}`;
+    const hint = conversionNames?.length
+      ? `Valid values: ${conversionNames.join(", ")}`
+      : "Set conversion_name to a valid tracking event name";
+    return `section.form.conversion_name is required. ${hint}`;
   }
 
-  if (!(CONVERSION_NAMES as readonly unknown[]).includes(conversionName)) {
-    return `section.form.conversion_name "${conversionName}" is not valid. Valid values: ${CONVERSION_NAMES.join(", ")}`;
+  if (conversionNames && !conversionNames.includes(conversionName as string)) {
+    return `section.form.conversion_name "${conversionName}" is not valid. Valid values: ${conversionNames.join(", ")}`;
   }
 
   return null;

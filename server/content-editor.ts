@@ -3,6 +3,7 @@ import path from "path";
 import yaml from "js-yaml";
 import { escapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import { validateFormSection } from "@shared/validateFormSection";
+import { getTrackingSettings } from "./settings";
 import { generateSectionId } from "./utils/generateSectionId";
 
 function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
@@ -475,9 +476,10 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
     // This covers every edit path (update_section, update_field, add_item, replace_all_sections)
     // because we inspect the fully-mutated in-memory state.
     if (Array.isArray(localeData.sections)) {
+      const conversionNames = getTrackingSettings().conversion_events.map((e) => e.name);
       for (let i = 0; i < (localeData.sections as Record<string, unknown>[]).length; i++) {
         const section = (localeData.sections as Record<string, unknown>[])[i];
-        const formErr = validateFormSection(section);
+        const formErr = validateFormSection(section, conversionNames);
         if (formErr) {
           return { success: false, error: `sections[${i}]: ${formErr}` };
         }

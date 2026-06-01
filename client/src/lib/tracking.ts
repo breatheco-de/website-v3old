@@ -4,20 +4,9 @@
  */
 
 import { getUserIdFromCookie } from "./sessionBootstrap";
+import { useQuery } from "@tanstack/react-query";
 
-// Pre-defined conversion event names - keep in sync with marketing-content/component-registry/_common/schema.ts
-export const CONVERSION_NAMES = [
-  "student_application",
-  "request_more_info",
-  "financing_guide_download",
-  "partner_application",
-  "job_application",
-  "newsletter_signup",
-  "contact_us",
-  "outcomes_report",
-] as const;
-
-export type ConversionName = typeof CONVERSION_NAMES[number];
+export type ConversionName = string;
 
 // General tracking events (non-conversion)
 export const TRACKING_EVENTS = [
@@ -68,10 +57,47 @@ export interface VisitorContext {
   };
 }
 
+export interface ConversionEventEntry {
+  name: string;
+  description?: string;
+}
+
+export interface TrackingSettingsResponse {
+  conversion_events: ConversionEventEntry[];
+}
+
 // Extend Window to include dataLayer
 declare global {
   interface Window {
     dataLayer?: Array<Record<string, unknown>>;
+  }
+}
+
+/**
+ * React hook that returns the list of configured conversion event names from the API.
+ */
+export function useConversionNames(): { names: string[]; isLoading: boolean } {
+  const { data, isLoading } = useQuery<TrackingSettingsResponse>({
+    queryKey: ["/api/settings/tracking"],
+  });
+
+  return {
+    names: data?.conversion_events.map((e) => e.name) ?? [],
+    isLoading,
+  };
+}
+
+/**
+ * Fetch conversion event names from the API (async, one-shot).
+ */
+export async function fetchConversionNames(): Promise<string[]> {
+  try {
+    const res = await fetch("/api/settings/tracking");
+    if (!res.ok) return [];
+    const data: TrackingSettingsResponse = await res.json();
+    return data.conversion_events.map((e) => e.name);
+  } catch {
+    return [];
   }
 }
 
@@ -109,31 +135,25 @@ function pushToDataLayer(data: Record<string, unknown>): void {
 }
 
 /**
- * Validate that an event name is allowed
+ * Validate that a conversion event name is in the provided list.
+ * When no list is provided the check is skipped (permissive).
  */
-export function isValidConversionName(name: string): name is ConversionName {
-  return CONVERSION_NAMES.includes(name as ConversionName);
+export function isValidConversionName(name: string, conversionNames?: string[]): boolean {
+  if (!conversionNames) return true;
+  return conversionNames.includes(name);
 }
 
-export function isValidEventName(name: string): name is EventName {
-  return CONVERSION_NAMES.includes(name as ConversionName) || 
-         TRACKING_EVENTS.includes(name as TrackingEventName);
+export function isValidEventName(name: string): boolean {
+  return TRACKING_EVENTS.includes(name as TrackingEventName);
 }
 
 /**
  * Track a conversion event (form submissions, signups, etc.)
- * These events are validated against the pre-defined list.
  */
 export function trackConversion(
   eventName: ConversionName,
   payload: ConversionPayload = {}
 ): void {
-  if (!isValidConversionName(eventName)) {
-    console.error(`[Tracking] Invalid conversion name: ${eventName}`);
-    console.error(`[Tracking] Valid names: ${CONVERSION_NAMES.join(", ")}`);
-    return;
-  }
-
   pushToDataLayer({
     event: eventName,
     user_id: getUserIdFromCookie() ?? undefined,
@@ -150,10 +170,6 @@ export function track(
   eventName: EventName,
   payload: TrackingPayload = {}
 ): void {
-  if (!isValidEventName(eventName)) {
-    console.warn(`[Tracking] Unknown event name: ${eventName}`);
-  }
-
   pushToDataLayer({
     event: eventName,
     user_id: getUserIdFromCookie() ?? undefined,

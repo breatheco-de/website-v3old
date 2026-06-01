@@ -12,6 +12,7 @@ import * as yaml from "js-yaml";
 import type { Validator, ValidatorResult, ValidationContext, ValidationIssue } from "../shared/types";
 import { validateFormSection } from "../../../shared/validateFormSection";
 import { getAllDirectories } from "../../../server/content-types";
+import { getTrackingSettings } from "../../../server/settings";
 
 const CONTENT_DIRS = getAllDirectories().map((dir) => `marketing-content/${dir}`);
 
@@ -42,6 +43,7 @@ export const formsValidator: Validator = {
     const startTime = Date.now();
     const errors: ValidationIssue[] = [];
     const warnings: ValidationIssue[] = [];
+    const conversionNames = getTrackingSettings().conversion_events.map((e) => e.name);
 
     for (const contentDir of CONTENT_DIRS) {
       const fullDir = path.join(process.cwd(), contentDir);
@@ -63,7 +65,7 @@ export const formsValidator: Validator = {
           const section = sections[i];
           if (!section || typeof section !== "object" || Array.isArray(section)) continue;
 
-          const err = validateFormSection(section as Record<string, unknown>);
+          const err = validateFormSection(section as Record<string, unknown>, conversionNames);
           if (err) {
             const relativePath = path.relative(process.cwd(), filePath);
             errors.push({

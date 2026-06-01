@@ -133,6 +133,8 @@ import {
   getHomePage,
   getOptimizationSettings,
   updateOptimizationSettings,
+  getTrackingSettings,
+  updateTrackingSettings,
 } from "../settings";
 import { variableManager } from "../variable-manager";
 import { getValidationService } from "../../scripts/validation/service";
@@ -580,6 +582,23 @@ export function registerSettingsRoutes(app: Express): void {
         default_locale: getDefaultLocale(),
         supported_locales: getLocaleEntries(),
       });
+    } catch (err: any) {
+      res.status(400).json({ error: err.message || String(err) });
+    }
+  });
+
+  app.get("/api/settings/tracking", (_req, res) => {
+    res.json(getTrackingSettings());
+  });
+
+  app.put("/api/settings/tracking", async (req, res) => {
+    try {
+      const { conversion_events } = req.body;
+      if (!Array.isArray(conversion_events)) {
+        return res.status(400).json({ error: "Request body must contain a conversion_events array" });
+      }
+      updateTrackingSettings({ conversion_events });
+      res.json({ success: true, ...getTrackingSettings() });
     } catch (err: any) {
       res.status(400).json({ error: err.message || String(err) });
     }

@@ -34,3 +34,21 @@ feature_tags:
   - admissions
   - financial-aid
   - student-support
+tracking:
+  conversion_events:
+    - name: student_application
+      description: Form submission
+    - name: request_more_info
+      description: Form submission
+    - name: financing_guide_download
+      description: Form submission
+    - name: partner_application
+      description: Form submission
+    - name: job_application
+      description: Form submission
+    - name: newsletter_signup
+      description: Form submission
+    - name: contact_us
+      description: Form submission
+    - name: outcomes_report
+      description: Form submission

@@ -26,7 +26,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, apiFetch, queryClient } from "@/lib/queryClient";
-import { CONVERSION_NAMES, TRACKING_EVENTS } from "@/lib/tracking";
+import { TRACKING_EVENTS, type TrackingSettingsResponse } from "@/lib/tracking";
 
 interface TagManagerConfig {
   sgtm_enabled: boolean;
@@ -367,6 +367,11 @@ const GENERAL_EVENT_PAYLOADS: Record<string, Record<string, unknown>> = {
 function EventsSection() {
   const [selectedEvent, setSelectedEvent] = useState<TrackingEvent | null>(null);
 
+  const { data: trackingSettings } = useQuery<TrackingSettingsResponse>({
+    queryKey: ["/api/settings/tracking"],
+  });
+  const conversionEventEntries = trackingSettings?.conversion_events ?? [];
+
   const routeEvents: TrackingEvent[] = [
     {
       name: "website-route-change",
@@ -398,11 +403,11 @@ function EventsSection() {
     },
   ];
 
-  const conversionEvents: TrackingEvent[] = CONVERSION_NAMES.map((name) => ({
-    name,
-    trigger: "Form submission",
+  const conversionEvents: TrackingEvent[] = conversionEventEntries.map((entry) => ({
+    name: entry.name,
+    trigger: entry.description ?? "Form submission",
     payload: {
-      event: name,
+      event: entry.name,
       user_id: SAMPLE_USER_ID,
       email_hash: "3f2a1b4c8d9e0f12",
       program: "ai-engineering",
@@ -432,7 +437,7 @@ function EventsSection() {
     },
     {
       title: "Conversion Events",
-      description: "Fired via trackConversion when a user completes a key action. Validated against CONVERSION_NAMES.",
+      description: "Fired via trackConversion when a user completes a key action. Configured in settings.yml under tracking.conversion_events.",
       events: conversionEvents,
     },
     {

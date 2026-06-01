@@ -493,9 +493,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
       if (!data.conversion_name) {
         console.error(
           '[LeadForm] Missing conversion_name in form configuration. ' +
-          'Add conversion_name to the form YAML to enable tracking. ' +
-          'Available values: student_application, request_more_info, financing_guide_download, ' +
-          'partner_application, job_application, newsletter_signup, contact_us, outcomes_report'
+          'Add conversion_name to the form YAML to enable tracking.'
         );
       }
       if (data.conversion_name) {

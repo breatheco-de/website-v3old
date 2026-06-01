@@ -29,10 +29,20 @@ export interface OptimizationSettings {
   tagmanager: TagManagerSettings;
 }
 
+export interface ConversionEventEntry {
+  name: string;
+  description?: string;
+}
+
+export interface TrackingSettings {
+  conversion_events: ConversionEventEntry[];
+}
+
 interface SiteSettings {
   i18n: I18nSettings;
   home_page: HomePageSettings;
   optimization: OptimizationSettings;
+  tracking: TrackingSettings;
 }
 
 let cached: SiteSettings | null = null;
@@ -58,6 +68,9 @@ function loadSettings(): SiteSettings {
         sgtm_server_url: "",
         sgtm_proxy_path: "/sgtm/",
       },
+    },
+    tracking: {
+      conversion_events: [],
     },
   };
 
@@ -102,9 +115,22 @@ function loadSettings(): SiteSettings {
       },
     };
 
-    cached = { ...defaults, i18n, home_page, optimization };
+    const trackingRaw = parsed.tracking as Record<string, unknown> | undefined;
+    const conversionEventsRaw = trackingRaw?.conversion_events;
+    const tracking: TrackingSettings = {
+      conversion_events: Array.isArray(conversionEventsRaw)
+        ? (conversionEventsRaw as Array<Record<string, unknown>>)
+            .filter((e) => e && typeof e.name === "string")
+            .map((e) => ({
+              name: e.name as string,
+              description: typeof e.description === "string" ? e.description : undefined,
+            }))
+        : defaults.tracking.conversion_events,
+    };
+
+    cached = { ...defaults, i18n, home_page, optimization, tracking };
     console.log(
-      `[Settings] Loaded: ${i18n.supported_locales.length} locale(s), default="${i18n.default_locale}", home_page="${home_page.slug}"`
+      `[Settings] Loaded: ${i18n.supported_locales.length} locale(s), default="${i18n.default_locale}", home_page="${home_page.slug}", conversion_events=${tracking.conversion_events.length}`
     );
     return cached;
   } catch (err) {
@@ -218,6 +244,45 @@ export function resetSettings(): void {
 
 export function getOptimizationSettings(): OptimizationSettings {
   return loadSettings().optimization;
+}
+
+export function getTrackingSettings(): TrackingSettings {
+  return loadSettings().tracking;
+}
+
+export function updateTrackingSettings(input: { conversion_events: Array<{ name: string; description?: string }> }): void {
+  if (!Array.isArray(input.conversion_events)) {
+    throw new Error("conversion_events must be an array");
+  }
+
+  for (const entry of input.conversion_events) {
+    if (typeof entry.name !== "string" || !entry.name.trim()) {
+      throw new Error("Each conversion event must have a non-empty name");
+    }
+    if (!/^[a-z][a-z0-9_]*$/.test(entry.name.trim())) {
+      throw new Error(`Invalid conversion event name: "${entry.name}" — use lowercase letters, digits, and underscores only`);
+    }
+  }
+
+  let existing: Record<string, unknown> = {};
+  if (fs.existsSync(SETTINGS_PATH)) {
+    try {
+      const raw = fs.readFileSync(SETTINGS_PATH, "utf-8");
+      existing = (yaml.load(raw) as Record<string, unknown>) || {};
+    } catch {}
+  }
+
+  existing.tracking = {
+    conversion_events: input.conversion_events.map((e) => ({
+      name: e.name.trim(),
+      ...(e.description ? { description: e.description } : {}),
+    })),
+  };
+
+  const output = yaml.dump(existing, { lineWidth: 120, noRefs: true });
+  fs.writeFileSync(SETTINGS_PATH, output, "utf-8");
+  resetSettings();
+  console.log(`[Settings] Updated tracking.conversion_events: ${input.conversion_events.length} event(s)`);
 }
 
 export function updateOptimizationSettings(input: { tagmanager: Partial<TagManagerSettings> }): void {

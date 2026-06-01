@@ -4,22 +4,6 @@
  */
 import { z } from "zod";
 
-// Pre-defined conversion event names for tracking
-export const CONVERSION_NAMES = [
-  "student_application",
-  "request_more_info",
-  "financing_guide_download",
-  "partner_application",
-  "job_application",
-  "newsletter_signup",
-  "contact_us",
-  "outcomes_report",
-] as const;
-
-export type ConversionName = typeof CONVERSION_NAMES[number];
-
-export const conversionNameSchema = z.enum(CONVERSION_NAMES);
-
 // CTA Button - used in many components
 export const ctaButtonSchema = z.object({
   text: z.string(),
@@ -95,7 +79,7 @@ export const leadFormFieldConfigSchema = z.object({
 // Lead Form data schema
 export const leadFormDataSchema = z.object({
   variant: z.enum(["stacked", "inline"]).optional(),
-  conversion_name: conversionNameSchema.optional(), // Tracking event name for conversions
+  conversion_name: z.string().optional(), // Tracking event name for conversions
   title: z.string().optional(),
   subtitle: z.string().optional(),
   submit_label: z.string().optional(),
