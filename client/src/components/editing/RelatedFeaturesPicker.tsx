@@ -76,6 +76,7 @@ export function RelatedFeaturesPicker({ value, onChange, locale = "en", context 
     if (!permanentFilters?.length) return faqs;
     let result = faqs;
     for (const pf of permanentFilters) {
+      if (pf.item_property_slug === "related_features") continue;
       const filterValues = (Array.isArray(pf.value) ? pf.value : [pf.value]).map(String);
       result = result.filter((item) => {
         const itemVal = (item as Record<string, unknown>)[pf.item_property_slug];
