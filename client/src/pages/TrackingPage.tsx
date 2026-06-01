@@ -502,8 +502,11 @@ function EventsSection() {
               Every time <code className="font-mono text-xs">{selectedEvent?.name}</code> happens, the following payload gets sent to Google Tag Manager.
             </DialogDescription>
           </DialogHeader>
-          <div data-testid="text-payload-json">
-            <JsonViewer value={selectedEvent ? JSON.stringify(selectedEvent.payload, null, 2) : ""} />
+          <div className="overflow-hidden rounded-md" data-testid="text-payload-json">
+            <JsonViewer
+              value={selectedEvent ? JSON.stringify(selectedEvent.payload, null, 2) : ""}
+              className="[&_.cm-editor]:!max-w-full [&_.cm-scroller]:!overflow-x-auto"
+            />
           </div>
         </DialogContent>
       </Dialog>
