@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { AlertTriangle, Check, ChevronDown, CloudUpload, Code, Database, ExternalLink, HelpCircle, Image, Info, Laptop, Link, Unlink, Loader2, MapPin, Monitor, Pencil, Plus, Redo2, RefreshCw, Save, Search, Settings, Smartphone, Trash2, Undo2, Upload, Video, X } from "lucide-react";
-import { IconGitBranch } from "@tabler/icons-react";
+import { IconGitBranch, IconTargetArrow } from "@tabler/icons-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { BindingConfirmDialog } from "./BindingConfirmDialog";
 import { getIcon } from "@/lib/icons";
@@ -61,6 +61,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import { useConversionNames } from "@/lib/tracking";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import CodeMirror from "@uiw/react-codemirror";
 import type { EditorView } from "@codemirror/view";
@@ -1646,6 +1655,26 @@ export function SectionEditorPanel({
     queryKey: ["/api/theme"],
   });
 
+  const { names: conversionNames, isLoading: conversionNamesLoading } = useConversionNames();
+
+  const { data: formStateSuggestions } = useQuery<{ automations: string[]; tags: string[] }>({
+    queryKey: ["/api/form-state/suggestions"],
+  });
+
+  const formSettingsPath: string | null = (() => {
+    const rawFields = allFieldEditors?.[sectionType] || {};
+    for (const [fieldPath, editorType] of Object.entries(rawFields)) {
+      if (editorType === "form-settings") {
+        const colonIndex = fieldPath.indexOf(":");
+        if (colonIndex > 0 && !fieldPath.startsWith("color-picker:")) {
+          return fieldPath.substring(colonIndex + 1);
+        }
+        return fieldPath;
+      }
+    }
+    return null;
+  })();
+
   // Get configured fields for current section type, filtering by variant
   const configuredFields = (() => {
     const rawFields = allFieldEditors?.[sectionType] || {};
@@ -2037,7 +2066,7 @@ export function SectionEditorPanel({
         onValueChange={setActiveTab}
         className="flex-1 flex flex-col min-h-0"
       >
-        <TabsList className="mx-4 mt-2 grid w-auto grid-cols-2">
+        <TabsList className="mx-4 mt-2 grid w-auto grid-cols-3">
           <TabsTrigger value="code" className="gap-1.5" data-testid="tab-code">
             <Code className="h-4 w-4" />
             Code
@@ -2049,6 +2078,14 @@ export function SectionEditorPanel({
           >
             <Settings className="h-4 w-4" />
             Props
+          </TabsTrigger>
+          <TabsTrigger
+            value="conversion"
+            className="gap-1.5"
+            data-testid="tab-conversion"
+          >
+            <IconTargetArrow className="h-4 w-4" />
+            Conversion
           </TabsTrigger>
         </TabsList>
 
@@ -6228,6 +6265,140 @@ export function SectionEditorPanel({
               },
             )}
           </div>
+        </TabsContent>
+
+        {/* Conversion Tab */}
+        <TabsContent
+          value="conversion"
+          className="flex-1 overflow-auto p-4 mt-0 data-[state=inactive]:hidden"
+        >
+          {formSettingsPath === null ? (
+            <div
+              className="flex flex-col items-center justify-center h-full min-h-[160px] text-center gap-3"
+              data-testid="conversion-empty-state"
+            >
+              <IconTargetArrow className="h-8 w-8 text-muted-foreground/40" />
+              <p className="text-sm text-muted-foreground">
+                This section has no conversion or telemetry components, goals or activity.
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              {/* Conversion Name */}
+              <div className="space-y-2">
+                <Label
+                  htmlFor="conversion-name"
+                  className="text-sm font-medium"
+                  data-testid="label-conversion-name"
+                >
+                  Conversion Name
+                </Label>
+                <Select
+                  value={String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.conversion_name`) ?? "")}
+                  onValueChange={(val) => updateProperty(`${formSettingsPath}.conversion_name`, val === "__clear__" ? "" : val)}
+                  data-testid="select-conversion-name"
+                >
+                  <SelectTrigger className="w-full" data-testid="combobox-conversion-name">
+                    <SelectValue placeholder="Select conversion event…" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {conversionNames.length === 0 ? (
+                      <SelectItem value="__loading__" disabled>
+                        {conversionNamesLoading ? "Loading…" : "No events configured"}
+                      </SelectItem>
+                    ) : (
+                      <>
+                        <SelectItem value="__clear__" data-testid="conversion-name-option-clear">
+                          <span className="text-muted-foreground">— None —</span>
+                        </SelectItem>
+                        {conversionNames.map((name) => (
+                          <SelectItem key={name} value={name} data-testid={`conversion-name-option-${name}`}>
+                            {name}
+                          </SelectItem>
+                        ))}
+                      </>
+                    )}
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">
+                  GTM event fired on form submission. Must match a configured conversion event.
+                </p>
+              </div>
+
+              {/* Automations */}
+              <div className="space-y-2">
+                <Label
+                  htmlFor="conversion-automations"
+                  className="text-sm font-medium"
+                  data-testid="label-conversion-automations"
+                >
+                  Automations
+                </Label>
+                <Input
+                  id="conversion-automations"
+                  value={(() => {
+                    const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.automations`);
+                    return v ? String(v) : "";
+                  })()}
+                  onChange={(e) => updateProperty(`${formSettingsPath}.automations`, e.target.value)}
+                  placeholder="e.g. hubspot-lead-nurture"
+                  list="conversion-automations-suggestions"
+                  data-testid="input-conversion-automations"
+                />
+                {(formStateSuggestions?.automations?.length ?? 0) > 0 && (
+                  <datalist id="conversion-automations-suggestions">
+                    {formStateSuggestions!.automations.map((a) => (
+                      <option key={a} value={a} />
+                    ))}
+                  </datalist>
+                )}
+                <p className="text-xs text-muted-foreground">
+                  CRM automation workflow to trigger on submission.
+                </p>
+              </div>
+
+              {/* Tags */}
+              <div className="space-y-2">
+                <Label
+                  htmlFor="conversion-tags"
+                  className="text-sm font-medium"
+                  data-testid="label-conversion-tags"
+                >
+                  Tags
+                </Label>
+                <Input
+                  id="conversion-tags"
+                  value={(() => {
+                    const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.tags`);
+                    if (Array.isArray(v)) return (v as string[]).join(", ");
+                    return v ? String(v) : "";
+                  })()}
+                  onChange={(e) => {
+                    const raw = e.target.value;
+                    const tagArray = raw.split(",").map((t) => t.trim()).filter(Boolean);
+                    if (tagArray.length > 0) {
+                      updatePropertyWithValue(`${formSettingsPath}.tags`, tagArray);
+                    } else {
+                      updatePropertyWithValue(`${formSettingsPath}.tags`, undefined);
+                    }
+                  }}
+                  placeholder="e.g. lead, bootcamp, latam"
+                  list="conversion-tags-suggestions"
+                  data-testid="input-conversion-tags"
+                />
+                {(formStateSuggestions?.tags?.length ?? 0) > 0 && (
+                  <datalist id="conversion-tags-suggestions">
+                    {formStateSuggestions!.tags.map((t) => (
+                      <option key={t} value={t} />
+                    ))}
+                  </datalist>
+                )}
+                <p className="text-xs text-muted-foreground">
+                  Comma-separated labels applied to form submissions for segmentation.
+                </p>
+              </div>
+            </div>
+          )}
         </TabsContent>
       </Tabs>
 

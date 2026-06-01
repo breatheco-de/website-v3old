@@ -29,6 +29,7 @@ export interface FormStateEntry {
   section_id: string;
   section_type: string;
   conversion_name: string;
+  automations?: string;
   tags?: string[];
   variant?: string;
 }
@@ -36,12 +37,16 @@ export interface FormStateEntry {
 interface FormState {
   forms: FormStateEntry[];
   conversion_names: Record<string, string[]>;
+  known_automations: string[];
+  known_tags: string[];
   last_built: string;
 }
 
 let state: FormState = {
   forms: [],
   conversion_names: {},
+  known_automations: [],
+  known_tags: [],
   last_built: new Date().toISOString(),
 };
 
@@ -122,6 +127,7 @@ function extractFormBlocks(
   variant: string | undefined,
   results: Array<{
     conversion_name: string;
+    automations?: string;
     tags: string[];
     variant?: string;
   }>
@@ -139,6 +145,7 @@ function extractFormBlocks(
   if (typeof record.conversion_name === "string") {
     results.push({
       conversion_name: record.conversion_name,
+      ...(typeof record.automations === "string" ? { automations: record.automations } : {}),
       tags: Array.isArray(record.tags)
         ? (record.tags as string[]).filter((t) => typeof t === "string")
         : [],
@@ -153,6 +160,7 @@ function extractFormBlocks(
       if (typeof formObj.conversion_name === "string") {
         results.push({
           conversion_name: formObj.conversion_name,
+          ...(typeof formObj.automations === "string" ? { automations: formObj.automations } : {}),
           tags: Array.isArray(formObj.tags)
             ? (formObj.tags as string[]).filter((t) => typeof t === "string")
             : [],
@@ -194,7 +202,7 @@ function scanFile(absPath: string): FormStateEntry[] {
     const section_type = typeof sec.type === "string" ? sec.type : "";
     const variant = typeof sec.variant === "string" ? sec.variant : undefined;
 
-    const formBlocks: Array<{ conversion_name: string; tags: string[]; variant?: string }> = [];
+    const formBlocks: Array<{ conversion_name: string; automations?: string; tags: string[]; variant?: string }> = [];
     extractFormBlocks(sec, section_id, section_type, variant, formBlocks);
 
     for (const block of formBlocks) {
@@ -206,6 +214,7 @@ function scanFile(absPath: string): FormStateEntry[] {
         section_id,
         section_type,
         conversion_name: block.conversion_name,
+        ...(block.automations ? { automations: block.automations } : {}),
         ...(block.tags.length > 0 ? { tags: block.tags } : {}),
         ...(block.variant !== undefined ? { variant: block.variant } : {}),
       });
@@ -215,16 +224,28 @@ function scanFile(absPath: string): FormStateEntry[] {
   return entries;
 }
 
-/** Rebuild conversion_names index from the forms array. */
+/** Rebuild conversion_names index and known_automations/known_tags from the forms array. */
 function rebuildIndex(): void {
   const index: Record<string, string[]> = {};
+  const automationsSet = new Set<string>();
+  const tagsSet = new Set<string>();
+
   for (const entry of state.forms) {
     if (!index[entry.conversion_name]) index[entry.conversion_name] = [];
     if (!index[entry.conversion_name].includes(entry.file)) {
       index[entry.conversion_name].push(entry.file);
     }
+    if (entry.automations) automationsSet.add(entry.automations);
+    if (entry.tags) {
+      for (const tag of entry.tags) {
+        if (tag) tagsSet.add(tag);
+      }
+    }
   }
+
   state.conversion_names = index;
+  state.known_automations = Array.from(automationsSet).sort();
+  state.known_tags = Array.from(tagsSet).sort();
 }
 
 // ─── Public API ──────────────────────────────────────────────────────────────
@@ -242,6 +263,8 @@ export function buildFormState(): void {
   state = {
     forms,
     conversion_names: {},
+    known_automations: [],
+    known_tags: [],
     last_built: new Date().toISOString(),
   };
   rebuildIndex();
@@ -348,4 +371,12 @@ export function bulkReplaceConversionName(oldName: string, newName: string): num
   save();
 
   return count;
+}
+
+/** Returns known automations and tags across all form entries (for autocomplete). */
+export function getFormStateSuggestions(): { automations: string[]; tags: string[] } {
+  return {
+    automations: state.known_automations,
+    tags: state.known_tags,
+  };
 }

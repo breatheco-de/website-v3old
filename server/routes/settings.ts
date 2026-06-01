@@ -28,7 +28,7 @@ import {
   refreshSitemapEntriesForContentKey,
 } from "../sitemap";
 import { markFileAsModified } from "../sync-state";
-import { getConversionNameUsages, bulkReplaceConversionName, buildFormState } from "../form-state";
+import { getConversionNameUsages, bulkReplaceConversionName, buildFormState, getFormStateSuggestions } from "../form-state";
 import { deepMerge } from "../utils/deepMerge";
 import { regenerateSectionIds } from "../utils/regenerateSectionIds";
 import { databaseManager } from "../database";
@@ -603,6 +603,57 @@ export function registerSettingsRoutes(app: Express): void {
     } catch (err: any) {
       res.status(400).json({ error: err.message || String(err) });
     }
+  });
+
+  app.patch("/api/settings/tracking/conversion-events/:name", (req, res) => {
+    try {
+      const { name } = req.params;
+      const { newName } = req.body as { newName?: string };
+      if (!newName || typeof newName !== "string") {
+        return res.status(400).json({ error: "newName is required" });
+      }
+      const trimmed = newName.trim();
+      const snakeCasePattern = /^[a-z][a-z0-9_]*$/;
+      if (!snakeCasePattern.test(trimmed)) {
+        return res.status(400).json({ error: "Event name must be snake_case (lowercase letters, digits, underscores, starting with a letter)" });
+      }
+      const current = getTrackingSettings();
+      if (current.conversion_events.some((e) => e.name === trimmed)) {
+        return res.status(409).json({ error: `An event named "${trimmed}" already exists` });
+      }
+      const updated = current.conversion_events.map((e) =>
+        e.name === name ? { ...e, name: trimmed } : e
+      );
+      updateTrackingSettings({ conversion_events: updated });
+      const filesChanged = bulkReplaceConversionName(name, trimmed);
+      res.json({ success: true, filesChanged });
+    } catch (err: any) {
+      res.status(400).json({ error: err.message || String(err) });
+    }
+  });
+
+  app.post("/api/settings/tracking/conversion-events/:name/merge", (req, res) => {
+    try {
+      const { name } = req.params;
+      const { mergeInto } = req.body as { mergeInto?: string };
+      if (!mergeInto || typeof mergeInto !== "string") {
+        return res.status(400).json({ error: "mergeInto is required" });
+      }
+      const current = getTrackingSettings();
+      if (!current.conversion_events.some((e) => e.name === mergeInto)) {
+        return res.status(404).json({ error: `Target event "${mergeInto}" does not exist` });
+      }
+      const filesChanged = bulkReplaceConversionName(name, mergeInto);
+      const filtered = current.conversion_events.filter((e) => e.name !== name);
+      updateTrackingSettings({ conversion_events: filtered });
+      res.json({ success: true, filesChanged });
+    } catch (err: any) {
+      res.status(400).json({ error: err.message || String(err) });
+    }
+  });
+
+  app.get("/api/form-state/suggestions", (_req, res) => {
+    res.json(getFormStateSuggestions());
   });
 
   app.get("/api/settings/tracking/conversion-events/:name/usage", (req, res) => {

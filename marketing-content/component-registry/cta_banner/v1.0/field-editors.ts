@@ -10,7 +10,7 @@
  * EditorType options: "icon-picker" | "color-picker" | "image-picker" | "link-picker" | "variant-picker" | "rich-text-editor"
  */
 
-export type EditorType = "icon-picker" | "color-picker" | "image-picker" | "link-picker" | "variant-picker" | "rich-text-editor";
+export type EditorType = "icon-picker" | "color-picker" | "image-picker" | "link-picker" | "variant-picker" | "rich-text-editor" | "form-settings";
 
 export const fieldEditors: Record<string, EditorType> = {
   "form_background": "color-picker",
@@ -19,4 +19,5 @@ export const fieldEditors: Record<string, EditorType> = {
   "buttons[].text_color": "color-picker:text" as EditorType,
   "buttons[].url": "link-picker",
   "cta_url": "link-picker",
+  "form": "form-settings",
 };
