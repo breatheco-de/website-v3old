@@ -28,7 +28,7 @@ import {
   refreshSitemapEntriesForContentKey,
 } from "../sitemap";
 import { markFileAsModified } from "../sync-state";
-import { getConversionNameUsages, bulkReplaceConversionName, buildFormState, getFormStateSuggestions } from "../form-state";
+import { getConversionNameUsages, bulkReplaceConversionName, buildFormState, getFormStateSuggestions, getConversionNameCounts } from "../form-state";
 import { deepMerge } from "../utils/deepMerge";
 import { regenerateSectionIds } from "../utils/regenerateSectionIds";
 import { databaseManager } from "../database";
@@ -654,6 +654,11 @@ export function registerSettingsRoutes(app: Express): void {
 
   app.get("/api/form-state/suggestions", (_req, res) => {
     res.json(getFormStateSuggestions());
+  });
+
+  app.get("/api/form-state/conversion-counts", (_req, res) => {
+    buildFormState();
+    res.json(getConversionNameCounts());
   });
 
   app.get("/api/settings/tracking/conversion-events/:name/usage", (req, res) => {

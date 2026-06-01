@@ -395,6 +395,10 @@ function EventsSection() {
   });
   const conversionEventEntries = trackingSettings?.conversion_events ?? [];
 
+  const { data: conversionCounts } = useQuery<Record<string, number>>({
+    queryKey: ["/api/form-state/conversion-counts"],
+  });
+
   const { data: usageData, isFetching: usageFetching } = useQuery<{ name: string; usages: UsageEntry[] }>({
     queryKey: ["/api/settings/tracking/conversion-events", deleteConfirmEvent, "usage"],
     queryFn: async () => {
@@ -600,9 +604,16 @@ function EventsSection() {
                     {group.events.map((ev) => (
                       <tr key={ev.name} className="border-b last:border-0">
                         <td className="py-2 pr-4 align-middle">
-                          <Badge variant="secondary" className="font-mono text-xs">
-                            {ev.name}
-                          </Badge>
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <Badge variant="secondary" className="font-mono text-xs">
+                              {ev.name}
+                            </Badge>
+                            {group.title === "Conversion Events" && conversionCounts?.[ev.name] !== undefined && (
+                              <Badge variant="outline" className="text-xs tabular-nums text-muted-foreground" data-testid={`badge-form-count-${ev.name}`}>
+                                {conversionCounts[ev.name]} {conversionCounts[ev.name] === 1 ? "form" : "forms"}
+                              </Badge>
+                            )}
+                          </div>
                         </td>
                         <td className="py-2 pr-4 align-middle text-muted-foreground text-xs">{ev.trigger}</td>
                         <td className="py-2 align-middle text-right">

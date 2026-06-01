@@ -326,6 +326,15 @@ export function getConversionNameUsages(name: string): FormStateEntry[] {
   return state.forms.filter((e) => e.conversion_name === name);
 }
 
+/** Returns a count of form section entries per conversion name. */
+export function getConversionNameCounts(): Record<string, number> {
+  const counts: Record<string, number> = {};
+  for (const entry of state.forms) {
+    counts[entry.conversion_name] = (counts[entry.conversion_name] ?? 0) + 1;
+  }
+  return counts;
+}
+
 /**
  * Bulk-replace every occurrence of `oldName` with `newName` in all scanned
  * YAML files, then refresh the in-memory form-state cache.
