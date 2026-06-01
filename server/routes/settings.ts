@@ -28,7 +28,7 @@ import {
   refreshSitemapEntriesForContentKey,
 } from "../sitemap";
 import { markFileAsModified } from "../sync-state";
-import { getConversionNameUsages, bulkReplaceConversionName } from "../form-state";
+import { getConversionNameUsages, bulkReplaceConversionName, buildFormState } from "../form-state";
 import { deepMerge } from "../utils/deepMerge";
 import { regenerateSectionIds } from "../utils/regenerateSectionIds";
 import { databaseManager } from "../database";
@@ -607,6 +607,9 @@ export function registerSettingsRoutes(app: Express): void {
 
   app.get("/api/settings/tracking/conversion-events/:name/usage", (req, res) => {
     const { name } = req.params;
+    // Always rebuild from disk before checking — ensures edits made via
+    // the section editor (or any other path) are reflected immediately.
+    buildFormState();
     const usages = getConversionNameUsages(name);
     res.json({
       name,
