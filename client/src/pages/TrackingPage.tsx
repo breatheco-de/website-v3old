@@ -20,7 +20,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import JsonViewer from "@/components/editing/JsonViewer";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
@@ -497,10 +498,13 @@ function EventsSection() {
             <DialogTitle className="font-mono text-sm font-semibold">
               {selectedEvent?.name}
             </DialogTitle>
+            <DialogDescription className="text-sm text-muted-foreground">
+              Every time <code className="font-mono text-xs">{selectedEvent?.name}</code> happens, the following payload gets sent to Google Tag Manager.
+            </DialogDescription>
           </DialogHeader>
-          <pre className="rounded-md bg-muted px-4 py-3 text-xs font-mono overflow-x-auto whitespace-pre leading-relaxed" data-testid="text-payload-json">
-            {selectedEvent ? JSON.stringify(selectedEvent.payload, null, 2) : ""}
-          </pre>
+          <div data-testid="text-payload-json">
+            <JsonViewer value={selectedEvent ? JSON.stringify(selectedEvent.payload, null, 2) : ""} />
+          </div>
         </DialogContent>
       </Dialog>
     </>
