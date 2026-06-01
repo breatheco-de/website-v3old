@@ -16,12 +16,14 @@ import {
   IconSettingsCog,
   IconToggleLeft,
   IconToggleRight,
+  IconTrash,
 } from "@tabler/icons-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Label } from "@/components/ui/label";
 import JsonViewer from "@/components/editing/JsonViewer";
 import { Input } from "@/components/ui/input";
@@ -366,17 +368,56 @@ const GENERAL_EVENT_PAYLOADS: Record<string, Record<string, unknown>> = {
   },
 };
 
+interface UsageEntry {
+  file: string;
+  content_type: string;
+  slug: string;
+  locale: string;
+  section_id: string;
+  section_type: string;
+}
+
 function EventsSection() {
   const { toast } = useToast();
   const [selectedEvent, setSelectedEvent] = useState<TrackingEvent | null>(null);
   const [addEventOpen, setAddEventOpen] = useState(false);
   const [newEventName, setNewEventName] = useState("");
   const [newEventDesc, setNewEventDesc] = useState("");
+  const [deleteConfirmEvent, setDeleteConfirmEvent] = useState<string | null>(null);
 
   const { data: trackingSettings } = useQuery<TrackingSettingsResponse>({
     queryKey: ["/api/settings/tracking"],
   });
   const conversionEventEntries = trackingSettings?.conversion_events ?? [];
+
+  const { data: usageData, isFetching: usageFetching } = useQuery<{ name: string; usages: UsageEntry[] }>({
+    queryKey: ["/api/settings/tracking/conversion-events", deleteConfirmEvent, "usage"],
+    queryFn: async () => {
+      const res = await apiFetch(`/api/settings/tracking/conversion-events/${encodeURIComponent(deleteConfirmEvent!)}/usage`);
+      if (!res.ok) throw new Error("Failed to load usage");
+      return res.json();
+    },
+    enabled: !!deleteConfirmEvent,
+  });
+
+  const deleteEventMutation = useMutation({
+    mutationFn: async (name: string) => {
+      const res = await apiRequest("DELETE", `/api/settings/tracking/conversion-events/${encodeURIComponent(name)}`);
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || "Failed to delete");
+      }
+      return res.json();
+    },
+    onSuccess: (_data, name) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/settings/tracking"] });
+      setDeleteConfirmEvent(null);
+      toast({ title: "Event deleted", description: `"${name}" removed from conversion events.` });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Failed to delete event", description: err.message, variant: "destructive" });
+    },
+  });
 
   const addEventMutation = useMutation({
     mutationFn: async ({ name, description }: { name: string; description: string }) => {
@@ -507,7 +548,7 @@ function EventsSection() {
                     <tr className="border-b">
                       <th className="text-left py-2 pr-4 text-xs font-medium text-muted-foreground w-2/5">Event / Push</th>
                       <th className="text-left py-2 pr-4 text-xs font-medium text-muted-foreground">Trigger</th>
-                      <th className="py-2 text-xs font-medium text-muted-foreground text-right">Payload</th>
+                      <th className="py-2 text-xs font-medium text-muted-foreground text-right">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -520,16 +561,36 @@ function EventsSection() {
                         </td>
                         <td className="py-2 pr-4 align-middle text-muted-foreground text-xs">{ev.trigger}</td>
                         <td className="py-2 align-middle text-right">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-7 px-2 text-xs gap-1.5"
-                            onClick={() => setSelectedEvent(ev)}
-                            data-testid={`button-show-payload-${ev.name}`}
-                          >
-                            <IconBraces className="h-3.5 w-3.5" />
-                            Show payload
-                          </Button>
+                          <div className="flex items-center justify-end gap-1">
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  onClick={() => setSelectedEvent(ev)}
+                                  data-testid={`button-show-payload-${ev.name}`}
+                                >
+                                  <IconBraces className="h-3.5 w-3.5" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>Show payload</TooltipContent>
+                            </Tooltip>
+                            {group.title === "Conversion Events" && (
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => setDeleteConfirmEvent(ev.name)}
+                                    data-testid={`button-delete-event-${ev.name}`}
+                                  >
+                                    <IconTrash className="h-3.5 w-3.5" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>Delete event</TooltipContent>
+                              </Tooltip>
+                            )}
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -557,6 +618,63 @@ function EventsSection() {
               className="[&_.cm-editor]:!max-w-full [&_.cm-scroller]:!overflow-x-auto"
             />
           </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={!!deleteConfirmEvent}
+        onOpenChange={(open) => { if (!open) setDeleteConfirmEvent(null); }}
+      >
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Delete conversion event</DialogTitle>
+            <DialogDescription>
+              This will remove <code className="font-mono text-xs">{deleteConfirmEvent}</code> from <code className="font-mono text-xs">settings.yml</code>. This cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-2">
+            {usageFetching ? (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <IconLoader2 className="h-4 w-4 animate-spin" />
+                Checking usage…
+              </div>
+            ) : usageData && usageData.usages.length > 0 ? (
+              <div className="space-y-2">
+                <p className="text-sm text-muted-foreground">This event is referenced in the following pages:</p>
+                <ul className="space-y-1">
+                  {usageData.usages.map((u, i) => (
+                    <li key={i} className="text-sm flex items-start gap-1.5">
+                      <span className="font-medium">{u.content_type}/{u.slug}</span>
+                      <span className="text-muted-foreground">({u.locale})</span>
+                      {u.section_type && (
+                        <span className="text-muted-foreground text-xs">· {u.section_type}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">No pages are using this event — safe to delete.</p>
+            )}
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setDeleteConfirmEvent(null)}
+              data-testid="button-cancel-delete-event"
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={() => deleteConfirmEvent && deleteEventMutation.mutate(deleteConfirmEvent)}
+              disabled={deleteEventMutation.isPending}
+              data-testid="button-confirm-delete-event"
+            >
+              {deleteEventMutation.isPending ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconTrash className="h-4 w-4" />}
+              Delete
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
 

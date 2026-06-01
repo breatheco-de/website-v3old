@@ -28,6 +28,7 @@ import {
   refreshSitemapEntriesForContentKey,
 } from "../sitemap";
 import { markFileAsModified } from "../sync-state";
+import { getConversionNameUsages } from "../form-state";
 import { deepMerge } from "../utils/deepMerge";
 import { regenerateSectionIds } from "../utils/regenerateSectionIds";
 import { databaseManager } from "../database";
@@ -599,6 +600,34 @@ export function registerSettingsRoutes(app: Express): void {
       }
       updateTrackingSettings({ conversion_events });
       res.json({ success: true, ...getTrackingSettings() });
+    } catch (err: any) {
+      res.status(400).json({ error: err.message || String(err) });
+    }
+  });
+
+  app.get("/api/settings/tracking/conversion-events/:name/usage", (req, res) => {
+    const { name } = req.params;
+    const usages = getConversionNameUsages(name);
+    res.json({
+      name,
+      usages: usages.map(({ file, content_type, slug, locale, section_id, section_type }) => ({
+        file,
+        content_type,
+        slug,
+        locale,
+        section_id,
+        section_type,
+      })),
+    });
+  });
+
+  app.delete("/api/settings/tracking/conversion-events/:name", (req, res) => {
+    try {
+      const { name } = req.params;
+      const current = getTrackingSettings();
+      const filtered = current.conversion_events.filter((e) => e.name !== name);
+      updateTrackingSettings({ conversion_events: filtered });
+      res.json({ success: true });
     } catch (err: any) {
       res.status(400).json({ error: err.message || String(err) });
     }

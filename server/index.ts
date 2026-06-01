@@ -12,6 +12,8 @@ import { databaseManager } from "./database";
 import { contentIndex } from "./content-index";
 import { scanEcommerceContent, startEcommerceWatcher } from "./ecommerce/ecommerce-index";
 import { loadUsersStateFromBucket } from "./user-store";
+import { loadFormStateFromBucket, updateFormStateForFile } from "./form-state";
+import { addFileModifiedListener } from "./sync-state";
 import { gcs } from "./gcs";
 import { getVersioningManager } from "./versioning/VersioningManager";
 import http from "http";
@@ -253,6 +255,14 @@ app.use((req, res, next) => {
     });
     loadUsersStateFromBucket().catch((err) => {
       console.error("[UserStore] Failed to load users state:", err);
+    });
+    loadFormStateFromBucket().catch((err) => {
+      console.error("[FormState] Failed to load form state:", err);
+    });
+    addFileModifiedListener((filePath) => {
+      if (filePath.startsWith("marketing-content/") && (filePath.endsWith(".yml") || filePath.endsWith(".yaml"))) {
+        updateFormStateForFile(filePath);
+      }
     });
   });
 
