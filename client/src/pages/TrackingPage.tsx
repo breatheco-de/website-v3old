@@ -331,7 +331,7 @@ function EventsSection() {
   const visitorContextEvents: EventGroup["events"] = [
     {
       name: "visitor context object",
-      trigger: "Session bootstrap",
+      trigger: "Once on first load, after geo + user ID resolve",
       fields: "user_id, visitor_location_city, visitor_location_country, visitor_location_slug, UTM params",
     },
   ];
@@ -356,7 +356,7 @@ function EventsSection() {
     },
     {
       title: "Visitor Context",
-      description: "Pushed to dataLayer once during session bootstrap via setVisitorContext.",
+      description: "Pushed to dataLayer once per page load via setVisitorContext, after the background session worker resolves geo location and user ID.",
       events: visitorContextEvents,
     },
     {
