@@ -10,17 +10,19 @@ import {
   IconDeviceFloppy,
   IconInfoCircle,
   IconLoader2,
+  IconPlus,
   IconPlugConnected,
   IconServer,
   IconSettingsCog,
   IconToggleLeft,
   IconToggleRight,
 } from "@tabler/icons-react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 import JsonViewer from "@/components/editing/JsonViewer";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -365,12 +367,38 @@ const GENERAL_EVENT_PAYLOADS: Record<string, Record<string, unknown>> = {
 };
 
 function EventsSection() {
+  const { toast } = useToast();
   const [selectedEvent, setSelectedEvent] = useState<TrackingEvent | null>(null);
+  const [addEventOpen, setAddEventOpen] = useState(false);
+  const [newEventName, setNewEventName] = useState("");
+  const [newEventDesc, setNewEventDesc] = useState("");
 
   const { data: trackingSettings } = useQuery<TrackingSettingsResponse>({
     queryKey: ["/api/settings/tracking"],
   });
   const conversionEventEntries = trackingSettings?.conversion_events ?? [];
+
+  const addEventMutation = useMutation({
+    mutationFn: async ({ name, description }: { name: string; description: string }) => {
+      const updated = [...conversionEventEntries, { name: name.trim(), description: description.trim() || "Form submission" }];
+      const res = await apiRequest("PUT", "/api/settings/tracking", { conversion_events: updated });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || "Failed to save");
+      }
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/settings/tracking"] });
+      setAddEventOpen(false);
+      setNewEventName("");
+      setNewEventDesc("");
+      toast({ title: "Event added", description: `"${newEventName.trim()}" added to conversion events.` });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Failed to add event", description: err.message, variant: "destructive" });
+    },
+  });
 
   const routeEvents: TrackingEvent[] = [
     {
@@ -453,8 +481,24 @@ function EventsSection() {
         {groups.map((group) => (
           <Card key={group.title}>
             <CardHeader className="pb-3">
-              <CardTitle className="text-base">{group.title}</CardTitle>
-              <p className="text-sm text-muted-foreground">{group.description}</p>
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <CardTitle className="text-base">{group.title}</CardTitle>
+                  <p className="text-sm text-muted-foreground mt-1">{group.description}</p>
+                </div>
+                {group.title === "Conversion Events" && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setAddEventOpen(true)}
+                    data-testid="button-add-conversion-event"
+                    className="shrink-0"
+                  >
+                    <IconPlus className="h-3.5 w-3.5" />
+                    Add event
+                  </Button>
+                )}
+              </div>
             </CardHeader>
             <CardContent className="pt-0">
               <div className="overflow-x-auto">
@@ -513,6 +557,68 @@ function EventsSection() {
               className="[&_.cm-editor]:!max-w-full [&_.cm-scroller]:!overflow-x-auto"
             />
           </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={addEventOpen} onOpenChange={(open) => { if (!open) { setAddEventOpen(false); setNewEventName(""); setNewEventDesc(""); } }}>
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Add conversion event</DialogTitle>
+            <DialogDescription>
+              The event name becomes the GTM trigger key. Description is shown in this table for reference.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-1">
+            <div className="space-y-1.5">
+              <Label htmlFor="new-event-name">Event name</Label>
+              <Input
+                id="new-event-name"
+                placeholder="e.g. scholarship_application"
+                value={newEventName}
+                onChange={(e) => setNewEventName(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && newEventName.trim()) {
+                    addEventMutation.mutate({ name: newEventName, description: newEventDesc });
+                  }
+                }}
+                data-testid="input-new-event-name"
+                className="font-mono text-sm"
+              />
+              <p className="text-xs text-muted-foreground">Use snake_case. This becomes the GTM event name.</p>
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="new-event-desc">Description <span className="text-muted-foreground font-normal">(optional)</span></Label>
+              <Input
+                id="new-event-desc"
+                placeholder="e.g. Scholarship form submitted"
+                value={newEventDesc}
+                onChange={(e) => setNewEventDesc(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && newEventName.trim()) {
+                    addEventMutation.mutate({ name: newEventName, description: newEventDesc });
+                  }
+                }}
+                data-testid="input-new-event-desc"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => { setAddEventOpen(false); setNewEventName(""); setNewEventDesc(""); }}
+              data-testid="button-cancel-add-event"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={() => addEventMutation.mutate({ name: newEventName, description: newEventDesc })}
+              disabled={!newEventName.trim() || addEventMutation.isPending}
+              data-testid="button-confirm-add-event"
+            >
+              {addEventMutation.isPending ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconPlus className="h-4 w-4" />}
+              Add event
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </>
