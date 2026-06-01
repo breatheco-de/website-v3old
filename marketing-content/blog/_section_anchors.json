@@ -1,4 +1,8 @@
 {
   "aliases": {},
-  "dependants": {}
+  "dependants": {
+    "article-631g5w": [
+      "que-es-data-science"
+    ]
+  }
 }
