@@ -86,13 +86,15 @@ export class ValidationService {
         if (!options.includeArtifacts) {
           delete result.artifacts;
         }
-        
+
+        result.category = validator.category;
         results.push(result);
       } catch (err) {
         results.push({
           name: validator.name,
           description: validator.description,
           status: "failed",
+          category: validator.category,
           errors: [{
             type: "error",
             code: "VALIDATOR_ERROR",

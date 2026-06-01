@@ -31,6 +31,7 @@ export interface ValidatorResult {
   errors: ValidationIssue[];
   warnings: ValidationIssue[];
   duration: number;
+  category?: ValidatorMetadata["category"];
   artifacts?: Record<string, unknown>;
 }
 
@@ -39,7 +40,7 @@ export interface ValidatorMetadata {
   description: string;
   apiExposed: boolean;
   estimatedDuration: "fast" | "medium" | "slow";
-  category: "content" | "seo" | "integrity" | "components" | "performance";
+  category: "content" | "seo" | "integrity" | "components" | "performance" | "forms";
 }
 
 export interface Validator extends ValidatorMetadata {

@@ -48,6 +48,7 @@ interface ValidatorResult {
   errors: ValidatorIssue[];
   warnings: ValidatorIssue[];
   duration: number;
+  category?: string;
   artifacts?: Record<string, unknown>;
 }
 
@@ -133,7 +134,7 @@ interface PageDiagnostics {
 }
 
 type SeverityFilter = "all" | "errors" | "warnings";
-type CategoryFilter = "all" | "seo" | "integrity" | "content" | "components";
+type CategoryFilter = "all" | "seo" | "integrity" | "content" | "components" | "forms";
 
 function getScoreColorClass(score: number): string {
   if (score >= 80) return "text-chart-3";
@@ -740,8 +741,7 @@ function GlobalHealthTab() {
       if (severityFilter === "errors" && v.status !== "failed") return false;
       if (severityFilter === "warnings" && v.status !== "warning") return false;
       if (categoryFilter !== "all") {
-        const cat = v.name.toLowerCase();
-        if (!cat.includes(categoryFilter)) return false;
+        if (v.category !== categoryFilter) return false;
       }
       return true;
     });
@@ -753,6 +753,7 @@ function GlobalHealthTab() {
     { key: "integrity", label: "Integrity" },
     { key: "content", label: "Content" },
     { key: "components", label: "Components" },
+    { key: "forms", label: "Forms" },
   ];
 
   return (
