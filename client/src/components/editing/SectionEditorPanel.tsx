@@ -4742,12 +4742,21 @@ export function SectionEditorPanel({
                     }
                     return ((permFilters as Record<string, unknown> | undefined)?.related_features as string[]) ?? (parsedSection?.related_features as string[]) ?? [];
                   })();
+                  const pickerPermanentFilters = (() => {
+                    const dynEntries = parsedSection?.dynamic_entries as Record<string, unknown> | undefined;
+                    const permFilters = dynEntries?.permanent_filters;
+                    if (Array.isArray(permFilters)) {
+                      return permFilters as Array<{ item_property_slug: string; value: string | string[] }>;
+                    }
+                    return [];
+                  })();
                   return (
                     <div key={fieldPath}>
                       <RelatedFeaturesPicker
                         value={pickerValue}
                         onChange={(value) => updateArrayProperty(fieldPath, value)}
                         locale={locale}
+                        permanentFilters={pickerPermanentFilters}
                       />
                     </div>
                   );
