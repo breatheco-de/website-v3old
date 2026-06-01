@@ -10,6 +10,7 @@ import {
   IconDeviceFloppy,
   IconInfoCircle,
   IconLoader2,
+  IconPencil,
   IconPlus,
   IconPlugConnected,
   IconServer,
@@ -23,6 +24,7 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Label } from "@/components/ui/label";
 import JsonViewer from "@/components/editing/JsonViewer";
@@ -384,6 +386,9 @@ function EventsSection() {
   const [newEventName, setNewEventName] = useState("");
   const [newEventDesc, setNewEventDesc] = useState("");
   const [deleteConfirmEvent, setDeleteConfirmEvent] = useState<string | null>(null);
+  const [renameEvent, setRenameEvent] = useState<string | null>(null);
+  const [renameValue, setRenameValue] = useState("");
+  const [mergeTarget, setMergeTarget] = useState("");
 
   const { data: trackingSettings } = useQuery<TrackingSettingsResponse>({
     queryKey: ["/api/settings/tracking"],
@@ -438,6 +443,46 @@ function EventsSection() {
     },
     onError: (err: Error) => {
       toast({ title: "Failed to add event", description: err.message, variant: "destructive" });
+    },
+  });
+
+  const renameMutation = useMutation({
+    mutationFn: async ({ oldName, newName }: { oldName: string; newName: string }) => {
+      const res = await apiRequest("PATCH", `/api/settings/tracking/conversion-events/${encodeURIComponent(oldName)}`, { newName });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || "Failed to rename");
+      }
+      return res.json();
+    },
+    onSuccess: (_data, { oldName, newName }) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/settings/tracking"] });
+      setRenameEvent(null);
+      setRenameValue("");
+      toast({ title: "Event renamed", description: `"${oldName}" renamed to "${newName}".` });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Failed to rename event", description: err.message, variant: "destructive" });
+    },
+  });
+
+  const mergeMutation = useMutation({
+    mutationFn: async ({ name, mergeInto }: { name: string; mergeInto: string }) => {
+      const res = await apiRequest("POST", `/api/settings/tracking/conversion-events/${encodeURIComponent(name)}/merge`, { mergeInto });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || "Failed to merge");
+      }
+      return res.json();
+    },
+    onSuccess: (_data, { name, mergeInto }) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/settings/tracking"] });
+      setDeleteConfirmEvent(null);
+      setMergeTarget("");
+      toast({ title: "Event merged", description: `"${name}" merged into "${mergeInto}" and removed.` });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Failed to merge event", description: err.message, variant: "destructive" });
     },
   });
 
@@ -576,19 +621,34 @@ function EventsSection() {
                               <TooltipContent>Show payload</TooltipContent>
                             </Tooltip>
                             {group.title === "Conversion Events" && (
-                              <Tooltip>
-                                <TooltipTrigger asChild>
-                                  <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    onClick={() => setDeleteConfirmEvent(ev.name)}
-                                    data-testid={`button-delete-event-${ev.name}`}
-                                  >
-                                    <IconTrash className="h-3.5 w-3.5" />
-                                  </Button>
-                                </TooltipTrigger>
-                                <TooltipContent>Delete event</TooltipContent>
-                              </Tooltip>
+                              <>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      variant="ghost"
+                                      size="icon"
+                                      onClick={() => { setRenameEvent(ev.name); setRenameValue(ev.name); }}
+                                      data-testid={`button-rename-event-${ev.name}`}
+                                    >
+                                      <IconPencil className="h-3.5 w-3.5" />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent>Rename event</TooltipContent>
+                                </Tooltip>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      variant="ghost"
+                                      size="icon"
+                                      onClick={() => { setDeleteConfirmEvent(ev.name); setMergeTarget(""); }}
+                                      data-testid={`button-delete-event-${ev.name}`}
+                                    >
+                                      <IconTrash className="h-3.5 w-3.5" />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent>Delete event</TooltipContent>
+                                </Tooltip>
+                              </>
                             )}
                           </div>
                         </td>
@@ -639,11 +699,11 @@ function EventsSection() {
                 Checking usage…
               </div>
             ) : usageData && usageData.usages.length > 0 ? (
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <p className="text-sm text-muted-foreground">This event is referenced in the following pages:</p>
                 <ul className="space-y-1">
                   {usageData.usages.map((u, i) => (
-                    <li key={i} className="text-sm flex items-start gap-1.5">
+                    <li key={i} className="text-sm flex items-start gap-1.5 flex-wrap">
                       <span className="font-medium">{u.content_type}/{u.slug}</span>
                       <span className="text-muted-foreground">({u.locale})</span>
                       {u.section_type && (
@@ -652,6 +712,23 @@ function EventsSection() {
                     </li>
                   ))}
                 </ul>
+                <div className="space-y-1.5 pt-1">
+                  <p className="text-sm font-medium">Merge all references into another event before deleting:</p>
+                  <Select value={mergeTarget} onValueChange={setMergeTarget}>
+                    <SelectTrigger data-testid="select-merge-target">
+                      <SelectValue placeholder="Select target event…" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {conversionEventEntries
+                        .filter((e) => e.name !== deleteConfirmEvent)
+                        .map((e) => (
+                          <SelectItem key={e.name} value={e.name}>
+                            <span className="font-mono text-xs">{e.name}</span>
+                          </SelectItem>
+                        ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             ) : (
               <p className="text-sm text-muted-foreground">No pages are using this event — safe to delete.</p>
@@ -660,19 +737,79 @@ function EventsSection() {
           <DialogFooter>
             <Button
               variant="outline"
-              onClick={() => setDeleteConfirmEvent(null)}
+              onClick={() => { setDeleteConfirmEvent(null); setMergeTarget(""); }}
               data-testid="button-cancel-delete-event"
             >
               Cancel
             </Button>
+            {usageData && usageData.usages.length > 0 ? (
+              <Button
+                variant="destructive"
+                onClick={() => deleteConfirmEvent && mergeMutation.mutate({ name: deleteConfirmEvent, mergeInto: mergeTarget })}
+                disabled={!mergeTarget || mergeMutation.isPending}
+                data-testid="button-confirm-merge-event"
+              >
+                {mergeMutation.isPending ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconTrash className="h-4 w-4" />}
+                Merge &amp; delete
+              </Button>
+            ) : (
+              <Button
+                variant="destructive"
+                onClick={() => deleteConfirmEvent && deleteEventMutation.mutate(deleteConfirmEvent)}
+                disabled={deleteEventMutation.isPending || usageFetching}
+                data-testid="button-confirm-delete-event"
+              >
+                {deleteEventMutation.isPending ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconTrash className="h-4 w-4" />}
+                Delete
+              </Button>
+            )}
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={!!renameEvent}
+        onOpenChange={(open) => { if (!open) { setRenameEvent(null); setRenameValue(""); } }}
+      >
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Rename conversion event</DialogTitle>
+            <DialogDescription>
+              Enter a new name for <code className="font-mono text-xs">{renameEvent}</code>. All references in YAML content files will be updated automatically.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-1.5 py-1">
+            <Label htmlFor="rename-event-input">New event name</Label>
+            <Input
+              id="rename-event-input"
+              placeholder="e.g. scholarship_application"
+              value={renameValue}
+              onChange={(e) => setRenameValue(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && renameEvent && renameValue.trim() && renameValue.trim() !== renameEvent) {
+                  renameMutation.mutate({ oldName: renameEvent, newName: renameValue.trim() });
+                }
+              }}
+              data-testid="input-rename-event"
+              className="font-mono text-sm"
+            />
+            <p className="text-xs text-muted-foreground">Use snake_case. This becomes the GTM event name.</p>
+          </div>
+          <DialogFooter>
             <Button
-              variant="destructive"
-              onClick={() => deleteConfirmEvent && deleteEventMutation.mutate(deleteConfirmEvent)}
-              disabled={deleteEventMutation.isPending}
-              data-testid="button-confirm-delete-event"
+              variant="outline"
+              onClick={() => { setRenameEvent(null); setRenameValue(""); }}
+              data-testid="button-cancel-rename-event"
             >
-              {deleteEventMutation.isPending ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconTrash className="h-4 w-4" />}
-              Delete
+              Cancel
+            </Button>
+            <Button
+              onClick={() => renameEvent && renameMutation.mutate({ oldName: renameEvent, newName: renameValue.trim() })}
+              disabled={!renameValue.trim() || renameValue.trim() === renameEvent || renameMutation.isPending}
+              data-testid="button-confirm-rename-event"
+            >
+              {renameMutation.isPending ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconPencil className="h-4 w-4" />}
+              Rename
             </Button>
           </DialogFooter>
         </DialogContent>
