@@ -9,8 +9,8 @@
 
 import * as fs from "fs";
 import * as path from "path";
-import * as yaml from "js-yaml";
 import { gcs } from "./gcs";
+import { safeYamlLoad } from "./routes/_helpers";
 
 const LOCAL_PATH = path.join(
   process.cwd(),
@@ -182,7 +182,7 @@ function scanFile(absPath: string): FormStateEntry[] {
   let doc: unknown;
   try {
     const raw = fs.readFileSync(absPath, "utf-8");
-    doc = yaml.load(raw);
+    doc = safeYamlLoad(raw);
   } catch {
     return [];
   }
