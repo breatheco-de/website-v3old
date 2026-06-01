@@ -6,7 +6,6 @@ import {
   AVAILABLE_RELATED_FEATURES,
   MAX_FAQ_SECTION_TOPICS,
   MAX_RELATED_FEATURES,
-  filterFaqsByRelatedFeatures,
   type RelatedFeature,
   type FaqItem,
 } from "@/lib/faqConstants";
@@ -24,11 +23,17 @@ interface BankTestimonial {
   rating?: number;
 }
 
+interface PermanentFilter {
+  item_property_slug: string;
+  value: string | string[];
+}
+
 interface RelatedFeaturesPickerProps {
   value: string[];
   onChange: (value: string[]) => void;
   locale?: string;
   context?: "faq" | "testimonials";
+  permanentFilters?: PermanentFilter[];
 }
 
 function filterTestimonialsByFeatures(
@@ -47,7 +52,7 @@ function isValidTestimonial(t: BankTestimonial): boolean {
   return hasRating || hasText;
 }
 
-export function RelatedFeaturesPicker({ value, onChange, locale = "en", context = "faq" }: RelatedFeaturesPickerProps) {
+export function RelatedFeaturesPicker({ value, onChange, locale = "en", context = "faq", permanentFilters }: RelatedFeaturesPickerProps) {
   const selectedFeatures = value || [];
   const isTestimonials = context === "testimonials";
   const maxSelection = context === "faq" ? MAX_FAQ_SECTION_TOPICS : MAX_RELATED_FEATURES;
@@ -67,19 +72,33 @@ export function RelatedFeaturesPicker({ value, onChange, locale = "en", context 
   const faqs = (faqsData?.items ?? []).filter((f: FaqItem) => f.locale === locale);
   const testimonials = (testimonialsData?.testimonials ?? []).filter(isValidTestimonial);
 
+  const filteredFaqs = (() => {
+    if (!permanentFilters?.length) return faqs;
+    let result = faqs;
+    for (const pf of permanentFilters) {
+      const filterValues = (Array.isArray(pf.value) ? pf.value : [pf.value]).map(String);
+      result = result.filter((item) => {
+        const itemVal = (item as Record<string, unknown>)[pf.item_property_slug];
+        return filterValues.some((v) => {
+          if (Array.isArray(itemVal)) return itemVal.map(String).includes(v);
+          return String(itemVal ?? "") === v;
+        });
+      });
+    }
+    return result;
+  })();
+
   const featureCounts = (() => {
     const counts: Record<string, number> = {};
-
     for (const feature of AVAILABLE_RELATED_FEATURES) {
       if (isTestimonials) {
         counts[feature] = filterTestimonialsByFeatures(testimonials, [feature]).length;
       } else {
-        counts[feature] = filterFaqsByRelatedFeatures(faqs, {
-          relatedFeatures: [feature],
-        }).length;
+        counts[feature] = filteredFaqs.filter(
+          (f) => (f.related_features || []).includes(feature)
+        ).length;
       }
     }
-
     return counts;
   })();
 
@@ -88,9 +107,9 @@ export function RelatedFeaturesPicker({ value, onChange, locale = "en", context 
     if (isTestimonials) {
       return filterTestimonialsByFeatures(testimonials, selectedFeatures).length;
     }
-    return filterFaqsByRelatedFeatures(faqs, {
-      relatedFeatures: selectedFeatures,
-    }).length;
+    return filteredFaqs.filter((f) =>
+      selectedFeatures.some((feat) => (f.related_features || []).includes(feat))
+    ).length;
   })();
 
   const toggleFeature = (feature: RelatedFeature) => {

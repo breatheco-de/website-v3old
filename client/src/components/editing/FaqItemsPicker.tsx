@@ -309,7 +309,7 @@ export function FaqItemsPicker({
   const isEditable = !!(onHardcodedEntriesChange || onIgnoredEntriesChange || onLocalizeDbEntry);
 
   const { data: faqsData, isLoading } = useQuery<{ items: FaqItem[] }>({
-    queryKey: ["/api/databases/frequently_asked_questions/items"],
+    queryKey: ["/api/databases/frequently_asked_questions/items?limit=1000"],
     enabled: hasCentralized,
     staleTime: 5 * 60 * 1000,
   });
@@ -470,7 +470,7 @@ export function FaqItemsPicker({
           );
         }
         await queryClient.invalidateQueries({
-          queryKey: ["/api/databases/frequently_asked_questions/items"],
+          queryKey: ["/api/databases/frequently_asked_questions/items?limit=1000"],
         });
         toast({ title: "FAQ added to database" });
       },
@@ -549,7 +549,7 @@ export function FaqItemsPicker({
           );
         }
         await queryClient.invalidateQueries({
-          queryKey: ["/api/databases/frequently_asked_questions/items"],
+          queryKey: ["/api/databases/frequently_asked_questions/items?limit=1000"],
         });
         toast({ title: "FAQ updated in database" });
       },
