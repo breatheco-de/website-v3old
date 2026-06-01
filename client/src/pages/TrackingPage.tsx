@@ -10,12 +10,13 @@ import {
   IconInfoCircle,
   IconLoader2,
   IconPlugConnected,
+  IconServer,
   IconSettingsCog,
   IconToggleLeft,
   IconToggleRight,
 } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -411,36 +412,75 @@ function EventsSection() {
 }
 
 export default function TrackingPage() {
+  const [location] = useLocation();
+  const isSgtm = location === "/private/tracking/sgtm";
+
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
-        <div className="flex items-center gap-3">
-          <Link href="/private/diagnostics">
-            <Button variant="ghost" size="icon" data-testid="button-back-tracking">
-              <IconArrowLeft className="h-4 w-4" />
-            </Button>
-          </Link>
-          <div className="flex items-center gap-2">
-            <IconChartBar className="h-6 w-6 text-muted-foreground" />
-            <div>
-              <h1 className="text-xl font-semibold" data-testid="text-tracking-title">Tracking</h1>
-              <p className="text-sm text-muted-foreground">Analytics &amp; event configuration</p>
+        <div className="flex items-center justify-between gap-3 flex-wrap">
+          <div className="flex items-center gap-3">
+            <Link href="/private/diagnostics">
+              <Button variant="ghost" size="icon" data-testid="button-back-tracking">
+                <IconArrowLeft className="h-4 w-4" />
+              </Button>
+            </Link>
+            <div className="flex items-center gap-2">
+              <IconChartBar className="h-6 w-6 text-muted-foreground" />
+              <div>
+                <h1 className="text-xl font-semibold" data-testid="text-tracking-title">Tracking</h1>
+                <p className="text-sm text-muted-foreground">Analytics &amp; event configuration</p>
+              </div>
             </div>
+          </div>
+
+          <div className="flex items-center rounded-md border overflow-hidden" data-testid="toggle-tracking-view">
+            <Link href="/private/tracking">
+              <button
+                type="button"
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-sm transition-colors ${
+                  !isSgtm
+                    ? "bg-secondary text-secondary-foreground font-medium"
+                    : "text-muted-foreground hover-elevate"
+                }`}
+                data-testid="button-view-events"
+              >
+                <IconChartBar className="h-3.5 w-3.5" />
+                Events
+              </button>
+            </Link>
+            <div className="w-px h-6 bg-border" />
+            <Link href="/private/tracking/sgtm">
+              <button
+                type="button"
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-sm transition-colors ${
+                  isSgtm
+                    ? "bg-secondary text-secondary-foreground font-medium"
+                    : "text-muted-foreground hover-elevate"
+                }`}
+                data-testid="button-view-sgtm"
+              >
+                <IconServer className="h-3.5 w-3.5" />
+                sGTM
+              </button>
+            </Link>
           </div>
         </div>
 
-        <div className="space-y-2">
-          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Google Tag Manager</h2>
-          <GTMSection />
-        </div>
-
-        <div className="space-y-2">
-          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Tracked Events</h2>
-          <p className="text-sm text-muted-foreground">
-            All events currently fired into <code className="font-mono text-xs">window.dataLayer</code>. This list is auto-generated from the source constants in <code className="font-mono text-xs">@/lib/tracking</code>.
-          </p>
-          <EventsSection />
-        </div>
+        {isSgtm ? (
+          <div className="space-y-2">
+            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Server-Side Tag Manager</h2>
+            <GTMSection />
+          </div>
+        ) : (
+          <div className="space-y-2">
+            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Tracked Events</h2>
+            <p className="text-sm text-muted-foreground">
+              All events currently fired into <code className="font-mono text-xs">window.dataLayer</code>. This list is auto-generated from the source constants in <code className="font-mono text-xs">@/lib/tracking</code>.
+            </p>
+            <EventsSection />
+          </div>
+        )}
       </div>
     </div>
   );

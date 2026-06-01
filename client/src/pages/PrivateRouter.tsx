@@ -70,6 +70,7 @@ export default function PrivateRouter() {
         <Route path="/private/component-insights" component={ComponentInsightsPage} />
         <Route path="/private/store/products" component={StoreProductsPage} />
         <Route path="/private/store/plans" component={StorePlansPage} />
+        <Route path="/private/tracking/sgtm" component={TrackingPage} />
         <Route path="/private/tracking" component={TrackingPage} />
       </Switch>
     </Suspense>
