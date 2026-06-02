@@ -4031,15 +4031,15 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                       <span className="text-muted-foreground">&larr;</span>
                       {typeof p === "string" && p.startsWith("function:") ? (
                         <button
-                          className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors cursor-pointer shrink-0"
+                          className="inline-flex items-center gap-1 bg-black dark:bg-zinc-900 px-1.5 py-0.5 rounded cursor-pointer hover:opacity-80 transition-opacity shrink-0"
                           onClick={() => {
                             try { setFnPreviewField({ key, fn: atob(p.slice("function:".length)) }); } catch { setFnPreviewField({ key, fn: p }); }
                           }}
                           data-testid={`button-fn-preview-${key}`}
                           title="View computed function"
                         >
-                          <Code className="h-3 w-3" />
-                          <span className="text-[10px]">computed</span>
+                          <Code className="h-3 w-3 text-orange-400" />
+                          <span className="text-[10px] text-zinc-400">computed</span>
                         </button>
                       ) : (
                         <code className="text-muted-foreground truncate">{p || "null"}</code>
