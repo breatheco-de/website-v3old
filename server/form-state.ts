@@ -391,7 +391,13 @@ export function partialReplaceConversionName(relFilePaths: string[], oldName: st
   let count = 0;
 
   for (const relPath of relFilePaths) {
-    const absPath = path.join(CONTENT_DIR, relPath);
+    // Defense-in-depth: ensure resolved path stays within CONTENT_DIR
+    // (the route layer already validates against the server's usage index,
+    // but guard here too in case this function is called from elsewhere)
+    if (path.isAbsolute(relPath) || relPath.includes("..")) continue;
+    if (!relPath.endsWith(".yml") && !relPath.endsWith(".yaml")) continue;
+    const absPath = path.resolve(path.join(CONTENT_DIR, relPath));
+    if (!absPath.startsWith(CONTENT_DIR + path.sep) && absPath !== CONTENT_DIR) continue;
     let raw: string;
     try {
       raw = fs.readFileSync(absPath, "utf-8");

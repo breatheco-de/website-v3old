@@ -694,8 +694,31 @@ export function registerSettingsRoutes(app: Express): void {
       if (!current.conversion_events.some((e) => e.name === newName)) {
         return res.status(404).json({ error: `Target event "${newName}" does not exist` });
       }
-      const filesChanged = partialReplaceConversionName(files, name, newName);
-      res.json({ success: true, filesChanged });
+
+      // Security: only operate on files that the server already knows use this
+      // conversion event. This is the primary guard against path traversal /
+      // arbitrary file targeting — the client cannot inject paths that are not
+      // in the server's own usage index for this specific event.
+      const usages = getConversionNameUsages(name);
+      const knownFiles = new Set(usages.map((u) => u.file));
+      const safeFiles = (files as unknown[])
+        .filter((f): f is string => typeof f === "string")
+        .filter((f) => {
+          // Must be a known usage file for this event (primary guard)
+          if (!knownFiles.has(f)) return false;
+          // Belt-and-suspenders: reject any path that looks traversal-y
+          if (path.isAbsolute(f) || f.includes("..")) return false;
+          // Must be a YAML file
+          if (!f.endsWith(".yml") && !f.endsWith(".yaml")) return false;
+          return true;
+        });
+
+      if (safeFiles.length === 0) {
+        return res.status(400).json({ error: "No valid usage files found in the request" });
+      }
+
+      const filesChanged = partialReplaceConversionName(safeFiles, name, newName);
+      res.json({ success: true, filesChanged, rejected: files.length - safeFiles.length });
     } catch (err: any) {
       res.status(400).json({ error: err.message || String(err) });
     }
