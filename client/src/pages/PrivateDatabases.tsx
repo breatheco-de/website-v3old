@@ -4229,6 +4229,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                 <div className="flex items-center gap-2">
                   {!!itemsData && (
                     <div className="flex flex-col gap-0.5">
+                      <div className="flex items-center gap-1.5">
                       <div className="relative">
                         <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
                         <Input
@@ -4238,6 +4239,100 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                           className="pl-7 h-8 w-48 text-xs"
                           data-testid="input-search-items"
                         />
+                      </div>
+                      {(() => {
+                        const facets = itemsData?.facets;
+                        if (dataView !== "mapped" || !facets || Object.keys(facets).length === 0) return null;
+                        const activeFilterCount = Object.values(tagFilters).flat().length;
+                        return (
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="outline"
+                                size="icon"
+                                className="h-8 w-8 shrink-0 relative"
+                                data-testid="button-open-filters"
+                              >
+                                <SlidersHorizontal className="h-3.5 w-3.5" />
+                                {activeFilterCount > 0 && (
+                                  <span className="absolute -top-1 -right-1 h-3.5 w-3.5 rounded-full bg-primary text-primary-foreground text-[9px] flex items-center justify-center font-medium leading-none">
+                                    {activeFilterCount}
+                                  </span>
+                                )}
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent side="bottom" align="end" className="p-3 w-64" data-testid="tag-filter-bar">
+                              <div className="space-y-3">
+                                <div className="flex items-center justify-between">
+                                  <p className="text-xs font-medium">Filters</p>
+                                  {activeFilterCount > 0 && (
+                                    <button
+                                      className="text-[11px] text-muted-foreground hover:text-foreground transition-colors cursor-pointer underline underline-offset-2"
+                                      onClick={() => { setTagFilters({}); setPage(1); }}
+                                      data-testid="button-clear-tag-filters"
+                                    >
+                                      Clear all
+                                    </button>
+                                  )}
+                                </div>
+                                {Object.entries(facets).map(([field, values]) => {
+                                  const active = tagFilters[field] ?? [];
+                                  return (
+                                    <div key={field} className="space-y-1">
+                                      <div className="flex items-center justify-between">
+                                        <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">{field}</p>
+                                        {active.length > 0 && (
+                                          <button
+                                            className="text-[10px] text-muted-foreground hover:text-foreground cursor-pointer"
+                                            onClick={() => {
+                                              setPage(1);
+                                              setTagFilters((prev) => {
+                                                const { [field]: _, ...rest } = prev;
+                                                return rest;
+                                              });
+                                            }}
+                                          >
+                                            Clear
+                                          </button>
+                                        )}
+                                      </div>
+                                      <div className="max-h-44 overflow-y-auto space-y-0.5">
+                                        {values.map((v) => {
+                                          const checked = active.includes(v);
+                                          return (
+                                            <button
+                                              key={v}
+                                              onClick={() => {
+                                                setPage(1);
+                                                setTagFilters((prev) => {
+                                                  const cur = prev[field] ?? [];
+                                                  const next = checked ? cur.filter((x) => x !== v) : [...cur, v];
+                                                  if (next.length === 0) {
+                                                    const { [field]: _, ...rest } = prev;
+                                                    return rest;
+                                                  }
+                                                  return { ...prev, [field]: next };
+                                                });
+                                              }}
+                                              data-testid={`chip-filter-${field}-${v}`}
+                                              className="w-full flex items-center gap-2 px-1.5 py-1 rounded text-xs text-left hover-elevate cursor-pointer"
+                                            >
+                                              <span className={`h-3.5 w-3.5 shrink-0 rounded-sm border flex items-center justify-center ${checked ? "bg-primary border-primary" : "border-border"}`}>
+                                                {checked && <Check className="h-2.5 w-2.5 text-primary-foreground" />}
+                                              </span>
+                                              <span className="truncate">{v}</span>
+                                            </button>
+                                          );
+                                        })}
+                                      </div>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </PopoverContent>
+                          </Popover>
+                        );
+                      })()}
                       </div>
                       {(() => {
                         const searchFields = (config as any)?.search_fields as string[] | undefined;
@@ -4396,95 +4491,6 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
               </div>
             </CardHeader>
             <CardContent className="px-0 pb-0">
-              {(() => {
-                const facets = itemsData?.facets;
-                if (dataView !== "mapped") return null;
-                if (!facets || Object.keys(facets).length === 0) return null;
-                const activeFilterCount = Object.values(tagFilters).flat().length;
-                return (
-                  <div className="px-4 pt-2.5 pb-2.5 border-b flex flex-wrap items-center gap-2" data-testid="tag-filter-bar">
-                    {Object.entries(facets).map(([field, values]) => {
-                      const active = tagFilters[field] ?? [];
-                      return (
-                        <Popover key={field}>
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              data-testid={`button-filter-${field}`}
-                              className="h-7 text-xs gap-1.5"
-                            >
-                              {field}
-                              {active.length > 0 && (
-                                <Badge className="h-4 px-1 text-[10px] rounded-sm no-default-active-elevate">
-                                  {active.length}
-                                </Badge>
-                              )}
-                              <ChevronDown className="h-3 w-3 opacity-50" />
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent className="p-1 w-52" align="start">
-                            <div className="max-h-60 overflow-y-auto">
-                              {values.map((v) => {
-                                const checked = active.includes(v);
-                                return (
-                                  <button
-                                    key={v}
-                                    onClick={() => {
-                                      setPage(1);
-                                      setTagFilters((prev) => {
-                                        const cur = prev[field] ?? [];
-                                        const next = checked ? cur.filter((x) => x !== v) : [...cur, v];
-                                        if (next.length === 0) {
-                                          const { [field]: _, ...rest } = prev;
-                                          return rest;
-                                        }
-                                        return { ...prev, [field]: next };
-                                      });
-                                    }}
-                                    data-testid={`chip-filter-${field}-${v}`}
-                                    className="w-full flex items-center gap-2 px-2 py-1.5 rounded text-xs text-left hover-elevate cursor-pointer"
-                                  >
-                                    <span className={`h-3.5 w-3.5 shrink-0 rounded-sm border flex items-center justify-center ${checked ? "bg-primary border-primary" : "border-border"}`}>
-                                      {checked && <Check className="h-2.5 w-2.5 text-primary-foreground" />}
-                                    </span>
-                                    <span className="truncate">{v}</span>
-                                  </button>
-                                );
-                              })}
-                            </div>
-                            {active.length > 0 && (
-                              <div className="border-t mt-1 pt-1">
-                                <button
-                                  className="w-full text-[11px] text-muted-foreground hover:text-foreground px-2 py-1 text-left cursor-pointer"
-                                  onClick={() => {
-                                    setPage(1);
-                                    setTagFilters((prev) => {
-                                      const { [field]: _, ...rest } = prev;
-                                      return rest;
-                                    });
-                                  }}
-                                >
-                                  Clear
-                                </button>
-                              </div>
-                            )}
-                          </PopoverContent>
-                        </Popover>
-                      );
-                    })}
-                    {activeFilterCount > 0 && (
-                      <button
-                        className="text-[11px] text-muted-foreground hover:text-foreground transition-colors cursor-pointer underline underline-offset-2 shrink-0"
-                        onClick={() => { setTagFilters({}); setPage(1); }}
-                        data-testid="button-clear-tag-filters"
-                      >
-                        Clear all
-                      </button>
-                    )}
-                  </div>
-                );
-              })()}
               {itemsLoading || rawItemsLoading ? (
                 <div className="flex items-center justify-center py-12">
                   <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
