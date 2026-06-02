@@ -4182,7 +4182,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
 
           <Card>
             <CardHeader className="py-3 px-4">
-              <div className="flex items-center justify-between gap-2 flex-wrap">
+              <div className="flex items-start justify-between gap-2 flex-wrap">
                 <div className="flex items-center gap-3">
                   <CardTitle className="text-sm">
                     Data{" "}
