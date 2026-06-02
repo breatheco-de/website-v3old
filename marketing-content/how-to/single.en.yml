@@ -9,7 +9,7 @@ sections:
     subtitle: {{ single.description | how to subtitle }}
     section_id: hero-sndk7v
     paddingY:
-      desktop: sm
+      desktop: none
   - type: article
     version: v1.0
     show_toc: false
