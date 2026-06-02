@@ -4226,7 +4226,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                     </Button>
                   )}
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-start gap-2">
                   {!!itemsData && (
                     <div className="flex flex-col gap-0.5">
                       <div className="flex items-center gap-1.5">
