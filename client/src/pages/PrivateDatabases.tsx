@@ -3564,6 +3564,16 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
 
     if (debouncedSearch.trim() && semanticResults?.items && dataView !== "raw") {
       items = semanticResults.items;
+      // AND tag filters on top of semantic results (server search doesn't apply them)
+      if (Object.keys(tagFilters).length > 0) {
+        items = items.filter((item) =>
+          Object.entries(tagFilters).every(([field, selected]) => {
+            const val = item[field];
+            const itemVals = Array.isArray(val) ? val.map(String) : val != null ? [String(val)] : [];
+            return selected.some((s) => itemVals.includes(s));
+          })
+        );
+      }
     } else if (!activeItems?.items) {
       return [];
     } else {
@@ -4377,6 +4387,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
             <CardContent className="px-0 pb-0">
               {(() => {
                 const facets = itemsData?.facets;
+                if (dataView !== "mapped") return null;
                 if (!facets || Object.keys(facets).length === 0) return null;
                 const activeFilterCount = Object.values(tagFilters).flat().length;
                 return (
