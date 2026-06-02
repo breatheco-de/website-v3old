@@ -3519,6 +3519,8 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     (bothTerminalAt !== null)
   );
 
+  const [fnPreviewField, setFnPreviewField] = useState<{ key: string; fn: string } | null>(null);
+
   const [debouncedSearch, setDebouncedSearch] = useState("");
   useEffect(() => {
     const t = setTimeout(() => setDebouncedSearch(search), 400);
@@ -4027,7 +4029,21 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                     <div key={key} className="flex items-center gap-1.5 text-xs">
                       <code className="bg-muted px-1.5 py-0.5 rounded font-medium">{key}</code>
                       <span className="text-muted-foreground">&larr;</span>
-                      <code className="text-muted-foreground truncate">{p || "null"}</code>
+                      {typeof p === "string" && p.startsWith("function:") ? (
+                        <button
+                          className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors cursor-pointer shrink-0"
+                          onClick={() => {
+                            try { setFnPreviewField({ key, fn: atob(p.slice("function:".length)) }); } catch { setFnPreviewField({ key, fn: p }); }
+                          }}
+                          data-testid={`button-fn-preview-${key}`}
+                          title="View computed function"
+                        >
+                          <Code className="h-3 w-3" />
+                          <span className="text-[10px]">computed</span>
+                        </button>
+                      ) : (
+                        <code className="text-muted-foreground truncate">{p || "null"}</code>
+                      )}
                       {config?.editor?.[key]?.cache_images && (
                         <Popover>
                           <PopoverTrigger asChild>
@@ -4451,6 +4467,23 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
           </Card>
         </>
       )}
+
+      <Dialog open={fnPreviewField !== null} onOpenChange={(v) => { if (!v) setFnPreviewField(null); }}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Code className="h-4 w-4" />
+              Computed field: <code className="font-mono text-sm">{fnPreviewField?.key}</code>
+            </DialogTitle>
+            <DialogDescription>
+              This field's value is produced by a JavaScript function run on each item.
+            </DialogDescription>
+          </DialogHeader>
+          <pre className="bg-muted rounded-md p-4 text-xs font-mono overflow-x-auto whitespace-pre-wrap break-all leading-relaxed" data-testid="pre-fn-preview">
+            {fnPreviewField?.fn ?? ""}
+          </pre>
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={confirmForceRefreshOpen} onOpenChange={setConfirmForceRefreshOpen}>
         <DialogContent className="sm:max-w-md">
