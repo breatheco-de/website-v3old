@@ -19,4 +19,4 @@ sections:
     paddingY:
       desktop: sm
     maxWidth:
-      desktop: xl
+      desktop: lg
