@@ -665,6 +665,8 @@ export function SectionEditorPanel({
   const [bindingConfirmOpen, setBindingConfirmOpen] = useState(false);
   const [exampleDialogOpen, setExampleDialogOpen] = useState(false);
   const [exampleCopied, setExampleCopied] = useState(false);
+  // null = derive from YAML; true/false = user explicitly set
+  const [locationsManualMode, setLocationsManualMode] = useState<boolean | null>(null);
 
   const sectionComponentType = (section as Record<string, unknown>)?.type as string || "";
 
@@ -6552,20 +6554,24 @@ export function SectionEditorPanel({
               {/* Locations */}
               {(() => {
                 const rawLocs = getValueAtFieldPath(parsedSection, `${formSettingsPath}.locations`);
-                // null/undefined → auto-detect; [] or populated array → manual
-                const isAutoDetect = rawLocs == null;
                 const selectedLocs: string[] = Array.isArray(rawLocs)
                   ? (rawLocs as string[])
                   : rawLocs
                   ? [String(rawLocs)]
                   : [];
+                // Derive effective manual mode: user toggle takes precedence;
+                // fall back to YAML (non-empty array = manual, null/undefined/[] = auto)
+                const effectiveManual = locationsManualMode !== null
+                  ? locationsManualMode
+                  : selectedLocs.length > 0;
+                const isAutoDetect = !effectiveManual;
 
                 const locationOptions = (formOptions?.locations ?? []).map((loc) => ({
                   value: loc.slug,
-                  label: loc.name,
+                  label: `${loc.name} — ${loc.city}`,
                   group: loc.region,
                   badgeLabel: loc.city,
-                  searchTerms: [loc.city, loc.country, loc.slug],
+                  searchTerms: [loc.city, loc.country, loc.slug, loc.name],
                 }));
 
                 const groupLabels = Object.fromEntries(
@@ -6586,9 +6592,12 @@ export function SectionEditorPanel({
                           checked={isAutoDetect}
                           onCheckedChange={(checked) => {
                             if (checked) {
+                              // Switch ON → auto-detect: clear YAML and reset local mode
+                              setLocationsManualMode(false);
                               updatePropertyWithValue(`${formSettingsPath}.locations`, undefined);
                             } else {
-                              updatePropertyWithValue(`${formSettingsPath}.locations`, []);
+                              // Switch OFF → manual: just set local mode, don't touch YAML yet
+                              setLocationsManualMode(true);
                             }
                           }}
                           data-testid="switch-locations-auto-detect"
@@ -6606,7 +6615,7 @@ export function SectionEditorPanel({
                         onChange={(vals) => {
                           updatePropertyWithValue(
                             `${formSettingsPath}.locations`,
-                            vals.length > 0 ? vals : []
+                            vals.length > 0 ? vals : undefined
                           );
                         }}
                         label="Select campuses"
