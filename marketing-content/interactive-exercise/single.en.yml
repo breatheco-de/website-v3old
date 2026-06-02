@@ -10,6 +10,8 @@ sections:
     section_id: hero-ytw2p3
     paddingY:
       desktop: sm
+    maxWidth:
+      desktop: xl
   - type: article
     version: v1.0
     show_toc: true
