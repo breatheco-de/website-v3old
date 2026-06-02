@@ -5,7 +5,10 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: {{ single.title | interactive exercise title }}
+    title: " "
+    brand_mark:
+      prefix: {{ single.title | interactive exercise title }}
+      color: primary
     description: {{ single.description | exercise description }}
     image_object_fit: none
     form:
@@ -101,4 +104,4 @@ sections:
     paddingY:
       desktop: sm
     maxWidth:
-      desktop: full
+      desktop: none

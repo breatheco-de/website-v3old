@@ -53,13 +53,6 @@ function extractTocItems(markdown: string): TocItem[] {
   return items;
 }
 
-const MAX_WIDTH_MAP: Record<string, string> = {
-  sm: "max-w-2xl",
-  md: "max-w-3xl",
-  lg: "max-w-4xl",
-  xl: "max-w-6xl",
-  full: "max-w-full",
-};
 
 function TocTop({ items }: { items: TocItem[] }) {
   return (
@@ -176,15 +169,12 @@ export function Article({ data }: ArticleProps) {
     content,
     show_toc = false,
     toc_position = "side",
-    max_width = "lg",
   } = data;
 
   const tocItems = show_toc ? extractTocItems(content) : [];
 
   const showSideToc = show_toc && toc_position === "side" && tocItems.length > 0;
   const showTopToc = show_toc && toc_position === "top" && tocItems.length > 0;
-
-  const containerMaxWidth = MAX_WIDTH_MAP[max_width] || MAX_WIDTH_MAP.lg;
 
   const slugCountsRef = useRef<Record<string, number>>({});
 
@@ -204,7 +194,7 @@ export function Article({ data }: ArticleProps) {
 
   return (
     <div
-      className={cn("mx-auto w-full px-4 py-8 md:px-6 lg:px-8", containerMaxWidth)}
+      className="w-full px-4 py-8 md:px-6 lg:px-8"
       data-testid="article-section"
     >
       {showSideToc ? (
