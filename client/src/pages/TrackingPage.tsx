@@ -389,6 +389,7 @@ function EventsSection() {
   const [renameEvent, setRenameEvent] = useState<string | null>(null);
   const [renameValue, setRenameValue] = useState("");
   const [mergeTarget, setMergeTarget] = useState("");
+  const [usageModalEvent, setUsageModalEvent] = useState<string | null>(null);
 
   const { data: trackingSettings } = useQuery<TrackingSettingsResponse>({
     queryKey: ["/api/settings/tracking"],
@@ -397,6 +398,16 @@ function EventsSection() {
 
   const { data: conversionCounts } = useQuery<Record<string, number>>({
     queryKey: ["/api/form-state/conversion-counts"],
+  });
+
+  const { data: usageModalData, isFetching: usageModalFetching } = useQuery<{ name: string; usages: UsageEntry[] }>({
+    queryKey: ["/api/settings/tracking/conversion-events", usageModalEvent, "usage"],
+    queryFn: async () => {
+      const res = await apiFetch(`/api/settings/tracking/conversion-events/${encodeURIComponent(usageModalEvent!)}/usage`);
+      if (!res.ok) throw new Error("Failed to load usage");
+      return res.json();
+    },
+    enabled: !!usageModalEvent,
   });
 
   const { data: usageData, isFetching: usageFetching } = useQuery<{ name: string; usages: UsageEntry[] }>({
@@ -609,7 +620,12 @@ function EventsSection() {
                               {ev.name}
                             </Badge>
                             {group.title === "Conversion Events" && conversionCounts?.[ev.name] !== undefined && (
-                              <Badge variant="outline" className="text-xs tabular-nums text-muted-foreground" data-testid={`badge-form-count-${ev.name}`}>
+                              <Badge
+                                variant="outline"
+                                className="text-xs tabular-nums text-muted-foreground cursor-pointer"
+                                data-testid={`badge-form-count-${ev.name}`}
+                                onClick={() => setUsageModalEvent(ev.name)}
+                              >
                                 {conversionCounts[ev.name]} {conversionCounts[ev.name] === 1 ? "form" : "forms"}
                               </Badge>
                             )}
@@ -672,6 +688,42 @@ function EventsSection() {
           </Card>
         ))}
       </div>
+
+      <Dialog open={!!usageModalEvent} onOpenChange={(open) => { if (!open) setUsageModalEvent(null); }}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              Forms using
+              <code className="font-mono text-sm font-semibold bg-muted px-1.5 py-0.5 rounded">{usageModalEvent}</code>
+            </DialogTitle>
+            <DialogDescription>
+              These content entries have a form section configured with this conversion event.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-1">
+            {usageModalFetching ? (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <IconLoader2 className="h-4 w-4 animate-spin" />
+                Loading…
+              </div>
+            ) : usageModalData && usageModalData.usages.length > 0 ? (
+              <ul className="space-y-1.5 max-h-72 overflow-y-auto">
+                {usageModalData.usages.map((u, i) => (
+                  <li key={i} className="text-sm flex items-start gap-1.5 flex-wrap py-1 border-b last:border-0">
+                    <span className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded">{u.content_type}/{u.slug}</span>
+                    <span className="text-muted-foreground text-xs">({u.locale})</span>
+                    {u.section_type && (
+                      <span className="text-muted-foreground text-xs">· {u.section_type}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-sm text-muted-foreground">No forms are currently using this event.</p>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={!!selectedEvent} onOpenChange={(open) => { if (!open) setSelectedEvent(null); }}>
         <DialogContent className="max-w-lg">
