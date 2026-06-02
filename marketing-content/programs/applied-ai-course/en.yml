@@ -23,7 +23,7 @@ sections:
         url: /
       - label: Career Programs
         url: /en/career-programs
-      - label: "Applied AI"
+      - label: Applied AI
   - type: hero
     version: "1.0"
     variant: course
@@ -471,13 +471,12 @@ sections:
       desktop: md
   - type: cta_banner
     version: "1.0"
-    title: Ready to Become an Artificial Intelligence (AI) Professional?
-    subtitle: Limited spots available. Start your transformation today.
-    background: hsl(var(--primary))
+    title: Ready to Become an {{ single.job_role | AI Engineer }}?
+    subtitle: The fastest-growing job of 2026 is a click away. This is your window. Join the next cohort.
     variant: form
     form:
       variant: stacked
-      submit_label: Apply now
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -493,11 +492,11 @@ sections:
           required: true
           placeholder: Phone number
         program:
-          visible: true
+          visible: false
           required: true
-          default: applied-ai-course
+          default: ai-engineering
       success:
-        message: Thank you! We'll be in touch soon.
+        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:
         email: true
         marketing: true
@@ -507,11 +506,12 @@ sections:
       terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
-    section_id: cta_banner-8dww61
-    marginY:
-      desktop: lg none
     paddingY:
       desktop: md
+    marginY:
+      desktop: lg none
+    background: hsl(var(--primary))
+    section_id: cta_banner-8dww61
   - type: sticky_cta
     section_id: sticky_cta-v968gv
     version: "1.0"

@@ -2243,6 +2243,45 @@
       ],
       "createdAt": "2026-05-15T20:39:29.648Z",
       "name": "Full stack projects carousel"
+    },
+    {
+      "id": "bind_mpw4zdy4_etuoj0",
+      "component": "cta_banner",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "program",
+          "slug": "ai-engineering",
+          "sectionId": "cta_banner-h3e30q"
+        },
+        {
+          "contentType": "program",
+          "slug": "ai-engineering-new",
+          "sectionId": "cta_banner-h3e30q"
+        },
+        {
+          "contentType": "program",
+          "slug": "applied-ai-course",
+          "sectionId": "cta_banner-8dww61"
+        },
+        {
+          "contentType": "program",
+          "slug": "cybersecurity",
+          "sectionId": "cta_banner-5edlct"
+        },
+        {
+          "contentType": "program",
+          "slug": "data-science-ml",
+          "sectionId": "cta_banner-6rzz4s"
+        },
+        {
+          "contentType": "program",
+          "slug": "full-stack",
+          "sectionId": "cta_banner-yno9xp"
+        }
+      ],
+      "createdAt": "2026-06-02T04:27:35.644Z",
+      "name": "cta banner - programs - en"
     }
   ]
 }

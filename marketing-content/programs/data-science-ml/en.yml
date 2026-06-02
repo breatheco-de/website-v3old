@@ -615,9 +615,8 @@ sections:
     background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
-    title: Ready to Become a Data Scientist?
-    subtitle: Data Science is one of the fastest-growing careers in tech. This is your window. Join the next cohort.
-    background: hsl(var(--primary))
+    title: Ready to Become an {{ single.job_role | AI Engineer }}?
+    subtitle: The fastest-growing job of 2026 is a click away. This is your window. Join the next cohort.
     variant: form
     form:
       variant: stacked
@@ -639,7 +638,7 @@ sections:
         program:
           visible: false
           required: true
-          default: datascience-ml
+          default: ai-engineering
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:
@@ -655,6 +654,7 @@ sections:
       desktop: md
     marginY:
       desktop: lg none
+    background: hsl(var(--primary))
     section_id: cta_banner-6rzz4s
   - type: sticky_cta
     version: "1.0"
