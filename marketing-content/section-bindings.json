@@ -2282,6 +2282,44 @@
       ],
       "createdAt": "2026-06-02T04:27:35.644Z",
       "name": "cta banner - programs - en"
+    },
+    {
+      "id": "bind_mpw64obt_8j9njs",
+      "component": "modal",
+      "locale": "en",
+      "members": [
+        {
+          "contentType": "program",
+          "slug": "data-science-ml",
+          "sectionId": "apply-modal"
+        },
+        {
+          "contentType": "program",
+          "slug": "ai-engineering",
+          "sectionId": "modal-ubwgcj"
+        },
+        {
+          "contentType": "program",
+          "slug": "ai-engineering-new",
+          "sectionId": "modal-ubwgcj"
+        },
+        {
+          "contentType": "program",
+          "slug": "applied-ai-course",
+          "sectionId": "modal-o9bufw"
+        },
+        {
+          "contentType": "program",
+          "slug": "cybersecurity",
+          "sectionId": "apply-modal"
+        },
+        {
+          "contentType": "program",
+          "slug": "full-stack",
+          "sectionId": "apply-modal"
+        }
+      ],
+      "createdAt": "2026-06-02T04:59:41.993Z"
     }
   ]
 }
