@@ -182,3 +182,8 @@ how-to:
     menu:
       top: main-navbar
       bottom: main-footer
+interactive-exercise:
+  directory: interactive-exercise
+  url_pattern:
+    en: /en/interactive-exercise/:slug
+    es: /es/interactive-exercise/:slug
