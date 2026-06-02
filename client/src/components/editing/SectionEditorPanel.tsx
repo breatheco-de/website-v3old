@@ -1813,6 +1813,13 @@ export function SectionEditorPanel({
     queryKey: ["/api/form-state/suggestions"],
   });
 
+  const { data: formOptions, isLoading: formOptionsLoading } = useQuery<{
+    locations: Array<{ slug: string; name: string; city: string; country: string; region: string }>;
+    regions: Array<{ slug: string; label: string }>;
+  }>({
+    queryKey: ["/api/form-options"],
+  });
+
   const formSettingsPath: string | null = (() => {
     const rawFields = allFieldEditors?.[sectionType] || {};
     for (const [fieldPath, editorType] of Object.entries(rawFields)) {
@@ -6541,6 +6548,77 @@ export function SectionEditorPanel({
                   Comma-separated labels applied to form submissions for segmentation.
                 </p>
               </div>
+
+              {/* Locations */}
+              {(() => {
+                const rawLocs = getValueAtFieldPath(parsedSection, `${formSettingsPath}.locations`);
+                const selectedLocs: string[] = Array.isArray(rawLocs)
+                  ? (rawLocs as string[])
+                  : rawLocs
+                  ? [String(rawLocs)]
+                  : [];
+                const isAutoDetect = selectedLocs.length === 0;
+
+                const locationOptions = (formOptions?.locations ?? []).map((loc) => ({
+                  value: loc.slug,
+                  label: loc.name,
+                  group: loc.region,
+                  badgeLabel: loc.city,
+                  searchTerms: [loc.city, loc.country, loc.slug],
+                }));
+
+                const groupLabels = Object.fromEntries(
+                  (formOptions?.regions ?? []).map((r) => [r.slug, r.label])
+                );
+
+                return (
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between gap-3">
+                      <Label className="text-sm font-medium" data-testid="label-conversion-locations">
+                        Locations
+                      </Label>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-muted-foreground">
+                          {isAutoDetect ? "Auto-detect" : "Manual"}
+                        </span>
+                        <Switch
+                          checked={isAutoDetect}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              updatePropertyWithValue(`${formSettingsPath}.locations`, undefined);
+                            } else {
+                              updatePropertyWithValue(`${formSettingsPath}.locations`, []);
+                            }
+                          }}
+                          data-testid="switch-locations-auto-detect"
+                        />
+                      </div>
+                    </div>
+                    {isAutoDetect ? (
+                      <p className="text-xs text-muted-foreground">
+                        Location is auto-detected from the visitor's IP address.
+                      </p>
+                    ) : (
+                      <SearchableMultiSelect
+                        options={locationOptions}
+                        value={selectedLocs}
+                        onChange={(vals) => {
+                          updatePropertyWithValue(
+                            `${formSettingsPath}.locations`,
+                            vals.length > 0 ? vals : []
+                          );
+                        }}
+                        label="Select campuses"
+                        searchPlaceholder="Search locations…"
+                        groupLabels={groupLabels}
+                        isLoading={formOptionsLoading}
+                        testIdPrefix="location"
+                        emptyMessage="No locations found"
+                      />
+                    )}
+                  </div>
+                );
+              })()}
             </div>
           )}
         </TabsContent>
