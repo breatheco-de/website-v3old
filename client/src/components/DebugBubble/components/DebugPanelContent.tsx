@@ -123,6 +123,7 @@ export interface DebugPanelContentProps {
   isCheckingSession: boolean;
   handleCheckSession: () => void;
   setSessionModalOpen: (v: boolean) => void;
+  publicPageUrl: string | null;
 }
 
 function MenuItem({ icon: Icon, label, onClick, href, testId, rightContent, indicator = "none", disabled, className }: MenuItemProps) {
@@ -415,7 +416,12 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   onClick={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    if (props.editMode!.isEditMode) props.editMode!.toggleEditMode();
+                    if (props.editMode!.isEditMode) {
+                      props.editMode!.toggleEditMode();
+                      if (props.publicPageUrl) {
+                        props.navigate(props.publicPageUrl);
+                      }
+                    }
                   }}
                   className={`px-2.5 py-1 rounded-full text-xs font-medium transition-colors ${
                     !props.editMode.isEditMode
