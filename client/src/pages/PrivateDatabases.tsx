@@ -4622,9 +4622,11 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                       </SelectTrigger>
                       <SelectContent>
                         {rawItems.slice(0, 100).map((item, i) => {
+                          const slug = item["slug"] != null ? String(item["slug"]) : null;
                           const val = item[key];
-                          const preview = val != null ? String(val) : "(empty)";
-                          const truncated = preview.length > 40 ? preview.slice(0, 40) + "…" : preview;
+                          const fieldPreview = val != null && String(val).trim() !== "" ? String(val) : null;
+                          const label = slug ?? fieldPreview ?? "(no slug)";
+                          const truncated = label.length > 40 ? label.slice(0, 40) + "…" : label;
                           return (
                             <SelectItem key={i} value={String(i)} className="text-xs font-mono">
                               <span className="text-muted-foreground mr-1.5">#{i + 1}</span>
