@@ -28,7 +28,7 @@ import {
   refreshSitemapEntriesForContentKey,
 } from "../sitemap";
 import { markFileAsModified } from "../sync-state";
-import { getConversionNameUsages, bulkReplaceConversionName, partialReplaceConversionName, buildFormState, getFormStateSuggestions, getConversionNameCounts } from "../form-state";
+import { getConversionNameUsages, bulkReplaceConversionName, partialReplaceConversionNameBySection, buildFormState, getFormStateSuggestions, getConversionNameCounts } from "../form-state";
 import { deepMerge } from "../utils/deepMerge";
 import { regenerateSectionIds } from "../utils/regenerateSectionIds";
 import { databaseManager } from "../database";
@@ -683,42 +683,45 @@ export function registerSettingsRoutes(app: Express): void {
   app.post("/api/settings/tracking/conversion-events/:name/reassign", (req, res) => {
     try {
       const { name } = req.params;
-      const { newName, files } = req.body as { newName?: string; files?: string[] };
+      const { newName, entries } = req.body as {
+        newName?: string;
+        entries?: Array<{ file?: unknown; section_id?: unknown }>;
+      };
       if (!newName || typeof newName !== "string") {
         return res.status(400).json({ error: "newName is required" });
       }
-      if (!Array.isArray(files) || files.length === 0) {
-        return res.status(400).json({ error: "files must be a non-empty array" });
+      if (!Array.isArray(entries) || entries.length === 0) {
+        return res.status(400).json({ error: "entries must be a non-empty array" });
       }
       const current = getTrackingSettings();
       if (!current.conversion_events.some((e) => e.name === newName)) {
         return res.status(404).json({ error: `Target event "${newName}" does not exist` });
       }
 
-      // Security: only operate on files that the server already knows use this
-      // conversion event. This is the primary guard against path traversal /
-      // arbitrary file targeting — the client cannot inject paths that are not
-      // in the server's own usage index for this specific event.
+      // Security: intersect the requested (file, section_id) pairs with the
+      // server's own usage index for this event. The client cannot inject pairs
+      // that the server does not already know about for this specific event.
       const usages = getConversionNameUsages(name);
-      const knownFiles = new Set(usages.map((u) => u.file));
-      const safeFiles = (files as unknown[])
-        .filter((f): f is string => typeof f === "string")
-        .filter((f) => {
-          // Must be a known usage file for this event (primary guard)
-          if (!knownFiles.has(f)) return false;
-          // Belt-and-suspenders: reject any path that looks traversal-y
-          if (path.isAbsolute(f) || f.includes("..")) return false;
-          // Must be a YAML file
-          if (!f.endsWith(".yml") && !f.endsWith(".yaml")) return false;
-          return true;
-        });
+      const knownPairs = new Set(usages.map((u) => `${u.file}::${u.section_id}`));
 
-      if (safeFiles.length === 0) {
-        return res.status(400).json({ error: "No valid usage files found in the request" });
+      const safeEntries = entries
+        .filter(
+          (e): e is { file: string; section_id: string } =>
+            typeof e.file === "string" && typeof e.section_id === "string"
+        )
+        .filter((e) => knownPairs.has(`${e.file}::${e.section_id}`));
+
+      if (safeEntries.length === 0) {
+        return res.status(400).json({ error: "No valid usage entries found in the request" });
       }
 
-      const filesChanged = partialReplaceConversionName(safeFiles, name, newName);
-      res.json({ success: true, filesChanged, rejected: files.length - safeFiles.length });
+      const filesChanged = partialReplaceConversionNameBySection(safeEntries, name, newName);
+      res.json({
+        success: true,
+        filesChanged,
+        entriesChanged: safeEntries.length,
+        rejected: entries.length - safeEntries.length,
+      });
     } catch (err: any) {
       res.status(400).json({ error: err.message || String(err) });
     }

@@ -486,21 +486,36 @@ function EventsSection() {
   });
 
   const reassignMutation = useMutation({
-    mutationFn: async ({ name, files, newName }: { name: string; files: string[]; newName: string }) => {
-      const res = await apiRequest("POST", `/api/settings/tracking/conversion-events/${encodeURIComponent(name)}/reassign`, { newName, files });
+    mutationFn: async ({
+      name,
+      entries,
+      newName,
+    }: {
+      name: string;
+      entries: Array<{ file: string; section_id: string }>;
+      newName: string;
+    }) => {
+      const res = await apiRequest(
+        "POST",
+        `/api/settings/tracking/conversion-events/${encodeURIComponent(name)}/reassign`,
+        { newName, entries }
+      );
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         throw new Error((err as any).error || "Failed to reassign");
       }
       return res.json();
     },
-    onSuccess: (_data, { newName, files }) => {
+    onSuccess: (_data, { newName, entries }) => {
       queryClient.invalidateQueries({ queryKey: ["/api/settings/tracking/conversion-events", usageModalEvent, "usage"] });
       queryClient.invalidateQueries({ queryKey: ["/api/form-state/conversion-counts"] });
       setCheckedRows(new Set());
       setReassignOpen(false);
       setReassignTarget("");
-      toast({ title: "Reassigned", description: `${files.length} ${files.length === 1 ? "entry" : "entries"} moved to "${newName}".` });
+      toast({
+        title: "Reassigned",
+        description: `${entries.length} ${entries.length === 1 ? "entry" : "entries"} moved to "${newName}".`,
+      });
     },
     onError: (err: Error) => {
       toast({ title: "Reassign failed", description: err.message, variant: "destructive" });
@@ -839,8 +854,11 @@ function EventsSection() {
             <Button
               onClick={() => {
                 if (!usageModalEvent || !reassignTarget || !usageModalData) return;
-                const selectedFiles = Array.from(checkedRows).map((i) => usageModalData.usages[i].file);
-                reassignMutation.mutate({ name: usageModalEvent, files: selectedFiles, newName: reassignTarget });
+                const selectedEntries = Array.from(checkedRows).map((i) => ({
+                  file: usageModalData.usages[i].file,
+                  section_id: usageModalData.usages[i].section_id,
+                }));
+                reassignMutation.mutate({ name: usageModalEvent, entries: selectedEntries, newName: reassignTarget });
               }}
               disabled={!reassignTarget || reassignMutation.isPending}
               data-testid="button-confirm-reassign"

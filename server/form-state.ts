@@ -383,21 +383,40 @@ export function bulkReplaceConversionName(oldName: string, newName: string): num
 }
 
 /**
- * Partial replace: same line-by-line logic as bulkReplaceConversionName but
- * scoped to only the specified relative file paths (relative to CONTENT_DIR).
+ * Section-aware partial replace: replaces `conversion_name` only within the
+ * specific YAML sections identified by (file, section_id) pairs.
+ *
+ * Uses a line-by-line state machine to track which section each
+ * `conversion_name:` line belongs to, so a file with multiple sections sharing
+ * the same conversion name is updated only for the targeted sections.
+ *
+ * Two layers of path security:
+ *   1. Caller (route) validates entries against the server's own usage index.
+ *   2. This function also rejects absolute paths, ".." traversal, non-YAML
+ *      extensions, and paths that resolve outside CONTENT_DIR.
+ *
  * Returns the number of files that were actually modified.
  */
-export function partialReplaceConversionName(relFilePaths: string[], oldName: string, newName: string): number {
-  let count = 0;
+export function partialReplaceConversionNameBySection(
+  targets: Array<{ file: string; section_id: string }>,
+  oldName: string,
+  newName: string
+): number {
+  // Group target section_ids by file, with path validation
+  const byFile = new Map<string, Set<string>>();
+  for (const { file, section_id } of targets) {
+    if (path.isAbsolute(file) || file.includes("..")) continue;
+    if (!file.endsWith(".yml") && !file.endsWith(".yaml")) continue;
+    const abs = path.resolve(path.join(CONTENT_DIR, file));
+    if (!abs.startsWith(CONTENT_DIR + path.sep)) continue;
+    if (!byFile.has(file)) byFile.set(file, new Set());
+    byFile.get(file)!.add(section_id);
+  }
 
-  for (const relPath of relFilePaths) {
-    // Defense-in-depth: ensure resolved path stays within CONTENT_DIR
-    // (the route layer already validates against the server's usage index,
-    // but guard here too in case this function is called from elsewhere)
-    if (path.isAbsolute(relPath) || relPath.includes("..")) continue;
-    if (!relPath.endsWith(".yml") && !relPath.endsWith(".yaml")) continue;
-    const absPath = path.resolve(path.join(CONTENT_DIR, relPath));
-    if (!absPath.startsWith(CONTENT_DIR + path.sep) && absPath !== CONTENT_DIR) continue;
+  let filesChanged = 0;
+
+  for (const [relPath, sectionIds] of byFile.entries()) {
+    const absPath = path.join(CONTENT_DIR, relPath);
     let raw: string;
     try {
       raw = fs.readFileSync(absPath, "utf-8");
@@ -407,32 +426,115 @@ export function partialReplaceConversionName(relFilePaths: string[], oldName: st
 
     const lines = raw.split("\n");
     let changed = false;
+
+    // State machine
+    // sectionsIndent: indent level of the root `sections:` key (-1 = not found yet)
+    // listItemIndent: indent level of section list items (-1 = not set yet)
+    // currentSectionId: id of the section we are currently traversing
+    // inTargetSection: whether currentSectionId is in our target set
+    // idSeen: have we seen the `id:` field for the current section item yet
+    let sectionsIndent = -1;
+    let listItemIndent = -1;
+    let currentSectionId: string | null = null;
+    let inTargetSection = false;
+    let idSeen = false;
+
     const updatedLines = lines.map((line) => {
-      const trimmed = line.trimStart();
-      if (!trimmed.startsWith("conversion_name:")) return line;
-      const rest = trimmed.slice("conversion_name:".length).trim();
-      const unquoted = rest.replace(/^['"]|['"]$/g, "");
-      if (unquoted !== oldName) return line;
-      const indent = line.slice(0, line.length - trimmed.length);
-      changed = true;
-      return `${indent}conversion_name: ${newName}`;
+      const rawTrimmed = line.trimStart();
+      const currentIndent = line.length - rawTrimmed.length;
+      const trimmed = rawTrimmed.trimEnd();
+
+      // Skip blank lines and YAML comments — preserve state
+      if (trimmed === "" || trimmed.startsWith("#")) return line;
+
+      // Detect the root-level `sections:` key
+      if (
+        currentIndent === 0 &&
+        (trimmed === "sections:" || trimmed.startsWith("sections: "))
+      ) {
+        sectionsIndent = currentIndent;
+        listItemIndent = -1;
+        currentSectionId = null;
+        inTargetSection = false;
+        idSeen = false;
+        return line;
+      }
+
+      if (sectionsIndent >= 0) {
+        // Exiting the sections block: root-level non-list key
+        if (currentIndent <= sectionsIndent && !trimmed.startsWith("- ") && trimmed !== "-") {
+          sectionsIndent = -1;
+          currentSectionId = null;
+          inTargetSection = false;
+          return line;
+        }
+
+        // New section list item — only at the established list-item indent
+        const isListItem = trimmed.startsWith("- ") || trimmed === "-";
+        if (isListItem) {
+          if (listItemIndent === -1) listItemIndent = currentIndent;
+
+          if (currentIndent === listItemIndent) {
+            // Start of a new section
+            currentSectionId = null;
+            inTargetSection = false;
+            idSeen = false;
+
+            // id might be on the same line: `- id: foo`
+            const afterDash = trimmed.startsWith("- ") ? trimmed.slice(2).trimStart() : "";
+            if (afterDash.startsWith("id:")) {
+              const val = afterDash.slice(3).trim().replace(/^['"]|['"]$/g, "");
+              currentSectionId = val;
+              inTargetSection = sectionIds.has(val);
+              idSeen = true;
+            }
+            return line;
+          }
+        }
+
+        // Inside a section: capture the `id:` field if we haven't seen it yet
+        if (!idSeen && trimmed.startsWith("id:")) {
+          const val = trimmed.slice(3).trim().replace(/^['"]|['"]$/g, "");
+          currentSectionId = val;
+          inTargetSection = sectionIds.has(val);
+          idSeen = true;
+          return line;
+        }
+
+        // Replace `conversion_name` only within targeted sections
+        if (inTargetSection && trimmed.startsWith("conversion_name:")) {
+          const rest = trimmed.slice("conversion_name:".length).trim();
+          const unquoted = rest.replace(/^['"]|['"]$/g, "");
+          if (unquoted === oldName) {
+            changed = true;
+            return `${" ".repeat(currentIndent)}conversion_name: ${newName}`;
+          }
+        }
+      }
+
+      return line;
     });
 
     if (changed) {
       fs.writeFileSync(absPath, updatedLines.join("\n"), "utf-8");
-      count++;
+      filesChanged++;
     }
   }
 
+  // Update in-memory form state for targeted (file, section_id) pairs only
+  const targetKey = new Set(targets.map(({ file, section_id }) => `${file}::${section_id}`));
   for (const entry of state.forms) {
-    if (relFilePaths.includes(entry.file) && entry.conversion_name === oldName) {
+    if (
+      targetKey.has(`${entry.file}::${entry.section_id}`) &&
+      entry.conversion_name === oldName
+    ) {
       entry.conversion_name = newName;
     }
   }
   rebuildIndex();
   save();
 
-  return count;
+  return filesChanged;
 }
 
 /** Returns known automations and tags across all form entries (for autocomplete). */
