@@ -219,6 +219,9 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
   mcp.tool(
     "list_pages",
     "List YAML-driven content pages. Returns slug, contentType, locales, title, and urls (a per-locale map of resolved paths, e.g. { en: '/en/career-programs/ai-engineering' }) for each page. " +
+    "IMPORTANT: Database-backed content types (those configured with a database in content-types.yml) are NOT included in these results — they are stored in the database, not as YAML files. " +
+    "If you search for a known slug (e.g. 'python-http-requests') and get an empty result, it likely means that entry belongs to a db-backed content type rather than not existing at all. " +
+    "There is currently no MCP tool to query db-backed entries directly. " +
     "Optional filters (all combinable, AND logic): " +
     "contentType — restrict to one type (e.g. 'program', 'landing', 'page'); " +
     "locale — only pages that have this locale available (e.g. 'en'); " +
