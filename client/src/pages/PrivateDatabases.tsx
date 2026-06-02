@@ -4395,6 +4395,9 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                                       ))}
                                     </div>
                                   </div>
+                                  <p className="text-muted-foreground">
+                                    You can upgrade to <strong className="text-foreground">semantic search</strong> in <strong className="text-foreground">Settings → Field Mappings</strong> by enabling the vector index on one or more fields.
+                                  </p>
                                 </>
                               ) : (
                                 <>
