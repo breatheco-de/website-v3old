@@ -2873,8 +2873,13 @@ function _DeprecatedItemEditModal({
       ? Array.from(
           new Set(
             (allItems ?? [])
-              .map((it) => it[key])
-              .flat()
+              .flatMap((it) => {
+                const v = it[key];
+                if (type === "tags" && typeof v === "string") {
+                  return v.split(",").map((t: string) => t.trim()).filter(Boolean);
+                }
+                return Array.isArray(v) ? v : [v];
+              })
               .filter((v): v is string => typeof v === "string" && v.trim() !== "")
           )
         ).sort()
@@ -2934,7 +2939,11 @@ function _DeprecatedItemEditModal({
           </Select>
         );
       case "tags": {
-        const tags = Array.isArray(value) ? (value as string[]) : [];
+        const tags = Array.isArray(value)
+          ? (value as string[])
+          : typeof value === "string" && value.trim()
+          ? value.split(",").map((t) => t.trim()).filter(Boolean)
+          : [];
         const inputVal = tagInput[key] || "";
         const addTag = () => {
           const trimmed = inputVal.trim();

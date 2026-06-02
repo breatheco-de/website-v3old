@@ -2420,6 +2420,22 @@ export default function ContentTypeManagePage() {
 
   const LOCALE_LABELS: Record<string, string> = { en: "English", es: "Spanish", pt: "Portuguese", fr: "French", de: "German", it: "Italian" };
 
+  const dbSlug = typeConfig?.database?.slug || null;
+
+  const { data: dbEditorConfig } = useQuery<Record<string, { type?: string }>>({
+    queryKey: ["/api/databases", dbSlug, "editor-config"],
+    queryFn: () =>
+      fetch(`/api/databases/${dbSlug}/config`).then(async (r) => {
+        const data = await r.json();
+        return (data.editor as Record<string, { type?: string }>) || {};
+      }),
+    enabled: !!dbSlug,
+    staleTime: 60000,
+  });
+
+  const isTagsField = (fieldKey: string) =>
+    dbEditorConfig?.[fieldKey]?.type === "tags";
+
   const allIndexFields = (() => {
     const explicit = typeConfig?.indexes || [];
     const result = [...explicit];
@@ -2434,17 +2450,28 @@ export default function ContentTypeManagePage() {
     for (const idx of allIndexFields) {
       const counts: Record<string, number> = {};
       for (const item of items) {
-        const val = String(item[idx] || "").toLowerCase();
-        if (val) {
-          counts[val] = (counts[val] || 0) + 1;
+        if (isTagsField(idx)) {
+          const raw = item[idx];
+          const tokens: string[] = Array.isArray(raw)
+            ? (raw as string[])
+            : typeof raw === "string" && raw.trim()
+            ? raw.split(",").map((t) => t.trim()).filter(Boolean)
+            : [];
+          for (const token of tokens) {
+            const t = token.toLowerCase();
+            if (t) counts[t] = (counts[t] || 0) + 1;
+          }
+        } else {
+          const val = String(item[idx] || "").toLowerCase();
+          if (val) {
+            counts[val] = (counts[val] || 0) + 1;
+          }
         }
       }
       stats[idx] = counts;
     }
     return stats;
   })();
-
-  const dbSlug = typeConfig?.database?.slug || null;
 
   useEffect(() => {
     if (viewMode !== "db" || !dbSlug) {
@@ -2492,15 +2519,25 @@ export default function ContentTypeManagePage() {
     };
   }, [search, viewMode, dbSlug, filters, localeKey]);
 
+  const matchesFilter = (item: Record<string, unknown>, field: string, value: string) => {
+    if (isTagsField(field)) {
+      const raw = item[field];
+      const tokens: string[] = Array.isArray(raw)
+        ? (raw as string[]).map((t) => t.toLowerCase())
+        : typeof raw === "string" && raw.trim()
+        ? raw.split(",").map((t) => t.trim().toLowerCase()).filter(Boolean)
+        : [];
+      return tokens.includes(value.toLowerCase());
+    }
+    return String(item[field] || "").toLowerCase() === value.toLowerCase();
+  };
+
   const filtered = (() => {
     if (viewMode === "db" && search.trim() && semanticResults !== null) {
       let result = semanticResults;
       for (const [field, value] of Object.entries(filters)) {
         if (value && value !== "all") {
-          result = result.filter((p) => {
-            const itemVal = String(p[field] || "").toLowerCase();
-            return itemVal === value.toLowerCase();
-          });
+          result = result.filter((p) => matchesFilter(p, field, value));
         }
       }
       return result;
@@ -2510,10 +2547,7 @@ export default function ContentTypeManagePage() {
 
     for (const [field, value] of Object.entries(filters)) {
       if (value && value !== "all") {
-        result = result.filter((p) => {
-          const itemVal = String(p[field] || "").toLowerCase();
-          return itemVal === value.toLowerCase();
-        });
+        result = result.filter((p) => matchesFilter(p, field, value));
       }
     }
 
