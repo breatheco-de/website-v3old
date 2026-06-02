@@ -1050,8 +1050,10 @@ function DataSourceDialog({
                   <div className="space-y-2">
                     {Object.entries(fieldMapping).map(([standardField, sourceField]) => {
                       const isFnMode = !!transformerModes[standardField];
-                      const isCustom = !isFnMode && sourceField != null && sourceField !== "__none__" && !availableFields.includes(sourceField);
-                      const selectValue = isCustom ? "__custom__" : (sourceField || "__none__");
+                      const isOptional = !isFnMode && typeof sourceField === "string" && sourceField.startsWith("?");
+                      const bareSource = isOptional ? (sourceField as string).slice(1) : sourceField;
+                      const isCustom = !isFnMode && bareSource != null && bareSource !== "__none__" && !availableFields.includes(bareSource as string);
+                      const selectValue = isCustom ? "__custom__" : ((bareSource as string) || "__none__");
                       return (
                       <div key={standardField} className="space-y-1">
                         <div className="flex items-center gap-2">
@@ -1073,9 +1075,10 @@ function DataSourceDialog({
                           ) : isCustom ? (
                             <>
                               <Input
-                                value={sourceField}
+                                value={bareSource as string}
                                 onChange={(e) => {
-                                  setFieldMapping((prev) => ({ ...prev, [standardField]: e.target.value }));
+                                  const prefix = isOptional ? "?" : "";
+                                  setFieldMapping((prev) => ({ ...prev, [standardField]: `${prefix}${e.target.value}` }));
                                 }}
                                 placeholder="e.g. author.details.name"
                                 className="h-8 text-xs font-mono flex-1"
@@ -1097,10 +1100,11 @@ function DataSourceDialog({
                             <Select
                               value={selectValue}
                               onValueChange={(v) => {
+                                const prefix = isOptional ? "?" : "";
                                 if (v === "__custom__") {
-                                  setFieldMapping((prev) => ({ ...prev, [standardField]: "" }));
+                                  setFieldMapping((prev) => ({ ...prev, [standardField]: prefix }));
                                 } else {
-                                  setFieldMapping((prev) => ({ ...prev, [standardField]: v === "__none__" ? null : v }));
+                                  setFieldMapping((prev) => ({ ...prev, [standardField]: v === "__none__" ? null : `${prefix}${v}` }));
                                 }
                               }}
                             >
@@ -1115,6 +1119,23 @@ function DataSourceDialog({
                                 <SelectItem value="__custom__">Custom path...</SelectItem>
                               </SelectContent>
                             </Select>
+                          )}
+                          {!isFnMode && bareSource && bareSource !== "__none__" && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setFieldMapping((prev) => {
+                                  const cur = prev[standardField];
+                                  if (!cur) return prev;
+                                  const wasOptional = typeof cur === "string" && cur.startsWith("?");
+                                  return { ...prev, [standardField]: wasOptional ? cur.slice(1) : `?${cur}` };
+                                });
+                              }}
+                              className="text-[10px] flex-shrink-0 cursor-pointer transition-colors text-muted-foreground hover:text-foreground"
+                              data-testid={`button-toggle-optional-${standardField}`}
+                            >
+                              {isOptional ? "optional" : "required"}
+                            </button>
                           )}
                           <Button
                             variant="ghost"
