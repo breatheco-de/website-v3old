@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { AlertTriangle, ArrowRight, Award, BarChart2, Blocks, Book, Brain, Building2, Check, ClipboardList, Columns, Columns2, CreditCard, FolderCode, HelpCircle, Image, Info, List, ListFilter, MessageSquare, MousePointerClick, PanelBottom, RefreshCw, Rocket, ScatterChart, Search, Sparkles, Star, Table, Trophy, Users, Wand2, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import jsYaml from "js-yaml";
@@ -274,7 +274,7 @@ export default function ComponentPickerModal({
     enabled: isOpen,
   });
 
-  const componentsList: ComponentInfo[] = (() => {
+  const componentsList: ComponentInfo[] = useMemo(() => {
     if (!registryData?.components) return [];
     
     const RESERVED_COMPONENT_NAMES = ["common", "_common", "shared", "_shared", "utils", "_utils"];
@@ -287,7 +287,7 @@ export default function ComponentPickerModal({
         icon: iconMap[comp.type] || Blocks,
         description: comp.description || "",
       }));
-  })();
+  }, [registryData]);
 
   const filteredComponentsList = (() => {
     if (!componentSearch.trim()) return componentsList;

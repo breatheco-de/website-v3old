@@ -178,3 +178,7 @@ how-to:
     - technologies
   database:
     slug: how_to
+  layout:
+    menu:
+      top: main-navbar
+      bottom: main-footer
