@@ -30,6 +30,7 @@ import { Label } from "@/components/ui/label";
 import JsonViewer from "@/components/editing/JsonViewer";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, apiFetch, queryClient } from "@/lib/queryClient";
 import { TRACKING_EVENTS, type TrackingSettingsResponse } from "@/lib/tracking";
@@ -390,6 +391,9 @@ function EventsSection() {
   const [renameValue, setRenameValue] = useState("");
   const [mergeTarget, setMergeTarget] = useState("");
   const [usageModalEvent, setUsageModalEvent] = useState<string | null>(null);
+  const [checkedRows, setCheckedRows] = useState<Set<number>>(new Set());
+  const [reassignOpen, setReassignOpen] = useState(false);
+  const [reassignTarget, setReassignTarget] = useState("");
 
   const { data: trackingSettings } = useQuery<TrackingSettingsResponse>({
     queryKey: ["/api/settings/tracking"],
@@ -478,6 +482,28 @@ function EventsSection() {
     },
     onError: (err: Error) => {
       toast({ title: "Failed to rename event", description: err.message, variant: "destructive" });
+    },
+  });
+
+  const reassignMutation = useMutation({
+    mutationFn: async ({ name, files, newName }: { name: string; files: string[]; newName: string }) => {
+      const res = await apiRequest("POST", `/api/settings/tracking/conversion-events/${encodeURIComponent(name)}/reassign`, { newName, files });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error((err as any).error || "Failed to reassign");
+      }
+      return res.json();
+    },
+    onSuccess: (_data, { newName, files }) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/settings/tracking/conversion-events", usageModalEvent, "usage"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/form-state/conversion-counts"] });
+      setCheckedRows(new Set());
+      setReassignOpen(false);
+      setReassignTarget("");
+      toast({ title: "Reassigned", description: `${files.length} ${files.length === 1 ? "entry" : "entries"} moved to "${newName}".` });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Reassign failed", description: err.message, variant: "destructive" });
     },
   });
 
@@ -689,7 +715,7 @@ function EventsSection() {
         ))}
       </div>
 
-      <Dialog open={!!usageModalEvent} onOpenChange={(open) => { if (!open) setUsageModalEvent(null); }}>
+      <Dialog open={!!usageModalEvent} onOpenChange={(open) => { if (!open) { setUsageModalEvent(null); setCheckedRows(new Set()); } }}>
         <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
@@ -697,7 +723,7 @@ function EventsSection() {
               <code className="font-mono text-sm font-semibold bg-muted px-1.5 py-0.5 rounded">{usageModalEvent}</code>
             </DialogTitle>
             <DialogDescription>
-              These content entries have a form section configured with this conversion event.
+              Check entries to reassign them to a different conversion event.
             </DialogDescription>
           </DialogHeader>
           <div className="py-1">
@@ -707,21 +733,122 @@ function EventsSection() {
                 Loading…
               </div>
             ) : usageModalData && usageModalData.usages.length > 0 ? (
-              <ul className="space-y-1.5 max-h-72 overflow-y-auto">
-                {usageModalData.usages.map((u, i) => (
-                  <li key={i} className="text-sm flex items-start gap-1.5 flex-wrap py-1 border-b last:border-0">
-                    <span className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded">{u.content_type}/{u.slug}</span>
-                    <span className="text-muted-foreground text-xs">({u.locale})</span>
-                    {u.section_type && (
-                      <span className="text-muted-foreground text-xs">· {u.section_type}</span>
-                    )}
-                  </li>
-                ))}
-              </ul>
+              <>
+                <div className="flex items-center justify-between mb-2 px-0.5">
+                  <label className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer select-none">
+                    <Checkbox
+                      checked={checkedRows.size === usageModalData.usages.length}
+                      onCheckedChange={(checked) => {
+                        if (checked) {
+                          setCheckedRows(new Set(usageModalData.usages.map((_, i) => i)));
+                        } else {
+                          setCheckedRows(new Set());
+                        }
+                      }}
+                      data-testid="checkbox-select-all-usages"
+                    />
+                    {checkedRows.size > 0 ? `${checkedRows.size} selected` : "Select all"}
+                  </label>
+                  {checkedRows.size > 0 && (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => { setReassignTarget(""); setReassignOpen(true); }}
+                      data-testid="button-reassign-selected"
+                    >
+                      <IconPencil className="h-3.5 w-3.5" />
+                      Reassign
+                    </Button>
+                  )}
+                </div>
+                <ul className="space-y-0.5 max-h-64 overflow-y-auto">
+                  {usageModalData.usages.map((u, i) => (
+                    <li
+                      key={i}
+                      className={`flex items-center gap-2 py-1.5 px-1 rounded-md cursor-pointer border ${
+                        checkedRows.has(i) ? "border-primary/30 bg-primary/5" : "border-transparent hover:bg-muted/50"
+                      }`}
+                      onClick={() => {
+                        setCheckedRows((prev) => {
+                          const next = new Set(prev);
+                          if (next.has(i)) next.delete(i); else next.add(i);
+                          return next;
+                        });
+                      }}
+                      data-testid={`usage-row-${i}`}
+                    >
+                      <Checkbox
+                        checked={checkedRows.has(i)}
+                        onCheckedChange={() => {
+                          setCheckedRows((prev) => {
+                            const next = new Set(prev);
+                            if (next.has(i)) next.delete(i); else next.add(i);
+                            return next;
+                          });
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                        data-testid={`checkbox-usage-${i}`}
+                      />
+                      <div className="flex items-center gap-1.5 flex-wrap min-w-0">
+                        <span className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded">{u.content_type}/{u.slug}</span>
+                        <span className="text-muted-foreground text-xs">({u.locale})</span>
+                        {u.section_type && (
+                          <span className="text-muted-foreground text-xs">· {u.section_type}</span>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </>
             ) : (
               <p className="text-sm text-muted-foreground">No forms are currently using this event.</p>
             )}
           </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={reassignOpen} onOpenChange={(open) => { if (!open) { setReassignOpen(false); setReassignTarget(""); } }}>
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Reassign {checkedRows.size} {checkedRows.size === 1 ? "entry" : "entries"}</DialogTitle>
+            <DialogDescription>
+              Move the selected {checkedRows.size === 1 ? "entry" : "entries"} from <code className="font-mono text-xs">{usageModalEvent}</code> to a different conversion event.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-1.5 py-1">
+            <Label htmlFor="reassign-target-select">Target event</Label>
+            <Select value={reassignTarget} onValueChange={setReassignTarget}>
+              <SelectTrigger id="reassign-target-select" data-testid="select-reassign-target">
+                <SelectValue placeholder="Select target event…" />
+              </SelectTrigger>
+              <SelectContent>
+                {conversionEventEntries
+                  .filter((e) => e.name !== usageModalEvent)
+                  .map((e) => (
+                    <SelectItem key={e.name} value={e.name}>
+                      <span className="font-mono text-xs">{e.name}</span>
+                    </SelectItem>
+                  ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => { setReassignOpen(false); setReassignTarget(""); }} data-testid="button-cancel-reassign">
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                if (!usageModalEvent || !reassignTarget || !usageModalData) return;
+                const selectedFiles = Array.from(checkedRows).map((i) => usageModalData.usages[i].file);
+                reassignMutation.mutate({ name: usageModalEvent, files: selectedFiles, newName: reassignTarget });
+              }}
+              disabled={!reassignTarget || reassignMutation.isPending}
+              data-testid="button-confirm-reassign"
+            >
+              {reassignMutation.isPending ? <IconLoader2 className="h-4 w-4 animate-spin" /> : <IconPencil className="h-4 w-4" />}
+              Reassign
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
 

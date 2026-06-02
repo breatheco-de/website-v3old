@@ -28,7 +28,7 @@ import {
   refreshSitemapEntriesForContentKey,
 } from "../sitemap";
 import { markFileAsModified } from "../sync-state";
-import { getConversionNameUsages, bulkReplaceConversionName, buildFormState, getFormStateSuggestions, getConversionNameCounts } from "../form-state";
+import { getConversionNameUsages, bulkReplaceConversionName, partialReplaceConversionName, buildFormState, getFormStateSuggestions, getConversionNameCounts } from "../form-state";
 import { deepMerge } from "../utils/deepMerge";
 import { regenerateSectionIds } from "../utils/regenerateSectionIds";
 import { databaseManager } from "../database";
@@ -678,6 +678,27 @@ export function registerSettingsRoutes(app: Express): void {
         section_type,
       })),
     });
+  });
+
+  app.post("/api/settings/tracking/conversion-events/:name/reassign", (req, res) => {
+    try {
+      const { name } = req.params;
+      const { newName, files } = req.body as { newName?: string; files?: string[] };
+      if (!newName || typeof newName !== "string") {
+        return res.status(400).json({ error: "newName is required" });
+      }
+      if (!Array.isArray(files) || files.length === 0) {
+        return res.status(400).json({ error: "files must be a non-empty array" });
+      }
+      const current = getTrackingSettings();
+      if (!current.conversion_events.some((e) => e.name === newName)) {
+        return res.status(404).json({ error: `Target event "${newName}" does not exist` });
+      }
+      const filesChanged = partialReplaceConversionName(files, name, newName);
+      res.json({ success: true, filesChanged });
+    } catch (err: any) {
+      res.status(400).json({ error: err.message || String(err) });
+    }
   });
 
   app.delete("/api/settings/tracking/conversion-events/:name", (req, res) => {

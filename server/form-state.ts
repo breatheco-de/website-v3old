@@ -382,6 +382,53 @@ export function bulkReplaceConversionName(oldName: string, newName: string): num
   return count;
 }
 
+/**
+ * Partial replace: same line-by-line logic as bulkReplaceConversionName but
+ * scoped to only the specified relative file paths (relative to CONTENT_DIR).
+ * Returns the number of files that were actually modified.
+ */
+export function partialReplaceConversionName(relFilePaths: string[], oldName: string, newName: string): number {
+  let count = 0;
+
+  for (const relPath of relFilePaths) {
+    const absPath = path.join(CONTENT_DIR, relPath);
+    let raw: string;
+    try {
+      raw = fs.readFileSync(absPath, "utf-8");
+    } catch {
+      continue;
+    }
+
+    const lines = raw.split("\n");
+    let changed = false;
+    const updatedLines = lines.map((line) => {
+      const trimmed = line.trimStart();
+      if (!trimmed.startsWith("conversion_name:")) return line;
+      const rest = trimmed.slice("conversion_name:".length).trim();
+      const unquoted = rest.replace(/^['"]|['"]$/g, "");
+      if (unquoted !== oldName) return line;
+      const indent = line.slice(0, line.length - trimmed.length);
+      changed = true;
+      return `${indent}conversion_name: ${newName}`;
+    });
+
+    if (changed) {
+      fs.writeFileSync(absPath, updatedLines.join("\n"), "utf-8");
+      count++;
+    }
+  }
+
+  for (const entry of state.forms) {
+    if (relFilePaths.includes(entry.file) && entry.conversion_name === oldName) {
+      entry.conversion_name = newName;
+    }
+  }
+  rebuildIndex();
+  save();
+
+  return count;
+}
+
 /** Returns known automations and tags across all form entries (for autocomplete). */
 export function getFormStateSuggestions(): { automations: string[]; tags: string[] } {
   return {
