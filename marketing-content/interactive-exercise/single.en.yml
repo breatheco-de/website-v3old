@@ -4,16 +4,6 @@ meta:
 sections:
   - type: hero
     version: "1.0"
-    variant: singleColumn
-    badge: Career Program
-    title: {{ single.title | interactive exercise title }}
-    section_id: hero-ytw2p3
-    paddingY:
-      desktop: sm
-    maxWidth:
-      desktop: xl
-  - type: hero
-    version: "1.0"
     variant: productShowcase
     title: en 4Geeks
     brand_mark:
