@@ -5,9 +5,7 @@ settings:
     eager_count: 3
 meta:
   page_title: AI fluency
-  description: >-
-    AI Engineer: fastest-growing job of 2026. Get job-ready in 24 weeks. 84% hiring rate, $95K–$135K salaries. Lifelong
-    mentorship and career support. 4Geeks.
+  description: "AI Engineer: fastest-growing job of 2026. Get job-ready in 24 weeks. 84% hiring rate, $95K–$135K salaries. Lifelong mentorship and career support. 4Geeks."
   robots: index, follow
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
@@ -19,13 +17,11 @@ schema:
     - courses:ai-engineering
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: course
     title: AI Engineering
     title_highlight: Artificial Intelligence Engineering
-    subtitle: >-
-      AI Engineer is the fastest-growing job of 2026. Our intensive program is built to get you hired, backed by an
-      AI-first methodology, unlimited 1:1 mentorship, and lifelong career support.
+    subtitle: AI Engineer is the fastest-growing job of 2026. Our intensive program is built to get you hired, backed by an AI-first methodology, unlimited 1:1 mentorship, and lifelong career support.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -44,12 +40,8 @@ sections:
       - name: Rigo
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: 'Your tutors:'
-    description: >-
-      Graduate job-ready for one of tech's fastest-growing roles, with the skills and support to land positions paying
-      $95K–$135K+.<div><br></div><div><span style="font-size: 12px; text-align: center;">Florida residents: Only our
-      full-stack development program is authorized by the Commission for Independent Education in Florida. Our job
-      guarantee bundle is not offered in Florida where our only physical location is in Miami.</span></div>
+    tutors_label: "Your tutors:"
+    description: "Graduate job-ready for one of tech's fastest-growing roles, with the skills and support to land positions paying $95K–$135K+.<div><br></div><div><span style=\"font-size: 12px; text-align: center;\">Florida residents: Only our full-stack development program is authorized by the Commission for Independent Education in Florida. Our job guarantee bundle is not offered in Florida where our only physical location is in Miami.</span></div>"
     media:
       type: video
       src: https://www.youtube.com/shorts/sSxJnelPJT8
@@ -57,12 +49,10 @@ sections:
       alt: AI Engineering program introduction
     signup_card:
       title: Get the Full Program Overview
-      description: >-
-        Fill in your details and our admissions team will send you everything you need: syllabus, program details,
-        financing options and more. It takes 2 minutes.
+      description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, financing options and more. It takes 2 minutes."
       cta_button:
         text: Send Me the Details
-        url: '#modal-qf93fn'
+        url: "#modal-qf93fn"
         variant: primary
       login_link:
         text: Already a student? Login here.
@@ -84,11 +74,9 @@ sections:
     marginY:
       desktop: none
   - type: modal
-    version: '1.0'
+    version: "1.0"
     heading: Request Program Details
-    description: >-
-      Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and
-      support framework.
+    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
     show_close: true
     size: md
     form:
@@ -171,14 +159,14 @@ sections:
       - image_id: group-7085-1
         col_span: 5
         row_span: 2
-        alt: 'Image: Gemini_Generated_Image_uwpyyruwpyyruwpy'
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
         id: gemini-generated-image-uwpyyruwpyyruwpy
         object_scale: 1.1
         object_position: 50% 30%
       - image_id: group-7086-1
         col_span: 7
         row_span: 2
-        alt: 'Image: Gemini_Generated_Image_pd2u4upd2u4upd2u'
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
         id: gemini-generated-image-pd2u4upd2u4upd2u
         object_scale: 1
         transform_origin: 50% 50%
@@ -186,13 +174,13 @@ sections:
       - image_id: group-7084-1
         col_span: 6
         row_span: 2
-        alt: 'Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)'
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
         id: gemini-generated-image-dhko5mdhko5mdhko-1
         object_scale: 1.05
       - image_id: group-7087-1
         col_span: 6
         row_span: 2
-        alt: 'Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4'
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
         id: gemini-generated-image-wpk4yvwpk4yvwpk4
         object_scale: 1.05
         transform_origin: 50% 50%
@@ -205,14 +193,11 @@ sections:
     paddingY:
       desktop: md none
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-charts
     subtitle: The demand is there. The talent isn't.
     title: Why AI Engineering Now
-    description: >-
-      In the past two years, AI has created 1.3 million new roles globally — and only 3% of the workforce has the skills
-      to fill them. LinkedIn ranks AI Engineer among the fastest-growing jobs of 2026. The demand is there. The talent
-      isn't. That's your opportunity.
+    description: In the past two years, AI has created 1.3 million new roles globally — and only 3% of the workforce has the skills to fill them. LinkedIn ranks AI Engineer among the fastest-growing jobs of 2026. The demand is there. The talent isn't. That's your opportunity.
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
     card_gauge_accent: hsl(var(--destructive) / 0.5)
@@ -247,10 +232,7 @@ sections:
     section_id: syllabus-bcr1mu
     variant: program-modules
     program_title: AI Native Full Stack — Program Modules
-    program_description: >-
-      Build real AI-powered systems from day one. This curriculum is organized around two tracks — Core AI and Agents,
-      and Infrastructure for AI — plus a capstone that integrates everything into a fully transformed, deployed company.
-      Supported by complementary foundations in modern development tools and practices throughout.
+    program_description: Build real AI-powered systems from day one. This curriculum is organized around two tracks — Core AI and Agents, and Infrastructure for AI — plus a capstone that integrates everything into a fully transformed, deployed company. Supported by complementary foundations in modern development tools and practices throughout.
     tech_logos:
       - name: Python
         icon: python
@@ -268,9 +250,7 @@ sections:
         objectives:
           - Configure an open-source AI agent as a personal assistant
           - Assign tasks and integrate external applications with the agent
-        projects: >-
-          Deploy and configure a self-hosted AI assistant — yours, under your control, without relying on external
-          vendors.
+        projects: Deploy and configure a self-hosted AI assistant — yours, under your control, without relying on external vendors.
         orientation: vertical
         icon: IconRobot
       - title: Advanced Personal Assistants with OpenClaw
@@ -289,9 +269,7 @@ sections:
           - Build memory banks and context rules from an existing codebase
           - Write executable specifications for agents (agent specs)
           - Synthesize reusable skills so agents act with precision
-        projects: >-
-          Build memory banks and context rules that turn a coding agent into a collaborator that understands your
-          codebase.
+        projects: Build memory banks and context rules that turn a coding agent into a collaborator that understands your codebase.
         orientation: vertical
         icon: IconCode
       - title: LLMs, Training & RAG
@@ -331,9 +309,7 @@ sections:
           - Create agent loops integrating LLMs with APIs
           - Implement lightweight storage and CSV data processing
           - Build and expose REST APIs for frontends and agents
-        projects: >-
-          Build robust APIs with FastAPI, implement agent loops in Python, and design backend architectures for AI use
-          cases.
+        projects: Build robust APIs with FastAPI, implement agent loops in Python, and design backend architectures for AI use cases.
         orientation: vertical
         icon: IconServer
       - title: Workflow Automations
@@ -379,9 +355,7 @@ sections:
           - Build support chats with LLMs in real time
           - Implement response streaming with generators (yield)
           - Integrate webhooks and pub/sub in AI applications
-        projects: >-
-          Implement real-time communication between users and language models using streaming, WebSockets, and
-          event-driven architectures.
+        projects: Implement real-time communication between users and language models using streaming, WebSockets, and event-driven architectures.
         orientation: vertical
         icon: IconBolt
       - title: Web Application Authentication
@@ -389,9 +363,7 @@ sections:
         objectives:
           - Implement authentication and route restrictions in FastAPI
           - Build complete authentication flows (login, tokens, sessions)
-        projects: >-
-          Implement secure authentication in FastAPI and build complete login flows that define what each user — and
-          agent — can do.
+        projects: Implement secure authentication in FastAPI and build complete login flows that define what each user — and agent — can do.
         orientation: vertical
         icon: IconCode
       - title: Error Handling, Debugging and Testing
@@ -421,9 +393,7 @@ sections:
           - RAG knowledge layer
           - Agents with tool calling
           - Real-time communication
-        projects: >-
-          Integrate everything you have learned into a working, deployed system — a full transformation of a company
-          through AI.
+        projects: Integrate everything you have learned into a working, deployed system — a full transformation of a company through AI.
         orientation: horizontal
         icon: IconCode
     marginY:
@@ -464,7 +434,7 @@ sections:
     features:
       - icon: Robot
         title: AI-powered feedback 24/7
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Instant feedback from Rigobot, our custom AI tutor
@@ -474,7 +444,7 @@ sections:
         video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
       - icon: Headset
         title: Unlimited 1:1 mentorship, for life
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Lifelong access to 1:1 technical mentorship
@@ -484,7 +454,7 @@ sections:
         video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
       - icon: TrendingUp
         title: Career support built for the AI job market
-        description: ''
+        description: ""
         show_rigobot_logo: true
         bullets:
           - text: Lifelong 1:1 career coaching
@@ -499,14 +469,11 @@ sections:
       desktop: md sm
     background: hsl(210 100% 50% / 0.05)
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-cards
     title: The Roles You Can Land. And the Salaries That Follow.
     subtitle: High demand. High salaries.
-    description: >-
-      AI Engineering roles are among the fastest-growing and highest-paying in tech right now. Companies are hiring
-      urgently and paying a premium for engineers who can build with AI. LinkedIn reports 42x growth in Forward-Deployed
-      Engineering alone since 2023. These are some of the roles our graduates are landing.
+    description: AI Engineering roles are among the fastest-growing and highest-paying in tech right now. Companies are hiring urgently and paying a premium for engineers who can build with AI. LinkedIn reports 42x growth in Forward-Deployed Engineering alone since 2023. These are some of the roles our graduates are landing.
     card_color: bg-background
     items:
       - value: $105K–$155K
@@ -522,12 +489,12 @@ sections:
       desktop: md none
     background: hsl(var(--card))
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in a new career matters. We make it easier with multiple ways to fund your enrollment.
-    discount_text: 'Full Payment Discount: Save 10% with upfront payment.'
-    financing_text: 'Credit-Based Financing: starting at'
+    discount_text: "Full Payment Discount: Save 10% with upfront payment."
+    financing_text: "Credit-Based Financing: starting at"
     financing_amount: {{ global.price_ai_engineering | $399 }}
     tech_icons:
       - openai
@@ -543,16 +510,12 @@ sections:
       - icon: IconCheck
         text: Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
       - icon: IconCheck
-        text: >-
-          Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money
-          back.&nbsp;<div>*Not available in all regions. <a
-          href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and
-          conditions apply</a>.</div>
+        text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
       - icon: IconCheck
         text: Finance your tuition in monthly installments, with term lengths of up to 48 months depending on your region.
     cta:
       text: Get more info
-      url: '#modal-qf93fn'
+      url: "#modal-qf93fn"
       variant: primary
     section_id: pricing-dy3guv
     marginY:
@@ -584,14 +547,12 @@ sections:
       - mexicocity-mexico
     background: hsl(var(--secondary))
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Tuition and Financing Options
     subtitle: Investing in a new career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: 'Full payment discount: Save 10% with early payment.'
-    financing_text: >-
-      Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and subject
-      to lender approval.*
+    discount_text: "Full payment discount: Save 10% with early payment."
+    financing_text: Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and subject to lender approval.*
     financing_amount: 140€
     tech_icons:
       - python
@@ -606,15 +567,11 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: >-
-          Pay upfront to get a better price with an additional discount, or split your payments into 6 interest-free
-          installments through our partners.
+        text: Pay upfront to get a better price with an additional discount, or split your payments into 6 interest-free installments through our partners.
       - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
       - icon: IconCheck
-        text: >-
-          We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not
-          your fees.
+        text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
     cta:
       text: Get more information
       url: /es/apply
@@ -637,51 +594,10 @@ sections:
       - munich-germany
       - rome-italy
     background: hsl(var(--secondary))
-  - type: numbered_steps
-    version: '1.0'
-    title: Get Hired. Or Your Money Back.
-    description: >-
-      Enroll with our optional Job Guarantee. Get hired within 9 months, or we refund your full tuition. That's how
-      confident we are in what we built.
-    description_link:
-      text: '*Not available in all regions. Terms and conditions apply.'
-      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
-    background: bg-muted/30
-    steps:
-      - icon: School
-        text: Add the Job Guarantee to your payment plan.
-      - icon: briefcase-business
-        text: Complete the program and follow the GeekForce career process.
-      - icon: banknote
-        text: Get hired within 9 months, or receive a full tuition refund.
-    section_id: numbered_steps-4jxg0o
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-    paddingY:
-      desktop: none md
-    marginY:
-      desktop: none md
   - type: testimonials
     section_id: testimonials-ghxelh
     title: The People Behind the Numbers.
-    subtitle: 'Different backgrounds. One outcome: a career in tech.'
+    subtitle: "Different backgrounds. One outcome: a career in tech."
     related_features:
       - content-and-syllabus
       - career-support
@@ -759,7 +675,7 @@ sections:
           - rome-italy
           - valencia-spain
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Ready to Become an {{ single.job_role | AI Engineer }}?
     subtitle: The fastest-growing job of 2026 is a click away. This is your window. Join the next cohort.
     background: hsl(var(--primary))
@@ -804,7 +720,7 @@ sections:
     section_id: cta_banner-7h2ckt
   - type: sticky_cta
     section_id: sticky_cta-euuky9
-    version: '1.0'
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
