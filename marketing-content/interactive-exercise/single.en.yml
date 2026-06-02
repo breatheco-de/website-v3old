@@ -6,8 +6,7 @@ sections:
     version: "1.0"
     variant: singleColumn
     badge: Career Program
-    title: Full Stack Development with AI
-    subtitle: Learn at your own pace with AI-powered tools and unlimited mentorship
+    title: {{ single.title | interactive exercise title }}
     section_id: hero-ytw2p3
     paddingY:
       desktop: sm
