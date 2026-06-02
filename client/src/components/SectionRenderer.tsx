@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import { AlertTriangle, Link, Loader2, Trash2 } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, lazy, Suspense } from "react";
 import { useContentTypesRaw } from "@/hooks/useContentTypes";
 import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn, PageSettings } from "@shared/schema";
 import { useSession } from "@/contexts/SessionContext";
@@ -252,9 +252,13 @@ function getSectionVisibilityClasses(showOn: ShowOn | undefined): string {
       return ''; // Visible on all breakpoints
   }
 }
-import { EditableSection } from "@/components/editing/EditableSection";
-import { AddSectionButton } from "@/components/editing/AddSectionButton";
-import ComponentPickerModal from "@/components/editing/ComponentPickerModal";
+const EditableSection = lazy(() =>
+  import("@/components/editing/EditableSection").then((m) => ({ default: m.EditableSection }))
+);
+const AddSectionButton = lazy(() =>
+  import("@/components/editing/AddSectionButton").then((m) => ({ default: m.AddSectionButton }))
+);
+const ComponentPickerModal = lazy(() => import("@/components/editing/ComponentPickerModal"));
 import { useToast } from "@/hooks/use-toast";
 import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { emitContentUpdated } from "@/lib/contentEvents";
@@ -437,17 +441,19 @@ function EmptyPageState({
             </div>
           </button>
           {isModalOpen && (
-            <ComponentPickerModal
-              isOpen={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
-              insertIndex={0}
-              contentType={contentType}
-              slug={slug}
-              locale={locale}
-              variant={variant}
-              version={version}
-              isSharedTemplate={isSharedTemplate}
-            />
+            <Suspense fallback={null}>
+              <ComponentPickerModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                insertIndex={0}
+                contentType={contentType}
+                slug={slug}
+                locale={locale}
+                variant={variant}
+                version={version}
+                isSharedTemplate={isSharedTemplate}
+              />
+            </Suspense>
           )}
         </>
       ) : (
@@ -1267,17 +1273,21 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
 
   const content = (
     <>
-      <AddSectionButton
-        insertIndex={0}
-        sections={sections}
-        contentType={contentType}
-        slug={slug}
-        locale={locale}
-        variant={variant}
-        version={version}
-        isSharedTemplate={isSharedTemplate}
-        singleEntry={singleEntry}
-      />
+      {isEditMode && (
+        <Suspense fallback={null}>
+          <AddSectionButton
+            insertIndex={0}
+            sections={sections}
+            contentType={contentType}
+            slug={slug}
+            locale={locale}
+            variant={variant}
+            version={version}
+            isSharedTemplate={isSharedTemplate}
+            singleEntry={singleEntry}
+          />
+        </Suspense>
+      )}
       {sections.length === 0 && (
         <EmptyPageState 
           isEditMode={isEditMode} 
@@ -1364,17 +1374,19 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           if (!isVisible && isEditMode) {
             return (
               <div key={index}>
-                <AddSectionButton
-                  insertIndex={index + 1}
-                  sections={sections}
-                  contentType={contentType}
-                  slug={slug}
-                  locale={locale}
-                  variant={variant}
-                  version={version}
-                  isSharedTemplate={isSharedTemplate}
-                  singleEntry={singleEntry}
-                />
+                <Suspense fallback={null}>
+                  <AddSectionButton
+                    insertIndex={index + 1}
+                    sections={sections}
+                    contentType={contentType}
+                    slug={slug}
+                    locale={locale}
+                    variant={variant}
+                    version={version}
+                    isSharedTemplate={isSharedTemplate}
+                    singleEntry={singleEntry}
+                  />
+                </Suspense>
               </div>
             );
           }
@@ -1441,38 +1453,50 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
                 </>
               )}
               <div style={contentLayerStyles}>
-                <EditableSection
-                  section={rawSection}
-                  index={index}
-                  sectionType={sectionType}
-                  contentType={contentType}
-                  slug={slug}
-                  locale={locale}
-                  variant={variant}
-                  totalSections={sections.length}
-                  allSections={sections}
-                  isSharedTemplate={isSharedTemplate}
-                  singleEntry={singleEntry}
-                  onMoveUp={handleMoveUp}
-                  onMoveDown={handleMoveDown}
-                  onDelete={handleDelete}
-                  onDuplicate={handleDuplicate}
-                >
+                {isEditMode ? (
+                  <Suspense fallback={null}>
+                    <EditableSection
+                      section={rawSection}
+                      index={index}
+                      sectionType={sectionType}
+                      contentType={contentType}
+                      slug={slug}
+                      locale={locale}
+                      variant={variant}
+                      totalSections={sections.length}
+                      allSections={sections}
+                      isSharedTemplate={isSharedTemplate}
+                      singleEntry={singleEntry}
+                      onMoveUp={handleMoveUp}
+                      onMoveDown={handleMoveDown}
+                      onDelete={handleDelete}
+                      onDuplicate={handleDuplicate}
+                    >
+                      <VariableHighlightProvider sectionIndex={index} contentType={contentType} hasSingleVars={!!singleEntry}>
+                        {renderedSection}
+                      </VariableHighlightProvider>
+                    </EditableSection>
+                  </Suspense>
+                ) : (
                   <VariableHighlightProvider sectionIndex={index} contentType={contentType} hasSingleVars={!!singleEntry}>
                     {renderedSection}
                   </VariableHighlightProvider>
-                </EditableSection>
-                <AddSectionButton
-                  insertIndex={index + 1}
-                  sections={sections}
-                  contentType={contentType}
-                  slug={slug}
-                  locale={locale}
-                  variant={variant}
-                  version={version}
-                  isSharedTemplate={isSharedTemplate}
-                  singleEntry={singleEntry}
-                />
+                )}
+                {isEditMode && (
+                  <Suspense fallback={null}>
+                    <AddSectionButton
+                      insertIndex={index + 1}
+                      sections={sections}
+                      contentType={contentType}
+                      slug={slug}
+                      locale={locale}
+                      variant={variant}
+                      version={version}
+                      isSharedTemplate={isSharedTemplate}
+                      singleEntry={singleEntry}
+                    />
+                  </Suspense>
+                )}
               </div>
             </div>
           );
