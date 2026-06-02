@@ -1162,12 +1162,67 @@ function DataSourceDialog({
                 )}
 
                 {Object.keys(fieldMapping).length === 0 && (
-                  <div className="rounded-md bg-muted px-3 py-4 text-center">
-                    <p className="text-sm text-muted-foreground">
-                      No field mappings yet. Go back to the Inspect Data step and use "Auto-detect Field Mapping" to get started, or fields will be added when AI analysis runs.
-                    </p>
+                  <div className="space-y-3">
+                    {availableFields.length > 0 ? (
+                      <>
+                        <p className="text-xs text-muted-foreground">Click a field to add it as a mapping:</p>
+                        <div className="flex flex-wrap gap-1.5" data-testid="section-suggest-fields">
+                          {availableFields.map((f) => (
+                            <Badge
+                              key={f}
+                              variant="outline"
+                              className="cursor-pointer text-xs font-mono"
+                              onClick={() => setFieldMapping((prev) => ({ ...prev, [f]: f }))}
+                              data-testid={`badge-suggest-${f}`}
+                            >
+                              <Plus className="h-2.5 w-2.5 mr-1" />
+                              {f}
+                            </Badge>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      <p className="text-xs text-muted-foreground">No fields detected yet. Use auto-detect below or go back to the Inspect step to load sample data first.</p>
+                    )}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={handleAnalyzeFields}
+                      disabled={aiMappingFields || sampleItems.length === 0}
+                      className="w-full"
+                      data-testid="button-ai-fields-mapping"
+                    >
+                      {aiMappingFields ? (
+                        <><Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />Analyzing fields...</>
+                      ) : (
+                        <><Wand2 className="h-3.5 w-3.5 mr-1" />Auto-detect Field Mapping</>
+                      )}
+                    </Button>
                   </div>
                 )}
+
+                {(() => {
+                  const mappedSources = new Set(Object.values(fieldMapping).filter(Boolean));
+                  const unmapped = availableFields.filter(f => !mappedSources.has(f) && !(f in fieldMapping));
+                  if (Object.keys(fieldMapping).length === 0 || unmapped.length === 0) return null;
+                  return (
+                    <div className="flex items-center gap-2 flex-wrap" data-testid="section-unmapped-available">
+                      <span className="text-xs text-muted-foreground">Also add:</span>
+                      {unmapped.map((f) => (
+                        <Badge
+                          key={f}
+                          variant="outline"
+                          className="cursor-pointer text-xs font-mono"
+                          onClick={() => setFieldMapping((prev) => ({ ...prev, [f]: f }))}
+                          data-testid={`badge-add-field-${f}`}
+                        >
+                          <Plus className="h-2.5 w-2.5 mr-1" />
+                          {f}
+                        </Badge>
+                      ))}
+                    </div>
+                  );
+                })()}
 
                 {deletedFields.filter((f) => !(f in fieldMapping)).length > 0 && (
                   <div className="flex items-center gap-2 flex-wrap">
