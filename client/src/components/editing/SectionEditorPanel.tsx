@@ -665,8 +665,7 @@ export function SectionEditorPanel({
   const [bindingConfirmOpen, setBindingConfirmOpen] = useState(false);
   const [exampleDialogOpen, setExampleDialogOpen] = useState(false);
   const [exampleCopied, setExampleCopied] = useState(false);
-  // null = derive from YAML; true/false = user explicitly set
-  const [locationsManualMode, setLocationsManualMode] = useState<boolean | null>(null);
+  const [locationsPickerOpen, setLocationsPickerOpen] = useState(false);
 
   const sectionComponentType = (section as Record<string, unknown>)?.type as string || "";
 
@@ -6559,12 +6558,8 @@ export function SectionEditorPanel({
                   : rawLocs
                   ? [String(rawLocs)]
                   : [];
-                // Derive effective manual mode: user toggle takes precedence;
-                // fall back to YAML (non-empty array = manual, null/undefined/[] = auto)
-                const effectiveManual = locationsManualMode !== null
-                  ? locationsManualMode
-                  : selectedLocs.length > 0;
-                const isAutoDetect = !effectiveManual;
+                // Purely data-driven: auto when no locations stored
+                const isAutoDetect = selectedLocs.length === 0;
 
                 const locationOptions = (formOptions?.locations ?? []).map((loc) => ({
                   value: loc.slug,
@@ -6592,19 +6587,19 @@ export function SectionEditorPanel({
                           checked={isAutoDetect}
                           onCheckedChange={(checked) => {
                             if (checked) {
-                              // Switch ON → auto-detect: clear YAML and reset local mode
-                              setLocationsManualMode(false);
+                              // ON → clear locations, back to auto-detect
                               updatePropertyWithValue(`${formSettingsPath}.locations`, undefined);
+                              setLocationsPickerOpen(false);
                             } else {
-                              // Switch OFF → manual: just set local mode, don't touch YAML yet
-                              setLocationsManualMode(true);
+                              // OFF → open picker so user can choose campuses immediately
+                              setLocationsPickerOpen(true);
                             }
                           }}
                           data-testid="switch-locations-auto-detect"
                         />
                       </div>
                     </div>
-                    {isAutoDetect ? (
+                    {isAutoDetect && !locationsPickerOpen ? (
                       <p className="text-xs text-muted-foreground">
                         Location is auto-detected from the visitor's IP address.
                       </p>
@@ -6617,6 +6612,12 @@ export function SectionEditorPanel({
                             `${formSettingsPath}.locations`,
                             vals.length > 0 ? vals : undefined
                           );
+                          if (vals.length === 0) setLocationsPickerOpen(false);
+                        }}
+                        open={locationsPickerOpen && isAutoDetect ? locationsPickerOpen : undefined}
+                        onOpenChange={(o) => {
+                          // Only manage externally when in the transient "picker open, no selections" state
+                          if (isAutoDetect) setLocationsPickerOpen(o);
                         }}
                         label="Select campuses"
                         searchPlaceholder="Search locations…"

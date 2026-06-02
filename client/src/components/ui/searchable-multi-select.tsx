@@ -35,6 +35,8 @@ interface SearchableMultiSelectProps {
   isLoading?: boolean;
   testIdPrefix?: string;
   emptyMessage?: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
 export function SearchableMultiSelect({
@@ -47,8 +49,15 @@ export function SearchableMultiSelect({
   isLoading = false,
   testIdPrefix = "item",
   emptyMessage = "No options found",
+  open: openProp,
+  onOpenChange: onOpenChangeProp,
 }: SearchableMultiSelectProps) {
-  const [open, setOpen] = useState(false);
+  const [openInternal, setOpenInternal] = useState(false);
+  const open = openProp !== undefined ? openProp : openInternal;
+  const setOpen = (v: boolean) => {
+    setOpenInternal(v);
+    onOpenChangeProp?.(v);
+  };
   const [search, setSearch] = useState("");
 
   const hasValues = value.length > 0;
