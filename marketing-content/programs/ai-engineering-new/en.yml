@@ -169,7 +169,6 @@ sections:
       - quito-ecuador
   - type: modal
     version: "1.0"
-    section_id: modal-ubwgcj
     heading: Request Program Details
     description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
     show_close: true
@@ -192,9 +191,11 @@ sections:
           required: true
         program:
           visible: false
-          default: ai-engineering
+          required: true
+          default: {{ single.bc_slug | datascience-ml }}
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
+    section_id: modal-ubwgcj
   - type: awards_marquee
     section_id: awards_marquee-l2cz6y
     version: v1.0

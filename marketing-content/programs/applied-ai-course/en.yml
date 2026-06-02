@@ -86,7 +86,6 @@ sections:
       desktop: none
   - type: modal
     version: "1.0"
-    section_id: modal-o9bufw
     heading: Request Program Details
     description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
     show_close: true
@@ -110,9 +109,10 @@ sections:
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | ai-engineering }}
+          default: {{ single.bc_slug | datascience-ml }}
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
+    section_id: modal-o9bufw
   - type: awards_marquee
     section_id: awards_marquee-jnnxte
     version: v1.0

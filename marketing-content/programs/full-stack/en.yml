@@ -106,7 +106,7 @@ sections:
         program:
           visible: false
           required: true
-          default: full-stack
+          default: {{ single.bc_slug | datascience-ml }}
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
     section_id: apply-modal
