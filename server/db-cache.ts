@@ -8,6 +8,7 @@ export interface CacheEntry {
   fetched_at: string;
   items: Record<string, unknown>[];
   raw_count: number;
+  facets?: Record<string, string[]>;
 }
 
 export interface CacheDbStats {

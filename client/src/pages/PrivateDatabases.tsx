@@ -93,6 +93,7 @@ interface DatabaseItems {
   raw_count?: number;
   fetched_at?: string;
   from_cache?: boolean;
+  facets?: Record<string, string[]>;
 }
 
 interface KeyValuePair {
@@ -3416,6 +3417,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   const [activePanel, setActivePanel] = useState<"settings" | "mappings" | null>(null);
   const [dataView, setDataView] = useState<"mapped" | "raw">("mapped");
   const [page, setPage] = useState(1);
+  const [tagFilters, setTagFilters] = useState<Record<string, string[]>>({});
 
   const [editingName, setEditingName] = useState(false);
   const [editNameValue, setEditNameValue] = useState("");
@@ -3441,9 +3443,14 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
     isFetching: itemsFetching,
     refetch: refetchItems,
   } = useQuery<DatabaseItems>({
-    queryKey: [`/api/databases/${dbName}/items`, page, PAGE_SIZE],
-    queryFn: () =>
-      fetch(`/api/databases/${dbName}/items?page=${page}&limit=${PAGE_SIZE}`).then((r) => r.json()),
+    queryKey: [`/api/databases/${dbName}/items`, page, PAGE_SIZE, tagFilters],
+    queryFn: () => {
+      const parts: string[] = [`page=${page}`, `limit=${PAGE_SIZE}`];
+      for (const [field, values] of Object.entries(tagFilters)) {
+        for (const v of values) parts.push(`filter[${field}]=${encodeURIComponent(v)}`);
+      }
+      return fetch(`/api/databases/${dbName}/items?${parts.join("&")}`).then((r) => r.json());
+    },
     enabled: !!dbName,
   });
 
@@ -4170,7 +4177,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                         variant="ghost"
                         size="sm"
                         className={`rounded-r-none border-r toggle-elevate ${dataView === "mapped" ? "toggle-elevated bg-muted" : ""}`}
-                        onClick={() => { setDataView("mapped"); setSortKey(null); setSearch(""); }}
+                        onClick={() => { setDataView("mapped"); setSortKey(null); setSearch(""); setTagFilters({}); setPage(1); }}
                         data-testid="button-view-mapped"
                       >
                         Mapped
@@ -4179,7 +4186,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                         variant="ghost"
                         size="sm"
                         className={`rounded-l-none toggle-elevate ${dataView === "raw" ? "toggle-elevated bg-muted" : ""}`}
-                        onClick={() => { setDataView("raw"); setSortKey(null); setSearch(""); }}
+                        onClick={() => { setDataView("raw"); setSortKey(null); setSearch(""); setTagFilters({}); setPage(1); }}
                         data-testid="button-view-raw"
                       >
                         Raw
@@ -4368,6 +4375,57 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
               </div>
             </CardHeader>
             <CardContent className="px-0 pb-0">
+              {(() => {
+                const facets = itemsData?.facets;
+                if (!facets || Object.keys(facets).length === 0) return null;
+                const activeFilterCount = Object.values(tagFilters).flat().length;
+                return (
+                  <div className="px-4 pt-3 pb-3 border-b flex flex-wrap items-start gap-3" data-testid="tag-filter-bar">
+                    {Object.entries(facets).map(([field, values]) => (
+                      <div key={field} className="flex flex-wrap items-center gap-1">
+                        <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide shrink-0 mr-0.5">{field}</span>
+                        {values.map((v) => {
+                          const active = (tagFilters[field] ?? []).includes(v);
+                          return (
+                            <button
+                              key={v}
+                              onClick={() => {
+                                setPage(1);
+                                setTagFilters((prev) => {
+                                  const cur = prev[field] ?? [];
+                                  const next = active ? cur.filter((x) => x !== v) : [...cur, v];
+                                  if (next.length === 0) {
+                                    const { [field]: _, ...rest } = prev;
+                                    return rest;
+                                  }
+                                  return { ...prev, [field]: next };
+                                });
+                              }}
+                              data-testid={`chip-filter-${field}-${v}`}
+                              className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] border transition-colors cursor-pointer ${
+                                active
+                                  ? "bg-primary text-primary-foreground border-primary"
+                                  : "bg-background text-muted-foreground border-border hover:border-foreground/40 hover:text-foreground"
+                              }`}
+                            >
+                              {v}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    ))}
+                    {activeFilterCount > 0 && (
+                      <button
+                        className="text-[11px] text-muted-foreground hover:text-foreground transition-colors cursor-pointer underline underline-offset-2 shrink-0 self-center"
+                        onClick={() => { setTagFilters({}); setPage(1); }}
+                        data-testid="button-clear-tag-filters"
+                      >
+                        Clear filters
+                      </button>
+                    )}
+                  </div>
+                );
+              })()}
               {itemsLoading || rawItemsLoading ? (
                 <div className="flex items-center justify-center py-12">
                   <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
@@ -4375,7 +4433,9 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
               ) : filteredItems.length === 0 ? (
                 <div className="text-center py-12">
                   <p className="text-sm text-muted-foreground">
-                    {search ? "No items match your search." : "No items returned from the datasource."}
+                    {search || Object.keys(tagFilters).length > 0
+                      ? "No items match your search or filters."
+                      : "No items returned from the datasource."}
                   </p>
                 </div>
               ) : (

@@ -609,10 +609,32 @@ export class DatabaseManager {
       console.log(`[DatabaseManager] Applied persistent overrides to ${name} (${Object.keys(overridesFile.entries).length} slug(s))`);
     }
 
+    // Compute facets: distinct sorted values per tag/select editor field
+    const facets: Record<string, string[]> = {};
+    if (config.editor) {
+      for (const [field, hint] of Object.entries(config.editor)) {
+        if (hint.type === "tags" || hint.type === "select") {
+          const valueSet = new Set<string>();
+          for (const item of items) {
+            const v = item[field];
+            if (Array.isArray(v)) {
+              for (const el of v) { if (el != null && el !== "") valueSet.add(String(el)); }
+            } else if (v != null && v !== "") {
+              valueSet.add(String(v));
+            }
+          }
+          if (valueSet.size > 0) {
+            facets[field] = [...valueSet].sort((a, b) => a.localeCompare(b));
+          }
+        }
+      }
+    }
+
     const entry: CacheEntry = {
       fetched_at: fetchedAt,
       items,
       raw_count: rawItems.length,
+      ...(Object.keys(facets).length > 0 ? { facets } : {}),
     };
 
     this.cache.write(name, entry);

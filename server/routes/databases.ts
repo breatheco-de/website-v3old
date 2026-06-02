@@ -606,9 +606,27 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const page = Math.max(1, parseInt(String(req.query.page || "1"), 10));
       const limit = Math.max(1, Math.min(1000, parseInt(String(req.query.limit || "100"), 10)));
       const result = await databaseManager.fetchItems(req.params.name);
-      const total_count = result.items.length;
+
+      // Apply tag/select field filters: filter[fieldName]=value (multi-value OR per field, AND across fields)
+      const filterParam = req.query.filter as Record<string, string | string[]> | undefined;
+      let items = result.items;
+      if (filterParam && typeof filterParam === "object") {
+        for (const [field, rawValues] of Object.entries(filterParam)) {
+          const values = Array.isArray(rawValues) ? rawValues : [rawValues];
+          if (values.length === 0) continue;
+          items = items.filter((item) => {
+            const fieldVal = item[field];
+            if (Array.isArray(fieldVal)) {
+              return values.some((v) => (fieldVal as unknown[]).map(String).includes(v));
+            }
+            return values.includes(String(fieldVal ?? ""));
+          });
+        }
+      }
+
+      const total_count = items.length;
       const start = (page - 1) * limit;
-      const paginatedItems = result.items.slice(start, start + limit);
+      const paginatedItems = items.slice(start, start + limit);
       res.json({ ...result, items: paginatedItems, total_count, page, limit });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
