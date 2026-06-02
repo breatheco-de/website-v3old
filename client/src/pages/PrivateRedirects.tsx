@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { AlertTriangle, ArrowLeft, ArrowRight, ChevronDown, ChevronRight, ChevronUp, CircleCheck, ExternalLink, Info, Plus, Route, Search, ShieldCheck, TestTube, Trash2, Wrench, X } from "lucide-react";
 import { getDebugUserName } from "@/hooks/useDebugAuth";
 import { useQuery } from "@tanstack/react-query";
@@ -166,7 +166,7 @@ export default function PrivateRedirects() {
     setIsAuthorized(isDebugModeActive());
   }, []);
 
-  const runValidation = async () => {
+  const runValidation = useCallback(async () => {
     setIsValidating(true);
     setValidationExpanded(false);
     try {
@@ -181,7 +181,7 @@ export default function PrivateRedirects() {
     } finally {
       setIsValidating(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (isAuthorized) {
