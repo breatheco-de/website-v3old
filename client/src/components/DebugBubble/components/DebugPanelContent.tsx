@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { AlertTriangle, ArrowLeft, ArrowRight, BarChart2, Blocks, Book, Brain, Check, ChevronRight, CloudDownload, Cookie, Database, Github, GitBranch, Image, Languages, Map, MapPin, Menu, MessageCircle, Monitor, Moon, Palette, Pencil, Plus, RefreshCw, Route, Settings, Smartphone, Stethoscope, Sun, X } from "lucide-react";
-import { IconLogout, IconShoppingBag } from "@tabler/icons-react";
+import { IconLogout, IconServer, IconShoppingBag } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -618,6 +618,13 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               }}
               testId="button-ai-agents-toggle"
             >
+              <MenuItem
+                icon={IconServer}
+                label="MCP Server"
+                href="/private/mcp-server"
+                indicator="arrow"
+                testId="link-mcp-server"
+              />
               <MenuItem
                 icon={Pencil}
                 label="Knowledge Editor"

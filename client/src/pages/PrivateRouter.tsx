@@ -24,6 +24,7 @@ const TrackingPage = lazy(() => import("@/pages/TrackingPage"));
 const ComponentInsightsPage = lazy(() => import("@/pages/ComponentInsightsPage"));
 const StoreProductsPage = lazy(() => import("@/pages/StoreProductsPage"));
 const StorePlansPage = lazy(() => import("@/pages/StorePlansPage"));
+const McpServerPage = lazy(() => import("@/pages/McpServerPage"));
 
 function LoadingFallback() {
   return (
@@ -72,6 +73,7 @@ export default function PrivateRouter() {
         <Route path="/private/store/plans" component={StorePlansPage} />
         <Route path="/private/tracking/sgtm" component={TrackingPage} />
         <Route path="/private/tracking" component={TrackingPage} />
+        <Route path="/private/mcp-server" component={McpServerPage} />
       </Switch>
     </Suspense>
   );
