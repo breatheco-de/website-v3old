@@ -4277,54 +4277,57 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                                 </div>
                                 {Object.entries(facets).map(([field, values]) => {
                                   const active = tagFilters[field] ?? [];
+                                  const available = values.filter((v) => !active.includes(v));
                                   return (
-                                    <div key={field} className="space-y-1">
-                                      <div className="flex items-center justify-between">
-                                        <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">{field}</p>
-                                        {active.length > 0 && (
-                                          <button
-                                            className="text-[10px] text-muted-foreground hover:text-foreground cursor-pointer"
-                                            onClick={() => {
-                                              setPage(1);
-                                              setTagFilters((prev) => {
-                                                const { [field]: _, ...rest } = prev;
-                                                return rest;
-                                              });
-                                            }}
-                                          >
-                                            Clear
-                                          </button>
-                                        )}
-                                      </div>
-                                      <div className="max-h-44 overflow-y-auto space-y-0.5">
-                                        {values.map((v) => {
-                                          const checked = active.includes(v);
-                                          return (
-                                            <button
-                                              key={v}
-                                              onClick={() => {
-                                                setPage(1);
-                                                setTagFilters((prev) => {
-                                                  const cur = prev[field] ?? [];
-                                                  const next = checked ? cur.filter((x) => x !== v) : [...cur, v];
-                                                  if (next.length === 0) {
-                                                    const { [field]: _, ...rest } = prev;
-                                                    return rest;
-                                                  }
-                                                  return { ...prev, [field]: next };
-                                                });
-                                              }}
-                                              data-testid={`chip-filter-${field}-${v}`}
-                                              className="w-full flex items-center gap-2 px-1.5 py-1 rounded text-xs text-left hover-elevate cursor-pointer"
-                                            >
-                                              <span className={`h-3.5 w-3.5 shrink-0 rounded-sm border flex items-center justify-center ${checked ? "bg-primary border-primary" : "border-border"}`}>
-                                                {checked && <Check className="h-2.5 w-2.5 text-primary-foreground" />}
-                                              </span>
-                                              <span className="truncate">{v}</span>
-                                            </button>
-                                          );
-                                        })}
-                                      </div>
+                                    <div key={field} className="space-y-1.5">
+                                      <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">{field}</p>
+                                      <Select
+                                        value=""
+                                        onValueChange={(v) => {
+                                          setPage(1);
+                                          setTagFilters((prev) => ({ ...prev, [field]: [...(prev[field] ?? []), v] }));
+                                        }}
+                                      >
+                                        <SelectTrigger className="h-7 text-xs" data-testid={`select-filter-${field}`}>
+                                          <SelectValue placeholder="Add filter…" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                          {available.length === 0 ? (
+                                            <div className="px-2 py-1.5 text-xs text-muted-foreground">All selected</div>
+                                          ) : (
+                                            available.map((v) => (
+                                              <SelectItem key={v} value={v} className="text-xs" data-testid={`chip-filter-${field}-${v}`}>
+                                                {v}
+                                              </SelectItem>
+                                            ))
+                                          )}
+                                        </SelectContent>
+                                      </Select>
+                                      {active.length > 0 && (
+                                        <div className="flex flex-wrap gap-1">
+                                          {active.map((v) => (
+                                            <span key={v} className="inline-flex items-center gap-0.5 bg-primary/10 text-primary text-[11px] rounded px-1.5 py-0.5">
+                                              {v}
+                                              <button
+                                                className="ml-0.5 hover:text-foreground cursor-pointer"
+                                                onClick={() => {
+                                                  setPage(1);
+                                                  setTagFilters((prev) => {
+                                                    const next = (prev[field] ?? []).filter((x) => x !== v);
+                                                    if (next.length === 0) {
+                                                      const { [field]: _, ...rest } = prev;
+                                                      return rest;
+                                                    }
+                                                    return { ...prev, [field]: next };
+                                                  });
+                                                }}
+                                              >
+                                                <X className="h-2.5 w-2.5" />
+                                              </button>
+                                            </span>
+                                          ))}
+                                        </div>
+                                      )}
                                     </div>
                                   );
                                 })}
