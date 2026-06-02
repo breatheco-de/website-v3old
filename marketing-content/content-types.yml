@@ -182,3 +182,24 @@ how-to:
     menu:
       top: main-navbar
       bottom: main-footer
+interactive-exercise:
+  directory: interactive-exercise
+  url_pattern:
+    en: /en/interactive-exercise/:slug
+    es: /es/interactive-exercise/:slug
+  field_mapping:
+    _slug: slug
+    _locale: language
+    title: title
+    slug: slug
+    description: description
+    image: image_url
+    category: category_name
+    tags: tags
+    content: content
+    updated_at: updated_at
+  indexes:
+    - tags
+    - category
+  database:
+    slug: interactive-exercises
