@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import {AlertTriangle, ArrowLeft, ArrowLeftRight, ArrowRight, ArrowUpDown, Check, ChevronDown, ChevronUp, Clock, CloudUpload, Code, Copy, Database, Download, Eye, File, HelpCircle, Image, Info, Link as LinkIcon, Loader2, Pencil, Plus, RefreshCw, Save, Search, Server, Settings, SlidersHorizontal, Sparkles, Table, Tags, TestTube, Trash2, Upload, Wand2, Webhook, X} from "lucide-react";
+import {AlertTriangle, ArrowLeft, ArrowLeftRight, ArrowRight, ArrowUpDown, Check, ChevronDown, ChevronUp, CircleCheck, CircleX, Clock, CloudUpload, Code, Copy, Database, Download, Eye, File, HelpCircle, Image, Info, Link as LinkIcon, Loader2, Pencil, Play, Plus, RefreshCw, Save, Search, Server, Settings, SlidersHorizontal, Sparkles, Table, Tags, TestTube, Trash2, Upload, Wand2, Webhook, X} from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRoute, Link, useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -3527,6 +3527,8 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   );
 
   const [fnPreviewField, setFnPreviewField] = useState<{ key: string; fn: string } | null>(null);
+  const [fnTestInput, setFnTestInput] = useState("");
+  const [fnTestResult, setFnTestResult] = useState<{ ok: true; output: string } | { ok: false; error: string } | null>(null);
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
   useEffect(() => {
@@ -4050,7 +4052,12 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                         <button
                           className="inline-flex items-center gap-1 bg-black dark:bg-zinc-900 px-1.5 py-0.5 rounded cursor-pointer hover:opacity-80 transition-opacity shrink-0"
                           onClick={() => {
-                            try { setFnPreviewField({ key, fn: atob(p.slice("function:".length)) }); } catch { setFnPreviewField({ key, fn: p }); }
+                            let decoded: string;
+                            try { decoded = atob(p.slice("function:".length)); } catch { decoded = p; }
+                            setFnPreviewField({ key, fn: decoded });
+                            setFnTestResult(null);
+                            const sample = rawItemsData?.items?.[0]?.[key];
+                            setFnTestInput(sample != null ? String(sample) : "");
                           }}
                           data-testid={`button-fn-preview-${key}`}
                           title="View computed function"
@@ -4561,7 +4568,9 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
         </>
       )}
 
-      <Dialog open={fnPreviewField !== null} onOpenChange={(v) => { if (!v) setFnPreviewField(null); }}>
+      <Dialog open={fnPreviewField !== null} onOpenChange={(v) => {
+        if (!v) { setFnPreviewField(null); setFnTestResult(null); }
+      }}>
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
@@ -4575,6 +4584,64 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
           <pre className="bg-muted rounded-md p-4 text-xs font-mono overflow-x-auto whitespace-pre-wrap break-all leading-relaxed" data-testid="pre-fn-preview">
             {fnPreviewField?.fn ?? ""}
           </pre>
+          <div className="space-y-2 pt-1">
+            <p className="text-xs font-medium text-muted-foreground">Test with a sample value</p>
+            <div className="flex gap-2">
+              <input
+                className="flex-1 min-w-0 rounded-md border border-input bg-background px-3 py-1.5 text-xs font-mono placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+                placeholder="Enter a raw value to test…"
+                value={fnTestInput}
+                onChange={(e) => { setFnTestInput(e.target.value); setFnTestResult(null); }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    const fn = fnPreviewField?.fn ?? "";
+                    const rawItem = rawItemsData?.items?.[0] ?? {};
+                    try {
+                      // eslint-disable-next-line no-new-func
+                      const result = new Function("__value__", "__item__", `return (${fn})(__value__, __item__)`)(fnTestInput, rawItem);
+                      setFnTestResult({ ok: true, output: result === undefined ? "undefined" : JSON.stringify(result) });
+                    } catch (err) {
+                      setFnTestResult({ ok: false, error: err instanceof Error ? err.message : String(err) });
+                    }
+                  }
+                }}
+                data-testid="input-fn-test-value"
+              />
+              <Button
+                size="sm"
+                variant="secondary"
+                data-testid="button-fn-test-run"
+                onClick={() => {
+                  const fn = fnPreviewField?.fn ?? "";
+                  const rawItem = rawItemsData?.items?.[0] ?? {};
+                  try {
+                    // eslint-disable-next-line no-new-func
+                    const result = new Function("__value__", "__item__", `return (${fn})(__value__, __item__)`)(fnTestInput, rawItem);
+                    setFnTestResult({ ok: true, output: result === undefined ? "undefined" : JSON.stringify(result) });
+                  } catch (err) {
+                    setFnTestResult({ ok: false, error: err instanceof Error ? err.message : String(err) });
+                  }
+                }}
+              >
+                <Play className="h-3.5 w-3.5 mr-1" />
+                Run
+              </Button>
+            </div>
+            {fnTestResult !== null && (
+              fnTestResult.ok ? (
+                <div className="flex items-start gap-2 rounded-md bg-muted px-3 py-2" data-testid="fn-test-result-ok">
+                  <CircleCheck className="h-3.5 w-3.5 text-green-500 shrink-0 mt-0.5" />
+                  <code className="text-xs font-mono break-all">{fnTestResult.output}</code>
+                </div>
+              ) : (
+                <div className="flex items-start gap-2 rounded-md bg-destructive/10 px-3 py-2" data-testid="fn-test-result-error">
+                  <CircleX className="h-3.5 w-3.5 text-destructive shrink-0 mt-0.5" />
+                  <code className="text-xs font-mono break-all text-destructive">{fnTestResult.error}</code>
+                </div>
+              )
+            )}
+          </div>
         </DialogContent>
       </Dialog>
 
