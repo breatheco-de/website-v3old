@@ -496,7 +496,7 @@ sections:
         program:
           visible: false
           required: true
-          default: ai-engineering
+          default: {{ single.bc_slug | ai-engineering }}
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:

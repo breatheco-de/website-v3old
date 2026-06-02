@@ -778,8 +778,8 @@ sections:
     variant: form
     form:
       variant: stacked
-      submit_label: Start Your Application
       conversion_name: student_application
+      submit_label: Start Your Application
       tags: website-lead
       fields:
         email:
@@ -797,7 +797,7 @@ sections:
         program:
           visible: false
           required: true
-          default: ai-engineering
+          default: {{ single.bc_slug | ai-engineering }}
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:
