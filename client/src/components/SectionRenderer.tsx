@@ -273,7 +273,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useEditModeOptional, type PreviewBreakpoint } from "@/contexts/EditModeContext";
-import { DbTemplateWarningDialog } from "@/components/editing/DbTemplateWarningDialog";
+const DbTemplateWarningDialog = lazy(() =>
+  import("@/components/editing/DbTemplateWarningDialog").then((m) => ({ default: m.DbTemplateWarningDialog }))
+);
 
 // Check if a section should be visible based on showOn and current preview breakpoint
 // In edit mode: always show all sections (visibility alert is shown instead of hiding)
@@ -1531,14 +1533,18 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
   return (
     <>
       {content}
-      <DbTemplateWarningDialog
-        open={dbTemplateDeleteDialog.open}
-        onClose={() => setDbTemplateDeleteDialog({ open: false, index: -1, isDeleting: false })}
-        onConfirm={handleDbTemplateDeleteConfirm}
-        operation="delete"
-        contentType={contentType || "page"}
-        isLoading={dbTemplateDeleteDialog.isDeleting}
-      />
+      {isEditMode && (
+        <Suspense>
+          <DbTemplateWarningDialog
+            open={dbTemplateDeleteDialog.open}
+            onClose={() => setDbTemplateDeleteDialog({ open: false, index: -1, isDeleting: false })}
+            onConfirm={handleDbTemplateDeleteConfirm}
+            operation="delete"
+            contentType={contentType || "page"}
+            isLoading={dbTemplateDeleteDialog.isDeleting}
+          />
+        </Suspense>
+      )}
 
       {/* Scope choice dialog: delete on specific DB entry page */}
       <Dialog open={dbEntryDeleteDialog.open} onOpenChange={(open) => { if (!open && !dbEntryDeleteDialog.isDeleting) setDbEntryDeleteDialog({ open: false, index: -1, isPerEntry: false, isDeleting: false }); }}>
