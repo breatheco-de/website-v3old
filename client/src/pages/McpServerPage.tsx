@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { IconServer, IconCopy, IconCheck, IconChevronDown, IconChevronRight, IconSearch, IconPlug } from "@tabler/icons-react";
+import { Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -7,7 +9,47 @@ import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useToast } from "@/hooks/use-toast";
-import { MCP_TOOL_GROUPS, type McpTool } from "@/data/mcpTools";
+
+interface McpParam {
+  name: string;
+  type: string;
+  required: boolean;
+  description: string;
+  default?: string;
+}
+
+interface McpTool {
+  name: string;
+  description: string;
+  parameters: McpParam[];
+}
+
+interface FetchedTool {
+  name: string;
+  description?: string;
+  inputSchema?: {
+    type?: string;
+    properties?: Record<string, { type?: string; description?: string; default?: unknown }>;
+    required?: string[];
+  };
+}
+
+function toolFromFetched(t: FetchedTool): McpTool {
+  const props = t.inputSchema?.properties || {};
+  const required = t.inputSchema?.required || [];
+  const parameters: McpParam[] = Object.entries(props).map(([name, prop]) => ({
+    name,
+    type: prop.type || "string",
+    required: required.includes(name),
+    description: prop.description || "",
+    default: prop.default !== undefined ? String(prop.default) : undefined,
+  }));
+  return {
+    name: t.name,
+    description: t.description || "",
+    parameters,
+  };
+}
 
 function getMcpServerUrl(): string {
   const origin = window.location.origin;
@@ -159,18 +201,27 @@ export default function McpServerPage() {
   const baseUrl = getMcpBaseUrl();
   const configSnippet = buildConfigSnippet(mcpUrl);
 
-  const query = search.trim().toLowerCase();
-  const filteredGroups = MCP_TOOL_GROUPS.map((group) => ({
-    ...group,
-    tools: group.tools.filter(
-      (tool) =>
-        !query ||
-        tool.name.toLowerCase().includes(query) ||
-        tool.description.toLowerCase().includes(query)
-    ),
-  })).filter((group) => group.tools.length > 0);
+  const { data, isLoading, isError } = useQuery<{ tools: FetchedTool[] }>({
+    queryKey: ["/api/mcp/tools"],
+    staleTime: 60_000,
+  });
 
-  const totalTools = MCP_TOOL_GROUPS.reduce((sum, g) => sum + g.tools.length, 0);
+  const allTools = useMemo<McpTool[]>(
+    () => (data?.tools ?? []).map(toolFromFetched),
+    [data]
+  );
+
+  const query = search.trim().toLowerCase();
+  const filteredTools = useMemo(
+    () =>
+      allTools.filter(
+        (tool) =>
+          !query ||
+          tool.name.toLowerCase().includes(query) ||
+          tool.description.toLowerCase().includes(query)
+      ),
+    [allTools, query]
+  );
 
   return (
     <ScrollArea className="h-screen">
@@ -281,9 +332,11 @@ export default function McpServerPage() {
           <div className="flex items-center justify-between gap-4 flex-wrap">
             <h2 className="text-lg font-semibold text-foreground">
               Available tools
-              <span className="ml-2 text-sm font-normal text-muted-foreground">
-                ({totalTools} total)
-              </span>
+              {!isLoading && (
+                <span className="ml-2 text-sm font-normal text-muted-foreground">
+                  ({allTools.length} total)
+                </span>
+              )}
             </h2>
             <div className="relative w-64">
               <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
@@ -293,31 +346,37 @@ export default function McpServerPage() {
                 onChange={(e) => setSearch(e.target.value)}
                 className="pl-8"
                 data-testid="input-search-tools"
+                disabled={isLoading}
               />
             </div>
           </div>
 
-          {filteredGroups.length === 0 && (
+          {isLoading && (
+            <div className="flex items-center justify-center py-12 text-muted-foreground gap-2">
+              <Loader2 className="h-5 w-5 animate-spin" />
+              <span className="text-sm">Loading tools from MCP server…</span>
+            </div>
+          )}
+
+          {isError && (
+            <div className="rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+              Could not reach the MCP server. Make sure it is running on port 3001.
+            </div>
+          )}
+
+          {!isLoading && !isError && filteredTools.length === 0 && (
             <p className="text-sm text-muted-foreground py-4 text-center">
-              No tools match your search.
+              {query ? "No tools match your search." : "No tools found."}
             </p>
           )}
 
-          {filteredGroups.map((group) => (
-            <div key={group.category} className="space-y-3">
-              <div className="flex items-center gap-3">
-                <h3 className="text-sm font-semibold text-foreground">{group.category}</h3>
-                <Badge variant="secondary">{group.tools.length}</Badge>
-                <div className="flex-1 border-t" />
-              </div>
-              <p className="text-xs text-muted-foreground">{group.description}</p>
-              <div className="space-y-2">
-                {group.tools.map((tool) => (
-                  <ToolCard key={tool.name} tool={tool} />
-                ))}
-              </div>
+          {!isLoading && !isError && (
+            <div className="space-y-2">
+              {filteredTools.map((tool) => (
+                <ToolCard key={tool.name} tool={tool} />
+              ))}
             </div>
-          ))}
+          )}
         </section>
       </div>
     </ScrollArea>

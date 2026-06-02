@@ -5,10 +5,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: productShowcase
-    title: en 4Geeks
-    brand_mark:
-      prefix: {{ single.title | interactive exercise title }}
-      color: primary
+    title: {{ single.title | interactive exercise title }}
     description: {{ single.description | exercise description }}
     image_object_fit: none
     form:

@@ -1920,4 +1920,19 @@ export function registerAdminRoutes(app: Express): void {
     res.json({ ok: true });
   });
 
+  app.get("/api/mcp/tools", async (_req, res) => {
+    try {
+      const mcpPort = process.env.MCP_PORT || "3001";
+      const response = await fetch(`http://localhost:${mcpPort}/tools`);
+      if (!response.ok) {
+        res.status(502).json({ tools: [], error: "MCP server unavailable" });
+        return;
+      }
+      const data = await response.json();
+      res.json(data);
+    } catch {
+      res.status(502).json({ tools: [], error: "MCP server unavailable" });
+    }
+  });
+
 }
