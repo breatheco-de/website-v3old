@@ -4,7 +4,6 @@ yaml: |
   - type: article
     show_toc: true
     toc_position: side
-    max_width: lg
     content: |
       # Getting Started with AI Engineering
 

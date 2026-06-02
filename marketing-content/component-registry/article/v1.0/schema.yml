@@ -29,14 +29,3 @@ props:
       Position of the table of contents.
       "top" renders the TOC above the article content.
       "side" renders the TOC as a sticky sidebar that follows the user's scroll position and highlights the active heading.
-  max_width:
-    type: string
-    required: false
-    default: lg
-    options:
-      - sm
-      - md
-      - lg
-      - xl
-      - full
-    description: Maximum width of the article content area
