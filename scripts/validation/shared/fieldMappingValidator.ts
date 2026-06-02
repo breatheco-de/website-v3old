@@ -38,10 +38,17 @@ function isTransformerValue(value: string): boolean {
   return value.startsWith("function:");
 }
 
+function isOptionalSource(value: string): boolean {
+  return value.startsWith("?");
+}
+
 export function validateFieldSource(
   contentType: string,
   source: string
 ): FieldValidationResult {
+  const optional = isOptionalSource(source);
+  const effectiveSource = optional ? source.slice(1) : source;
+
   const slugs = contentIndex.listContentSlugs(contentType as ContentType);
 
   if (slugs.length === 0) {
@@ -58,9 +65,11 @@ export function validateFieldSource(
     );
     const locale = locales.includes("en") ? "en" : locales[0];
     if (!locale) {
-      const commonPath = toRelative(contentIndex.getCommonFilePath(contentType, slug));
-      const localePath = toRelative(contentIndex.getContentFilePath(contentType, slug, "en"));
-      missing.push({ slug, files: [commonPath, localePath] });
+      if (!optional) {
+        const commonPath = toRelative(contentIndex.getCommonFilePath(contentType, slug));
+        const localePath = toRelative(contentIndex.getContentFilePath(contentType, slug, "en"));
+        missing.push({ slug, files: [commonPath, localePath] });
+      }
       continue;
     }
 
@@ -71,16 +80,18 @@ export function validateFieldSource(
     );
 
     if (!data) {
-      const commonPath = toRelative(contentIndex.getCommonFilePath(contentType, slug));
-      const localePath = toRelative(contentIndex.getContentFilePath(contentType, slug, locale));
-      missing.push({ slug, files: [commonPath, localePath] });
+      if (!optional) {
+        const commonPath = toRelative(contentIndex.getCommonFilePath(contentType, slug));
+        const localePath = toRelative(contentIndex.getContentFilePath(contentType, slug, locale));
+        missing.push({ slug, files: [commonPath, localePath] });
+      }
       continue;
     }
 
-    const value = extractByDotPath(data, source);
+    const value = extractByDotPath(data, effectiveSource);
     if (value !== undefined) {
       found++;
-    } else {
+    } else if (!optional) {
       const commonPath = toRelative(contentIndex.getCommonFilePath(contentType, slug));
       const localePath = toRelative(contentIndex.getContentFilePath(contentType, slug, locale));
       missing.push({ slug, files: [commonPath, localePath] });
@@ -106,6 +117,7 @@ export function validateFieldMapping(
     if (key.startsWith("_")) continue;
     if (typeof value !== "string" || !value) continue;
     if (isTransformerValue(value)) continue;
+    if (isOptionalSource(value)) continue;
 
     const result = validateFieldSource(contentType, value);
     results[key] = result;

@@ -164,3 +164,10 @@ how-to:
   url_pattern:
     en: /en/how-to/:slug
     es: /es/how-to/:slug
+  field_mapping:
+    _slug: slug
+    title: title
+    description: "?description"
+    image: "?image"
+    content: "?content"
+    updated_at: "?updated_at"

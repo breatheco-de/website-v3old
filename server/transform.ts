@@ -1,6 +1,7 @@
 import vm from "vm";
 
 export const FUNCTION_PREFIX = "function:";
+export const OPTIONAL_PREFIX = "?";
 
 const transformTimeoutLastWarn = new Map<string, number>();
 
@@ -83,22 +84,31 @@ export function runTransformer(
   }
 }
 
+export function isOptionalSource(value: string): boolean {
+  return value.startsWith(OPTIONAL_PREFIX);
+}
+
+export function stripOptionalPrefix(value: string): string {
+  return value.startsWith(OPTIONAL_PREFIX) ? value.slice(OPTIONAL_PREFIX.length) : value;
+}
+
 export function resolveFieldValue(
   sourcePath: string,
   item: Record<string, unknown>,
   targetKey?: string,
   context?: { contentType?: string; slug?: string; fieldPath?: string },
 ): unknown {
-  if (isTransformer(sourcePath)) {
-    const compiled = compileTransformer(sourcePath);
+  const effectivePath = stripOptionalPrefix(sourcePath);
+  if (isTransformer(effectivePath)) {
+    const compiled = compileTransformer(effectivePath);
     if (!compiled) return undefined;
     const rawValue = targetKey ? item[targetKey] : undefined;
     const resolvedContext = context ?? {
-      fieldPath: targetKey ?? sourcePath.slice(0, 40),
+      fieldPath: targetKey ?? effectivePath.slice(0, 40),
     };
     return runTransformer(compiled, rawValue, item, resolvedContext);
   }
-  return getValueByPath(item, sourcePath);
+  return getValueByPath(item, effectivePath);
 }
 
 export function applyTransformIfNeeded(sourceMapping: string, rawValue: string): string {
