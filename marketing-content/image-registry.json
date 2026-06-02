@@ -19677,24 +19677,40 @@
       "srcset": []
     },
     "interactive-exercises-preview-aa0ac865": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/python-http-requests-api-tutorial-exercises/blob/master/preview.png?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/python-http-requests-api-tutorial-exercises/blob/master/preview.png?raw=true",
       "usage_count": 0,
-      "source_item": "python-http-requests-api-tutorial-exercises"
+      "source_item": "python-http-requests-api-tutorial-exercises",
+      "width": 2044,
+      "height": 1382,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-learnpack-62b5de20": {
-      "src": "",
+      "src": "https://raw.githubusercontent.com/learnpack/ide/master/public/learnpack.svg",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://raw.githubusercontent.com/learnpack/ide/master/public/learnpack.svg",
       "usage_count": 0,
-      "source_item": "certified-ai-founder-growth-mindset-smart-valid-en"
+      "source_item": "certified-ai-founder-growth-mindset-smart-valid-en",
+      "width": 32,
+      "height": 33,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-20af6f86": {
       "src": "",
@@ -19707,174 +19723,310 @@
       "source_item": "fundamentals-of-typescript-with-practice-for-javas"
     },
     "interactive-exercises-preview-28b114a1": {
-      "src": "",
+      "src": "https://advanced-hooks-and-composition-in-react-native-wi.learn-pack.com/preview.png",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://advanced-hooks-and-composition-in-react-native-wi.learn-pack.com/preview.png",
       "usage_count": 0,
-      "source_item": "advanced-hooks-and-composition-in-react-native--en"
+      "source_item": "advanced-hooks-and-composition-in-react-native--en",
+      "width": 2190,
+      "height": 1150,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-6e36fa34c38cd1a78c99dbb6d5e2c14b785e96f8-c122f55f": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/6e36fa34c38cd1a78c99dbb6d5e2c14b785e96f8d404f682d76a4d8f6af317c0",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/6e36fa34c38cd1a78c99dbb6d5e2c14b785e96f8d404f682d76a4d8f6af317c0",
       "usage_count": 0,
-      "source_item": "redes-digitales-avanzadas-para-graduados-en-tecnol"
+      "source_item": "redes-digitales-avanzadas-para-graduados-en-tecnol",
+      "width": 2160,
+      "height": 1283,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-f21217c81d891fc695e9443beb042b54ee8ef236-c3196375": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/f21217c81d891fc695e9443beb042b54ee8ef236d9f85e5dd67c562d69452956",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/f21217c81d891fc695e9443beb042b54ee8ef236d9f85e5dd67c562d69452956",
       "usage_count": 0,
-      "source_item": "construyendo-tu-discurso-elevador-para-graduados-e"
+      "source_item": "construyendo-tu-discurso-elevador-para-graduados-e",
+      "width": 2160,
+      "height": 1283,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-add2578c5e28e78db9410e12672569fa246b1186-9053b8d8": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/add2578c5e28e78db9410e12672569fa246b1186a4b5177d7d017bd010b1ba42",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/add2578c5e28e78db9410e12672569fa246b1186a4b5177d7d017bd010b1ba42",
       "usage_count": 0,
-      "source_item": "github-como-un-portafolio-profesional"
+      "source_item": "github-como-un-portafolio-profesional",
+      "width": 2160,
+      "height": 1283,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-5a731ef4a45f33b5179ed3c863834e649a7cd736-08826237": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/5a731ef4a45f33b5179ed3c863834e649a7cd736e1f6374d9ff78c9b9a24ddd6",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/5a731ef4a45f33b5179ed3c863834e649a7cd736e1f6374d9ff78c9b9a24ddd6",
       "usage_count": 0,
-      "source_item": "estrategia-de-linkedin-para-desarrolladores"
+      "source_item": "estrategia-de-linkedin-para-desarrolladores",
+      "width": 2160,
+      "height": 1283,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-734526afa23b928d303d45ca19f7db1df30030d2-6dec7b1b": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/734526afa23b928d303d45ca19f7db1df30030d2feda5b7d7526bcf5e438da7d",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/734526afa23b928d303d45ca19f7db1df30030d2feda5b7d7526bcf5e438da7d",
       "usage_count": 0,
-      "source_item": "optimiza-tu-curriculum-tecnologico"
+      "source_item": "optimiza-tu-curriculum-tecnologico",
+      "width": 2160,
+      "height": 1283,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-f8597f5e0a830e70b132e9a348bb21015ddc9843-6b172cd4": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/f8597f5e0a830e70b132e9a348bb21015ddc984346eed6cdfc95ff57e0a08382",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/f8597f5e0a830e70b132e9a348bb21015ddc984346eed6cdfc95ff57e0a08382",
       "usage_count": 0,
-      "source_item": "mentalidad-profesional-en-tecnologia"
+      "source_item": "mentalidad-profesional-en-tecnologia",
+      "width": 2160,
+      "height": 1283,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-e3544c00d75d02c6d0e8a92b232df271b2e0e3c5-e9810f89": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/e3544c00d75d02c6d0e8a92b232df271b2e0e3c59f9e78a5de323aac723337f3",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/e3544c00d75d02c6d0e8a92b232df271b2e0e3c59f9e78a5de323aac723337f3",
       "usage_count": 0,
-      "source_item": "advanced-digital-networking-for-tech-grads"
+      "source_item": "advanced-digital-networking-for-tech-grads",
+      "width": 2160,
+      "height": 1283,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-ef9353a5e55e1e6232409bac88112439b6950dfd-e63a2bfd": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/ef9353a5e55e1e6232409bac88112439b6950dfd4347b0e765dc19b79b808c59",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/ef9353a5e55e1e6232409bac88112439b6950dfd4347b0e765dc19b79b808c59",
       "usage_count": 0,
-      "source_item": "github-as-a-professional-portfolio"
+      "source_item": "github-as-a-professional-portfolio",
+      "width": 2160,
+      "height": 1283,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-794e7831305d5133ba97925dfae3c2a785bca2ba-e925befc": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/794e7831305d5133ba97925dfae3c2a785bca2ba432e6ec950bf7d258c398a3a",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/794e7831305d5133ba97925dfae3c2a785bca2ba432e6ec950bf7d258c398a3a",
       "usage_count": 0,
-      "source_item": "building-your-elevator-pitch-for-tech-graduates"
+      "source_item": "building-your-elevator-pitch-for-tech-graduates",
+      "width": 2160,
+      "height": 1283,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-25273fed1db0a4214938ba46f5839397f2c31ea4-635044e9": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/25273fed1db0a4214938ba46f5839397f2c31ea458062a870a604f0c84594784",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/25273fed1db0a4214938ba46f5839397f2c31ea458062a870a604f0c84594784",
       "usage_count": 0,
-      "source_item": "linkedin-strategy-for-developers"
+      "source_item": "linkedin-strategy-for-developers",
+      "width": 2160,
+      "height": 1283,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-55d4e0fc40daf154680cfb5067f749a125f3dc0d-17e5fcba": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/55d4e0fc40daf154680cfb5067f749a125f3dc0d2b13753dc75950cfd6b380c0",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/55d4e0fc40daf154680cfb5067f749a125f3dc0d2b13753dc75950cfd6b380c0",
       "usage_count": 0,
-      "source_item": "optimize-your-tech-resume"
+      "source_item": "optimize-your-tech-resume",
+      "width": 2160,
+      "height": 1283,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-754a3feffbc4002502293b92e9b13f829dd7cfe4-042405f1": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/754a3feffbc4002502293b92e9b13f829dd7cfe4f4d34b9c00926b18a2320d9f",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/754a3feffbc4002502293b92e9b13f829dd7cfe4f4d34b9c00926b18a2320d9f",
       "usage_count": 0,
-      "source_item": "professional-tech-mindset"
+      "source_item": "professional-tech-mindset",
+      "width": 2160,
+      "height": 1283,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-f4bd2edfc3f3d77134ce82d01dae3787c9bc924a-01bdce91": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/f4bd2edfc3f3d77134ce82d01dae3787c9bc924a15cf63decf261485e1e9274c",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/f4bd2edfc3f3d77134ce82d01dae3787c9bc924a15cf63decf261485e1e9274c",
       "usage_count": 0,
-      "source_item": "conceptos-de-ia-una-exploracion-dentro-de-la-ia"
+      "source_item": "conceptos-de-ia-una-exploracion-dentro-de-la-ia",
+      "width": 1366,
+      "height": 768,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-5f7bb2a6b24dc7e758215c71da648d322da09cbe-3731ba1e": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/5f7bb2a6b24dc7e758215c71da648d322da09cbeeac452d4cc29121871031209",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/5f7bb2a6b24dc7e758215c71da648d322da09cbeeac452d4cc29121871031209",
       "usage_count": 0,
-      "source_item": "ai-concepts-an-exploration-inside-ai"
+      "source_item": "ai-concepts-an-exploration-inside-ai",
+      "width": 1366,
+      "height": 768,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-6b4965c6df33ba4349110ba13bb2c4da69c2115e-74c06ff5": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/6b4965c6df33ba4349110ba13bb2c4da69c2115e60fa5f7b16ea15fd1b361d3a",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/6b4965c6df33ba4349110ba13bb2c4da69c2115e60fa5f7b16ea15fd1b361d3a",
       "usage_count": 0,
-      "source_item": "dominio-practico-de-la-ingenieria-de-prompts"
+      "source_item": "dominio-practico-de-la-ingenieria-de-prompts",
+      "width": 1366,
+      "height": 768,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-1a7b6f670bfe92563d13e571b41f7f32e528dcb7-355b9c51": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/1a7b6f670bfe92563d13e571b41f7f32e528dcb7df6ebd7cb1f5b47356a45165",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/1a7b6f670bfe92563d13e571b41f7f32e528dcb7df6ebd7cb1f5b47356a45165",
       "usage_count": 0,
-      "source_item": "practical-prompt-engineering-mastery"
+      "source_item": "practical-prompt-engineering-mastery",
+      "width": 1366,
+      "height": 768,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-7983da9e": {
       "src": "",
