@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { AlertTriangle, ArrowLeft, ArrowRight, Check, Clipboard, Clock, Code, Copy, Database, Download, ExternalLink, Eye, EyeOff, FileText, Folder, GitBranch, Globe, History, LayoutList, Link as LinkIcon, Loader2, MoreVertical, Plus, RefreshCw, Search, Shuffle, Trash2, Wand2, X } from "lucide-react";
+import { AlertTriangle, ArrowLeft, ArrowRight, Check, Clipboard, Clock, Code, Copy, Database, Download, ExternalLink, Eye, EyeOff, FileText, Folder, GitBranch, Globe, History, LayoutList, Link as LinkIcon, Loader2, MoreVertical, Plus, RefreshCw, Search, Shuffle, SlidersHorizontal, Trash2, Wand2, X } from "lucide-react";
 import { IconChevronDown, IconChevronRight, IconExternalLink } from "@tabler/icons-react";
 import { queryClient } from "@/lib/queryClient";
 import { useState, useEffect, useRef, lazy, Suspense } from "react";
@@ -46,6 +46,7 @@ const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditor
 interface ItemsResponse {
   count: number;
   results: Record<string, any>[];
+  facets?: Record<string, string[]>;
 }
 
 interface CacheStatus {
@@ -2415,7 +2416,7 @@ export default function ContentTypeManagePage() {
   const label = contentType.charAt(0).toUpperCase() + contentType.slice(1);
 
   const [search, setSearch] = useState("");
-  const [filters, setFilters] = useState<Record<string, string>>({});
+  const [tagFilters, setTagFilters] = useState<Record<string, string[]>>({});
   const [clearing, setClearing] = useState(false);
   const [dsDialogOpen, setDsDialogOpen] = useState(false);
   const [seoDialogOpen, setSeoDialogOpen] = useState(false);
@@ -2519,9 +2520,9 @@ export default function ContentTypeManagePage() {
   const { data: dbEditorConfig } = useQuery<Record<string, { type?: string }>>({
     queryKey: ["/api/databases", dbSlug, "editor-config"],
     queryFn: () =>
-      fetch(`/api/databases/${dbSlug}/config`).then(async (r) => {
+      fetch(`/api/databases/${dbSlug}`).then(async (r) => {
         const data = await r.json();
-        return (data.editor as Record<string, { type?: string }>) || {};
+        return (data.config?.editor as Record<string, { type?: string }>) || {};
       }),
     enabled: !!dbSlug,
     staleTime: 60000,
@@ -2539,33 +2540,6 @@ export default function ContentTypeManagePage() {
     return result;
   })();
 
-  const indexStats = (() => {
-    const stats: Record<string, Record<string, number>> = {};
-    for (const idx of allIndexFields) {
-      const counts: Record<string, number> = {};
-      for (const item of items) {
-        if (isTagsField(idx)) {
-          const raw = item[idx];
-          const tokens: string[] = Array.isArray(raw)
-            ? (raw as string[])
-            : typeof raw === "string" && raw.trim()
-            ? raw.split(",").map((t) => t.trim()).filter(Boolean)
-            : [];
-          for (const token of tokens) {
-            const t = token.toLowerCase();
-            if (t) counts[t] = (counts[t] || 0) + 1;
-          }
-        } else {
-          const val = String(item[idx] || "").toLowerCase();
-          if (val) {
-            counts[val] = (counts[val] || 0) + 1;
-          }
-        }
-      }
-      stats[idx] = counts;
-    }
-    return stats;
-  })();
 
   useEffect(() => {
     if (viewMode !== "db" || !dbSlug) {
@@ -2590,9 +2564,9 @@ export default function ContentTypeManagePage() {
 
     semanticDebounceRef.current = setTimeout(async () => {
       try {
-        const localeFilter = filters[localeKey || ""] || "";
+        const localeFilter = (tagFilters[localeKey || ""] ?? [])[0] || "";
         const params = new URLSearchParams({ q: search.trim(), limit: "50" });
-        if (localeFilter && localeFilter !== "all") params.set("locale", localeFilter);
+        if (localeFilter) params.set("locale", localeFilter);
 
         const res = await fetch(`/api/databases/${dbSlug}/search?${params.toString()}`);
         if (!res.ok) throw new Error(`Search failed: ${res.status}`);
@@ -2611,7 +2585,7 @@ export default function ContentTypeManagePage() {
     return () => {
       if (semanticDebounceRef.current) clearTimeout(semanticDebounceRef.current);
     };
-  }, [search, viewMode, dbSlug, filters, localeKey]);
+  }, [search, viewMode, dbSlug, tagFilters, localeKey]);
 
   const matchesFilter = (item: Record<string, unknown>, field: string, value: string) => {
     if (isTagsField(field)) {
@@ -2629,8 +2603,8 @@ export default function ContentTypeManagePage() {
   const filtered = (() => {
     if (viewMode === "db" && search.trim() && semanticResults !== null) {
       let result = semanticResults;
-      for (const [field, value] of Object.entries(filters)) {
-        if (value && value !== "all") {
+      for (const [field, values] of Object.entries(tagFilters)) {
+        for (const value of values) {
           result = result.filter((p) => matchesFilter(p, field, value));
         }
       }
@@ -2639,8 +2613,8 @@ export default function ContentTypeManagePage() {
 
     let result = items;
 
-    for (const [field, value] of Object.entries(filters)) {
-      if (value && value !== "all") {
+    for (const [field, values] of Object.entries(tagFilters)) {
+      for (const value of values) {
         result = result.filter((p) => matchesFilter(p, field, value));
       }
     }
@@ -3028,8 +3002,25 @@ export default function ContentTypeManagePage() {
             </CardContent>
           </Card>
           {allIndexFields.map((idx) => {
-            const counts = indexStats[idx] || {};
             const isLocale = idx === localeKey;
+            const counts: Record<string, number> = {};
+            for (const item of items) {
+              if (isTagsField(idx)) {
+                const raw = item[idx];
+                const tokens: string[] = Array.isArray(raw)
+                  ? (raw as string[])
+                  : typeof raw === "string" && raw.trim()
+                  ? raw.split(",").map((t) => t.trim()).filter(Boolean)
+                  : [];
+                for (const token of tokens) {
+                  const t = token.toLowerCase();
+                  if (t) counts[t] = (counts[t] || 0) + 1;
+                }
+              } else {
+                const val = String(item[idx] || "").toLowerCase();
+                if (val) counts[val] = (counts[val] || 0) + 1;
+              }
+            }
             const sortedEntries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
             return (
               <Card key={idx} data-testid={`card-kpi-${idx}`}>
@@ -3138,33 +3129,100 @@ export default function ContentTypeManagePage() {
                   </div>
                 )}
               </div>
-              {viewMode === "db" && allIndexFields.map((idx) => {
-                const isLocale = idx === localeKey;
-                const counts = indexStats[idx] || {};
-                const distinctValues = Object.keys(counts).sort();
-                if (distinctValues.length === 0) return null;
+              {(() => {
+                const facets = allItemsData?.facets;
+                if (viewMode !== "db" || !facets || Object.keys(facets).length === 0) return null;
+                const activeFilterCount = Object.values(tagFilters).flat().length;
                 return (
-                  <Select
-                    key={idx}
-                    value={filters[idx] || "all"}
-                    onValueChange={(v) => setFilters((prev) => ({ ...prev, [idx]: v }))}
-                  >
-                    <SelectTrigger className="w-[140px]" data-testid={`select-filter-${idx}`}>
-                      <SelectValue placeholder={isLocale ? "Language" : idx.charAt(0).toUpperCase() + idx.slice(1)} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">
-                        All {isLocale ? "Languages" : `${idx.charAt(0).toUpperCase() + idx.slice(1)}es`}
-                      </SelectItem>
-                      {distinctValues.map((val) => (
-                        <SelectItem key={val} value={val}>
-                          {isLocale ? (LOCALE_LABELS[val] || val.toUpperCase()) : val.charAt(0).toUpperCase() + val.slice(1)}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="shrink-0 relative"
+                        data-testid="button-open-filters"
+                      >
+                        <SlidersHorizontal className="h-4 w-4" />
+                        {activeFilterCount > 0 && (
+                          <span className="absolute -top-1 -right-1 h-3.5 w-3.5 rounded-full bg-primary text-primary-foreground text-[9px] flex items-center justify-center font-medium leading-none">
+                            {activeFilterCount}
+                          </span>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent side="bottom" align="end" className="p-3 w-64" data-testid="tag-filter-bar">
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <p className="text-xs font-medium">Filters</p>
+                          {activeFilterCount > 0 && (
+                            <button
+                              className="text-[11px] text-muted-foreground hover:text-foreground transition-colors cursor-pointer underline underline-offset-2"
+                              onClick={() => setTagFilters({})}
+                              data-testid="button-clear-tag-filters"
+                            >
+                              Clear all
+                            </button>
+                          )}
+                        </div>
+                        {Object.entries(facets).map(([field, values]) => {
+                          const active = tagFilters[field] ?? [];
+                          const available = values.filter((v) => !active.includes(v));
+                          return (
+                            <div key={field} className="space-y-1.5">
+                              <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">{field}</p>
+                              <Select
+                                value=""
+                                onValueChange={(v) => {
+                                  setTagFilters((prev) => ({ ...prev, [field]: [...(prev[field] ?? []), v] }));
+                                }}
+                              >
+                                <SelectTrigger className="h-7 text-xs" data-testid={`select-filter-${field}`}>
+                                  <SelectValue placeholder="Add filter…" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {available.length === 0 ? (
+                                    <div className="px-2 py-1.5 text-xs text-muted-foreground">All selected</div>
+                                  ) : (
+                                    available.map((v) => (
+                                      <SelectItem key={v} value={v} className="text-xs" data-testid={`chip-filter-${field}-${v}`}>
+                                        {v}
+                                      </SelectItem>
+                                    ))
+                                  )}
+                                </SelectContent>
+                              </Select>
+                              {active.length > 0 && (
+                                <div className="flex flex-wrap gap-1">
+                                  {active.map((v) => (
+                                    <span key={v} className="inline-flex items-center gap-0.5 bg-primary/10 text-primary text-[11px] rounded px-1.5 py-0.5">
+                                      {v}
+                                      <button
+                                        className="ml-0.5 hover:text-foreground cursor-pointer"
+                                        onClick={() => {
+                                          setTagFilters((prev) => {
+                                            const next = (prev[field] ?? []).filter((x) => x !== v);
+                                            if (next.length === 0) {
+                                              const { [field]: _, ...rest } = prev;
+                                              return rest;
+                                            }
+                                            return { ...prev, [field]: next };
+                                          });
+                                        }}
+                                      >
+                                        <X className="h-2.5 w-2.5" />
+                                      </button>
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </PopoverContent>
+                  </Popover>
                 );
-              })}
+              })()}
             </div>
           </CardHeader>
           <CardContent className="p-0">

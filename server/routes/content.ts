@@ -1434,7 +1434,31 @@ export function registerContentRoutes(app: Express): void {
         return rest;
       });
 
-      res.json({ count: stripped.length, results: stripped });
+      let facets = result.facets;
+      if (!facets) {
+        const dbConfig = databaseManager.get(dbName);
+        if (dbConfig.editor) {
+          const computed: Record<string, string[]> = {};
+          for (const [field, hint] of Object.entries(dbConfig.editor)) {
+            if (hint.type === "tags" || hint.type === "select") {
+              const valueSet = new Set<string>();
+              for (const item of result.items) {
+                const v = item[field];
+                if (Array.isArray(v)) {
+                  for (const el of v) { if (el != null && el !== "") valueSet.add(String(el)); }
+                } else if (v != null && v !== "") {
+                  valueSet.add(String(v));
+                }
+              }
+              if (valueSet.size > 0) {
+                computed[field] = [...valueSet].sort((a, b) => a.localeCompare(b));
+              }
+            }
+          }
+          if (Object.keys(computed).length > 0) facets = computed;
+        }
+      }
+      res.json({ count: stripped.length, results: stripped, ...(facets ? { facets } : {}) });
     } catch (err) {
       console.error(
         `[ContentTypes] Error fetching items for ${req.params.type}:`,

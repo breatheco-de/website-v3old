@@ -548,6 +548,7 @@ export class DatabaseManager {
     raw_count: number;
     fetched_at: string;
     from_cache: boolean;
+    facets?: Record<string, string[]>;
   }> {
     const config = this.get(name);
     const ttl = config.cache?.ttl_hours ?? 24;
@@ -561,6 +562,24 @@ export class DatabaseManager {
 
       const cached = this.cache.read(name, ttl);
       if (cached) {
+        if (!cached.facets && config.editor) {
+          const facets: Record<string, string[]> = {};
+          for (const [field, hint] of Object.entries(config.editor)) {
+            if (hint.type === "tags" || hint.type === "select") {
+              const valueSet = new Set<string>();
+              for (const item of cached.items) {
+                const v = item[field];
+                if (Array.isArray(v)) {
+                  for (const el of v) { if (el != null && el !== "") valueSet.add(String(el)); }
+                } else if (v != null && v !== "") {
+                  valueSet.add(String(v));
+                }
+              }
+              if (valueSet.size > 0) facets[field] = [...valueSet].sort((a, b) => a.localeCompare(b));
+            }
+          }
+          if (Object.keys(facets).length > 0) cached.facets = facets;
+        }
         this.memoryCache.set(name, {
           data: cached,
           expires: Date.now() + ttl * 60 * 60 * 1000,
