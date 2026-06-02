@@ -3531,6 +3531,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   const [fnTestItemIndex, setFnTestItemIndex] = useState<number>(0);
   const [fnTestResult, setFnTestResult] = useState<{ ok: true; output: string } | { ok: false; error: string } | null>(null);
   const [fnFixing, setFnFixing] = useState(false);
+  const [fnCustomMode, setFnCustomMode] = useState(false);
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
   useEffect(() => {
@@ -4604,58 +4605,75 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
             return (
               <div className="space-y-2 pt-1 border-t">
                 <p className="text-xs font-medium text-muted-foreground pt-2">Test the function</p>
-                {rawItems.length > 0 && (
-                  <div className="space-y-1">
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">From a database entry</p>
-                    <Select
-                      value={String(fnTestItemIndex)}
-                      onValueChange={(v) => {
-                        const idx = parseInt(v, 10);
-                        setFnTestItemIndex(idx);
-                        const sample = rawItems[idx]?.[key];
+                {rawItems.length > 0 && !fnCustomMode && (
+                  <Select
+                    value={String(fnTestItemIndex)}
+                    onValueChange={(v) => {
+                      if (v === "__custom__") {
+                        setFnCustomMode(true);
+                        setFnTestInput("");
+                        setFnTestResult(null);
+                        return;
+                      }
+                      const idx = parseInt(v, 10);
+                      setFnTestItemIndex(idx);
+                      const sample = rawItems[idx]?.[key];
+                      setFnTestInput(sample != null ? String(sample) : "");
+                      setFnTestResult(null);
+                    }}
+                  >
+                    <SelectTrigger className="h-8 text-xs font-mono" data-testid="select-fn-test-item">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {rawItems.slice(0, 3).map((item, i) => {
+                        const slug = item["slug"] != null ? String(item["slug"]) : null;
+                        const val = item[key];
+                        const fieldPreview = val != null && String(val).trim() !== "" ? String(val) : null;
+                        const label = slug ?? fieldPreview ?? "(no slug)";
+                        const truncated = label.length > 40 ? label.slice(0, 40) + "…" : label;
+                        return (
+                          <SelectItem key={i} value={String(i)} className="text-xs font-mono">
+                            <span className="text-muted-foreground mr-1.5">#{i + 1}</span>
+                            {truncated}
+                          </SelectItem>
+                        );
+                      })}
+                      <SelectItem value="__custom__" className="text-xs">
+                        Manual custom value
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                )}
+                <div className="flex gap-2">
+                  {fnCustomMode && (
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      className="shrink-0"
+                      data-testid="button-fn-custom-back"
+                      onClick={() => {
+                        setFnCustomMode(false);
+                        const sample = rawItems[fnTestItemIndex]?.[key];
                         setFnTestInput(sample != null ? String(sample) : "");
                         setFnTestResult(null);
                       }}
                     >
-                      <SelectTrigger className="h-8 text-xs font-mono" data-testid="select-fn-test-item">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {rawItems.slice(0, 100).map((item, i) => {
-                          const slug = item["slug"] != null ? String(item["slug"]) : null;
-                          const val = item[key];
-                          const fieldPreview = val != null && String(val).trim() !== "" ? String(val) : null;
-                          const label = slug ?? fieldPreview ?? "(no slug)";
-                          const truncated = label.length > 40 ? label.slice(0, 40) + "…" : label;
-                          return (
-                            <SelectItem key={i} value={String(i)} className="text-xs font-mono">
-                              <span className="text-muted-foreground mr-1.5">#{i + 1}</span>
-                              {truncated}
-                            </SelectItem>
-                          );
-                        })}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                )}
-                <div className="space-y-1">
-                  {rawItems.length > 0 && (
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">Or type a custom value</p>
-                  )}
-                  <div className="flex gap-2">
-                    <input
-                      className="flex-1 min-w-0 rounded-md border border-input bg-background px-3 py-1.5 text-xs font-mono placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
-                      placeholder="Enter a raw value to test…"
-                      value={fnTestInput}
-                      onChange={(e) => { setFnTestInput(e.target.value); setFnTestResult(null); }}
-                      onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); runFn(); } }}
-                      data-testid="input-fn-test-value"
-                    />
-                    <Button size="sm" variant="secondary" data-testid="button-fn-test-run" onClick={runFn}>
-                      <Play className="h-3.5 w-3.5 mr-1" />
-                      Run
+                      <X className="h-3.5 w-3.5" />
                     </Button>
-                  </div>
+                  )}
+                  <input
+                    className="flex-1 min-w-0 rounded-md border border-input bg-background px-3 py-1.5 text-xs font-mono placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+                    placeholder={fnCustomMode ? "Type a custom value to test…" : "Value from selected entry (editable)"}
+                    value={fnTestInput}
+                    onChange={(e) => { setFnTestInput(e.target.value); setFnTestResult(null); }}
+                    onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); runFn(); } }}
+                    data-testid="input-fn-test-value"
+                  />
+                  <Button size="sm" variant="secondary" data-testid="button-fn-test-run" onClick={runFn}>
+                    <Play className="h-3.5 w-3.5 mr-1" />
+                    Run
+                  </Button>
                 </div>
                 {fnTestResult !== null && (
                   fnTestResult.ok ? (

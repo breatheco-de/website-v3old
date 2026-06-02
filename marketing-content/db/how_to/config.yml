@@ -17,7 +17,7 @@ field_mapping:
   slug: slug
   title: title
   description: description
-  language: function:U3RyaW5nKHZhbHVlKSA9PT0gJ3VzJyA/ICdlbicgOiBTdHJpbmcodmFsdWUp
+  language: function:KHZhbHVlLCBpdGVtKSA9PiBTdHJpbmcoaXRlbS5sYW5nKSA9PT0gJ3VzJyA/ICdlbicgOiBTdHJpbmcoaXRlbS5sYW5nKQ==
   updated_at: updated_at
   image_url: preview
   technologies: technologies
