@@ -6552,12 +6552,13 @@ export function SectionEditorPanel({
               {/* Locations */}
               {(() => {
                 const rawLocs = getValueAtFieldPath(parsedSection, `${formSettingsPath}.locations`);
+                // null/undefined → auto-detect; [] or populated array → manual
+                const isAutoDetect = rawLocs == null;
                 const selectedLocs: string[] = Array.isArray(rawLocs)
                   ? (rawLocs as string[])
                   : rawLocs
                   ? [String(rawLocs)]
                   : [];
-                const isAutoDetect = selectedLocs.length === 0;
 
                 const locationOptions = (formOptions?.locations ?? []).map((loc) => ({
                   value: loc.slug,
