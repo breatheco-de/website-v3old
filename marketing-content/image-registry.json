@@ -20349,84 +20349,148 @@
       "srcset": []
     },
     "interactive-exercises-js-events-eac2c0b2": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/javascript-events-tutorial-exercises/blob/master/.learn/assets/js-events.jpeg?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/javascript-events-tutorial-exercises/blob/master/.learn/assets/js-events.jpeg?raw=true",
       "usage_count": 0,
-      "source_item": "javascript-events-exercises-es"
+      "source_item": "javascript-events-exercises-es",
+      "width": 500,
+      "height": 281,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-8b9bd05d": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/react-tutorial-exercises/blob/master/preview.png?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/react-tutorial-exercises/blob/master/preview.png?raw=true",
       "usage_count": 0,
-      "source_item": "curso-react-desde-cero"
+      "source_item": "curso-react-desde-cero",
+      "width": 1000,
+      "height": 561,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-b4336594": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/master-javascript-programming-exercises/blob/main/preview.jpeg?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/master-javascript-programming-exercises/blob/main/preview.jpeg?raw=true",
       "usage_count": 0,
-      "source_item": "master-javascript-exercises-es"
+      "source_item": "master-javascript-exercises-es",
+      "width": 500,
+      "height": 281,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-2dcae757": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/javascript-arrays-exercises-tutorial/blob/master/preview.png?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/javascript-arrays-exercises-tutorial/blob/master/preview.png?raw=true",
       "usage_count": 0,
-      "source_item": "javascript-array-loops-exercises"
+      "source_item": "javascript-array-loops-exercises",
+      "width": 1000,
+      "height": 563,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-6e707ac4": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/css-layouts-tutorial-exercises/blob/master/.learn/assets/preview.png?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/css-layouts-tutorial-exercises/blob/master/.learn/assets/preview.png?raw=true",
       "usage_count": 0,
-      "source_item": "css-layouts-tutorial-exercises-es"
+      "source_item": "css-layouts-tutorial-exercises-es",
+      "width": 835,
+      "height": 469,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-c9a2d157": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/css-tutorial-exercises-course/blob/master/preview.png?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/css-tutorial-exercises-course/blob/master/preview.png?raw=true",
       "usage_count": 0,
-      "source_item": "css-exercises-es"
+      "source_item": "css-exercises-es",
+      "width": 701,
+      "height": 394,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-f361c886": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/html-tutorial-exercises-course/blob/master/preview.png?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/html-tutorial-exercises-course/blob/master/preview.png?raw=true",
       "usage_count": 0,
-      "source_item": "html-exercises-es"
+      "source_item": "html-exercises-es",
+      "width": 701,
+      "height": 393,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-08fa057a": {
-      "src": "",
+      "src": "https://github.com/breatheco-de/numpy-tutorial-exercises/blob/master/.learn/assets/preview.jpeg?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/breatheco-de/numpy-tutorial-exercises/blob/master/.learn/assets/preview.jpeg?raw=true",
       "usage_count": 0,
-      "source_item": "numpy-exercises-tutorial"
+      "source_item": "numpy-exercises-tutorial",
+      "width": 900,
+      "height": 506,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     }
   }
 }
