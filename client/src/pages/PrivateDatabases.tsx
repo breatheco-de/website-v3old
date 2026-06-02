@@ -4108,7 +4108,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                       {(config?.editor?.[key]?.type === "tags" || config?.editor?.[key]?.type === "select") && (
                         <Popover>
                           <PopoverTrigger asChild>
-                            <span className="inline-flex items-center text-muted-foreground shrink-0 cursor-pointer hover:text-foreground transition-colors" data-testid={`badge-tags-${key}`}>
+                            <span className="inline-flex items-center text-orange-500 shrink-0 cursor-pointer hover:opacity-80 transition-opacity" data-testid={`badge-tags-${key}`}>
                               <Tags className="h-3 w-3" />
                             </span>
                           </PopoverTrigger>
