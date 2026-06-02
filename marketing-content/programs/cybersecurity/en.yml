@@ -634,9 +634,8 @@ sections:
       desktop: none
   - type: cta_banner
     version: "1.0"
-    title: Ready to Become a Cybersecurity Specialist?
-    subtitle: 4.8 million cybersecurity roles go unfilled globally. This is your window. Join the next cohort.
-    background: hsl(var(--primary))
+    title: Ready to Become an {{ single.job_role | AI Engineer }}?
+    subtitle: The fastest-growing job of 2026 is a click away. This is your window. Join the next cohort.
     variant: form
     form:
       variant: stacked
@@ -659,7 +658,7 @@ sections:
         program:
           visible: false
           required: true
-          default: cybersecurity
+          default: ai-engineering
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:
@@ -671,10 +670,11 @@ sections:
       terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
-    marginY:
-      desktop: lg none
     paddingY:
       desktop: md
+    marginY:
+      desktop: lg none
+    background: hsl(var(--primary))
     section_id: cta_banner-5edlct
   - type: sticky_cta
     section_id: sticky_cta-dl9ciq

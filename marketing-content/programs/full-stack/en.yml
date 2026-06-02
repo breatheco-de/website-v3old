@@ -624,9 +624,8 @@ sections:
     background: hsl(var(--muted))
   - type: cta_banner
     version: "1.0"
-    title: Ready to Become an AI-Fluent Full Stack Developer?
-    subtitle: Developers with AI skills earn 56% more than those without. This is your opportunity. Join the next cohort.
-    background: hsl(var(--primary))
+    title: Ready to Become an {{ single.job_role | AI Engineer }}?
+    subtitle: The fastest-growing job of 2026 is a click away. This is your window. Join the next cohort.
     variant: form
     form:
       variant: stacked
@@ -649,7 +648,7 @@ sections:
         program:
           visible: false
           required: true
-          default: full-stack
+          default: ai-engineering
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       consent:
@@ -665,6 +664,7 @@ sections:
       desktop: md
     marginY:
       desktop: lg none
+    background: hsl(var(--primary))
     section_id: cta_banner-yno9xp
   - type: sticky_cta
     version: "1.0"

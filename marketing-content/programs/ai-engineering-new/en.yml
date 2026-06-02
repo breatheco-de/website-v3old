@@ -775,7 +775,6 @@ sections:
     version: "1.0"
     title: Ready to Become an {{ single.job_role | AI Engineer }}?
     subtitle: The fastest-growing job of 2026 is a click away. This is your window. Join the next cohort.
-    background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
@@ -810,10 +809,11 @@ sections:
       terms_className: text-white/80
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
-    marginY:
-      desktop: lg none
     paddingY:
       desktop: md
+    marginY:
+      desktop: lg none
+    background: hsl(var(--primary))
     section_id: cta_banner-h3e30q
   - type: sticky_cta
     section_id: sticky_cta-nmcllq
