@@ -17,6 +17,7 @@ sections:
       form:
         variant: stacked
         submit_label: Descargar la Guía Gratis
+        conversion_name: financing_guide_download
         tags: request_downloadable
         fields:
           email:
@@ -177,6 +178,7 @@ sections:
     form:
       variant: stacked
       submit_label: Descargar la Guía Gratis
+      conversion_name: financing_guide_download
       tags: request_downloadable
       fields:
         email:

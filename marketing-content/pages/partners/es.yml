@@ -42,6 +42,7 @@ sections:
     form:
       variant: stacked
       submit_label: Download
+      conversion_name: request_more_info
       tags: request_more_info
       automations: soft
       fields:
@@ -521,6 +522,7 @@ sections:
     form:
       variant: stacked
       submit_label: Iniciar Conversación
+      conversion_name: contact_us
       tags: contact-us
       fields:
         email:

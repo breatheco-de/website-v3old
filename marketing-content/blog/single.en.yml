@@ -50,6 +50,7 @@ sections:
     subtitle: Join thousands of graduates who have transformed their careers with 4Geeks Academy.
     form:
       variant: stacked
+      conversion_name: student_application
       submit_label: Get Started
       button_className: bg-primary text-white hover:bg-white/90 border-white
       terms_className: text-white/80

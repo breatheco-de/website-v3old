@@ -175,6 +175,7 @@ sections:
     form:
       variant: stacked
       submit_label: Obtener
+      conversion_name: request_more_info
       tags: request_more_info
       automations: soft
       fields:
@@ -834,6 +835,7 @@ sections:
     form:
       variant: stacked
       submit_label: {{ global.call_to_action_apply | Aplicar ahora }}
+      conversion_name: student_application
       tags: website-lead
       fields:
         email:

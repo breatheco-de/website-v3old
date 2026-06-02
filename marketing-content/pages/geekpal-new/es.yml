@@ -246,6 +246,7 @@ sections:
     form:
       variant: stacked
       submit_label: Obtener los detalles
+      conversion_name: request_more_info
       tags: request_more_info
       fields:
         email:

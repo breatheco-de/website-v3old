@@ -94,6 +94,7 @@ sections:
     form:
       variant: stacked
       submit_label: Get the Full Overview
+      conversion_name: request_more_info
       tags: request_more_info
       automations: soft
       fields:
@@ -478,6 +479,7 @@ sections:
     form:
       variant: stacked
       submit_label: Apply now
+      conversion_name: student_application
       tags: website-lead
       fields:
         email:

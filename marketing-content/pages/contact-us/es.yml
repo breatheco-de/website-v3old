@@ -32,6 +32,7 @@ sections:
     form:
       variant: stacked
       submit_label: Enviar
+      conversion_name: contact_us
       tags: contact-us
       automations: soft
       fields:

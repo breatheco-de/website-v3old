@@ -20,6 +20,11 @@ export function validateFormSection(
     return "section.form must be an object with a valid conversion_name";
   }
 
+  // Only validate CMS form components — identified by having a `variant` field
+  // (e.g. "stacked", "inline"). Sections that use `form:` for label/config
+  // objects (e.g. apply_form, hero signup labels) don't need conversion_name.
+  if (!("variant" in form)) return null;
+
   const conversionName = form.conversion_name;
 
   if (conversionName === undefined || conversionName === null || conversionName === "") {

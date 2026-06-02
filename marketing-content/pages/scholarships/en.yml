@@ -614,6 +614,7 @@ sections:
     form:
       variant: stacked
       submit_label: Obtener los detalles
+      conversion_name: student_application
       tags: website-lead
       fields:
         email:

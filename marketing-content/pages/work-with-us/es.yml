@@ -76,6 +76,7 @@ sections:
     form:
       variant: stacked
       submit_label: Comenzar
+      conversion_name: contact_us
       tags: contact-us
       automations: soft
       fields:

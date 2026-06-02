@@ -439,6 +439,7 @@ sections:
     form:
       variant: stacked
       submit_label: Start Your Application
+      conversion_name: request_more_info
       tags: request_more_info
       fields:
         email:

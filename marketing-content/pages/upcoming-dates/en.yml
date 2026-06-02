@@ -52,6 +52,7 @@ sections:
     form:
       variant: stacked
       submit_label: Apply Now
+      conversion_name: student_application
       tags: website-lead
       fields:
         first_name:

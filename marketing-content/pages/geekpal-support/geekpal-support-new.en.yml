@@ -195,6 +195,7 @@ sections:
     form:
       variant: stacked
       submit_label: Get the Full Program Details
+      conversion_name: request_more_info
       tags: request_more_info
       automations: soft
       fields:

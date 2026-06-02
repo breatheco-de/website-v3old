@@ -215,6 +215,7 @@ sections:
       form:
         variant: stacked
         submit_label: Send me the details
+        conversion_name: request_more_info
         fields:
           email:
             visible: true

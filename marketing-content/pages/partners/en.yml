@@ -40,6 +40,7 @@ sections:
     form:
       variant: stacked
       submit_label: Submit Application
+      conversion_name: contact_us
       tags: contact-us
       automations: soft
       fields:
@@ -510,6 +511,7 @@ sections:
     form:
       variant: stacked
       submit_label: Start the Conversation
+      conversion_name: contact_us
       tags: contact-us
       automations: soft
       fields:
