@@ -1052,7 +1052,8 @@ function DataSourceDialog({
                       const isFnMode = !!transformerModes[standardField];
                       const isOptional = !isFnMode && typeof sourceField === "string" && sourceField.startsWith("?");
                       const bareSource = isOptional ? (sourceField as string).slice(1) : sourceField;
-                      const isCustom = !isFnMode && bareSource != null && bareSource !== "__none__" && !availableFields.includes(bareSource as string);
+                      const hasDotPath = typeof bareSource === "string" && (bareSource.includes(".") || bareSource === "");
+                      const isCustom = !isFnMode && bareSource != null && bareSource !== "__none__" && hasDotPath;
                       const selectValue = isCustom ? "__custom__" : ((bareSource as string) || "__none__");
                       return (
                       <div key={standardField} className="space-y-1">
@@ -1113,6 +1114,11 @@ function DataSourceDialog({
                               </SelectTrigger>
                               <SelectContent>
                                 <SelectItem value="__none__">(not mapped)</SelectItem>
+                                {bareSource && bareSource !== "__none__" && !availableFields.includes(bareSource as string) && (
+                                  <SelectItem value={bareSource as string} className="text-destructive font-mono">
+                                    {bareSource} (not in DB)
+                                  </SelectItem>
+                                )}
                                 {availableFields.map((f) => (
                                   <SelectItem key={f} value={f}>{f}</SelectItem>
                                 ))}
@@ -1131,7 +1137,7 @@ function DataSourceDialog({
                                   return { ...prev, [standardField]: wasOptional ? cur.slice(1) : `?${cur}` };
                                 });
                               }}
-                              className="text-[10px] flex-shrink-0 cursor-pointer transition-colors text-muted-foreground hover:text-foreground"
+                              className={`text-[10px] flex-shrink-0 cursor-pointer transition-colors ${isOptional ? "text-muted-foreground hover:text-foreground" : "text-foreground font-medium hover:text-muted-foreground"}`}
                               data-testid={`button-toggle-optional-${standardField}`}
                             >
                               {isOptional ? "optional" : "required"}
