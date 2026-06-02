@@ -25,6 +25,9 @@ field_mapping:
 editor:
   image_url:
     cache_images: true
+  technologies:
+    type: tags
+    populate_options: true
 search_fields:
   - title
   - slug

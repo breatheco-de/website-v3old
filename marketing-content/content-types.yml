@@ -166,8 +166,15 @@ how-to:
     es: /es/how-to/:slug
   field_mapping:
     _slug: slug
+    _locale: language
     title: title
-    description: "?description"
-    image: "?image"
-    content: "?content"
-    updated_at: "?updated_at"
+    slug: slug
+    description: description
+    image: image_url
+    content: content
+    updated_at: '?updated_at'
+    technologies: technologies
+  indexes:
+    - technologies
+  database:
+    slug: how_to
