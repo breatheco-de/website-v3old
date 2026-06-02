@@ -20059,44 +20059,76 @@
       "source_item": "aprende-programacion-orientada-a-objetos-con-python"
     },
     "interactive-exercises-fe54b8e813262db20e885d251b23dc627b5ab562-e01481e5": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/fe54b8e813262db20e885d251b23dc627b5ab562af356a864e7ff9c176589e09",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/fe54b8e813262db20e885d251b23dc627b5ab562af356a864e7ff9c176589e09",
       "usage_count": 0,
-      "source_item": "guia-completa-de-como-organizar-tu-codigo-usando-modulos-de-python"
+      "source_item": "guia-completa-de-como-organizar-tu-codigo-usando-modulos-de-python",
+      "width": 2928,
+      "height": 1584,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-30a2911b04d2e323b7a910b503e3e2a75bd4594e-35e892c4": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/30a2911b04d2e323b7a910b503e3e2a75bd4594eeb535eff6963d1fbbdc89a1c",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/30a2911b04d2e323b7a910b503e3e2a75bd4594eeb535eff6963d1fbbdc89a1c",
       "usage_count": 0,
-      "source_item": "python-modules-tutorial"
+      "source_item": "python-modules-tutorial",
+      "width": 2902,
+      "height": 1566,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-c1760f88f985aa70c824bd5b00ebb7a533d52741-eea16be7": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/c1760f88f985aa70c824bd5b00ebb7a533d52741153afa7d238cabc73bd2594c",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/c1760f88f985aa70c824bd5b00ebb7a533d52741153afa7d238cabc73bd2594c",
       "usage_count": 0,
-      "source_item": "aprende-las-mejores-practicas-de-python"
+      "source_item": "aprende-las-mejores-practicas-de-python",
+      "width": 2906,
+      "height": 1560,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-d1dd43b482ae3a7ce6dba4649b15fbe7c96bc842-3fc2610f": {
-      "src": "",
+      "src": "https://storage.googleapis.com/media-breathecode/d1dd43b482ae3a7ce6dba4649b15fbe7c96bc842a5fc56bec5a69beed272d476",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://storage.googleapis.com/media-breathecode/d1dd43b482ae3a7ce6dba4649b15fbe7c96bc842a5fc56bec5a69beed272d476",
       "usage_count": 0,
-      "source_item": "python-best-practices-tutorial"
+      "source_item": "python-best-practices-tutorial",
+      "width": 2906,
+      "height": 1560,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-2f8bd3df": {
       "src": "",
@@ -20109,24 +20141,40 @@
       "source_item": "curso-de-prompt-engineering"
     },
     "interactive-exercises-preview-67625e2b": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/javascript-functions-exercises-tutorial/blob/master/.learn/assets/preview.png?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/javascript-functions-exercises-tutorial/blob/master/.learn/assets/preview.png?raw=true",
       "usage_count": 0,
-      "source_item": "installing-windows-on-virtual-machine"
+      "source_item": "installing-windows-on-virtual-machine",
+      "width": 960,
+      "height": 540,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-pandas-preview-bc087068": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/python-pandas-tutorial/blob/main/.learn/assets/pandas-preview.jpeg?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/python-pandas-tutorial/blob/main/.learn/assets/pandas-preview.jpeg?raw=true",
       "usage_count": 0,
-      "source_item": "pandas-tutorial-and-exercises"
+      "source_item": "pandas-tutorial-and-exercises",
+      "width": 2048,
+      "height": 1152,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-7d8fe9ce": {
       "src": "",
@@ -20139,94 +20187,166 @@
       "source_item": "tutorial-api-con-node"
     },
     "interactive-exercises-preview-05712217": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/object-oriented-javascript-tutorial-exercises/blob/master/.learn/assets/preview.png?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/object-oriented-javascript-tutorial-exercises/blob/master/.learn/assets/preview.png?raw=true",
       "usage_count": 0,
-      "source_item": "object-oriented-programing-in-javascript-es"
+      "source_item": "object-oriented-programing-in-javascript-es",
+      "width": 2048,
+      "height": 1152,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-cc48a125": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/bootstrap-exercises-tutorial/blob/master/preview.png?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/bootstrap-exercises-tutorial/blob/master/preview.png?raw=true",
       "usage_count": 0,
-      "source_item": "bootstrap-exercises-es"
+      "source_item": "bootstrap-exercises-es",
+      "width": 1000,
+      "height": 563,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-ef42219f": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/python-beginner-programming-exercises/blob/master/.learn/assets/preview.png?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/python-beginner-programming-exercises/blob/master/.learn/assets/preview.png?raw=true",
       "usage_count": 0,
-      "source_item": "python-beginner-exercises-es"
+      "source_item": "python-beginner-exercises-es",
+      "width": 701,
+      "height": 396,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-49f25aa9": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/master-python-programming-exercises/blob/master/preview.gif?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/master-python-programming-exercises/blob/master/preview.gif?raw=true",
       "usage_count": 0,
-      "source_item": "master-python-exercises-es"
+      "source_item": "master-python-exercises-es",
+      "width": 975,
+      "height": 479,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-e525e651": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/python-functions-programming-exercises/blob/master/preview.gif?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/python-functions-programming-exercises/blob/master/preview.gif?raw=true",
       "usage_count": 0,
-      "source_item": "python-function-exercises-es"
+      "source_item": "python-function-exercises-es",
+      "width": 975,
+      "height": 479,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-bfe58ed8": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/python-lists-loops-programming-exercises/blob/master/preview.gif?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/python-lists-loops-programming-exercises/blob/master/preview.gif?raw=true",
       "usage_count": 0,
-      "source_item": "python-loops-lists-exercises-es"
+      "source_item": "python-loops-lists-exercises-es",
+      "width": 972,
+      "height": 481,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-7b327166": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/javascript-beginner-exercises-tutorial/blob/master/preview.png?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/javascript-beginner-exercises-tutorial/blob/master/preview.png?raw=true",
       "usage_count": 0,
-      "source_item": "ejercicios-javascript-para-principiantes"
+      "source_item": "ejercicios-javascript-para-principiantes",
+      "width": 702,
+      "height": 395,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-26f9f62b": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/html-forms-tutorial-exercises/blob/master/preview.jpeg?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/html-forms-tutorial-exercises/blob/master/preview.jpeg?raw=true",
       "usage_count": 0,
-      "source_item": "forms-exercises-es"
+      "source_item": "forms-exercises-es",
+      "width": 500,
+      "height": 281,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-preview-68349db2": {
-      "src": "",
+      "src": "https://github.com/4GeeksAcademy/javascript-dom-tutorial-exercises/blob/master/preview.png?raw=true",
       "alt": "Image from interactive-exercises",
       "tags": [
         "interactive-exercises"
       ],
       "source_url": "https://github.com/4GeeksAcademy/javascript-dom-tutorial-exercises/blob/master/preview.png?raw=true",
       "usage_count": 0,
-      "source_item": "the-dom-exercises-es"
+      "source_item": "the-dom-exercises-es",
+      "width": 650,
+      "height": 365,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [],
+      "format": "webp",
+      "srcset": []
     },
     "interactive-exercises-js-events-eac2c0b2": {
       "src": "",
