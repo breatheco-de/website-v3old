@@ -853,6 +853,47 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
     }
   });
 
+  app.post("/api/databases/:name/ai/fix-transform", async (req, res) => {
+    try {
+      const { getLLMService } = await import("../ai/LLMService");
+      const llm = getLLMService();
+      const { fieldKey, fnBody, errorMessage, sampleInput, sampleRawItem } = req.body as {
+        fieldKey: string;
+        fnBody: string;
+        errorMessage: string;
+        sampleInput?: string;
+        sampleRawItem?: Record<string, unknown>;
+      };
+      if (!fieldKey || !fnBody || !errorMessage) {
+        res.status(400).json({ error: "fieldKey, fnBody, errorMessage required" });
+        return;
+      }
+      const prompt = `You are fixing a JavaScript transform function used in a data pipeline.
+
+The function is an arrow function expression assigned to a field named "${fieldKey}".
+It receives two arguments: \`value\` (the raw field value) and \`item\` (the full raw record as an object).
+It must return the transformed value for the field.
+
+CURRENT FUNCTION BODY:
+\`\`\`js
+${fnBody}
+\`\`\`
+
+ERROR when running:
+${errorMessage}
+${sampleInput !== undefined ? `\nSample input value (value argument): ${JSON.stringify(sampleInput)}` : ""}
+${sampleRawItem ? `\nSample raw item (item argument keys): ${Object.keys(sampleRawItem).join(", ")}` : ""}
+
+Write a fixed version. Return ONLY the function expression itself (e.g. \`(value, item) => ...\`), no explanation, no markdown, no backticks, no semicolons at the end.`;
+
+      const result = await llm.complete(prompt, { temperature: 0.2, maxTokens: 400 });
+      const cleaned = result.trim().replace(/^```[a-z]*\n?/, "").replace(/\n?```$/, "").trim();
+      res.json({ fnBody: cleaned });
+    } catch (err: unknown) {
+      res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
+    }
+  });
+
   app.put("/api/databases/:name/config", (req, res) => {
     try {
       const config = req.body;

@@ -3530,6 +3530,7 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
   const [fnTestInput, setFnTestInput] = useState("");
   const [fnTestItemIndex, setFnTestItemIndex] = useState<number>(0);
   const [fnTestResult, setFnTestResult] = useState<{ ok: true; output: string } | { ok: false; error: string } | null>(null);
+  const [fnFixing, setFnFixing] = useState(false);
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
   useEffect(() => {
@@ -4661,9 +4662,74 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                       <code className="text-xs font-mono break-all">{fnTestResult.output}</code>
                     </div>
                   ) : (
-                    <div className="flex items-start gap-2 rounded-md bg-destructive/10 px-3 py-2" data-testid="fn-test-result-error">
-                      <CircleX className="h-3.5 w-3.5 text-destructive shrink-0 mt-0.5" />
-                      <code className="text-xs font-mono break-all text-destructive">{fnTestResult.error}</code>
+                    <div className="space-y-2">
+                      <div className="flex items-start gap-2 rounded-md bg-destructive/10 px-3 py-2" data-testid="fn-test-result-error">
+                        <CircleX className="h-3.5 w-3.5 text-destructive shrink-0 mt-0.5" />
+                        <code className="text-xs font-mono break-all text-destructive flex-1">{fnTestResult.error}</code>
+                      </div>
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        disabled={fnFixing}
+                        data-testid="button-fn-fix-ai"
+                        onClick={async () => {
+                          if (!fnPreviewField || fnTestResult.ok) return;
+                          setFnFixing(true);
+                          try {
+                            const rawItem = rawItems[fnTestItemIndex] ?? {};
+                            const res = await fetch(`/api/databases/${dbName}/ai/fix-transform`, {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({
+                                fieldKey: fnPreviewField.key,
+                                fnBody: fnPreviewField.fn,
+                                errorMessage: fnTestResult.error,
+                                sampleInput: fnTestInput || undefined,
+                                sampleRawItem: Object.keys(rawItem).length > 0 ? rawItem : undefined,
+                              }),
+                            });
+                            if (!res.ok) {
+                              const err = await res.json().catch(() => ({}));
+                              throw new Error((err as { error?: string }).error || "AI request failed");
+                            }
+                            const { fnBody: newFn } = await res.json() as { fnBody: string };
+                            const newEncoded = "function:" + btoa(newFn);
+                            const currentConfig = detail?.config;
+                            if (!currentConfig) throw new Error("Config not loaded");
+                            const updatedConfig = {
+                              ...currentConfig,
+                              field_mapping: {
+                                ...currentConfig.field_mapping,
+                                [fnPreviewField.key]: newEncoded,
+                              },
+                            };
+                            const saveRes = await fetch(`/api/databases/${dbName}/config`, {
+                              method: "PUT",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify(updatedConfig),
+                            });
+                            if (!saveRes.ok) {
+                              const err = await saveRes.json().catch(() => ({}));
+                              throw new Error((err as { error?: string }).error || "Failed to save");
+                            }
+                            queryClient.invalidateQueries({ queryKey: ["/api/databases", dbName] });
+                            setFnPreviewField({ key: fnPreviewField.key, fn: newFn });
+                            setFnTestResult(null);
+                            toast({ title: "New function body proposed" });
+                          } catch (err) {
+                            toast({ title: "AI fix failed", description: err instanceof Error ? err.message : String(err), variant: "destructive" });
+                          } finally {
+                            setFnFixing(false);
+                          }
+                        }}
+                      >
+                        {fnFixing ? (
+                          <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+                        ) : (
+                          <Wand2 className="h-3.5 w-3.5 mr-1" />
+                        )}
+                        {fnFixing ? "Fixing…" : "Fix with AI"}
+                      </Button>
                     </div>
                   )
                 )}
