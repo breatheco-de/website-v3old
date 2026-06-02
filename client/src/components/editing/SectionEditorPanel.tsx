@@ -88,6 +88,136 @@ import ReactCrop from "react-image-crop";
 import type { Crop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
+function TagInput({
+  values,
+  suggestions,
+  onChange,
+  placeholder,
+  max,
+  testId,
+}: {
+  values: string[];
+  suggestions: string[];
+  onChange: (v: string[]) => void;
+  placeholder?: string;
+  max?: number;
+  testId?: string;
+}) {
+  const [inputValue, setInputValue] = useState("");
+  const [open, setOpen] = useState(false);
+  const [highlightIndex, setHighlightIndex] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const filtered = suggestions.filter(
+    (s) => s.toLowerCase().includes(inputValue.toLowerCase()) && !values.includes(s),
+  );
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const addValue = (val: string) => {
+    const trimmed = val.trim();
+    if (!trimmed || values.includes(trimmed)) { setInputValue(""); return; }
+    if (max && values.length >= max) {
+      onChange([trimmed]);
+    } else {
+      onChange([...values, trimmed]);
+    }
+    setInputValue("");
+    setOpen(false);
+    setHighlightIndex(0);
+    inputRef.current?.focus();
+  };
+
+  const removeValue = (i: number) => {
+    onChange(values.filter((_, idx) => idx !== i));
+    inputRef.current?.focus();
+  };
+
+  const canAddMore = !max || values.length < max;
+
+  return (
+    <div ref={containerRef} className="relative" data-testid={testId}>
+      <div
+        className="flex flex-wrap gap-1.5 items-center min-h-9 w-full rounded-md border border-input bg-background px-2 py-1.5 text-sm cursor-text focus-within:ring-1 focus-within:ring-ring"
+        onClick={() => inputRef.current?.focus()}
+      >
+        {values.map((v, i) => (
+          <Badge key={v} variant="secondary" className="gap-1 text-xs font-mono pr-1 no-default-active-elevate">
+            {v}
+            <button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); removeValue(i); }}
+              className="rounded-sm opacity-60 hover:opacity-100 leading-none"
+            >
+              <X className="h-3 w-3" />
+            </button>
+          </Badge>
+        ))}
+        {canAddMore && (
+          <input
+            ref={inputRef}
+            value={inputValue}
+            onChange={(e) => {
+              setInputValue(e.target.value);
+              setOpen(true);
+              setHighlightIndex(0);
+            }}
+            onFocus={() => setOpen(true)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                if (open && filtered.length > 0) {
+                  addValue(filtered[highlightIndex] ?? inputValue);
+                } else if (inputValue.trim()) {
+                  addValue(inputValue);
+                }
+              } else if (e.key === "ArrowDown") {
+                e.preventDefault();
+                setHighlightIndex((n) => Math.min(n + 1, filtered.length - 1));
+              } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                setHighlightIndex((n) => Math.max(n - 1, 0));
+              } else if (e.key === "Escape") {
+                setOpen(false);
+              } else if (e.key === "Backspace" && !inputValue && values.length > 0) {
+                removeValue(values.length - 1);
+              }
+            }}
+            placeholder={values.length === 0 ? placeholder : ""}
+            className="flex-1 min-w-[100px] bg-transparent outline-none text-sm placeholder:text-muted-foreground"
+          />
+        )}
+      </div>
+      {open && filtered.length > 0 && (
+        <div className="absolute z-50 top-full mt-1 w-full max-h-40 overflow-y-auto rounded-md border bg-popover text-popover-foreground shadow-md">
+          {filtered.map((s, i) => (
+            <button
+              key={s}
+              type="button"
+              onMouseDown={(e) => { e.preventDefault(); addValue(s); }}
+              onMouseEnter={() => setHighlightIndex(i)}
+              className={`w-full text-left px-3 py-1.5 text-sm font-mono transition-colors ${
+                i === highlightIndex ? "bg-accent text-accent-foreground" : ""
+              }`}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function safeYamlLoad(yamlStr: string): unknown {
   const { escaped, map } = escapeTemplateVars(yamlStr);
   const parsed = yamlParser.load(escaped);
@@ -6334,24 +6464,17 @@ export function SectionEditorPanel({
                 >
                   Automations
                 </Label>
-                <Input
-                  id="conversion-automations"
-                  value={(() => {
+                <TagInput
+                  values={(() => {
                     const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.automations`);
-                    return v ? String(v) : "";
+                    return v ? [String(v)] : [];
                   })()}
-                  onChange={(e) => updateProperty(`${formSettingsPath}.automations`, e.target.value)}
+                  suggestions={formStateSuggestions?.automations ?? []}
+                  onChange={(vals) => updateProperty(`${formSettingsPath}.automations`, vals[0] ?? "")}
                   placeholder="e.g. hubspot-lead-nurture"
-                  list="conversion-automations-suggestions"
-                  data-testid="input-conversion-automations"
+                  max={1}
+                  testId="input-conversion-automations"
                 />
-                {(formStateSuggestions?.automations?.length ?? 0) > 0 && (
-                  <datalist id="conversion-automations-suggestions">
-                    {formStateSuggestions!.automations.map((a) => (
-                      <option key={a} value={a} />
-                    ))}
-                  </datalist>
-                )}
                 <p className="text-xs text-muted-foreground">
                   CRM automation workflow to trigger on submission.
                 </p>
@@ -6366,33 +6489,23 @@ export function SectionEditorPanel({
                 >
                   Tags
                 </Label>
-                <Input
-                  id="conversion-tags"
-                  value={(() => {
+                <TagInput
+                  values={(() => {
                     const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.tags`);
-                    if (Array.isArray(v)) return (v as string[]).join(", ");
-                    return v ? String(v) : "";
+                    if (Array.isArray(v)) return v as string[];
+                    return v ? String(v).split(",").map((t) => t.trim()).filter(Boolean) : [];
                   })()}
-                  onChange={(e) => {
-                    const raw = e.target.value;
-                    const tagArray = raw.split(",").map((t) => t.trim()).filter(Boolean);
-                    if (tagArray.length > 0) {
-                      updatePropertyWithValue(`${formSettingsPath}.tags`, tagArray);
+                  suggestions={formStateSuggestions?.tags ?? []}
+                  onChange={(vals) => {
+                    if (vals.length > 0) {
+                      updatePropertyWithValue(`${formSettingsPath}.tags`, vals);
                     } else {
                       updatePropertyWithValue(`${formSettingsPath}.tags`, undefined);
                     }
                   }}
                   placeholder="e.g. lead, bootcamp, latam"
-                  list="conversion-tags-suggestions"
-                  data-testid="input-conversion-tags"
+                  testId="input-conversion-tags"
                 />
-                {(formStateSuggestions?.tags?.length ?? 0) > 0 && (
-                  <datalist id="conversion-tags-suggestions">
-                    {formStateSuggestions!.tags.map((t) => (
-                      <option key={t} value={t} />
-                    ))}
-                  </datalist>
-                )}
                 <p className="text-xs text-muted-foreground">
                   Comma-separated labels applied to form submissions for segmentation.
                 </p>
