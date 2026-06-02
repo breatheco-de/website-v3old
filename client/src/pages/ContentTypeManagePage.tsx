@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { AlertTriangle, ArrowLeft, ArrowRight, Check, Clipboard, Clock, Code, Copy, Database, Download, ExternalLink, Eye, EyeOff, FileText, Folder, GitBranch, Globe, History, LayoutList, Link as LinkIcon, Loader2, MoreVertical, Plus, RefreshCw, Search, Shuffle, SlidersHorizontal, Trash2, Wand2, X } from "lucide-react";
+import { AlertTriangle, ArrowLeft, ArrowRight, Check, Clipboard, Clock, Code, Copy, Database, Download, ExternalLink, Eye, EyeOff, FileText, Folder, GitBranch, Globe, History, LayoutList, Link as LinkIcon, List, Loader2, MoreVertical, Plus, RefreshCw, Search, Shuffle, SlidersHorizontal, Trash2, Wand2, X } from "lucide-react";
 import { IconChevronDown, IconChevronRight, IconExternalLink } from "@tabler/icons-react";
 import { queryClient } from "@/lib/queryClient";
 import { useState, useEffect, useRef, lazy, Suspense } from "react";
@@ -1463,11 +1463,20 @@ function FieldMappingDialog({
   const [showAddField, setShowAddField] = useState(false);
   const [pendingDeleteKey, setPendingDeleteKey] = useState<string | null>(null);
   const [transformerModes, setTransformerModes] = useState<Record<string, boolean>>({});
+  const [customModes, setCustomModes] = useState<Record<string, boolean>>({});
   const [validation, setValidation] = useState<ValidationState>({});
   const [newValueValidation, setNewValueValidation] = useState<FieldValidationResult | "loading" | null>(null);
   const debounceTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
   const requestCounters = useRef<Record<string, number>>({});
 
+  // All source props — used in the editing dropdown for existing rows
+  const { data: allAvailableProps } = useQuery<{ common: string[]; partial: { key: string; count: number; total: number }[] }>({
+    queryKey: ["/api/content-types", contentType, "available-properties-all"],
+    queryFn: () => fetch(`/api/content-types/${contentType}/available-properties`).then(r => r.json()),
+    enabled: open,
+  });
+
+  // Unmapped props only — used in the "add new field" combobox
   const { data: availableProps } = useQuery<{ common: string[]; partial: { key: string; count: number; total: number }[] }>({
     queryKey: ["/api/content-types", contentType, "available-properties-exclude-mapped"],
     queryFn: () => fetch(`/api/content-types/${contentType}/available-properties?exclude_mapped=true`).then(r => r.json()),
@@ -1494,6 +1503,12 @@ function FieldMappingDialog({
     }
     setMappings(fm);
     setTransformerModes(tmodes);
+    // A source is "custom" if it contains a dot (dotted path like category.slug)
+    const cmodes: Record<string, boolean> = {};
+    for (const [k, v] of Object.entries(fm)) {
+      if (!tmodes[k] && v.includes(".")) cmodes[k] = true;
+    }
+    setCustomModes(cmodes);
     setIndexedFields(config.indexes || []);
     setUniqueFields(config.unique_fields ?? ["slug"]);
     setValidation({});
@@ -1731,7 +1746,14 @@ function FieldMappingDialog({
                 <div className="space-y-1">
                   {regularKeys.map((key) => {
                     const isFn = !!transformerModes[key];
+                    const isCustom = !!customModes[key];
                     const vResult = isFn ? null : validation[key];
+                    const currentSrc = mappings[key] || "";
+                    // Build Select options from all props (not just unmapped) so editing existing rows shows full list
+                    const selectOptions = allAvailableProps?.common ?? [];
+                    const currentInList = !currentSrc || selectOptions.includes(currentSrc) || currentSrc === key;
+                    const extraOption = !currentInList ? currentSrc : null;
+                    const selectValue = currentSrc || key;
                     return (
                       <div key={key}>
                         <div className="flex items-center gap-2">
@@ -1741,20 +1763,94 @@ function FieldMappingDialog({
                           <ArrowRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                           {isFn ? (
                             <Textarea
-                              value={mappings[key] || ""}
+                              value={currentSrc}
                               onChange={(e) => setMappings((prev) => ({ ...prev, [key]: e.target.value }))}
                               placeholder="(value, item) => value"
                               className="text-xs font-mono min-h-[3rem] resize-y flex-1"
                               data-testid={`textarea-transform-${key}`}
                             />
+                          ) : isCustom ? (
+                            <div className="flex-1 flex items-center gap-1">
+                              <Input
+                                value={currentSrc}
+                                onChange={(e) => handleSourceChange(key, e.target.value)}
+                                placeholder="path.to.field"
+                                className="text-xs font-mono flex-1"
+                                data-testid={`input-mapping-${key}`}
+                                autoFocus
+                              />
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="flex-shrink-0 text-muted-foreground"
+                                title="Pick from list"
+                                onClick={() => {
+                                  setCustomModes((prev) => { const n = { ...prev }; delete n[key]; return n; });
+                                  if (availableProps?.common.length) {
+                                    handleSourceChange(key, key);
+                                  }
+                                }}
+                                data-testid={`button-pick-from-list-${key}`}
+                              >
+                                <List className="h-3.5 w-3.5" />
+                              </Button>
+                            </div>
                           ) : (
-                            <Input
-                              value={mappings[key] || ""}
-                              onChange={(e) => handleSourceChange(key, e.target.value)}
-                              placeholder={key}
-                              className="text-xs font-mono flex-1"
-                              data-testid={`input-mapping-${key}`}
-                            />
+                            <Select
+                              value={selectValue}
+                              onValueChange={(v) => {
+                                if (v === "__custom__") {
+                                  setCustomModes((prev) => ({ ...prev, [key]: true }));
+                                  setMappings((prev) => ({ ...prev, [key]: "" }));
+                                } else {
+                                  handleSourceChange(key, v);
+                                }
+                              }}
+                            >
+                              <SelectTrigger className="flex-1 text-xs font-mono h-9" data-testid={`select-mapping-${key}`}>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {extraOption && (
+                                  <SelectItem key={extraOption} value={extraOption} className="text-xs font-mono">
+                                    <span className="flex items-center gap-2">
+                                      <Check className="h-3 w-3 text-green-600 flex-shrink-0" />
+                                      {extraOption}
+                                    </span>
+                                  </SelectItem>
+                                )}
+                                {/* Always include the "same as key" option */}
+                                {!selectOptions.includes(key) && key !== extraOption && (
+                                  <SelectItem value={key} className="text-xs font-mono">
+                                    <span className="flex items-center gap-2">
+                                      <Check className="h-3 w-3 text-green-600 flex-shrink-0" />
+                                      {key}
+                                      <span className="text-[10px] text-muted-foreground">(same name)</span>
+                                    </span>
+                                  </SelectItem>
+                                )}
+                                {selectOptions.map((opt) => (
+                                  <SelectItem key={opt} value={opt} className="text-xs font-mono">
+                                    <span className="flex items-center gap-2">
+                                      <Check className="h-3 w-3 text-green-600 flex-shrink-0" />
+                                      {opt}
+                                    </span>
+                                  </SelectItem>
+                                ))}
+                                {(allAvailableProps?.partial ?? []).map((p) => (
+                                  <SelectItem key={p.key} value={p.key} disabled className="text-xs font-mono opacity-50">
+                                    <span className="flex items-center gap-2">
+                                      <AlertTriangle className="h-3 w-3 text-amber-500 flex-shrink-0" />
+                                      {p.key}
+                                      <span className="text-[10px] text-muted-foreground">{p.count}/{p.total}</span>
+                                    </span>
+                                  </SelectItem>
+                                ))}
+                                <SelectItem value="__custom__" className="text-xs font-mono text-muted-foreground italic">
+                                  Custom path…
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
                           )}
                           {!isFn && !isDbBacked && <FieldValidationIndicator result={vResult} />}
                           <Button
