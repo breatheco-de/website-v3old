@@ -203,3 +203,7 @@ interactive-exercise:
     - category
   database:
     slug: interactive-exercises
+  layout:
+    menu:
+      top: main-navbar
+      bottom: null
