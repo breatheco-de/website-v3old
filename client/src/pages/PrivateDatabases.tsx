@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import {AlertTriangle, ArrowLeft, ArrowLeftRight, ArrowRight, ArrowUpDown, Check, ChevronDown, ChevronUp, Clock, CloudUpload, Code, Copy, Database, Download, Eye, File, HelpCircle, Image, Info, Link as LinkIcon, Loader2, Pencil, Plus, RefreshCw, Save, Search, Server, Settings, SlidersHorizontal, Sparkles, Table, TestTube, Trash2, Upload, Wand2, Webhook, X} from "lucide-react";
+import {AlertTriangle, ArrowLeft, ArrowLeftRight, ArrowRight, ArrowUpDown, Check, ChevronDown, ChevronUp, Clock, CloudUpload, Code, Copy, Database, Download, Eye, File, HelpCircle, Image, Info, Link as LinkIcon, Loader2, Pencil, Plus, RefreshCw, Save, Search, Server, Settings, SlidersHorizontal, Sparkles, Table, Tags, TestTube, Trash2, Upload, Wand2, Webhook, X} from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRoute, Link, useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -4102,6 +4102,28 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                             <p className="text-muted-foreground">
                               The index is updated automatically after each data fetch.
                             </p>
+                          </PopoverContent>
+                        </Popover>
+                      )}
+                      {(config?.editor?.[key]?.type === "tags" || config?.editor?.[key]?.type === "select") && (
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <span className="inline-flex items-center text-muted-foreground shrink-0 cursor-pointer hover:text-foreground transition-colors" data-testid={`badge-tags-${key}`}>
+                              <Tags className="h-3 w-3" />
+                            </span>
+                          </PopoverTrigger>
+                          <PopoverContent side="top" className="w-64 text-xs p-3 space-y-2">
+                            <p className="font-medium text-sm">{config.editor![key].type === "tags" ? "Multi-value (tags)" : "Select (dropdown)"}</p>
+                            <p className="text-muted-foreground">
+                              The <code className="bg-muted px-1 rounded font-mono">{key}</code> field renders as a {config.editor![key].type === "tags" ? "multi-select tag input" : "single-select dropdown"} in the item editor.
+                            </p>
+                            {(config.editor![key].options?.length ?? 0) > 0 && (
+                              <div className="flex flex-wrap gap-1 pt-1">
+                                {config.editor![key].options!.map((o) => (
+                                  <code key={o} className="bg-muted px-1.5 py-0.5 rounded text-[10px]">{o}</code>
+                                ))}
+                              </div>
+                            )}
                           </PopoverContent>
                         </Popover>
                       )}
