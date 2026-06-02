@@ -1195,8 +1195,10 @@ function DataSourceDialog({
                         <p className="text-xs text-muted-foreground">Click a field to add it as a mapping:</p>
                         <div className="flex flex-wrap gap-1.5" data-testid="section-suggest-fields">
                           {availableFields.filter(f => {
-                            if (!slugIsTransformer && slugField && f === slugField) return false;
-                            if (!localeIsTransformer && localeField && f === localeField) return false;
+                            const slugSrc = !slugIsTransformer && slugField ? slugField.replace(/^\?/, '') : null;
+                            const localeSrc = !localeIsTransformer && localeField ? localeField.replace(/^\?/, '') : null;
+                            if (slugSrc && f === slugSrc) return false;
+                            if (localeSrc && f === localeSrc) return false;
                             return true;
                           }).map((f) => (
                             <Badge
@@ -1234,9 +1236,11 @@ function DataSourceDialog({
 
                 {(() => {
                   const mappedSources = new Set(Object.values(fieldMapping).filter(Boolean));
+                  const slugSrc = !slugIsTransformer && slugField ? slugField.replace(/^\?/, '') : null;
+                  const localeSrc = !localeIsTransformer && localeField ? localeField.replace(/^\?/, '') : null;
                   const unmapped = availableFields.filter(f => {
-                    if (!slugIsTransformer && slugField && f === slugField) return false;
-                    if (!localeIsTransformer && localeField && f === localeField) return false;
+                    if (slugSrc && f === slugSrc) return false;
+                    if (localeSrc && f === localeSrc) return false;
                     return !mappedSources.has(f) && !(f in fieldMapping);
                   });
                   if (Object.keys(fieldMapping).length === 0 || unmapped.length === 0) return null;
