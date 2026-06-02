@@ -99,3 +99,5 @@ sections:
     section_id: article-ulix1m
     paddingY:
       desktop: sm
+    maxWidth:
+      desktop: full
