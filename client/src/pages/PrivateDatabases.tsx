@@ -4402,47 +4402,84 @@ function DatabaseDetailView({ dbName }: { dbName: string }) {
                 if (!facets || Object.keys(facets).length === 0) return null;
                 const activeFilterCount = Object.values(tagFilters).flat().length;
                 return (
-                  <div className="px-4 pt-3 pb-3 border-b flex flex-wrap items-start gap-3" data-testid="tag-filter-bar">
-                    {Object.entries(facets).map(([field, values]) => (
-                      <div key={field} className="flex flex-wrap items-center gap-1">
-                        <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide shrink-0 mr-0.5">{field}</span>
-                        {values.map((v) => {
-                          const active = (tagFilters[field] ?? []).includes(v);
-                          return (
-                            <button
-                              key={v}
-                              onClick={() => {
-                                setPage(1);
-                                setTagFilters((prev) => {
-                                  const cur = prev[field] ?? [];
-                                  const next = active ? cur.filter((x) => x !== v) : [...cur, v];
-                                  if (next.length === 0) {
-                                    const { [field]: _, ...rest } = prev;
-                                    return rest;
-                                  }
-                                  return { ...prev, [field]: next };
-                                });
-                              }}
-                              data-testid={`chip-filter-${field}-${v}`}
-                              className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] border transition-colors cursor-pointer ${
-                                active
-                                  ? "bg-primary text-primary-foreground border-primary"
-                                  : "bg-background text-muted-foreground border-border hover:border-foreground/40 hover:text-foreground"
-                              }`}
+                  <div className="px-4 pt-2.5 pb-2.5 border-b flex flex-wrap items-center gap-2" data-testid="tag-filter-bar">
+                    {Object.entries(facets).map(([field, values]) => {
+                      const active = tagFilters[field] ?? [];
+                      return (
+                        <Popover key={field}>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              data-testid={`button-filter-${field}`}
+                              className="h-7 text-xs gap-1.5"
                             >
-                              {v}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    ))}
+                              {field}
+                              {active.length > 0 && (
+                                <Badge className="h-4 px-1 text-[10px] rounded-sm no-default-active-elevate">
+                                  {active.length}
+                                </Badge>
+                              )}
+                              <ChevronDown className="h-3 w-3 opacity-50" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="p-1 w-52" align="start">
+                            <div className="max-h-60 overflow-y-auto">
+                              {values.map((v) => {
+                                const checked = active.includes(v);
+                                return (
+                                  <button
+                                    key={v}
+                                    onClick={() => {
+                                      setPage(1);
+                                      setTagFilters((prev) => {
+                                        const cur = prev[field] ?? [];
+                                        const next = checked ? cur.filter((x) => x !== v) : [...cur, v];
+                                        if (next.length === 0) {
+                                          const { [field]: _, ...rest } = prev;
+                                          return rest;
+                                        }
+                                        return { ...prev, [field]: next };
+                                      });
+                                    }}
+                                    data-testid={`chip-filter-${field}-${v}`}
+                                    className="w-full flex items-center gap-2 px-2 py-1.5 rounded text-xs text-left hover-elevate cursor-pointer"
+                                  >
+                                    <span className={`h-3.5 w-3.5 shrink-0 rounded-sm border flex items-center justify-center ${checked ? "bg-primary border-primary" : "border-border"}`}>
+                                      {checked && <Check className="h-2.5 w-2.5 text-primary-foreground" />}
+                                    </span>
+                                    <span className="truncate">{v}</span>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                            {active.length > 0 && (
+                              <div className="border-t mt-1 pt-1">
+                                <button
+                                  className="w-full text-[11px] text-muted-foreground hover:text-foreground px-2 py-1 text-left cursor-pointer"
+                                  onClick={() => {
+                                    setPage(1);
+                                    setTagFilters((prev) => {
+                                      const { [field]: _, ...rest } = prev;
+                                      return rest;
+                                    });
+                                  }}
+                                >
+                                  Clear
+                                </button>
+                              </div>
+                            )}
+                          </PopoverContent>
+                        </Popover>
+                      );
+                    })}
                     {activeFilterCount > 0 && (
                       <button
-                        className="text-[11px] text-muted-foreground hover:text-foreground transition-colors cursor-pointer underline underline-offset-2 shrink-0 self-center"
+                        className="text-[11px] text-muted-foreground hover:text-foreground transition-colors cursor-pointer underline underline-offset-2 shrink-0"
                         onClick={() => { setTagFilters({}); setPage(1); }}
                         data-testid="button-clear-tag-filters"
                       >
-                        Clear filters
+                        Clear all
                       </button>
                     )}
                   </div>
