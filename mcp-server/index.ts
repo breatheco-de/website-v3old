@@ -18,6 +18,8 @@ import {
   validateBreathecodeToken,
   updateClientBreathecodeUser,
   registerBreathecodeToken,
+  getCachedBreathecodeUsername,
+  initGcsStore,
   TOKEN_EXPIRES_IN,
 } from "./lib/oauth.js";
 
@@ -190,10 +192,19 @@ async function authMiddleware(
   // credential for outbound loopback calls only, never for inbound callers.
   const candidate = bearerToken || apiKeyHeader || "";
   if (candidate) {
+    // Fast path: check the 23hr in-memory/GCS-backed cache before hitting the network.
+    const cachedUsername = getCachedBreathecodeUsername(candidate);
+    if (cachedUsername) {
+      console.log(`[MCP] OAuth: using cached Breathecode token for ${cachedUsername}`);
+      next();
+      return;
+    }
+
     const validation = await validateBreathecodeToken(candidate);
     if (validation.valid && validation.username) {
-      // Register this token in the in-memory lookup so getTokenUsername() works
-      // in checkCap() and the /mcp handler without any signature changes.
+      // Register this token in the in-memory lookup (with 23hr TTL) so
+      // getTokenUsername() works in checkCap() and the /mcp handler, and
+      // so subsequent requests hit the cache instead of the network.
       registerBreathecodeToken(candidate, validation.username);
       next();
       return;
@@ -502,4 +513,11 @@ app.listen(PORT, "0.0.0.0", () => {
     `[MCP] OAuth registration: http://0.0.0.0:${PORT}/oauth/register`,
   );
   console.log(`[MCP] Health: http://0.0.0.0:${PORT}/health`);
+
+  // Bootstrap GCS-backed token persistence: download encrypted blobs from GCS
+  // and merge them into the in-memory maps so previously-issued tokens survive
+  // container restarts. Runs asynchronously so it doesn't delay server startup.
+  initGcsStore().catch((err) => {
+    console.error("[MCP] GCS store init failed —", (err as Error).message);
+  });
 });

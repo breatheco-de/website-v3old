@@ -1,15 +1,23 @@
 import crypto from "crypto";
 import fs from "fs";
 import path from "path";
+import { encryptedWrite, encryptedRead } from "./gcs-store.js";
 
 const CODE_TTL_MS = 5 * 60 * 1000;
 const PENDING_TTL_MS = 10 * 60 * 1000;
 const TOKEN_TTL_MS = 365 * 24 * 60 * 60 * 1000; // 1 year
+const BC_CACHE_TTL_MS = 23 * 60 * 60 * 1000; // 23 hours
+const GCS_DEBOUNCE_MS = 2_000;
+
 const CLIENTS_FILE = path.join(process.cwd(), "mcp-server/data/oauth-clients.json");
 const TOKENS_FILE = path.join(process.cwd(), "mcp-server/data/oauth-tokens.json");
 const BREATHECODE_TOKENS_FILE = path.join(process.cwd(), "mcp-server/data/breathecode-tokens.json");
 
-// ─── Registered clients (persisted to JSON) ───────────────────────────────────
+const GCS_CLIENTS_FILE = "clients.enc";
+const GCS_TOKENS_FILE = "tokens.enc";
+const GCS_BC_CACHE_FILE = "bc-cache.enc";
+
+// ─── Registered clients (persisted to JSON + GCS) ─────────────────────────────
 
 export interface RegisteredClient {
   clientSecret: string;
@@ -38,6 +46,19 @@ function loadClients(): void {
   }
 }
 
+// Debounce handles for GCS writes
+const _gcsDebounceHandles: Record<string, ReturnType<typeof setTimeout>> = {};
+
+function scheduleGcsWrite(filename: string, getPayload: () => string): void {
+  if (_gcsDebounceHandles[filename]) clearTimeout(_gcsDebounceHandles[filename]);
+  _gcsDebounceHandles[filename] = setTimeout(() => {
+    delete _gcsDebounceHandles[filename];
+    encryptedWrite(filename, getPayload()).catch((err) => {
+      console.error(`[MCP] OAuth: GCS debounced write failed for "${filename}" —`, (err as Error).message);
+    });
+  }, GCS_DEBOUNCE_MS);
+}
+
 function persistClients(): void {
   try {
     const dir = path.dirname(CLIENTS_FILE);
@@ -46,7 +67,9 @@ function persistClients(): void {
     for (const [id, client] of clients.entries()) {
       obj[id] = client;
     }
-    fs.writeFileSync(CLIENTS_FILE, JSON.stringify(obj, null, 2), "utf-8");
+    const payload = JSON.stringify(obj, null, 2);
+    fs.writeFileSync(CLIENTS_FILE, payload, "utf-8");
+    scheduleGcsWrite(GCS_CLIENTS_FILE, () => payload);
   } catch (err) {
     console.error("[MCP] OAuth: failed to persist oauth-clients.json —", (err as Error).message);
   }
@@ -225,42 +248,84 @@ export async function validateBreathecodeToken(
 }
 
 // ─── Breathecode direct-token registry ───────────────────────────────────────
-// Maps a raw Breathecode token (passed as Bearer / x-api-key) → resolved username.
+// Maps a raw Breathecode token → { username, expiresAt } with 23hr TTL.
 // Populated by authMiddleware after a successful validateBreathecodeToken call so
 // that getTokenUsername() works transparently for both OAuth and direct callers.
+// Expired entries are skipped on load and evicted on access.
 
-const breathecodeTokenUsernames = new Map<string, string>();
+interface BreathecodeTokenEntry {
+  username: string;
+  expiresAt: number;
+}
+
+const breathecodeTokenUsernames = new Map<string, BreathecodeTokenEntry>();
 loadBreathecodeTokens();
 
 function loadBreathecodeTokens(): void {
   try {
     if (!fs.existsSync(BREATHECODE_TOKENS_FILE)) return;
     const raw = fs.readFileSync(BREATHECODE_TOKENS_FILE, "utf-8");
-    const obj = JSON.parse(raw) as Record<string, string>;
-    for (const [token, username] of Object.entries(obj)) {
-      breathecodeTokenUsernames.set(token, username);
+    const now = Date.now();
+    let loaded = 0;
+    let expired = 0;
+
+    // Support both old shape (Record<string, string>) and new shape (Record<string, BreathecodeTokenEntry>)
+    const obj = JSON.parse(raw) as Record<string, string | BreathecodeTokenEntry>;
+    for (const [token, value] of Object.entries(obj)) {
+      if (typeof value === "string") {
+        // Migrate legacy format: treat as already-expired so re-validation happens once
+        expired++;
+        continue;
+      }
+      if (value.expiresAt < now) {
+        expired++;
+        continue;
+      }
+      breathecodeTokenUsernames.set(token, value);
+      loaded++;
     }
-    console.log(`[MCP] OAuth: loaded ${breathecodeTokenUsernames.size} Breathecode token(s) from disk`);
+    console.log(`[MCP] OAuth: loaded ${loaded} Breathecode token(s) from disk (${expired} expired/legacy, skipped)`);
   } catch (err) {
     console.warn("[MCP] OAuth: could not load breathecode-tokens.json —", (err as Error).message);
   }
 }
 
+function buildBcCachePayload(): string {
+  const obj: Record<string, BreathecodeTokenEntry> = {};
+  for (const [token, entry] of breathecodeTokenUsernames.entries()) {
+    obj[token] = entry;
+  }
+  return JSON.stringify(obj, null, 2);
+}
+
 function persistBreathecodeTokens(): void {
   try {
-    const obj: Record<string, string> = {};
-    for (const [token, username] of breathecodeTokenUsernames.entries()) {
-      obj[token] = username;
-    }
-    fs.writeFileSync(BREATHECODE_TOKENS_FILE, JSON.stringify(obj, null, 2), "utf-8");
+    const payload = buildBcCachePayload();
+    fs.writeFileSync(BREATHECODE_TOKENS_FILE, payload, "utf-8");
+    scheduleGcsWrite(GCS_BC_CACHE_FILE, buildBcCachePayload);
   } catch (err) {
     console.error("[MCP] OAuth: failed to persist breathecode-tokens.json —", (err as Error).message);
   }
 }
 
 export function registerBreathecodeToken(token: string, username: string): void {
-  breathecodeTokenUsernames.set(token, username);
+  const expiresAt = Date.now() + BC_CACHE_TTL_MS;
+  breathecodeTokenUsernames.set(token, { username, expiresAt });
   persistBreathecodeTokens();
+}
+
+/**
+ * Return the cached Breathecode username for a token if the cache entry is still valid.
+ * Returns null on a cache miss or if the entry has expired (expired entries are evicted).
+ */
+export function getCachedBreathecodeUsername(token: string): string | null {
+  const entry = breathecodeTokenUsernames.get(token);
+  if (!entry) return null;
+  if (entry.expiresAt < Date.now()) {
+    breathecodeTokenUsernames.delete(token);
+    return null;
+  }
+  return entry.username;
 }
 
 // ─── Auth codes (in-memory only) ─────────────────────────────────────────────
@@ -304,13 +369,19 @@ function loadTokens(): void {
   }
 }
 
+function buildTokensPayload(): string {
+  const obj: Record<string, StoredAccessToken> = {};
+  for (const [token, data] of accessTokens.entries()) {
+    obj[token] = data;
+  }
+  return JSON.stringify(obj, null, 2);
+}
+
 function persistTokens(): void {
   try {
-    const obj: Record<string, StoredAccessToken> = {};
-    for (const [token, data] of accessTokens.entries()) {
-      obj[token] = data;
-    }
-    fs.writeFileSync(TOKENS_FILE, JSON.stringify(obj, null, 2), "utf-8");
+    const payload = buildTokensPayload();
+    fs.writeFileSync(TOKENS_FILE, payload, "utf-8");
+    scheduleGcsWrite(GCS_TOKENS_FILE, buildTokensPayload);
   } catch (err) {
     console.error("[MCP] OAuth: failed to persist oauth-tokens.json —", (err as Error).message);
   }
@@ -394,6 +465,73 @@ export function getTokenUsername(token: string): string | null {
       if (first || last) return [first, last].filter(Boolean).join(".").toLowerCase();
     }
   }
-  // Fall back to Breathecode direct-token registry
-  return breathecodeTokenUsernames.get(token) ?? null;
+  // Fall back to Breathecode direct-token cache
+  return getCachedBreathecodeUsername(token);
+}
+
+// ─── GCS bootstrap (called once at startup) ───────────────────────────────────
+
+/**
+ * Download and merge GCS-backed token data into the in-memory maps.
+ * Called once after the local files have already been loaded so GCS data
+ * (written by the previous container) overrides stale local state.
+ * Safe to call even if GCS is unavailable — logs a warning and returns.
+ */
+export async function initGcsStore(): Promise<void> {
+  const [clientsJson, tokensJson, bcJson] = await Promise.all([
+    encryptedRead(GCS_CLIENTS_FILE),
+    encryptedRead(GCS_TOKENS_FILE),
+    encryptedRead(GCS_BC_CACHE_FILE),
+  ]);
+
+  // --- clients ---
+  if (clientsJson) {
+    try {
+      const obj = JSON.parse(clientsJson) as Record<string, RegisteredClient>;
+      let merged = 0;
+      for (const [id, client] of Object.entries(obj)) {
+        clients.set(id, client);
+        merged++;
+      }
+      console.log(`[MCP] OAuth: merged ${merged} registered client(s) from GCS`);
+    } catch (err) {
+      console.warn("[MCP] OAuth: could not parse GCS clients blob —", (err as Error).message);
+    }
+  }
+
+  // --- access tokens ---
+  if (tokensJson) {
+    try {
+      const obj = JSON.parse(tokensJson) as Record<string, StoredAccessToken>;
+      const now = Date.now();
+      let loaded = 0;
+      let expired = 0;
+      for (const [token, data] of Object.entries(obj)) {
+        if (data.expiresAt && data.expiresAt < now) { expired++; continue; }
+        accessTokens.set(token, data);
+        loaded++;
+      }
+      console.log(`[MCP] OAuth: merged ${loaded} access token(s) from GCS (${expired} expired, skipped)`);
+    } catch (err) {
+      console.warn("[MCP] OAuth: could not parse GCS tokens blob —", (err as Error).message);
+    }
+  }
+
+  // --- breathecode cache ---
+  if (bcJson) {
+    try {
+      const obj = JSON.parse(bcJson) as Record<string, BreathecodeTokenEntry>;
+      const now = Date.now();
+      let loaded = 0;
+      let expired = 0;
+      for (const [token, entry] of Object.entries(obj)) {
+        if (entry.expiresAt < now) { expired++; continue; }
+        breathecodeTokenUsernames.set(token, entry);
+        loaded++;
+      }
+      console.log(`[MCP] OAuth: merged ${loaded} Breathecode token(s) from GCS (${expired} expired, skipped)`);
+    } catch (err) {
+      console.warn("[MCP] OAuth: could not parse GCS Breathecode cache blob —", (err as Error).message);
+    }
+  }
 }
