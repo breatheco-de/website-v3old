@@ -49,7 +49,7 @@ sections:
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get Full Program Details
-    form_card_subtitle: Apply below to receive the program overview by e-mail and choose how you'd like our admissions team to contact you.
+    form_card_subtitle: Sign up and get access to this free interactive tutorial
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: false
     awards_marquee:
@@ -104,4 +104,4 @@ sections:
     paddingY:
       desktop: sm
     maxWidth:
-      desktop: none
+      desktop: xl
