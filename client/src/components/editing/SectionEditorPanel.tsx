@@ -664,7 +664,6 @@ export function SectionEditorPanel({
   const [bindingDialogOpen, setBindingDialogOpen] = useState(false);
   const [bindingConfirmOpen, setBindingConfirmOpen] = useState(false);
   const [exampleDialogOpen, setExampleDialogOpen] = useState(false);
-  const [selectedExampleIdx, setSelectedExampleIdx] = useState(0);
   const [exampleCopied, setExampleCopied] = useState(false);
 
   const sectionComponentType = (section as Record<string, unknown>)?.type as string || "";
@@ -2147,7 +2146,7 @@ export function SectionEditorPanel({
           <Button
             size="icon"
             variant="ghost"
-            onClick={() => { setSelectedExampleIdx(0); setExampleDialogOpen(true); }}
+            onClick={() => setExampleDialogOpen(true)}
             title="View full code example"
             data-testid="button-view-example"
           >
@@ -7604,24 +7603,6 @@ export function SectionEditorPanel({
             )}
           </DialogHeader>
 
-          {/* Example selector — only shown when multiple examples exist */}
-          {componentExamples.length > 1 && (
-            <div className="px-5 pb-2 flex items-center gap-1.5 flex-wrap shrink-0 border-b">
-              {componentExamples.map((ex, i) => (
-                <Button
-                  key={ex.name}
-                  size="sm"
-                  variant={selectedExampleIdx === i ? "secondary" : "ghost"}
-                  onClick={() => setSelectedExampleIdx(i)}
-                  className="text-xs h-7"
-                  data-testid={`button-example-tab-${i}`}
-                >
-                  {ex.name}
-                </Button>
-              ))}
-            </div>
-          )}
-
           {/* CodeMirror viewer */}
           <div className="flex-1 min-h-0 relative">
             {examplesLoading ? (
@@ -7634,8 +7615,7 @@ export function SectionEditorPanel({
                 <span className="text-sm">No examples registered for <code className="font-mono text-xs bg-muted px-1 py-0.5 rounded">{sectionType}</code></span>
               </div>
             ) : (() => {
-              const displayIdx = componentExamples[selectedExampleIdx] ? selectedExampleIdx : Math.max(0, bestExampleIdx);
-              const ex = componentExamples[displayIdx];
+              const ex = componentExamples[Math.max(0, bestExampleIdx)];
               return (
                 <>
                   {ex.description && (
@@ -7659,29 +7639,25 @@ export function SectionEditorPanel({
 
           {/* Footer with copy button */}
           {componentExamples.length > 0 && !examplesLoading && (
-            <div className="px-5 py-3 border-t shrink-0 flex items-center justify-between gap-3">
+            <div className="px-5 py-3 border-t shrink-0 flex items-center justify-end gap-3">
               {(() => {
-                const displayIdx = componentExamples[selectedExampleIdx] ? selectedExampleIdx : Math.max(0, bestExampleIdx);
-                const ex = componentExamples[displayIdx];
+                const ex = componentExamples[Math.max(0, bestExampleIdx)];
                 return (
-                  <>
-                    <span className="text-xs text-muted-foreground truncate">{ex?.name}</span>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => {
-                        navigator.clipboard.writeText(ex?.yaml ?? "").then(() => {
-                          setExampleCopied(true);
-                          setTimeout(() => setExampleCopied(false), 2000);
-                        });
-                      }}
-                      data-testid="button-copy-example"
-                      className="shrink-0 gap-1.5"
-                    >
-                      {exampleCopied ? <Check className="h-3.5 w-3.5" /> : <IconFileCode className="h-3.5 w-3.5" />}
-                      {exampleCopied ? "Copied!" : "Copy YAML"}
-                    </Button>
-                  </>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => {
+                      navigator.clipboard.writeText(ex?.yaml ?? "").then(() => {
+                        setExampleCopied(true);
+                        setTimeout(() => setExampleCopied(false), 2000);
+                      });
+                    }}
+                    data-testid="button-copy-example"
+                    className="shrink-0 gap-1.5"
+                  >
+                    {exampleCopied ? <Check className="h-3.5 w-3.5" /> : <IconFileCode className="h-3.5 w-3.5" />}
+                    {exampleCopied ? "Copied!" : "Copy YAML"}
+                  </Button>
                 );
               })()}
             </div>
