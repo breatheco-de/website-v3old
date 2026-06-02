@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { AlertTriangle, Check, ChevronDown, CloudUpload, Code, Database, ExternalLink, HelpCircle, Image, Info, Laptop, Link, Unlink, Loader2, MapPin, Monitor, Pencil, Plus, Redo2, RefreshCw, Save, Search, Settings, Smartphone, Trash2, Undo2, Upload, Video, X } from "lucide-react";
-import { IconGitBranch, IconTargetArrow } from "@tabler/icons-react";
+import { IconGitBranch, IconTargetArrow, IconFileCode } from "@tabler/icons-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { BindingConfirmDialog } from "./BindingConfirmDialog";
 import { getIcon } from "@/lib/icons";
@@ -663,6 +663,9 @@ export function SectionEditorPanel({
   const bindingQueryClient = useQueryClient();
   const [bindingDialogOpen, setBindingDialogOpen] = useState(false);
   const [bindingConfirmOpen, setBindingConfirmOpen] = useState(false);
+  const [exampleDialogOpen, setExampleDialogOpen] = useState(false);
+  const [selectedExampleIdx, setSelectedExampleIdx] = useState(0);
+  const [exampleCopied, setExampleCopied] = useState(false);
 
   const sectionComponentType = (section as Record<string, unknown>)?.type as string || "";
 
@@ -1771,6 +1774,26 @@ export function SectionEditorPanel({
   // Get configured field editors from the component registry API
   const sectionType = (section as { type: string }).type || "";
 
+  // Component example query — lazy, only runs when the example dialog is open
+  const schemaVersion = `v${version !== undefined ? version : 1}.0`;
+  const { data: examplesData, isLoading: examplesLoading } = useQuery<{
+    examples: Array<{ name: string; description?: string; yaml: string }>;
+  }>({
+    queryKey: ["/api/component-registry", sectionType, schemaVersion, "examples"],
+    queryFn: async () => {
+      const res = await fetch(`/api/component-registry/${sectionType}/${schemaVersion}/examples`);
+      if (!res.ok) return { examples: [] };
+      return res.json();
+    },
+    enabled: exampleDialogOpen && !!sectionType,
+    staleTime: 5 * 60 * 1000,
+  });
+  const componentExamples = examplesData?.examples ?? [];
+  const currentVariantForExample = (parsedSection?.variant as string) || "default";
+  const bestExampleIdx = componentExamples.findIndex(
+    (ex) => ex.yaml.includes(`variant: ${currentVariantForExample}`)
+  );
+
   // Fetch all field editors from component registry
   const { data: allFieldEditors } = useQuery<
     Record<string, Record<string, EditorType>>
@@ -2121,6 +2144,15 @@ export function SectionEditorPanel({
           </p>
         </div>
         <div className="flex items-center gap-1">
+          <Button
+            size="icon"
+            variant="ghost"
+            onClick={() => { setSelectedExampleIdx(0); setExampleDialogOpen(true); }}
+            title="View full code example"
+            data-testid="button-view-example"
+          >
+            <IconFileCode className="h-4 w-4" />
+          </Button>
           {contentType && slug && (
             <Button
               size="icon"
@@ -7556,6 +7588,106 @@ export function SectionEditorPanel({
         confirmLabel="Save to all"
         confirmIcon={<Save className="h-4 w-4 mr-2" />}
       />
+
+      {/* Component Example Dialog */}
+      <Dialog open={exampleDialogOpen} onOpenChange={setExampleDialogOpen}>
+        <DialogContent className="max-w-3xl h-[80vh] flex flex-col gap-0 p-0">
+          <DialogHeader className="px-5 pt-5 pb-3 shrink-0">
+            <DialogTitle className="flex items-center gap-2 text-base">
+              <IconFileCode className="h-4 w-4 shrink-0" />
+              {sectionType}{currentVariantForExample && currentVariantForExample !== "default" ? ` — ${currentVariantForExample}` : ""} — Code example
+            </DialogTitle>
+            {componentExamples.length === 0 && !examplesLoading && (
+              <DialogDescription className="text-sm text-muted-foreground">
+                No examples found for this component type.
+              </DialogDescription>
+            )}
+          </DialogHeader>
+
+          {/* Example selector — only shown when multiple examples exist */}
+          {componentExamples.length > 1 && (
+            <div className="px-5 pb-2 flex items-center gap-1.5 flex-wrap shrink-0 border-b">
+              {componentExamples.map((ex, i) => (
+                <Button
+                  key={ex.name}
+                  size="sm"
+                  variant={selectedExampleIdx === i ? "secondary" : "ghost"}
+                  onClick={() => setSelectedExampleIdx(i)}
+                  className="text-xs h-7"
+                  data-testid={`button-example-tab-${i}`}
+                >
+                  {ex.name}
+                </Button>
+              ))}
+            </div>
+          )}
+
+          {/* CodeMirror viewer */}
+          <div className="flex-1 min-h-0 relative">
+            {examplesLoading ? (
+              <div className="flex items-center justify-center h-full text-muted-foreground gap-2">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span className="text-sm">Loading example…</span>
+              </div>
+            ) : componentExamples.length === 0 ? (
+              <div className="flex items-center justify-center h-full text-muted-foreground">
+                <span className="text-sm">No examples registered for <code className="font-mono text-xs bg-muted px-1 py-0.5 rounded">{sectionType}</code></span>
+              </div>
+            ) : (() => {
+              const displayIdx = componentExamples[selectedExampleIdx] ? selectedExampleIdx : Math.max(0, bestExampleIdx);
+              const ex = componentExamples[displayIdx];
+              return (
+                <>
+                  {ex.description && (
+                    <p className="px-4 py-2 text-xs text-muted-foreground border-b bg-muted/30 shrink-0">{ex.description}</p>
+                  )}
+                  <div className="absolute inset-0 top-0">
+                    <CodeMirror
+                      value={ex.yaml}
+                      height="100%"
+                      extensions={[yaml()]}
+                      theme={oneDark}
+                      editable={false}
+                      basicSetup={{ lineNumbers: true, foldGutter: true, highlightActiveLine: false }}
+                      className="h-full [&_.cm-editor]:h-full [&_.cm-scroller]:overflow-auto"
+                    />
+                  </div>
+                </>
+              );
+            })()}
+          </div>
+
+          {/* Footer with copy button */}
+          {componentExamples.length > 0 && !examplesLoading && (
+            <div className="px-5 py-3 border-t shrink-0 flex items-center justify-between gap-3">
+              {(() => {
+                const displayIdx = componentExamples[selectedExampleIdx] ? selectedExampleIdx : Math.max(0, bestExampleIdx);
+                const ex = componentExamples[displayIdx];
+                return (
+                  <>
+                    <span className="text-xs text-muted-foreground truncate">{ex?.name}</span>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        navigator.clipboard.writeText(ex?.yaml ?? "").then(() => {
+                          setExampleCopied(true);
+                          setTimeout(() => setExampleCopied(false), 2000);
+                        });
+                      }}
+                      data-testid="button-copy-example"
+                      className="shrink-0 gap-1.5"
+                    >
+                      {exampleCopied ? <Check className="h-3.5 w-3.5" /> : <IconFileCode className="h-3.5 w-3.5" />}
+                      {exampleCopied ? "Copied!" : "Copy YAML"}
+                    </Button>
+                  </>
+                );
+              })()}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={scopeDialogOpen} onOpenChange={(o) => { if (!o && !isSaving) setScopeDialogOpen(false); }}>
         <DialogContent className="sm:max-w-md">
