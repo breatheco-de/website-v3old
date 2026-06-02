@@ -330,7 +330,7 @@ function buildCanonicalSitemapEntries(): Map<string, CanonicalSitemapEntry> {
     for (const [typeName, typeConfig] of Object.entries(allTypeConfigs)) {
       if (!typeConfig.database?.slug) continue;
       const dbName = typeConfig.database.slug;
-      const items = databaseManager.getRawItems(dbName);
+      const items = databaseManager.getMappedItems(dbName);
       if (!items || items.length === 0) {
         console.warn(`[Sitemap] No cached items for DB-backed type "${typeName}" (db: ${dbName}) — skipping`);
         continue;

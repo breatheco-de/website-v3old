@@ -874,6 +874,15 @@ export class DatabaseManager {
     return null;
   }
 
+  getMappedItems(name: string): Record<string, unknown>[] | null {
+    const config = this.configs.get(name);
+    if (!config) return null;
+    const ttl = config.cache?.ttl_hours ?? 24;
+    const mappedEntry = this.cache.read(name, ttl);
+    if (mappedEntry) return mappedEntry.items;
+    return null;
+  }
+
   getOriginalMappedItem(
     name: string,
     slug: string,
