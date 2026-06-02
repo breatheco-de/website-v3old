@@ -1188,7 +1188,11 @@ function DataSourceDialog({
                       <>
                         <p className="text-xs text-muted-foreground">Click a field to add it as a mapping:</p>
                         <div className="flex flex-wrap gap-1.5" data-testid="section-suggest-fields">
-                          {availableFields.map((f) => (
+                          {availableFields.filter(f => {
+                            if (!slugIsTransformer && slugField && f === slugField) return false;
+                            if (!localeIsTransformer && localeField && f === localeField) return false;
+                            return true;
+                          }).map((f) => (
                             <Badge
                               key={f}
                               variant="outline"
@@ -1224,7 +1228,11 @@ function DataSourceDialog({
 
                 {(() => {
                   const mappedSources = new Set(Object.values(fieldMapping).filter(Boolean));
-                  const unmapped = availableFields.filter(f => !mappedSources.has(f) && !(f in fieldMapping));
+                  const unmapped = availableFields.filter(f => {
+                    if (!slugIsTransformer && slugField && f === slugField) return false;
+                    if (!localeIsTransformer && localeField && f === localeField) return false;
+                    return !mappedSources.has(f) && !(f in fieldMapping);
+                  });
                   if (Object.keys(fieldMapping).length === 0 || unmapped.length === 0) return null;
                   return (
                     <div className="flex items-center gap-2 flex-wrap" data-testid="section-unmapped-available">
