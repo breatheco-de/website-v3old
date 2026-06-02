@@ -630,8 +630,12 @@ function DataSourceDialog({
       if (localeField) {
         fullMapping._locale = localeIsTransformer ? "function:" + btoa(localeField) : localeField;
       }
+      const localeSource = localeIsTransformer ? null : localeField;
       for (const [k, v] of Object.entries(fieldMapping)) {
         if (v != null && v !== "__none__") {
+          // skip any regular mapping whose source is the same as the locale field —
+          // it's already captured by _locale and would create a redundant duplicate
+          if (!transformerModes[k] && localeSource && v === localeSource) continue;
           fullMapping[k] = transformerModes[k] ? "function:" + btoa(v) : v;
         }
       }
@@ -1199,7 +1203,12 @@ function DataSourceDialog({
                       {localeIsTransformer ? "locale (computed)" : localeField} (auto)
                     </Badge>
                   )}
-                  {Object.keys(fieldMapping).filter(k => !k.startsWith("_") && k !== localeField).map((field) => {
+                  {Object.keys(fieldMapping).filter(k => {
+                    if (k.startsWith("_") || k === localeField) return false;
+                    // also hide any field whose source maps to the same DB column as the locale
+                    if (!localeIsTransformer && localeField && fieldMapping[k] === localeField) return false;
+                    return true;
+                  }).map((field) => {
                     const isIndexed = indexedFields.includes(field);
                     return (
                       <Badge
@@ -1218,7 +1227,11 @@ function DataSourceDialog({
                       </Badge>
                     );
                   })}
-                  {Object.keys(fieldMapping).filter(k => !k.startsWith("_") && k !== localeField).length === 0 && !localeField && (
+                  {Object.keys(fieldMapping).filter(k => {
+                    if (k.startsWith("_") || k === localeField) return false;
+                    if (!localeIsTransformer && localeField && fieldMapping[k] === localeField) return false;
+                    return true;
+                  }).length === 0 && !localeField && (
                     <p className="text-xs text-muted-foreground">No mapped fields available for indexing. Go back and add field mappings first.</p>
                   )}
                 </div>
