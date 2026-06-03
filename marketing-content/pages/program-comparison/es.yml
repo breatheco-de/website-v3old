@@ -18,7 +18,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: singleColumn
-    badge: Career Program
+    badge: Compara nuestros programas
     title: No importa qué buscas, AI es el camino
     subtitle: Learn at your own pace with AI-powered tools and unlimited mentorship
     cta_buttons:
