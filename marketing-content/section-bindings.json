@@ -2176,11 +2176,16 @@
           "contentType": "program",
           "slug": "ai-engineering-new",
           "sectionId": "syllabus-7efuv7"
+        },
+        {
+          "contentType": "program",
+          "slug": "ai-engineering",
+          "sectionId": "syllabus-7efuv7"
         }
       ],
       "createdAt": "2026-05-04T21:27:34.548Z",
       "name": "syllabus sincronizado con ai-engineering",
-      "updatedAt": "2026-05-15T19:51:02.128Z"
+      "updatedAt": "2026-06-03T20:33:38.946Z"
     },
     {
       "id": "bind_mp7d38vu_bedz0l",
