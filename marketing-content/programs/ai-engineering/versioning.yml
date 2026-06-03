@@ -1,2 +1,4 @@
 en:
-  variants: []
+  variants:
+    - slug: optimizaion-seo
+      allocation: 0
