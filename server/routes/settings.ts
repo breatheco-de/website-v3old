@@ -708,6 +708,7 @@ export function registerSettingsRoutes(app: Express): void {
   });
 
   app.get("/api/form-state/suggestions", (_req, res) => {
+    buildFormState();
     res.json(getFormStateSuggestions());
   });
 
