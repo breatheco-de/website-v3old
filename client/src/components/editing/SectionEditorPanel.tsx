@@ -70,6 +70,9 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { useConversionNames } from "@/lib/tracking";
+import { AutomationsTagsCard } from "./AutomationsTagsCard";
+import { ConsentCard } from "./ConsentCard";
+import type { ConsentValues } from "./ConsentCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import CodeMirror from "@uiw/react-codemirror";
 import type { EditorView } from "@codemirror/view";
@@ -87,136 +90,8 @@ import { useUndoRedo } from "@/hooks/useUndoRedo";
 import ReactCrop from "react-image-crop";
 import type { Crop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-
-function TagInput({
-  values,
-  suggestions,
-  onChange,
-  placeholder,
-  max,
-  testId,
-}: {
-  values: string[];
-  suggestions: string[];
-  onChange: (v: string[]) => void;
-  placeholder?: string;
-  max?: number;
-  testId?: string;
-}) {
-  const [inputValue, setInputValue] = useState("");
-  const [open, setOpen] = useState(false);
-  const [highlightIndex, setHighlightIndex] = useState(0);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const filtered = suggestions.filter(
-    (s) => s.toLowerCase().includes(inputValue.toLowerCase()) && !values.includes(s),
-  );
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const addValue = (val: string) => {
-    const trimmed = val.trim();
-    if (!trimmed || values.includes(trimmed)) { setInputValue(""); return; }
-    if (max && values.length >= max) {
-      onChange([trimmed]);
-    } else {
-      onChange([...values, trimmed]);
-    }
-    setInputValue("");
-    setOpen(false);
-    setHighlightIndex(0);
-    inputRef.current?.focus();
-  };
-
-  const removeValue = (i: number) => {
-    onChange(values.filter((_, idx) => idx !== i));
-    inputRef.current?.focus();
-  };
-
-  const canAddMore = !max || values.length < max;
-
-  return (
-    <div ref={containerRef} className="relative" data-testid={testId}>
-      <div
-        className="flex flex-wrap gap-1.5 items-center min-h-9 w-full rounded-md border border-input bg-background px-2 py-1.5 text-sm cursor-text focus-within:ring-1 focus-within:ring-ring"
-        onClick={() => inputRef.current?.focus()}
-      >
-        {values.map((v, i) => (
-          <Badge key={v} variant="secondary" className="gap-1 text-xs font-mono pr-1 no-default-active-elevate">
-            {v}
-            <button
-              type="button"
-              onClick={(e) => { e.stopPropagation(); removeValue(i); }}
-              className="rounded-sm opacity-60 hover:opacity-100 leading-none"
-            >
-              <X className="h-3 w-3" />
-            </button>
-          </Badge>
-        ))}
-        {canAddMore && (
-          <input
-            ref={inputRef}
-            value={inputValue}
-            onChange={(e) => {
-              setInputValue(e.target.value);
-              setOpen(true);
-              setHighlightIndex(0);
-            }}
-            onFocus={() => setOpen(true)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                if (open && filtered.length > 0) {
-                  addValue(filtered[highlightIndex] ?? inputValue);
-                } else if (inputValue.trim()) {
-                  addValue(inputValue);
-                }
-              } else if (e.key === "ArrowDown") {
-                e.preventDefault();
-                setHighlightIndex((n) => Math.min(n + 1, filtered.length - 1));
-              } else if (e.key === "ArrowUp") {
-                e.preventDefault();
-                setHighlightIndex((n) => Math.max(n - 1, 0));
-              } else if (e.key === "Escape") {
-                setOpen(false);
-              } else if (e.key === "Backspace" && !inputValue && values.length > 0) {
-                removeValue(values.length - 1);
-              }
-            }}
-            placeholder={values.length === 0 ? placeholder : ""}
-            className="flex-1 min-w-[100px] bg-transparent outline-none text-sm placeholder:text-muted-foreground"
-          />
-        )}
-      </div>
-      {open && filtered.length > 0 && (
-        <div className="absolute z-50 top-full mt-1 w-full max-h-40 overflow-y-auto rounded-md border bg-popover text-popover-foreground shadow-md">
-          {filtered.map((s, i) => (
-            <button
-              key={s}
-              type="button"
-              onMouseDown={(e) => { e.preventDefault(); addValue(s); }}
-              onMouseEnter={() => setHighlightIndex(i)}
-              className={`w-full text-left px-3 py-1.5 text-sm font-mono transition-colors ${
-                i === highlightIndex ? "bg-accent text-accent-foreground" : ""
-              }`}
-            >
-              {s}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
+import { resolveFormDefaults } from "@shared/resolveFormDefaults";
+import type { TrackingSettingsResponse } from "@/lib/tracking";
 
 function safeYamlLoad(yamlStr: string): unknown {
   const { escaped, map } = escapeTemplateVars(yamlStr);
@@ -667,7 +542,6 @@ export function SectionEditorPanel({
   const [exampleCopied, setExampleCopied] = useState(false);
   const [locationsPickerOpen, setLocationsPickerOpen] = useState(false);
   const [conversionNameEditing, setConversionNameEditing] = useState(false);
-  const [autoTagsEditing, setAutoTagsEditing] = useState(false);
   const [consentsEditing, setConsentsEditing] = useState(false);
 
   const sectionComponentType = (section as Record<string, unknown>)?.type as string || "";
@@ -1823,6 +1697,10 @@ export function SectionEditorPanel({
     queryKey: ["/api/form-state/suggestions"],
   });
 
+  const { data: trackingSettings } = useQuery<TrackingSettingsResponse>({
+    queryKey: ["/api/settings/tracking"],
+  });
+
   const { data: formOptions, isLoading: formOptionsLoading } = useQuery<{
     locations: Array<{ slug: string; name: string; city: string; country: string; region: string }>;
     regions: Array<{ slug: string; label: string }>;
@@ -1850,6 +1728,27 @@ export function SectionEditorPanel({
       }
     }
     return globalPath;
+  })();
+
+  const resolvedParsedSection: Record<string, unknown> | null = (() => {
+    if (!parsedSection || !formSettingsPath) return parsedSection ?? null;
+    const conversionName = String(
+      getValueAtFieldPath(parsedSection, `${formSettingsPath}.conversion_name`) ?? ""
+    );
+    if (!conversionName) return parsedSection;
+    const event = trackingSettings?.conversion_events?.find((e) => e.name === conversionName);
+    if (!event) return parsedSection;
+    return resolveFormDefaults(
+      parsedSection,
+      {
+        name: event.name,
+        automations: event.automations,
+        tags: event.tags,
+        consent: event.consent,
+        webhook: event.webhook,
+      },
+      formSettingsPath
+    );
   })();
 
   // Get configured fields for current section type, filtering by variant
@@ -6559,319 +6458,156 @@ export function SectionEditorPanel({
               })()}
 
               {/* Automations + Tags grouped card */}
-              {(() => {
-                const automation = (() => {
-                  const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.automations`);
-                  return v ? [String(v)] : [];
-                })();
-                const tags = (() => {
-                  const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.tags`);
+              <AutomationsTagsCard
+                automation={(() => {
+                  const v = getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.automations`);
+                  return v ? String(v) : "";
+                })()}
+                tags={(() => {
+                  const v = getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.tags`);
                   if (Array.isArray(v)) return v as string[];
                   return v ? String(v).split(",").map((t) => t.trim()).filter(Boolean) : [];
-                })();
-                return (
-                  <div className="rounded-md border bg-muted/20 p-3 space-y-3" data-testid="card-automations-tags">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-sm font-medium">Automations &amp; Tags</span>
-                      <Button
-                        type="button"
-                        size="icon"
-                        variant="ghost"
-                        className="h-6 w-6"
-                        onClick={() => setAutoTagsEditing((v) => !v)}
-                        data-testid="button-edit-automations-tags"
-                      >
-                        {autoTagsEditing
-                          ? <IconX className="h-3.5 w-3.5" />
-                          : <IconPencil className="h-3.5 w-3.5" />}
-                      </Button>
-                    </div>
-
-                    {autoTagsEditing ? (
-                      <div className="space-y-3">
-                        <div className="space-y-1.5">
-                          <Label className="text-xs text-muted-foreground" data-testid="label-conversion-automations">
-                            Automation
-                          </Label>
-                          <TagInput
-                            values={automation}
-                            suggestions={formStateSuggestions?.automations ?? []}
-                            onChange={(vals) => updateProperty(`${formSettingsPath}.automations`, vals[0] ?? "")}
-                            placeholder="e.g. hubspot-lead-nurture"
-                            max={1}
-                            testId="input-conversion-automations"
-                          />
-                        </div>
-                        <div className="space-y-1.5">
-                          <Label className="text-xs text-muted-foreground" data-testid="label-conversion-tags">
-                            Tags
-                          </Label>
-                          <TagInput
-                            values={tags}
-                            suggestions={formStateSuggestions?.tags ?? []}
-                            onChange={(vals) => {
-                              if (vals.length > 0) {
-                                updatePropertyWithValue(`${formSettingsPath}.tags`, vals);
-                              } else {
-                                updatePropertyWithValue(`${formSettingsPath}.tags`, undefined);
-                              }
-                            }}
-                            placeholder="e.g. lead, bootcamp, latam"
-                            testId="input-conversion-tags"
-                          />
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="space-y-1.5 text-sm">
-                        <div className="flex items-start gap-2">
-                          <span className="text-xs text-muted-foreground w-20 flex-shrink-0 pt-0.5">Automation</span>
-                          {automation.length > 0 ? (
-                            <span className="font-mono text-xs">{automation[0]}</span>
-                          ) : (
-                            <span className="text-xs text-muted-foreground italic">not set</span>
-                          )}
-                        </div>
-                        <div className="flex items-start gap-2">
-                          <span className="text-xs text-muted-foreground w-20 flex-shrink-0 pt-0.5">Tags</span>
-                          {tags.length > 0 ? (
-                            <div className="flex flex-wrap gap-1">
-                              {tags.map((t) => (
-                                <Badge key={t} variant="secondary" className="text-[11px] px-1.5 py-0 leading-4 font-normal font-mono">
-                                  {t}
-                                </Badge>
-                              ))}
-                            </div>
-                          ) : (
-                            <span className="text-xs text-muted-foreground italic">not set</span>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              })()}
+                })()}
+                onAutomationChange={(val) => updateProperty(`${formSettingsPath}.automations`, val)}
+                onTagsChange={(vals) => {
+                  if (vals.length > 0) {
+                    updatePropertyWithValue(`${formSettingsPath}.tags`, vals);
+                  } else {
+                    updatePropertyWithValue(`${formSettingsPath}.tags`, undefined);
+                  }
+                }}
+                automationSuggestions={formStateSuggestions?.automations ?? []}
+                tagSuggestions={formStateSuggestions?.tags ?? []}
+              />
 
               {/* Consents card */}
-              {(() => {
-                const isApplyForm = sectionType === "apply_form";
-
-                // hero / lead_form structure: boolean toggles at formSettingsPath.consent.*
-                const consentMarketing = !!getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.marketing`);
-                const consentSms       = !!getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.sms`);
-                const consentWhatsapp  = !!getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.whatsapp`);
-                const consentSmsUsaOnly = !!getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.sms_usa_only`);
-                const marketingText = String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.marketing_text`) ?? "");
-                const smsText       = String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.sms_text`) ?? "");
-                const showTerms     = !!getValueAtFieldPath(parsedSection, `${formSettingsPath}.show_terms`);
-                const termsUrl      = String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.terms_url`) ?? "");
-                const privacyUrl    = String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.privacy_url`) ?? "");
-
-                // apply_form structure: text strings at root
-                const applyConsentMarketing = String(getValueAtFieldPath(parsedSection, "consent_marketing") ?? "");
-                const applyConsentSms       = String(getValueAtFieldPath(parsedSection, "consent_sms") ?? "");
-                const applyTermsUrl         = String(getValueAtFieldPath(parsedSection, "terms_link_url") ?? "");
-                const applyPrivacyUrl       = String(getValueAtFieldPath(parsedSection, "privacy_link_url") ?? "");
-
-                // active channels for display
-                const activeChannels = isApplyForm
-                  ? ([applyConsentMarketing ? "Marketing" : null, applyConsentSms ? "SMS" : null].filter(Boolean) as string[])
-                  : ([consentMarketing ? "Marketing" : null, consentSms ? "SMS" : null, consentWhatsapp ? "WhatsApp" : null].filter(Boolean) as string[]);
-
-                return (
-                  <div className="rounded-md border bg-muted/20 p-3 space-y-3" data-testid="card-consents">
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-1.5">
-                        <IconShieldCheck className="h-3.5 w-3.5 text-muted-foreground" />
-                        <span className="text-sm font-medium">Consents</span>
-                      </div>
-                      <Button
-                        type="button"
-                        size="icon"
-                        variant="ghost"
-                        className="h-6 w-6"
-                        onClick={() => setConsentsEditing((v) => !v)}
-                        data-testid="button-edit-consents"
-                      >
-                        {consentsEditing ? <IconX className="h-3.5 w-3.5" /> : <IconPencil className="h-3.5 w-3.5" />}
-                      </Button>
-                    </div>
-
-                    {!consentsEditing ? (
-                      <div className="space-y-1.5">
-                        <div className="flex items-start gap-2">
-                          <span className="text-xs text-muted-foreground w-20 flex-shrink-0 pt-0.5">Channels</span>
-                          {activeChannels.length > 0 ? (
-                            <div className="flex flex-wrap gap-1">
-                              {activeChannels.map((ch) => (
-                                <Badge key={ch} variant="secondary" className="text-[11px] px-1.5 py-0 leading-4 font-normal">
-                                  {ch}
-                                </Badge>
-                              ))}
-                            </div>
-                          ) : (
-                            <span className="text-xs text-muted-foreground italic">none enabled</span>
-                          )}
+              {sectionType === "apply_form" ? (
+                /* apply_form: free-text consent strings at root — keep inline */
+                (() => {
+                  const applyConsentMarketing = String(getValueAtFieldPath(parsedSection, "consent_marketing") ?? "");
+                  const applyConsentSms       = String(getValueAtFieldPath(parsedSection, "consent_sms") ?? "");
+                  const applyTermsUrl         = String(getValueAtFieldPath(parsedSection, "terms_link_url") ?? "");
+                  const applyPrivacyUrl       = String(getValueAtFieldPath(parsedSection, "privacy_link_url") ?? "");
+                  const activeChannels = [
+                    applyConsentMarketing ? "Marketing" : null,
+                    applyConsentSms ? "SMS" : null,
+                  ].filter(Boolean) as string[];
+                  return (
+                    <div className="rounded-md border bg-muted/20 p-3 space-y-3" data-testid="card-consents">
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-1.5">
+                          <IconShieldCheck className="h-3.5 w-3.5 text-muted-foreground" />
+                          <span className="text-sm font-medium">Consents</span>
                         </div>
-                        {!isApplyForm && (
+                        <Button
+                          type="button"
+                          size="icon"
+                          variant="ghost"
+                          className="h-6 w-6"
+                          onClick={() => setConsentsEditing((v) => !v)}
+                          data-testid="button-edit-consents"
+                        >
+                          {consentsEditing ? <IconX className="h-3.5 w-3.5" /> : <IconPencil className="h-3.5 w-3.5" />}
+                        </Button>
+                      </div>
+                      {!consentsEditing ? (
+                        <div className="space-y-1.5">
                           <div className="flex items-start gap-2">
-                            <span className="text-xs text-muted-foreground w-20 flex-shrink-0 pt-0.5">Terms</span>
-                            <span className="text-xs text-muted-foreground italic">{showTerms ? "shown" : "hidden"}</span>
+                            <span className="text-xs text-muted-foreground w-20 flex-shrink-0 pt-0.5">Channels</span>
+                            {activeChannels.length > 0 ? (
+                              <div className="flex flex-wrap gap-1">
+                                {activeChannels.map((ch) => (
+                                  <Badge key={ch} variant="secondary" className="text-[11px] px-1.5 py-0 leading-4 font-normal">
+                                    {ch}
+                                  </Badge>
+                                ))}
+                              </div>
+                            ) : (
+                              <span className="text-xs text-muted-foreground italic">none enabled</span>
+                            )}
                           </div>
-                        )}
-                      </div>
-                    ) : isApplyForm ? (
-                      <div className="space-y-3">
-                        <div className="space-y-1.5">
-                          <Label className="text-xs text-muted-foreground">Marketing consent text</Label>
-                          <Textarea
-                            rows={3}
-                            value={applyConsentMarketing}
-                            onChange={(e) => updateProperty("consent_marketing", e.target.value)}
-                            placeholder="I agree to receive information through email, WhatsApp..."
-                            className="text-xs resize-none"
-                            data-testid="input-consent-marketing-text"
-                          />
                         </div>
-                        <div className="space-y-1.5">
-                          <Label className="text-xs text-muted-foreground">SMS consent text</Label>
-                          <Textarea
-                            rows={3}
-                            value={applyConsentSms}
-                            onChange={(e) => updateProperty("consent_sms", e.target.value)}
-                            placeholder="I agree to receive SMS/text messages..."
-                            className="text-xs resize-none"
-                            data-testid="input-consent-sms-text"
-                          />
-                        </div>
-                        <div className="grid grid-cols-2 gap-2">
+                      ) : (
+                        <div className="space-y-3">
                           <div className="space-y-1.5">
-                            <Label className="text-xs text-muted-foreground">Terms URL</Label>
-                            <Input
-                              value={applyTermsUrl}
-                              onChange={(e) => updateProperty("terms_link_url", e.target.value)}
-                              placeholder="/terms-conditions"
-                              className="text-xs h-8"
-                              data-testid="input-consent-terms-url"
-                            />
-                          </div>
-                          <div className="space-y-1.5">
-                            <Label className="text-xs text-muted-foreground">Privacy URL</Label>
-                            <Input
-                              value={applyPrivacyUrl}
-                              onChange={(e) => updateProperty("privacy_link_url", e.target.value)}
-                              placeholder="/privacy-policy"
-                              className="text-xs h-8"
-                              data-testid="input-consent-privacy-url"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="space-y-3">
-                        {/* Marketing */}
-                        <div className="space-y-2">
-                          <div className="flex items-center justify-between gap-2">
-                            <Label className="text-xs">Marketing</Label>
-                            <Switch
-                              checked={consentMarketing}
-                              onCheckedChange={(v) => updateProperty(`${formSettingsPath}.consent.marketing`, v || undefined)}
-                              data-testid="switch-consent-marketing"
-                            />
-                          </div>
-                          {consentMarketing && (
+                            <Label className="text-xs text-muted-foreground">Marketing consent text</Label>
                             <Textarea
                               rows={3}
-                              value={marketingText}
-                              onChange={(e) => updateProperty(`${formSettingsPath}.consent.marketing_text`, e.target.value || undefined)}
-                              placeholder="I agree to receive information via email, WhatsApp..."
+                              value={applyConsentMarketing}
+                              onChange={(e) => updateProperty("consent_marketing", e.target.value)}
+                              placeholder="I agree to receive information through email, WhatsApp..."
                               className="text-xs resize-none"
                               data-testid="input-consent-marketing-text"
                             />
-                          )}
-                        </div>
-
-                        {/* SMS */}
-                        <div className="space-y-2">
-                          <div className="flex items-center justify-between gap-2">
-                            <Label className="text-xs">SMS</Label>
-                            <Switch
-                              checked={consentSms}
-                              onCheckedChange={(v) => updateProperty(`${formSettingsPath}.consent.sms`, v || undefined)}
-                              data-testid="switch-consent-sms"
+                          </div>
+                          <div className="space-y-1.5">
+                            <Label className="text-xs text-muted-foreground">SMS consent text</Label>
+                            <Textarea
+                              rows={3}
+                              value={applyConsentSms}
+                              onChange={(e) => updateProperty("consent_sms", e.target.value)}
+                              placeholder="I agree to receive SMS/text messages..."
+                              className="text-xs resize-none"
+                              data-testid="input-consent-sms-text"
                             />
                           </div>
-                          {consentSms && (
-                            <>
-                              <Textarea
-                                rows={3}
-                                value={smsText}
-                                onChange={(e) => updateProperty(`${formSettingsPath}.consent.sms_text`, e.target.value || undefined)}
-                                placeholder="I agree to receive SMS/text messages..."
-                                className="text-xs resize-none"
-                                data-testid="input-consent-sms-text"
+                          <div className="grid grid-cols-2 gap-2">
+                            <div className="space-y-1.5">
+                              <Label className="text-xs text-muted-foreground">Terms URL</Label>
+                              <Input
+                                value={applyTermsUrl}
+                                onChange={(e) => updateProperty("terms_link_url", e.target.value)}
+                                placeholder="/terms-conditions"
+                                className="text-xs h-8"
+                                data-testid="input-consent-terms-url"
                               />
-                              <div className="flex items-center justify-between gap-2">
-                                <Label className="text-xs text-muted-foreground">US-only</Label>
-                                <Switch
-                                  checked={consentSmsUsaOnly}
-                                  onCheckedChange={(v) => updateProperty(`${formSettingsPath}.consent.sms_usa_only`, v || undefined)}
-                                  data-testid="switch-consent-sms-usa-only"
-                                />
-                              </div>
-                            </>
-                          )}
-                        </div>
-
-                        {/* WhatsApp */}
-                        <div className="flex items-center justify-between gap-2">
-                          <Label className="text-xs">WhatsApp</Label>
-                          <Switch
-                            checked={consentWhatsapp}
-                            onCheckedChange={(v) => updateProperty(`${formSettingsPath}.consent.whatsapp`, v || undefined)}
-                            data-testid="switch-consent-whatsapp"
-                          />
-                        </div>
-
-                        {/* Terms */}
-                        <div className="space-y-2 pt-1 border-t">
-                          <div className="flex items-center justify-between gap-2">
-                            <Label className="text-xs">Show terms &amp; privacy</Label>
-                            <Switch
-                              checked={showTerms}
-                              onCheckedChange={(v) => updateProperty(`${formSettingsPath}.show_terms`, v || undefined)}
-                              data-testid="switch-consent-show-terms"
-                            />
-                          </div>
-                          {showTerms && (
-                            <div className="grid grid-cols-2 gap-2">
-                              <div className="space-y-1.5">
-                                <Label className="text-xs text-muted-foreground">Terms URL</Label>
-                                <Input
-                                  value={termsUrl}
-                                  onChange={(e) => updateProperty(`${formSettingsPath}.terms_url`, e.target.value || undefined)}
-                                  placeholder="/terms-and-conditions"
-                                  className="text-xs h-8"
-                                  data-testid="input-consent-terms-url"
-                                />
-                              </div>
-                              <div className="space-y-1.5">
-                                <Label className="text-xs text-muted-foreground">Privacy URL</Label>
-                                <Input
-                                  value={privacyUrl}
-                                  onChange={(e) => updateProperty(`${formSettingsPath}.privacy_url`, e.target.value || undefined)}
-                                  placeholder="/privacy-policy"
-                                  className="text-xs h-8"
-                                  data-testid="input-consent-privacy-url"
-                                />
-                              </div>
                             </div>
-                          )}
+                            <div className="space-y-1.5">
+                              <Label className="text-xs text-muted-foreground">Privacy URL</Label>
+                              <Input
+                                value={applyPrivacyUrl}
+                                onChange={(e) => updateProperty("privacy_link_url", e.target.value)}
+                                placeholder="/privacy-policy"
+                                className="text-xs h-8"
+                                data-testid="input-consent-privacy-url"
+                              />
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              })()}
+                      )}
+                    </div>
+                  );
+                })()
+              ) : (
+                /* hero / lead_form: boolean toggles — use shared ConsentCard */
+                <ConsentCard
+                  values={{
+                    marketing: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.marketing`),
+                    sms: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.sms`),
+                    whatsapp: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.whatsapp`),
+                    smsUsaOnly: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.sms_usa_only`),
+                    marketingText: String(getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.marketing_text`) ?? ""),
+                    smsText: String(getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.sms_text`) ?? ""),
+                    showTerms: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.show_terms`),
+                    termsUrl: String(getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.terms_url`) ?? ""),
+                    privacyUrl: String(getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.privacy_url`) ?? ""),
+                  }}
+                  onChange={(field, value) => {
+                    const pathMap: Record<keyof ConsentValues, string> = {
+                      marketing: `${formSettingsPath}.consent.marketing`,
+                      sms: `${formSettingsPath}.consent.sms`,
+                      whatsapp: `${formSettingsPath}.consent.whatsapp`,
+                      smsUsaOnly: `${formSettingsPath}.consent.sms_usa_only`,
+                      marketingText: `${formSettingsPath}.consent.marketing_text`,
+                      smsText: `${formSettingsPath}.consent.sms_text`,
+                      showTerms: `${formSettingsPath}.show_terms`,
+                      termsUrl: `${formSettingsPath}.terms_url`,
+                      privacyUrl: `${formSettingsPath}.privacy_url`,
+                    };
+                    updateProperty(pathMap[field], value === false ? false : (value || undefined));
+                  }}
+                />
+              )}
 
               {/* Locations */}
               {(() => {

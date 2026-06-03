@@ -60,11 +60,27 @@ export interface VisitorContext {
 export interface WebhookConfig {
   url: string;
   method?: "POST" | "GET";
+  auth_header?: string;
+}
+
+export interface ConsentDefaults {
+  marketing?: boolean;
+  sms?: boolean;
+  whatsapp?: boolean;
+  sms_usa_only?: boolean;
+  marketing_text?: string;
+  sms_text?: string;
+  show_terms?: boolean;
+  terms_url?: string;
+  privacy_url?: string;
 }
 
 export interface ConversionEventEntry {
   name: string;
   description?: string;
+  automations?: string;
+  tags?: string[];
+  consent?: ConsentDefaults;
   webhook?: WebhookConfig;
 }
 

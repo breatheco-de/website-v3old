@@ -203,6 +203,7 @@ import {
   ValidationFixRunLogEntry,
   FixerItemStatus,
 } from "./_helpers";
+import { getTrackingSettings } from "../settings";
 
 export function registerFormsRoutes(app: Express): void {
   app.get("/api/turnstile/site-key", (_req, res) => {
@@ -413,6 +414,23 @@ export function registerFormsRoutes(app: Express): void {
         return;
       }
 
+      // Resolve conversion event defaults — fill in missing tags/automations from the
+      // event definition when the form section YAML doesn't override them explicitly.
+      const conversionName: string = leadData.conversion_name || "";
+      const matchingEvent = conversionName
+        ? getTrackingSettings().conversion_events.find((e) => e.name === conversionName)
+        : undefined;
+
+      const effectiveTags: string =
+        leadData.tags ||
+        (matchingEvent?.tags?.length ? matchingEvent.tags.join(",") : null) ||
+        "website-lead";
+
+      const effectiveAutomations: string =
+        leadData.automations ||
+        matchingEvent?.automations ||
+        "strong";
+
       // Build the payload for Breathecode API
       const payload = {
         first_name: leadData.first_name || null,
@@ -452,9 +470,9 @@ export function registerFormsRoutes(app: Express): void {
         language: leadData.language || "en",
         utm_language: leadData.language || "en",
         browser_lang: leadData.browser_lang || null,
-        // Tags and automation
-        tags: leadData.tags || "website-lead",
-        automations: leadData.automations || "strong",
+        // Tags and automation — form-level wins; event-level default fills gaps
+        tags: effectiveTags,
+        automations: effectiveAutomations,
         action: "submit",
         // Turnstile token for bot protection
         token: leadData.token || null,

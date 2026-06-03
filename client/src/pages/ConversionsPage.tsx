@@ -4,12 +4,15 @@ import {
   IconBraces,
   IconChevronDown,
   IconChevronRight,
+  IconLink,
   IconLoader2,
   IconPencil,
   IconPlus,
   IconSend,
   IconTargetArrow,
   IconTrash,
+  IconWebhook,
+  IconX,
 } from "@tabler/icons-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Link } from "wouter";
@@ -25,6 +28,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -35,10 +45,52 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import JsonViewer from "@/components/editing/JsonViewer";
+import { AutomationsTagsCard } from "@/components/editing/AutomationsTagsCard";
+import { ConsentCard } from "@/components/editing/ConsentCard";
+import type { ConsentValues } from "@/components/editing/ConsentCard";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, apiFetch, queryClient } from "@/lib/queryClient";
-import { SAMPLE_LEAD_PAYLOAD, type TrackingSettingsResponse } from "@/lib/tracking";
+import { SAMPLE_LEAD_PAYLOAD, type TrackingSettingsResponse, type ConversionEventEntry } from "@/lib/tracking";
+
+const SAMPLE_USER_ID = "a1b2c3d4-e5f6-7890-abcd-ef1234567890";
+
+interface EditingEventState {
+  originalName: string;
+  name: string;
+  automations: string;
+  tags: string[];
+  consent: ConsentValues;
+  webhookUrl: string;
+  webhookMethod: "POST" | "GET";
+  webhookAuthHeader: string;
+  webhookEditing: boolean;
+}
+
+function makeEditingState(entry: ConversionEventEntry): EditingEventState {
+  return {
+    originalName: entry.name,
+    name: entry.name,
+    automations: entry.automations ?? "",
+    tags: entry.tags ?? [],
+    consent: {
+      marketing: entry.consent?.marketing ?? false,
+      sms: entry.consent?.sms ?? false,
+      whatsapp: entry.consent?.whatsapp ?? false,
+      smsUsaOnly: entry.consent?.sms_usa_only ?? false,
+      marketingText: entry.consent?.marketing_text ?? "",
+      smsText: entry.consent?.sms_text ?? "",
+      showTerms: entry.consent?.show_terms ?? false,
+      termsUrl: entry.consent?.terms_url ?? "",
+      privacyUrl: entry.consent?.privacy_url ?? "",
+    },
+    webhookUrl: entry.webhook?.url ?? "",
+    webhookMethod: entry.webhook?.method ?? "POST",
+    webhookAuthHeader: entry.webhook?.auth_header ?? "",
+    webhookEditing: false,
+  };
+}
 
 interface UsageEntry {
   file: string;
@@ -110,8 +162,7 @@ export default function ConversionsPage() {
   const [newEventName, setNewEventName] = useState("");
   const [newEventDesc, setNewEventDesc] = useState("");
   const [deleteConfirmEvent, setDeleteConfirmEvent] = useState<string | null>(null);
-  const [renameEvent, setRenameEvent] = useState<string | null>(null);
-  const [renameValue, setRenameValue] = useState("");
+  const [editingEvent, setEditingEvent] = useState<EditingEventState | null>(null);
   const [mergeTarget, setMergeTarget] = useState("");
   const [usageModalEvent, setUsageModalEvent] = useState<string | null>(null);
   const [checkedRows, setCheckedRows] = useState<Set<number>>(new Set());
@@ -235,8 +286,6 @@ export default function ConversionsPage() {
     onSuccess: (_data, { oldName, newName }) => {
       queryClient.invalidateQueries({ queryKey: ["/api/settings/tracking"] });
       queryClient.invalidateQueries({ queryKey: ["/api/form-state/conversion-counts"] });
-      setRenameEvent(null);
-      setRenameValue("");
       toast({ title: "Event renamed", description: `"${oldName}" renamed to "${newName}".` });
     },
     onError: (err: Error) => {
@@ -361,6 +410,81 @@ export default function ConversionsPage() {
     },
     onError: (err: Error) => {
       toast({ title: "Webhook test failed", description: err.message, variant: "destructive" });
+    },
+  });
+
+  const { data: formStateSuggestions } = useQuery<{ automations: string[]; tags: string[] }>({
+    queryKey: ["/api/form-state/suggestions"],
+  });
+
+  const saveEventMutation = useMutation({
+    mutationFn: async (event: EditingEventState) => {
+      const effectiveName = event.name.trim();
+
+      if (effectiveName !== event.originalName) {
+        const renameRes = await apiRequest(
+          "PATCH",
+          `/api/settings/tracking/conversion-events/${encodeURIComponent(event.originalName)}`,
+          { newName: effectiveName }
+        );
+        if (!renameRes.ok) {
+          const err = await renameRes.json().catch(() => ({}));
+          throw new Error((err as any).error || "Failed to rename event");
+        }
+      }
+
+      const current = queryClient.getQueryData<TrackingSettingsResponse>(["/api/settings/tracking"]);
+      const updatedEvents: ConversionEventEntry[] = (current?.conversion_events ?? conversionEventEntries).map(
+        (entry) => {
+          if (entry.name === event.originalName) {
+            const consent = {
+              ...(event.consent.marketing !== undefined ? { marketing: event.consent.marketing } : {}),
+              ...(event.consent.sms !== undefined ? { sms: event.consent.sms } : {}),
+              ...(event.consent.whatsapp !== undefined ? { whatsapp: event.consent.whatsapp } : {}),
+              ...(event.consent.smsUsaOnly !== undefined ? { sms_usa_only: event.consent.smsUsaOnly } : {}),
+              ...(event.consent.marketingText ? { marketing_text: event.consent.marketingText } : {}),
+              ...(event.consent.smsText ? { sms_text: event.consent.smsText } : {}),
+              ...(event.consent.showTerms !== undefined ? { show_terms: event.consent.showTerms } : {}),
+              ...(event.consent.termsUrl ? { terms_url: event.consent.termsUrl } : {}),
+              ...(event.consent.privacyUrl ? { privacy_url: event.consent.privacyUrl } : {}),
+            };
+            const updated: ConversionEventEntry = {
+              name: effectiveName,
+              ...(entry.description ? { description: entry.description } : {}),
+              ...(event.automations.trim() ? { automations: event.automations.trim() } : {}),
+              ...(event.tags.length > 0 ? { tags: event.tags } : {}),
+              ...(Object.keys(consent).length > 0 ? { consent } : {}),
+              ...(event.webhookUrl.trim()
+                ? {
+                    webhook: {
+                      url: event.webhookUrl.trim(),
+                      method: event.webhookMethod,
+                      ...(event.webhookAuthHeader.trim() ? { auth_header: event.webhookAuthHeader.trim() } : {}),
+                    },
+                  }
+                : {}),
+            };
+            return updated;
+          }
+          return entry;
+        }
+      );
+
+      const putRes = await apiRequest("PUT", "/api/settings/tracking", { conversion_events: updatedEvents });
+      if (!putRes.ok) {
+        const err = await putRes.json().catch(() => ({}));
+        throw new Error((err as any).error || "Failed to save event");
+      }
+      return putRes.json();
+    },
+    onSuccess: (_data, event) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/settings/tracking"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/form-state/conversion-counts"] });
+      setEditingEvent(null);
+      toast({ title: "Event saved", description: `"${event.name.trim()}" defaults updated.` });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Failed to save event", description: err.message, variant: "destructive" });
     },
   });
 
@@ -703,15 +827,15 @@ export default function ConversionsPage() {
                                       variant="ghost"
                                       size="icon"
                                       onClick={() => {
-                                        setRenameEvent(ev.name);
-                                        setRenameValue(ev.name);
+                                        const entry = conversionEventEntries.find((e) => e.name === ev.name);
+                                        if (entry) setEditingEvent(makeEditingState(entry));
                                       }}
-                                      data-testid={`button-rename-event-${ev.name}`}
+                                      data-testid={`button-edit-event-${ev.name}`}
                                     >
                                       <IconPencil className="h-3.5 w-3.5" />
                                     </Button>
                                   </TooltipTrigger>
-                                  <TooltipContent>Rename event</TooltipContent>
+                                  <TooltipContent>Edit event defaults</TooltipContent>
                                 </Tooltip>
                                 <Tooltip>
                                   <TooltipTrigger asChild>
@@ -1077,81 +1201,209 @@ export default function ConversionsPage() {
         </DialogContent>
       </Dialog>
 
-      <Dialog
-        open={!!renameEvent}
+      <Sheet
+        open={!!editingEvent}
         onOpenChange={(open) => {
-          if (!open) {
-            setRenameEvent(null);
-            setRenameValue("");
-          }
+          if (!open) setEditingEvent(null);
         }}
       >
-        <DialogContent className="max-w-sm">
-          <DialogHeader>
-            <DialogTitle>Rename conversion event</DialogTitle>
-            <DialogDescription>
-              Enter a new name for{" "}
-              <code className="font-mono text-xs">{renameEvent}</code>. All references in YAML
-              content files will be updated automatically.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-1.5 py-1">
-            <Label htmlFor="rename-event-input">New event name</Label>
-            <Input
-              id="rename-event-input"
-              placeholder="e.g. scholarship_application"
-              value={renameValue}
-              onChange={(e) => setRenameValue(e.target.value)}
-              onKeyDown={(e) => {
-                if (
-                  e.key === "Enter" &&
-                  renameEvent &&
-                  renameValue.trim() &&
-                  renameValue.trim() !== renameEvent
-                ) {
-                  renameMutation.mutate({ oldName: renameEvent, newName: renameValue.trim() });
-                }
-              }}
-              data-testid="input-rename-event"
-              className="font-mono text-sm"
-            />
-            <p className="text-xs text-muted-foreground">
-              Use snake_case. This becomes the GTM event name.
-            </p>
-          </div>
-          <DialogFooter>
+        <SheetContent side="right" className="sm:max-w-md flex flex-col p-0">
+          <SheetHeader className="px-6 pt-6 pb-4 border-b shrink-0">
+            <SheetTitle className="text-base">Edit conversion event</SheetTitle>
+            <SheetDescription className="text-xs">
+              Set default values for automations, consents, and a per-event webhook.
+              Form-level settings always take precedence over these defaults.
+            </SheetDescription>
+          </SheetHeader>
+
+          <ScrollArea className="flex-1 min-h-0">
+            <div className="px-6 py-4 space-y-4">
+              {/* Rename field */}
+              <div className="space-y-1.5">
+                <Label htmlFor="edit-event-name" className="text-sm font-medium">
+                  Event name
+                </Label>
+                <Input
+                  id="edit-event-name"
+                  placeholder="e.g. scholarship_application"
+                  value={editingEvent?.name ?? ""}
+                  onChange={(e) =>
+                    editingEvent && setEditingEvent({ ...editingEvent, name: e.target.value })
+                  }
+                  data-testid="input-edit-event-name"
+                  className="font-mono text-sm"
+                />
+                <p className="text-xs text-muted-foreground">
+                  Use snake_case. Renaming updates all YAML references automatically.
+                </p>
+              </div>
+
+              {/* Automations & Tags */}
+              {editingEvent && (
+                <AutomationsTagsCard
+                  automation={editingEvent.automations}
+                  tags={editingEvent.tags}
+                  onAutomationChange={(val) =>
+                    setEditingEvent({ ...editingEvent, automations: val })
+                  }
+                  onTagsChange={(tags) =>
+                    setEditingEvent({ ...editingEvent, tags })
+                  }
+                  automationSuggestions={formStateSuggestions?.automations ?? []}
+                  tagSuggestions={formStateSuggestions?.tags ?? []}
+                />
+              )}
+
+              {/* Consents */}
+              {editingEvent && (
+                <ConsentCard
+                  values={editingEvent.consent}
+                  onChange={(field, value) =>
+                    setEditingEvent({
+                      ...editingEvent,
+                      consent: { ...editingEvent.consent, [field]: value },
+                    })
+                  }
+                />
+              )}
+
+              {/* Per-event Webhook */}
+              <div className="rounded-md border bg-muted/20 p-3 space-y-3" data-testid="card-event-webhook">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-1.5">
+                    <IconWebhook className="h-3.5 w-3.5 text-muted-foreground" />
+                    <span className="text-sm font-medium">Webhook</span>
+                  </div>
+                  <Button
+                    type="button"
+                    size="icon"
+                    variant="ghost"
+                    className="h-6 w-6"
+                    onClick={() =>
+                      editingEvent &&
+                      setEditingEvent({ ...editingEvent, webhookEditing: !editingEvent.webhookEditing })
+                    }
+                    data-testid="button-edit-event-webhook"
+                  >
+                    {editingEvent?.webhookEditing
+                      ? <IconX className="h-3.5 w-3.5" />
+                      : <IconPencil className="h-3.5 w-3.5" />}
+                  </Button>
+                </div>
+
+                {editingEvent?.webhookEditing ? (
+                  <div className="space-y-3">
+                    <p className="text-xs text-muted-foreground">
+                      Overrides the global webhook for this event only. Leave URL blank to use the global webhook.
+                    </p>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="event-webhook-url" className="text-xs text-muted-foreground">
+                        URL
+                      </Label>
+                      <Input
+                        id="event-webhook-url"
+                        type="url"
+                        placeholder="https://hooks.example.com/..."
+                        value={editingEvent.webhookUrl}
+                        onChange={(e) =>
+                          setEditingEvent({ ...editingEvent, webhookUrl: e.target.value })
+                        }
+                        data-testid="input-event-webhook-url"
+                        className="text-xs"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="event-webhook-method" className="text-xs text-muted-foreground">
+                        Method
+                      </Label>
+                      <Select
+                        value={editingEvent.webhookMethod}
+                        onValueChange={(val) =>
+                          setEditingEvent({ ...editingEvent, webhookMethod: val as "POST" | "GET" })
+                        }
+                      >
+                        <SelectTrigger id="event-webhook-method" data-testid="select-event-webhook-method" className="text-xs">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="POST">POST</SelectItem>
+                          <SelectItem value="GET">GET</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="event-webhook-auth" className="text-xs text-muted-foreground">
+                        Authorization header{" "}
+                        <span className="font-normal">(optional)</span>
+                      </Label>
+                      <Input
+                        id="event-webhook-auth"
+                        type="password"
+                        placeholder="Bearer sk-..."
+                        value={editingEvent.webhookAuthHeader}
+                        onChange={(e) =>
+                          setEditingEvent({ ...editingEvent, webhookAuthHeader: e.target.value })
+                        }
+                        data-testid="input-event-webhook-auth"
+                        autoComplete="off"
+                        className="text-xs"
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="space-y-1.5">
+                    <div className="flex items-start gap-2">
+                      <span className="text-xs text-muted-foreground w-20 flex-shrink-0 pt-0.5">URL</span>
+                      {editingEvent?.webhookUrl ? (
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          <Badge variant="secondary" className="text-[11px] px-1.5 py-0 leading-4 font-normal shrink-0">
+                            {editingEvent.webhookMethod}
+                          </Badge>
+                          <span className="font-mono text-xs truncate text-foreground">
+                            {editingEvent.webhookUrl}
+                          </span>
+                        </div>
+                      ) : (
+                        <span className="text-xs text-muted-foreground italic">not set — uses global webhook</span>
+                      )}
+                    </div>
+                    {editingEvent?.webhookAuthHeader && (
+                      <div className="flex items-start gap-2">
+                        <span className="text-xs text-muted-foreground w-20 flex-shrink-0 pt-0.5">Auth</span>
+                        <span className="text-xs text-muted-foreground italic">configured</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </ScrollArea>
+
+          {/* Footer */}
+          <div className="px-6 py-4 border-t shrink-0 flex items-center justify-end gap-2 flex-wrap">
             <Button
-              variant="outline"
-              onClick={() => {
-                setRenameEvent(null);
-                setRenameValue("");
-              }}
-              data-testid="button-cancel-rename-event"
+              variant="ghost"
+              onClick={() => setEditingEvent(null)}
+              data-testid="button-cancel-edit-event"
             >
               Cancel
             </Button>
             <Button
-              onClick={() =>
-                renameEvent &&
-                renameMutation.mutate({ oldName: renameEvent, newName: renameValue.trim() })
-              }
+              onClick={() => editingEvent && saveEventMutation.mutate(editingEvent)}
               disabled={
-                !renameValue.trim() ||
-                renameValue.trim() === renameEvent ||
-                renameMutation.isPending
+                !editingEvent?.name.trim() ||
+                saveEventMutation.isPending
               }
-              data-testid="button-confirm-rename-event"
+              data-testid="button-save-edit-event"
             >
-              {renameMutation.isPending ? (
+              {saveEventMutation.isPending && (
                 <IconLoader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <IconPencil className="h-4 w-4" />
               )}
-              Rename
+              Save
             </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+          </div>
+        </SheetContent>
+      </Sheet>
 
       {/* Remove webhook confirmation dialog */}
       <Dialog

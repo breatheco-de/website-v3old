@@ -84,6 +84,8 @@ export interface LeadFormData {
     sms_usa_only?: boolean;
   };
   show_terms?: boolean;
+  terms_url?: string;
+  privacy_url?: string;
   className?: string;
   button_className?: string;
   terms_className?: string;
@@ -322,8 +324,40 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
 
   const variant = data.variant || "stacked";
   const fields = data.fields || {};
-  const consent = data.consent || {};
-  const showTerms = data.show_terms !== false;
+
+  // Merge conversion event defaults with form-level settings (form-level values always win)
+  const eventEntry = data.conversion_name
+    ? trackingSettings?.conversion_events?.find((e) => e.name === data.conversion_name)
+    : undefined;
+  const eventConsent = eventEntry?.consent;
+  const consent: NonNullable<LeadFormData["consent"]> = {
+    // Event-level defaults fill gaps (applied first so form-level overrides below)
+    ...(eventConsent?.marketing !== undefined && { marketing: eventConsent.marketing }),
+    ...(eventConsent?.sms !== undefined && { sms: eventConsent.sms }),
+    ...(eventConsent?.whatsapp !== undefined && { whatsapp: eventConsent.whatsapp }),
+    ...(eventConsent?.sms_usa_only !== undefined && { sms_usa_only: eventConsent.sms_usa_only }),
+    ...(eventConsent?.marketing_text && { marketing_text: eventConsent.marketing_text }),
+    ...(eventConsent?.sms_text && { sms_text: eventConsent.sms_text }),
+    // Form-level YAML settings override (always win)
+    ...data.consent,
+  };
+  const showTerms = data.show_terms !== undefined
+    ? data.show_terms
+    : (eventEntry?.consent?.show_terms ?? true);
+  const effectiveTags =
+    data.tags ||
+    (eventEntry?.tags?.length ? eventEntry.tags.join(",") : null) ||
+    "website-lead";
+  const effectiveAutomations = data.automations || eventEntry?.automations || "strong";
+  // Effective terms/privacy URLs: form YAML wins; event default fills gap; legal settings fallback
+  const effectiveTermsUrl =
+    data.terms_url ||
+    eventEntry?.consent?.terms_url ||
+    null;
+  const effectivePrivacyUrl =
+    data.privacy_url ||
+    eventEntry?.consent?.privacy_url ||
+    null;
 
   const hasLandingLocations = landingLocations && landingLocations.length > 0;
   const singleLandingLocation = hasLandingLocations && landingLocations.length === 1 ? landingLocations[0] : null;
@@ -492,8 +526,9 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
         utm_plan: utm.utm_plan,
         ppc_tracking_id: utm.ppc_tracking_id,
         referral: utm.referral || utm.ref,
-        tags: data.tags || "website-lead",
-        automations: data.automations || "strong",
+        tags: effectiveTags,
+        automations: effectiveAutomations,
+        conversion_name: data.conversion_name,
         token: turnstileToken,
       };
 
@@ -1252,7 +1287,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
             <p className={`text-xs text-center ${data.terms_className || "text-muted-foreground"}`} style={termsStyle} data-testid="text-terms">
               {locale === "es" ? "Al registrarte, aceptas los " : "By signing up, you agree to the "}
               <a 
-                href={legalSettings?.legal_terms_url || (locale === "es" ? "/es/terminos-y-condiciones" : "/en/terms-conditions")} 
+                href={effectiveTermsUrl || legalSettings?.legal_terms_url || (locale === "es" ? "/es/terminos-y-condiciones" : "/en/terms-conditions")} 
                 className="underline hover:text-foreground"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -1262,7 +1297,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
               </a>
               {locale === "es" ? " y la " : " and "}
               <a 
-                href={legalSettings?.legal_privacy_url || (locale === "es" ? "/es/politicas-de-privacidad" : "/en/privacy-policy")} 
+                href={effectivePrivacyUrl || legalSettings?.legal_privacy_url || (locale === "es" ? "/es/politicas-de-privacidad" : "/en/privacy-policy")} 
                 className="underline hover:text-foreground"
                 target="_blank"
                 rel="noopener noreferrer"
