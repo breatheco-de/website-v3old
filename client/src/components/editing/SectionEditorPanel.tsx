@@ -6595,32 +6595,69 @@ export function SectionEditorPanel({
                     </div>
                   );
                 })()
-              ) : (
+              ) : (() => {
                 /* hero / lead_form: boolean toggles — use shared ConsentCard */
-                <ConsentCard
-                  values={{
-                    marketing: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.marketing`),
-                    sms: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.sms`),
-                    whatsapp: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.whatsapp`),
-                    smsUsaOnly: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.sms_usa_only`),
-                    showTerms: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.show_terms`),
-                    termsUrl: String(getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.terms_url`) ?? ""),
-                    privacyUrl: String(getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.privacy_url`) ?? ""),
-                  }}
-                  onChange={(field, value) => {
-                    const pathMap: Record<keyof ConsentValues, string> = {
-                      marketing: `${formSettingsPath}.consent.marketing`,
-                      sms: `${formSettingsPath}.consent.sms`,
-                      whatsapp: `${formSettingsPath}.consent.whatsapp`,
-                      smsUsaOnly: `${formSettingsPath}.consent.sms_usa_only`,
-                      showTerms: `${formSettingsPath}.show_terms`,
-                      termsUrl: `${formSettingsPath}.terms_url`,
-                      privacyUrl: `${formSettingsPath}.privacy_url`,
-                    };
-                    updateProperty(pathMap[field], value === false ? false : (value || undefined));
-                  }}
-                />
-              )}
+                const convName = String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.conversion_name`) ?? "");
+                  const convEvent = convName
+                    ? trackingSettings?.conversion_events?.find((e) => e.name === convName)
+                    : undefined;
+
+                  const rawMarketing   = getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.marketing`);
+                  const rawSms         = getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.sms`);
+                  const rawWhatsapp    = getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.whatsapp`);
+                  const rawSmsUsaOnly  = getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.sms_usa_only`);
+                  const rawShowTerms   = getValueAtFieldPath(parsedSection, `${formSettingsPath}.show_terms`);
+
+                  const specificFields = {
+                    marketing:  rawMarketing  !== null && rawMarketing  !== undefined,
+                    sms:        rawSms        !== null && rawSms        !== undefined,
+                    whatsapp:   rawWhatsapp   !== null && rawWhatsapp   !== undefined,
+                    smsUsaOnly: rawSmsUsaOnly !== null && rawSmsUsaOnly !== undefined,
+                    showTerms:  rawShowTerms  !== null && rawShowTerms  !== undefined,
+                    termsUrl:   false,
+                    privacyUrl: false,
+                  };
+
+                  const inheritedValues: Partial<ConsentValues> | undefined = convEvent
+                    ? {
+                        marketing:  !!convEvent.consent?.marketing,
+                        sms:        !!convEvent.consent?.sms,
+                        whatsapp:   !!convEvent.consent?.whatsapp,
+                        smsUsaOnly: !!convEvent.consent?.sms_usa_only,
+                        showTerms:  !!convEvent.consent?.show_terms,
+                        termsUrl:   convEvent.consent?.terms_url ?? "",
+                        privacyUrl: convEvent.consent?.privacy_url ?? "",
+                      }
+                    : undefined;
+
+                  return (
+                    <ConsentCard
+                      values={{
+                        marketing: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.marketing`),
+                        sms: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.sms`),
+                        whatsapp: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.whatsapp`),
+                        smsUsaOnly: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.sms_usa_only`),
+                        showTerms: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.show_terms`),
+                        termsUrl: String(getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.terms_url`) ?? ""),
+                        privacyUrl: String(getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.privacy_url`) ?? ""),
+                      }}
+                      inheritedValues={inheritedValues}
+                      specificFields={specificFields}
+                      onChange={(field, value) => {
+                        const pathMap: Record<keyof ConsentValues, string> = {
+                          marketing: `${formSettingsPath}.consent.marketing`,
+                          sms: `${formSettingsPath}.consent.sms`,
+                          whatsapp: `${formSettingsPath}.consent.whatsapp`,
+                          smsUsaOnly: `${formSettingsPath}.consent.sms_usa_only`,
+                          showTerms: `${formSettingsPath}.show_terms`,
+                          termsUrl: `${formSettingsPath}.terms_url`,
+                          privacyUrl: `${formSettingsPath}.privacy_url`,
+                        };
+                        updateProperty(pathMap[field], value === false ? false : (value || undefined));
+                      }}
+                    />
+                  );
+                })()}
 
               {/* Locations */}
               {(() => {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconInfoCircle, IconPencil, IconShieldCheck, IconX } from "@tabler/icons-react";
+import { IconAlertCircle, IconInfoCircle, IconPencil, IconShieldCheck, IconX } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -20,6 +20,8 @@ export interface ConsentValues {
 interface ConsentCardProps {
   values: ConsentValues;
   onChange: (field: keyof ConsentValues, value: boolean | string) => void;
+  inheritedValues?: Partial<ConsentValues>;
+  specificFields?: Partial<Record<keyof ConsentValues, boolean>>;
 }
 
 function ConsentVariableInfo({ variable }: { variable: string }) {
@@ -63,14 +65,28 @@ function ConsentVariableInfo({ variable }: { variable: string }) {
   );
 }
 
-export function ConsentCard({ values, onChange }: ConsentCardProps) {
+export function ConsentCard({ values, onChange, inheritedValues, specificFields }: ConsentCardProps) {
   const [editing, setEditing] = useState(false);
 
-  const activeChannels = [
-    values.marketing ? "Marketing" : null,
-    values.sms ? "SMS" : null,
-    values.whatsapp ? "WhatsApp" : null,
-  ].filter(Boolean) as string[];
+  const isSpecific = (field: keyof ConsentValues) => specificFields?.[field] === true;
+  const isInherited = (field: keyof ConsentValues) => !isSpecific(field) && inheritedValues !== undefined;
+  const hasInheritanceSource = inheritedValues !== undefined;
+
+  type Channel = { key: "marketing" | "sms" | "whatsapp"; label: string };
+  const channelDefs: Channel[] = [
+    { key: "marketing", label: "Marketing" },
+    { key: "sms", label: "SMS" },
+    { key: "whatsapp", label: "WhatsApp" },
+  ];
+
+  const specificChannels = channelDefs.filter(({ key }) => isSpecific(key) && values[key]);
+  const inheritedChannels = channelDefs.filter(({ key }) => isInherited(key) && values[key]);
+  const hasAnyChannel = specificChannels.length > 0 || inheritedChannels.length > 0;
+  const channelsMissing = !hasAnyChannel && !hasInheritanceSource && !channelDefs.some(({ key }) => values[key]);
+
+  const showTermsSpecific = isSpecific("showTerms");
+  const showTermsInherited = isInherited("showTerms");
+  const termsMissing = !hasInheritanceSource && !showTermsSpecific;
 
   return (
     <div className="rounded-md border bg-muted/20 p-3 space-y-3" data-testid="card-consents">
@@ -93,23 +109,58 @@ export function ConsentCard({ values, onChange }: ConsentCardProps) {
 
       {!editing ? (
         <div className="space-y-1.5">
+          {/* Channels */}
           <div className="flex items-start gap-2">
             <span className="text-xs text-muted-foreground w-20 flex-shrink-0 pt-0.5">Channels</span>
-            {activeChannels.length > 0 ? (
-              <div className="flex flex-wrap gap-1">
-                {activeChannels.map((ch) => (
-                  <Badge key={ch} variant="secondary" className="text-[11px] px-1.5 py-0 leading-4 font-normal">
-                    {ch}
+            {channelsMissing ? (
+              <span className="flex items-center gap-1 text-xs text-destructive" data-testid="error-no-channels">
+                <IconAlertCircle className="h-3 w-3 shrink-0" />
+                No inherited or specific value found
+              </span>
+            ) : hasAnyChannel ? (
+              <div className="flex flex-wrap gap-1 items-center">
+                {specificChannels.map(({ key, label }) => (
+                  <Badge key={key} variant="secondary" className="text-[11px] px-1.5 py-0 leading-4 font-normal">
+                    {label}
                   </Badge>
                 ))}
+                {inheritedChannels.map(({ key, label }) => (
+                  <Badge key={key} variant="secondary" className="text-[11px] px-1.5 py-0 leading-4 font-normal">
+                    {label}
+                  </Badge>
+                ))}
+                {inheritedChannels.length > 0 && specificChannels.length === 0 && (
+                  <span className="text-[10px] text-muted-foreground italic">(inherited)</span>
+                )}
+                {inheritedChannels.length > 0 && specificChannels.length > 0 && (
+                  <span className="text-[10px] text-muted-foreground italic">
+                    ({inheritedChannels.map(c => c.label).join(", ")} inherited)
+                  </span>
+                )}
               </div>
             ) : (
               <span className="text-xs text-muted-foreground italic">none enabled</span>
             )}
           </div>
+
+          {/* Terms */}
           <div className="flex items-start gap-2">
             <span className="text-xs text-muted-foreground w-20 flex-shrink-0 pt-0.5">Terms</span>
-            <span className="text-xs text-muted-foreground italic">{values.showTerms ? "shown" : "hidden"}</span>
+            {termsMissing ? (
+              <span className="flex items-center gap-1 text-xs text-destructive" data-testid="error-no-terms">
+                <IconAlertCircle className="h-3 w-3 shrink-0" />
+                No inherited or specific value found
+              </span>
+            ) : (
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs text-muted-foreground italic">
+                  {values.showTerms ? "shown" : "hidden"}
+                </span>
+                {showTermsInherited && (
+                  <span className="text-[10px] text-muted-foreground italic">(inherited)</span>
+                )}
+              </div>
+            )}
           </div>
         </div>
       ) : (
