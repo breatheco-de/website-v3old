@@ -123,6 +123,7 @@ export default function ConversionsPage() {
   const [webhookMethod, setWebhookMethod] = useState("POST");
   const [webhookAuthHeader, setWebhookAuthHeader] = useState("");
   const [webhookEditing, setWebhookEditing] = useState(false);
+  const [removeWebhookConfirmOpen, setRemoveWebhookConfirmOpen] = useState(false);
 
   const { data: trackingSettings } = useQuery<TrackingSettingsResponse>({
     queryKey: ["/api/settings/tracking"],
@@ -420,7 +421,7 @@ export default function ConversionsPage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => clearWebhookMutation.mutate()}
+                    onClick={() => setRemoveWebhookConfirmOpen(true)}
                     disabled={clearWebhookMutation.isPending}
                     data-testid="button-remove-webhook"
                   >
@@ -1138,6 +1139,50 @@ export default function ConversionsPage() {
                 <IconPencil className="h-4 w-4" />
               )}
               Rename
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Remove webhook confirmation dialog */}
+      <Dialog
+        open={removeWebhookConfirmOpen}
+        onOpenChange={(open) => {
+          if (!open) setRemoveWebhookConfirmOpen(false);
+        }}
+      >
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Remove global webhook?</DialogTitle>
+            <DialogDescription>
+              This will clear the global fallback webhook. All conversions that rely on it will stop
+              sending webhook calls immediately. This cannot be undone automatically — you will need
+              to re-configure it manually.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setRemoveWebhookConfirmOpen(false)}
+              data-testid="button-cancel-remove-webhook"
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={() => {
+                setRemoveWebhookConfirmOpen(false);
+                clearWebhookMutation.mutate();
+              }}
+              disabled={clearWebhookMutation.isPending}
+              data-testid="button-confirm-remove-webhook"
+            >
+              {clearWebhookMutation.isPending ? (
+                <IconLoader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <IconTrash className="h-4 w-4" />
+              )}
+              Remove webhook
             </Button>
           </DialogFooter>
         </DialogContent>
