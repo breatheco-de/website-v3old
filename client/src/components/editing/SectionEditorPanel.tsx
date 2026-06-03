@@ -1830,16 +1830,24 @@ export function SectionEditorPanel({
 
   const formSettingsPath: string | null = (() => {
     const rawFields = allFieldEditors?.[sectionType] || {};
+    const currentVariant = (parsedSection as Record<string, unknown>)?.variant as string | undefined;
+    let globalPath: string | null = null;
     for (const [fieldPath, editorType] of Object.entries(rawFields)) {
       if (editorType === "form-settings") {
         const colonIndex = fieldPath.indexOf(":");
         if (colonIndex > 0 && !fieldPath.startsWith("color-picker:")) {
-          return fieldPath.substring(colonIndex + 1);
+          const variantPrefix = fieldPath.substring(0, colonIndex);
+          const actualPath = fieldPath.substring(colonIndex + 1);
+          if (currentVariant && variantPrefix === currentVariant) {
+            return actualPath;
+          }
+          if (globalPath === null) globalPath = actualPath;
+        } else {
+          if (globalPath === null) globalPath = fieldPath;
         }
-        return fieldPath;
       }
     }
-    return null;
+    return globalPath;
   })();
 
   // Get configured fields for current section type, filtering by variant
