@@ -6462,33 +6462,41 @@ export function SectionEditorPanel({
                 >
                   Conversion Name
                 </Label>
-                <Select
-                  value={String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.conversion_name`) ?? "")}
-                  onValueChange={(val) => updateProperty(`${formSettingsPath}.conversion_name`, val === "__clear__" ? "" : val)}
-                  data-testid="select-conversion-name"
-                >
-                  <SelectTrigger className="w-full" data-testid="combobox-conversion-name">
-                    <SelectValue placeholder="Select conversion event…" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {conversionNames.length === 0 ? (
-                      <SelectItem value="__loading__" disabled>
-                        {conversionNamesLoading ? "Loading…" : "No events configured"}
-                      </SelectItem>
-                    ) : (
-                      <>
+                {(() => {
+                  const storedConversionName = String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.conversion_name`) ?? "");
+                  return (
+                    <Select
+                      value={storedConversionName}
+                      onValueChange={(val) => updateProperty(`${formSettingsPath}.conversion_name`, val === "__clear__" ? "" : val)}
+                      data-testid="select-conversion-name"
+                    >
+                      <SelectTrigger className="w-full" data-testid="combobox-conversion-name">
+                        <SelectValue placeholder="Select conversion event…" />
+                      </SelectTrigger>
+                      <SelectContent>
                         <SelectItem value="__clear__" data-testid="conversion-name-option-clear">
                           <span className="text-muted-foreground">— None —</span>
                         </SelectItem>
+                        {storedConversionName && !conversionNames.includes(storedConversionName) && (
+                          <SelectItem value={storedConversionName} data-testid={`conversion-name-option-${storedConversionName}`}>
+                            {storedConversionName}
+                            {conversionNamesLoading && <span className="ml-1 text-xs text-muted-foreground">(loading…)</span>}
+                          </SelectItem>
+                        )}
+                        {conversionNames.length === 0 && !storedConversionName && (
+                          <SelectItem value="__loading__" disabled>
+                            {conversionNamesLoading ? "Loading…" : "No events configured"}
+                          </SelectItem>
+                        )}
                         {conversionNames.map((name) => (
                           <SelectItem key={name} value={name} data-testid={`conversion-name-option-${name}`}>
                             {name}
                           </SelectItem>
                         ))}
-                      </>
-                    )}
-                  </SelectContent>
-                </Select>
+                      </SelectContent>
+                    </Select>
+                  );
+                })()}
                 <p className="text-xs text-muted-foreground">
                   GTM event fired on form submission. Must match a configured conversion event.
                 </p>
