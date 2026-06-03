@@ -54,11 +54,6 @@ sections:
           default: ai-engineering
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
-      consent:
-        sms: true
-        marketing: true
-        sms_usa_only: true
-      show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Want to Find the Right Program?
@@ -744,10 +739,6 @@ sections:
           required: true
       success:
         message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
-      consent:
-        email: true
-        marketing: true
-      show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
     section_id: cta_banner-a80141

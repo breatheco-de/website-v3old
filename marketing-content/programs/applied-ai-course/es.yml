@@ -499,10 +499,6 @@ sections:
           default: applied-ai
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
-      consent:
-        email: true
-        marketing: true
-      show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
     form_background: hsl(var(--card))

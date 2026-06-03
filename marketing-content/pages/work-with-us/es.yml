@@ -97,7 +97,6 @@ sections:
           placeholder: Comentarios
       success:
         message: ¡Gracias! Pronto nos pondremos en contacto.
-      show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
     marginY:

@@ -99,7 +99,6 @@ sections:
           placeholder: Comments
       success:
         message: Thank you! We'll be in touch soon.
-      show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
     marginY:

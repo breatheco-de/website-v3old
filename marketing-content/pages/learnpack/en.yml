@@ -91,7 +91,6 @@ sections:
       - **Built-in analytics** showing learner progress, completion rates, and common blockers.
       - **Open-source library** with over 1,000 tutorials available to reuse or expand.
 
-
       ## Built for the AI Era
 
       Large Language Models like Grok, GPT-4o, and Claude 3 accelerate modern workflows. LearnPack embraces them by:
@@ -99,7 +98,6 @@ sections:
       - Embedding **Rigobot** for line-level coaching.
       - Allowing AI-generated starter code while requiring learners to pass unit tests.
       - Teaching a **human plus AI pair-programmer** mindset that companies already expect.
-
 
       ## Ready to Create or Learn?
 
@@ -154,10 +152,6 @@ sections:
           default: auto
       success:
         message: Thank you! We'll be in touch soon.
-      consent:
-        email: true
-        marketing: true
-      show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
     marginY:

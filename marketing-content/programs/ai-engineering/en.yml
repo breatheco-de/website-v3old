@@ -747,10 +747,6 @@ sections:
           default: {{ single.bc_slug | ai-engineering }}
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
-      consent:
-        email: true
-        marketing: true
-      show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
     form_background: hsl(var(--card))

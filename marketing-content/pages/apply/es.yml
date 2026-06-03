@@ -51,11 +51,6 @@ sections:
         location:
           visible: true
           required: true
-      consent:
-        sms: true
-        marketing: true
-        sms_usa_only: true
-      show_terms: true
       turnstile:
         enabled: true
     next_steps:

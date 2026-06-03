@@ -44,11 +44,6 @@ sections:
           default: ai-engineering
       success:
         message: Check your inbox! Your syllabus is on the way.
-      consent:
-        sms: true
-        marketing: true
-        sms_usa_only: true
-      show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get the Full AI Engineering Bootcamp Curriculum
@@ -892,10 +887,6 @@ sections:
           default: ai-engineering
       success:
         message: Application received. Our admissions team will be in touch within minutes — check your inbox.
-      consent:
-        email: true
-        marketing: true
-      show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
     section_id: cta_banner-55y7oh

@@ -57,11 +57,6 @@ sections:
           default: ai-engineering
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
-      consent:
-        sms: true
-        marketing: true
-        sms_usa_only: true
-      show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get the AI Engineering Program Overview
@@ -811,9 +806,6 @@ sections:
           default: ai-engineering
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
-      consent:
-        email: true
-        marketing: true
     section_id: cta_banner-55y7oh
     paddingY:
       desktop: md

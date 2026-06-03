@@ -399,10 +399,6 @@ sections:
           default: auto
       success:
         message: ¡Gracias! Muy pronto te llegará el detalle del programa.
-      consent:
-        email: true
-        marketing: true
-      show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
     form_background: hsl(var(--card))

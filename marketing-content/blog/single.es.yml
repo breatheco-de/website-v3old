@@ -40,7 +40,6 @@ sections:
       submit_label: Get Started
       button_className: bg-primary text-white hover:bg-white/90 border-white
       terms_className: text-white/80
-      show_terms: true
       fields:
         email:
           visible: true

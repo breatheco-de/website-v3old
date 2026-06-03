@@ -53,7 +53,6 @@ sections:
           placeholder: Escribe tu mensaje aquí
       success:
         message: Thank you! We'll be in touch soon.
-      show_terms: true
     locations:
       - code: US
         name: USA

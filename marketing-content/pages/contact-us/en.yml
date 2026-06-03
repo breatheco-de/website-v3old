@@ -54,7 +54,6 @@ sections:
           placeholder: Comments
       success:
         message: Thank you! We'll be in touch soon.
-      show_terms: true
     locations:
       - code: US
         name: USA

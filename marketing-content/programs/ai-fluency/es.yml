@@ -831,10 +831,6 @@ sections:
         message: >-
           Revisa tu bandeja de entrada. El equipo de admisiones se pondrá en contacto pronto con todo lo que necesitas
           saber.
-      consent:
-        email: true
-        marketing: true
-      show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
     form_background: hsl(var(--card))

@@ -36,11 +36,6 @@ sections:
           default: ai-engineering
       success:
         message: Una vez completado el formulario, recibirás en tu correo toda la información del curso y las opciones de financiamiento disponibles.
-      consent:
-        sms: true
-        marketing: true
-        sms_usa_only: true
-      show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get Full Program Details
@@ -436,10 +431,6 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
-      consent:
-        email: true
-        marketing: true
-      show_terms: true
       button_className: bg-primary border-white
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))

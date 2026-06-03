@@ -52,10 +52,6 @@ sections:
           default: ai-engineering
       success:
         message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
-      consent:
-        sms: true
-        marketing: true
-      show_terms: true
     cta_button:
       text: Descargar programa
       url: /programa/ai-engineering
@@ -665,10 +661,6 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
-      consent:
-        email: true
-        marketing: true
-      show_terms: true
       button_className: bg-primary border-white
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))

@@ -103,7 +103,6 @@ sections:
       | Campuses | 7 (USA, Spain, Germany, LATAM, etc.) |
       | Platform used in universities | Yes (via Gitpod + LearnPack) |
 
-
       ## Why 4Geeks Feels Different
 
       This isn’t a bootcamp that leaves you watching videos alone. It’s a **complete learning system** built on:
@@ -168,10 +167,6 @@ sections:
           default: auto
       success:
         message: Thank you! We'll be in touch soon.
-      consent:
-        email: true
-        marketing: true
-      show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
     marginY:

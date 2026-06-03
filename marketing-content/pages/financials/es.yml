@@ -583,10 +583,6 @@ sections:
           required: true
       success:
         message: ¡Gracias! Nos pondremos en contacto contigo pronto.
-      consent:
-        email: true
-        marketing: true
-      show_terms: true
       button_className: bg-primary
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
