@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: "4Geeks Academy Partners and Collaborators"
-  description: "4Geeks partners with universities, governments, and nonprofits to expand tech education. $20M+ in grants awarded. 6,000+ students trained. Join our network."
+  page_title: 4Geeks Academy Partners and Collaborators
+  description: 4Geeks partners with universities, governments, and nonprofits to expand tech education. $20M+ in grants awarded. 6,000+ students trained. Join our network.
   redirects:
     - /partners
 schema:
@@ -40,9 +40,7 @@ sections:
     form:
       variant: stacked
       submit_label: Submit Application
-      conversion_name: contact_us
-      tags: contact-us
-      automations: soft
+      conversion_name: partner_application
       fields:
         email:
           visible: true

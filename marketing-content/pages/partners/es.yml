@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: "Conoce a nuestros aliados de 4Geeks"
-  description: "Conoce las empresas e instituciones aliadas de 4Geeks Academy y cómo colaboramos para transformar la educación tecnológica."
+  page_title: Conoce a nuestros aliados de 4Geeks
+  description: Conoce las empresas e instituciones aliadas de 4Geeks Academy y cómo colaboramos para transformar la educación tecnológica.
   redirects: []
 schema:
   include:
@@ -42,9 +42,7 @@ sections:
     form:
       variant: stacked
       submit_label: Download
-      conversion_name: request_more_info
-      tags: request_more_info
-      automations: soft
+      conversion_name: partner_application
       fields:
         email:
           visible: true

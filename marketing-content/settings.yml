@@ -52,9 +52,9 @@ tracking:
         - request_more_info
       consent:
         marketing: false
-        sms: false
-        whatsapp: false
-        sms_usa_only: false
+        sms: true
+        whatsapp: true
+        sms_usa_only: true
         show_terms: false
     - name: financing_guide_download
       description: Form submission
@@ -68,20 +68,34 @@ tracking:
         show_terms: false
     - name: partner_application
       description: Form submission
+      consent:
+        marketing: true
+        sms: false
+        whatsapp: false
+        sms_usa_only: false
+        show_terms: false
     - name: job_application
       description: Form submission
     - name: newsletter_signup
       description: Form submission
     - name: contact_us
       description: Form submission
+      tags:
+        - contact-us
       consent:
-        marketing: false
+        marketing: true
         sms: false
         whatsapp: false
         sms_usa_only: false
         show_terms: false
     - name: outcomes_report
       description: Form submission
+      consent:
+        marketing: true
+        sms: false
+        whatsapp: false
+        sms_usa_only: false
+        show_terms: false
   webhook:
     url: https://breathecode.herokuapp.com/v2/marketing/lead
     method: POST
