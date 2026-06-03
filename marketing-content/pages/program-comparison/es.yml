@@ -34,6 +34,7 @@ sections:
     section_id: hero-qljc9m
     paddingY:
       desktop: sm
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: hero
     section_id: hero-5m2y4d
     version: "1.0"
