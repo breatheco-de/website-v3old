@@ -174,6 +174,7 @@ export default function ConversionsPage() {
   const [webhookAuthHeader, setWebhookAuthHeader] = useState("");
   const [webhookEditing, setWebhookEditing] = useState(false);
   const [removeWebhookConfirmOpen, setRemoveWebhookConfirmOpen] = useState(false);
+  const [samplePayloadOpen, setSamplePayloadOpen] = useState(false);
 
   const { data: trackingSettings } = useQuery<TrackingSettingsResponse>({
     queryKey: ["/api/settings/tracking"],
@@ -699,18 +700,32 @@ export default function ConversionsPage() {
 
             {/* Sample payload */}
             <div className="border-t pt-4">
-              <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">
+              <button
+                type="button"
+                className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground uppercase tracking-wide hover-elevate rounded w-full text-left"
+                onClick={() => setSamplePayloadOpen((v) => !v)}
+                data-testid="button-toggle-sample-payload"
+              >
+                {samplePayloadOpen ? (
+                  <IconChevronDown className="h-3.5 w-3.5 flex-shrink-0" />
+                ) : (
+                  <IconChevronRight className="h-3.5 w-3.5 flex-shrink-0" />
+                )}
                 Sample payload
-              </p>
-              <div className="overflow-hidden rounded-md" data-testid="text-webhook-sample-payload">
-                <JsonViewer
-                  value={JSON.stringify(SAMPLE_LEAD_PAYLOAD, null, 2)}
-                  className="[&_.cm-editor]:!max-w-full [&_.cm-scroller]:!overflow-x-auto"
-                />
-              </div>
-              <p className="text-xs text-muted-foreground mt-2">
-                Sent as a JSON body (<code className="font-mono">Content-Type: application/json</code>) with the full lead fields.
-              </p>
+              </button>
+              {samplePayloadOpen && (
+                <div className="mt-2 space-y-2">
+                  <div className="overflow-hidden rounded-md" data-testid="text-webhook-sample-payload">
+                    <JsonViewer
+                      value={JSON.stringify(SAMPLE_LEAD_PAYLOAD, null, 2)}
+                      className="[&_.cm-editor]:!max-w-full [&_.cm-scroller]:!overflow-x-auto"
+                    />
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Sent as a JSON body (<code className="font-mono">Content-Type: application/json</code>) with the full lead fields.
+                  </p>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>
