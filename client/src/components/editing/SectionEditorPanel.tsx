@@ -73,7 +73,7 @@ import { useConversionNames } from "@/lib/tracking";
 import { AutomationsTagsCard } from "./AutomationsTagsCard";
 import { ConsentCard } from "./ConsentCard";
 import type { ConsentValues } from "./ConsentCard";
-import { WebhookCard } from "./WebhookCard";
+import { WebhookCard, type WebhookSource } from "./WebhookCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import CodeMirror from "@uiw/react-codemirror";
 import type { EditorView } from "@codemirror/view";
@@ -6693,29 +6693,72 @@ export function SectionEditorPanel({
               })()}
 
               {/* Webhook */}
-              <WebhookCard
-                url={String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.webhook.url`) ?? "")}
-                method={(getValueAtFieldPath(parsedSection, `${formSettingsPath}.webhook.method`) as "POST" | "GET") ?? "POST"}
-                authHeader={String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.webhook.auth_header`) ?? "")}
-                editing={webhookEditing}
-                onEditingChange={setWebhookEditing}
-                onChange={(field, value) => {
-                  if (field === "url") {
-                    if (!value) {
-                      // Clear the entire webhook block to avoid orphaned keys (method, auth_header)
-                      updatePropertyWithValue(`${formSettingsPath}.webhook`, undefined);
-                    } else {
-                      updateProperty(`${formSettingsPath}.webhook.url`, value);
+              {(() => {
+                const rawSectionWebhookUrl = String(
+                  getValueAtFieldPath(parsedSection, `${formSettingsPath}.webhook.url`) ?? ""
+                );
+                const storedConversionName = String(
+                  getValueAtFieldPath(parsedSection, `${formSettingsPath}.conversion_name`) ?? ""
+                );
+                const eventWebhookUrl =
+                  storedConversionName
+                    ? (trackingSettings?.conversion_events?.find(
+                        (e) => e.name === storedConversionName
+                      )?.webhook?.url ?? "")
+                    : "";
+                const globalWebhookUrl = trackingSettings?.webhook?.url ?? "";
+                const webhookSource: WebhookSource = rawSectionWebhookUrl
+                  ? "section"
+                  : eventWebhookUrl
+                  ? "event"
+                  : globalWebhookUrl
+                  ? "global"
+                  : "none";
+                const webhookHint =
+                  webhookSource === "section"
+                    ? "This section overrides the event default and global webhook. Clear the URL to fall back to the next level."
+                    : webhookSource === "event"
+                    ? "No section URL set — currently falling back to the event default. Enter a URL here to override it for this section only."
+                    : webhookSource === "global"
+                    ? "No section URL set — currently falling back to the global webhook. Enter a URL here to override it for this section only."
+                    : "No webhook configured at any level. Enter a URL to receive form submissions via webhook.";
+                return (
+                  <WebhookCard
+                    url={rawSectionWebhookUrl}
+                    method={
+                      (getValueAtFieldPath(
+                        parsedSection,
+                        `${formSettingsPath}.webhook.method`
+                      ) as "POST" | "GET") ?? "POST"
                     }
-                  } else if (field === "method") {
-                    updateProperty(`${formSettingsPath}.webhook.method`, value);
-                  } else if (field === "authHeader") {
-                    updateProperty(`${formSettingsPath}.webhook.auth_header`, value);
-                  }
-                }}
-                hint="Overrides the global webhook for this section's form only. Leave URL blank to use the global webhook."
-                testIdPrefix="section-webhook"
-              />
+                    authHeader={String(
+                      getValueAtFieldPath(
+                        parsedSection,
+                        `${formSettingsPath}.webhook.auth_header`
+                      ) ?? ""
+                    )}
+                    editing={webhookEditing}
+                    onEditingChange={setWebhookEditing}
+                    onChange={(field, value) => {
+                      if (field === "url") {
+                        if (!value) {
+                          // Clear the entire webhook block to avoid orphaned keys (method, auth_header)
+                          updatePropertyWithValue(`${formSettingsPath}.webhook`, undefined);
+                        } else {
+                          updateProperty(`${formSettingsPath}.webhook.url`, value);
+                        }
+                      } else if (field === "method") {
+                        updateProperty(`${formSettingsPath}.webhook.method`, value);
+                      } else if (field === "authHeader") {
+                        updateProperty(`${formSettingsPath}.webhook.auth_header`, value);
+                      }
+                    }}
+                    hint={webhookHint}
+                    source={webhookSource}
+                    testIdPrefix="section-webhook"
+                  />
+                );
+              })()}
             </div>
           )}
         </TabsContent>

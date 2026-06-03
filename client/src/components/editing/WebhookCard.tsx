@@ -11,6 +11,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+export type WebhookSource = "section" | "event" | "global" | "none";
+
 export interface WebhookCardProps {
   url: string;
   method: "POST" | "GET";
@@ -20,7 +22,15 @@ export interface WebhookCardProps {
   onChange: (field: "url" | "method" | "authHeader", value: string) => void;
   hint?: string;
   testIdPrefix?: string;
+  source?: WebhookSource;
 }
+
+const SOURCE_LABELS: Record<WebhookSource, string> = {
+  section: "Section override",
+  event: "Event default",
+  global: "Global webhook",
+  none: "Not configured",
+};
 
 export function WebhookCard({
   url,
@@ -31,6 +41,7 @@ export function WebhookCard({
   onChange,
   hint = "Overrides the global webhook for this event only. Leave URL blank to use the global webhook.",
   testIdPrefix = "event-webhook",
+  source,
 }: WebhookCardProps) {
   return (
     <div
@@ -38,15 +49,30 @@ export function WebhookCard({
       data-testid={`card-${testIdPrefix}`}
     >
       <div className="flex items-center justify-between gap-2">
-        <div className="flex items-center gap-1.5">
-          <IconWebhook className="h-3.5 w-3.5 text-muted-foreground" />
+        <div className="flex items-center gap-1.5 min-w-0">
+          <IconWebhook className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
           <span className="text-sm font-medium">Webhook</span>
+          {source !== undefined && (
+            <Badge
+              variant={
+                source === "section"
+                  ? "default"
+                  : source === "none"
+                  ? "outline"
+                  : "secondary"
+              }
+              className="text-[11px] px-1.5 py-0 leading-4 font-normal"
+              data-testid={`badge-${testIdPrefix}-source`}
+            >
+              {SOURCE_LABELS[source]}
+            </Badge>
+          )}
         </div>
         <Button
           type="button"
           size="icon"
           variant="ghost"
-          className="h-6 w-6"
+          className="h-6 w-6 flex-shrink-0"
           onClick={() => onEditingChange(!editing)}
           data-testid={`button-edit-${testIdPrefix}`}
         >
@@ -131,6 +157,14 @@ export function WebhookCard({
                   {url}
                 </span>
               </div>
+            ) : source === "event" || source === "global" ? (
+              <span className="text-xs text-muted-foreground italic">
+                not set — falls back to {source === "event" ? "event default" : "global webhook"}
+              </span>
+            ) : source === "none" ? (
+              <span className="text-xs text-muted-foreground italic">
+                not set — no fallback configured
+              </span>
             ) : (
               <span className="text-xs text-muted-foreground italic">
                 not set — uses global webhook
