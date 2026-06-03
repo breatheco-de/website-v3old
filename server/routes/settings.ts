@@ -763,6 +763,7 @@ export function registerSettingsRoutes(app: Express): void {
         locale,
         section_id,
         section_type,
+        page_url: resolveContentTypeUrl(content_type, { slug }, locale) ?? null,
       })),
     });
   });

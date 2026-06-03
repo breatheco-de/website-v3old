@@ -100,6 +100,7 @@ interface UsageEntry {
   locale: string;
   section_id: string;
   section_type: string;
+  page_url: string | null;
 }
 
 interface TrackingEvent {
@@ -148,16 +149,18 @@ function UsageRows({ eventName }: { eventName: string }) {
           {u.section_type && (
             <span className="text-muted-foreground">· {u.section_type}</span>
           )}
-          <a
-            href={`/${u.locale}/${u.slug}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-auto text-muted-foreground hover:text-foreground transition-colors"
-            data-testid={`link-open-usage-${i}`}
-            aria-label="Open page in new tab"
-          >
-            <IconExternalLink className="h-3.5 w-3.5" />
-          </a>
+          {u.page_url && (
+            <a
+              href={u.page_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-auto text-muted-foreground hover:text-foreground transition-colors"
+              data-testid={`link-open-usage-${i}`}
+              aria-label="Open page in new tab"
+            >
+              <IconExternalLink className="h-3.5 w-3.5" />
+            </a>
+          )}
         </li>
       ))}
     </ul>
