@@ -15,6 +15,7 @@ import {
   IconChartBar,
   IconInfoCircle,
   IconScale,
+  IconMessage,
 } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { ImagePickerDialog } from "@/components/editing/ImagePickerDialog";
@@ -29,6 +30,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useDebugAuth } from "@/hooks/useDebugAuth";
+import { VariableDetailModal } from "@/components/editing/VariableDetailModal";
 
 interface LocaleEntry {
   code: string;
@@ -135,6 +137,21 @@ export default function SettingsPage() {
   const [legalTermsUrl, setLegalTermsUrl] = useState("");
   const [legalPrivacyUrl, setLegalPrivacyUrl] = useState("");
   const [legalSaving, setLegalSaving] = useState<string | null>(null);
+
+  const CONSENT_CHANNELS = [
+    { key: "global.consent_whatsapp", label: "WhatsApp" },
+    { key: "global.consent_sms", label: "SMS" },
+    { key: "global.consent_email", label: "Email" },
+    { key: "global.consent_general", label: "General" },
+  ] as const;
+
+  type ConsentKey = typeof CONSENT_CHANNELS[number]["key"];
+
+  const { data: variablesData } = useQuery<Record<string, { default: string; conditions: unknown[] }>>({
+    queryKey: ["/api/variables"],
+  });
+
+  const [activeConsentVar, setActiveConsentVar] = useState<ConsentKey | null>(null);
 
   function validateLegalUrl(value: string): string | null {
     const trimmed = value.trim();
@@ -829,6 +846,69 @@ export default function SettingsPage() {
                 )}
               </CardContent>
             </Card>
+
+            <Card className="mt-4">
+              <CardHeader className="flex flex-row items-center gap-2 pb-4">
+                <IconMessage className="h-5 w-5 text-muted-foreground" />
+                <div className="flex-1">
+                  <CardTitle className="text-base">Consent Messages</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <p className="text-sm text-muted-foreground">
+                  These are <code className="font-mono">global.*</code> variables resolved per-locale at render time. Each message can have locale, location, or region conditions configured in the variable editor.
+                </p>
+                <div className="divide-y">
+                  {CONSENT_CHANNELS.map((channel) => {
+                    const varDef = variablesData?.[channel.key];
+                    const preview = varDef?.default ?? "";
+                    return (
+                      <div
+                        key={channel.key}
+                        className="flex items-center gap-3 py-3"
+                        data-testid={`row-consent-${channel.key}`}
+                      >
+                        <div className="flex-1 min-w-0 space-y-1">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-sm font-medium">{channel.label}</span>
+                            <Badge variant="secondary" className="font-mono text-xs">
+                              {channel.key}
+                            </Badge>
+                          </div>
+                          {preview ? (
+                            <p className="text-xs text-muted-foreground truncate max-w-md">
+                              {preview}
+                            </p>
+                          ) : (
+                            <p className="text-xs text-muted-foreground/60 italic">
+                              No default set
+                            </p>
+                          )}
+                        </div>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => setActiveConsentVar(channel.key)}
+                          data-testid={`button-edit-consent-${channel.key}`}
+                        >
+                          Edit
+                        </Button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+
+            {activeConsentVar && (
+              <VariableDetailModal
+                open={activeConsentVar !== null}
+                onOpenChange={(open) => { if (!open) setActiveConsentVar(null); }}
+                variableName={activeConsentVar}
+                inlineDefault=""
+                mode="inspect"
+              />
+            )}
           </TabsContent>
 
         </Tabs>
