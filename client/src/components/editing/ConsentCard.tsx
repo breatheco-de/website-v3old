@@ -22,6 +22,8 @@ interface ConsentCardProps {
   onChange: (field: keyof ConsentValues, value: boolean | string) => void;
   inheritedValues?: Partial<ConsentValues>;
   specificFields?: Partial<Record<keyof ConsentValues, boolean>>;
+  isOverridden?: boolean;
+  onOverrideChange?: (v: boolean) => void;
 }
 
 function ConsentVariableInfo({ variable }: { variable: string }) {
@@ -65,7 +67,14 @@ function ConsentVariableInfo({ variable }: { variable: string }) {
   );
 }
 
-export function ConsentCard({ values, onChange, inheritedValues, specificFields }: ConsentCardProps) {
+export function ConsentCard({
+  values,
+  onChange,
+  inheritedValues,
+  specificFields,
+  isOverridden = false,
+  onOverrideChange,
+}: ConsentCardProps) {
   const [editing, setEditing] = useState(false);
 
   const isSpecific = (field: keyof ConsentValues) => specificFields?.[field] === true;
@@ -87,6 +96,8 @@ export function ConsentCard({ values, onChange, inheritedValues, specificFields 
   const showTermsSpecific = isSpecific("showTerms");
   const showTermsInherited = isInherited("showTerms");
   const termsMissing = !hasInheritanceSource && !showTermsSpecific;
+
+  const hasInheritedSource = inheritedValues !== undefined;
 
   return (
     <div className="rounded-md border bg-muted/20 p-3 space-y-3" data-testid="card-consents">
@@ -138,6 +149,10 @@ export function ConsentCard({ values, onChange, inheritedValues, specificFields 
                   </span>
                 )}
               </div>
+            ) : isOverridden && hasInheritedSource ? (
+              <span className="text-xs text-muted-foreground italic" data-testid="text-channels-overridden-empty">
+                none (overriding inherited)
+              </span>
             ) : (
               <span className="text-xs text-muted-foreground italic">none enabled</span>
             )}
@@ -159,99 +174,144 @@ export function ConsentCard({ values, onChange, inheritedValues, specificFields 
                 {showTermsInherited && (
                   <span className="text-[10px] text-muted-foreground italic">(inherited)</span>
                 )}
+                {isOverridden && showTermsSpecific && hasInheritedSource && (
+                  <span className="text-[10px] text-muted-foreground italic">(overriding inherited)</span>
+                )}
               </div>
             )}
           </div>
         </div>
       ) : (
         <div className="space-y-3">
-          {/* Marketing */}
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-1">
-              <Label className="text-xs">Marketing</Label>
-              {values.marketing && (
-                <ConsentVariableInfo variable="reserved.consent_general" />
-              )}
-            </div>
-            <Switch
-              checked={values.marketing}
-              onCheckedChange={(v) => onChange("marketing", v)}
-              data-testid="switch-consent-marketing"
-            />
-          </div>
-
-          {/* SMS */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-1">
-                <Label className="text-xs">SMS</Label>
-                {values.sms && (
-                  <ConsentVariableInfo variable="reserved.consent_sms" />
-                )}
-              </div>
+          {/* Override toggle — only shown when there is an event to inherit from */}
+          {hasInheritanceSource && onOverrideChange && (
+            <div className="flex items-center justify-between gap-2 pb-2 border-b">
+              <span className="text-xs text-muted-foreground">Customize for this form</span>
               <Switch
-                checked={values.sms}
-                onCheckedChange={(v) => onChange("sms", v)}
-                data-testid="switch-consent-sms"
+                checked={isOverridden}
+                onCheckedChange={onOverrideChange}
+                data-testid="switch-override-consents"
               />
             </div>
-            {values.sms && (
+          )}
+
+          {!isOverridden && hasInheritanceSource ? (
+            /* Not overriding — show inherited values as disabled preview */
+            <div className="space-y-3 opacity-60 pointer-events-none select-none">
               <div className="flex items-center justify-between gap-2">
-                <Label className="text-xs text-muted-foreground">US-only</Label>
-                <Checkbox
-                  checked={values.smsUsaOnly}
-                  onCheckedChange={(v) => onChange("smsUsaOnly", !!v)}
-                  data-testid="checkbox-consent-sms-usa-only"
+                <Label className="text-xs">Marketing</Label>
+                <Switch checked={inheritedValues?.marketing ?? false} disabled />
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <Label className="text-xs">SMS</Label>
+                <Switch checked={inheritedValues?.sms ?? false} disabled />
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <Label className="text-xs">WhatsApp</Label>
+                <Switch checked={inheritedValues?.whatsapp ?? false} disabled />
+              </div>
+              <div className="space-y-2 pt-1 border-t">
+                <div className="flex items-center justify-between gap-2">
+                  <Label className="text-xs">Show terms &amp; privacy</Label>
+                  <Switch checked={inheritedValues?.showTerms ?? false} disabled />
+                </div>
+              </div>
+              <p className="text-[11px] text-muted-foreground italic">
+                Enable "Customize for this form" to override these values.
+              </p>
+            </div>
+          ) : (
+            /* Overriding (or no inherited source) — show editable controls */
+            <>
+              {/* Marketing */}
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-1">
+                  <Label className="text-xs">Marketing</Label>
+                  {values.marketing && (
+                    <ConsentVariableInfo variable="reserved.consent_general" />
+                  )}
+                </div>
+                <Switch
+                  checked={values.marketing}
+                  onCheckedChange={(v) => onChange("marketing", v)}
+                  data-testid="switch-consent-marketing"
                 />
               </div>
-            )}
-          </div>
 
-          {/* WhatsApp */}
-          <div className="flex items-center justify-between gap-2">
-            <Label className="text-xs">WhatsApp</Label>
-            <Switch
-              checked={values.whatsapp}
-              onCheckedChange={(v) => onChange("whatsapp", v)}
-              data-testid="switch-consent-whatsapp"
-            />
-          </div>
-
-          {/* Terms */}
-          <div className="space-y-2 pt-1 border-t">
-            <div className="flex items-center justify-between gap-2">
-              <Label className="text-xs">Show terms &amp; privacy</Label>
-              <Switch
-                checked={values.showTerms}
-                onCheckedChange={(v) => onChange("showTerms", v)}
-                data-testid="switch-consent-show-terms"
-              />
-            </div>
-            {values.showTerms && (
-              <div className="grid grid-cols-2 gap-2">
-                <div className="space-y-1.5">
-                  <Label className="text-xs text-muted-foreground">Terms URL</Label>
-                  <Input
-                    value={values.termsUrl}
-                    onChange={(e) => onChange("termsUrl", e.target.value)}
-                    placeholder="/terms-and-conditions"
-                    className="text-xs h-8"
-                    data-testid="input-consent-terms-url"
+              {/* SMS */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-1">
+                    <Label className="text-xs">SMS</Label>
+                    {values.sms && (
+                      <ConsentVariableInfo variable="reserved.consent_sms" />
+                    )}
+                  </div>
+                  <Switch
+                    checked={values.sms}
+                    onCheckedChange={(v) => onChange("sms", v)}
+                    data-testid="switch-consent-sms"
                   />
                 </div>
-                <div className="space-y-1.5">
-                  <Label className="text-xs text-muted-foreground">Privacy URL</Label>
-                  <Input
-                    value={values.privacyUrl}
-                    onChange={(e) => onChange("privacyUrl", e.target.value)}
-                    placeholder="/privacy-policy"
-                    className="text-xs h-8"
-                    data-testid="input-consent-privacy-url"
-                  />
-                </div>
+                {values.sms && (
+                  <div className="flex items-center justify-between gap-2">
+                    <Label className="text-xs text-muted-foreground">US-only</Label>
+                    <Checkbox
+                      checked={values.smsUsaOnly}
+                      onCheckedChange={(v) => onChange("smsUsaOnly", !!v)}
+                      data-testid="checkbox-consent-sms-usa-only"
+                    />
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+
+              {/* WhatsApp */}
+              <div className="flex items-center justify-between gap-2">
+                <Label className="text-xs">WhatsApp</Label>
+                <Switch
+                  checked={values.whatsapp}
+                  onCheckedChange={(v) => onChange("whatsapp", v)}
+                  data-testid="switch-consent-whatsapp"
+                />
+              </div>
+
+              {/* Terms */}
+              <div className="space-y-2 pt-1 border-t">
+                <div className="flex items-center justify-between gap-2">
+                  <Label className="text-xs">Show terms &amp; privacy</Label>
+                  <Switch
+                    checked={values.showTerms}
+                    onCheckedChange={(v) => onChange("showTerms", v)}
+                    data-testid="switch-consent-show-terms"
+                  />
+                </div>
+                {values.showTerms && (
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="space-y-1.5">
+                      <Label className="text-xs text-muted-foreground">Terms URL</Label>
+                      <Input
+                        value={values.termsUrl}
+                        onChange={(e) => onChange("termsUrl", e.target.value)}
+                        placeholder="/terms-and-conditions"
+                        className="text-xs h-8"
+                        data-testid="input-consent-terms-url"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label className="text-xs text-muted-foreground">Privacy URL</Label>
+                      <Input
+                        value={values.privacyUrl}
+                        onChange={(e) => onChange("privacyUrl", e.target.value)}
+                        placeholder="/privacy-policy"
+                        className="text-xs h-8"
+                        data-testid="input-consent-privacy-url"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>

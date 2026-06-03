@@ -6470,21 +6470,35 @@ export function SectionEditorPanel({
                 const inheritedTags: string[] | undefined = convEvent?.tags
                   ? (Array.isArray(convEvent.tags) ? convEvent.tags : [String(convEvent.tags)])
                   : undefined;
+                const rawAutomationVal = getValueAtFieldPath(parsedSection, `${formSettingsPath}.automations`);
+                const automationOverridden = rawAutomationVal !== undefined;
+                const rawTagsVal = getValueAtFieldPath(parsedSection, `${formSettingsPath}.tags`);
+                const tagsOverridden = rawTagsVal !== undefined;
                 return (
                   <AutomationsTagsCard
-                    automation={(() => {
-                      const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.automations`);
-                      return v ? String(v) : "";
-                    })()}
+                    automation={
+                      rawAutomationVal && !Array.isArray(rawAutomationVal)
+                        ? String(rawAutomationVal)
+                        : ""
+                    }
                     tags={(() => {
-                      const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.tags`);
-                      if (Array.isArray(v)) return v as string[];
-                      return v ? String(v).split(",").map((t) => t.trim()).filter(Boolean) : [];
+                      if (Array.isArray(rawTagsVal)) return rawTagsVal as string[];
+                      return rawTagsVal && !Array.isArray(rawTagsVal)
+                        ? String(rawTagsVal).split(",").map((t) => t.trim()).filter(Boolean)
+                        : [];
                     })()}
-                    onAutomationChange={(val) => updateProperty(`${formSettingsPath}.automations`, val)}
+                    onAutomationChange={(val) => {
+                      if (automationOverridden && !val) {
+                        updatePropertyWithValue(`${formSettingsPath}.automations`, []);
+                      } else {
+                        updateProperty(`${formSettingsPath}.automations`, val);
+                      }
+                    }}
                     onTagsChange={(vals) => {
                       if (vals.length > 0) {
                         updatePropertyWithValue(`${formSettingsPath}.tags`, vals);
+                      } else if (tagsOverridden) {
+                        updatePropertyWithValue(`${formSettingsPath}.tags`, []);
                       } else {
                         updatePropertyWithValue(`${formSettingsPath}.tags`, undefined);
                       }
@@ -6493,6 +6507,30 @@ export function SectionEditorPanel({
                     tagSuggestions={formStateSuggestions?.tags ?? []}
                     inheritedAutomation={inheritedAutomation}
                     inheritedTags={inheritedTags}
+                    automationOverridden={automationOverridden}
+                    tagsOverridden={tagsOverridden}
+                    onAutomationOverrideChange={(override) => {
+                      if (override) {
+                        if (inheritedAutomation) {
+                          updateProperty(`${formSettingsPath}.automations`, inheritedAutomation);
+                        } else {
+                          updatePropertyWithValue(`${formSettingsPath}.automations`, []);
+                        }
+                      } else {
+                        updatePropertyWithValue(`${formSettingsPath}.automations`, undefined);
+                      }
+                    }}
+                    onTagsOverrideChange={(override) => {
+                      if (override) {
+                        if (inheritedTags && inheritedTags.length > 0) {
+                          updatePropertyWithValue(`${formSettingsPath}.tags`, inheritedTags);
+                        } else {
+                          updatePropertyWithValue(`${formSettingsPath}.tags`, []);
+                        }
+                      } else {
+                        updatePropertyWithValue(`${formSettingsPath}.tags`, undefined);
+                      }
+                    }}
                   />
                 );
               })()}
@@ -6630,6 +6668,7 @@ export function SectionEditorPanel({
                       }
                     : undefined;
 
+                  const isConsentOverridden = Object.values(specificFields).some(Boolean);
                   return (
                     <ConsentCard
                       values={{
@@ -6643,6 +6682,7 @@ export function SectionEditorPanel({
                       }}
                       inheritedValues={inheritedValues}
                       specificFields={specificFields}
+                      isOverridden={isConsentOverridden}
                       onChange={(field, value) => {
                         const pathMap: Record<keyof ConsentValues, string> = {
                           marketing: `${formSettingsPath}.consent.marketing`,
@@ -6653,7 +6693,47 @@ export function SectionEditorPanel({
                           termsUrl: `${formSettingsPath}.terms_url`,
                           privacyUrl: `${formSettingsPath}.privacy_url`,
                         };
-                        updateProperty(pathMap[field], value === false ? false : (value || undefined));
+                        if (typeof value === "boolean") {
+                          updatePropertyWithValue(pathMap[field], value);
+                        } else {
+                          updateProperty(pathMap[field], value as string);
+                        }
+                      }}
+                      onOverrideChange={(override) => {
+                        try {
+                          const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                          if (!parsed || typeof parsed !== "object") return;
+                          pushUndoState(yamlContent);
+                          const setProp = (path: string, val: unknown) => {
+                            const parts = path.split(".");
+                            let cur = parsed as Record<string, unknown>;
+                            for (let i = 0; i < parts.length - 1; i++) {
+                              if (!cur[parts[i]] || typeof cur[parts[i]] !== "object") cur[parts[i]] = {};
+                              cur = cur[parts[i]] as Record<string, unknown>;
+                            }
+                            const k = parts[parts.length - 1];
+                            if (val !== undefined) { cur[k] = val; } else { delete cur[k]; }
+                          };
+                          if (override) {
+                            const eff = (p: string) => getValueAtFieldPath(resolvedParsedSection, p);
+                            setProp(`${formSettingsPath}.consent.marketing`,    !!eff(`${formSettingsPath}.consent.marketing`));
+                            setProp(`${formSettingsPath}.consent.sms`,          !!eff(`${formSettingsPath}.consent.sms`));
+                            setProp(`${formSettingsPath}.consent.whatsapp`,     !!eff(`${formSettingsPath}.consent.whatsapp`));
+                            setProp(`${formSettingsPath}.consent.sms_usa_only`, !!eff(`${formSettingsPath}.consent.sms_usa_only`));
+                            setProp(`${formSettingsPath}.show_terms`,           !!eff(`${formSettingsPath}.show_terms`));
+                          } else {
+                            setProp(`${formSettingsPath}.consent.marketing`,    undefined);
+                            setProp(`${formSettingsPath}.consent.sms`,          undefined);
+                            setProp(`${formSettingsPath}.consent.whatsapp`,     undefined);
+                            setProp(`${formSettingsPath}.consent.sms_usa_only`, undefined);
+                            setProp(`${formSettingsPath}.show_terms`,           undefined);
+                          }
+                          setYamlContent(safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' }));
+                          setHasChanges(true);
+                          setParseError(null);
+                        } catch (e) {
+                          console.error("Error updating consent override:", e);
+                        }
                       }}
                     />
                   );
