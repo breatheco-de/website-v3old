@@ -82,8 +82,6 @@ function makeEditingState(entry: ConversionEventEntry): EditingEventState {
       sms: entry.consent?.sms ?? false,
       whatsapp: entry.consent?.whatsapp ?? false,
       smsUsaOnly: entry.consent?.sms_usa_only ?? false,
-      marketingText: entry.consent?.marketing_text ?? "",
-      smsText: entry.consent?.sms_text ?? "",
       showTerms: entry.consent?.show_terms ?? false,
       termsUrl: entry.consent?.terms_url ?? "",
       privacyUrl: entry.consent?.privacy_url ?? "",
@@ -452,12 +450,12 @@ export default function ConversionsPage() {
         (entry) => {
           if (entry.name === event.originalName) {
             const consent = {
+              ...(entry.consent?.marketing_text ? { marketing_text: entry.consent.marketing_text } : {}),
+              ...(entry.consent?.sms_text ? { sms_text: entry.consent.sms_text } : {}),
               ...(event.consent.marketing !== undefined ? { marketing: event.consent.marketing } : {}),
               ...(event.consent.sms !== undefined ? { sms: event.consent.sms } : {}),
               ...(event.consent.whatsapp !== undefined ? { whatsapp: event.consent.whatsapp } : {}),
               ...(event.consent.smsUsaOnly !== undefined ? { sms_usa_only: event.consent.smsUsaOnly } : {}),
-              ...(event.consent.marketingText ? { marketing_text: event.consent.marketingText } : {}),
-              ...(event.consent.smsText ? { sms_text: event.consent.smsText } : {}),
               ...(event.consent.showTerms !== undefined ? { show_terms: event.consent.showTerms } : {}),
               ...(event.consent.termsUrl ? { terms_url: event.consent.termsUrl } : {}),
               ...(event.consent.privacyUrl ? { privacy_url: event.consent.privacyUrl } : {}),

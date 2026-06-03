@@ -1,20 +1,16 @@
 import { useState } from "react";
-import { IconPencil, IconShieldCheck, IconX } from "@tabler/icons-react";
+import { IconInfoCircle, IconPencil, IconShieldCheck, IconX } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
-import { Checkbox } from "@/components/ui/checkbox";
 
 export interface ConsentValues {
   marketing: boolean;
   sms: boolean;
   whatsapp: boolean;
   smsUsaOnly: boolean;
-  marketingText: string;
-  smsText: string;
   showTerms: boolean;
   termsUrl: string;
   privacyUrl: string;
@@ -23,6 +19,47 @@ export interface ConsentValues {
 interface ConsentCardProps {
   values: ConsentValues;
   onChange: (field: keyof ConsentValues, value: boolean | string) => void;
+}
+
+function ConsentVariableInfo({ variable }: { variable: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <span className="relative inline-flex items-center">
+      <Button
+        type="button"
+        size="icon"
+        variant="ghost"
+        className="h-5 w-5"
+        onClick={() => setOpen((v) => !v)}
+        data-testid={`button-consent-info-${variable}`}
+      >
+        <IconInfoCircle className="h-3.5 w-3.5 text-muted-foreground" />
+      </Button>
+      {open && (
+        <span className="absolute left-6 top-0 z-10 flex flex-col gap-2 w-56 rounded-md border bg-popover p-3 shadow-md text-popover-foreground">
+          <span className="text-xs text-muted-foreground">
+            Default text comes from{" "}
+            <code className="font-mono text-foreground bg-muted px-1 rounded text-[11px]">
+              {variable}
+            </code>
+          </span>
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            className="w-full text-xs"
+            onClick={() => {
+              setOpen(false);
+              window.location.href = "/en/admin/settings?tab=legal";
+            }}
+            data-testid="button-consent-edit-settings"
+          >
+            Edit in Settings
+          </Button>
+        </span>
+      )}
+    </span>
+  );
 }
 
 export function ConsentCard({ values, onChange }: ConsentCardProps) {
@@ -77,42 +114,27 @@ export function ConsentCard({ values, onChange }: ConsentCardProps) {
       ) : (
         <div className="space-y-3">
           {/* Marketing */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-1">
               <Label className="text-xs">Marketing</Label>
-              <Switch
-                checked={values.marketing}
-                onCheckedChange={(v) => onChange("marketing", v)}
-                data-testid="switch-consent-marketing"
-              />
+              {values.marketing && (
+                <ConsentVariableInfo variable="reserved.consent_general" />
+              )}
             </div>
-            {values.marketing && (
-              <Textarea
-                rows={3}
-                value={values.marketingText}
-                onChange={(e) => onChange("marketingText", e.target.value)}
-                placeholder="I agree to receive information via email, WhatsApp..."
-                className="text-xs resize-none"
-                data-testid="input-consent-marketing-text"
-              />
-            )}
+            <Switch
+              checked={values.marketing}
+              onCheckedChange={(v) => onChange("marketing", v)}
+              data-testid="switch-consent-marketing"
+            />
           </div>
 
           {/* SMS */}
           <div className="space-y-2">
             <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
                 <Label className="text-xs">SMS</Label>
                 {values.sms && (
-                  <label className="flex items-center gap-1 cursor-pointer" data-testid="label-consent-sms-usa-only">
-                    <Checkbox
-                      checked={values.smsUsaOnly}
-                      onCheckedChange={(v) => onChange("smsUsaOnly", !!v)}
-                      data-testid="checkbox-consent-sms-usa-only"
-                      className="h-3 w-3"
-                    />
-                    <span className="text-[11px] text-muted-foreground">US-only</span>
-                  </label>
+                  <ConsentVariableInfo variable="reserved.consent_sms" />
                 )}
               </div>
               <Switch
@@ -122,14 +144,14 @@ export function ConsentCard({ values, onChange }: ConsentCardProps) {
               />
             </div>
             {values.sms && (
-              <Textarea
-                rows={3}
-                value={values.smsText}
-                onChange={(e) => onChange("smsText", e.target.value)}
-                placeholder="I agree to receive SMS/text messages..."
-                className="text-xs resize-none"
-                data-testid="input-consent-sms-text"
-              />
+              <div className="flex items-center justify-between gap-2">
+                <Label className="text-xs text-muted-foreground">US-only</Label>
+                <Switch
+                  checked={values.smsUsaOnly}
+                  onCheckedChange={(v) => onChange("smsUsaOnly", v)}
+                  data-testid="switch-consent-sms-usa-only"
+                />
+              </div>
             )}
           </div>
 
