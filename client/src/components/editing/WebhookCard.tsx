@@ -1,4 +1,5 @@
-import { IconPencil, IconWebhook, IconX } from "@tabler/icons-react";
+import { IconCheck, IconCopy, IconPencil, IconWebhook, IconX } from "@tabler/icons-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
@@ -50,6 +51,15 @@ export function WebhookCard({
   source,
   inheritedUrl,
 }: WebhookCardProps) {
+  const [copied, setCopied] = useState(false);
+
+  function copyUrl(value: string) {
+    navigator.clipboard.writeText(value).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    });
+  }
+
   return (
     <div
       className="rounded-md border bg-muted/20 p-3 space-y-3 overflow-hidden"
@@ -150,7 +160,13 @@ export function WebhookCard({
         <div className="space-y-1.5">
           <div className="flex items-center gap-1.5 min-w-0 overflow-hidden">
             {url ? (
-              <>
+              <button
+                type="button"
+                onClick={() => copyUrl(url)}
+                className="flex items-center gap-1.5 min-w-0 overflow-hidden group cursor-pointer"
+                data-testid={`button-${testIdPrefix}-copy-url`}
+                title="Click to copy"
+              >
                 <Badge
                   variant="secondary"
                   className="text-[11px] px-1.5 py-0 leading-4 font-normal shrink-0"
@@ -160,7 +176,13 @@ export function WebhookCard({
                 <span className="font-mono text-xs truncate text-foreground min-w-0">
                   {url}
                 </span>
-              </>
+                <span className="shrink-0 text-muted-foreground group-hover:text-foreground transition-colors">
+                  {copied
+                    ? <IconCheck className="h-3 w-3 text-green-600" />
+                    : <IconCopy className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  }
+                </span>
+              </button>
             ) : source === "event" || source === "global" ? (
               inheritedUrl ? (
                 <Popover>
