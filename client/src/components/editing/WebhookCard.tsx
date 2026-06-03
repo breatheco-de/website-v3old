@@ -10,6 +10,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export type WebhookSource = "section" | "event" | "global" | "none";
 
@@ -23,6 +28,7 @@ export interface WebhookCardProps {
   hint?: string;
   testIdPrefix?: string;
   source?: WebhookSource;
+  inheritedUrl?: string;
 }
 
 const SOURCE_LABELS: Record<WebhookSource, string> = {
@@ -42,6 +48,7 @@ export function WebhookCard({
   hint = "Overrides the global webhook for this event only. Leave URL blank to use the global webhook.",
   testIdPrefix = "event-webhook",
   source,
+  inheritedUrl,
 }: WebhookCardProps) {
   return (
     <div
@@ -158,17 +165,57 @@ export function WebhookCard({
                 </span>
               </div>
             ) : source === "event" || source === "global" ? (
-              <span className="text-xs text-muted-foreground italic">
-                not set — falls back to {source === "event" ? "event default" : "global webhook"}
-              </span>
+              inheritedUrl ? (
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <button
+                      type="button"
+                      className="text-xs text-muted-foreground italic underline decoration-dashed underline-offset-2 cursor-pointer hover:text-foreground transition-colors text-left"
+                      data-testid={`button-${testIdPrefix}-inherited-url`}
+                    >
+                      not set — falls back to {source === "event" ? "event default" : "global webhook"}
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent side="top" align="start" className="w-auto max-w-xs p-3 space-y-1">
+                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                      Inherited URL
+                    </p>
+                    <p className="font-mono text-xs break-all text-foreground">{inheritedUrl}</p>
+                  </PopoverContent>
+                </Popover>
+              ) : (
+                <span className="text-xs text-muted-foreground italic">
+                  not set — falls back to {source === "event" ? "event default" : "global webhook"}
+                </span>
+              )
             ) : source === "none" ? (
               <span className="text-xs text-muted-foreground italic">
                 not set — no fallback configured
               </span>
             ) : (
-              <span className="text-xs text-muted-foreground italic">
-                not set — uses global webhook
-              </span>
+              inheritedUrl ? (
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <button
+                      type="button"
+                      className="text-xs text-muted-foreground italic underline decoration-dashed underline-offset-2 cursor-pointer hover:text-foreground transition-colors text-left"
+                      data-testid={`button-${testIdPrefix}-inherited-url`}
+                    >
+                      not set — uses global webhook
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent side="top" align="start" className="w-auto max-w-xs p-3 space-y-1">
+                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                      Inherited URL
+                    </p>
+                    <p className="font-mono text-xs break-all text-foreground">{inheritedUrl}</p>
+                  </PopoverContent>
+                </Popover>
+              ) : (
+                <span className="text-xs text-muted-foreground italic">
+                  not set — uses global webhook
+                </span>
+              )
             )}
           </div>
           {authHeader && (

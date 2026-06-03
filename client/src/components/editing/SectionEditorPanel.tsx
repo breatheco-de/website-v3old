@@ -6755,6 +6755,13 @@ export function SectionEditorPanel({
                     }}
                     hint={webhookHint}
                     source={webhookSource}
+                    inheritedUrl={
+                      webhookSource === "event"
+                        ? eventWebhookUrl
+                        : webhookSource === "global"
+                        ? globalWebhookUrl
+                        : undefined
+                    }
                     testIdPrefix="section-webhook"
                   />
                 );
