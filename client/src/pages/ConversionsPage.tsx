@@ -56,7 +56,8 @@ import type { ConsentValues } from "@/components/editing/ConsentCard";
 import { WebhookCard } from "@/components/editing/WebhookCard";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, apiFetch, queryClient } from "@/lib/queryClient";
-import { buildSamplePayload, type TrackingSettingsResponse, type ConversionEventEntry } from "@/lib/tracking";
+import { type TrackingSettingsResponse, type ConversionEventEntry } from "@/lib/tracking";
+import { buildWebhookSamplePayload } from "@/lib/webhookPayload";
 import { useSession } from "@/contexts/SessionContext";
 
 const SAMPLE_USER_ID = "a1b2c3d4-e5f6-7890-abcd-ef1234567890";
@@ -228,27 +229,7 @@ export default function ConversionsPage() {
   const { toast } = useToast();
   const { session } = useSession();
 
-  const sessionEnrichedPayload = buildSamplePayload({
-    ...(session.language ? { language: session.language } : {}),
-    ...(session.browserLang ? { browser_lang: session.browserLang } : {}),
-    ...(session.location?.slug ? { location: session.location.slug } : {}),
-    ...(session.location?.region ? { region: session.location.region } : {}),
-    ...(session.location?.city ? { city: session.location.city } : {}),
-    ...(session.location?.country_code ? { country: session.location.country_code } : {}),
-    ...(session.geo?.latitude != null ? { latitude: String(session.geo.latitude) } : {}),
-    ...(session.geo?.longitude != null ? { longitude: String(session.geo.longitude) } : {}),
-    ...(session.utm?.utm_source ? { utm_source: session.utm.utm_source } : {}),
-    ...(session.utm?.utm_medium ? { utm_medium: session.utm.utm_medium } : {}),
-    ...(session.utm?.utm_campaign ? { utm_campaign: session.utm.utm_campaign } : {}),
-    ...(session.utm?.utm_content ? { utm_content: session.utm.utm_content } : {}),
-    ...(session.utm?.utm_term ? { utm_term: session.utm.utm_term } : {}),
-    ...(session.utm?.utm_url ? { utm_url: session.utm.utm_url } : {}),
-    ...(session.utm?.utm_placement ? { utm_placement: session.utm.utm_placement } : {}),
-    ...(session.utm?.utm_plan ? { utm_plan: session.utm.utm_plan } : {}),
-    ...(session.utm?.ppc_tracking_id ? { ppc_tracking_id: session.utm.ppc_tracking_id } : {}),
-    ...(session.utm?.referral ? { referral: session.utm.referral } : {}),
-    ...(session.utm?.coupon ? { coupon: session.utm.coupon } : {}),
-  });
+  const sessionEnrichedPayload = buildWebhookSamplePayload(null, null, session);
 
   const [expandedEvents, setExpandedEvents] = useState<Set<string>>(new Set());
   const [selectedEvent, setSelectedEvent] = useState<TrackingEvent | null>(null);
