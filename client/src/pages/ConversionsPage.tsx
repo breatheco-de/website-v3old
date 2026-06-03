@@ -771,7 +771,7 @@ export default function ConversionsPage() {
           <CardHeader className="pb-3">
             <div className="flex items-start justify-between gap-3 flex-wrap">
               <div>
-                <CardTitle className="text-base">Conversion Events</CardTitle>
+                <CardTitle className="text-base">Form Conversion Events</CardTitle>
                 <p className="text-sm text-muted-foreground mt-1">
                   Fired via <code className="font-mono text-xs">trackConversion</code> when a user
                   completes a key action. Configured in{" "}
@@ -804,11 +804,8 @@ export default function ConversionsPage() {
                 >
                   <thead>
                     <tr className="border-b">
-                      <th className="text-left py-2 pr-4 text-xs font-medium text-muted-foreground w-2/5">
-                        Event / Description
-                      </th>
                       <th className="text-left py-2 pr-4 text-xs font-medium text-muted-foreground">
-                        Trigger
+                        Event
                       </th>
                       <th className="py-2 text-xs font-medium text-muted-foreground text-right">
                         Actions
@@ -858,100 +855,83 @@ export default function ConversionsPage() {
                                     {count} {count === 1 ? "form" : "forms"}
                                   </Badge>
                                 )}
-                              </div>
-                            </td>
-                            <td className="py-2 pr-4 align-middle text-xs">
-                              <div className="flex flex-col gap-1">
-                                <span className="text-muted-foreground">{ev.trigger}</span>
-                                {(hasWebhook || hasTags || hasAutomation || hasConsent) && (
-                                  <div className="flex flex-wrap gap-1">
-                                    {hasWebhook && (
-                                      <Popover>
-                                        <PopoverTrigger className="p-0 h-auto border-0 bg-transparent focus-visible:outline-none">
-                                          <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground cursor-pointer">
-                                            webhook
-                                          </Badge>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="w-64 p-3 space-y-1.5" align="start">
-                                          <p className="text-xs font-medium">Per-event webhook</p>
-                                          <div className="space-y-1">
-                                            <div className="flex items-start gap-2">
-                                              <span className="text-[10px] text-muted-foreground uppercase tracking-wide w-12 shrink-0 pt-0.5">URL</span>
-                                              <code className="text-[10px] font-mono break-all leading-4">{entry?.webhook?.url}</code>
-                                            </div>
-                                            <div className="flex items-center gap-2">
-                                              <span className="text-[10px] text-muted-foreground uppercase tracking-wide w-12 shrink-0">Method</span>
-                                              <code className="text-[10px] font-mono">{entry?.webhook?.method ?? "POST"}</code>
-                                            </div>
-                                            {entry?.webhook?.auth_header && (
-                                              <div className="flex items-center gap-2">
-                                                <span className="text-[10px] text-muted-foreground uppercase tracking-wide w-12 shrink-0">Auth</span>
-                                                <code className="text-[10px] font-mono">{"•".repeat(Math.min(entry.webhook.auth_header.length, 12))}</code>
-                                              </div>
-                                            )}
+                                {hasWebhook && (
+                                  <Popover>
+                                    <PopoverTrigger className="p-0 h-auto border-0 bg-transparent focus-visible:outline-none">
+                                      <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground cursor-pointer">
+                                        webhook
+                                      </Badge>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-64 p-3 space-y-1.5" align="start">
+                                      <p className="text-xs font-medium">Per-event webhook</p>
+                                      <div className="space-y-1">
+                                        <div className="flex items-start gap-2">
+                                          <span className="text-[10px] text-muted-foreground uppercase tracking-wide w-12 shrink-0 pt-0.5">URL</span>
+                                          <code className="text-[10px] font-mono break-all leading-4">{entry?.webhook?.url}</code>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                          <span className="text-[10px] text-muted-foreground uppercase tracking-wide w-12 shrink-0">Method</span>
+                                          <code className="text-[10px] font-mono">{entry?.webhook?.method ?? "POST"}</code>
+                                        </div>
+                                        {entry?.webhook?.auth_header && (
+                                          <div className="flex items-center gap-2">
+                                            <span className="text-[10px] text-muted-foreground uppercase tracking-wide w-12 shrink-0">Auth</span>
+                                            <code className="text-[10px] font-mono">{"•".repeat(Math.min(entry.webhook.auth_header.length, 12))}</code>
                                           </div>
-                                        </PopoverContent>
-                                      </Popover>
-                                    )}
-                                    {hasAutomation && (
-                                      <Popover>
-                                        <PopoverTrigger className="p-0 h-auto border-0 bg-transparent focus-visible:outline-none">
-                                          <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground cursor-pointer">
-                                            automation
+                                        )}
+                                      </div>
+                                    </PopoverContent>
+                                  </Popover>
+                                )}
+                                {hasAutomation && (
+                                  <Popover>
+                                    <PopoverTrigger className="p-0 h-auto border-0 bg-transparent focus-visible:outline-none">
+                                      <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground cursor-pointer">
+                                        automation
+                                      </Badge>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-56 p-3 space-y-1" align="start">
+                                      <p className="text-xs font-medium">Default automation</p>
+                                      <code className="text-[11px] font-mono text-foreground">{entry?.automations}</code>
+                                    </PopoverContent>
+                                  </Popover>
+                                )}
+                                {hasTags && (
+                                  <Popover>
+                                    <PopoverTrigger className="p-0 h-auto border-0 bg-transparent focus-visible:outline-none">
+                                      <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground cursor-pointer">
+                                        tags
+                                      </Badge>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-56 p-3 space-y-2" align="start">
+                                      <p className="text-xs font-medium">Default tags</p>
+                                      <div className="flex flex-wrap gap-1">
+                                        {entry?.tags?.map((t) => (
+                                          <Badge key={t} variant="secondary" className="text-[10px] px-1.5 py-0 leading-4 font-mono font-normal">
+                                            {t}
                                           </Badge>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="w-56 p-3 space-y-1" align="start">
-                                          <p className="text-xs font-medium">Default automation</p>
-                                          <code className="text-[11px] font-mono text-foreground">{entry?.automations}</code>
-                                        </PopoverContent>
-                                      </Popover>
-                                    )}
-                                    {hasTags && (
-                                      <Popover>
-                                        <PopoverTrigger className="p-0 h-auto border-0 bg-transparent focus-visible:outline-none">
-                                          <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground cursor-pointer">
-                                            tags
-                                          </Badge>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="w-56 p-3 space-y-2" align="start">
-                                          <p className="text-xs font-medium">Default tags</p>
-                                          <div className="flex flex-wrap gap-1">
-                                            {entry?.tags?.map((t) => (
-                                              <Badge key={t} variant="secondary" className="text-[10px] px-1.5 py-0 leading-4 font-mono font-normal">
-                                                {t}
-                                              </Badge>
-                                            ))}
-                                          </div>
-                                        </PopoverContent>
-                                      </Popover>
-                                    )}
-                                    {hasConsent && (
-                                      <Popover>
-                                        <PopoverTrigger className="p-0 h-auto border-0 bg-transparent focus-visible:outline-none">
-                                          <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground cursor-pointer">
-                                            consent
-                                          </Badge>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="w-64 p-3 space-y-2" align="start">
-                                          <p className="text-xs font-medium">Default consent</p>
-                                          <div className="space-y-0.5 text-[11px]">
-                                            {entry?.consent?.marketing && <div className="text-muted-foreground">Marketing consent enabled</div>}
-                                            {entry?.consent?.sms && <div className="text-muted-foreground">SMS consent enabled{entry.consent.sms_usa_only ? " (US only)" : ""}</div>}
-                                            {entry?.consent?.whatsapp && <div className="text-muted-foreground">WhatsApp consent enabled</div>}
-                                            {entry?.consent?.show_terms && <div className="text-muted-foreground">Terms &amp; privacy shown</div>}
-                                            {entry?.consent?.marketing_text && (
-                                              <div className="text-muted-foreground pt-0.5 border-t mt-1">
-                                                <span className="font-medium text-foreground">Marketing text: </span>
-                                                {entry.consent.marketing_text.length > 60
-                                                  ? entry.consent.marketing_text.slice(0, 60) + "…"
-                                                  : entry.consent.marketing_text}
-                                              </div>
-                                            )}
-                                          </div>
-                                        </PopoverContent>
-                                      </Popover>
-                                    )}
-                                  </div>
+                                        ))}
+                                      </div>
+                                    </PopoverContent>
+                                  </Popover>
+                                )}
+                                {hasConsent && (
+                                  <Popover>
+                                    <PopoverTrigger className="p-0 h-auto border-0 bg-transparent focus-visible:outline-none">
+                                      <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground cursor-pointer">
+                                        consent
+                                      </Badge>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-64 p-3 space-y-2" align="start">
+                                      <p className="text-xs font-medium">Default consent</p>
+                                      <div className="space-y-0.5 text-[11px]">
+                                        {entry?.consent?.marketing && <div className="text-muted-foreground">Marketing consent enabled</div>}
+                                        {entry?.consent?.sms && <div className="text-muted-foreground">SMS consent enabled{entry.consent.sms_usa_only ? " (US only)" : ""}</div>}
+                                        {entry?.consent?.whatsapp && <div className="text-muted-foreground">WhatsApp consent enabled</div>}
+                                        {entry?.consent?.show_terms && <div className="text-muted-foreground">Terms &amp; privacy shown</div>}
+                                      </div>
+                                    </PopoverContent>
+                                  </Popover>
                                 )}
                               </div>
                             </td>
@@ -1007,7 +987,7 @@ export default function ConversionsPage() {
                           </tr>
                           {isExpanded && (
                             <tr key={`${ev.name}-usage`} className="border-b last:border-0 bg-muted/30">
-                              <td colSpan={3} className="py-1">
+                              <td colSpan={2} className="py-1">
                                 <UsageRows eventName={ev.name} />
                               </td>
                             </tr>
@@ -1123,17 +1103,19 @@ export default function ConversionsPage() {
                           <span className="text-muted-foreground text-xs">· {u.section_type}</span>
                         )}
                       </div>
-                      <a
-                        href={`/${u.locale}/${u.slug}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="shrink-0 text-muted-foreground hover:text-foreground transition-colors"
-                        data-testid={`link-open-modal-usage-${i}`}
-                        aria-label="Open page in new tab"
-                      >
-                        <IconExternalLink className="h-3.5 w-3.5" />
-                      </a>
+                      {u.page_url && (
+                        <a
+                          href={u.page_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="shrink-0 text-muted-foreground hover:text-foreground transition-colors"
+                          data-testid={`link-open-modal-usage-${i}`}
+                          aria-label="Open page in new tab"
+                        >
+                          <IconExternalLink className="h-3.5 w-3.5" />
+                        </a>
+                      )}
                     </li>
                   ))}
                 </ul>
