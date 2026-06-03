@@ -163,7 +163,7 @@ export function WebhookCard({
               <button
                 type="button"
                 onClick={() => copyUrl(url)}
-                className="flex items-center gap-1.5 min-w-0 overflow-hidden group cursor-pointer"
+                className="flex items-center gap-1.5 min-w-0 overflow-hidden flex-1 group cursor-pointer"
                 data-testid={`button-${testIdPrefix}-copy-url`}
                 title="Click to copy"
               >
