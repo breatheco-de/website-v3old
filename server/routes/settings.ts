@@ -756,13 +756,15 @@ export function registerSettingsRoutes(app: Express): void {
     const usages = getConversionNameUsages(name);
     res.json({
       name,
-      usages: usages.map(({ file, content_type, slug, locale, section_id, section_type }) => ({
+      usages: usages.map(({ file, content_type, slug, locale, section_id, section_type, tags, consent }) => ({
         file,
         content_type,
         slug,
         locale,
         section_id,
         section_type,
+        tags: tags && tags.length > 0 ? tags : undefined,
+        consent: consent && Object.keys(consent).length > 0 ? consent : undefined,
         page_url: resolveContentTypeUrl(content_type, { slug }, locale) ?? null,
       })),
     });

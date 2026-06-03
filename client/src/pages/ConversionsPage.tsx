@@ -101,6 +101,8 @@ interface UsageEntry {
   locale: string;
   section_id: string;
   section_type: string;
+  tags?: string[];
+  consent?: Record<string, unknown>;
   page_url: string | null;
 }
 
@@ -196,6 +198,21 @@ function UsageRows({ eventName }: { eventName: string }) {
           <span className="text-muted-foreground">({u.locale})</span>
           {u.section_type && (
             <span className="text-muted-foreground">· {u.section_type}</span>
+          )}
+          {u.tags && u.tags.map((tag) => (
+            <Badge key={tag} variant="secondary" className="text-xs px-1.5 py-0 font-normal" data-testid={`badge-usage-tag-${tag}`}>
+              {tag}
+            </Badge>
+          ))}
+          {u.consent && Object.keys(u.consent).length > 0 && (
+            <Badge
+              variant="outline"
+              className="text-xs px-1.5 py-0 font-normal"
+              title={`Consent override: ${Object.keys(u.consent).join(", ")}`}
+              data-testid="badge-usage-consent"
+            >
+              consent: {Object.keys(u.consent).join(" · ")}
+            </Badge>
           )}
           {u.page_url && (
             <PageLinkMenu url={u.page_url} className="ml-auto" />
@@ -1141,6 +1158,21 @@ export default function ConversionsPage() {
                         {u.section_type && (
                           <span className="text-muted-foreground text-xs">· {u.section_type}</span>
                         )}
+                        {u.tags && u.tags.map((tag) => (
+                          <Badge key={tag} variant="secondary" className="text-xs px-1.5 py-0 font-normal" data-testid={`badge-modal-usage-tag-${tag}`}>
+                            {tag}
+                          </Badge>
+                        ))}
+                        {u.consent && Object.keys(u.consent).length > 0 && (
+                          <Badge
+                            variant="outline"
+                            className="text-xs px-1.5 py-0 font-normal"
+                            title={`Consent override: ${Object.keys(u.consent).join(", ")}`}
+                            data-testid="badge-modal-usage-consent"
+                          >
+                            consent: {Object.keys(u.consent).join(" · ")}
+                          </Badge>
+                        )}
                       </div>
                       {u.page_url && (
                         <PageLinkMenu url={u.page_url} />
@@ -1286,13 +1318,28 @@ export default function ConversionsPage() {
                 </p>
                 <ul className="space-y-1">
                   {usageData.usages.map((u, i) => (
-                    <li key={i} className="text-sm flex items-start gap-1.5 flex-wrap">
+                    <li key={i} className="text-sm flex items-center gap-1.5 flex-wrap">
                       <span className="font-medium">
                         {u.content_type}/{u.slug}
                       </span>
                       <span className="text-muted-foreground">({u.locale})</span>
                       {u.section_type && (
                         <span className="text-muted-foreground text-xs">· {u.section_type}</span>
+                      )}
+                      {u.tags && u.tags.map((tag) => (
+                        <Badge key={tag} variant="secondary" className="text-xs px-1.5 py-0 font-normal" data-testid={`badge-delete-usage-tag-${tag}`}>
+                          {tag}
+                        </Badge>
+                      ))}
+                      {u.consent && Object.keys(u.consent).length > 0 && (
+                        <Badge
+                          variant="outline"
+                          className="text-xs px-1.5 py-0 font-normal"
+                          title={`Consent override: ${Object.keys(u.consent).join(", ")}`}
+                          data-testid="badge-delete-usage-consent"
+                        >
+                          consent: {Object.keys(u.consent).join(" · ")}
+                        </Badge>
                       )}
                     </li>
                   ))}

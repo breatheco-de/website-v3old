@@ -373,6 +373,8 @@ interface UsageEntry {
   locale: string;
   section_id: string;
   section_type: string;
+  tags?: string[];
+  consent?: Record<string, unknown>;
 }
 
 function EventsSection() {
