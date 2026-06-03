@@ -58,6 +58,14 @@ tracking:
         show_terms: false
     - name: financing_guide_download
       description: Form submission
+      tags:
+        - financing_guide_download
+      consent:
+        marketing: true
+        sms: false
+        whatsapp: false
+        sms_usa_only: false
+        show_terms: false
     - name: partner_application
       description: Form submission
     - name: job_application
