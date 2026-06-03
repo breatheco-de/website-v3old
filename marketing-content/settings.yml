@@ -35,20 +35,9 @@ feature_tags:
   - financial-aid
   - student-support
 tracking:
-  # Webhook priority chain (highest to lowest):
-  #   1. form.webhook      — set on the individual lead_form/apply_form YAML section
-  #   2. conversion_events[].webhook — per-event default for a specific conversion name
-  #   3. tracking.webhook  — global fallback for any conversion with no more-specific config
-  # All webhook blocks accept: url (required) and method (POST | GET, default POST)
-  # webhook:
-  #   url: https://hooks.zapier.com/hooks/catch/xxxxx/yyyyy/
-  #   method: POST
   conversion_events:
     - name: student_application
       description: Form submission
-      # webhook:
-      #   url: https://example.com/webhook
-      #   method: POST
     - name: request_more_info
       description: Form submission
     - name: financing_guide_download
@@ -63,3 +52,6 @@ tracking:
       description: Form submission
     - name: outcomes_report
       description: Form submission
+  webhook:
+    url: https://google.com
+    method: POST
