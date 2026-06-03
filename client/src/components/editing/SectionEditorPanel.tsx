@@ -667,6 +667,7 @@ export function SectionEditorPanel({
   const [exampleCopied, setExampleCopied] = useState(false);
   const [locationsPickerOpen, setLocationsPickerOpen] = useState(false);
   const [conversionNameEditing, setConversionNameEditing] = useState(false);
+  const [autoTagsEditing, setAutoTagsEditing] = useState(false);
 
   const sectionComponentType = (section as Record<string, unknown>)?.type as string || "";
 
@@ -6556,61 +6557,98 @@ export function SectionEditorPanel({
                 );
               })()}
 
-              {/* Automations */}
-              <div className="space-y-2">
-                <Label
-                  htmlFor="conversion-automations"
-                  className="text-sm font-medium"
-                  data-testid="label-conversion-automations"
-                >
-                  Automations
-                </Label>
-                <TagInput
-                  values={(() => {
-                    const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.automations`);
-                    return v ? [String(v)] : [];
-                  })()}
-                  suggestions={formStateSuggestions?.automations ?? []}
-                  onChange={(vals) => updateProperty(`${formSettingsPath}.automations`, vals[0] ?? "")}
-                  placeholder="e.g. hubspot-lead-nurture"
-                  max={1}
-                  testId="input-conversion-automations"
-                />
-                <p className="text-xs text-muted-foreground">
-                  CRM automation workflow to trigger on submission.
-                </p>
-              </div>
+              {/* Automations + Tags grouped card */}
+              {(() => {
+                const automation = (() => {
+                  const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.automations`);
+                  return v ? [String(v)] : [];
+                })();
+                const tags = (() => {
+                  const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.tags`);
+                  if (Array.isArray(v)) return v as string[];
+                  return v ? String(v).split(",").map((t) => t.trim()).filter(Boolean) : [];
+                })();
+                return (
+                  <div className="rounded-md border bg-muted/20 p-3 space-y-3" data-testid="card-automations-tags">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-sm font-medium">Automations &amp; Tags</span>
+                      <Button
+                        type="button"
+                        size="icon"
+                        variant="ghost"
+                        className="h-6 w-6"
+                        onClick={() => setAutoTagsEditing((v) => !v)}
+                        data-testid="button-edit-automations-tags"
+                      >
+                        {autoTagsEditing
+                          ? <IconX className="h-3.5 w-3.5" />
+                          : <IconPencil className="h-3.5 w-3.5" />}
+                      </Button>
+                    </div>
 
-              {/* Tags */}
-              <div className="space-y-2">
-                <Label
-                  htmlFor="conversion-tags"
-                  className="text-sm font-medium"
-                  data-testid="label-conversion-tags"
-                >
-                  Tags
-                </Label>
-                <TagInput
-                  values={(() => {
-                    const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.tags`);
-                    if (Array.isArray(v)) return v as string[];
-                    return v ? String(v).split(",").map((t) => t.trim()).filter(Boolean) : [];
-                  })()}
-                  suggestions={formStateSuggestions?.tags ?? []}
-                  onChange={(vals) => {
-                    if (vals.length > 0) {
-                      updatePropertyWithValue(`${formSettingsPath}.tags`, vals);
-                    } else {
-                      updatePropertyWithValue(`${formSettingsPath}.tags`, undefined);
-                    }
-                  }}
-                  placeholder="e.g. lead, bootcamp, latam"
-                  testId="input-conversion-tags"
-                />
-                <p className="text-xs text-muted-foreground">
-                  Comma-separated labels applied to form submissions for segmentation.
-                </p>
-              </div>
+                    {autoTagsEditing ? (
+                      <div className="space-y-3">
+                        <div className="space-y-1.5">
+                          <Label className="text-xs text-muted-foreground" data-testid="label-conversion-automations">
+                            Automation
+                          </Label>
+                          <TagInput
+                            values={automation}
+                            suggestions={formStateSuggestions?.automations ?? []}
+                            onChange={(vals) => updateProperty(`${formSettingsPath}.automations`, vals[0] ?? "")}
+                            placeholder="e.g. hubspot-lead-nurture"
+                            max={1}
+                            testId="input-conversion-automations"
+                          />
+                        </div>
+                        <div className="space-y-1.5">
+                          <Label className="text-xs text-muted-foreground" data-testid="label-conversion-tags">
+                            Tags
+                          </Label>
+                          <TagInput
+                            values={tags}
+                            suggestions={formStateSuggestions?.tags ?? []}
+                            onChange={(vals) => {
+                              if (vals.length > 0) {
+                                updatePropertyWithValue(`${formSettingsPath}.tags`, vals);
+                              } else {
+                                updatePropertyWithValue(`${formSettingsPath}.tags`, undefined);
+                              }
+                            }}
+                            placeholder="e.g. lead, bootcamp, latam"
+                            testId="input-conversion-tags"
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="space-y-1.5 text-sm">
+                        <div className="flex items-start gap-2">
+                          <span className="text-xs text-muted-foreground w-20 flex-shrink-0 pt-0.5">Automation</span>
+                          {automation.length > 0 ? (
+                            <span className="font-mono text-xs">{automation[0]}</span>
+                          ) : (
+                            <span className="text-xs text-muted-foreground italic">not set</span>
+                          )}
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <span className="text-xs text-muted-foreground w-20 flex-shrink-0 pt-0.5">Tags</span>
+                          {tags.length > 0 ? (
+                            <div className="flex flex-wrap gap-1">
+                              {tags.map((t) => (
+                                <Badge key={t} variant="secondary" className="text-[11px] px-1.5 py-0 leading-4 font-normal font-mono">
+                                  {t}
+                                </Badge>
+                              ))}
+                            </div>
+                          ) : (
+                            <span className="text-xs text-muted-foreground italic">not set</span>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
 
               {/* Locations */}
               {(() => {
