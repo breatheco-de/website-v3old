@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { AlertTriangle, ArrowLeft, ArrowRight, BarChart2, Blocks, Book, Brain, Check, ChevronRight, CloudDownload, Cookie, Database, Github, GitBranch, Image, Languages, Map, MapPin, Menu, MessageCircle, Monitor, Moon, Palette, Pencil, Plus, RefreshCw, Route, Settings, Smartphone, Stethoscope, Sun, X } from "lucide-react";
-import { IconLogout, IconServer, IconShoppingBag, IconTargetArrow } from "@tabler/icons-react";
+import { IconLogout, IconServer, IconShoppingBag, IconTargetArrow, IconShield } from "@tabler/icons-react";
+import { useDebugAuth } from "@/hooks/useDebugAuth";
 import { useTranslation } from "react-i18next";
 import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -187,6 +188,8 @@ function ExpandableMenuItem({ icon: Icon, label, expanded, onToggle, testId, act
 
 export function DebugPanelContent(props: DebugPanelContentProps) {
   const { i18n } = useTranslation();
+  const { hasCapability } = useDebugAuth();
+  const canManageUsers = hasCapability("users_manage");
   const [createMenuOpen, setCreateMenuOpen] = useState(false);
   const [settingsExpanded, setSettingsExpanded] = useState(false);
   const [storeExpanded, setStoreExpanded] = useState(false);
@@ -725,6 +728,15 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 indicator="arrow"
                 testId="link-tracking"
               />
+              {canManageUsers && (
+                <MenuItem
+                  icon={IconShield}
+                  label="Security"
+                  href="/private/security"
+                  indicator="arrow"
+                  testId="link-security"
+                />
+              )}
             </ExpandableMenuItem>
 
             <div className="flex items-center justify-between w-full px-3 py-2 rounded-md text-sm">

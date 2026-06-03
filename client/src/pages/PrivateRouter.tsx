@@ -21,6 +21,7 @@ const AIConversations = lazy(() => import("@/pages/AIConversations"));
 const AIKnowledgeBlocks = lazy(() => import("@/pages/AIKnowledgeBlocks"));
 const ThemeEditor = lazy(() => import("@/pages/ThemeEditor"));
 const TrackingPage = lazy(() => import("@/pages/TrackingPage"));
+const SecurityPage = lazy(() => import("@/pages/SecurityPage"));
 const ComponentInsightsPage = lazy(() => import("@/pages/ComponentInsightsPage"));
 const StoreProductsPage = lazy(() => import("@/pages/StoreProductsPage"));
 const StorePlansPage = lazy(() => import("@/pages/StorePlansPage"));
@@ -75,6 +76,7 @@ export default function PrivateRouter() {
         <Route path="/private/store/conversions" component={ConversionsPage} />
         <Route path="/private/tracking/sgtm" component={TrackingPage} />
         <Route path="/private/tracking" component={TrackingPage} />
+        <Route path="/private/security" component={SecurityPage} />
         <Route path="/private/mcp-server" component={McpServerPage} />
       </Switch>
     </Suspense>
