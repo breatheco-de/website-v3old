@@ -148,12 +148,12 @@ export function WebhookCard({
         </div>
       ) : (
         <div className="space-y-1.5">
-          <div className="flex items-start gap-2">
+          <div className="flex items-start gap-2 min-w-0 overflow-hidden">
             <span className="text-xs text-muted-foreground w-20 flex-shrink-0 pt-0.5">
               URL
             </span>
             {url ? (
-              <div className="flex items-center gap-1.5 min-w-0">
+              <div className="flex items-center gap-1.5 min-w-0 overflow-hidden">
                 <Badge
                   variant="secondary"
                   className="text-[11px] px-1.5 py-0 leading-4 font-normal shrink-0"
