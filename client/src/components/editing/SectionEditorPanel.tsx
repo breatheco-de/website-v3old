@@ -73,6 +73,7 @@ import { useConversionNames } from "@/lib/tracking";
 import { AutomationsTagsCard } from "./AutomationsTagsCard";
 import { ConsentCard } from "./ConsentCard";
 import type { ConsentValues } from "./ConsentCard";
+import { WebhookCard } from "./WebhookCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import CodeMirror from "@uiw/react-codemirror";
 import type { EditorView } from "@codemirror/view";
@@ -543,6 +544,7 @@ export function SectionEditorPanel({
   const [locationsPickerOpen, setLocationsPickerOpen] = useState(false);
   const [conversionNameEditing, setConversionNameEditing] = useState(false);
   const [consentsEditing, setConsentsEditing] = useState(false);
+  const [webhookEditing, setWebhookEditing] = useState(false);
 
   const sectionComponentType = (section as Record<string, unknown>)?.type as string || "";
 
@@ -6689,6 +6691,26 @@ export function SectionEditorPanel({
                   </div>
                 );
               })()}
+
+              {/* Webhook */}
+              <WebhookCard
+                url={String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.webhook.url`) ?? "")}
+                method={(getValueAtFieldPath(parsedSection, `${formSettingsPath}.webhook.method`) as "POST" | "GET") ?? "POST"}
+                authHeader={String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.webhook.auth_header`) ?? "")}
+                editing={webhookEditing}
+                onEditingChange={setWebhookEditing}
+                onChange={(field, value) => {
+                  if (field === "url") {
+                    updateProperty(`${formSettingsPath}.webhook.url`, value);
+                  } else if (field === "method") {
+                    updateProperty(`${formSettingsPath}.webhook.method`, value);
+                  } else if (field === "authHeader") {
+                    updateProperty(`${formSettingsPath}.webhook.auth_header`, value);
+                  }
+                }}
+                hint="Overrides the global webhook for this section's form only. Leave URL blank to use the global webhook."
+                testIdPrefix="section-webhook"
+              />
             </div>
           )}
         </TabsContent>

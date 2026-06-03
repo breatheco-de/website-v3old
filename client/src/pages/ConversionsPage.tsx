@@ -11,7 +11,6 @@ import {
   IconSend,
   IconTargetArrow,
   IconTrash,
-  IconWebhook,
   IconX,
 } from "@tabler/icons-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -50,6 +49,7 @@ import JsonViewer from "@/components/editing/JsonViewer";
 import { AutomationsTagsCard } from "@/components/editing/AutomationsTagsCard";
 import { ConsentCard } from "@/components/editing/ConsentCard";
 import type { ConsentValues } from "@/components/editing/ConsentCard";
+import { WebhookCard } from "@/components/editing/WebhookCard";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, apiFetch, queryClient } from "@/lib/queryClient";
 import { SAMPLE_LEAD_PAYLOAD, type TrackingSettingsResponse, type ConversionEventEntry } from "@/lib/tracking";
@@ -1268,114 +1268,23 @@ export default function ConversionsPage() {
               )}
 
               {/* Per-event Webhook */}
-              <div className="rounded-md border bg-muted/20 p-3 space-y-3" data-testid="card-event-webhook">
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-1.5">
-                    <IconWebhook className="h-3.5 w-3.5 text-muted-foreground" />
-                    <span className="text-sm font-medium">Webhook</span>
-                  </div>
-                  <Button
-                    type="button"
-                    size="icon"
-                    variant="ghost"
-                    className="h-6 w-6"
-                    onClick={() =>
-                      editingEvent &&
-                      setEditingEvent({ ...editingEvent, webhookEditing: !editingEvent.webhookEditing })
-                    }
-                    data-testid="button-edit-event-webhook"
-                  >
-                    {editingEvent?.webhookEditing
-                      ? <IconX className="h-3.5 w-3.5" />
-                      : <IconPencil className="h-3.5 w-3.5" />}
-                  </Button>
-                </div>
-
-                {editingEvent?.webhookEditing ? (
-                  <div className="space-y-3">
-                    <p className="text-xs text-muted-foreground">
-                      Overrides the global webhook for this event only. Leave URL blank to use the global webhook.
-                    </p>
-                    <div className="space-y-1.5">
-                      <Label htmlFor="event-webhook-url" className="text-xs text-muted-foreground">
-                        URL
-                      </Label>
-                      <Input
-                        id="event-webhook-url"
-                        type="url"
-                        placeholder="https://hooks.example.com/..."
-                        value={editingEvent.webhookUrl}
-                        onChange={(e) =>
-                          setEditingEvent({ ...editingEvent, webhookUrl: e.target.value })
-                        }
-                        data-testid="input-event-webhook-url"
-                        className="text-xs"
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label htmlFor="event-webhook-method" className="text-xs text-muted-foreground">
-                        Method
-                      </Label>
-                      <Select
-                        value={editingEvent.webhookMethod}
-                        onValueChange={(val) =>
-                          setEditingEvent({ ...editingEvent, webhookMethod: val as "POST" | "GET" })
-                        }
-                      >
-                        <SelectTrigger id="event-webhook-method" data-testid="select-event-webhook-method" className="text-xs">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="POST">POST</SelectItem>
-                          <SelectItem value="GET">GET</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label htmlFor="event-webhook-auth" className="text-xs text-muted-foreground">
-                        Authorization header{" "}
-                        <span className="font-normal">(optional)</span>
-                      </Label>
-                      <Input
-                        id="event-webhook-auth"
-                        type="password"
-                        placeholder="Bearer sk-..."
-                        value={editingEvent.webhookAuthHeader}
-                        onChange={(e) =>
-                          setEditingEvent({ ...editingEvent, webhookAuthHeader: e.target.value })
-                        }
-                        data-testid="input-event-webhook-auth"
-                        autoComplete="off"
-                        className="text-xs"
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  <div className="space-y-1.5">
-                    <div className="flex items-start gap-2">
-                      <span className="text-xs text-muted-foreground w-20 flex-shrink-0 pt-0.5">URL</span>
-                      {editingEvent?.webhookUrl ? (
-                        <div className="flex items-center gap-1.5 min-w-0">
-                          <Badge variant="secondary" className="text-[11px] px-1.5 py-0 leading-4 font-normal shrink-0">
-                            {editingEvent.webhookMethod}
-                          </Badge>
-                          <span className="font-mono text-xs truncate text-foreground">
-                            {editingEvent.webhookUrl}
-                          </span>
-                        </div>
-                      ) : (
-                        <span className="text-xs text-muted-foreground italic">not set — uses global webhook</span>
-                      )}
-                    </div>
-                    {editingEvent?.webhookAuthHeader && (
-                      <div className="flex items-start gap-2">
-                        <span className="text-xs text-muted-foreground w-20 flex-shrink-0 pt-0.5">Auth</span>
-                        <span className="text-xs text-muted-foreground italic">configured</span>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
+              {editingEvent && (
+                <WebhookCard
+                  url={editingEvent.webhookUrl}
+                  method={editingEvent.webhookMethod}
+                  authHeader={editingEvent.webhookAuthHeader}
+                  editing={editingEvent.webhookEditing}
+                  onEditingChange={(val) =>
+                    setEditingEvent({ ...editingEvent, webhookEditing: val })
+                  }
+                  onChange={(field, value) => {
+                    if (field === "url") setEditingEvent({ ...editingEvent, webhookUrl: value });
+                    else if (field === "method") setEditingEvent({ ...editingEvent, webhookMethod: value as "POST" | "GET" });
+                    else if (field === "authHeader") setEditingEvent({ ...editingEvent, webhookAuthHeader: value });
+                  }}
+                  testIdPrefix="event-webhook"
+                />
+              )}
             </div>
           </ScrollArea>
 
