@@ -329,6 +329,24 @@ export default function ConversionsPage() {
     },
   });
 
+  const clearWebhookMutation = useMutation({
+    mutationFn: async () => {
+      const res = await apiRequest("PUT", "/api/settings/tracking", { webhook: null });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error((err as any).error || "Failed to remove webhook");
+      }
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/settings/tracking"] });
+      toast({ title: "Webhook removed", description: "Global conversion webhook has been cleared." });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Failed to remove webhook", description: err.message, variant: "destructive" });
+    },
+  });
+
   function toggleExpand(name: string) {
     setExpandedEvents((prev) => {
       const next = new Set(prev);
@@ -389,16 +407,29 @@ export default function ConversionsPage() {
                 </p>
               </div>
               {!webhookEditing && trackingSettings?.webhook?.url && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setWebhookEditing(true)}
-                  data-testid="button-edit-webhook"
-                  className="shrink-0"
-                >
-                  <IconPencil className="h-3.5 w-3.5" />
-                  Edit
-                </Button>
+                <div className="flex items-center gap-2 shrink-0">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setWebhookEditing(true)}
+                    data-testid="button-edit-webhook"
+                  >
+                    <IconPencil className="h-3.5 w-3.5" />
+                    Edit
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => clearWebhookMutation.mutate()}
+                    disabled={clearWebhookMutation.isPending}
+                    data-testid="button-remove-webhook"
+                  >
+                    {clearWebhookMutation.isPending
+                      ? <IconLoader2 className="h-3.5 w-3.5 animate-spin" />
+                      : <IconTrash className="h-3.5 w-3.5" />}
+                    Remove
+                  </Button>
+                </div>
               )}
             </div>
           </CardHeader>
