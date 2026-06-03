@@ -558,7 +558,9 @@ export default function ConversionsPage() {
                 <p className="text-sm text-muted-foreground mt-1">
                   Global fallback — fired on every conversion unless overridden at the event or form level.
                   Configured in <code className="font-mono text-xs">settings.yml</code> under{" "}
-                  <code className="font-mono text-xs">tracking.webhook</code>.
+                  <code className="font-mono text-xs">tracking.webhook</code>, or via the{" "}
+                  <code className="font-mono text-xs">DEFAULT_WEBHOOK_URL</code> environment variable
+                  when no URL is set in settings.
                 </p>
               </div>
               {!webhookEditing && trackingSettings?.webhook?.url && (
