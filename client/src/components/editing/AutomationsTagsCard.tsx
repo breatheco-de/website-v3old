@@ -54,6 +54,7 @@ export function AutomationsTagsCard({
               placeholder="e.g. hubspot-lead-nurture"
               max={1}
               testId="input-conversion-automations"
+              emptyMessage="No previous automations found"
             />
           </div>
           <div className="space-y-1.5">

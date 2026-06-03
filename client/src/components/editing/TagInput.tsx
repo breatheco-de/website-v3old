@@ -9,6 +9,7 @@ export function TagInput({
   placeholder,
   max,
   testId,
+  emptyMessage = "No previous tags found",
 }: {
   values: string[];
   suggestions: string[];
@@ -16,6 +17,7 @@ export function TagInput({
   placeholder?: string;
   max?: number;
   testId?: string;
+  emptyMessage?: string;
 }) {
   const [inputValue, setInputValue] = useState("");
   const [open, setOpen] = useState(false);
@@ -124,7 +126,7 @@ export function TagInput({
         </div>
       ) : (
         <div className="absolute z-50 mt-1 w-full rounded-md border bg-popover shadow-md overflow-hidden">
-          <p className="px-3 py-2 text-xs text-muted-foreground italic">No previous tags found</p>
+          <p className="px-3 py-2 text-xs text-muted-foreground italic">{emptyMessage}</p>
         </div>
       ))}
     </div>
