@@ -107,7 +107,7 @@ export function TagInput({
           />
         )}
       </div>
-      {open && filtered.length > 0 && (
+      {open && (filtered.length > 0 ? (
         <div className="absolute z-50 mt-1 w-full rounded-md border bg-popover shadow-md overflow-hidden">
           <ul className="max-h-40 overflow-y-auto py-1">
             {filtered.map((s, i) => (
@@ -122,7 +122,11 @@ export function TagInput({
             ))}
           </ul>
         </div>
-      )}
+      ) : (
+        <div className="absolute z-50 mt-1 w-full rounded-md border bg-popover shadow-md overflow-hidden">
+          <p className="px-3 py-2 text-xs text-muted-foreground italic">No previous tags found</p>
+        </div>
+      ))}
     </div>
   );
 }

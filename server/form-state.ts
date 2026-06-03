@@ -538,11 +538,9 @@ export function partialReplaceConversionNameBySection(
 }
 
 /** Returns known automations and tags across all form entries (for autocomplete). */
-const SEED_TAGS = ["lead", "bootcamp", "latam", "enterprise", "scholarship"];
-
 export function getFormStateSuggestions(): { automations: string[]; tags: string[] } {
   return {
     automations: state.known_automations,
-    tags: state.known_tags.length > 0 ? state.known_tags : SEED_TAGS,
+    tags: state.known_tags,
   };
 }
