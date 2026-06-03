@@ -18,6 +18,7 @@ import {
 } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { ImagePickerDialog } from "@/components/editing/ImagePickerDialog";
+import { LinkPicker } from "@/components/editing/LinkPicker";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -152,10 +153,10 @@ export default function SettingsPage() {
     return null;
   }
 
-  async function handleLegalSave(field: "legal_terms_url" | "legal_privacy_url") {
+  async function handleLegalSave(field: "legal_terms_url" | "legal_privacy_url", newValue?: string) {
+    const value = newValue !== undefined ? newValue : (field === "legal_terms_url" ? legalTermsUrl : legalPrivacyUrl);
     setLegalSaving(field);
     try {
-      const value = field === "legal_terms_url" ? legalTermsUrl : legalPrivacyUrl;
       const err = validateLegalUrl(value);
       if (err) {
         toast({ title: "Invalid URL", description: err, variant: "destructive" });
@@ -792,27 +793,15 @@ export default function SettingsPage() {
                           Used in lead forms and consent copy. Accepts a full URL or a relative path (e.g. <code className="font-mono">/en/terms-conditions</code>).
                         </p>
                         <div className="flex items-center gap-2">
-                          <Input
-                            id="input-legal-terms-url"
+                          <LinkPicker
                             value={legalTermsUrl}
-                            onChange={(e) => setLegalTermsUrl(e.target.value)}
-                            placeholder="/en/terms-conditions"
-                            disabled={legalSaving === "legal_terms_url"}
-                            className="font-mono text-xs"
-                            data-testid="input-legal-terms-url"
+                            onChange={(v) => { setLegalTermsUrl(v); handleLegalSave("legal_terms_url", v); }}
+                            testId="link-picker-legal-terms-url"
+                            allowedTypes={["internal", "external"]}
                           />
-                          <Button
-                            size="sm"
-                            onClick={() => handleLegalSave("legal_terms_url")}
-                            disabled={legalSaving === "legal_terms_url"}
-                            data-testid="button-legal-save-terms"
-                          >
-                            {legalSaving === "legal_terms_url" ? (
-                              <IconLoader2 className="h-4 w-4 animate-spin" />
-                            ) : (
-                              <IconDeviceFloppy className="h-4 w-4" />
-                            )}
-                          </Button>
+                          {legalSaving === "legal_terms_url" && (
+                            <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                          )}
                         </div>
                       </div>
 
@@ -824,27 +813,15 @@ export default function SettingsPage() {
                           Used in lead forms and consent copy. Accepts a full URL or a relative path (e.g. <code className="font-mono">/en/privacy-policy</code>).
                         </p>
                         <div className="flex items-center gap-2">
-                          <Input
-                            id="input-legal-privacy-url"
+                          <LinkPicker
                             value={legalPrivacyUrl}
-                            onChange={(e) => setLegalPrivacyUrl(e.target.value)}
-                            placeholder="/en/privacy-policy"
-                            disabled={legalSaving === "legal_privacy_url"}
-                            className="font-mono text-xs"
-                            data-testid="input-legal-privacy-url"
+                            onChange={(v) => { setLegalPrivacyUrl(v); handleLegalSave("legal_privacy_url", v); }}
+                            testId="link-picker-legal-privacy-url"
+                            allowedTypes={["internal", "external"]}
                           />
-                          <Button
-                            size="sm"
-                            onClick={() => handleLegalSave("legal_privacy_url")}
-                            disabled={legalSaving === "legal_privacy_url"}
-                            data-testid="button-legal-save-privacy"
-                          >
-                            {legalSaving === "legal_privacy_url" ? (
-                              <IconLoader2 className="h-4 w-4 animate-spin" />
-                            ) : (
-                              <IconDeviceFloppy className="h-4 w-4" />
-                            )}
-                          </Button>
+                          {legalSaving === "legal_privacy_url" && (
+                            <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                          )}
                         </div>
                       </div>
                     </div>
