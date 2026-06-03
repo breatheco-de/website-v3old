@@ -69,7 +69,8 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { useConversionNames } from "@/lib/tracking";
+import { useConversionNames, SAMPLE_LEAD_PAYLOAD } from "@/lib/tracking";
+import { apiRequest } from "@/lib/queryClient";
 import { AutomationsTagsCard } from "./AutomationsTagsCard";
 import { ConsentCard } from "./ConsentCard";
 import type { ConsentValues } from "./ConsentCard";
@@ -6762,6 +6763,21 @@ export function SectionEditorPanel({
                         ? globalWebhookUrl
                         : undefined
                     }
+                    samplePayload={SAMPLE_LEAD_PAYLOAD}
+                    onTest={async () => {
+                      try {
+                        const res = await apiRequest("POST", "/api/tracking/webhook/test", {
+                          payload: SAMPLE_LEAD_PAYLOAD,
+                        });
+                        const data = await res.json().catch(() => ({}));
+                        if (!res.ok || !(data as any).ok) {
+                          return { ok: false, error: (data as any).error || `HTTP ${res.status}` };
+                        }
+                        return { ok: true, status: (data as any).status };
+                      } catch (e: any) {
+                        return { ok: false, error: e.message };
+                      }
+                    }}
                     testIdPrefix="section-webhook"
                   />
                 );

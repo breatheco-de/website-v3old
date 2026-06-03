@@ -1337,6 +1337,15 @@ export default function ConversionsPage() {
                     else if (field === "method") setEditingEvent({ ...editingEvent, webhookMethod: value as "POST" | "GET" });
                     else if (field === "authHeader") setEditingEvent({ ...editingEvent, webhookAuthHeader: value });
                   }}
+                  samplePayload={SAMPLE_LEAD_PAYLOAD}
+                  onTest={async () => {
+                    try {
+                      const data = await testWebhookMutation.mutateAsync();
+                      return { ok: true, status: data.status };
+                    } catch (e: any) {
+                      return { ok: false, error: e.message };
+                    }
+                  }}
                   testIdPrefix="event-webhook"
                 />
               )}
