@@ -35,6 +35,8 @@ sections:
     paddingY:
       desktop: lg sm
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    marginY:
+      desktop: none md
   - type: comparison_table
     section_id: comparison_table-9ssv52
     version: "2.0"
