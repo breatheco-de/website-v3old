@@ -69,7 +69,8 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { useConversionNames, buildSamplePayload } from "@/lib/tracking";
+import { useConversionNames } from "@/lib/tracking";
+import { buildWebhookSamplePayload } from "@/lib/webhookPayload";
 import { useSession } from "@/contexts/SessionContext";
 import { apiRequest } from "@/lib/queryClient";
 import { AutomationsTagsCard } from "./AutomationsTagsCard";
@@ -6853,45 +6854,11 @@ export function SectionEditorPanel({
                     ? "No section URL set — currently falling back to the global webhook. Enter a URL here to override it for this section only."
                     : "No webhook configured at any level. Enter a URL to receive form submissions via webhook.";
                 const sectionSource = resolvedParsedSection ?? parsedSection ?? {};
-                const webhookSamplePayload = buildSamplePayload({
-                  ...(formSettingsPath
-                    ? (() => {
-                        const program = getValueAtFieldPath(sectionSource, `${formSettingsPath}.fields.program.default`) as string | undefined;
-                        const tags = getValueAtFieldPath(sectionSource, `${formSettingsPath}.tags`);
-                        const automations = getValueAtFieldPath(sectionSource, `${formSettingsPath}.automations`) as string | undefined;
-                        const consentEmail = getValueAtFieldPath(sectionSource, `${formSettingsPath}.consent.marketing`) as boolean | undefined;
-                        const consentSms = getValueAtFieldPath(sectionSource, `${formSettingsPath}.consent.sms`) as boolean | undefined;
-                        const consentWhatsapp = getValueAtFieldPath(sectionSource, `${formSettingsPath}.consent.whatsapp`) as boolean | undefined;
-                        return {
-                          ...(program ? { program } : {}),
-                          ...(tags != null ? { tags } : {}),
-                          ...(automations ? { automations } : {}),
-                          ...(consentEmail != null ? { consent_email: consentEmail } : {}),
-                          ...(consentSms != null ? { sms_consent: consentSms } : {}),
-                          ...(consentWhatsapp != null ? { consent_whatsapp: consentWhatsapp } : {}),
-                        };
-                      })()
-                    : {}),
-                  ...(session.language ? { language: session.language } : {}),
-                  ...(session.browserLang ? { browser_lang: session.browserLang } : {}),
-                  ...(session.location?.slug ? { location: session.location.slug } : {}),
-                  ...(session.location?.region ? { region: session.location.region } : {}),
-                  ...(session.location?.city ? { city: session.location.city } : {}),
-                  ...(session.location?.country_code ? { country: session.location.country_code } : {}),
-                  ...(session.geo?.latitude != null ? { latitude: String(session.geo.latitude) } : {}),
-                  ...(session.geo?.longitude != null ? { longitude: String(session.geo.longitude) } : {}),
-                  ...(session.utm?.utm_source ? { utm_source: session.utm.utm_source } : {}),
-                  ...(session.utm?.utm_medium ? { utm_medium: session.utm.utm_medium } : {}),
-                  ...(session.utm?.utm_campaign ? { utm_campaign: session.utm.utm_campaign } : {}),
-                  ...(session.utm?.utm_content ? { utm_content: session.utm.utm_content } : {}),
-                  ...(session.utm?.utm_term ? { utm_term: session.utm.utm_term } : {}),
-                  ...(session.utm?.utm_url ? { utm_url: session.utm.utm_url } : {}),
-                  ...(session.utm?.utm_placement ? { utm_placement: session.utm.utm_placement } : {}),
-                  ...(session.utm?.utm_plan ? { utm_plan: session.utm.utm_plan } : {}),
-                  ...(session.utm?.ppc_tracking_id ? { ppc_tracking_id: session.utm.ppc_tracking_id } : {}),
-                  ...(session.utm?.referral ? { referral: session.utm.referral } : {}),
-                  ...(session.utm?.coupon ? { coupon: session.utm.coupon } : {}),
-                });
+                const webhookSamplePayload = buildWebhookSamplePayload(
+                  sectionSource,
+                  formSettingsPath,
+                  session
+                );
                 return (
                   <WebhookCard
                     url={rawSectionWebhookUrl}
