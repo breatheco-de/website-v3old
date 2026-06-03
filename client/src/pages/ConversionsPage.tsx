@@ -5,6 +5,7 @@ import {
   IconBraces,
   IconChevronDown,
   IconChevronRight,
+  IconExternalLink,
   IconLink,
   IconLoader2,
   IconPencil,
@@ -148,6 +149,16 @@ function UsageRows({ eventName }: { eventName: string }) {
           {u.section_type && (
             <span className="text-muted-foreground">· {u.section_type}</span>
           )}
+          <a
+            href={`/${u.locale}/${u.slug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-auto text-muted-foreground hover:text-foreground transition-colors"
+            data-testid={`link-open-usage-${i}`}
+            aria-label="Open page in new tab"
+          >
+            <IconExternalLink className="h-3.5 w-3.5" />
+          </a>
         </li>
       ))}
     </ul>
@@ -1004,7 +1015,7 @@ export default function ConversionsPage() {
                         onClick={(e) => e.stopPropagation()}
                         data-testid={`checkbox-usage-${i}`}
                       />
-                      <div className="flex items-center gap-1.5 flex-wrap min-w-0">
+                      <div className="flex items-center gap-1.5 flex-wrap min-w-0 flex-1">
                         <span className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded">
                           {u.content_type}/{u.slug}
                         </span>
@@ -1013,6 +1024,17 @@ export default function ConversionsPage() {
                           <span className="text-muted-foreground text-xs">· {u.section_type}</span>
                         )}
                       </div>
+                      <a
+                        href={`/${u.locale}/${u.slug}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="shrink-0 text-muted-foreground hover:text-foreground transition-colors"
+                        data-testid={`link-open-modal-usage-${i}`}
+                        aria-label="Open page in new tab"
+                      >
+                        <IconExternalLink className="h-3.5 w-3.5" />
+                      </a>
                     </li>
                   ))}
                 </ul>

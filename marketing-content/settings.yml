@@ -48,6 +48,12 @@ tracking:
         show_terms: false
     - name: request_more_info
       description: Form submission
+      consent:
+        marketing: false
+        sms: false
+        whatsapp: false
+        sms_usa_only: false
+        show_terms: false
     - name: financing_guide_download
       description: Form submission
     - name: partner_application
@@ -58,6 +64,12 @@ tracking:
       description: Form submission
     - name: contact_us
       description: Form submission
+      consent:
+        marketing: false
+        sms: false
+        whatsapp: false
+        sms_usa_only: false
+        show_terms: false
     - name: outcomes_report
       description: Form submission
   webhook:
