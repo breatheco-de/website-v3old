@@ -18,10 +18,9 @@ import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
 import type { Validator, ValidatorResult, ValidationContext, ValidationIssue } from "../shared/types";
+import { findObsoleteConsentKeys } from "../../../shared/consentLegacyKeys";
 
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), "marketing-content");
-
-const OBSOLETE_KEYS = ["marketing_text", "sms_text"] as const;
 
 function walkYamlFiles(dir: string): string[] {
   const results: string[] = [];
@@ -37,43 +36,6 @@ function walkYamlFiles(dir: string): string[] {
     }
   }
   return results;
-}
-
-/**
- * Recursively walks an arbitrary parsed YAML value, collecting the path to
- * every `consent` object that contains `marketing_text` or `sms_text`.
- */
-function findObsoleteConsentKeys(
-  value: unknown,
-  breadcrumb: string,
-  hits: Array<{ breadcrumb: string; keys: string[] }>
-): void {
-  if (!value || typeof value !== "object" || Array.isArray(value)) {
-    if (Array.isArray(value)) {
-      value.forEach((item, idx) =>
-        findObsoleteConsentKeys(item, `${breadcrumb}[${idx}]`, hits)
-      );
-    }
-    return;
-  }
-
-  const obj = value as Record<string, unknown>;
-
-  // Check if this object is a `consent` block with obsolete keys
-  // (caller will have labelled the breadcrumb already — we just need to check
-  //  direct children)
-  if (breadcrumb.endsWith(".consent") || breadcrumb === "consent") {
-    const found = OBSOLETE_KEYS.filter((k) => Object.prototype.hasOwnProperty.call(obj, k));
-    if (found.length > 0) {
-      hits.push({ breadcrumb, keys: found });
-    }
-  }
-
-  // Recurse into all children regardless
-  for (const [key, child] of Object.entries(obj)) {
-    const childPath = breadcrumb ? `${breadcrumb}.${key}` : key;
-    findObsoleteConsentKeys(child, childPath, hits);
-  }
 }
 
 export const consentLegacyKeysValidator: Validator = {
@@ -101,8 +63,7 @@ export const consentLegacyKeysValidator: Validator = {
 
       if (!parsed || typeof parsed !== "object") continue;
 
-      const hits: Array<{ breadcrumb: string; keys: string[] }> = [];
-      findObsoleteConsentKeys(parsed, "", hits);
+      const hits = findObsoleteConsentKeys(parsed);
 
       if (hits.length === 0) continue;
 
