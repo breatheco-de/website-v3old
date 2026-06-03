@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { AlertTriangle, Check, ChevronDown, CloudUpload, Code, Database, ExternalLink, HelpCircle, Image, Info, Laptop, Link, Unlink, Loader2, MapPin, Monitor, Pencil, Plus, Redo2, RefreshCw, Save, Search, Settings, Smartphone, Trash2, Undo2, Upload, Video, X } from "lucide-react";
-import { IconGitBranch, IconTargetArrow, IconFileCode } from "@tabler/icons-react";
+import { IconGitBranch, IconTargetArrow, IconFileCode, IconPencil, IconX } from "@tabler/icons-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { BindingConfirmDialog } from "./BindingConfirmDialog";
 import { getIcon } from "@/lib/icons";
@@ -666,6 +666,7 @@ export function SectionEditorPanel({
   const [exampleDialogOpen, setExampleDialogOpen] = useState(false);
   const [exampleCopied, setExampleCopied] = useState(false);
   const [locationsPickerOpen, setLocationsPickerOpen] = useState(false);
+  const [conversionNameEditing, setConversionNameEditing] = useState(false);
 
   const sectionComponentType = (section as Record<string, unknown>)?.type as string || "";
 
@@ -6460,53 +6461,92 @@ export function SectionEditorPanel({
           ) : (
             <div className="space-y-6">
               {/* Conversion Name */}
-              <div className="space-y-2">
-                <Label
-                  htmlFor="conversion-name"
-                  className="text-sm font-medium"
-                  data-testid="label-conversion-name"
-                >
-                  Conversion Name
-                </Label>
-                {(() => {
-                  const storedConversionName = String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.conversion_name`) ?? "");
-                  return (
-                    <Select
-                      value={storedConversionName}
-                      onValueChange={(val) => updateProperty(`${formSettingsPath}.conversion_name`, val === "__clear__" ? "" : val)}
-                      data-testid="select-conversion-name"
-                    >
-                      <SelectTrigger className="w-full" data-testid="combobox-conversion-name">
-                        <SelectValue placeholder="Select conversion event…" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="__clear__" data-testid="conversion-name-option-clear">
-                          <span className="text-muted-foreground">— None —</span>
-                        </SelectItem>
-                        {storedConversionName && !conversionNames.includes(storedConversionName) && (
-                          <SelectItem value={storedConversionName} data-testid={`conversion-name-option-${storedConversionName}`}>
-                            {storedConversionName}
-                            {conversionNamesLoading && <span className="ml-1 text-xs text-muted-foreground">(loading…)</span>}
-                          </SelectItem>
-                        )}
-                        {conversionNames.length === 0 && !storedConversionName && (
-                          <SelectItem value="__loading__" disabled>
-                            {conversionNamesLoading ? "Loading…" : "No events configured"}
-                          </SelectItem>
-                        )}
-                        {conversionNames.map((name) => (
-                          <SelectItem key={name} value={name} data-testid={`conversion-name-option-${name}`}>
-                            {name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  );
-                })()}
-                <p className="text-xs text-muted-foreground">
-                  GTM event fired on form submission. Must match a configured conversion event.
-                </p>
-              </div>
+              {(() => {
+                const storedConversionName = String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.conversion_name`) ?? "");
+                const showPicker = conversionNameEditing || !storedConversionName;
+                return (
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <Label
+                        htmlFor="conversion-name"
+                        className="text-sm font-medium"
+                        data-testid="label-conversion-name"
+                      >
+                        Conversion Name
+                      </Label>
+                      {storedConversionName && !showPicker && (
+                        <Button
+                          type="button"
+                          size="icon"
+                          variant="ghost"
+                          className="h-6 w-6"
+                          onClick={() => setConversionNameEditing(true)}
+                          data-testid="button-edit-conversion-name"
+                        >
+                          <IconPencil className="h-3.5 w-3.5" />
+                        </Button>
+                      )}
+                      {showPicker && storedConversionName && (
+                        <Button
+                          type="button"
+                          size="icon"
+                          variant="ghost"
+                          className="h-6 w-6"
+                          onClick={() => setConversionNameEditing(false)}
+                          data-testid="button-cancel-edit-conversion-name"
+                        >
+                          <IconX className="h-3.5 w-3.5" />
+                        </Button>
+                      )}
+                    </div>
+
+                    {!showPicker ? (
+                      <div
+                        className="flex items-center gap-2 px-3 py-2 rounded-md bg-muted/50 border"
+                        data-testid="display-conversion-name"
+                      >
+                        <IconTargetArrow className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                        <span className="text-sm font-mono">{storedConversionName}</span>
+                      </div>
+                    ) : (
+                      <Select
+                        value={storedConversionName}
+                        onValueChange={(val) => {
+                          updateProperty(`${formSettingsPath}.conversion_name`, val === "__clear__" ? "" : val);
+                          setConversionNameEditing(false);
+                        }}
+                        data-testid="select-conversion-name"
+                        open={conversionNameEditing || !storedConversionName ? undefined : false}
+                      >
+                        <SelectTrigger className="w-full" data-testid="combobox-conversion-name">
+                          <SelectValue placeholder="Select conversion event…" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {storedConversionName && (
+                            <SelectItem value="__clear__" data-testid="conversion-name-option-clear">
+                              <span className="text-muted-foreground">— None —</span>
+                            </SelectItem>
+                          )}
+                          {conversionNames.length === 0 && (
+                            <SelectItem value="__loading__" disabled>
+                              {conversionNamesLoading ? "Loading…" : "No events configured"}
+                            </SelectItem>
+                          )}
+                          {conversionNames.map((name) => (
+                            <SelectItem key={name} value={name} data-testid={`conversion-name-option-${name}`}>
+                              {name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
+
+                    <p className="text-xs text-muted-foreground">
+                      GTM event fired on form submission. Must match a configured conversion event.
+                    </p>
+                  </div>
+                );
+              })()}
 
               {/* Automations */}
               <div className="space-y-2">
