@@ -1304,6 +1304,24 @@ export default function ConversionsPage() {
                 />
               )}
 
+              {/* No-fallback inline warning */}
+              {editingEvent &&
+                !editingEvent.webhookUrl.trim() &&
+                trackingSettings &&
+                !trackingSettings.webhook?.url &&
+                !trackingSettings.has_env_webhook && (
+                  <div
+                    className="flex items-start gap-2.5 rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2.5"
+                    data-testid="note-no-fallback-webhook"
+                  >
+                    <IconAlertTriangle className="h-4 w-4 shrink-0 mt-0.5 text-destructive" />
+                    <p className="text-xs text-destructive leading-snug">
+                      No fallback webhook — leads from this event will be silently discarded unless
+                      you set one here or globally.
+                    </p>
+                  </div>
+                )}
+
               {/* Per-event Webhook */}
               {editingEvent && (
                 <WebhookCard
