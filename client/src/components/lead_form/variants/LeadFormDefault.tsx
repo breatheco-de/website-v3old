@@ -494,6 +494,32 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
         token: turnstileToken,
       };
 
+      // Webhook priority: per-form (YAML) → per-event → global.
+      // Any configured level sends the full lead payload instead of Breathecode.
+      // Global webhook: server reads credentials from settings (auth_header never exposed to client).
+      // Per-form / per-event: client supplies the URL; no auth credentials at those levels.
+      const formWebhook = data.webhook?.url ? data.webhook : null;
+      const eventWebhook = data.conversion_name
+        ? (trackingSettings?.conversion_events?.find(e => e.name === data.conversion_name)?.webhook ?? null)
+        : null;
+      const globalWebhook = trackingSettings?.webhook?.url ? trackingSettings.webhook : null;
+
+      const webhookOverride = formWebhook ?? eventWebhook ?? null;
+
+      if (webhookOverride || globalWebhook) {
+        const body: Record<string, unknown> = { payload };
+        if (webhookOverride) {
+          // Pass URL/method for per-form or per-event webhooks; server needs no credentials
+          body.webhook = { url: webhookOverride.url, method: webhookOverride.method || "POST" };
+        }
+        // When no override, server reads global URL/method/auth_header from settings
+        return fetch("/api/leads/webhook-delivery", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+      }
+
       return apiRequest("POST", "/api/leads", payload);
     },
     onSuccess: async (_response, variables) => {
@@ -514,35 +540,44 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
           }
         );
 
-        // Fire conversion webhook via server-side proxy (silent failure — never blocks form success)
-        try {
-          const resolvedWebhook = resolveWebhook(data.webhook ?? null, data.conversion_name, trackingSettings ?? null);
-          if (resolvedWebhook) {
-            const webhookPayload: Record<string, unknown> = {
-              conversion_name: data.conversion_name,
-              program: variables.program || programContext,
-              location: variables.location || sessionLocation?.slug,
-              utm_source: utm.utm_source,
-              utm_medium: utm.utm_medium,
-              utm_campaign: utm.utm_campaign,
-              utm_content: utm.utm_content,
-              utm_term: utm.utm_term,
-            };
-            if (variables.email) {
-              webhookPayload.email_hash = await hashEmail(variables.email);
+        // The secondary curated webhook is only fired when ALL three webhook levels
+        // are unconfigured (i.e., primary submission went to Breathecode).
+        // When any webhook level was used above, the full payload was already delivered.
+        const hasAnyWebhook = !!(
+          (data.webhook?.url) ||
+          (data.conversion_name && trackingSettings?.conversion_events?.find(e => e.name === data.conversion_name)?.webhook?.url) ||
+          trackingSettings?.webhook?.url
+        );
+        if (!hasAnyWebhook) {
+          try {
+            const resolvedWebhook = resolveWebhook(data.webhook ?? null, data.conversion_name, trackingSettings ?? null);
+            if (resolvedWebhook) {
+              const webhookPayload: Record<string, unknown> = {
+                conversion_name: data.conversion_name,
+                program: variables.program || programContext,
+                location: variables.location || sessionLocation?.slug,
+                utm_source: utm.utm_source,
+                utm_medium: utm.utm_medium,
+                utm_campaign: utm.utm_campaign,
+                utm_content: utm.utm_content,
+                utm_term: utm.utm_term,
+              };
+              if (variables.email) {
+                webhookPayload.email_hash = await hashEmail(variables.email);
+              }
+              fetch("/api/conversion-webhook", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  url: resolvedWebhook.url,
+                  method: resolvedWebhook.method || "POST",
+                  payload: webhookPayload,
+                }),
+              }).catch((err) => console.warn("[LeadForm] Webhook delivery failed (non-blocking):", err));
             }
-            fetch("/api/conversion-webhook", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                url: resolvedWebhook.url,
-                method: resolvedWebhook.method || "POST",
-                payload: webhookPayload,
-              }),
-            }).catch((err) => console.warn("[LeadForm] Webhook delivery failed (non-blocking):", err));
+          } catch (err) {
+            console.warn("[LeadForm] Webhook resolution failed (non-blocking):", err);
           }
-        } catch (err) {
-          console.warn("[LeadForm] Webhook resolution failed (non-blocking):", err);
         }
       }
 

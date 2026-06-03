@@ -234,6 +234,44 @@ export function resolveWebhook(
 }
 
 /**
+ * Sample lead payload — mirrors the full payload shape built in LeadFormDefault.tsx.
+ * Used as the single source of truth for the UI "Sample payload" display and
+ * the webhook test button. Update this when the form payload shape changes.
+ */
+export const SAMPLE_LEAD_PAYLOAD: Record<string, unknown> = {
+  email: "jane.doe@example.com",
+  first_name: "Jane",
+  last_name: "Doe",
+  phone: "+13055550100",
+  program: "ai-engineering",
+  location: "miami-usa",
+  region: "us",
+  coupon: "",
+  language: "en",
+  browser_lang: "en-US",
+  latitude: "25.7617",
+  longitude: "-80.1918",
+  city: "Miami",
+  country: "US",
+  utm_url: "https://example.com/en/apply?utm_source=google",
+  utm_source: "google",
+  utm_medium: "cpc",
+  utm_campaign: "brand-2024",
+  utm_content: "hero-cta",
+  utm_term: "ai bootcamp",
+  utm_placement: "",
+  utm_plan: "",
+  ppc_tracking_id: "",
+  referral: "",
+  tags: "website-lead",
+  automations: "strong",
+  consent_email: true,
+  sms_consent: false,
+  consent_whatsapp: false,
+  token: "<turnstile_token>",
+};
+
+/**
  * Helper to track form submission
  */
 export async function trackFormSubmission(

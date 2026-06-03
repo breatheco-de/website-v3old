@@ -7,6 +7,7 @@ import {
   IconLoader2,
   IconPencil,
   IconPlus,
+  IconSend,
   IconTargetArrow,
   IconTrash,
 } from "@tabler/icons-react";
@@ -37,9 +38,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import JsonViewer from "@/components/editing/JsonViewer";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, apiFetch, queryClient } from "@/lib/queryClient";
-import type { TrackingSettingsResponse } from "@/lib/tracking";
-
-const SAMPLE_USER_ID = "a1b2c3d4-e5f6-7890-abcd-ef1234567890";
+import { SAMPLE_LEAD_PAYLOAD, type TrackingSettingsResponse } from "@/lib/tracking";
 
 interface UsageEntry {
   file: string;
@@ -348,6 +347,23 @@ export default function ConversionsPage() {
     },
   });
 
+  const testWebhookMutation = useMutation({
+    mutationFn: async () => {
+      const res = await apiRequest("POST", "/api/tracking/webhook/test", { payload: SAMPLE_LEAD_PAYLOAD });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !(data as any).ok) {
+        throw new Error((data as any).error || `Request failed (${res.status})`);
+      }
+      return data as { ok: boolean; status: number };
+    },
+    onSuccess: (data) => {
+      toast({ title: "Webhook test succeeded", description: `Upstream responded with HTTP ${data.status}.` });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Webhook test failed", description: err.message, variant: "destructive" });
+    },
+  });
+
   function toggleExpand(name: string) {
     setExpandedEvents((prev) => {
       const next = new Set(prev);
@@ -363,16 +379,7 @@ export default function ConversionsPage() {
   const conversionEvents: TrackingEvent[] = conversionEventEntries.map((entry) => ({
     name: entry.name,
     trigger: entry.description ?? "Form submission",
-    payload: {
-      event: entry.name,
-      user_id: SAMPLE_USER_ID,
-      email_hash: "3f2a1b4c8d9e0f12",
-      program: "ai-engineering",
-      location: "miami-usa",
-      formentry_id: 12345,
-      attribution_id: "attr_abc123",
-      referral_key: "ref_xyz789",
-    },
+    payload: { ...SAMPLE_LEAD_PAYLOAD },
   }));
 
   return (
@@ -417,6 +424,18 @@ export default function ConversionsPage() {
                   >
                     <IconPencil className="h-3.5 w-3.5" />
                     Edit
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => testWebhookMutation.mutate()}
+                    disabled={testWebhookMutation.isPending}
+                    data-testid="button-test-webhook"
+                  >
+                    {testWebhookMutation.isPending
+                      ? <IconLoader2 className="h-3.5 w-3.5 animate-spin" />
+                      : <IconSend className="h-3.5 w-3.5" />}
+                    Test
                   </Button>
                   <Button
                     variant="outline"
@@ -561,22 +580,12 @@ export default function ConversionsPage() {
               </p>
               <div className="overflow-hidden rounded-md" data-testid="text-webhook-sample-payload">
                 <JsonViewer
-                  value={JSON.stringify({
-                    event: "<event_name>",
-                    user_id: SAMPLE_USER_ID,
-                    email_hash: "3f2a1b4c8d9e0f12",
-                    program: "ai-engineering",
-                    location: "miami-usa",
-                    formentry_id: 12345,
-                    attribution_id: "attr_abc123",
-                    referral_key: "ref_xyz789",
-                  }, null, 2)}
+                  value={JSON.stringify(SAMPLE_LEAD_PAYLOAD, null, 2)}
                   className="[&_.cm-editor]:!max-w-full [&_.cm-scroller]:!overflow-x-auto"
                 />
               </div>
               <p className="text-xs text-muted-foreground mt-2">
-                Sent as a JSON body (<code className="font-mono">Content-Type: application/json</code>).{" "}
-                <code className="font-mono">{"<event_name>"}</code> is replaced with the actual event name at fire time.
+                Sent as a JSON body (<code className="font-mono">Content-Type: application/json</code>) with the full lead fields.
               </p>
             </div>
           </CardContent>

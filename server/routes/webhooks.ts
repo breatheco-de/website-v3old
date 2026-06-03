@@ -6,6 +6,7 @@ import { getDatabaseName, getAllTypes } from "../content-types";
 import { databaseManager } from "../database";
 import { clearMarkdownCache } from "../markdown";
 import { invalidateContentCaches } from "./_helpers";
+import { getTrackingSettings } from "../settings";
 import { z } from "zod";
 
 function buildBaseUrlFromRequest(req: Request): string {
@@ -29,6 +30,7 @@ function timingSafeEqual(a: string, b: string): boolean {
 const conversionWebhookBodySchema = z.object({
   url: z.string().url(),
   method: z.enum(["POST", "GET"]).default("POST"),
+  auth_header: z.string().optional(),
   payload: z.record(z.unknown()),
 });
 
@@ -101,7 +103,7 @@ export function registerWebhooksRoutes(app: Express): void {
       return;
     }
 
-    const { url, method, payload } = parsed.data;
+    const { url, method, auth_header, payload } = parsed.data;
 
     // SSRF protection: block private/internal network destinations
     if (isPrivateDestination(url)) {
@@ -115,7 +117,10 @@ export function registerWebhooksRoutes(app: Express): void {
       const fetchOptions: RequestInit = { method };
 
       if (method === "POST") {
-        fetchOptions.headers = { "Content-Type": "application/json" };
+        fetchOptions.headers = {
+          "Content-Type": "application/json",
+          ...(auth_header ? { Authorization: auth_header } : {}),
+        };
         fetchOptions.body = JSON.stringify(payload);
       } else {
         // GET: serialize payload as query params so conversion fields are delivered
@@ -127,6 +132,9 @@ export function registerWebhooksRoutes(app: Express): void {
         }
         const sep = url.includes("?") ? "&" : "?";
         fetchUrl = `${url}${sep}${params.toString()}`;
+        if (auth_header) {
+          fetchOptions.headers = { Authorization: auth_header };
+        }
       }
 
       const response = await fetch(fetchUrl, fetchOptions);
@@ -149,6 +157,165 @@ export function registerWebhooksRoutes(app: Express): void {
       res.status(502).json({ error: "Failed to deliver webhook", details: String(err) });
     }
   });
+  /**
+   * POST /api/leads/webhook-delivery
+   * Primary lead submission path when any webhook level is configured.
+   * Body: { payload, webhook?: { url, method } }
+   *   - When `webhook` is omitted → reads URL/method/auth_header from global
+   *     settings server-side (credentials never leave the server).
+   *   - When `webhook.url` is supplied → uses that URL/method as-is; intended
+   *     for per-form and per-event webhooks which have no auth credentials.
+   * Always returns 200 — delivery failures are non-blocking so the form shows
+   * success regardless of upstream response.
+   */
+  app.post("/api/leads/webhook-delivery", async (req, res) => {
+    const body = req.body;
+    if (!body || typeof body !== "object" || Array.isArray(body)) {
+      res.status(400).json({ error: "Request body must be an object." });
+      return;
+    }
+
+    const payload = body.payload;
+    if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+      res.status(400).json({ error: "Request body must include a payload object." });
+      return;
+    }
+
+    // Resolve webhook config: use supplied override or fall back to global settings
+    const override = body.webhook as { url?: string; method?: string } | undefined;
+    let url: string;
+    let method: string;
+    let auth_header: string | undefined;
+
+    if (override?.url) {
+      url = override.url;
+      method = override.method || "POST";
+      // Per-form / per-event webhooks have no auth credentials
+    } else {
+      const globalWebhook = getTrackingSettings().webhook;
+      if (!globalWebhook?.url) {
+        res.status(400).json({ error: "No webhook URL configured." });
+        return;
+      }
+      url = globalWebhook.url;
+      method = globalWebhook.method || "POST";
+      auth_header = globalWebhook.auth_header;
+    }
+
+    // Always respond 200 immediately — delivery is non-blocking
+    res.json({ success: true });
+
+    if (isPrivateDestination(url)) {
+      console.warn(`[LeadWebhookDelivery] Blocked private/internal destination: ${url}`);
+      return;
+    }
+
+    try {
+      let fetchUrl = url;
+      const fetchOptions: RequestInit = { method };
+      const authHeaders: Record<string, string> = auth_header ? { Authorization: auth_header } : {};
+
+      if (method === "POST") {
+        fetchOptions.headers = { "Content-Type": "application/json", ...authHeaders };
+        fetchOptions.body = JSON.stringify(payload);
+      } else {
+        fetchOptions.headers = authHeaders;
+        const params = new URLSearchParams();
+        for (const [key, value] of Object.entries(payload as Record<string, unknown>)) {
+          if (value !== undefined && value !== null) {
+            params.set(key, String(value));
+          }
+        }
+        const sep = url.includes("?") ? "&" : "?";
+        fetchUrl = `${url}${sep}${params.toString()}`;
+      }
+
+      const response = await fetch(fetchUrl, fetchOptions);
+      console.log(`[LeadWebhookDelivery] Delivered to ${url} — status ${response.status}`);
+    } catch (err) {
+      console.error("[LeadWebhookDelivery] Failed to deliver:", err);
+    }
+  });
+
+  /**
+   * POST /api/tracking/webhook/test
+   * Fires a test request with the provided payload to the globally configured
+   * webhook URL. Reads the webhook config (url, method, auth_header) from
+   * settings.yml so the frontend doesn't need to pass credentials.
+   * Body: { payload: Record<string, unknown> }
+   * Returns: { ok: boolean, status: number, error?: string }
+   */
+  app.post("/api/tracking/webhook/test", async (req, res) => {
+    try {
+      const auth = await requireCapability(req, res, "content_edit");
+      if (!auth.authorized) return;
+
+      const tracking = getTrackingSettings();
+      const webhook = tracking.webhook;
+
+      if (!webhook?.url) {
+        res.status(400).json({ ok: false, error: "No global webhook URL configured." });
+        return;
+      }
+
+      const payloadRaw = req.body?.payload;
+      if (!payloadRaw || typeof payloadRaw !== "object" || Array.isArray(payloadRaw)) {
+        res.status(400).json({ ok: false, error: "Request body must include a payload object." });
+        return;
+      }
+
+      const { url, method = "POST", auth_header } = webhook;
+
+      if (isPrivateDestination(url)) {
+        res.status(400).json({ ok: false, error: "Webhook destination is not allowed (private or internal address)" });
+        return;
+      }
+
+      try {
+        let fetchUrl = url;
+        const fetchOptions: RequestInit = { method };
+
+        if (method === "POST") {
+          fetchOptions.headers = {
+            "Content-Type": "application/json",
+            ...(auth_header ? { Authorization: auth_header } : {}),
+          };
+          fetchOptions.body = JSON.stringify(payloadRaw);
+        } else {
+          const params = new URLSearchParams();
+          for (const [key, value] of Object.entries(payloadRaw as Record<string, unknown>)) {
+            if (value !== undefined && value !== null) {
+              params.set(key, String(value));
+            }
+          }
+          const sep = url.includes("?") ? "&" : "?";
+          fetchUrl = `${url}${sep}${params.toString()}`;
+          if (auth_header) {
+            fetchOptions.headers = { Authorization: auth_header };
+          }
+        }
+
+        const response = await fetch(fetchUrl, fetchOptions);
+        const status = response.status;
+
+        if (!response.ok) {
+          const body = await response.text().catch(() => "");
+          console.warn(`[WebhookTest] Upstream returned ${status}: ${body.slice(0, 200)}`);
+          res.json({ ok: false, status, error: `Upstream returned ${status}: ${body.slice(0, 200)}` });
+          return;
+        }
+
+        console.log(`[WebhookTest] Delivered to ${url} — status ${status}`);
+        res.json({ ok: true, status });
+      } catch (err) {
+        console.error("[WebhookTest] Failed to deliver:", err);
+        res.json({ ok: false, status: 0, error: String(err) });
+      }
+    } catch (err) {
+      res.status(500).json({ ok: false, error: String(err) });
+    }
+  });
+
   app.post("/api/webhooks/clear-cache", async (req, res) => {
     try {
       const secret = getWebhookSecret();
