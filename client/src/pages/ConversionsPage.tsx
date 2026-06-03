@@ -817,6 +817,11 @@ export default function ConversionsPage() {
                     {conversionEvents.map((ev) => {
                       const isExpanded = expandedEvents.has(ev.name);
                       const count = conversionCounts?.[ev.name];
+                      const entry = conversionEventEntries.find((e) => e.name === ev.name);
+                      const hasWebhook = !!entry?.webhook?.url;
+                      const hasTags = (entry?.tags?.length ?? 0) > 0;
+                      const hasAutomation = !!entry?.automations;
+                      const hasConsent = entry?.consent ? Object.keys(entry.consent).length > 0 : false;
                       return (
                         <Fragment key={ev.name}>
                           <tr className="border-b last:border-0">
@@ -853,8 +858,34 @@ export default function ConversionsPage() {
                                 )}
                               </div>
                             </td>
-                            <td className="py-2 pr-4 align-middle text-muted-foreground text-xs">
-                              {ev.trigger}
+                            <td className="py-2 pr-4 align-middle text-xs">
+                              <div className="flex flex-col gap-1">
+                                <span className="text-muted-foreground">{ev.trigger}</span>
+                                {(hasWebhook || hasTags || hasAutomation || hasConsent) && (
+                                  <div className="flex flex-wrap gap-1">
+                                    {hasWebhook && (
+                                      <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground">
+                                        webhook
+                                      </Badge>
+                                    )}
+                                    {hasAutomation && (
+                                      <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground">
+                                        automation
+                                      </Badge>
+                                    )}
+                                    {hasTags && (
+                                      <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground">
+                                        tags
+                                      </Badge>
+                                    )}
+                                    {hasConsent && (
+                                      <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground">
+                                        consent
+                                      </Badge>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
                             </td>
                             <td className="py-2 align-middle text-right">
                               <div className="flex items-center justify-end gap-1">
