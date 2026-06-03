@@ -243,7 +243,7 @@ sections:
       desktop: none sm
   - type: syllabus
     variant: program-modules
-    program_title: AI Native Full Stack — Program Modules
+    program_title: AI Engineering — Program Modules
     program_description: Build real AI-powered systems from day one. This curriculum is organized around two tracks — Core AI and Agents, and Infrastructure for AI — plus a capstone that integrates everything into a fully transformed, deployed company. Supported by complementary foundations in modern development tools and practices throughout.
     tech_logos:
       - name: Python
