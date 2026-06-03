@@ -520,15 +520,11 @@ reserved.legal_terms_url:
   default: ""
 reserved.legal_privacy_url:
   default: ""
-global.consent_whatsapp:
+reserved.consent_whatsapp:
   default: ""
-  conditions: []
-global.consent_sms:
+reserved.consent_sms:
   default: ""
-  conditions: []
-global.consent_email:
+reserved.consent_email:
   default: ""
-  conditions: []
-global.consent_general:
+reserved.consent_general:
   default: ""
-  conditions: []

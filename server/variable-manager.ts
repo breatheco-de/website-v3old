@@ -425,6 +425,33 @@ class VariableManager {
     };
   }
 
+  getConsentSettings(): Record<string, string> {
+    this.ensureInitialized();
+    return {
+      consent_whatsapp: this.variables["reserved.consent_whatsapp"]?.default ?? "",
+      consent_sms: this.variables["reserved.consent_sms"]?.default ?? "",
+      consent_email: this.variables["reserved.consent_email"]?.default ?? "",
+      consent_general: this.variables["reserved.consent_general"]?.default ?? "",
+    };
+  }
+
+  updateConsentSetting(key: "consent_whatsapp" | "consent_sms" | "consent_email" | "consent_general", value: string): void {
+    this.ensureInitialized();
+    const reservedKey = `reserved.${key}`;
+    const globalKey = `global.${key}`;
+    if (!this.variables[reservedKey]) {
+      this.variables[reservedKey] = {};
+    }
+    this.variables[reservedKey].default = value;
+    this.variables[reservedKey].isReserved = true;
+    if (!this.variables[globalKey]) {
+      this.variables[globalKey] = {};
+    }
+    this.variables[globalKey].default = value;
+    this.variables[globalKey].isReserved = true;
+    this.save();
+  }
+
   updateLegalSetting(key: "legal_terms_url" | "legal_privacy_url", value: string): void {
     this.ensureInitialized();
     const reservedKey = `reserved.${key}`;

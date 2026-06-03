@@ -609,6 +609,37 @@ export function registerSettingsRoutes(app: Express): void {
     }
   });
 
+  app.get("/api/settings/consent", (_req, res) => {
+    try {
+      res.json(variableManager.getConsentSettings());
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || "Failed to load consent settings" });
+    }
+  });
+
+  app.put("/api/settings/consent", (req, res) => {
+    try {
+      const schema = z.object({
+        consent_whatsapp: z.string().optional(),
+        consent_sms: z.string().optional(),
+        consent_email: z.string().optional(),
+        consent_general: z.string().optional(),
+      });
+      const parsed = schema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ error: "Invalid request body" });
+      }
+      const { consent_whatsapp, consent_sms, consent_email, consent_general } = parsed.data;
+      if (consent_whatsapp !== undefined) variableManager.updateConsentSetting("consent_whatsapp", consent_whatsapp);
+      if (consent_sms !== undefined) variableManager.updateConsentSetting("consent_sms", consent_sms);
+      if (consent_email !== undefined) variableManager.updateConsentSetting("consent_email", consent_email);
+      if (consent_general !== undefined) variableManager.updateConsentSetting("consent_general", consent_general);
+      res.json({ success: true, ...variableManager.getConsentSettings() });
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || "Failed to save consent settings" });
+    }
+  });
+
   app.get("/api/settings/home-page", (_req, res) => {
     res.json(getHomePage());
   });

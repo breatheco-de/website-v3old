@@ -30,7 +30,14 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useDebugAuth } from "@/hooks/useDebugAuth";
-import { VariableDetailModal } from "@/components/editing/VariableDetailModal";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 
 interface LocaleEntry {
   code: string;
@@ -139,19 +146,37 @@ export default function SettingsPage() {
   const [legalSaving, setLegalSaving] = useState<string | null>(null);
 
   const CONSENT_CHANNELS = [
-    { key: "global.consent_whatsapp", label: "WhatsApp" },
-    { key: "global.consent_sms", label: "SMS" },
-    { key: "global.consent_email", label: "Email" },
-    { key: "global.consent_general", label: "General" },
+    { suffix: "consent_whatsapp", label: "WhatsApp" },
+    { suffix: "consent_sms", label: "SMS" },
+    { suffix: "consent_email", label: "Email" },
+    { suffix: "consent_general", label: "General" },
   ] as const;
 
-  type ConsentKey = typeof CONSENT_CHANNELS[number]["key"];
+  type ConsentSuffix = typeof CONSENT_CHANNELS[number]["suffix"];
 
-  const { data: variablesData } = useQuery<Record<string, { default: string; conditions: unknown[] }>>({
-    queryKey: ["/api/variables"],
+  const { data: consentData, refetch: refetchConsent } = useQuery<Record<string, string>>({
+    queryKey: ["/api/settings/consent"],
   });
 
-  const [activeConsentVar, setActiveConsentVar] = useState<ConsentKey | null>(null);
+  const [editingConsent, setEditingConsent] = useState<{ suffix: ConsentSuffix; label: string; value: string } | null>(null);
+  const [consentSaving, setConsentSaving] = useState(false);
+
+  async function handleConsentSave() {
+    if (!editingConsent) return;
+    setConsentSaving(true);
+    try {
+      const res = await apiRequest("PUT", "/api/settings/consent", { [editingConsent.suffix]: editingConsent.value });
+      const result = await res.json();
+      if (result.error) throw new Error(result.error);
+      await refetchConsent();
+      setEditingConsent(null);
+      toast({ title: "Saved", description: `${editingConsent.label} consent message updated.` });
+    } catch (err: any) {
+      toast({ title: "Failed to save", description: err.message || String(err), variant: "destructive" });
+    } finally {
+      setConsentSaving(false);
+    }
+  }
 
   function validateLegalUrl(value: string): string | null {
     const trimmed = value.trim();
@@ -856,23 +881,22 @@ export default function SettingsPage() {
               </CardHeader>
               <CardContent className="space-y-3">
                 <p className="text-sm text-muted-foreground">
-                  These are <code className="font-mono">global.*</code> variables resolved per-locale at render time. Each message can have locale, location, or region conditions configured in the variable editor.
+                  These are <code className="font-mono">reserved.*</code> variables — protected from the general variable editor and only editable here.
                 </p>
                 <div className="divide-y">
                   {CONSENT_CHANNELS.map((channel) => {
-                    const varDef = variablesData?.[channel.key];
-                    const preview = varDef?.default ?? "";
+                    const preview = consentData?.[channel.suffix] ?? "";
                     return (
                       <div
-                        key={channel.key}
+                        key={channel.suffix}
                         className="flex items-center gap-3 py-3"
-                        data-testid={`row-consent-${channel.key}`}
+                        data-testid={`row-consent-${channel.suffix}`}
                       >
                         <div className="flex-1 min-w-0 space-y-1">
                           <div className="flex items-center gap-2 flex-wrap">
                             <span className="text-sm font-medium">{channel.label}</span>
                             <Badge variant="secondary" className="font-mono text-xs">
-                              {channel.key}
+                              reserved.{channel.suffix}
                             </Badge>
                           </div>
                           {preview ? (
@@ -888,8 +912,8 @@ export default function SettingsPage() {
                         <Button
                           size="sm"
                           variant="outline"
-                          onClick={() => setActiveConsentVar(channel.key)}
-                          data-testid={`button-edit-consent-${channel.key}`}
+                          onClick={() => setEditingConsent({ suffix: channel.suffix, label: channel.label, value: preview })}
+                          data-testid={`button-edit-consent-${channel.suffix}`}
                         >
                           Edit
                         </Button>
@@ -900,15 +924,31 @@ export default function SettingsPage() {
               </CardContent>
             </Card>
 
-            {activeConsentVar && (
-              <VariableDetailModal
-                open={activeConsentVar !== null}
-                onOpenChange={(open) => { if (!open) setActiveConsentVar(null); }}
-                variableName={activeConsentVar}
-                inlineDefault=""
-                mode="inspect"
-              />
-            )}
+            <Dialog open={editingConsent !== null} onOpenChange={(open) => { if (!open) setEditingConsent(null); }}>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle>{editingConsent?.label} Consent Message</DialogTitle>
+                </DialogHeader>
+                <div className="py-2">
+                  <p className="text-xs text-muted-foreground mb-2">
+                    Default message shown in forms. Leave blank to use the form's built-in default.
+                  </p>
+                  <Textarea
+                    rows={4}
+                    value={editingConsent?.value ?? ""}
+                    onChange={(e) => setEditingConsent((prev) => prev ? { ...prev, value: e.target.value } : null)}
+                    placeholder="Enter consent message…"
+                    data-testid="input-consent-message"
+                  />
+                </div>
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setEditingConsent(null)}>Cancel</Button>
+                  <Button onClick={handleConsentSave} disabled={consentSaving}>
+                    {consentSaving ? "Saving…" : "Save"}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </TabsContent>
 
         </Tabs>

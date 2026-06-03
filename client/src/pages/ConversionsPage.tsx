@@ -866,7 +866,7 @@ export default function ConversionsPage() {
                                   <div className="flex flex-wrap gap-1">
                                     {hasWebhook && (
                                       <Popover>
-                                        <PopoverTrigger asChild>
+                                        <PopoverTrigger className="p-0 h-auto border-0 bg-transparent focus-visible:outline-none">
                                           <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground cursor-pointer">
                                             webhook
                                           </Badge>
@@ -894,7 +894,7 @@ export default function ConversionsPage() {
                                     )}
                                     {hasAutomation && (
                                       <Popover>
-                                        <PopoverTrigger asChild>
+                                        <PopoverTrigger className="p-0 h-auto border-0 bg-transparent focus-visible:outline-none">
                                           <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground cursor-pointer">
                                             automation
                                           </Badge>
@@ -907,7 +907,7 @@ export default function ConversionsPage() {
                                     )}
                                     {hasTags && (
                                       <Popover>
-                                        <PopoverTrigger asChild>
+                                        <PopoverTrigger className="p-0 h-auto border-0 bg-transparent focus-visible:outline-none">
                                           <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground cursor-pointer">
                                             tags
                                           </Badge>
@@ -926,7 +926,7 @@ export default function ConversionsPage() {
                                     )}
                                     {hasConsent && (
                                       <Popover>
-                                        <PopoverTrigger asChild>
+                                        <PopoverTrigger className="p-0 h-auto border-0 bg-transparent focus-visible:outline-none">
                                           <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground cursor-pointer">
                                             consent
                                           </Badge>
