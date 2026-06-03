@@ -60,13 +60,6 @@ sections:
       consent:
         sms: true
         marketing: true
-        marketing_text: >-
-          Acepto recibir información por email, WhatsApp y otros canales sobre talleres, eventos, cursos y otros
-          materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja en cualquier momento.
-        sms_text: >-
-          Acepto recibir mensajes SMS sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse
-          tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4-6 mensajes
-          al mes. Nunca compartiremos tu información de contacto.
         sms_usa_only: true
       show_terms: true
     form_vertical_align: bottom
@@ -863,9 +856,6 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: >-
-          Acepto recibir información por email, WhatsApp y otros canales sobre talleres, eventos, cursos y otros
-          materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja en cualquier momento.
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80

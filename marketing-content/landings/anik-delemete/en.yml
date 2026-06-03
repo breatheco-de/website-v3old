@@ -300,7 +300,6 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: I agree to receive information about courses and promotions
       fields:
         email:
           placeholder: Your email address

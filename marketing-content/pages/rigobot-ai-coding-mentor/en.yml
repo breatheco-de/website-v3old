@@ -133,7 +133,6 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: I agree to receive information about courses and promotions
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80

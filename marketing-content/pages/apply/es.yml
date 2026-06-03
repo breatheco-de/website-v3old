@@ -55,7 +55,6 @@ sections:
       consent:
         sms: true
         marketing: true
-        marketing_text: Acepto recibir información a través de correo electrónico, WhatsApp y/u otros canales sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto, y puedes darte de baja fácilmente en cualquier momento.
         sms_usa_only: true
       show_terms: true
       turnstile:
