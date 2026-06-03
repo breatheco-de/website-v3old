@@ -289,6 +289,18 @@ export const SAMPLE_LEAD_PAYLOAD: Record<string, unknown> = {
 };
 
 /**
+ * Builds a sample lead payload for the webhook test button and payload viewer.
+ * Spreads SAMPLE_LEAD_PAYLOAD and merges in any caller-provided overrides so that
+ * session-derived fields (UTM, geo, language) and section-specific YML values
+ * (program, tags, automations, consent) replace the generic placeholders.
+ */
+export function buildSamplePayload(
+  overrides?: Partial<Record<string, unknown>>
+): Record<string, unknown> {
+  return { ...SAMPLE_LEAD_PAYLOAD, ...overrides };
+}
+
+/**
  * Helper to track form submission
  */
 export async function trackFormSubmission(

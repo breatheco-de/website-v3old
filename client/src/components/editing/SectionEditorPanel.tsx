@@ -69,7 +69,8 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { useConversionNames, SAMPLE_LEAD_PAYLOAD } from "@/lib/tracking";
+import { useConversionNames, buildSamplePayload } from "@/lib/tracking";
+import { useSession } from "@/contexts/SessionContext";
 import { apiRequest } from "@/lib/queryClient";
 import { AutomationsTagsCard } from "./AutomationsTagsCard";
 import { ConsentCard } from "./ConsentCard";
@@ -461,6 +462,7 @@ export function SectionEditorPanel({
   singleEntry,
 }: SectionEditorPanelProps) {
   const { toast } = useToast();
+  const { session } = useSession();
   const [yamlContent, setYamlContent] = useState("");
   const [parseError, setParseError] = useState<string | null>(null);
   const [hasChanges, setHasChanges] = useState(false);
@@ -6890,11 +6892,104 @@ export function SectionEditorPanel({
                         ? globalWebhookUrl
                         : undefined
                     }
-                    samplePayload={SAMPLE_LEAD_PAYLOAD}
+                    samplePayload={(() => {
+                      const sectionSource = resolvedParsedSection ?? parsedSection ?? {};
+                      const program = formSettingsPath
+                        ? (getValueAtFieldPath(sectionSource, `${formSettingsPath}.fields.program.default`) as string | undefined)
+                        : undefined;
+                      const tags = formSettingsPath
+                        ? getValueAtFieldPath(sectionSource, `${formSettingsPath}.tags`)
+                        : undefined;
+                      const automations = formSettingsPath
+                        ? (getValueAtFieldPath(sectionSource, `${formSettingsPath}.automations`) as string | undefined)
+                        : undefined;
+                      const consentEmail = formSettingsPath
+                        ? (getValueAtFieldPath(sectionSource, `${formSettingsPath}.consent.marketing`) as boolean | undefined)
+                        : undefined;
+                      const consentSms = formSettingsPath
+                        ? (getValueAtFieldPath(sectionSource, `${formSettingsPath}.consent.sms`) as boolean | undefined)
+                        : undefined;
+                      const consentWhatsapp = formSettingsPath
+                        ? (getValueAtFieldPath(sectionSource, `${formSettingsPath}.consent.whatsapp`) as boolean | undefined)
+                        : undefined;
+                      return buildSamplePayload({
+                        ...(program ? { program } : {}),
+                        ...(tags != null ? { tags } : {}),
+                        ...(automations ? { automations } : {}),
+                        ...(consentEmail != null ? { consent_email: consentEmail } : {}),
+                        ...(consentSms != null ? { sms_consent: consentSms } : {}),
+                        ...(consentWhatsapp != null ? { consent_whatsapp: consentWhatsapp } : {}),
+                        ...(session.language ? { language: session.language } : {}),
+                        ...(session.browserLang ? { browser_lang: session.browserLang } : {}),
+                        ...(session.location?.slug ? { location: session.location.slug } : {}),
+                        ...(session.location?.region ? { region: session.location.region } : {}),
+                        ...(session.location?.city ? { city: session.location.city } : {}),
+                        ...(session.location?.country_code ? { country: session.location.country_code } : {}),
+                        ...(session.geo?.latitude != null ? { latitude: String(session.geo.latitude) } : {}),
+                        ...(session.geo?.longitude != null ? { longitude: String(session.geo.longitude) } : {}),
+                        ...(session.utm?.utm_source ? { utm_source: session.utm.utm_source } : {}),
+                        ...(session.utm?.utm_medium ? { utm_medium: session.utm.utm_medium } : {}),
+                        ...(session.utm?.utm_campaign ? { utm_campaign: session.utm.utm_campaign } : {}),
+                        ...(session.utm?.utm_content ? { utm_content: session.utm.utm_content } : {}),
+                        ...(session.utm?.utm_term ? { utm_term: session.utm.utm_term } : {}),
+                        ...(session.utm?.utm_url ? { utm_url: session.utm.utm_url } : {}),
+                        ...(session.utm?.utm_placement ? { utm_placement: session.utm.utm_placement } : {}),
+                        ...(session.utm?.utm_plan ? { utm_plan: session.utm.utm_plan } : {}),
+                        ...(session.utm?.ppc_tracking_id ? { ppc_tracking_id: session.utm.ppc_tracking_id } : {}),
+                        ...(session.utm?.referral ? { referral: session.utm.referral } : {}),
+                        ...(session.utm?.coupon ? { coupon: session.utm.coupon } : {}),
+                      });
+                    })()}
                     onTest={async () => {
+                      const sectionSource = resolvedParsedSection ?? parsedSection ?? {};
+                      const program = formSettingsPath
+                        ? (getValueAtFieldPath(sectionSource, `${formSettingsPath}.fields.program.default`) as string | undefined)
+                        : undefined;
+                      const tags = formSettingsPath
+                        ? getValueAtFieldPath(sectionSource, `${formSettingsPath}.tags`)
+                        : undefined;
+                      const automations = formSettingsPath
+                        ? (getValueAtFieldPath(sectionSource, `${formSettingsPath}.automations`) as string | undefined)
+                        : undefined;
+                      const consentEmail = formSettingsPath
+                        ? (getValueAtFieldPath(sectionSource, `${formSettingsPath}.consent.marketing`) as boolean | undefined)
+                        : undefined;
+                      const consentSms = formSettingsPath
+                        ? (getValueAtFieldPath(sectionSource, `${formSettingsPath}.consent.sms`) as boolean | undefined)
+                        : undefined;
+                      const consentWhatsapp = formSettingsPath
+                        ? (getValueAtFieldPath(sectionSource, `${formSettingsPath}.consent.whatsapp`) as boolean | undefined)
+                        : undefined;
+                      const enrichedPayload = buildSamplePayload({
+                        ...(program ? { program } : {}),
+                        ...(tags != null ? { tags } : {}),
+                        ...(automations ? { automations } : {}),
+                        ...(consentEmail != null ? { consent_email: consentEmail } : {}),
+                        ...(consentSms != null ? { sms_consent: consentSms } : {}),
+                        ...(consentWhatsapp != null ? { consent_whatsapp: consentWhatsapp } : {}),
+                        ...(session.language ? { language: session.language } : {}),
+                        ...(session.browserLang ? { browser_lang: session.browserLang } : {}),
+                        ...(session.location?.slug ? { location: session.location.slug } : {}),
+                        ...(session.location?.region ? { region: session.location.region } : {}),
+                        ...(session.location?.city ? { city: session.location.city } : {}),
+                        ...(session.location?.country_code ? { country: session.location.country_code } : {}),
+                        ...(session.geo?.latitude != null ? { latitude: String(session.geo.latitude) } : {}),
+                        ...(session.geo?.longitude != null ? { longitude: String(session.geo.longitude) } : {}),
+                        ...(session.utm?.utm_source ? { utm_source: session.utm.utm_source } : {}),
+                        ...(session.utm?.utm_medium ? { utm_medium: session.utm.utm_medium } : {}),
+                        ...(session.utm?.utm_campaign ? { utm_campaign: session.utm.utm_campaign } : {}),
+                        ...(session.utm?.utm_content ? { utm_content: session.utm.utm_content } : {}),
+                        ...(session.utm?.utm_term ? { utm_term: session.utm.utm_term } : {}),
+                        ...(session.utm?.utm_url ? { utm_url: session.utm.utm_url } : {}),
+                        ...(session.utm?.utm_placement ? { utm_placement: session.utm.utm_placement } : {}),
+                        ...(session.utm?.utm_plan ? { utm_plan: session.utm.utm_plan } : {}),
+                        ...(session.utm?.ppc_tracking_id ? { ppc_tracking_id: session.utm.ppc_tracking_id } : {}),
+                        ...(session.utm?.referral ? { referral: session.utm.referral } : {}),
+                        ...(session.utm?.coupon ? { coupon: session.utm.coupon } : {}),
+                      });
                       try {
                         const res = await apiRequest("POST", "/api/tracking/webhook/test", {
-                          payload: SAMPLE_LEAD_PAYLOAD,
+                          payload: enrichedPayload,
                         });
                         const data = await res.json().catch(() => ({}));
                         if (!res.ok || !(data as any).ok) {
