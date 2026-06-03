@@ -160,29 +160,30 @@ export function WebhookCard({
         <div className="space-y-1.5">
           <div className="flex items-center gap-1.5 min-w-0 overflow-hidden">
             {url ? (
-              <button
-                type="button"
-                onClick={() => copyUrl(url)}
-                className="flex items-center gap-1.5 min-w-0 overflow-hidden flex-1 group cursor-pointer"
-                data-testid={`button-${testIdPrefix}-copy-url`}
-                title="Click to copy"
-              >
+              <div className="flex items-center gap-1.5 w-full">
                 <Badge
                   variant="secondary"
                   className="text-[11px] px-1.5 py-0 leading-4 font-normal shrink-0"
                 >
                   {method}
                 </Badge>
-                <span className="font-mono text-xs truncate text-foreground min-w-0">
-                  {url}
-                </span>
-                <span className="shrink-0 text-muted-foreground group-hover:text-foreground transition-colors">
-                  {copied
-                    ? <IconCheck className="h-3 w-3 text-green-600" />
-                    : <IconCopy className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  }
-                </span>
-              </button>
+                <div className="relative flex-1 min-w-0 group">
+                  <input
+                    readOnly
+                    value={url}
+                    onClick={() => copyUrl(url)}
+                    className="w-full font-mono text-xs text-foreground bg-transparent border-0 outline-none cursor-pointer select-all px-0 py-0"
+                    data-testid={`input-${testIdPrefix}-url-display`}
+                    title="Click to copy"
+                  />
+                  <span className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none">
+                    {copied
+                      ? <IconCheck className="h-3 w-3 text-green-600" />
+                      : <IconCopy className="h-3 w-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                    }
+                  </span>
+                </div>
+              </div>
             ) : source === "event" || source === "global" ? (
               inheritedUrl ? (
                 <Popover>
