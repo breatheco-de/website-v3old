@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export interface ConsentValues {
   marketing: boolean;
@@ -146,10 +147,10 @@ export function ConsentCard({ values, onChange }: ConsentCardProps) {
             {values.sms && (
               <div className="flex items-center justify-between gap-2">
                 <Label className="text-xs text-muted-foreground">US-only</Label>
-                <Switch
+                <Checkbox
                   checked={values.smsUsaOnly}
-                  onCheckedChange={(v) => onChange("smsUsaOnly", v)}
-                  data-testid="switch-consent-sms-usa-only"
+                  onCheckedChange={(v) => onChange("smsUsaOnly", !!v)}
+                  data-testid="checkbox-consent-sms-usa-only"
                 />
               </div>
             )}
