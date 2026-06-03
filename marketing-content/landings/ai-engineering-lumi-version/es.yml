@@ -30,7 +30,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Aplicar ahora
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -56,7 +55,6 @@ sections:
       consent:
         sms: true
         marketing: true
-        sms_usa_only: false
       show_terms: true
     cta_button:
       text: Descargar programa
@@ -84,7 +82,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: Aplicar ahora
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -645,7 +642,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Aplicar ahora
-      tags: website-lead
       fields:
         email:
           visible: true

@@ -32,7 +32,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Start Your Application
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -704,7 +703,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Get Started
-      tags: website-lead
       fields:
         email:
           visible: true

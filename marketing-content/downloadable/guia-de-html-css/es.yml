@@ -197,7 +197,6 @@ sections:
         message: ¡Gracias! En unos minutos recibirás la guía.
       consent:
         email: true
-        marketing: true
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80

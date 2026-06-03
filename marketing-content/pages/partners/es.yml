@@ -521,7 +521,6 @@ sections:
       variant: stacked
       submit_label: Iniciar Conversación
       conversion_name: contact_us
-      tags: contact-us
       fields:
         email:
           visible: true
@@ -543,7 +542,6 @@ sections:
         message: ¡Gracias! Nos pondremos en contacto contigo pronto.
       consent:
         email: true
-        marketing: true
       show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
@@ -563,7 +561,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: Enviar solicitud
-      tags: website-lead
       fields:
         email:
           visible: true

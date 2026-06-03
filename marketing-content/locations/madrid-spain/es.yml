@@ -360,7 +360,6 @@ sections:
       variant: stacked
       submit_label: Descargar Programa
       conversion_name: request_more_info
-      tags: request_more_info
       automations: soft
       fields:
         email:
@@ -403,7 +402,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: Enviar solicitud
-      tags: website-lead
       automations: strong
       fields:
         email:

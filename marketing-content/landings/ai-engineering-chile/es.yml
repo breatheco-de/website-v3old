@@ -30,7 +30,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Iniciar mi aplicación
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -162,7 +161,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: Postular ahora
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -696,7 +694,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Comprueba si cumples los requisitos. Es gratis
-      tags: website-lead
       fields:
         email:
           visible: true

@@ -17,7 +17,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Solicita tu plaza
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -415,7 +414,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Aplicar ahora
-      tags: website-lead
       fields:
         email:
           visible: true

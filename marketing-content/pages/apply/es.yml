@@ -25,7 +25,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: APLICAR
-      tags: website-lead
       fields:
         email:
           visible: true

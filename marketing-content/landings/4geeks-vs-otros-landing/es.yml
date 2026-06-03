@@ -34,7 +34,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Hablar con Admisiones
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -829,7 +828,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Iniciar tu solicitud
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -875,7 +873,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: Descubre si calificas. Es gratis
-      tags: website-lead
       automations: strong
       fields:
         email:

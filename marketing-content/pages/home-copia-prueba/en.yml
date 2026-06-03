@@ -457,7 +457,6 @@ sections:
       variant: stacked
       submit_label: Get the details
       conversion_name: request_more_info
-      tags: request_more_info
       fields:
         email:
           visible: true

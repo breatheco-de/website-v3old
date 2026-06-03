@@ -15,7 +15,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Start Exercise
-      tags: website-lead
       fields:
         email:
           visible: true

@@ -96,7 +96,6 @@ sections:
       variant: stacked
       submit_label: Obtener el Resumen Completo
       conversion_name: request_more_info
-      tags: request_more_info
       automations: soft
       fields:
         email:
@@ -481,7 +480,6 @@ sections:
       variant: stacked
       submit_label: Aplicar ahora
       conversion_name: student_application
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -524,7 +522,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: Enviar Solicitud
-      tags: website-lead
       automations: strong
       fields:
         email:
