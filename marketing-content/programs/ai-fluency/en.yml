@@ -31,8 +31,8 @@ sections:
       count: +6000 graduates
     bullet_points:
       - Build real automations for your job tasks. No coding required.
-      - Use AI agents, prompt patterns, and n8n to automate your most repetitive work.
-      - Leave with a working automation and the skills to keep building.
+      - Use AI agents, prompt patterns, and n8n to automate recurring tasks.
+      - Leave with working automations and the skills to keep building.
     tutors:
       - name: Expert Instructor
         role: Lead Instructor
@@ -41,7 +41,7 @@ sections:
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
-    description: AI is not the future, it is the foundation. The professionals pulling ahead right now are not working harder. They are leveraging AI's capacities, with intention.
+    description: AI is not the future, it is the foundation. The professionals pulling ahead right now are leveraging AI's capacities with intention. This is your way in.
     signup_card:
       title: Get the Full Program Overview
       description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, and pricing. It takes 2 minutes."
