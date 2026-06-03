@@ -9,12 +9,15 @@ import {
   IconTrash,
   IconDeviceFloppy,
   IconShield,
+  IconShieldCheck,
   IconUsers,
   IconPencil,
   IconX,
   IconUserPlus,
   IconUserCheck,
   IconAlertCircle,
+  IconKey,
+  IconInfoCircle,
 } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
@@ -969,6 +972,160 @@ function UsersTab() {
   );
 }
 
+function CaptchaTab() {
+  const { data, isLoading } = useQuery<{ configured: boolean }>({
+    queryKey: ["/api/turnstile/status"],
+  });
+
+  const configured = data?.configured ?? false;
+
+  const verifySnippet = `// POST https://challenges.cloudflare.com/turnstile/v0/siteverify
+// Request body (JSON):
+{
+  "secret": "<your-TURNSTILE_SECRET_KEY>",
+  "response": "<token-from-lead-payload>"
+}
+
+// Success response:
+{
+  "success": true,
+  "challenge_ts": "2024-01-01T00:00:00.000Z",
+  "hostname": "yourdomain.com"
+}
+
+// Failure response:
+{
+  "success": false,
+  "error-codes": ["invalid-input-response"]
+}`;
+
+  return (
+    <div className="space-y-4">
+      <Card data-testid="card-captcha-info">
+        <CardHeader className="flex flex-row items-center justify-between gap-2 pb-3 flex-wrap">
+          <CardTitle className="text-sm font-medium flex items-center gap-2">
+            <IconShieldCheck className="h-4 w-4 text-muted-foreground" />
+            Cloudflare Turnstile
+          </CardTitle>
+          {isLoading ? (
+            <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground" data-testid="spinner-turnstile-status" />
+          ) : configured ? (
+            <Badge variant="secondary" className="text-xs gap-1" data-testid="badge-turnstile-configured">
+              <IconCheck className="h-3 w-3" />
+              Configured
+            </Badge>
+          ) : (
+            <Badge variant="outline" className="text-xs gap-1 text-amber-600 border-amber-400" data-testid="badge-turnstile-not-configured">
+              <IconAlertCircle className="h-3 w-3" />
+              Not configured
+            </Badge>
+          )}
+        </CardHeader>
+        <CardContent className="space-y-6">
+
+          <div className="space-y-2">
+            <h3 className="text-sm font-medium flex items-center gap-1.5">
+              <IconInfoCircle className="h-4 w-4 text-muted-foreground shrink-0" />
+              How it works
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              The Cloudflare Turnstile widget runs in the browser and presents an invisible challenge to the visitor.
+              Once solved, Cloudflare issues a short-lived token. That token is included in the lead form payload and
+              POSTed to <code className="font-mono bg-muted rounded px-1 py-0.5 text-xs">/api/turnstile/verify</code> on
+              this server, which calls Cloudflare's <code className="font-mono bg-muted rounded px-1 py-0.5 text-xs">siteverify</code> API
+              server-to-server. Only a successful response from Cloudflare allows the lead submission to proceed.
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-sm font-medium flex items-center gap-1.5">
+              <IconCode className="h-4 w-4 text-muted-foreground shrink-0" />
+              Token sent to your backend
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              When a lead is submitted, the Turnstile response token is included in the payload as{" "}
+              <code className="font-mono bg-muted rounded px-1 py-0.5 text-xs">token</code>. External backends that
+              receive webhook leads can independently re-verify it directly with Cloudflare using their own secret key:
+            </p>
+            <pre className="bg-muted rounded-md p-4 text-xs font-mono overflow-x-auto leading-relaxed" data-testid="pre-verify-snippet">
+              <code>{verifySnippet}</code>
+            </pre>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-sm font-medium flex items-center gap-1.5">
+              <IconKey className="h-4 w-4 text-muted-foreground shrink-0" />
+              Environment variables
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Both keys are read from <code className="font-mono bg-muted rounded px-1 py-0.5 text-xs">process.env</code> on
+              the Express server (<code className="font-mono bg-muted rounded px-1 py-0.5 text-xs">server/routes/forms.ts</code>).
+            </p>
+            <div className="rounded-md border overflow-hidden">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b bg-muted/50">
+                    <th className="text-left px-3 py-2 text-xs font-medium text-muted-foreground">Variable</th>
+                    <th className="text-left px-3 py-2 text-xs font-medium text-muted-foreground">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b">
+                    <td className="px-3 py-2">
+                      <code className="font-mono text-xs bg-muted rounded px-1 py-0.5">TURNSTILE_SITE_KEY</code>
+                    </td>
+                    <td className="px-3 py-2 text-xs text-muted-foreground">
+                      Public key embedded in the frontend widget. Safe to expose to the browser.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-3 py-2">
+                      <code className="font-mono text-xs bg-muted rounded px-1 py-0.5">TURNSTILE_SECRET_KEY</code>
+                    </td>
+                    <td className="px-3 py-2 text-xs text-muted-foreground">
+                      Private key used for server-side verification. Never exposed to the browser.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-sm font-medium flex items-center gap-1.5">
+              <IconShieldCheck className="h-4 w-4 text-muted-foreground shrink-0" />
+              How to obtain the keys
+            </h3>
+            <ol className="space-y-1.5 text-sm text-muted-foreground list-none">
+              <li className="flex gap-2">
+                <span className="shrink-0 font-medium text-foreground">1.</span>
+                <span>Go to <code className="font-mono bg-muted rounded px-1 py-0.5 text-xs">dash.cloudflare.com</code> and navigate to <strong className="text-foreground font-medium">Turnstile</strong> in the sidebar.</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="shrink-0 font-medium text-foreground">2.</span>
+                <span>Click <strong className="text-foreground font-medium">Add widget</strong>, enter a name and your domain, then click <strong className="text-foreground font-medium">Create</strong>.</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="shrink-0 font-medium text-foreground">3.</span>
+                <span>Copy the <strong className="text-foreground font-medium">Site Key</strong> shown on the widget detail page.</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="shrink-0 font-medium text-foreground">4.</span>
+                <span>Click <strong className="text-foreground font-medium">Secret Key</strong> to reveal and copy it.</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="shrink-0 font-medium text-foreground">5.</span>
+                <span>Add both values as Replit secrets named <code className="font-mono bg-muted rounded px-1 py-0.5 text-xs">TURNSTILE_SITE_KEY</code> and <code className="font-mono bg-muted rounded px-1 py-0.5 text-xs">TURNSTILE_SECRET_KEY</code>.</span>
+              </li>
+            </ol>
+          </div>
+
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
 export default function SecurityPage() {
   const { hasCapability } = useDebugAuth();
   const canManageUsers = hasCapability("users_manage");
@@ -984,40 +1141,58 @@ export default function SecurityPage() {
           </Link>
           <div>
             <h1 className="text-xl font-semibold" data-testid="text-security-title">Security</h1>
-            <p className="text-sm text-muted-foreground">Roles and user management</p>
+            <p className="text-sm text-muted-foreground">Roles, users and security configuration</p>
           </div>
         </div>
 
-        {!canManageUsers ? (
-          <div className="flex flex-col items-center justify-center py-24 gap-3 text-muted-foreground" data-testid="div-security-access-denied">
-            <IconLock className="h-10 w-10 opacity-40" />
-            <p className="text-sm font-medium">Access denied</p>
-            <p className="text-xs text-center max-w-xs">
-              You don't have permission to manage roles and users. Contact a webmaster to request access.
-            </p>
-          </div>
-        ) : (
-          <Tabs defaultValue="roles">
-            <TabsList className="flex w-full">
-              <TabsTrigger value="roles" data-testid="tab-roles">
-                <IconShield className="h-4 w-4 mr-1.5" />
-                Roles
-              </TabsTrigger>
-              <TabsTrigger value="users" data-testid="tab-users">
-                <IconUsers className="h-4 w-4 mr-1.5" />
-                Users
-              </TabsTrigger>
-            </TabsList>
+        <Tabs defaultValue={canManageUsers ? "roles" : "captcha"}>
+          <TabsList className="flex w-full">
+            <TabsTrigger value="roles" disabled={!canManageUsers} data-testid="tab-roles">
+              <IconShield className="h-4 w-4 mr-1.5" />
+              Roles
+            </TabsTrigger>
+            <TabsTrigger value="users" disabled={!canManageUsers} data-testid="tab-users">
+              <IconUsers className="h-4 w-4 mr-1.5" />
+              Users
+            </TabsTrigger>
+            <TabsTrigger value="captcha" data-testid="tab-captcha">
+              <IconShieldCheck className="h-4 w-4 mr-1.5" />
+              Captcha
+            </TabsTrigger>
+          </TabsList>
 
-            <TabsContent value="roles" className="mt-4">
+          <TabsContent value="roles" className="mt-4">
+            {canManageUsers ? (
               <RolesTab />
-            </TabsContent>
+            ) : (
+              <div className="flex flex-col items-center justify-center py-24 gap-3 text-muted-foreground" data-testid="div-security-access-denied">
+                <IconLock className="h-10 w-10 opacity-40" />
+                <p className="text-sm font-medium">Access denied</p>
+                <p className="text-xs text-center max-w-xs">
+                  You don't have permission to manage roles and users. Contact a webmaster to request access.
+                </p>
+              </div>
+            )}
+          </TabsContent>
 
-            <TabsContent value="users" className="mt-4">
+          <TabsContent value="users" className="mt-4">
+            {canManageUsers ? (
               <UsersTab />
-            </TabsContent>
-          </Tabs>
-        )}
+            ) : (
+              <div className="flex flex-col items-center justify-center py-24 gap-3 text-muted-foreground">
+                <IconLock className="h-10 w-10 opacity-40" />
+                <p className="text-sm font-medium">Access denied</p>
+                <p className="text-xs text-center max-w-xs">
+                  You don't have permission to manage roles and users. Contact a webmaster to request access.
+                </p>
+              </div>
+            )}
+          </TabsContent>
+
+          <TabsContent value="captcha" className="mt-4">
+            <CaptchaTab />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

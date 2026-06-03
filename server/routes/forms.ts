@@ -207,6 +207,13 @@ import { getTrackingSettings } from "../settings";
 import { isPrivateDestination } from "./webhooks";
 
 export function registerFormsRoutes(app: Express): void {
+  app.get("/api/turnstile/status", (_req, res) => {
+    const siteKey = process.env.TURNSTILE_SITE_KEY;
+    const secretKey = process.env.TURNSTILE_SECRET_KEY;
+    const configured = Boolean(siteKey && siteKey.length > 0 && secretKey && secretKey.length > 0);
+    res.json({ configured });
+  });
+
   app.get("/api/turnstile/site-key", (_req, res) => {
     const siteKey = process.env.TURNSTILE_SITE_KEY;
     if (!siteKey) {
