@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 interface UndoRedoState<T> {
   undoStack: T[];
@@ -145,9 +145,12 @@ export function useUndoRedo<T>(
     return restoredState;
   };
 
-  const clear = () => {
-    setHistory({ undoStack: [], redoStack: [] });
-  };
+  const clear = useCallback(() => {
+    setHistory(prev => {
+      if (prev.undoStack.length === 0 && prev.redoStack.length === 0) return prev;
+      return { undoStack: [], redoStack: [] };
+    });
+  }, []);
 
   useEffect(() => {
     if (!enableKeyboardShortcuts) return;

@@ -801,13 +801,18 @@ export function SectionEditorPanel({
 
   // Store initial state when section loads for undo capability
   const initialYamlRef = useRef<string | null>(null);
+  // Stable ref so the effect below can read the latest section without it being a dep
+  const sectionRef = useRef(section);
+  sectionRef.current = section;
 
-  // Clear undo history and store initial state when section or slug changes
+  // Clear undo history and store initial state when section identity changes.
+  // clearUndoHistory is stable (useCallback in useUndoRedo); sectionRef lets us
+  // read the latest section value without adding the unstable section object to
+  // deps (which would cause an infinite re-render loop).
   useEffect(() => {
     clearUndoHistory();
-    // Store the initial YAML so we can undo back to it
     try {
-      const sectionForEditor = stripTransientDynamicKeys(section);
+      const sectionForEditor = stripTransientDynamicKeys(sectionRef.current);
       const yamlStr = safeYamlDump(sectionForEditor, {
         lineWidth: -1,
         noRefs: true,
@@ -817,7 +822,8 @@ export function SectionEditorPanel({
     } catch {
       initialYamlRef.current = null;
     }
-  }, [sectionIndex, section, slug, clearUndoHistory]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sectionIndex, slug]);
 
   useEffect(() => {
     const handler = (e: Event) => {
