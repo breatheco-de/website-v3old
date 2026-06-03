@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { AlertTriangle, Check, ChevronDown, CloudUpload, Code, Database, ExternalLink, HelpCircle, Image, Info, Laptop, Link, Unlink, Loader2, MapPin, Monitor, Pencil, Plus, Redo2, RefreshCw, Save, Search, Settings, Smartphone, Trash2, Undo2, Upload, Video, X } from "lucide-react";
-import { IconGitBranch, IconTargetArrow, IconFileCode, IconPencil, IconX } from "@tabler/icons-react";
+import { IconGitBranch, IconTargetArrow, IconFileCode, IconPencil, IconX, IconShieldCheck } from "@tabler/icons-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { BindingConfirmDialog } from "./BindingConfirmDialog";
 import { getIcon } from "@/lib/icons";
@@ -668,6 +668,7 @@ export function SectionEditorPanel({
   const [locationsPickerOpen, setLocationsPickerOpen] = useState(false);
   const [conversionNameEditing, setConversionNameEditing] = useState(false);
   const [autoTagsEditing, setAutoTagsEditing] = useState(false);
+  const [consentsEditing, setConsentsEditing] = useState(false);
 
   const sectionComponentType = (section as Record<string, unknown>)?.type as string || "";
 
@@ -6642,6 +6643,228 @@ export function SectionEditorPanel({
                             </div>
                           ) : (
                             <span className="text-xs text-muted-foreground italic">not set</span>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
+
+              {/* Consents card */}
+              {(() => {
+                const isApplyForm = sectionType === "apply_form";
+
+                // hero / lead_form structure: boolean toggles at formSettingsPath.consent.*
+                const consentMarketing = !!getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.marketing`);
+                const consentSms       = !!getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.sms`);
+                const consentWhatsapp  = !!getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.whatsapp`);
+                const consentSmsUsaOnly = !!getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.sms_usa_only`);
+                const marketingText = String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.marketing_text`) ?? "");
+                const smsText       = String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.sms_text`) ?? "");
+                const showTerms     = !!getValueAtFieldPath(parsedSection, `${formSettingsPath}.show_terms`);
+                const termsUrl      = String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.terms_url`) ?? "");
+                const privacyUrl    = String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.privacy_url`) ?? "");
+
+                // apply_form structure: text strings at root
+                const applyConsentMarketing = String(getValueAtFieldPath(parsedSection, "consent_marketing") ?? "");
+                const applyConsentSms       = String(getValueAtFieldPath(parsedSection, "consent_sms") ?? "");
+                const applyTermsUrl         = String(getValueAtFieldPath(parsedSection, "terms_link_url") ?? "");
+                const applyPrivacyUrl       = String(getValueAtFieldPath(parsedSection, "privacy_link_url") ?? "");
+
+                // active channels for display
+                const activeChannels = isApplyForm
+                  ? ([applyConsentMarketing ? "Marketing" : null, applyConsentSms ? "SMS" : null].filter(Boolean) as string[])
+                  : ([consentMarketing ? "Marketing" : null, consentSms ? "SMS" : null, consentWhatsapp ? "WhatsApp" : null].filter(Boolean) as string[]);
+
+                return (
+                  <div className="rounded-md border bg-muted/20 p-3 space-y-3" data-testid="card-consents">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-1.5">
+                        <IconShieldCheck className="h-3.5 w-3.5 text-muted-foreground" />
+                        <span className="text-sm font-medium">Consents</span>
+                      </div>
+                      <Button
+                        type="button"
+                        size="icon"
+                        variant="ghost"
+                        className="h-6 w-6"
+                        onClick={() => setConsentsEditing((v) => !v)}
+                        data-testid="button-edit-consents"
+                      >
+                        {consentsEditing ? <IconX className="h-3.5 w-3.5" /> : <IconPencil className="h-3.5 w-3.5" />}
+                      </Button>
+                    </div>
+
+                    {!consentsEditing ? (
+                      <div className="space-y-1.5">
+                        <div className="flex items-start gap-2">
+                          <span className="text-xs text-muted-foreground w-20 flex-shrink-0 pt-0.5">Channels</span>
+                          {activeChannels.length > 0 ? (
+                            <div className="flex flex-wrap gap-1">
+                              {activeChannels.map((ch) => (
+                                <Badge key={ch} variant="secondary" className="text-[11px] px-1.5 py-0 leading-4 font-normal">
+                                  {ch}
+                                </Badge>
+                              ))}
+                            </div>
+                          ) : (
+                            <span className="text-xs text-muted-foreground italic">none enabled</span>
+                          )}
+                        </div>
+                        {!isApplyForm && (
+                          <div className="flex items-start gap-2">
+                            <span className="text-xs text-muted-foreground w-20 flex-shrink-0 pt-0.5">Terms</span>
+                            <span className="text-xs text-muted-foreground italic">{showTerms ? "shown" : "hidden"}</span>
+                          </div>
+                        )}
+                      </div>
+                    ) : isApplyForm ? (
+                      <div className="space-y-3">
+                        <div className="space-y-1.5">
+                          <Label className="text-xs text-muted-foreground">Marketing consent text</Label>
+                          <Textarea
+                            rows={3}
+                            value={applyConsentMarketing}
+                            onChange={(e) => updateProperty("consent_marketing", e.target.value)}
+                            placeholder="I agree to receive information through email, WhatsApp..."
+                            className="text-xs resize-none"
+                            data-testid="input-consent-marketing-text"
+                          />
+                        </div>
+                        <div className="space-y-1.5">
+                          <Label className="text-xs text-muted-foreground">SMS consent text</Label>
+                          <Textarea
+                            rows={3}
+                            value={applyConsentSms}
+                            onChange={(e) => updateProperty("consent_sms", e.target.value)}
+                            placeholder="I agree to receive SMS/text messages..."
+                            className="text-xs resize-none"
+                            data-testid="input-consent-sms-text"
+                          />
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <div className="space-y-1.5">
+                            <Label className="text-xs text-muted-foreground">Terms URL</Label>
+                            <Input
+                              value={applyTermsUrl}
+                              onChange={(e) => updateProperty("terms_link_url", e.target.value)}
+                              placeholder="/terms-conditions"
+                              className="text-xs h-8"
+                              data-testid="input-consent-terms-url"
+                            />
+                          </div>
+                          <div className="space-y-1.5">
+                            <Label className="text-xs text-muted-foreground">Privacy URL</Label>
+                            <Input
+                              value={applyPrivacyUrl}
+                              onChange={(e) => updateProperty("privacy_link_url", e.target.value)}
+                              placeholder="/privacy-policy"
+                              className="text-xs h-8"
+                              data-testid="input-consent-privacy-url"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="space-y-3">
+                        {/* Marketing */}
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between gap-2">
+                            <Label className="text-xs">Marketing</Label>
+                            <Switch
+                              checked={consentMarketing}
+                              onCheckedChange={(v) => updateProperty(`${formSettingsPath}.consent.marketing`, v || undefined)}
+                              data-testid="switch-consent-marketing"
+                            />
+                          </div>
+                          {consentMarketing && (
+                            <Textarea
+                              rows={3}
+                              value={marketingText}
+                              onChange={(e) => updateProperty(`${formSettingsPath}.consent.marketing_text`, e.target.value || undefined)}
+                              placeholder="I agree to receive information via email, WhatsApp..."
+                              className="text-xs resize-none"
+                              data-testid="input-consent-marketing-text"
+                            />
+                          )}
+                        </div>
+
+                        {/* SMS */}
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between gap-2">
+                            <Label className="text-xs">SMS</Label>
+                            <Switch
+                              checked={consentSms}
+                              onCheckedChange={(v) => updateProperty(`${formSettingsPath}.consent.sms`, v || undefined)}
+                              data-testid="switch-consent-sms"
+                            />
+                          </div>
+                          {consentSms && (
+                            <>
+                              <Textarea
+                                rows={3}
+                                value={smsText}
+                                onChange={(e) => updateProperty(`${formSettingsPath}.consent.sms_text`, e.target.value || undefined)}
+                                placeholder="I agree to receive SMS/text messages..."
+                                className="text-xs resize-none"
+                                data-testid="input-consent-sms-text"
+                              />
+                              <div className="flex items-center justify-between gap-2">
+                                <Label className="text-xs text-muted-foreground">US-only</Label>
+                                <Switch
+                                  checked={consentSmsUsaOnly}
+                                  onCheckedChange={(v) => updateProperty(`${formSettingsPath}.consent.sms_usa_only`, v || undefined)}
+                                  data-testid="switch-consent-sms-usa-only"
+                                />
+                              </div>
+                            </>
+                          )}
+                        </div>
+
+                        {/* WhatsApp */}
+                        <div className="flex items-center justify-between gap-2">
+                          <Label className="text-xs">WhatsApp</Label>
+                          <Switch
+                            checked={consentWhatsapp}
+                            onCheckedChange={(v) => updateProperty(`${formSettingsPath}.consent.whatsapp`, v || undefined)}
+                            data-testid="switch-consent-whatsapp"
+                          />
+                        </div>
+
+                        {/* Terms */}
+                        <div className="space-y-2 pt-1 border-t">
+                          <div className="flex items-center justify-between gap-2">
+                            <Label className="text-xs">Show terms &amp; privacy</Label>
+                            <Switch
+                              checked={showTerms}
+                              onCheckedChange={(v) => updateProperty(`${formSettingsPath}.show_terms`, v || undefined)}
+                              data-testid="switch-consent-show-terms"
+                            />
+                          </div>
+                          {showTerms && (
+                            <div className="grid grid-cols-2 gap-2">
+                              <div className="space-y-1.5">
+                                <Label className="text-xs text-muted-foreground">Terms URL</Label>
+                                <Input
+                                  value={termsUrl}
+                                  onChange={(e) => updateProperty(`${formSettingsPath}.terms_url`, e.target.value || undefined)}
+                                  placeholder="/terms-and-conditions"
+                                  className="text-xs h-8"
+                                  data-testid="input-consent-terms-url"
+                                />
+                              </div>
+                              <div className="space-y-1.5">
+                                <Label className="text-xs text-muted-foreground">Privacy URL</Label>
+                                <Input
+                                  value={privacyUrl}
+                                  onChange={(e) => updateProperty(`${formSettingsPath}.privacy_url`, e.target.value || undefined)}
+                                  placeholder="/privacy-policy"
+                                  className="text-xs h-8"
+                                  data-testid="input-consent-privacy-url"
+                                />
+                              </div>
+                            </div>
                           )}
                         </div>
                       </div>
