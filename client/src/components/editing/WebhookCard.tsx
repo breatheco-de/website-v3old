@@ -62,7 +62,7 @@ export function WebhookCard({
 
   return (
     <div
-      className="rounded-md border bg-muted/20 p-3 space-y-3 overflow-hidden"
+      className="rounded-md border bg-muted/20 p-3 space-y-3 overflow-hidden w-full min-w-0"
       data-testid={`card-${testIdPrefix}`}
     >
       <div className="flex items-center justify-between gap-2">
