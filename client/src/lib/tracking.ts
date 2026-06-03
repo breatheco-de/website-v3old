@@ -62,8 +62,15 @@ export interface ConversionEventEntry {
   description?: string;
 }
 
+export interface TrackingWebhook {
+  url: string;
+  method?: string;
+  auth_header?: string;
+}
+
 export interface TrackingSettingsResponse {
   conversion_events: ConversionEventEntry[];
+  webhook?: TrackingWebhook;
 }
 
 // Extend Window to include dataLayer

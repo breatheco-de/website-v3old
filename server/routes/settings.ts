@@ -594,11 +594,17 @@ export function registerSettingsRoutes(app: Express): void {
 
   app.put("/api/settings/tracking", async (req, res) => {
     try {
-      const { conversion_events } = req.body;
-      if (!Array.isArray(conversion_events)) {
-        return res.status(400).json({ error: "Request body must contain a conversion_events array" });
+      const { conversion_events, webhook } = req.body;
+      if (conversion_events === undefined && webhook === undefined) {
+        return res.status(400).json({ error: "Request body must contain conversion_events or webhook" });
       }
-      updateTrackingSettings({ conversion_events });
+      if (conversion_events !== undefined && !Array.isArray(conversion_events)) {
+        return res.status(400).json({ error: "conversion_events must be an array" });
+      }
+      updateTrackingSettings({
+        ...(conversion_events !== undefined ? { conversion_events } : {}),
+        ...(webhook !== undefined ? { webhook } : {}),
+      });
       res.json({ success: true, ...getTrackingSettings() });
     } catch (err: any) {
       res.status(400).json({ error: err.message || String(err) });

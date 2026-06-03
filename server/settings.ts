@@ -34,8 +34,15 @@ export interface ConversionEventEntry {
   description?: string;
 }
 
+export interface TrackingWebhook {
+  url: string;
+  method?: string;
+  auth_header?: string;
+}
+
 export interface TrackingSettings {
   conversion_events: ConversionEventEntry[];
+  webhook?: TrackingWebhook;
 }
 
 interface SiteSettings {
@@ -117,6 +124,7 @@ function loadSettings(): SiteSettings {
 
     const trackingRaw = parsed.tracking as Record<string, unknown> | undefined;
     const conversionEventsRaw = trackingRaw?.conversion_events;
+    const webhookRaw = trackingRaw?.webhook as Record<string, unknown> | undefined;
     const tracking: TrackingSettings = {
       conversion_events: Array.isArray(conversionEventsRaw)
         ? (conversionEventsRaw as Array<Record<string, unknown>>)
@@ -126,6 +134,17 @@ function loadSettings(): SiteSettings {
               description: typeof e.description === "string" ? e.description : undefined,
             }))
         : defaults.tracking.conversion_events,
+      ...(webhookRaw && typeof webhookRaw.url === "string" && webhookRaw.url
+        ? {
+            webhook: {
+              url: webhookRaw.url,
+              method: typeof webhookRaw.method === "string" ? webhookRaw.method : "POST",
+              ...(typeof webhookRaw.auth_header === "string" && webhookRaw.auth_header
+                ? { auth_header: webhookRaw.auth_header }
+                : {}),
+            },
+          }
+        : {}),
     };
 
     cached = { ...defaults, i18n, home_page, optimization, tracking };
@@ -250,17 +269,31 @@ export function getTrackingSettings(): TrackingSettings {
   return loadSettings().tracking;
 }
 
-export function updateTrackingSettings(input: { conversion_events: Array<{ name: string; description?: string }> }): void {
-  if (!Array.isArray(input.conversion_events)) {
+export function updateTrackingSettings(input: {
+  conversion_events?: Array<{ name: string; description?: string }>;
+  webhook?: { url: string; method?: string } | null;
+}): void {
+  if (input.conversion_events !== undefined && !Array.isArray(input.conversion_events)) {
     throw new Error("conversion_events must be an array");
   }
 
-  for (const entry of input.conversion_events) {
-    if (typeof entry.name !== "string" || !entry.name.trim()) {
-      throw new Error("Each conversion event must have a non-empty name");
+  if (input.conversion_events !== undefined) {
+    for (const entry of input.conversion_events) {
+      if (typeof entry.name !== "string" || !entry.name.trim()) {
+        throw new Error("Each conversion event must have a non-empty name");
+      }
+      if (!/^[a-z][a-z0-9_]*$/.test(entry.name.trim())) {
+        throw new Error(`Invalid conversion event name: "${entry.name}" — use lowercase letters, digits, and underscores only`);
+      }
     }
-    if (!/^[a-z][a-z0-9_]*$/.test(entry.name.trim())) {
-      throw new Error(`Invalid conversion event name: "${entry.name}" — use lowercase letters, digits, and underscores only`);
+  }
+
+  if (input.webhook !== undefined && input.webhook !== null) {
+    if (typeof input.webhook.url !== "string" || !input.webhook.url.trim()) {
+      throw new Error("webhook.url must be a non-empty string");
+    }
+    if (input.webhook.method !== undefined && !["POST", "GET"].includes(input.webhook.method)) {
+      throw new Error('webhook.method must be "POST" or "GET"');
     }
   }
 
@@ -272,17 +305,40 @@ export function updateTrackingSettings(input: { conversion_events: Array<{ name:
     } catch {}
   }
 
-  existing.tracking = {
-    conversion_events: input.conversion_events.map((e) => ({
+  const currentTracking = (existing.tracking as Record<string, unknown>) || {};
+
+  const nextTracking: Record<string, unknown> = { ...currentTracking };
+
+  if (input.conversion_events !== undefined) {
+    nextTracking.conversion_events = input.conversion_events.map((e) => ({
       name: e.name.trim(),
       ...(e.description ? { description: e.description } : {}),
-    })),
-  };
+    }));
+  }
+
+  if (input.webhook !== undefined) {
+    if (input.webhook === null) {
+      delete nextTracking.webhook;
+    } else {
+      nextTracking.webhook = {
+        url: input.webhook.url.trim(),
+        method: input.webhook.method ?? "POST",
+        ...(input.webhook.auth_header ? { auth_header: input.webhook.auth_header.trim() } : {}),
+      };
+    }
+  }
+
+  existing.tracking = nextTracking;
 
   const output = yaml.dump(existing, { lineWidth: 120, noRefs: true });
   fs.writeFileSync(SETTINGS_PATH, output, "utf-8");
   resetSettings();
-  console.log(`[Settings] Updated tracking.conversion_events: ${input.conversion_events.length} event(s)`);
+  if (input.conversion_events !== undefined) {
+    console.log(`[Settings] Updated tracking.conversion_events: ${input.conversion_events.length} event(s)`);
+  }
+  if (input.webhook !== undefined) {
+    console.log(`[Settings] Updated tracking.webhook: ${input.webhook ? input.webhook.url : "(cleared)"}`);
+  }
 }
 
 export function updateOptimizationSettings(input: { tagmanager: Partial<TagManagerSettings> }): void {

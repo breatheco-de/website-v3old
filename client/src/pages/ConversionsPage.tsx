@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState, useEffect, Fragment } from "react";
 import {
   IconArrowLeft,
   IconBraces,
@@ -119,10 +119,23 @@ export default function ConversionsPage() {
   const [reassignOpen, setReassignOpen] = useState(false);
   const [reassignTarget, setReassignTarget] = useState("");
 
+  const [webhookUrl, setWebhookUrl] = useState("");
+  const [webhookMethod, setWebhookMethod] = useState("POST");
+  const [webhookAuthHeader, setWebhookAuthHeader] = useState("");
+  const [webhookEditing, setWebhookEditing] = useState(false);
+
   const { data: trackingSettings } = useQuery<TrackingSettingsResponse>({
     queryKey: ["/api/settings/tracking"],
   });
   const conversionEventEntries = trackingSettings?.conversion_events ?? [];
+
+  useEffect(() => {
+    if (trackingSettings?.webhook) {
+      setWebhookUrl(trackingSettings.webhook.url);
+      setWebhookMethod(trackingSettings.webhook.method ?? "POST");
+      setWebhookAuthHeader(trackingSettings.webhook.auth_header ?? "");
+    }
+  }, [trackingSettings?.webhook]);
 
   const { data: conversionCounts } = useQuery<Record<string, number>>({
     queryKey: ["/api/form-state/conversion-counts"],
@@ -295,6 +308,27 @@ export default function ConversionsPage() {
     },
   });
 
+  const saveWebhookMutation = useMutation({
+    mutationFn: async ({ url, method, auth_header }: { url: string; method: string; auth_header: string }) => {
+      const res = await apiRequest("PUT", "/api/settings/tracking", {
+        webhook: { url: url.trim(), method, ...(auth_header.trim() ? { auth_header: auth_header.trim() } : {}) },
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error((err as any).error || "Failed to save webhook");
+      }
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/settings/tracking"] });
+      setWebhookEditing(false);
+      toast({ title: "Webhook saved", description: "Global conversion webhook updated." });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Failed to save webhook", description: err.message, variant: "destructive" });
+    },
+  });
+
   function toggleExpand(name: string) {
     setExpandedEvents((prev) => {
       const next = new Set(prev);
@@ -341,6 +375,180 @@ export default function ConversionsPage() {
             </div>
           </div>
         </div>
+
+        {/* Conversion Webhook card */}
+        <Card>
+          <CardHeader className="pb-3">
+            <div className="flex items-start justify-between gap-3 flex-wrap">
+              <div>
+                <CardTitle className="text-base">Conversion Webhook</CardTitle>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Global fallback — fired on every conversion unless overridden at the event or form level.
+                  Configured in <code className="font-mono text-xs">settings.yml</code> under{" "}
+                  <code className="font-mono text-xs">tracking.webhook</code>.
+                </p>
+              </div>
+              {!webhookEditing && trackingSettings?.webhook?.url && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setWebhookEditing(true)}
+                  data-testid="button-edit-webhook"
+                  className="shrink-0"
+                >
+                  <IconPencil className="h-3.5 w-3.5" />
+                  Edit
+                </Button>
+              )}
+            </div>
+          </CardHeader>
+          <CardContent className="pt-0 space-y-5">
+            {!webhookEditing && !trackingSettings?.webhook?.url ? (
+              <div className="flex flex-col items-start gap-3 py-1">
+                <p className="text-sm text-muted-foreground" data-testid="text-webhook-empty-state">
+                  No global webhook configured yet.
+                </p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setWebhookEditing(true)}
+                  data-testid="button-configure-webhook"
+                >
+                  <IconPlus className="h-3.5 w-3.5" />
+                  Configure
+                </Button>
+              </div>
+            ) : !webhookEditing ? (
+              <div className="space-y-2 py-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-xs text-muted-foreground uppercase tracking-wide w-20 shrink-0">URL</span>
+                  <code
+                    className="font-mono text-xs bg-muted px-2 py-1 rounded break-all"
+                    data-testid="text-webhook-url"
+                  >
+                    {trackingSettings?.webhook?.url}
+                  </code>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground uppercase tracking-wide w-20 shrink-0">Method</span>
+                  <code
+                    className="font-mono text-xs bg-muted px-2 py-1 rounded"
+                    data-testid="text-webhook-method"
+                  >
+                    {trackingSettings?.webhook?.method ?? "POST"}
+                  </code>
+                </div>
+                {trackingSettings?.webhook?.auth_header && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-muted-foreground uppercase tracking-wide w-20 shrink-0">Auth</span>
+                    <code
+                      className="font-mono text-xs bg-muted px-2 py-1 rounded"
+                      data-testid="text-webhook-auth"
+                    >
+                      {trackingSettings.webhook.auth_header.length > 16
+                        ? trackingSettings.webhook.auth_header.slice(0, 16) + "•••"
+                        : "•".repeat(trackingSettings.webhook.auth_header.length)}
+                    </code>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="space-y-4 py-1">
+                <div className="space-y-1.5">
+                  <Label htmlFor="webhook-url">URL</Label>
+                  <Input
+                    id="webhook-url"
+                    type="url"
+                    placeholder="https://hooks.example.com/..."
+                    value={webhookUrl}
+                    onChange={(e) => setWebhookUrl(e.target.value)}
+                    data-testid="input-webhook-url"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="webhook-method">Method</Label>
+                  <Select value={webhookMethod} onValueChange={setWebhookMethod}>
+                    <SelectTrigger id="webhook-method" data-testid="select-webhook-method">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="POST">POST</SelectItem>
+                      <SelectItem value="GET">GET</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="webhook-auth-header">
+                    Authorization header{" "}
+                    <span className="text-muted-foreground font-normal">(optional)</span>
+                  </Label>
+                  <Input
+                    id="webhook-auth-header"
+                    type="password"
+                    placeholder="Bearer sk-..."
+                    value={webhookAuthHeader}
+                    onChange={(e) => setWebhookAuthHeader(e.target.value)}
+                    data-testid="input-webhook-auth-header"
+                    autoComplete="off"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Sent as the <code className="font-mono">Authorization</code> header on every webhook request.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <Button
+                    size="sm"
+                    onClick={() => saveWebhookMutation.mutate({ url: webhookUrl, method: webhookMethod, auth_header: webhookAuthHeader })}
+                    disabled={!webhookUrl.trim() || saveWebhookMutation.isPending}
+                    data-testid="button-save-webhook"
+                  >
+                    {saveWebhookMutation.isPending && <IconLoader2 className="h-3.5 w-3.5 animate-spin" />}
+                    Save
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      setWebhookEditing(false);
+                      setWebhookUrl(trackingSettings?.webhook?.url ?? "");
+                      setWebhookMethod(trackingSettings?.webhook?.method ?? "POST");
+                      setWebhookAuthHeader(trackingSettings?.webhook?.auth_header ?? "");
+                    }}
+                    data-testid="button-cancel-webhook"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Sample payload */}
+            <div className="border-t pt-4">
+              <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">
+                Sample payload
+              </p>
+              <div className="overflow-hidden rounded-md" data-testid="text-webhook-sample-payload">
+                <JsonViewer
+                  value={JSON.stringify({
+                    event: "<event_name>",
+                    user_id: SAMPLE_USER_ID,
+                    email_hash: "3f2a1b4c8d9e0f12",
+                    program: "ai-engineering",
+                    location: "miami-usa",
+                    formentry_id: 12345,
+                    attribution_id: "attr_abc123",
+                    referral_key: "ref_xyz789",
+                  }, null, 2)}
+                  className="[&_.cm-editor]:!max-w-full [&_.cm-scroller]:!overflow-x-auto"
+                />
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">
+                Sent as a JSON body (<code className="font-mono">Content-Type: application/json</code>).{" "}
+                <code className="font-mono">{"<event_name>"}</code> is replaced with the actual event name at fire time.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
 
         <Card>
           <CardHeader className="pb-3">
