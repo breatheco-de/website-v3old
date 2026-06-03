@@ -19,9 +19,9 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: AI Engineering
-    title_highlight: Artificial Intelligence Engineering
-    subtitle: AI Engineer is the fastest-growing job of 2026. Our intensive program is built to get you hired, backed by an AI-first methodology, unlimited 1:1 mentorship, and lifelong career support.
+    title: AI Fluency. The New Baseline for Professionals.
+    title_highlight: The New Baseline for Professionals.
+    subtitle: AI skills now carry a 56% salary premium across industries. In our 4-week intensive upskilling program, you'll learn to build AI workflows, automate tasks, and direct AI like a collaborator. No coding required.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -30,49 +30,42 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduates
     bullet_points:
-      - Build a complete AI-native company end to end, with agents, pipelines, and real-time data.
-      - Work with AI coding agents to build and deliver production-ready software faster.
-      - Leave with a portfolio that gets you in the door at top tech companies.
+      - AI workflows built around your job, your tasks, your tools.
+      - Automate repetitive work with agents and n8n.
+      - Master AI collaboration. Build anything.
     tutors:
-      - name: Marco Gonzalo
-        role: Main Instructor
-        image: https://storage.googleapis.com/4geeks-academy-website/media/410890.jpg
+      - name: Expert Instructor
+        role: Lead Instructor
+        image: https://randomuser.me/api/portraits/men/10.jpg
       - name: Rigo
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
-    description: "Graduate job-ready for one of tech's fastest-growing roles, with the skills and support to land positions paying $95K–$135K+.<div><br></div><div><span style=\"font-size: 12px; text-align: center;\">Florida residents: Only our full-stack development program is authorized by the Commission for Independent Education in Florida. Our job guarantee bundle is not offered in Florida where our only physical location is in Miami.</span></div>"
-    media:
-      type: video
-      src: https://www.youtube.com/shorts/sSxJnelPJT8
-      thumbnail: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
-      alt: AI Engineering program introduction
+    description: AI is not the future, it is the foundation. The professionals pulling ahead right now are leveraging AI's capacities with intention. This is your way in.
     signup_card:
       title: Get the Full Program Overview
-      description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, financing options and more. It takes 2 minutes."
+      description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, and pricing. It takes 2 minutes."
       cta_button:
         text: Send Me the Details
-        url: "#modal-qf93fn"
+        url: "#modal-aifluency"
         variant: primary
       login_link:
         text: Already a student? Login here.
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: 24-Week or 15-Week Accelerated Morning Track
-        - icon: IconShield
-          text: Optional Job Guarantee (available as add-on)
+          text: 4-Week Cohort Program
         - icon: IconUsers
-          text: {{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
+          text: 1 Live Class Per Week
         - icon: IconUserCheck
-          text: Unlimited 1:1 Mentorship
+          text: 1:1 Mentorship Session Included
         - icon: IconRobot
           text: AI-Powered Learning & Feedback
-    section_id: hero-l381p3
     paddingY:
       desktop: lg md
     marginY:
       desktop: none
+    section_id: hero-aifluency
   - type: modal
     version: "1.0"
     heading: Request Program Details
