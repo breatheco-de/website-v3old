@@ -14,6 +14,7 @@ import {
   IconPhoto,
   IconChartBar,
   IconInfoCircle,
+  IconScale,
 } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { ImagePickerDialog } from "@/components/editing/ImagePickerDialog";
@@ -121,6 +122,57 @@ export default function SettingsPage() {
 
   const canEditSeo = hasCapability("seo_edit");
 
+  interface LegalSettings {
+    legal_terms_url: string;
+    legal_privacy_url: string;
+  }
+
+  const { data: legalData, isLoading: legalLoading } = useQuery<LegalSettings>({
+    queryKey: ["/api/settings/legal"],
+  });
+
+  const [legalTermsUrl, setLegalTermsUrl] = useState("");
+  const [legalPrivacyUrl, setLegalPrivacyUrl] = useState("");
+  const [legalSaving, setLegalSaving] = useState<string | null>(null);
+
+  function validateLegalUrl(value: string): string | null {
+    const trimmed = value.trim();
+    if (!trimmed) return null;
+    try {
+      const parsed = new URL(trimmed);
+      if (parsed.protocol !== "https:" && parsed.protocol !== "http:") {
+        return "URL must start with https://";
+      }
+    } catch {
+      // Allow relative paths like /en/terms-conditions
+      if (!trimmed.startsWith("/")) {
+        return "Enter a full URL (https://...) or a relative path starting with /";
+      }
+    }
+    return null;
+  }
+
+  async function handleLegalSave(field: "legal_terms_url" | "legal_privacy_url") {
+    setLegalSaving(field);
+    try {
+      const value = field === "legal_terms_url" ? legalTermsUrl : legalPrivacyUrl;
+      const err = validateLegalUrl(value);
+      if (err) {
+        toast({ title: "Invalid URL", description: err, variant: "destructive" });
+        return;
+      }
+      const res = await apiRequest("PUT", "/api/settings/legal", { [field]: value.trim() });
+      const result = await res.json();
+      if (result.error) throw new Error(result.error);
+      queryClient.invalidateQueries({ queryKey: ["/api/settings/legal"] });
+      toast({ title: "Saved", description: "Legal URL updated." });
+    } catch (err: any) {
+      toast({ title: "Failed to save", description: err.message || String(err), variant: "destructive" });
+    } finally {
+      setLegalSaving(null);
+    }
+  }
+
   useEffect(() => {
     if (data) {
       setLocales(data.supported_locales.map((l) => ({ ...l })));
@@ -141,6 +193,13 @@ export default function SettingsPage() {
       });
     }
   }, [brandData]);
+
+  useEffect(() => {
+    if (legalData) {
+      setLegalTermsUrl(legalData.legal_terms_url ?? "");
+      setLegalPrivacyUrl(legalData.legal_privacy_url ?? "");
+    }
+  }, [legalData]);
 
   function addLocale() {
     const code = newCode.trim().toLowerCase();
@@ -301,6 +360,10 @@ export default function SettingsPage() {
             <TabsTrigger value="brand" data-testid="tab-brand">
               <IconPhoto className="h-4 w-4 mr-1.5" />
               Brand
+            </TabsTrigger>
+            <TabsTrigger value="legal" data-testid="tab-legal">
+              <IconScale className="h-4 w-4 mr-1.5" />
+              Legal
             </TabsTrigger>
           </TabsList>
 
@@ -699,6 +762,96 @@ export default function SettingsPage() {
                 await handleBrandSave(src);
               }}
             />
+          </TabsContent>
+
+          <TabsContent value="legal" className="mt-4">
+            <Card>
+              <CardHeader className="flex flex-row items-center gap-2 pb-4">
+                <IconScale className="h-5 w-5 text-muted-foreground" />
+                <CardTitle className="text-base">Legal URLs</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {legalLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <IconLoader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                  </div>
+                ) : (
+                  <>
+                    <div className="space-y-1">
+                      <p className="text-sm text-muted-foreground">
+                        These URLs are stored as <code className="font-mono">reserved.legal_terms_url</code> and <code className="font-mono">reserved.legal_privacy_url</code> in <code className="font-mono">variables.yml</code> and are automatically available as <code className="font-mono">global.*</code> variables site-wide.
+                      </p>
+                    </div>
+
+                    <div className="space-y-4 pt-2">
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium" htmlFor="input-legal-terms-url">
+                          Terms &amp; Conditions URL
+                        </label>
+                        <p className="text-xs text-muted-foreground">
+                          Used in lead forms and consent copy. Accepts a full URL or a relative path (e.g. <code className="font-mono">/en/terms-conditions</code>).
+                        </p>
+                        <div className="flex items-center gap-2">
+                          <Input
+                            id="input-legal-terms-url"
+                            value={legalTermsUrl}
+                            onChange={(e) => setLegalTermsUrl(e.target.value)}
+                            placeholder="/en/terms-conditions"
+                            disabled={legalSaving === "legal_terms_url"}
+                            className="font-mono text-xs"
+                            data-testid="input-legal-terms-url"
+                          />
+                          <Button
+                            size="sm"
+                            onClick={() => handleLegalSave("legal_terms_url")}
+                            disabled={legalSaving === "legal_terms_url"}
+                            data-testid="button-legal-save-terms"
+                          >
+                            {legalSaving === "legal_terms_url" ? (
+                              <IconLoader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <IconDeviceFloppy className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium" htmlFor="input-legal-privacy-url">
+                          Privacy Policy URL
+                        </label>
+                        <p className="text-xs text-muted-foreground">
+                          Used in lead forms and consent copy. Accepts a full URL or a relative path (e.g. <code className="font-mono">/en/privacy-policy</code>).
+                        </p>
+                        <div className="flex items-center gap-2">
+                          <Input
+                            id="input-legal-privacy-url"
+                            value={legalPrivacyUrl}
+                            onChange={(e) => setLegalPrivacyUrl(e.target.value)}
+                            placeholder="/en/privacy-policy"
+                            disabled={legalSaving === "legal_privacy_url"}
+                            className="font-mono text-xs"
+                            data-testid="input-legal-privacy-url"
+                          />
+                          <Button
+                            size="sm"
+                            onClick={() => handleLegalSave("legal_privacy_url")}
+                            disabled={legalSaving === "legal_privacy_url"}
+                            data-testid="button-legal-save-privacy"
+                          >
+                            {legalSaving === "legal_privacy_url" ? (
+                              <IconLoader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <IconDeviceFloppy className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </CardContent>
+            </Card>
           </TabsContent>
 
         </Tabs>

@@ -53,8 +53,6 @@ sections:
           default: ai-engineering
       success:
         message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
-      terms_url: /terminos-condiciones
-      privacy_url: /politica-privacidad
       consent:
         sms: true
         marketing: true

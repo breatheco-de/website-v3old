@@ -55,8 +55,6 @@ sections:
           required: true
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
-      terms_url: /terms-and-conditions
-      privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true

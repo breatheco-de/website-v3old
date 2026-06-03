@@ -359,6 +359,11 @@ export function registerSettingsRoutes(app: Express): void {
       const { name } = req.params;
       const body = req.body;
 
+      const def = variableManager.getDefinition(name);
+      if (def?.isReserved) {
+        return res.status(403).json({ error: `Variable "${name}" is reserved and cannot be modified here. Use Settings → Legal.` });
+      }
+
       const { action } = body as { action: string };
       if (!action) {
         return res.status(400).json({ error: "action is required" });
@@ -444,6 +449,11 @@ export function registerSettingsRoutes(app: Express): void {
       const { name } = req.params;
       const body = req.body;
 
+      const defToDelete = variableManager.getDefinition(name);
+      if (defToDelete?.isReserved) {
+        return res.status(403).json({ error: `Variable "${name}" is reserved and cannot be deleted. Manage it in Settings → Legal.` });
+      }
+
       if (body.level) {
         const { level, key } = body as { level: string; key?: string };
         const VALID_LEVELS = [
@@ -512,6 +522,11 @@ export function registerSettingsRoutes(app: Express): void {
       const { newName, author } = req.body as { newName: string; author?: string };
       const authorName = author && typeof author === "string" ? author : undefined;
 
+      const defToRename = variableManager.getDefinition(oldName);
+      if (defToRename?.isReserved) {
+        return res.status(403).json({ error: `Variable "${oldName}" is reserved and cannot be renamed.` });
+      }
+
       if (!newName || typeof newName !== "string") {
         return res.status(400).json({ error: "newName is required" });
       }
@@ -563,6 +578,37 @@ export function registerSettingsRoutes(app: Express): void {
         .json({ error: err?.message || "Failed to rename variable" });
     }
   });
+  app.get("/api/settings/legal", (_req, res) => {
+    try {
+      res.json(variableManager.getLegalSettings());
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || "Failed to load legal settings" });
+    }
+  });
+
+  app.put("/api/settings/legal", (req, res) => {
+    try {
+      const schema = z.object({
+        legal_terms_url: z.string().optional(),
+        legal_privacy_url: z.string().optional(),
+      });
+      const parsed = schema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ error: "Invalid request body" });
+      }
+      const { legal_terms_url, legal_privacy_url } = parsed.data;
+      if (legal_terms_url !== undefined) {
+        variableManager.updateLegalSetting("legal_terms_url", legal_terms_url);
+      }
+      if (legal_privacy_url !== undefined) {
+        variableManager.updateLegalSetting("legal_privacy_url", legal_privacy_url);
+      }
+      res.json({ success: true, ...variableManager.getLegalSettings() });
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || "Failed to save legal settings" });
+    }
+  });
+
   app.get("/api/settings/home-page", (_req, res) => {
     res.json(getHomePage());
   });

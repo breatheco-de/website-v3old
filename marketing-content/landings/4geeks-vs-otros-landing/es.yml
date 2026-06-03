@@ -57,8 +57,6 @@ sections:
           default: ai-engineering
       success:
         message: Revisa tu bandeja de entrada. Nuestro equipo de admisiones se pondrá en contacto contigo en breve con todo lo que necesitas saber.
-      terms_url: /terms-and-conditions
-      privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true

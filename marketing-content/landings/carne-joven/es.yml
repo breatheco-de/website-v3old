@@ -37,8 +37,6 @@ sections:
           default: ai-engineering
       success:
         message: Una vez completado el formulario, recibirás en tu correo toda la información del curso y las opciones de financiamiento disponibles.
-      terms_url: /terms-and-conditions
-      privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true

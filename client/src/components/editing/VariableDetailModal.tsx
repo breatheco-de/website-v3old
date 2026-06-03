@@ -592,7 +592,7 @@ export function VariableDetailModal({
 
   const handleRename = () => {
     const normalized = renameTo.trim().replace(/\s+/g, "_").toLowerCase();
-    if (!normalized || !renameAvailable) return;
+    if (!normalized || !renameAvailable || definition?.isReserved) return;
 
     if (checkEditorHasUnsavedChanges()) {
       const confirmed = window.confirm(
@@ -1049,9 +1049,14 @@ export function VariableDetailModal({
 
             {activeTab === "edit" && (
               <div className="space-y-4" data-testid="edit-tab-content">
+                {definition?.isReserved && (
+                  <div className="flex items-center gap-2 rounded-md border bg-muted/40 px-3 py-2 text-sm text-muted-foreground" data-testid="reserved-variable-notice">
+                    <span className="text-xs">Managed in <strong>Settings → Legal</strong>. Editing is disabled here.</span>
+                  </div>
+                )}
                 <div className="space-y-2">
                   <h4 className="text-sm font-medium text-foreground">Default Value</h4>
-                  {editingDefault ? (
+                  {!definition?.isReserved && editingDefault ? (
                     <div className="flex items-center gap-2">
                       <Input
                         value={editDefaultValue}
@@ -1086,17 +1091,19 @@ export function VariableDetailModal({
                       <span className="text-sm flex-1 truncate">
                         {definition?.default !== undefined ? `"${definition.default}"` : <span className="text-muted-foreground/60 italic">Not set</span>}
                       </span>
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        onClick={() => {
-                          setEditDefaultValue(definition?.default || "");
-                          setEditingDefault(true);
-                        }}
-                        data-testid="button-edit-default"
-                      >
-                        <Pencil className="w-3.5 h-3.5" />
-                      </Button>
+                      {!definition?.isReserved && (
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => {
+                            setEditDefaultValue(definition?.default || "");
+                            setEditingDefault(true);
+                          }}
+                          data-testid="button-edit-default"
+                        >
+                          <Pencil className="w-3.5 h-3.5" />
+                        </Button>
+                      )}
                     </div>
                   )}
                 </div>
@@ -1107,7 +1114,7 @@ export function VariableDetailModal({
                       <Filter className="w-3.5 h-3.5 text-muted-foreground" />
                       Conditions
                     </h4>
-                    {!addingCondition && editingConditionIndex === null && (
+                    {!definition?.isReserved && !addingCondition && editingConditionIndex === null && (
                       <Button
                         size="sm"
                         variant="outline"
@@ -1153,42 +1160,44 @@ export function VariableDetailModal({
                               <span className="text-sm truncate">"{cond.value}"</span>
                             </div>
                           </div>
-                          <div className="flex items-center gap-0.5 flex-shrink-0">
-                            <Button
-                              size="icon"
-                              variant="ghost"
-                              disabled={i === 0}
-                              onClick={() => handleReorderCondition(i, i - 1)}
-                              data-testid={`button-move-up-${i}`}
-                            >
-                              <ChevronUp className="w-3.5 h-3.5" />
-                            </Button>
-                            <Button
-                              size="icon"
-                              variant="ghost"
-                              disabled={i === conditions.length - 1}
-                              onClick={() => handleReorderCondition(i, i + 1)}
-                              data-testid={`button-move-down-${i}`}
-                            >
-                              <ChevronDown className="w-3.5 h-3.5" />
-                            </Button>
-                            <Button
-                              size="icon"
-                              variant="ghost"
-                              onClick={() => setEditingConditionIndex(i)}
-                              data-testid={`button-edit-condition-${i}`}
-                            >
-                              <Pencil className="w-3.5 h-3.5" />
-                            </Button>
-                            <Button
-                              size="icon"
-                              variant="ghost"
-                              onClick={() => handleDeleteCondition(i)}
-                              data-testid={`button-delete-condition-${i}`}
-                            >
-                              <Trash2 className="w-3.5 h-3.5 text-destructive" />
-                            </Button>
-                          </div>
+                          {!definition?.isReserved && (
+                            <div className="flex items-center gap-0.5 flex-shrink-0">
+                              <Button
+                                size="icon"
+                                variant="ghost"
+                                disabled={i === 0}
+                                onClick={() => handleReorderCondition(i, i - 1)}
+                                data-testid={`button-move-up-${i}`}
+                              >
+                                <ChevronUp className="w-3.5 h-3.5" />
+                              </Button>
+                              <Button
+                                size="icon"
+                                variant="ghost"
+                                disabled={i === conditions.length - 1}
+                                onClick={() => handleReorderCondition(i, i + 1)}
+                                data-testid={`button-move-down-${i}`}
+                              >
+                                <ChevronDown className="w-3.5 h-3.5" />
+                              </Button>
+                              <Button
+                                size="icon"
+                                variant="ghost"
+                                onClick={() => setEditingConditionIndex(i)}
+                                data-testid={`button-edit-condition-${i}`}
+                              >
+                                <Pencil className="w-3.5 h-3.5" />
+                              </Button>
+                              <Button
+                                size="icon"
+                                variant="ghost"
+                                onClick={() => handleDeleteCondition(i)}
+                                data-testid={`button-delete-condition-${i}`}
+                              >
+                                <Trash2 className="w-3.5 h-3.5 text-destructive" />
+                              </Button>
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>
@@ -1208,6 +1217,11 @@ export function VariableDetailModal({
 
             {activeTab === "rename" && (
               <div className="space-y-4" data-testid="rename-tab-content">
+                {definition?.isReserved && (
+                  <div className="rounded-md border bg-muted/40 px-3 py-2 text-xs text-muted-foreground" data-testid="reserved-rename-notice">
+                    Reserved variables cannot be renamed. They are managed in <strong>Settings → Legal</strong>.
+                  </div>
+                )}
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-foreground">
                     New variable name
@@ -1219,7 +1233,7 @@ export function VariableDetailModal({
                       onChange={(e) => handleRenameNameChange(e.target.value)}
                       autoFocus
                       onKeyDown={(e) => {
-                        if (e.key === "Enter" && renameAvailable) handleRename();
+                        if (e.key === "Enter" && renameAvailable && !definition?.isReserved) handleRename();
                       }}
                       className={`pr-8 font-mono ${renameAvailable === false ? "border-destructive" : renameAvailable === true ? "border-chart-3" : ""}`}
                       data-testid="input-rename-variable"
@@ -1295,6 +1309,7 @@ export function VariableDetailModal({
                   <Button
                     onClick={handleRename}
                     disabled={
+                      !!definition?.isReserved ||
                       !renameTo.trim() ||
                       renameAvailable !== true ||
                       renameMutation.isPending

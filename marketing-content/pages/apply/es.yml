@@ -52,8 +52,6 @@ sections:
         location:
           visible: true
           required: true
-      terms_url: /terminos-condiciones
-      privacy_url: /politica-privacidad
       consent:
         sms: true
         marketing: true

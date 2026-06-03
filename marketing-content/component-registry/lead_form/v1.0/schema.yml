@@ -271,14 +271,6 @@ props:
         description: Success message to display (if no url)
         example: Thanks! We'll contact you within 24 hours.
     description: What happens after successful submission
-  terms_url:
-    type: string
-    required: false
-    description: URL for Terms and Conditions link
-  privacy_url:
-    type: string
-    required: false
-    description: URL for Privacy Policy link
   consent:
     type: object
     required: false

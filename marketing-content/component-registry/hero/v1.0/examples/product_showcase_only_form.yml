@@ -41,8 +41,6 @@ yaml: |
           default: full-stack
       success:
         message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
-      terms_url: /terms-and-conditions
-      privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true

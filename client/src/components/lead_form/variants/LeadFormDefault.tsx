@@ -74,8 +74,6 @@ export interface LeadFormData {
     url?: string;
     message?: string;
   };
-  terms_url?: string;
-  privacy_url?: string;
   consent?: {
     email?: boolean;
     sms?: boolean;
@@ -315,6 +313,11 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
 
   const { data: trackingSettings } = useQuery<TrackingSettingsResponse>({
     queryKey: ["/api/settings/tracking"],
+  });
+
+  const { data: legalSettings } = useQuery<{ legal_terms_url: string; legal_privacy_url: string }>({
+    queryKey: ["/api/settings/legal"],
+    staleTime: 5 * 60 * 1000,
   });
 
   const variant = data.variant || "stacked";
@@ -1249,7 +1252,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
             <p className={`text-xs text-center ${data.terms_className || "text-muted-foreground"}`} style={termsStyle} data-testid="text-terms">
               {locale === "es" ? "Al registrarte, aceptas los " : "By signing up, you agree to the "}
               <a 
-                href={data.terms_url || (locale === "es" ? "/es/terminos-y-condiciones" : "/en/terms-conditions")} 
+                href={legalSettings?.legal_terms_url || (locale === "es" ? "/es/terminos-y-condiciones" : "/en/terms-conditions")} 
                 className="underline hover:text-foreground"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -1259,7 +1262,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
               </a>
               {locale === "es" ? " y la " : " and "}
               <a 
-                href={data.privacy_url || (locale === "es" ? "/es/politicas-de-privacidad" : "/en/privacy-policy")} 
+                href={legalSettings?.legal_privacy_url || (locale === "es" ? "/es/politicas-de-privacidad" : "/en/privacy-policy")} 
                 className="underline hover:text-foreground"
                 target="_blank"
                 rel="noopener noreferrer"

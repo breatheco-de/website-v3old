@@ -49,8 +49,6 @@ sections:
           default: ai-engineering
       success:
         message: You're in. Someone from our admissions team will reach out within a few minutes via email — check your inbox.
-      terms_url: /terms-and-conditions
-      privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true

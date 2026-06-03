@@ -108,8 +108,6 @@ sections:
         location:
           visible: true
           required: true
-      terms_url: /terms-conditions
-      privacy_url: /privacy-policy
       consent:
         sms: true
         marketing: true
