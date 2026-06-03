@@ -1,5 +1,6 @@
 import { useState, useEffect, Fragment } from "react";
 import {
+  IconAlertTriangle,
   IconArrowLeft,
   IconBraces,
   IconChevronDown,
@@ -526,6 +527,27 @@ export default function ConversionsPage() {
             </div>
           </div>
         </div>
+
+        {/* No-webhook warning banner */}
+        {trackingSettings &&
+          !trackingSettings.webhook?.url &&
+          !trackingSettings.has_env_webhook &&
+          !conversionEventEntries.some((e) => e.webhook?.url) && (
+            <div
+              className="flex items-start gap-3 rounded-md border border-destructive/40 bg-destructive/10 px-4 py-3"
+              data-testid="banner-no-webhook-configured"
+            >
+              <IconAlertTriangle className="h-5 w-5 shrink-0 mt-0.5 text-destructive" />
+              <div className="space-y-0.5">
+                <p className="text-sm font-medium text-destructive">
+                  No lead destination configured — submissions will be silently discarded
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Set a global webhook below, or add a per-event webhook to at least one conversion event, to start receiving leads.
+                </p>
+              </div>
+            </div>
+          )}
 
         {/* Conversion Webhook card */}
         <Card>

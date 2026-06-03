@@ -635,7 +635,10 @@ export function registerSettingsRoutes(app: Express): void {
   });
 
   app.get("/api/settings/tracking", (_req, res) => {
-    res.json(getTrackingSettings());
+    res.json({
+      ...getTrackingSettings(),
+      has_env_webhook: !!process.env.DEFAULT_WEBHOOK_URL,
+    });
   });
 
   app.put("/api/settings/tracking", async (req, res) => {

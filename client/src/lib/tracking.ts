@@ -93,6 +93,7 @@ export interface TrackingWebhook {
 export interface TrackingSettingsResponse {
   conversion_events: ConversionEventEntry[];
   webhook?: TrackingWebhook;
+  has_env_webhook?: boolean;
 }
 
 // Extend Window to include dataLayer
