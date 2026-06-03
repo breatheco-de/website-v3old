@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export interface ConsentValues {
   marketing: boolean;
@@ -100,7 +101,20 @@ export function ConsentCard({ values, onChange }: ConsentCardProps) {
           {/* SMS */}
           <div className="space-y-2">
             <div className="flex items-center justify-between gap-2">
-              <Label className="text-xs">SMS</Label>
+              <div className="flex items-center gap-2">
+                <Label className="text-xs">SMS</Label>
+                {values.sms && (
+                  <label className="flex items-center gap-1 cursor-pointer" data-testid="label-consent-sms-usa-only">
+                    <Checkbox
+                      checked={values.smsUsaOnly}
+                      onCheckedChange={(v) => onChange("smsUsaOnly", !!v)}
+                      data-testid="checkbox-consent-sms-usa-only"
+                      className="h-3 w-3"
+                    />
+                    <span className="text-[11px] text-muted-foreground">US-only</span>
+                  </label>
+                )}
+              </div>
               <Switch
                 checked={values.sms}
                 onCheckedChange={(v) => onChange("sms", v)}
@@ -108,24 +122,14 @@ export function ConsentCard({ values, onChange }: ConsentCardProps) {
               />
             </div>
             {values.sms && (
-              <>
-                <Textarea
-                  rows={3}
-                  value={values.smsText}
-                  onChange={(e) => onChange("smsText", e.target.value)}
-                  placeholder="I agree to receive SMS/text messages..."
-                  className="text-xs resize-none"
-                  data-testid="input-consent-sms-text"
-                />
-                <div className="flex items-center justify-between gap-2">
-                  <Label className="text-xs text-muted-foreground">US-only</Label>
-                  <Switch
-                    checked={values.smsUsaOnly}
-                    onCheckedChange={(v) => onChange("smsUsaOnly", v)}
-                    data-testid="switch-consent-sms-usa-only"
-                  />
-                </div>
-              </>
+              <Textarea
+                rows={3}
+                value={values.smsText}
+                onChange={(e) => onChange("smsText", e.target.value)}
+                placeholder="I agree to receive SMS/text messages..."
+                className="text-xs resize-none"
+                data-testid="input-consent-sms-text"
+              />
             )}
           </div>
 
