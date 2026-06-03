@@ -19,7 +19,6 @@ import { getVersioningManager } from "./versioning/VersioningManager";
 import http from "http";
 import { registerSgtmProxy } from "./sgtm-proxy";
 import { getOptimizationSettings } from "./settings";
-import { createProxyMiddleware } from "http-proxy-middleware";
 // Note: gcs.initFromEnv() is called by media.initFromEnv() in routes.ts,
 // which happens before sync-state needs it.
 
@@ -59,16 +58,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use('/attached_assets', express.static(path.join(process.cwd(), 'attached_assets')));
 app.use('/marketing-content/images', express.static(path.join(process.cwd(), 'marketing-content', 'images')));
 
-// ─── Mockup sandbox proxy ─────────────────────────────────────────────────────
-// Route /__mockup/ to the mockup-sandbox vite dev server on port 23636.
-// Use pathFilter (not app.use prefix) so Express doesn't strip /__mockup from
-// the forwarded path — the Vite sandbox needs the full /__mockup/… path.
-app.use(createProxyMiddleware({
-  pathFilter: '/__mockup',
-  target: 'http://localhost:23636',
-  changeOrigin: true,
-  ws: true,
-}));
 
 app.use(compression({
   filter: (req, res) => {
