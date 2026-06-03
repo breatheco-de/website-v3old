@@ -6463,11 +6463,11 @@ export function SectionEditorPanel({
               {/* Automations + Tags grouped card */}
               <AutomationsTagsCard
                 automation={(() => {
-                  const v = getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.automations`);
+                  const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.automations`);
                   return v ? String(v) : "";
                 })()}
                 tags={(() => {
-                  const v = getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.tags`);
+                  const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.tags`);
                   if (Array.isArray(v)) return v as string[];
                   return v ? String(v).split(",").map((t) => t.trim()).filter(Boolean) : [];
                 })()}

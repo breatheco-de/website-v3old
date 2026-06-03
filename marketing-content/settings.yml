@@ -38,15 +38,14 @@ tracking:
   conversion_events:
     - name: student_application
       description: Form submission
+      tags:
+        - website-lead
       consent:
         marketing: false
         sms: false
         whatsapp: false
         sms_usa_only: false
         show_terms: false
-      webhook:
-        url: https://breathecode.herokuapp.com/v2/marketing/lead
-        method: POST
     - name: request_more_info
       description: Form submission
     - name: financing_guide_download
