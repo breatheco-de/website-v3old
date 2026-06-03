@@ -94,6 +94,13 @@ export function resolveFormDefaults(
     }
   }
 
+  if (conversionEvent.webhook?.url) {
+    const existingUrl = get(result, `${formSettingsPath}.webhook.url`);
+    if (!existingUrl) {
+      result = set(result, `${formSettingsPath}.webhook`, conversionEvent.webhook);
+    }
+  }
+
   if (conversionEvent.consent) {
     const consentDefaults = conversionEvent.consent;
     const consentFields: Array<keyof ConsentDefaults> = [

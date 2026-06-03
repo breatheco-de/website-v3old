@@ -6701,7 +6701,12 @@ export function SectionEditorPanel({
                 onEditingChange={setWebhookEditing}
                 onChange={(field, value) => {
                   if (field === "url") {
-                    updateProperty(`${formSettingsPath}.webhook.url`, value);
+                    if (!value) {
+                      // Clear the entire webhook block to avoid orphaned keys (method, auth_header)
+                      updatePropertyWithValue(`${formSettingsPath}.webhook`, undefined);
+                    } else {
+                      updateProperty(`${formSettingsPath}.webhook.url`, value);
+                    }
                   } else if (field === "method") {
                     updateProperty(`${formSettingsPath}.webhook.method`, value);
                   } else if (field === "authHeader") {
