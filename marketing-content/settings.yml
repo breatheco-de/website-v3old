@@ -48,6 +48,8 @@ tracking:
         show_terms: false
     - name: request_more_info
       description: Form submission
+      tags:
+        - request_more_info
       consent:
         marketing: false
         sms: false
