@@ -1,0 +1,995 @@
+import { useState, Fragment } from "react";
+import {
+  IconArrowLeft,
+  IconBraces,
+  IconChevronDown,
+  IconChevronRight,
+  IconLoader2,
+  IconPencil,
+  IconPlus,
+  IconTargetArrow,
+  IconTrash,
+} from "@tabler/icons-react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { Link } from "wouter";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import JsonViewer from "@/components/editing/JsonViewer";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest, apiFetch, queryClient } from "@/lib/queryClient";
+import type { TrackingSettingsResponse } from "@/lib/tracking";
+
+const SAMPLE_USER_ID = "a1b2c3d4-e5f6-7890-abcd-ef1234567890";
+
+interface UsageEntry {
+  file: string;
+  content_type: string;
+  slug: string;
+  locale: string;
+  section_id: string;
+  section_type: string;
+}
+
+interface TrackingEvent {
+  name: string;
+  trigger: string;
+  payload: Record<string, unknown>;
+}
+
+function UsageRows({ eventName }: { eventName: string }) {
+  const { data, isFetching } = useQuery<{ name: string; usages: UsageEntry[] }>({
+    queryKey: ["/api/settings/tracking/conversion-events", eventName, "usage"],
+    queryFn: async () => {
+      const res = await apiFetch(
+        `/api/settings/tracking/conversion-events/${encodeURIComponent(eventName)}/usage`
+      );
+      if (!res.ok) throw new Error("Failed to load usage");
+      return res.json();
+    },
+  });
+
+  if (isFetching) {
+    return (
+      <div className="flex items-center gap-2 py-2 px-3 text-xs text-muted-foreground">
+        <IconLoader2 className="h-3.5 w-3.5 animate-spin" />
+        Loading usage…
+      </div>
+    );
+  }
+
+  if (!data || data.usages.length === 0) {
+    return (
+      <p className="py-2 px-3 text-xs text-muted-foreground">
+        No forms are currently using this event.
+      </p>
+    );
+  }
+
+  return (
+    <ul className="divide-y">
+      {data.usages.map((u, i) => (
+        <li key={i} className="flex items-center gap-1.5 flex-wrap py-1.5 px-3 text-xs">
+          <span className="font-mono bg-muted px-1.5 py-0.5 rounded">
+            {u.content_type}/{u.slug}
+          </span>
+          <span className="text-muted-foreground">({u.locale})</span>
+          {u.section_type && (
+            <span className="text-muted-foreground">· {u.section_type}</span>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export default function ConversionsPage() {
+  const { toast } = useToast();
+
+  const [expandedEvents, setExpandedEvents] = useState<Set<string>>(new Set());
+  const [selectedEvent, setSelectedEvent] = useState<TrackingEvent | null>(null);
+  const [addEventOpen, setAddEventOpen] = useState(false);
+  const [newEventName, setNewEventName] = useState("");
+  const [newEventDesc, setNewEventDesc] = useState("");
+  const [deleteConfirmEvent, setDeleteConfirmEvent] = useState<string | null>(null);
+  const [renameEvent, setRenameEvent] = useState<string | null>(null);
+  const [renameValue, setRenameValue] = useState("");
+  const [mergeTarget, setMergeTarget] = useState("");
+  const [usageModalEvent, setUsageModalEvent] = useState<string | null>(null);
+  const [checkedRows, setCheckedRows] = useState<Set<number>>(new Set());
+  const [reassignOpen, setReassignOpen] = useState(false);
+  const [reassignTarget, setReassignTarget] = useState("");
+
+  const { data: trackingSettings } = useQuery<TrackingSettingsResponse>({
+    queryKey: ["/api/settings/tracking"],
+  });
+  const conversionEventEntries = trackingSettings?.conversion_events ?? [];
+
+  const { data: conversionCounts } = useQuery<Record<string, number>>({
+    queryKey: ["/api/form-state/conversion-counts"],
+  });
+
+  const { data: usageModalData, isFetching: usageModalFetching } = useQuery<{
+    name: string;
+    usages: UsageEntry[];
+  }>({
+    queryKey: ["/api/settings/tracking/conversion-events", usageModalEvent, "usage"],
+    queryFn: async () => {
+      const res = await apiFetch(
+        `/api/settings/tracking/conversion-events/${encodeURIComponent(usageModalEvent!)}/usage`
+      );
+      if (!res.ok) throw new Error("Failed to load usage");
+      return res.json();
+    },
+    enabled: !!usageModalEvent,
+  });
+
+  const { data: usageData, isFetching: usageFetching } = useQuery<{
+    name: string;
+    usages: UsageEntry[];
+  }>({
+    queryKey: ["/api/settings/tracking/conversion-events", deleteConfirmEvent, "usage"],
+    queryFn: async () => {
+      const res = await apiFetch(
+        `/api/settings/tracking/conversion-events/${encodeURIComponent(deleteConfirmEvent!)}/usage`
+      );
+      if (!res.ok) throw new Error("Failed to load usage");
+      return res.json();
+    },
+    enabled: !!deleteConfirmEvent,
+  });
+
+  const deleteEventMutation = useMutation({
+    mutationFn: async (name: string) => {
+      const res = await apiRequest(
+        "DELETE",
+        `/api/settings/tracking/conversion-events/${encodeURIComponent(name)}`
+      );
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error((err as any).error || "Failed to delete");
+      }
+      return res.json();
+    },
+    onSuccess: (_data, name) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/settings/tracking"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/form-state/conversion-counts"] });
+      setDeleteConfirmEvent(null);
+      toast({ title: "Event deleted", description: `"${name}" removed from conversion events.` });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Failed to delete event", description: err.message, variant: "destructive" });
+    },
+  });
+
+  const addEventMutation = useMutation({
+    mutationFn: async ({ name, description }: { name: string; description: string }) => {
+      const updated = [
+        ...conversionEventEntries,
+        { name: name.trim(), description: description.trim() || "Form submission" },
+      ];
+      const res = await apiRequest("PUT", "/api/settings/tracking", { conversion_events: updated });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error((err as any).error || "Failed to save");
+      }
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/settings/tracking"] });
+      setAddEventOpen(false);
+      setNewEventName("");
+      setNewEventDesc("");
+      toast({ title: "Event added", description: `"${newEventName.trim()}" added to conversion events.` });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Failed to add event", description: err.message, variant: "destructive" });
+    },
+  });
+
+  const renameMutation = useMutation({
+    mutationFn: async ({ oldName, newName }: { oldName: string; newName: string }) => {
+      const res = await apiRequest(
+        "PATCH",
+        `/api/settings/tracking/conversion-events/${encodeURIComponent(oldName)}`,
+        { newName }
+      );
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error((err as any).error || "Failed to rename");
+      }
+      return res.json();
+    },
+    onSuccess: (_data, { oldName, newName }) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/settings/tracking"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/form-state/conversion-counts"] });
+      setRenameEvent(null);
+      setRenameValue("");
+      toast({ title: "Event renamed", description: `"${oldName}" renamed to "${newName}".` });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Failed to rename event", description: err.message, variant: "destructive" });
+    },
+  });
+
+  const reassignMutation = useMutation({
+    mutationFn: async ({
+      name,
+      entries,
+      newName,
+    }: {
+      name: string;
+      entries: Array<{ file: string; section_id: string }>;
+      newName: string;
+    }) => {
+      const res = await apiRequest(
+        "POST",
+        `/api/settings/tracking/conversion-events/${encodeURIComponent(name)}/reassign`,
+        { newName, entries }
+      );
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error((err as any).error || "Failed to reassign");
+      }
+      return res.json();
+    },
+    onSuccess: (_data, { newName, entries }) => {
+      queryClient.invalidateQueries({
+        queryKey: ["/api/settings/tracking/conversion-events", usageModalEvent, "usage"],
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/form-state/conversion-counts"] });
+      setCheckedRows(new Set());
+      setReassignOpen(false);
+      setReassignTarget("");
+      toast({
+        title: "Reassigned",
+        description: `${entries.length} ${entries.length === 1 ? "entry" : "entries"} moved to "${newName}".`,
+      });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Reassign failed", description: err.message, variant: "destructive" });
+    },
+  });
+
+  const mergeMutation = useMutation({
+    mutationFn: async ({ name, mergeInto }: { name: string; mergeInto: string }) => {
+      const res = await apiRequest(
+        "POST",
+        `/api/settings/tracking/conversion-events/${encodeURIComponent(name)}/merge`,
+        { mergeInto }
+      );
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error((err as any).error || "Failed to merge");
+      }
+      return res.json();
+    },
+    onSuccess: (_data, { name, mergeInto }) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/settings/tracking"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/form-state/conversion-counts"] });
+      setDeleteConfirmEvent(null);
+      setMergeTarget("");
+      toast({ title: "Event merged", description: `"${name}" merged into "${mergeInto}" and removed.` });
+    },
+    onError: (err: Error) => {
+      toast({ title: "Failed to merge event", description: err.message, variant: "destructive" });
+    },
+  });
+
+  function toggleExpand(name: string) {
+    setExpandedEvents((prev) => {
+      const next = new Set(prev);
+      if (next.has(name)) {
+        next.delete(name);
+      } else {
+        next.add(name);
+      }
+      return next;
+    });
+  }
+
+  const conversionEvents: TrackingEvent[] = conversionEventEntries.map((entry) => ({
+    name: entry.name,
+    trigger: entry.description ?? "Form submission",
+    payload: {
+      event: entry.name,
+      user_id: SAMPLE_USER_ID,
+      email_hash: "3f2a1b4c8d9e0f12",
+      program: "ai-engineering",
+      location: "miami-usa",
+      formentry_id: 12345,
+      attribution_id: "attr_abc123",
+      referral_key: "ref_xyz789",
+    },
+  }));
+
+  return (
+    <div className="min-h-screen bg-background">
+      <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
+        <div className="flex items-center gap-3">
+          <Link href="/private/store/plans">
+            <Button variant="ghost" size="icon" data-testid="button-back-conversions">
+              <IconArrowLeft className="h-4 w-4" />
+            </Button>
+          </Link>
+          <div className="flex items-center gap-2">
+            <IconTargetArrow className="h-6 w-6 text-muted-foreground" />
+            <div>
+              <h1 className="text-xl font-semibold" data-testid="text-conversions-title">
+                Conversions
+              </h1>
+              <p className="text-sm text-muted-foreground">Manage conversion event definitions</p>
+            </div>
+          </div>
+        </div>
+
+        <Card>
+          <CardHeader className="pb-3">
+            <div className="flex items-start justify-between gap-3 flex-wrap">
+              <div>
+                <CardTitle className="text-base">Conversion Events</CardTitle>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Fired via <code className="font-mono text-xs">trackConversion</code> when a user
+                  completes a key action. Configured in{" "}
+                  <code className="font-mono text-xs">settings.yml</code> under{" "}
+                  <code className="font-mono text-xs">tracking.conversion_events</code>.
+                </p>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setAddEventOpen(true)}
+                data-testid="button-add-conversion-event"
+                className="shrink-0"
+              >
+                <IconPlus className="h-3.5 w-3.5" />
+                Add event
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent className="pt-0">
+            {conversionEventEntries.length === 0 ? (
+              <p className="text-sm text-muted-foreground py-4 text-center">
+                No conversion events configured yet.
+              </p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table
+                  className="w-full text-sm"
+                  data-testid="table-conversion-events"
+                >
+                  <thead>
+                    <tr className="border-b">
+                      <th className="text-left py-2 pr-4 text-xs font-medium text-muted-foreground w-2/5">
+                        Event / Description
+                      </th>
+                      <th className="text-left py-2 pr-4 text-xs font-medium text-muted-foreground">
+                        Trigger
+                      </th>
+                      <th className="py-2 text-xs font-medium text-muted-foreground text-right">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {conversionEvents.map((ev) => {
+                      const isExpanded = expandedEvents.has(ev.name);
+                      const count = conversionCounts?.[ev.name];
+                      return (
+                        <Fragment key={ev.name}>
+                          <tr className="border-b last:border-0">
+                            <td className="py-2 pr-4 align-middle">
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <button
+                                  type="button"
+                                  onClick={() => toggleExpand(ev.name)}
+                                  className="flex items-center gap-1 text-muted-foreground hover-elevate rounded"
+                                  data-testid={`button-expand-event-${ev.name}`}
+                                  aria-label={isExpanded ? "Collapse usage" : "Expand usage"}
+                                >
+                                  {isExpanded ? (
+                                    <IconChevronDown className="h-3.5 w-3.5" />
+                                  ) : (
+                                    <IconChevronRight className="h-3.5 w-3.5" />
+                                  )}
+                                </button>
+                                <Badge variant="secondary" className="font-mono text-xs">
+                                  {ev.name}
+                                </Badge>
+                                {count !== undefined && (
+                                  <Badge
+                                    variant="outline"
+                                    className="text-xs tabular-nums text-muted-foreground cursor-pointer"
+                                    data-testid={`badge-form-count-${ev.name}`}
+                                    onClick={() => {
+                                      setUsageModalEvent(ev.name);
+                                      setCheckedRows(new Set());
+                                    }}
+                                  >
+                                    {count} {count === 1 ? "form" : "forms"}
+                                  </Badge>
+                                )}
+                              </div>
+                            </td>
+                            <td className="py-2 pr-4 align-middle text-muted-foreground text-xs">
+                              {ev.trigger}
+                            </td>
+                            <td className="py-2 align-middle text-right">
+                              <div className="flex items-center justify-end gap-1">
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      variant="ghost"
+                                      size="icon"
+                                      onClick={() => setSelectedEvent(ev)}
+                                      data-testid={`button-show-payload-${ev.name}`}
+                                    >
+                                      <IconBraces className="h-3.5 w-3.5" />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent>Show payload</TooltipContent>
+                                </Tooltip>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      variant="ghost"
+                                      size="icon"
+                                      onClick={() => {
+                                        setRenameEvent(ev.name);
+                                        setRenameValue(ev.name);
+                                      }}
+                                      data-testid={`button-rename-event-${ev.name}`}
+                                    >
+                                      <IconPencil className="h-3.5 w-3.5" />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent>Rename event</TooltipContent>
+                                </Tooltip>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      variant="ghost"
+                                      size="icon"
+                                      onClick={() => {
+                                        setDeleteConfirmEvent(ev.name);
+                                        setMergeTarget("");
+                                      }}
+                                      data-testid={`button-delete-event-${ev.name}`}
+                                    >
+                                      <IconTrash className="h-3.5 w-3.5" />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent>Delete event</TooltipContent>
+                                </Tooltip>
+                              </div>
+                            </td>
+                          </tr>
+                          {isExpanded && (
+                            <tr key={`${ev.name}-usage`} className="border-b last:border-0 bg-muted/30">
+                              <td colSpan={3} className="py-1">
+                                <UsageRows eventName={ev.name} />
+                              </td>
+                            </tr>
+                          )}
+                        </Fragment>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+
+      <Dialog
+        open={!!usageModalEvent}
+        onOpenChange={(open) => {
+          if (!open) {
+            setUsageModalEvent(null);
+            setCheckedRows(new Set());
+          }
+        }}
+      >
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              Forms using
+              <code className="font-mono text-sm font-semibold bg-muted px-1.5 py-0.5 rounded">
+                {usageModalEvent}
+              </code>
+            </DialogTitle>
+            <DialogDescription>
+              Check entries to reassign them to a different conversion event.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-1">
+            {usageModalFetching ? (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <IconLoader2 className="h-4 w-4 animate-spin" />
+                Loading…
+              </div>
+            ) : usageModalData && usageModalData.usages.length > 0 ? (
+              <>
+                <div className="flex items-center justify-between mb-2 px-0.5">
+                  <label className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer select-none">
+                    <Checkbox
+                      checked={checkedRows.size === usageModalData.usages.length}
+                      onCheckedChange={(checked) => {
+                        if (checked) {
+                          setCheckedRows(new Set(usageModalData.usages.map((_, i) => i)));
+                        } else {
+                          setCheckedRows(new Set());
+                        }
+                      }}
+                      data-testid="checkbox-select-all-usages"
+                    />
+                    {checkedRows.size > 0 ? `${checkedRows.size} selected` : "Select all"}
+                  </label>
+                  {checkedRows.size > 0 && (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        setReassignTarget("");
+                        setReassignOpen(true);
+                      }}
+                      data-testid="button-reassign-selected"
+                    >
+                      <IconPencil className="h-3.5 w-3.5" />
+                      Reassign
+                    </Button>
+                  )}
+                </div>
+                <ul className="space-y-0.5 max-h-64 overflow-y-auto">
+                  {usageModalData.usages.map((u, i) => (
+                    <li
+                      key={i}
+                      className={`flex items-center gap-2 py-1.5 px-1 rounded-md cursor-pointer border ${
+                        checkedRows.has(i)
+                          ? "border-primary/30 bg-primary/5"
+                          : "border-transparent hover:bg-muted/50"
+                      }`}
+                      onClick={() => {
+                        setCheckedRows((prev) => {
+                          const next = new Set(prev);
+                          if (next.has(i)) next.delete(i);
+                          else next.add(i);
+                          return next;
+                        });
+                      }}
+                      data-testid={`usage-row-${i}`}
+                    >
+                      <Checkbox
+                        checked={checkedRows.has(i)}
+                        onCheckedChange={() => {
+                          setCheckedRows((prev) => {
+                            const next = new Set(prev);
+                            if (next.has(i)) next.delete(i);
+                            else next.add(i);
+                            return next;
+                          });
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                        data-testid={`checkbox-usage-${i}`}
+                      />
+                      <div className="flex items-center gap-1.5 flex-wrap min-w-0">
+                        <span className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded">
+                          {u.content_type}/{u.slug}
+                        </span>
+                        <span className="text-muted-foreground text-xs">({u.locale})</span>
+                        {u.section_type && (
+                          <span className="text-muted-foreground text-xs">· {u.section_type}</span>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                No forms are currently using this event.
+              </p>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={reassignOpen}
+        onOpenChange={(open) => {
+          if (!open) {
+            setReassignOpen(false);
+            setReassignTarget("");
+          }
+        }}
+      >
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>
+              Reassign {checkedRows.size} {checkedRows.size === 1 ? "entry" : "entries"}
+            </DialogTitle>
+            <DialogDescription>
+              Move the selected {checkedRows.size === 1 ? "entry" : "entries"} from{" "}
+              <code className="font-mono text-xs">{usageModalEvent}</code> to a different
+              conversion event.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-1.5 py-1">
+            <Label htmlFor="reassign-target-select">Target event</Label>
+            <Select value={reassignTarget} onValueChange={setReassignTarget}>
+              <SelectTrigger id="reassign-target-select" data-testid="select-reassign-target">
+                <SelectValue placeholder="Select target event…" />
+              </SelectTrigger>
+              <SelectContent>
+                {conversionEventEntries
+                  .filter((e) => e.name !== usageModalEvent)
+                  .map((e) => (
+                    <SelectItem key={e.name} value={e.name}>
+                      <span className="font-mono text-xs">{e.name}</span>
+                    </SelectItem>
+                  ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setReassignOpen(false);
+                setReassignTarget("");
+              }}
+              data-testid="button-cancel-reassign"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                if (!usageModalEvent || !reassignTarget || !usageModalData) return;
+                const selectedEntries = Array.from(checkedRows).map((i) => ({
+                  file: usageModalData.usages[i].file,
+                  section_id: usageModalData.usages[i].section_id,
+                }));
+                reassignMutation.mutate({
+                  name: usageModalEvent,
+                  entries: selectedEntries,
+                  newName: reassignTarget,
+                });
+              }}
+              disabled={!reassignTarget || reassignMutation.isPending}
+              data-testid="button-confirm-reassign"
+            >
+              {reassignMutation.isPending ? (
+                <IconLoader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <IconPencil className="h-4 w-4" />
+              )}
+              Reassign
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={!!selectedEvent}
+        onOpenChange={(open) => {
+          if (!open) setSelectedEvent(null);
+        }}
+      >
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="font-mono text-sm font-semibold">
+              {selectedEvent?.name}
+            </DialogTitle>
+            <DialogDescription className="text-sm text-muted-foreground">
+              Every time <code className="font-mono text-xs">{selectedEvent?.name}</code> happens,
+              the following payload gets sent to Google Tag Manager.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="overflow-hidden rounded-md" data-testid="text-payload-json">
+            <JsonViewer
+              value={selectedEvent ? JSON.stringify(selectedEvent.payload, null, 2) : ""}
+              className="[&_.cm-editor]:!max-w-full [&_.cm-scroller]:!overflow-x-auto"
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={!!deleteConfirmEvent}
+        onOpenChange={(open) => {
+          if (!open) setDeleteConfirmEvent(null);
+        }}
+      >
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Delete conversion event</DialogTitle>
+            <DialogDescription>
+              This will remove{" "}
+              <code className="font-mono text-xs">{deleteConfirmEvent}</code> from{" "}
+              <code className="font-mono text-xs">settings.yml</code>. This cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-2">
+            {usageFetching ? (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <IconLoader2 className="h-4 w-4 animate-spin" />
+                Checking usage…
+              </div>
+            ) : usageData && usageData.usages.length > 0 ? (
+              <div className="space-y-3">
+                <p className="text-sm text-muted-foreground">
+                  This event is referenced in the following pages:
+                </p>
+                <ul className="space-y-1">
+                  {usageData.usages.map((u, i) => (
+                    <li key={i} className="text-sm flex items-start gap-1.5 flex-wrap">
+                      <span className="font-medium">
+                        {u.content_type}/{u.slug}
+                      </span>
+                      <span className="text-muted-foreground">({u.locale})</span>
+                      {u.section_type && (
+                        <span className="text-muted-foreground text-xs">· {u.section_type}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+                <div className="space-y-1.5 pt-1">
+                  <p className="text-sm font-medium">
+                    Merge all references into another event before deleting:
+                  </p>
+                  <Select value={mergeTarget} onValueChange={setMergeTarget}>
+                    <SelectTrigger data-testid="select-merge-target">
+                      <SelectValue placeholder="Select target event…" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {conversionEventEntries
+                        .filter((e) => e.name !== deleteConfirmEvent)
+                        .map((e) => (
+                          <SelectItem key={e.name} value={e.name}>
+                            <span className="font-mono text-xs">{e.name}</span>
+                          </SelectItem>
+                        ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                No pages are using this event — safe to delete.
+              </p>
+            )}
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setDeleteConfirmEvent(null);
+                setMergeTarget("");
+              }}
+              data-testid="button-cancel-delete-event"
+            >
+              Cancel
+            </Button>
+            {usageData && usageData.usages.length > 0 ? (
+              <Button
+                variant="destructive"
+                onClick={() =>
+                  deleteConfirmEvent &&
+                  mergeMutation.mutate({ name: deleteConfirmEvent, mergeInto: mergeTarget })
+                }
+                disabled={!mergeTarget || mergeMutation.isPending}
+                data-testid="button-confirm-merge-event"
+              >
+                {mergeMutation.isPending ? (
+                  <IconLoader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <IconTrash className="h-4 w-4" />
+                )}
+                Merge &amp; delete
+              </Button>
+            ) : (
+              <Button
+                variant="destructive"
+                onClick={() =>
+                  deleteConfirmEvent && deleteEventMutation.mutate(deleteConfirmEvent)
+                }
+                disabled={deleteEventMutation.isPending || usageFetching}
+                data-testid="button-confirm-delete-event"
+              >
+                {deleteEventMutation.isPending ? (
+                  <IconLoader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <IconTrash className="h-4 w-4" />
+                )}
+                Delete
+              </Button>
+            )}
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={!!renameEvent}
+        onOpenChange={(open) => {
+          if (!open) {
+            setRenameEvent(null);
+            setRenameValue("");
+          }
+        }}
+      >
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Rename conversion event</DialogTitle>
+            <DialogDescription>
+              Enter a new name for{" "}
+              <code className="font-mono text-xs">{renameEvent}</code>. All references in YAML
+              content files will be updated automatically.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-1.5 py-1">
+            <Label htmlFor="rename-event-input">New event name</Label>
+            <Input
+              id="rename-event-input"
+              placeholder="e.g. scholarship_application"
+              value={renameValue}
+              onChange={(e) => setRenameValue(e.target.value)}
+              onKeyDown={(e) => {
+                if (
+                  e.key === "Enter" &&
+                  renameEvent &&
+                  renameValue.trim() &&
+                  renameValue.trim() !== renameEvent
+                ) {
+                  renameMutation.mutate({ oldName: renameEvent, newName: renameValue.trim() });
+                }
+              }}
+              data-testid="input-rename-event"
+              className="font-mono text-sm"
+            />
+            <p className="text-xs text-muted-foreground">
+              Use snake_case. This becomes the GTM event name.
+            </p>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setRenameEvent(null);
+                setRenameValue("");
+              }}
+              data-testid="button-cancel-rename-event"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={() =>
+                renameEvent &&
+                renameMutation.mutate({ oldName: renameEvent, newName: renameValue.trim() })
+              }
+              disabled={
+                !renameValue.trim() ||
+                renameValue.trim() === renameEvent ||
+                renameMutation.isPending
+              }
+              data-testid="button-confirm-rename-event"
+            >
+              {renameMutation.isPending ? (
+                <IconLoader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <IconPencil className="h-4 w-4" />
+              )}
+              Rename
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={addEventOpen}
+        onOpenChange={(open) => {
+          if (!open) {
+            setAddEventOpen(false);
+            setNewEventName("");
+            setNewEventDesc("");
+          }
+        }}
+      >
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Add conversion event</DialogTitle>
+            <DialogDescription>
+              The event name becomes the GTM trigger key. Description is shown in this table for
+              reference.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-1">
+            <div className="space-y-1.5">
+              <Label htmlFor="new-event-name">Event name</Label>
+              <Input
+                id="new-event-name"
+                placeholder="e.g. scholarship_application"
+                value={newEventName}
+                onChange={(e) => setNewEventName(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && newEventName.trim()) {
+                    addEventMutation.mutate({ name: newEventName, description: newEventDesc });
+                  }
+                }}
+                data-testid="input-new-event-name"
+                className="font-mono text-sm"
+              />
+              <p className="text-xs text-muted-foreground">
+                Use snake_case. This becomes the GTM event name.
+              </p>
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="new-event-desc">
+                Description{" "}
+                <span className="text-muted-foreground font-normal">(optional)</span>
+              </Label>
+              <Input
+                id="new-event-desc"
+                placeholder="e.g. Scholarship form submitted"
+                value={newEventDesc}
+                onChange={(e) => setNewEventDesc(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && newEventName.trim()) {
+                    addEventMutation.mutate({ name: newEventName, description: newEventDesc });
+                  }
+                }}
+                data-testid="input-new-event-desc"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setAddEventOpen(false);
+                setNewEventName("");
+                setNewEventDesc("");
+              }}
+              data-testid="button-cancel-add-event"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={() =>
+                addEventMutation.mutate({ name: newEventName, description: newEventDesc })
+              }
+              disabled={!newEventName.trim() || addEventMutation.isPending}
+              data-testid="button-confirm-add-event"
+            >
+              {addEventMutation.isPending ? (
+                <IconLoader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <IconPlus className="h-4 w-4" />
+              )}
+              Add event
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}

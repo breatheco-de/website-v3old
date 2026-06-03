@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { AlertTriangle, ArrowLeft, ArrowRight, BarChart2, Blocks, Book, Brain, Check, ChevronRight, CloudDownload, Cookie, Database, Github, GitBranch, Image, Languages, Map, MapPin, Menu, MessageCircle, Monitor, Moon, Palette, Pencil, Plus, RefreshCw, Route, Settings, Smartphone, Stethoscope, Sun, X } from "lucide-react";
-import { IconLogout, IconServer, IconShoppingBag } from "@tabler/icons-react";
+import { IconLogout, IconServer, IconShoppingBag, IconTargetArrow } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -651,7 +651,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
 
             <ExpandableMenuItem
               icon={IconShoppingBag}
-              label="Store"
+              label="Store & Monetization"
               expanded={storeExpanded}
               onToggle={() => {
                 const opening = !storeExpanded;
@@ -678,6 +678,13 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                 href="/private/store/plans"
                 indicator="arrow"
                 testId="link-store-plans"
+              />
+              <MenuItem
+                icon={IconTargetArrow}
+                label="Conversions"
+                href="/private/store/conversions"
+                indicator="arrow"
+                testId="link-store-conversions"
               />
             </ExpandableMenuItem>
 
