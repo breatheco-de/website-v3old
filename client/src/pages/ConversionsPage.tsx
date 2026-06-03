@@ -46,6 +46,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import JsonViewer from "@/components/editing/JsonViewer";
 import { AutomationsTagsCard } from "@/components/editing/AutomationsTagsCard";
@@ -864,24 +865,90 @@ export default function ConversionsPage() {
                                 {(hasWebhook || hasTags || hasAutomation || hasConsent) && (
                                   <div className="flex flex-wrap gap-1">
                                     {hasWebhook && (
-                                      <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground">
-                                        webhook
-                                      </Badge>
+                                      <Popover>
+                                        <PopoverTrigger asChild>
+                                          <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground cursor-pointer">
+                                            webhook
+                                          </Badge>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="w-64 p-3 space-y-1.5" align="start">
+                                          <p className="text-xs font-medium">Per-event webhook</p>
+                                          <div className="space-y-1">
+                                            <div className="flex items-start gap-2">
+                                              <span className="text-[10px] text-muted-foreground uppercase tracking-wide w-12 shrink-0 pt-0.5">URL</span>
+                                              <code className="text-[10px] font-mono break-all leading-4">{entry?.webhook?.url}</code>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                              <span className="text-[10px] text-muted-foreground uppercase tracking-wide w-12 shrink-0">Method</span>
+                                              <code className="text-[10px] font-mono">{entry?.webhook?.method ?? "POST"}</code>
+                                            </div>
+                                            {entry?.webhook?.auth_header && (
+                                              <div className="flex items-center gap-2">
+                                                <span className="text-[10px] text-muted-foreground uppercase tracking-wide w-12 shrink-0">Auth</span>
+                                                <code className="text-[10px] font-mono">{"•".repeat(Math.min(entry.webhook.auth_header.length, 12))}</code>
+                                              </div>
+                                            )}
+                                          </div>
+                                        </PopoverContent>
+                                      </Popover>
                                     )}
                                     {hasAutomation && (
-                                      <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground">
-                                        automation
-                                      </Badge>
+                                      <Popover>
+                                        <PopoverTrigger asChild>
+                                          <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground cursor-pointer">
+                                            automation
+                                          </Badge>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="w-56 p-3 space-y-1" align="start">
+                                          <p className="text-xs font-medium">Default automation</p>
+                                          <code className="text-[11px] font-mono text-foreground">{entry?.automations}</code>
+                                        </PopoverContent>
+                                      </Popover>
                                     )}
                                     {hasTags && (
-                                      <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground">
-                                        tags
-                                      </Badge>
+                                      <Popover>
+                                        <PopoverTrigger asChild>
+                                          <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground cursor-pointer">
+                                            tags
+                                          </Badge>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="w-56 p-3 space-y-2" align="start">
+                                          <p className="text-xs font-medium">Default tags</p>
+                                          <div className="flex flex-wrap gap-1">
+                                            {entry?.tags?.map((t) => (
+                                              <Badge key={t} variant="secondary" className="text-[10px] px-1.5 py-0 leading-4 font-mono font-normal">
+                                                {t}
+                                              </Badge>
+                                            ))}
+                                          </div>
+                                        </PopoverContent>
+                                      </Popover>
                                     )}
                                     {hasConsent && (
-                                      <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground">
-                                        consent
-                                      </Badge>
+                                      <Popover>
+                                        <PopoverTrigger asChild>
+                                          <Badge variant="outline" className="text-[10px] px-1 py-0 leading-4 font-normal text-muted-foreground cursor-pointer">
+                                            consent
+                                          </Badge>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="w-64 p-3 space-y-2" align="start">
+                                          <p className="text-xs font-medium">Default consent</p>
+                                          <div className="space-y-0.5 text-[11px]">
+                                            {entry?.consent?.marketing && <div className="text-muted-foreground">Marketing consent enabled</div>}
+                                            {entry?.consent?.sms && <div className="text-muted-foreground">SMS consent enabled{entry.consent.sms_usa_only ? " (US only)" : ""}</div>}
+                                            {entry?.consent?.whatsapp && <div className="text-muted-foreground">WhatsApp consent enabled</div>}
+                                            {entry?.consent?.show_terms && <div className="text-muted-foreground">Terms &amp; privacy shown</div>}
+                                            {entry?.consent?.marketing_text && (
+                                              <div className="text-muted-foreground pt-0.5 border-t mt-1">
+                                                <span className="font-medium text-foreground">Marketing text: </span>
+                                                {entry.consent.marketing_text.length > 60
+                                                  ? entry.consent.marketing_text.slice(0, 60) + "…"
+                                                  : entry.consent.marketing_text}
+                                              </div>
+                                            )}
+                                          </div>
+                                        </PopoverContent>
+                                      </Popover>
                                     )}
                                   </div>
                                 )}

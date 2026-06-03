@@ -585,7 +585,6 @@ sections:
     form:
       variant: stacked
       submit_label: Get the details
-      tags: request_more_info
       fields:
         email:
           visible: true
