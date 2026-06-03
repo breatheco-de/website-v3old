@@ -33,6 +33,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { PhoneInput } from "@/components/ui/phone-input";
 import type { Country } from "react-phone-number-input";
 import { trackFormSubmission, resolveWebhook, hashEmail, type ConversionName, type TrackingSettingsResponse } from "@/lib/tracking";
+import { resolveFormDefaults } from "@shared/resolveFormDefaults";
 
 interface FieldConfig {
   visible?: boolean;
@@ -325,39 +326,39 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
   const variant = data.variant || "stacked";
   const fields = data.fields || {};
 
-  // Merge conversion event defaults with form-level settings (form-level values always win)
+  // Apply per-event defaults via resolveFormDefaults (form-level YAML values always win)
   const eventEntry = data.conversion_name
     ? trackingSettings?.conversion_events?.find((e) => e.name === data.conversion_name)
     : undefined;
-  const eventConsent = eventEntry?.consent;
-  const consent: NonNullable<LeadFormData["consent"]> = {
-    // Event-level defaults fill gaps (applied first so form-level overrides below)
-    ...(eventConsent?.marketing !== undefined && { marketing: eventConsent.marketing }),
-    ...(eventConsent?.sms !== undefined && { sms: eventConsent.sms }),
-    ...(eventConsent?.whatsapp !== undefined && { whatsapp: eventConsent.whatsapp }),
-    ...(eventConsent?.sms_usa_only !== undefined && { sms_usa_only: eventConsent.sms_usa_only }),
-    ...(eventConsent?.marketing_text && { marketing_text: eventConsent.marketing_text }),
-    ...(eventConsent?.sms_text && { sms_text: eventConsent.sms_text }),
-    // Form-level YAML settings override (always win)
-    ...data.consent,
-  };
-  const showTerms = data.show_terms !== undefined
-    ? data.show_terms
-    : (eventEntry?.consent?.show_terms ?? true);
-  const effectiveTags =
-    data.tags ||
-    (eventEntry?.tags?.length ? eventEntry.tags.join(",") : null) ||
-    "website-lead";
-  const effectiveAutomations = data.automations || eventEntry?.automations || "strong";
+
+  const resolvedData: LeadFormData = (() => {
+    if (!eventEntry) return data;
+    const wrapped = resolveFormDefaults(
+      { _f: data } as Record<string, unknown>,
+      {
+        name: eventEntry.name,
+        automations: eventEntry.automations,
+        tags: eventEntry.tags,
+        consent: eventEntry.consent,
+        webhook: eventEntry.webhook,
+      },
+      "_f"
+    );
+    return wrapped._f as LeadFormData;
+  })();
+
+  const consent: NonNullable<LeadFormData["consent"]> = resolvedData.consent ?? {};
+  const showTerms = resolvedData.show_terms ?? true;
+  const effectiveTags = (() => {
+    const t = resolvedData.tags;
+    if (Array.isArray(t) && (t as string[]).length) return (t as string[]).join(",");
+    if (typeof t === "string" && t) return t;
+    return "website-lead";
+  })();
+  const effectiveAutomations = resolvedData.automations || "strong";
   // Effective terms/privacy URLs: form YAML wins; event default fills gap; legal settings fallback
-  const effectiveTermsUrl =
-    data.terms_url ||
-    eventEntry?.consent?.terms_url ||
-    null;
-  const effectivePrivacyUrl =
-    data.privacy_url ||
-    eventEntry?.consent?.privacy_url ||
-    null;
+  const effectiveTermsUrl = resolvedData.terms_url || null;
+  const effectivePrivacyUrl = resolvedData.privacy_url || null;
 
   const hasLandingLocations = landingLocations && landingLocations.length > 0;
   const singleLandingLocation = hasLandingLocations && landingLocations.length === 1 ? landingLocations[0] : null;
