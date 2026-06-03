@@ -19,9 +19,9 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: AI Fluency Program. The New Baseline for Modern Professionals.
-    title_highlight: The New Baseline for Modern Professionals.
-    subtitle: AI skills now carry a 56% salary premium over colleagues in the same role. In 4 weeks, you will know how to build real automations, direct AI like a collaborator, and work the way the best professionals already do.
+    title: AI Fluency Program. The New Baseline for Professionals.
+    title_highlight: The New Baseline for Professionals.
+    subtitle: AI skills now carry a 56% salary premium across industries. In our 4-week intensive upskilling program, you'll learn to build AI workflows, automate tasks, and direct AI like a collaborator. No coding required.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -30,9 +30,9 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduates
     bullet_points:
-      - Build real automations for your job tasks. No coding required.
-      - Use AI agents, prompt patterns, and n8n to automate recurring tasks.
-      - Leave with working automations and the skills to keep building.
+      - AI workflows built around your job, your tasks, your tools.
+      - Automate repetitive work with agents and n8n.
+      - Master prompting. Build anything.
     tutors:
       - name: Expert Instructor
         role: Lead Instructor
@@ -43,7 +43,7 @@ sections:
     tutors_label: "Your tutors:"
     description: AI is not the future, it is the foundation. The professionals pulling ahead right now are leveraging AI's capacities with intention. This is your way in.
     signup_card:
-      title: Get the Program Overview
+      title: Get the Full Program Overview
       description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, and pricing. It takes 2 minutes."
       cta_button:
         text: Send Me the Details
@@ -61,11 +61,11 @@ sections:
           text: 1:1 Mentorship Session Included
         - icon: IconRobot
           text: AI-Powered Learning & Feedback
-    section_id: hero-aifluency
     paddingY:
       desktop: lg md
     marginY:
       desktop: none
+    section_id: hero-aifluency
   - type: modal
     version: "1.0"
     heading: Request Program Details
