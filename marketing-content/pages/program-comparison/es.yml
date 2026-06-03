@@ -21,15 +21,6 @@ sections:
     badge: Compara nuestros programas
     title: No importa qué buscas, AI es el camino
     subtitle: Learn at your own pace with AI-powered tools and unlimited mentorship
-    cta_buttons:
-      - text: Start Learning Now
-        url: /signup
-        variant: primary
-        icon: Rocket
-      - text: View Curriculum
-        url: /curriculum
-        variant: outline
-        icon: Book
     trust_bar:
       rating: 4.8/5
       rating_count: 2,500+
