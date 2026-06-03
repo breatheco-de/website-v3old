@@ -129,9 +129,10 @@ interface ConsentSectionProps {
   locale: string;
   formOptions?: FormOptions;
   sessionLocation: { slug: string; region: string; country?: string } | null;
+  consentSettings?: Record<string, string>;
 }
 
-function ConsentSection({ consent, form, locale, formOptions, sessionLocation }: ConsentSectionProps) {
+function ConsentSection({ consent, form, locale, formOptions, sessionLocation, consentSettings }: ConsentSectionProps) {
   const selectedLocationSlug = form.watch("location");
   
   const isUSALocation = (): boolean => {
@@ -162,13 +163,21 @@ function ConsentSection({ consent, form, locale, formOptions, sessionLocation }:
 
   const showSmsConsent = consent.sms && (!consent.sms_usa_only || isUSALocation());
 
-  const defaultMarketingText = locale === "es"
+  const defaultMarketingText = consentSettings?.consent_general || (locale === "es"
     ? "Acepto recibir información a través de correo electrónico, WhatsApp y/u otros canales sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes cancelar fácilmente en cualquier momento."
-    : "I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.";
+    : "I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.");
 
-  const defaultSmsText = locale === "es"
+  const defaultSmsText = consentSettings?.consent_sms || (locale === "es"
     ? "Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir hasta 4-6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes cancelar fácilmente en cualquier momento."
-    : "I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.";
+    : "I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.");
+
+  const defaultEmailText = consentSettings?.consent_email || (locale === "es"
+    ? "Acepto recibir información por correo electrónico sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes cancelar fácilmente en cualquier momento."
+    : "I agree to receive information via email about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.");
+
+  const defaultWhatsappText = consentSettings?.consent_whatsapp || (locale === "es"
+    ? "Acepto recibir información a través de WhatsApp sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes cancelar fácilmente en cualquier momento."
+    : "I agree to receive information via WhatsApp about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.");
 
   return (
     <div className="space-y-4">
@@ -223,10 +232,7 @@ function ConsentSection({ consent, form, locale, formOptions, sessionLocation }:
                 </FormControl>
                 <div className="space-y-1 leading-none">
                   <span className="text-xs text-muted-foreground cursor-pointer">
-                    {locale === "es"
-                      ? "Acepto recibir información por correo electrónico sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes cancelar fácilmente en cualquier momento."
-                      : "I agree to receive information via email about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment."
-                    }
+                    {defaultEmailText}
                   </span>
                 </div>
               </label>
@@ -276,11 +282,8 @@ function ConsentSection({ consent, form, locale, formOptions, sessionLocation }:
                 </FormControl>
                 <div className="space-y-1 leading-none">
                   <span className="text-xs text-muted-foreground cursor-pointer">
-                  {locale === "es"
-                    ? "Acepto recibir información a través de WhatsApp sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes cancelar fácilmente en cualquier momento."
-                    : "I agree to receive information via WhatsApp about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment."
-                  }
-                </span>
+                    {defaultWhatsappText}
+                  </span>
               </div>
             </label>
             </FormItem>
@@ -320,6 +323,11 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
 
   const { data: legalSettings } = useQuery<{ legal_terms_url: string; legal_privacy_url: string }>({
     queryKey: ["/api/settings/legal"],
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const { data: consentSettings } = useQuery<Record<string, string>>({
+    queryKey: ["/api/settings/consent"],
     staleTime: 5 * 60 * 1000,
   });
 
@@ -1241,6 +1249,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
               locale={locale}
               formOptions={formOptions}
               sessionLocation={sessionLocation}
+              consentSettings={consentSettings}
             />
           )}
 
