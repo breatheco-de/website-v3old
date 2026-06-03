@@ -6461,27 +6461,41 @@ export function SectionEditorPanel({
               })()}
 
               {/* Automations + Tags grouped card */}
-              <AutomationsTagsCard
-                automation={(() => {
-                  const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.automations`);
-                  return v ? String(v) : "";
-                })()}
-                tags={(() => {
-                  const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.tags`);
-                  if (Array.isArray(v)) return v as string[];
-                  return v ? String(v).split(",").map((t) => t.trim()).filter(Boolean) : [];
-                })()}
-                onAutomationChange={(val) => updateProperty(`${formSettingsPath}.automations`, val)}
-                onTagsChange={(vals) => {
-                  if (vals.length > 0) {
-                    updatePropertyWithValue(`${formSettingsPath}.tags`, vals);
-                  } else {
-                    updatePropertyWithValue(`${formSettingsPath}.tags`, undefined);
-                  }
-                }}
-                automationSuggestions={formStateSuggestions?.automations ?? []}
-                tagSuggestions={formStateSuggestions?.tags ?? []}
-              />
+              {(() => {
+                const convName = String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.conversion_name`) ?? "");
+                const convEvent = convName
+                  ? trackingSettings?.conversion_events?.find((e) => e.name === convName)
+                  : undefined;
+                const inheritedAutomation = convEvent?.automations ?? undefined;
+                const inheritedTags: string[] | undefined = convEvent?.tags
+                  ? (Array.isArray(convEvent.tags) ? convEvent.tags : [String(convEvent.tags)])
+                  : undefined;
+                return (
+                  <AutomationsTagsCard
+                    automation={(() => {
+                      const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.automations`);
+                      return v ? String(v) : "";
+                    })()}
+                    tags={(() => {
+                      const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.tags`);
+                      if (Array.isArray(v)) return v as string[];
+                      return v ? String(v).split(",").map((t) => t.trim()).filter(Boolean) : [];
+                    })()}
+                    onAutomationChange={(val) => updateProperty(`${formSettingsPath}.automations`, val)}
+                    onTagsChange={(vals) => {
+                      if (vals.length > 0) {
+                        updatePropertyWithValue(`${formSettingsPath}.tags`, vals);
+                      } else {
+                        updatePropertyWithValue(`${formSettingsPath}.tags`, undefined);
+                      }
+                    }}
+                    automationSuggestions={formStateSuggestions?.automations ?? []}
+                    tagSuggestions={formStateSuggestions?.tags ?? []}
+                    inheritedAutomation={inheritedAutomation}
+                    inheritedTags={inheritedTags}
+                  />
+                );
+              })()}
 
               {/* Consents card */}
               {sectionType === "apply_form" ? (
