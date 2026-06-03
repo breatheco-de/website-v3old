@@ -38,8 +38,6 @@ sections:
   - type: comparison_table
     section_id: comparison_table-9ssv52
     version: "2.0"
-    title: No importa qué buscas, AI es el camino
-    subtitle: "Cybersecurity, Fullstack, Data Science: el mercado los absorbió. Hoy todos esos roles se construyen sobre AI. Aquí están las tres formas de llegar, dependiendo de dónde estás parado."
     columns:
       - name: Categoría
         highlight: true
