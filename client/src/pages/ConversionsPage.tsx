@@ -1,7 +1,8 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect, useRef, Fragment } from "react";
 import {
   IconAlertTriangle,
   IconArrowLeft,
+  IconArrowRight,
   IconBraces,
   IconChevronDown,
   IconChevronRight,
@@ -109,6 +110,53 @@ interface TrackingEvent {
   payload: Record<string, unknown>;
 }
 
+function PageLinkMenu({ url, className }: { url: string; className?: string }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function onDown(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [open]);
+
+  return (
+    <div ref={ref} className={`relative shrink-0 ${className ?? ""}`}>
+      <button
+        type="button"
+        onClick={() => setOpen((p) => !p)}
+        className="text-muted-foreground hover:text-foreground transition-colors"
+        aria-label="Open page"
+      >
+        <IconExternalLink className="h-3.5 w-3.5" />
+      </button>
+      {open && (
+        <div className="absolute right-0 z-50 mt-1 w-44 rounded-md border bg-popover shadow-md overflow-hidden">
+          <button
+            type="button"
+            className="flex w-full items-center gap-2 px-3 py-2 text-xs hover-elevate"
+            onClick={() => { window.location.href = url; setOpen(false); }}
+          >
+            <IconArrowRight className="h-3.5 w-3.5 shrink-0" />
+            Open here
+          </button>
+          <button
+            type="button"
+            className="flex w-full items-center gap-2 px-3 py-2 text-xs hover-elevate"
+            onClick={() => { window.open(url, "_blank", "noopener,noreferrer"); setOpen(false); }}
+          >
+            <IconExternalLink className="h-3.5 w-3.5 shrink-0" />
+            Open in new window
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function UsageRows({ eventName }: { eventName: string }) {
   const { data, isFetching } = useQuery<{ name: string; usages: UsageEntry[] }>({
     queryKey: ["/api/settings/tracking/conversion-events", eventName, "usage"],
@@ -150,16 +198,7 @@ function UsageRows({ eventName }: { eventName: string }) {
             <span className="text-muted-foreground">· {u.section_type}</span>
           )}
           {u.page_url && (
-            <a
-              href={u.page_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-auto text-muted-foreground hover:text-foreground transition-colors"
-              data-testid={`link-open-usage-${i}`}
-              aria-label="Open page in new tab"
-            >
-              <IconExternalLink className="h-3.5 w-3.5" />
-            </a>
+            <PageLinkMenu url={u.page_url} className="ml-auto" />
           )}
         </li>
       ))}
@@ -1104,17 +1143,7 @@ export default function ConversionsPage() {
                         )}
                       </div>
                       {u.page_url && (
-                        <a
-                          href={u.page_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="shrink-0 text-muted-foreground hover:text-foreground transition-colors"
-                          data-testid={`link-open-modal-usage-${i}`}
-                          aria-label="Open page in new tab"
-                        >
-                          <IconExternalLink className="h-3.5 w-3.5" />
-                        </a>
+                        <PageLinkMenu url={u.page_url} />
                       )}
                     </li>
                   ))}
