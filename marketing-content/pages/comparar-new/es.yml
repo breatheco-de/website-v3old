@@ -28,9 +28,9 @@ sections:
           - El catálogo incluye desde Prompt Engineering hasta Data Science & ML. Cada curso tiene su propio certificado — y todos cuentan si después decides hacer el AI Engineering Bootcamp completo.
       - feature: Qué vas a construir
         values:
-          - Agentes con tool calling, pipelines RAG, sistemas multi-agente con LangGraph, APIs con FastAPI, workflows automatizados con n8n — y un capstone completo que transforma una empresa real con AI.
+          - Agentes con tool calling, pipelines RAG, sistemas multi-agente con LangGraph, APIs con FastAPI, workflows automatizados con n8n, y un capstone completo que transforma una empresa real con AI.
           - Una librería personal de prompts para tu trabajo real, una automatización funcional en n8n, y la eliminación de tus 3 tareas más repetitivas. Todo en 4 semanas, sin código.
-          - Proyectos concretos en cada curso elegido: desde una app construida con Vibe Coding hasta un modelo de ML, un prompt library o un workflow automatizado. Cada curso tiene entregable real.
+          - Algo real en lo que te interese. Si eliges Vibe Coding, construyes una app. Si eliges Prompt Engineering, te vas con una librería lista para usar mañana. Si eliges No-Code, tienes un workflow activo. Cada curso tiene su propio proyecto — te recomendamos 4 cursos según tu perfil, pero tienes acceso a todo el catálogo.
       - feature: Roles de destino
         values:
           - AI Engineer · Forward-Deployed Engineer · AI Systems Engineer · Automation Engineer · AI Software Engineer
@@ -40,21 +40,21 @@ sections:
         values:
           - $100K a $160K
           - Incremento de productividad en rol actual — no cambio de salario base inmediato.
-          - Depende del camino elegido. AI Engineering llega a $100K–$160K.
+          - A medida que completas más cursos potencias tu campo de trabajo actual. Si en algún momento decides hacer AI Engineering, ya tienes una base sólida y un salario promedio respaldado por la demanda del mercado: $100K a $160K en EE.UU.
       - feature: Duración
         values:
-          - Part-Time 24 semanas · Track Acelerado 15 semanas
-          - 4 semanas · 1 clase en vivo por semana · módulos self-paced
-          - Sin fecha de cierre — avanzas a tu ritmo. Cada curso tiene sus propias horas estimadas (6–22 hrs).
+          - Part-Time 24 semanas o curso intensivo de 15 semanas
+          - 4 semanas, 1 clase en vivo por semana más módulos self-paced
+          - Sin fecha de cierre, avanzas a tu ritmo. Cada curso tiene sus propias horas estimadas (6 a 22 hrs).
       - feature: Precio
         values:
           - $14,999 (descuentos y becas disponibles)
-          - Próximamente — consultar disponibilidad
-          - $30/mes · $199/año · 7 días gratis
+          - $900 (pago trimestral o anual disponible)
+          - $30/mes o $199/año, 7 días gratis para probar
       - feature: Planes de pago
         values:
           - Planes mensuales, descuento por pago adelantado, préstamos e ISA disponibles.
-          - Por confirmar.
+          - Trimestral o anual. Descuento aplicado en pago anual.
           - Mensual o anual. Sin contratos. Cancela cuando quieras.
       - feature: Job Guarantee
         values:
@@ -105,18 +105,6 @@ sections:
     section_id: comparison_table-ai-programs-v2
     marginY:
       desktop: xl lg
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
 title: comparar new
 meta:
   page_title: comparar new
