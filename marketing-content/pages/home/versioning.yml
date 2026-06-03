@@ -1,2 +1,4 @@
 en:
-  variants: []
+  variants:
+    - slug: alejandro
+      allocation: 0
