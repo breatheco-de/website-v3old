@@ -32,7 +32,7 @@ import { useSectionContext } from "@/contexts/SectionContext";
 import { apiRequest } from "@/lib/queryClient";
 import { PhoneInput } from "@/components/ui/phone-input";
 import type { Country } from "react-phone-number-input";
-import { trackFormSubmission, type ConversionName } from "@/lib/tracking";
+import { trackFormSubmission, resolveWebhook, hashEmail, type ConversionName, type TrackingSettingsResponse } from "@/lib/tracking";
 
 interface FieldConfig {
   visible?: boolean;
@@ -55,6 +55,10 @@ export interface LeadFormData {
   submit_label?: string;
   tags?: string;
   automations?: string;
+  webhook?: {
+    url: string;
+    method?: "POST" | "GET";
+  };
   fields?: {
     email?: FieldConfig;
     first_name?: FieldConfig;
@@ -309,6 +313,10 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
     enabled: turnstileEnabled,
   });
 
+  const { data: trackingSettings } = useQuery<TrackingSettingsResponse>({
+    queryKey: ["/api/settings/tracking"],
+  });
+
   const variant = data.variant || "stacked";
   const fields = data.fields || {};
   const consent = data.consent || {};
@@ -505,6 +513,37 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
             location: variables.location || sessionLocation?.slug,
           }
         );
+
+        // Fire conversion webhook via server-side proxy (silent failure — never blocks form success)
+        try {
+          const resolvedWebhook = resolveWebhook(data.webhook ?? null, data.conversion_name, trackingSettings ?? null);
+          if (resolvedWebhook) {
+            const webhookPayload: Record<string, unknown> = {
+              conversion_name: data.conversion_name,
+              program: variables.program || programContext,
+              location: variables.location || sessionLocation?.slug,
+              utm_source: utm.utm_source,
+              utm_medium: utm.utm_medium,
+              utm_campaign: utm.utm_campaign,
+              utm_content: utm.utm_content,
+              utm_term: utm.utm_term,
+            };
+            if (variables.email) {
+              webhookPayload.email_hash = await hashEmail(variables.email);
+            }
+            fetch("/api/conversion-webhook", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                url: resolvedWebhook.url,
+                method: resolvedWebhook.method || "POST",
+                payload: webhookPayload,
+              }),
+            }).catch((err) => console.warn("[LeadForm] Webhook delivery failed (non-blocking):", err));
+          }
+        } catch (err) {
+          console.warn("[LeadForm] Webhook resolution failed (non-blocking):", err);
+        }
       }
 
       if (data.success?.url) {

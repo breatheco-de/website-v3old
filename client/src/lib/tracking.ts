@@ -57,9 +57,15 @@ export interface VisitorContext {
   };
 }
 
+export interface WebhookConfig {
+  url: string;
+  method?: "POST" | "GET";
+}
+
 export interface ConversionEventEntry {
   name: string;
   description?: string;
+  webhook?: WebhookConfig;
 }
 
 export interface TrackingWebhook {
@@ -202,6 +208,29 @@ export function setVisitorContext(context: VisitorContext): void {
   });
 
   console.log("[Tracking] User context set:", context);
+}
+
+/**
+ * Resolve the webhook to fire for a conversion using the three-level priority chain:
+ *   1. formWebhook  — highest priority, set directly on the form component
+ *   2. per-event    — tracking.conversion_events[name].webhook
+ *   3. global       — tracking.webhook
+ * Returns null when no webhook is configured at any level (silent no-op).
+ */
+export function resolveWebhook(
+  formWebhook: WebhookConfig | undefined | null,
+  conversionName: string,
+  settings: TrackingSettingsResponse | null | undefined
+): WebhookConfig | null {
+  if (formWebhook?.url) return formWebhook;
+
+  if (settings) {
+    const eventEntry = settings.conversion_events.find((e) => e.name === conversionName);
+    if (eventEntry?.webhook?.url) return eventEntry.webhook;
+    if (settings.webhook?.url) return settings.webhook;
+  }
+
+  return null;
 }
 
 /**

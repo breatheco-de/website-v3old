@@ -299,6 +299,26 @@ props:
   show_terms:
     type: boolean
     required: false
+  webhook:
+    type: object
+    required: false
+    description: >-
+      Form-level webhook — highest priority in the three-level chain (form > per-event > global).
+      When set, this webhook is always used for this form regardless of tracking settings.
+    properties:
+      url:
+        type: string
+        required: true
+        description: Destination URL to POST/GET the conversion payload
+        example: https://hooks.zapier.com/hooks/catch/xxxxx/yyyyy/
+      method:
+        type: string
+        required: false
+        options:
+          - POST
+          - GET
+        description: HTTP method (default POST)
+        example: POST
   className:
     type: string
     required: false

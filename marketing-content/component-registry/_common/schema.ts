@@ -76,6 +76,14 @@ export const leadFormFieldConfigSchema = z.object({
   slugs: z.array(z.string()).optional(), // For program field: limits which programs appear in the dropdown
 });
 
+// Webhook configuration — used at form-level, per-event, and global tracking level
+export const webhookConfigSchema = z.object({
+  url: z.string().url(),
+  method: z.enum(["POST", "GET"]).default("POST"),
+});
+
+export type WebhookConfig = z.infer<typeof webhookConfigSchema>;
+
 // Lead Form data schema
 export const leadFormDataSchema = z.object({
   variant: z.enum(["stacked", "inline"]).optional(),
@@ -85,6 +93,8 @@ export const leadFormDataSchema = z.object({
   submit_label: z.string().optional(),
   tags: z.string().optional(),
   automations: z.string().optional(),
+  // Form-level webhook — highest priority in the three-level chain
+  webhook: webhookConfigSchema.optional(),
   fields: z.object({
     email: leadFormFieldConfigSchema.optional(),
     first_name: leadFormFieldConfigSchema.optional(),

@@ -29,9 +29,15 @@ export interface OptimizationSettings {
   tagmanager: TagManagerSettings;
 }
 
+export interface WebhookConfig {
+  url: string;
+  method: "POST" | "GET";
+}
+
 export interface ConversionEventEntry {
   name: string;
   description?: string;
+  webhook?: WebhookConfig;
 }
 
 export interface TrackingWebhook {
@@ -124,7 +130,18 @@ function loadSettings(): SiteSettings {
 
     const trackingRaw = parsed.tracking as Record<string, unknown> | undefined;
     const conversionEventsRaw = trackingRaw?.conversion_events;
-    const webhookRaw = trackingRaw?.webhook as Record<string, unknown> | undefined;
+
+    const parseWebhook = (raw: unknown): TrackingWebhook | undefined => {
+      if (!raw || typeof raw !== "object") return undefined;
+      const w = raw as Record<string, unknown>;
+      if (typeof w.url !== "string" || !w.url.trim()) return undefined;
+      const method = typeof w.method === "string" ? w.method : "POST";
+      return {
+        url: w.url.trim(),
+        method,
+        ...(typeof w.auth_header === "string" && w.auth_header ? { auth_header: w.auth_header } : {}),
+      };
+    };
     const tracking: TrackingSettings = {
       conversion_events: Array.isArray(conversionEventsRaw)
         ? (conversionEventsRaw as Array<Record<string, unknown>>)
@@ -132,19 +149,10 @@ function loadSettings(): SiteSettings {
             .map((e) => ({
               name: e.name as string,
               description: typeof e.description === "string" ? e.description : undefined,
+              webhook: parseWebhook(e.webhook),
             }))
         : defaults.tracking.conversion_events,
-      ...(webhookRaw && typeof webhookRaw.url === "string" && webhookRaw.url
-        ? {
-            webhook: {
-              url: webhookRaw.url,
-              method: typeof webhookRaw.method === "string" ? webhookRaw.method : "POST",
-              ...(typeof webhookRaw.auth_header === "string" && webhookRaw.auth_header
-                ? { auth_header: webhookRaw.auth_header }
-                : {}),
-            },
-          }
-        : {}),
+      webhook: parseWebhook(trackingRaw?.webhook),
     };
 
     cached = { ...defaults, i18n, home_page, optimization, tracking };

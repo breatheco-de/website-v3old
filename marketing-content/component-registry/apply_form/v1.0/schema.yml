@@ -33,6 +33,27 @@ props:
         description: Additional note displayed below subtitle (often reassuring text)
         example: "(And don't worry — you won't be committing to anything yet)"
 
+  webhook:
+    type: object
+    required: false
+    description: >-
+      Form-level webhook — highest priority in the three-level chain (form > per-event > global).
+      When set, this webhook is always used for this apply form regardless of tracking settings.
+    properties:
+      url:
+        type: string
+        required: true
+        description: Destination URL to POST/GET the conversion payload
+        example: https://hooks.zapier.com/hooks/catch/xxxxx/yyyyy/
+      method:
+        type: string
+        required: false
+        options:
+          - POST
+          - GET
+        description: HTTP method (default POST)
+        example: POST
+
   form:
     type: object
     required: true
