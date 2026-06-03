@@ -39,7 +39,7 @@ const conversionWebhookBodySchema = z.object({
  * Blocks: localhost, loopback, RFC-1918 private ranges, link-local, IPv6 loopback,
  * and the AWS/GCP/Azure instance metadata endpoints.
  */
-function isPrivateDestination(urlStr: string): boolean {
+export function isPrivateDestination(urlStr: string): boolean {
   let parsed: URL;
   try {
     parsed = new URL(urlStr);
@@ -193,13 +193,19 @@ export function registerWebhooksRoutes(app: Express): void {
       // Per-form / per-event webhooks have no auth credentials
     } else {
       const globalWebhook = getTrackingSettings().webhook;
-      if (!globalWebhook?.url) {
+      const envUrl = process.env.DEFAULT_WEBHOOK_URL;
+      if (!globalWebhook?.url && !envUrl) {
         res.status(400).json({ error: "No webhook URL configured." });
         return;
       }
-      url = globalWebhook.url;
-      method = globalWebhook.method || "POST";
-      auth_header = globalWebhook.auth_header;
+      if (globalWebhook?.url) {
+        url = globalWebhook.url;
+        method = globalWebhook.method || "POST";
+        auth_header = globalWebhook.auth_header;
+      } else {
+        url = envUrl!;
+        method = process.env.DEFAULT_WEBHOOK_METHOD || "POST";
+      }
     }
 
     // Always respond 200 immediately — delivery is non-blocking
@@ -252,8 +258,9 @@ export function registerWebhooksRoutes(app: Express): void {
 
       const tracking = getTrackingSettings();
       const webhook = tracking.webhook;
+      const envUrl = process.env.DEFAULT_WEBHOOK_URL;
 
-      if (!webhook?.url) {
+      if (!webhook?.url && !envUrl) {
         res.status(400).json({ ok: false, error: "No global webhook URL configured." });
         return;
       }
@@ -264,7 +271,9 @@ export function registerWebhooksRoutes(app: Express): void {
         return;
       }
 
-      const { url, method = "POST", auth_header } = webhook;
+      const url = webhook?.url || envUrl!;
+      const method = webhook?.method || (webhook?.url ? "POST" : (process.env.DEFAULT_WEBHOOK_METHOD || "POST"));
+      const auth_header = webhook?.url ? webhook.auth_header : undefined;
 
       if (isPrivateDestination(url)) {
         res.status(400).json({ ok: false, error: "Webhook destination is not allowed (private or internal address)" });

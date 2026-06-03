@@ -204,6 +204,7 @@ import {
   FixerItemStatus,
 } from "./_helpers";
 import { getTrackingSettings } from "../settings";
+import { isPrivateDestination } from "./webhooks";
 
 export function registerFormsRoutes(app: Express): void {
   app.get("/api/turnstile/site-key", (_req, res) => {
@@ -485,26 +486,47 @@ export function registerFormsRoutes(app: Express): void {
         ),
       );
 
-      // Post to Breathecode API
-      const response = await fetch(`${BREATHECODE_HOST}/v2/marketing/lead`, {
-        method: "POST",
+      // Resolve webhook destination: global settings → DEFAULT_WEBHOOK_URL env var
+      const globalWebhook = getTrackingSettings().webhook;
+      const webhookUrl: string | undefined = globalWebhook?.url || process.env.DEFAULT_WEBHOOK_URL;
+      const webhookMethod: string = globalWebhook?.url
+        ? (globalWebhook.method || "POST")
+        : (process.env.DEFAULT_WEBHOOK_METHOD || "POST");
+      const webhookAuthHeader: string | undefined = globalWebhook?.url ? globalWebhook.auth_header : undefined;
+
+      if (!webhookUrl) {
+        res.json({ success: true, skipped: "no_webhook" });
+        return;
+      }
+
+      if (isPrivateDestination(webhookUrl)) {
+        console.warn(`[LeadSubmission] Blocked private/internal destination: ${webhookUrl}`);
+        res.json({ success: true, skipped: "no_webhook" });
+        return;
+      }
+
+      const fetchOptions: RequestInit = {
+        method: webhookMethod,
         headers: {
           "Content-Type": "application/json",
+          ...(webhookAuthHeader ? { Authorization: webhookAuthHeader } : {}),
         },
         body: JSON.stringify(cleanPayload),
-      });
+      };
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Breathecode API error:", response.status, errorText);
-        res.status(response.status).json({
+      const webhookResponse = await fetch(webhookUrl, fetchOptions);
+
+      if (!webhookResponse.ok) {
+        const errorText = await webhookResponse.text();
+        console.error("Lead webhook delivery error:", webhookResponse.status, errorText);
+        res.status(webhookResponse.status).json({
           error: "Failed to submit lead",
           details: errorText,
         });
         return;
       }
 
-      const result = await response.json();
+      const result = await webhookResponse.json().catch(() => ({}));
       res.json({ success: true, data: result });
     } catch (error) {
       console.error("Lead submission error:", error);
