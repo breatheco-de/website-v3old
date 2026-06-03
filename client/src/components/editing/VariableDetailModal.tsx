@@ -682,9 +682,18 @@ export function VariableDetailModal({
                                     <Check
                                       className={`mr-2 h-4 w-4 ${existingVarName === name ? "opacity-100" : "opacity-0"}`}
                                     />
-                                    <span className="font-mono text-sm">
+                                    <span className="font-mono text-sm flex-1">
                                       {name}
                                     </span>
+                                    {definitions?.[name]?.isReserved && (
+                                      <Badge
+                                        variant="secondary"
+                                        className="ml-2 text-[10px] px-1.5 py-0 h-4 no-default-active-elevate pointer-events-none"
+                                        data-testid={`badge-readonly-${name}`}
+                                      >
+                                        Read-only
+                                      </Badge>
+                                    )}
                                   </CommandItem>
                                 ))}
                               </CommandGroup>
