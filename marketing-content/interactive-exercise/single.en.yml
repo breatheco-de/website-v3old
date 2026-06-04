@@ -28,17 +28,14 @@ sections:
           visible: true
           required: true
           placeholder: Apellido
-        phone:
-          visible: true
-          required: true
         program:
           visible: false
-          default: full-stack
+          default: {{ single.slug | undefined }}
       success:
         message: Una vez completado el formulario, alguien de nuestro equipo se pondrá en contacto contigo en breves minutos a través de un correo electrónico.
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
-    form_card_title: Get Full Program Details
+    form_card_title: Get Free Access
     form_card_subtitle: Sign up and get access to this free interactive tutorial
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: false
