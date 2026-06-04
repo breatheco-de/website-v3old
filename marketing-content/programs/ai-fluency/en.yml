@@ -191,6 +191,32 @@ sections:
       desktop: none lg
     marginY:
       desktop: lg
+  - type: trust_cards
+    version: v1.0
+    title: Top rated across all major platforms.
+    items:
+      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+        rating: 4.9
+        review_count: 4.9 on Course Report
+      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        rating: 4.8
+        review_count: 4.8 on Google
+      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        rating: 4.9
+        review_count: 4.9 on Career Karma
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 4.9 on SwitchUp
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-jji04i
+    paddingY:
+      desktop: md lg
+    marginY:
+      desktop: md lg
+    background: hsl(var(--secondary))
+    maxWidth:
+      desktop: 6xl
   - type: syllabus
     variant: program-modules
     program_title: AI Fluency Program Overview
@@ -258,32 +284,6 @@ sections:
     paddingY:
       desktop: lg
     section_id: syllabus-aifluency
-  - type: trust_cards
-    version: v1.0
-    title: Top rated across all major platforms.
-    items:
-      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
-        rating: 4.9
-        review_count: 4.9 on Course Report
-      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
-        rating: 4.8
-        review_count: 4.8 on Google
-      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
-        rating: 4.9
-        review_count: 4.9 on Career Karma
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        rating: 4.9
-        review_count: 4.9 on SwitchUp
-    name: Default Trust Cards
-    description: Four review platform cards with ratings
-    section_id: trust_cards-jji04i
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: md lg
-    background: hsl(var(--secondary))
-    maxWidth:
-      desktop: 6xl
   - type: human_and_ai_duo
     version: "1.0"
     heading: Human and AI Support, So You Never Lose Momentum
@@ -295,35 +295,15 @@ sections:
           - text: A 1:1 session with a senior instructor, included in your enrollment
           - text: Expert guidance tailored to you.
           - text: Focused on your actual tasks, workflows, and goals
-          - text: Additional sessions available to book anytime
+          - text: Additional sessions available to book anytime, at extra cost
       - title: "Rigobot, your AI tutor:"
         image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
         bullets:
           - text: Available 24/7 throughout the program
           - text: Ask for help, feedback, or an explanation whenever you need it
           - text: Your always-on tutor for all self-paced modules
-          - text: Adapts to your ski
+          - text: Adapts to your skill level and what you are working on
     section_id: human_and_ai_duo-hz7p4j
-  - type: features_grid
-    version: "1.0"
-    variant: stats-cards
-    title: The Roles You Can Land. And the Salaries That Follow.
-    subtitle: High demand. High salaries.
-    description: AI Engineering roles are among the fastest-growing and highest-paying in tech right now. Companies are hiring urgently and paying a premium for engineers who can build with AI. LinkedIn reports 42x growth in Forward-Deployed Engineering alone since 2023. These are some of the roles our graduates are landing.
-    card_color: bg-background
-    items:
-      - value: $105K–$155K
-        title: Forward-Deployed Engineer
-      - value: $95K–$135K
-        title: AI Software Engineer
-      - value: $90K–$130K
-        title: AI-Fluent Full Stack Engineer
-    section_id: features_grid-wx7svv
-    marginY:
-      desktop: none xl
-    paddingY:
-      desktop: md none
-    background: hsl(var(--card))
   - type: pricing
     version: "1.0"
     variant: product
@@ -433,7 +413,7 @@ sections:
   - type: testimonials
     section_id: testimonials-ghxelh
     title: The People Behind the Numbers.
-    subtitle: "Different backgrounds. One outcome: a career in tech."
+    subtitle: "Different backgrounds. One outcome: real AI fluency."
     related_features:
       - content-and-syllabus
       - career-support
@@ -444,41 +424,6 @@ sections:
       desktop: md lg
     marginY:
       desktop: none md
-  - type: whos_hiring
-    section_id: whos_hiring-pli2th
-    variant: carousel
-    title: Where Our Graduates Work
-    subtitle: From startups to global tech leaders, our graduates work at some of the most recognized companies worldwide.
-    logos:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
-        alt: Microsoft
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70.webp
-        alt: Google Developers
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
-        alt: Boats Group
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70.webp
-        alt: Meta
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp
-        alt: eBay
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
-        alt: National Geographic
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
-        alt: Evernote
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp
-        alt: Telefonica
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
-        alt: Twilio
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
-        alt: Uber
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70.webp
-        alt: Neo9
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
-        alt: Jooble
-    marginY:
-      desktop: md xl
-    paddingY:
-      desktop: none
-    background: hsl(var(--background))
   - type: faq
     section_id: faq-f4yd0z
     title: FAQ
