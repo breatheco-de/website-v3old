@@ -20,7 +20,7 @@ function OrbitBadge({ label, highlight }: BadgeItem) {
       className={[
         "flex items-center rounded-full whitespace-nowrap",
         "gap-[0.2rem] md:gap-[0.3rem] lg:gap-[0.4rem]",
-        "px-[0.45rem] py-[0.25rem] md:px-[0.8rem] md:py-[0.45rem] lg:px-[1.15rem] lg:py-[0.55rem]",
+        "px-[0.45rem] py-[0.25rem] md:px-[0.8rem] md:py-[0.45rem] lg:px-[1.15rem] lg:py-[0.35rem]",
       ].join(" ")}
       style={
         highlight
@@ -156,7 +156,7 @@ function OrbitDiagram({
       ref={sceneRef}
       className="orbit-scene relative flex items-center justify-center flex-shrink-0"
       style={{
-        width: "clamp(310px, 48vw, 580px)",
+        width: "clamp(310px, 48vw, 570px)",
         aspectRatio: "650 / 540",
       }}
       onMouseMove={handleMouseMove}
@@ -211,7 +211,7 @@ function OrbitDiagram({
       {/* Legend — absolute below diagram, doesn't affect grid height */}
       <div
         className="absolute flex items-center gap-5 whitespace-nowrap"
-        style={{ top: "calc(100% + 12px)", left: "50%", transform: "translateX(-50%)" }}
+        style={{ top: "calc(100% + 18px)", left: "50%", transform: "translateX(-50%)" }}
       >
         <div className="flex items-center gap-[0.4rem] text-[0.75rem] text-muted-foreground">
           <span
@@ -249,10 +249,9 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
   return (
     <section
       data-testid="section-hero-orbit"
-      className="px-12"
     >
       <div>
-        <div className="w-full grid grid-cols-1 lg:grid-cols-[2fr_3fr] lg:gap-x-1">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-[2fr_680px] lg:gap-x-1">
 
           {/* TOP LEFT — eyebrow + title */}
           <div className="flex flex-col gap-4 lg:self-end lg:pb-4">
@@ -291,7 +290,7 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
           <div className="max-lg:contents lg:flex lg:flex-col lg:gap-[1.4rem] lg:self-start lg:pt-4">
             {data.body && (
               <p
-                className="max-lg:order-1 max-lg:mt-4 text-muted-foreground text-[0.88rem] md:text-[0.92rem] lg:text-[1.05rem] lg:max-w-[430px] leading-[1.65] m-0 font-medium"
+                className="max-lg:order-1 max-lg:mt-4 text-muted-foreground text-[0.88rem] md:text-[0.92rem] lg:text-[1.1rem] lg:max-w-[430px] leading-[1.65] m-0 font-medium"
                 data-testid="text-hero-body"
               >
                 {data.body}
