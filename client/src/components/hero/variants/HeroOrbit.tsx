@@ -1,4 +1,4 @@
-import { createElement, useEffect, useRef, useState } from "react";
+import { createElement, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { getIcon } from "@/lib/icons";
@@ -6,37 +6,6 @@ import type { HeroOrbit as HeroOrbitData } from "@shared/schema";
 
 interface HeroOrbitProps {
   data: HeroOrbitData;
-}
-
-/* ─── Scale helper ──────────────────────────────────────────── */
-const BASE = 650;
-const scale = (px: number, size: number) => Math.round((px * size) / BASE);
-
-/* ─── Responsive size hook ──────────────────────────────────── */
-const MOBILE_BP = 768;
-const MD_BP = 1023;
-
-function getSize(): number {
-  if (typeof window === "undefined") return 580;
-  if (window.innerWidth <= MOBILE_BP) return 310;
-  if (window.innerWidth <= MD_BP) return 510;
-  return 580;
-}
-
-function useOrbitSize(): number {
-  const [size, setSize] = useState(getSize);
-  useEffect(() => {
-    const mqMobile = window.matchMedia(`(max-width: ${MOBILE_BP}px)`);
-    const mqMd = window.matchMedia(`(max-width: ${MD_BP}px)`);
-    const handler = () => setSize(getSize());
-    mqMobile.addEventListener("change", handler);
-    mqMd.addEventListener("change", handler);
-    return () => {
-      mqMobile.removeEventListener("change", handler);
-      mqMd.removeEventListener("change", handler);
-    };
-  }, []);
-  return size;
 }
 
 /* ─── Badge pill ────────────────────────────────────────────── */
@@ -85,21 +54,21 @@ function OrbitBadge({ label, highlight }: BadgeItem) {
   );
 }
 
-/* ─── Single orbit ring ─────────────────────────────────────── */
+/* ─── Single orbit ring (radiusPct = % of container width) ─── */
 interface OrbitRingProps {
-  radius: number;
+  radiusPct: number;
   duration: number;
   clockwise: boolean;
   badges: BadgeItem[];
   startDeg?: number;
 }
 
-function OrbitRing({ radius, duration, clockwise, badges, startDeg = 0 }: OrbitRingProps) {
+function OrbitRing({ radiusPct, duration, clockwise, badges, startDeg = 0 }: OrbitRingProps) {
   const step = 360 / badges.length;
   return (
     <div
       className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-      style={{ width: radius * 2, height: radius * 2 }}
+      style={{ width: `${radiusPct * 2}cqw`, height: `${radiusPct * 2}cqw` }}
     >
       {badges.map((badge, i) => (
         <div
@@ -109,7 +78,7 @@ function OrbitRing({ radius, duration, clockwise, badges, startDeg = 0 }: OrbitR
           }`}
           style={{
             "--angle": `${startDeg + step * i}deg`,
-            "--radius": `${radius}px`,
+            "--radius": `${radiusPct}cqw`,
             "--duration": `${duration}s`,
           } as React.CSSProperties}
         >
@@ -122,7 +91,7 @@ function OrbitRing({ radius, duration, clockwise, badges, startDeg = 0 }: OrbitR
   );
 }
 
-/* ─── Default badge sets (used when YAML omits orbit_diagram.badges) ── */
+/* ─── Default badge sets ────────────────────────────────────── */
 const DEFAULT_INNER: BadgeItem[] = [
   { label: "Full Stack with AI", highlight: false },
   { label: "AI Flex", highlight: true },
@@ -136,9 +105,24 @@ const DEFAULT_OUTER: BadgeItem[] = [
   { label: "Cybersecurity", highlight: false },
 ];
 
+/* ─── cqw constants (all sizes as % of container width) ─────── */
+// BASE = 650 (original design width)
+// cqw(x) = x / 650 * 100
+const CQW = {
+  ringOuter:  83.1,   // scale(540) dashed ring diameter
+  ringMiddle: 62.3,   // scale(405)
+  ringInner:  41.5,   // scale(270)
+  radOuter:   41.5,   // scale(270) animated ring radius
+  radMiddle:  31.1,   // scale(202)
+  radInner:   20.8,   // scale(135)
+  center:     27.1,   // scale(176) center sphere diameter
+  centerFont:  7.1,   // scale(46)  center font-size
+  spotlight:  24.6,   // scale(160) spotlight circle radius
+  pulseInset:  1.5,   // scale(10)  pulse ring inset
+};
+
 /* ─── Orbit diagram ─────────────────────────────────────────── */
 interface OrbitDiagramProps {
-  size: number;
   centerLabel: string;
   legendStart: string;
   legendHighlight: string;
@@ -148,7 +132,6 @@ interface OrbitDiagramProps {
 }
 
 function OrbitDiagram({
-  size,
   centerLabel,
   legendStart,
   legendHighlight,
@@ -168,16 +151,14 @@ function OrbitDiagram({
     });
   }
 
-  const centerSize = scale(176, size);
-  const centerFontSize = scale(46, size);
-  const ringBorderWidth = size <= 310 ? "0.8px" : "1.4px";
-
   return (
-    <div className="flex flex-col items-center">
     <div
       ref={sceneRef}
-      className="relative flex items-center justify-center flex-shrink-0"
-      style={{ width: size, height: scale(540, size) }}
+      className="orbit-scene relative flex items-center justify-center flex-shrink-0"
+      style={{
+        width: "clamp(310px, 48vw, 580px)",
+        aspectRatio: "650 / 540",
+      }}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setMouse(null)}
     >
@@ -185,36 +166,36 @@ function OrbitDiagram({
       <div
         className="absolute inset-0 pointer-events-none blur-[12px] transition-opacity duration-500 z-20"
         style={{
-          background: `radial-gradient(circle 160px at ${mouse ? `${mouse.x}%` : "50%"} ${mouse ? `${mouse.y}%` : "50%"}, hsl(var(--primary) / 0.13) 0%, hsl(var(--primary) / 0.04) 50%, transparent 75%)`,
+          background: `radial-gradient(circle ${CQW.spotlight}cqw at ${mouse ? `${mouse.x}%` : "50%"} ${mouse ? `${mouse.y}%` : "50%"}, hsl(var(--primary) / 0.13) 0%, hsl(var(--primary) / 0.04) 50%, transparent 75%)`,
           opacity: mouse ? 1 : 0,
         }}
       />
 
       {/* Static dashed rings */}
-      {[scale(540, size), scale(405, size), scale(270, size)].map((w) => (
+      {[CQW.ringOuter, CQW.ringMiddle, CQW.ringInner].map((pct) => (
         <div
-          key={w}
+          key={pct}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-dashed pointer-events-none"
           style={{
-            width: w,
-            height: w,
-            border: `${ringBorderWidth} dashed hsl(215 35% 72% / 0.65)`,
+            width: `${pct}cqw`,
+            height: `${pct}cqw`,
+            border: `clamp(0.8px, 0.24cqw, 1.4px) dashed hsl(215 35% 72% / 0.65)`,
           }}
         />
       ))}
 
       {/* Animated orbit rings */}
-      <OrbitRing radius={scale(135, size)} duration={36} clockwise badges={inner} startDeg={20} />
-      <OrbitRing radius={scale(202, size)} duration={34} clockwise={false} badges={middle} startDeg={200} />
-      <OrbitRing radius={scale(270, size)} duration={34} clockwise badges={outer} startDeg={310} />
+      <OrbitRing radiusPct={CQW.radInner}  duration={36} clockwise        badges={inner}  startDeg={20}  />
+      <OrbitRing radiusPct={CQW.radMiddle} duration={34} clockwise={false} badges={middle} startDeg={200} />
+      <OrbitRing radiusPct={CQW.radOuter}  duration={34} clockwise        badges={outer}  startDeg={310} />
 
       {/* Center sphere */}
       <div
         className="relative z-10 rounded-full flex items-center justify-center text-primary-foreground font-extrabold flex-shrink-0"
         style={{
-          width: centerSize,
-          height: centerSize,
-          fontSize: centerFontSize,
+          width: `${CQW.center}cqw`,
+          height: `${CQW.center}cqw`,
+          fontSize: `${CQW.centerFont}cqw`,
           background:
             "radial-gradient(circle at 38% 35%, hsl(var(--primary) / 0.7), hsl(var(--primary)) 55%, hsl(var(--primary)))",
           boxShadow: "0 16px 50px hsl(var(--primary) / 0.45)",
@@ -223,29 +204,32 @@ function OrbitDiagram({
         <span>{centerLabel}</span>
         <span
           className="absolute rounded-full border-2 border-primary/45 pointer-events-none"
-          style={{ inset: "-10px", animation: "pulse-ring 4.2s ease-out infinite" }}
+          style={{ inset: `-${CQW.pulseInset}cqw`, animation: "pulse-ring 4.2s ease-out infinite" }}
         />
       </div>
 
-    </div>
-    <div className="flex items-center justify-center gap-5 whitespace-nowrap mt-3">
-      <div className="flex items-center gap-[0.4rem] text-[0.75rem] text-muted-foreground">
-        <span
-          className="rounded-full flex-shrink-0"
-          style={{
-            width: "0.65rem",
-            height: "0.65rem",
-            background: "hsl(215 14% 80%)",
-            border: "1.5px solid hsl(215 14% 62%)",
-          }}
-        />
-        <span>{legendStart}</span>
+      {/* Legend — absolute below diagram, doesn't affect grid height */}
+      <div
+        className="absolute flex items-center gap-5 whitespace-nowrap"
+        style={{ top: "calc(100% + 12px)", left: "50%", transform: "translateX(-50%)" }}
+      >
+        <div className="flex items-center gap-[0.4rem] text-[0.75rem] text-muted-foreground">
+          <span
+            className="rounded-full flex-shrink-0"
+            style={{
+              width: "0.65rem",
+              height: "0.65rem",
+              background: "hsl(215 14% 80%)",
+              border: "1.5px solid hsl(215 14% 62%)",
+            }}
+          />
+          <span>{legendStart}</span>
+        </div>
+        <div className="flex items-center gap-[0.4rem] text-[0.75rem] text-muted-foreground">
+          <span className="rounded-full flex-shrink-0 bg-primary" style={{ width: "0.8rem", height: "0.8rem" }} />
+          <span>{legendHighlight}</span>
+        </div>
       </div>
-      <div className="flex items-center gap-[0.4rem] text-[0.75rem] text-muted-foreground">
-        <span className="rounded-full flex-shrink-0 bg-primary" style={{ width: "0.8rem", height: "0.8rem" }} />
-        <span>{legendHighlight}</span>
-      </div>
-    </div>
     </div>
   );
 }
@@ -253,21 +237,19 @@ function OrbitDiagram({
 /* ─── HeroOrbit ─────────────────────────────────────────────── */
 export default function HeroOrbit({ data }: HeroOrbitProps) {
   const handleLinkClick = useInternalNav();
-  const orbitSize = useOrbitSize();
 
   const diagram = data.orbit_diagram ?? {};
-  const centerLabel = diagram.center_label ?? "AI";
-  const legendStart = diagram.legend_start ?? "Where you started";
+  const centerLabel     = diagram.center_label    ?? "AI";
+  const legendStart     = diagram.legend_start    ?? "Where you started";
   const legendHighlight = diagram.legend_highlight ?? "Where 4Geeks is now";
-  const inner = (diagram.badges?.inner ?? DEFAULT_INNER) as BadgeItem[];
+  const inner  = (diagram.badges?.inner  ?? DEFAULT_INNER)  as BadgeItem[];
   const middle = (diagram.badges?.middle ?? DEFAULT_MIDDLE) as BadgeItem[];
-  const outer = (diagram.badges?.outer ?? DEFAULT_OUTER) as BadgeItem[];
+  const outer  = (diagram.badges?.outer  ?? DEFAULT_OUTER)  as BadgeItem[];
 
   return (
     <section
       data-testid="section-hero-orbit"
-      className="w-full"
-
+      className="px-12"
     >
       <div>
         <div className="w-full grid grid-cols-1 lg:grid-cols-[2fr_3fr] lg:gap-x-1">
@@ -296,7 +278,6 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
             data-testid="hero-orbit-diagram"
           >
             <OrbitDiagram
-              size={orbitSize}
               centerLabel={centerLabel}
               legendStart={legendStart}
               legendHighlight={legendHighlight}
@@ -306,13 +287,11 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
             />
           </div>
 
-          {/* BOTTOM LEFT — body + CTAs + stat
-              max-lg:contents unwraps children into the grid on mobile
-              so each child can carry its own order value */}
+          {/* BOTTOM LEFT — body + CTAs + stat */}
           <div className="max-lg:contents lg:flex lg:flex-col lg:gap-[1.4rem] lg:self-start lg:pt-4">
             {data.body && (
               <p
-                className="max-lg:order-1 max-lg:mt-4 text-muted-foreground text-[0.88rem] md:text-[0.92rem] lg:text-[1.05rem] lg:max-w-[390px] leading-[1.65] m-0 font-medium"
+                className="max-lg:order-1 max-lg:mt-4 text-muted-foreground text-[0.88rem] md:text-[0.92rem] lg:text-[1.05rem] lg:max-w-[430px] leading-[1.65] m-0 font-medium"
                 data-testid="text-hero-body"
               >
                 {data.body}
@@ -321,7 +300,7 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
 
             {data.cta_buttons && data.cta_buttons.length > 0 && (
               <div
-                className="max-lg:order-2 max-lg:mt-4 flex flex-row flex-wrap items-center gap-3"
+                className="max-lg:order-2 max-lg:mt-4 flex items-center gap-3"
                 data-testid="hero-cta-buttons"
               >
                 {data.cta_buttons.map((btn, i) => (
@@ -331,7 +310,7 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
                     asChild
                     data-testid={`button-hero-cta-${i}`}
                   >
-                    <a href={btn.url} onClick={handleLinkClick} className="flex items-center gap-1.5 px-4 py-1.5 text-sm lg:gap-2 lg:px-6 lg:py-2 lg:text-base">
+                    <a href={btn.url} onClick={handleLinkClick} className="flex items-center gap-1.5 px-4 py-1 text-sm lg:gap-2 lg:px-5 lg:py-1 font-semibold">
                       {btn.icon &&
                         (() => {
                           const Ic = getIcon(btn.icon);
