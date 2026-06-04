@@ -542,3 +542,6 @@ global.ai.fluency.price:
     - query:
         region: "europe"
       value: "€900"
+    - query:
+        region: "latam"
+      value: "$500"
