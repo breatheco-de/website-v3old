@@ -536,3 +536,12 @@ global.ai_fluency_price:
     - query:
         region: "latam"
       value: "$500"
+global.ai.fluency.price:
+  default: "$900"
+  conditions:
+    - query:
+        region: "europe"
+      value: "€900"
+    - query:
+        region: "latam"
+      value: "$500"

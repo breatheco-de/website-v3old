@@ -68,13 +68,13 @@ sections:
     section_id: hero-aifluency
   - type: modal
     version: "1.0"
-    heading: Request Program Details
-    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
+    heading: Get the Full Program Details
+    description: Fill in your contact info and our admissions team will send you everything you need to know.
     show_close: true
     size: md
     form:
       variant: stacked
-      submit_label: Get the Full Overview
+      submit_label: Send Me the Details
       conversion_name: request_more_info
       automations: soft
       fields:
@@ -90,10 +90,10 @@ sections:
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | datascience-ml }}
+          default: {{ single.bc_slug | ai-fluency }}
       success:
-        message: Thank you. A program advisor will reach out with the details within 24 hours.
-    section_id: modal-qf93fn
+        message: Check your inbox. Our admissions team will be in touch shortly.
+    section_id: modal-aifluency
   - type: awards_marquee
     section_id: awards_marquee-tjpzl5
     version: v1.0
@@ -280,14 +280,14 @@ sections:
         orientation: horizontal
         icon: IconChartBar
     marginY:
-      desktop: md xl
+      desktop: md
     paddingY:
       desktop: lg
     section_id: syllabus-aifluency
   - type: human_and_ai_duo
     version: "1.0"
     heading: Human and AI Support, So You Never Lose Momentum
-    description: Staying motivated is easy when everything clicks. It can get really hard when you hit a wall. AI Fluency pairs a real human mentor with Rigobot, our AI tutor, so you always have somewhere to turn and no reason to stop.
+    description: Staying motivated is easy when everything clicks. It can get hard when you hit a wall. AI Fluency pairs a real human mentor with Rigobot, our AI tutor, so you always have somewhere to turn and no reason to stop.
     bullet_groups:
       - title: "Your expert mentor:"
         image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
