@@ -157,11 +157,11 @@ sections:
     card_gauge:
       title: AI Literacy Is Becoming a Job Requirement
       description: Global job roles · LinkedIn 2025
-      gauge_percentage: 70
+      gauge_percentage: 30
       gauge_label: require AI literacy
       stat_label: of job roles now require AI literacy globally
-      bar1_label: Roles without AI requirement
-      bar2_label: Roles requiring AI literacy
+      bar1_label: Roles requiring AI literacy
+      bar2_label: Roles without AI requirement
     card_trend:
       title: Demand for AI-Fluent Workers Is Accelerating
       description: Indexed demand growth · LinkedIn/WEF 2026
