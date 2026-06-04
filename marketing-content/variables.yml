@@ -529,3 +529,7 @@ reserved.consent_general:
   default: ""
 global.ai_fluency_price:
   default: "$900"
+  conditions:
+    - query:
+        region: "europe"
+      value: "€900"
