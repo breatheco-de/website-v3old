@@ -20,6 +20,44 @@ schema:
     - website
 sections:
   - type: hero
+    version: v1.0
+    variant: orbit
+    eyebrow: NO MATTER WHAT YOU'RE SEEKING
+    title: All roads lead to <em>AI.</em>
+    body: Cybersecurity, Full Stack, Data Science — the skills still matter. But every one now runs on AI, and that's where the jobs are. We rebuilt 4Geeks around it.
+    stat: <strong>1.3M</strong> new AI roles opening — every field now hires for AI fluency
+    cta_buttons:
+      - text: Start your application
+        url: /en/apply
+        variant: primary
+        icon: ChevronRight
+      - text: Explore our programs
+        url: "#course_selector"
+        variant: outline
+    orbit_diagram:
+      center_label: AI
+      legend_start: Where you started
+      legend_highlight: Where 4Geeks is now
+      badges:
+        inner:
+          - label: Full Stack with AI
+            highlight: false
+          - label: AI Flex
+            highlight: true
+        middle:
+          - label: Data Science & ML
+            highlight: false
+          - label: AI Fluency
+            highlight: true
+        outer:
+          - label: AI Engineering
+            highlight: true
+          - label: Cybersecurity
+            highlight: false
+    section_id: hero-1v86vv
+    paddingY:
+      desktop: sm
+  - type: hero
     version: "1.0"
     variant: credibility
     description: "<span style=\"font-size: 0.75rem; color: hsl(var(--muted-foreground));\">Immersive programs built to launch AI careers.&nbsp;Backed by&nbsp;lifelong unlimited&nbsp;<div bis_skin_checked=\"1\"><span><span>mentorship,&nbsp;AI-powered learning,&nbsp;and career support that&nbsp;gets you hired.</span></span></div></span><div bis_skin_checked=\"1\"><span><span></span></span><span></span><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"></div><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"></div></div></div></div></div></div>"

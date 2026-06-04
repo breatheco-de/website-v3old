@@ -49,26 +49,34 @@ function OrbitBadge({ label, highlight }: BadgeItem) {
   return (
     <div
       className={[
-        "flex items-center rounded-full whitespace-nowrap border",
+        "flex items-center rounded-full whitespace-nowrap",
         "gap-[0.2rem] md:gap-[0.3rem] lg:gap-[0.4rem]",
         "px-[0.45rem] py-[0.25rem] md:px-[0.8rem] md:py-[0.45rem] lg:px-[1.15rem] lg:py-[0.55rem]",
-        highlight
-          ? "bg-primary/10 border-primary/30 shadow-[0_4px_14px_hsl(var(--primary)/0.18)]"
-          : "bg-muted border-border shadow-[0_4px_12px_rgba(0,0,0,0.07)]",
       ].join(" ")}
+      style={
+        highlight
+          ? {
+              background: "hsl(210 88% 96%)",
+              border: "1px solid hsl(210 70% 82%)",
+              boxShadow:
+                "0 4px 14px hsl(210 80% 65% / 0.3), inset 0 1px 0 hsl(210 100% 99%), inset 0 -1px 0 hsl(210 55% 87%)",
+            }
+          : {
+              background: "hsl(215 20% 95%)",
+              border: "1px solid hsl(215 18% 83%)",
+              boxShadow:
+                "0 4px 12px rgba(0,0,0,0.10), inset 0 1px 0 hsl(0 0% 100%), inset 0 -1px 0 hsl(215 15% 88%)",
+            }
+      }
     >
       <span
-        className={[
-          "rounded-full flex-shrink-0",
-          "w-[0.3rem] h-[0.3rem] md:w-[0.4rem] md:h-[0.4rem] lg:w-[0.45rem] lg:h-[0.45rem]",
-          highlight ? "bg-primary" : "bg-muted-foreground/50",
-        ].join(" ")}
+        className="rounded-full flex-shrink-0 w-[0.3rem] h-[0.3rem] md:w-[0.4rem] md:h-[0.4rem] lg:w-[0.45rem] lg:h-[0.45rem]"
+        style={{ background: highlight ? "hsl(210 100% 50%)" : "hsl(215 14% 62%)" }}
       />
       <span
         className={[
-          "font-extrabold",
           "text-[0.58rem] md:text-[0.75rem] lg:text-[0.92rem]",
-          highlight ? "text-primary" : "text-muted-foreground",
+          highlight ? "font-extrabold text-primary" : "font-semibold text-[hsl(215_14%_52%)]",
         ].join(" ")}
       >
         {label}
@@ -267,7 +275,7 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
             }
       }
     >
-      <div className="max-w-6xl mx-auto px-5 md:px-10 py-10 lg:py-0 lg:min-h-[90vh] flex items-center">
+      <div className="py-10 lg:py-0 lg:min-h-[90vh] flex items-center">
         <div className="w-full grid grid-cols-1 lg:grid-cols-[2fr_3fr] lg:gap-x-1">
 
           {/* TOP LEFT — eyebrow + title */}
@@ -282,7 +290,7 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
               </div>
             )}
             <h1
-              className="text-[2.75rem] md:text-[3.1rem] lg:text-[3.9rem] font-black leading-none text-foreground m-0 [&_em]:text-primary [&_em]:italic"
+              className="font-inter text-[2.75rem] md:text-[3.1rem] lg:text-[3.9rem] font-black leading-none text-foreground m-0 [&_em]:text-primary [&_em]:italic"
               data-testid="text-hero-title"
               dangerouslySetInnerHTML={{ __html: data.title ?? "" }}
             />
