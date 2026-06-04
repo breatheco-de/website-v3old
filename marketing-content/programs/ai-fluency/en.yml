@@ -153,6 +153,8 @@ sections:
         title: You want the salary premium that comes with real AI skills.
     background: hsl(var(--card))
     section_id: features_quad-aifluency
+    marginY:
+      desktop: none md
   - type: features_grid
     version: "1.0"
     variant: stats-charts
