@@ -86,12 +86,12 @@ sections:
         values:
           - $14,999 (descuentos y becas disponibles)
           - {{ global.ai.fluency.price | $900 }} (Descuentos y pagos por cuotas disponible)
-          - $30/mes o $199/año, 7 días gratis para probar
+          - $49.99/mes. Planes de 3, 6 o 12 meses. 25% de descuento en el plan anual. 7 días gratis para probar.
       - feature: Planes de Pago
         values:
           - Planes mensuales, descuento por pago adelantado, préstamos e ISA disponibles.
-          - Trimestral o anual. Descuento aplicado en pago anual.
-          - Mensual o anual. Sin contratos. Cancela cuando quieras.
+          - Pago de contado con 10% off o en 4 cuotas de sin recargo.
+          - Trimestral, semestral o anual. El plan anual incluye 25% de descuento. Sin contratos, cancela cuando quieras.
       - feature: Garantía de Empleo
         values:
           - Disponible por $2,000 adicionales.
