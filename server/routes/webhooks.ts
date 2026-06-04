@@ -7,6 +7,7 @@ import { databaseManager } from "../database";
 import { clearMarkdownCache } from "../markdown";
 import { invalidateContentCaches } from "./_helpers";
 import { getTrackingSettings } from "../settings";
+import { buildLeadPayload } from "../utils/buildLeadPayload";
 import { z } from "zod";
 
 function buildBaseUrlFromRequest(req: Request): string {
@@ -175,11 +176,13 @@ export function registerWebhooksRoutes(app: Express): void {
       return;
     }
 
-    const payload = body.payload;
-    if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    const incoming = body.payload;
+    if (!incoming || typeof incoming !== "object" || Array.isArray(incoming)) {
       res.status(400).json({ error: "Request body must include a payload object." });
       return;
     }
+
+    const payload = buildLeadPayload(incoming as Record<string, unknown>);
 
     // Resolve webhook config: use supplied override or fall back to global settings
     const override = body.webhook as { url?: string; method?: string } | undefined;
@@ -265,11 +268,13 @@ export function registerWebhooksRoutes(app: Express): void {
         return;
       }
 
-      const payloadRaw = req.body?.payload;
-      if (!payloadRaw || typeof payloadRaw !== "object" || Array.isArray(payloadRaw)) {
+      const incoming = req.body?.payload;
+      if (!incoming || typeof incoming !== "object" || Array.isArray(incoming)) {
         res.status(400).json({ ok: false, error: "Request body must include a payload object." });
         return;
       }
+
+      const payload = buildLeadPayload(incoming as Record<string, unknown>);
 
       const url = webhook?.url || envUrl!;
       const method = webhook?.method || (webhook?.url ? "POST" : (process.env.DEFAULT_WEBHOOK_METHOD || "POST"));
@@ -289,10 +294,10 @@ export function registerWebhooksRoutes(app: Express): void {
             "Content-Type": "application/json",
             ...(auth_header ? { Authorization: auth_header } : {}),
           };
-          fetchOptions.body = JSON.stringify(payloadRaw);
+          fetchOptions.body = JSON.stringify(payload);
         } else {
           const params = new URLSearchParams();
-          for (const [key, value] of Object.entries(payloadRaw as Record<string, unknown>)) {
+          for (const [key, value] of Object.entries(payload)) {
             if (value !== undefined && value !== null) {
               params.set(key, String(value));
             }

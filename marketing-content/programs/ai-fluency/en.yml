@@ -21,7 +21,7 @@ sections:
     variant: course
     title: AI Fluency. The New Baseline for Professionals.
     title_highlight: The New Baseline for Professionals.
-    subtitle: AI skills now carry a 56% salary premium across industries. In our 4-week intensive upskilling program, you'll learn to build AI workflows, automate tasks, and direct AI like a collaborator. No coding required.
+    subtitle: AI skills now carry a 56% salary premium across industries. In our 4-week intensive upskilling program, you'll learn to build AI workflows, automate tasks, and leverage AI as a collaborator, not just a tool. No coding required.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -137,214 +137,127 @@ sections:
       desktop: none
     marginY:
       desktop: md
+  - type: features_quad
+    version: "1.0"
+    variant: default
+    heading: Is This Program Right for You?
+    description: If you are nodding at any of these, you're exactly who this is built for.
+    cards:
+      - icon: IconRocket
+        title: You use AI tools but are not leveraging their full potential.
+      - icon: IconClock
+        title: Repetitive tasks are taking up your time and attention.
+      - icon: IconTrendingUp
+        title: You know AI fluency is becoming a must-have to stay ahead in your career.
+      - icon: IconCoin
+        title: You want the salary premium that comes with real AI skills.
+    background: hsl(var(--card))
+    section_id: features_quad-aifluency
+    marginY:
+      desktop: none lg
   - type: features_grid
     version: "1.0"
     variant: stats-charts
-    subtitle: The demand is there. The talent isn't.
-    title: Why AI Engineering Now
-    description: In the past two years, AI has created 1.3 million new roles globally — and only 3% of the workforce has the skills to fill them. LinkedIn ranks AI Engineer among the fastest-growing jobs of 2026. The demand is there. The talent isn't. That's your opportunity.
+    subtitle: The data is clear.
+    title: AI Fluency Is No Longer Optional
+    description: Professionals with AI skills earn more, advance faster, and are in higher demand in every industry, not just tech. The shift is already underway. These are the numbers behind it.
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
     card_gauge_accent: hsl(var(--destructive) / 0.5)
     card_trend_accent: hsl(var(--accent))
     card_bars:
-      title: More New AI Roles Than Job Losses
-      description: Annual delta · 2021-2025 · indexed
-      stat_value: +340%
-      stat_label: net new AI roles created since 2021
-      displaced_label: Displaced
-      created_label: Created by AI
+      title: AI Skills Command a Salary Premium
+      description: Same role · with vs without AI skills · PwC 2025
+      stat_value: +56%
+      stat_label: salary premium for AI-skilled workers over same-role peers
+      displaced_label: Without AI skills
+      created_label: With AI skills
     card_gauge:
-      title: Who's Qualified for AI Roles?
-      description: Global workforce · 2025 data
-      gauge_percentage: 3
-      gauge_label: qualified
-      stat_label: of the workforce is not ready for AI roles today
-      bar1_label: Traditional workforce
-      bar2_label: AI-ready professionals
+      title: AI Literacy Is Becoming a Job Requirement
+      description: Global job roles · LinkedIn 2025
+      gauge_percentage: 30
+      gauge_label: require AI literacy
+      stat_label: of job roles now require AI literacy globally
+      bar1_label: Roles requiring AI literacy
+      bar2_label: Roles without AI requirement
     card_trend:
-      title: Demand Is Accelerating
-      description: Indexed job postings · 2020 → 2027 projected
-      stat_value: 1.3M
-      stat_label: new AI roles created globally in two years
-      end_label: 1.3M · 2027
-    section_id: features_grid-21s11v
+      title: Demand for AI-Fluent Workers Is Accelerating
+      description: Indexed demand growth · LinkedIn/WEF 2026
+      stat_value: 7x
+      stat_label: growth in demand for AI-fluent workers since 2023
+      end_label: 7x · 2026
+    section_id: features_grid-aifluency
     paddingY:
       desktop: none lg
     marginY:
-      desktop: md lg
+      desktop: lg
   - type: syllabus
-    section_id: syllabus-bcr1mu
     variant: program-modules
-    program_title: AI Native Full Stack — Program Modules
-    program_description: Build real AI-powered systems from day one. This curriculum is organized around two tracks — Core AI and Agents, and Infrastructure for AI — plus a capstone that integrates everything into a fully transformed, deployed company. Supported by complementary foundations in modern development tools and practices throughout.
+    program_title: AI Fluency Program Overview
+    program_description: Learn by doing, one week at a time. The program starts with an audit of your own job and tasks, so everything you learn applies directly to your work. Each week combines self-paced modules and a live session with your instructor and cohort to practice, troubleshoot, and get feedback. Four weeks. One live automation and the skills to keep expanding your professional capabilities with AI as your collaborator.
     tech_logos:
-      - name: Python
-        icon: python
       - name: OpenAI
         icon: openai
       - name: n8n
         icon: n8n
-      - name: Docker
-        icon: docker
-      - name: React
-        icon: react
+      - name: Git
+        icon: git
     module_cards:
-      - title: Personal Assistants with OpenClaw
-        duration: Core AI and Agents
+      - title: How AI Really Works
+        duration: Week 1
         objectives:
-          - Configure an open-source AI agent as a personal assistant
-          - Assign tasks and integrate external applications with the agent
-        projects: Deploy and configure a self-hosted AI assistant — yours, under your control, without relying on external vendors.
-        orientation: vertical
-        icon: IconRobot
-      - title: Advanced Personal Assistants with OpenClaw
-        duration: Core AI and Agents
-        objectives:
-          - Identify scenarios where an agent solves real business problems
-          - Develop custom skills for OpenClaw
-          - Implement contextual memory (episodic, semantic, procedural)
-          - Advanced configuration and extension of the agent
-        projects: Take your basic assistant agent to a productive tool with real autonomy in business contexts.
-        orientation: vertical
-        icon: IconRobot
-      - title: Working with AI Coding Agents
-        duration: Core AI and Agents
-        objectives:
-          - Build memory banks and context rules from an existing codebase
-          - Write executable specifications for agents (agent specs)
-          - Synthesize reusable skills so agents act with precision
-        projects: Build memory banks and context rules that turn a coding agent into a collaborator that understands your codebase.
-        orientation: vertical
-        icon: IconCode
-      - title: LLMs, Training & RAG
-        duration: Core AI and Agents
-        objectives:
-          - Prepare data and select models for training
-          - Implement RAG techniques on proprietary knowledge bases
-          - Work with vector databases
-          - Evaluate, debug, and integrate models in production
-        projects: Implement RAG so your agent answers with proprietary, up-to-date knowledge.
-        orientation: vertical
-        icon: IconDatabase
-      - title: Agentic Engineering
-        duration: Core AI and Agents
-        objectives:
-          - Build agents with tool calling (real function calls)
-          - Implement guardrails as a security and control mechanism
-          - Provide tools to the agent via CLIs optimized for AI
-          - Extend agent capabilities with the Model Context Protocol (MCP)
-          - Give an agent persistent memory
-        projects: Build agents that call tools, access external systems via MCPs and CLIs, and operate with persistent memory.
+          - What LLMs are and how they work
+          - Why model choice matters for cost and quality
+          - The difference between a chatbot, assistant, and agent
+          - "Prompt fundamentals: role, context, format, constraints"
+          - "Job audit: identify your top automation candidates"
+        projects: Write your first 5 prompts for real tasks you do every week.
         orientation: vertical
         icon: IconBolt
-      - title: Agentic Workflows
-        duration: Core AI and Agents
+      - title: Prompting as a Skill
+        duration: Week 2
         objectives:
-          - Design multi-agent systems with routing and arbitration
-          - Implement shared memory across agents
-          - Deploy agentic workflows with serverless and durable functions
-        projects: Design systems where multiple agents collaborate, distribute tasks, and run autonomously at scale.
+          - "Prompt patterns: chain of thought, few-shot, persona, structured output"
+          - Prompting for emails, reports, research, and meeting summaries
+          - Managing AI context effectively
+          - Building a personal prompt library
+        projects: Leave with 3-5 working prompts for your actual job tasks.
+        orientation: vertical
+        icon: IconCode
+      - title: Your Personal AI Assistant
+        duration: Week 3
+        objectives:
+          - What AI agents are and how skills work
+          - Installing and configuring OpenClaw
+          - Creating custom skills from prompt templates
+          - Connecting your assistant to Google Drive, Gmail, or Notion
+        projects: Run a custom skill on a real personal task.
+        orientation: vertical
+        icon: IconRobot
+      - title: Automation Pipelines with n8n
+        duration: Week 4
+        objectives:
+          - "n8n fundamentals: nodes, triggers, and workflows"
+          - Connecting n8n to Gmail, Slack, Google Sheets, and webhooks
+          - Linking n8n to an AI agent for smart decision-making steps
+          - "Final project prep: map and build your automation"
+        projects: Build and demo a live automation that handles a real recurring task.
         orientation: vertical
         icon: IconLayoutKanban
-      - title: Backend Development with Coding Agents
-        duration: Infrastructure for AI
+      - title: AI-Automated Workflow
+        duration: Capstone Project
         objectives:
-          - Design backend architectures for AI-powered solutions
-          - Create agent loops integrating LLMs with APIs
-          - Implement lightweight storage and CSV data processing
-          - Build and expose REST APIs for frontends and agents
-        projects: Build robust APIs with FastAPI, implement agent loops in Python, and design backend architectures for AI use cases.
-        orientation: vertical
-        icon: IconServer
-      - title: Workflow Automations
-        duration: Infrastructure for AI
-        objectives:
-          - Model business logic with workflow diagrams
-          - Implement basic and advanced flows in n8n
-          - Integrate LLMs and external apps in automations
-          - Deploy maintainable workflows with error handling
-        projects: Build AI-powered business automations in n8n that run autonomously without manual intervention.
-        orientation: vertical
-        icon: IconCode
-      - title: Data Pipelines
-        duration: Infrastructure for AI
-        objectives:
-          - Manipulate and prepare datasets with Python
-          - Build data pipelines from the application to analysis systems
-        projects: Build pipelines that take raw data, transform it, and leave it ready to feed models, reports, or agents.
-        orientation: vertical
-        icon: IconChartBar
-      - title: Telemetry
-        duration: Infrastructure for AI
-        objectives:
-          - Optimize storage for reporting and data integrity
-          - Identify data collection opportunities in real scenarios
-          - Collect telemetry and user context from the application
-          - Build reports from telemetry data
-        projects: Instrument applications to collect behavioral data and make decisions based on real evidence.
-        orientation: vertical
-        icon: IconChartBar
-      - title: Asynchronous Processing and Offloading
-        duration: Infrastructure for AI
-        objectives:
-          - Implement background processing for costly tasks
-          - Manage process queues with workers
-          - Use queues to delegate work between agents and services
-        projects: Implement background processing and queue systems that let agents delegate heavy work without blocking users.
-        orientation: vertical
-        icon: IconServer
-      - title: Real-Time
-        duration: Infrastructure for AI
-        objectives:
-          - Build support chats with LLMs in real time
-          - Implement response streaming with generators (yield)
-          - Integrate webhooks and pub/sub in AI applications
-        projects: Implement real-time communication between users and language models using streaming, WebSockets, and event-driven architectures.
-        orientation: vertical
-        icon: IconBolt
-      - title: Web Application Authentication
-        duration: Infrastructure for AI
-        objectives:
-          - Implement authentication and route restrictions in FastAPI
-          - Build complete authentication flows (login, tokens, sessions)
-        projects: Implement secure authentication in FastAPI and build complete login flows that define what each user — and agent — can do.
-        orientation: vertical
-        icon: IconCode
-      - title: Error Handling, Debugging and Testing
-        duration: Infrastructure for AI
-        objectives:
-          - Understand and manage runtime errors with flow control
-          - Develop test suites for robust applications
-        projects: Verify AI-generated code with controlled error handling and test suites that validate expected behavior.
-        orientation: vertical
-        icon: IconCode
-      - title: Cybersecurity in AI Applications
-        duration: Infrastructure for AI
-        objectives:
-          - Identify and fix OWASP Top 10 vulnerabilities in web applications
-          - Implement security practices specific to AI integrations
-          - Use LLMs as a cybersecurity auditing tool
-        projects: Identify critical vulnerabilities in AI applications and implement safe practices in model integration.
-        orientation: vertical
-        icon: IconCode
-      - title: AI-Transformed Company
-        duration: Capstone
-        objectives:
-          - AI-generated frontend
-          - API with full authentication
-          - Telemetry and reporting pipeline
-          - Agent-generated automated workflows
-          - RAG knowledge layer
-          - Agents with tool calling
-          - Real-time communication
-        projects: Integrate everything you have learned into a working, deployed system — a full transformation of a company through AI.
+          - A live n8n automation solving a real personal or professional task
+          - At least one AI decision-making step integrated into the workflow
+          - Live demo presented to instructor and peers
+        projects: A real automation you built, own, and can keep improving.
         orientation: horizontal
-        icon: IconCode
+        icon: IconChartBar
     marginY:
-      desktop: md none
+      desktop: md xl
     paddingY:
-      desktop: md
+      desktop: lg
+    section_id: syllabus-aifluency
   - type: trust_cards
     version: v1.0
     title: Top rated across all major platforms.
@@ -418,48 +331,6 @@ sections:
       mobile: sm none
       desktop: md none
     section_id: human_and_ai_duo-hz7p4j
-  - type: ai_learning
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: The Most Personalized Path to an AI Career
-    description: Progress faster than ever before, with a support system built around your pace, your goals, your career.
-    features:
-      - icon: Robot
-        title: AI-powered feedback 24/7
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Instant feedback from Rigobot, our custom AI tutor
-          - text: Advice adjusted to your skill level and progress
-          - text: Instant help at any hour, day or night
-          - text: Hundreds of interactive coding exercises and tests
-        video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
-      - icon: Headset
-        title: Unlimited 1:1 mentorship, for life
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Lifelong access to 1:1 technical mentorship
-          - text: {{ global.global_teacher_student_ratio | 7:1 }} student-to-instructor ratio
-          - text: Weekly check-ins and peer collaboration via Slack
-          - text: Dedicated channels for coding support, job boards, and career advice
-        video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
-      - icon: TrendingUp
-        title: Career support built for the AI job market
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Lifelong 1:1 career coaching
-          - text: Resume and portfolio built to pass AI-based screening
-          - text: Interview prep and salary negotiation
-          - text: Direct referrals to our 400+ employer network
-        video_url: https://youtu.be/-2ZvlgDnltc
-    section_id: ai_learning-p4d93r
-    marginY:
-      desktop: md xl
-    paddingY:
-      desktop: md sm
-    background: hsl(210 100% 50% / 0.05)
   - type: features_grid
     version: "1.0"
     variant: stats-cards
