@@ -1,5 +1,6 @@
 import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import type { EditOperation } from "@shared/schema";
+import { encodeHtmlValues } from "@shared/htmlEncoding";
 
 export interface ContentEditRequest {
   contentType: string;
@@ -33,7 +34,7 @@ export async function editCommonContent(request: CommonEditRequest): Promise<{ s
       "Content-Type": "application/json",
       ...(token ? { Authorization: `Token ${token}` } : {}),
     },
-    body: JSON.stringify({ ...request, author }),
+    body: JSON.stringify(encodeHtmlValues({ ...request, author })),
   });
 
   if (response.ok) {
@@ -54,10 +55,10 @@ export async function editContent(request: ContentEditRequest): Promise<ContentE
       "Content-Type": "application/json",
       ...(token ? { Authorization: `Token ${token}` } : {}),
     },
-    body: JSON.stringify({
+    body: JSON.stringify(encodeHtmlValues({
       ...request,
       author,
-    }),
+    })),
   });
 
   if (response.ok) {

@@ -35,6 +35,7 @@ import { useToast } from "@/hooks/use-toast";
 import { editContent } from "@/lib/contentApi";
 import { emitContentUpdated, registerEditorDirtyCheck } from "@/lib/contentEvents";
 import { getDebugToken } from "@/hooks/useDebugAuth";
+import { encodeHtmlValues } from "@shared/htmlEncoding";
 import {
   parseEditorType,
   type ColorPickerVariant,
@@ -1946,13 +1947,13 @@ export function SectionEditorPanel({
           "Content-Type": "application/json",
           ...(token ? { Authorization: `Token ${token}` } : {}),
         },
-        body: JSON.stringify({
+        body: JSON.stringify(encodeHtmlValues({
           contentType,
           slug,
           locale,
           sectionIndex,
           sectionData: parsed as Record<string, unknown>,
-        }),
+        })),
       });
       const data = await resp.json();
       if (data.success) {

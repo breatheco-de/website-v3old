@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
 import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
+import { encodeHtmlValues } from "@shared/htmlEncoding";
 import CodeMirror from "@uiw/react-codemirror";
 import { yaml } from "@codemirror/lang-yaml";
 import { oneDark } from "@codemirror/theme-one-dark";
@@ -109,7 +110,7 @@ export default function RawFileEditorPanel({ contentType, slug, locale, variantS
             "Content-Type": "application/json",
             ...(token ? { Authorization: `Token ${token}` } : {}),
           },
-          body: JSON.stringify({ ...file, author }),
+          body: JSON.stringify(encodeHtmlValues({ ...file, author })),
         });
         if (!res.ok) {
           const errorData = await res.json().catch(() => ({ error: "Unknown error" }));

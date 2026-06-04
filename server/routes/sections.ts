@@ -9,6 +9,7 @@ import { getAllQueueState } from "../image-queue-state";
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
+import { decodeHtmlValues } from "@shared/htmlEncoding";
 import { execSync as _execSync, execFile } from "child_process";
 import {
   versioningUpdateSchema,
@@ -753,6 +754,7 @@ export function registerSectionsRoutes(app: Express): void {
    */
   app.post("/api/per-entry-section-update", async (req, res) => {
     try {
+      req.body = decodeHtmlValues(req.body);
       const auth = await requireCapability(req, res, "content_edit_default", req.body.contentType);
       if (!auth.authorized) return;
       const authorName = auth.author || undefined;
@@ -880,6 +882,7 @@ export function registerSectionsRoutes(app: Express): void {
 
   app.post("/api/content/edit-sections", async (req, res) => {
     try {
+      req.body = decodeHtmlValues(req.body);
       // Support both formats:
       // 1. Original: { contentType, slug, locale, operations: [...] }
       // 2. Simplified: { contentType, slug, locale, operation, sectionIndex, sectionData, variant, version }
@@ -1103,6 +1106,7 @@ export function registerSectionsRoutes(app: Express): void {
 
   app.post("/api/content/edit-common", async (req, res) => {
     try {
+      req.body = decodeHtmlValues(req.body);
       const auth = await requireCapability(req, res, "content_edit_text", req.body.contentType || undefined);
       if (!auth.authorized) return;
 
