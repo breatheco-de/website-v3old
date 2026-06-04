@@ -280,7 +280,7 @@ sections:
         orientation: horizontal
         icon: IconChartBar
     marginY:
-      desktop: md xl
+      desktop: md
     paddingY:
       desktop: lg
     section_id: syllabus-aifluency
