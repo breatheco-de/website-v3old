@@ -20,7 +20,7 @@ function getSize(): number {
   if (typeof window === "undefined") return 580;
   if (window.innerWidth <= MOBILE_BP) return 310;
   if (window.innerWidth <= MD_BP) return 510;
-  return 570;
+  return 580;
 }
 
 function useOrbitSize(): number {
@@ -173,6 +173,7 @@ function OrbitDiagram({
   const ringBorderWidth = size <= 310 ? "0.8px" : "1.4px";
 
   return (
+    <div className="flex flex-col items-center">
     <div
       ref={sceneRef}
       className="relative flex items-center justify-center flex-shrink-0"
@@ -226,25 +227,25 @@ function OrbitDiagram({
         />
       </div>
 
-      {/* Legend */}
-      <div className="absolute bottom-[1%] left-1/2 -translate-x-1/2 flex items-center gap-5 whitespace-nowrap">
-        <div className="flex items-center gap-[0.4rem] text-[0.75rem] text-muted-foreground">
-          <span
-            className="rounded-full flex-shrink-0"
-            style={{
-              width: "0.65rem",
-              height: "0.65rem",
-              background: "hsl(215 14% 80%)",
-              border: "1.5px solid hsl(215 14% 62%)",
-            }}
-          />
-          <span>{legendStart}</span>
-        </div>
-        <div className="flex items-center gap-[0.4rem] text-[0.75rem] text-muted-foreground">
-          <span className="rounded-full flex-shrink-0 bg-primary" style={{ width: "0.8rem", height: "0.8rem" }} />
-          <span>{legendHighlight}</span>
-        </div>
+    </div>
+    <div className="flex items-center justify-center gap-5 whitespace-nowrap mt-3">
+      <div className="flex items-center gap-[0.4rem] text-[0.75rem] text-muted-foreground">
+        <span
+          className="rounded-full flex-shrink-0"
+          style={{
+            width: "0.65rem",
+            height: "0.65rem",
+            background: "hsl(215 14% 80%)",
+            border: "1.5px solid hsl(215 14% 62%)",
+          }}
+        />
+        <span>{legendStart}</span>
       </div>
+      <div className="flex items-center gap-[0.4rem] text-[0.75rem] text-muted-foreground">
+        <span className="rounded-full flex-shrink-0 bg-primary" style={{ width: "0.8rem", height: "0.8rem" }} />
+        <span>{legendHighlight}</span>
+      </div>
+    </div>
     </div>
   );
 }
@@ -311,7 +312,7 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
           <div className="max-lg:contents lg:flex lg:flex-col lg:gap-[1.4rem] lg:self-start lg:pt-4">
             {data.body && (
               <p
-                className="max-lg:order-1 max-lg:mt-4 text-muted-foreground text-[0.88rem] md:text-[0.92rem] lg:text-[1.05rem] max-w-[390px] leading-[1.65] m-0 font-medium"
+                className="max-lg:order-1 max-lg:mt-4 text-muted-foreground text-[0.88rem] md:text-[0.92rem] lg:text-[1.05rem] lg:max-w-[390px] leading-[1.65] m-0 font-medium"
                 data-testid="text-hero-body"
               >
                 {data.body}
@@ -330,7 +331,7 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
                     asChild
                     data-testid={`button-hero-cta-${i}`}
                   >
-                    <a href={btn.url} onClick={handleLinkClick} className="flex items-center gap-2 px-6 py-2">
+                    <a href={btn.url} onClick={handleLinkClick} className="flex items-center gap-1.5 px-4 py-1.5 text-sm lg:gap-2 lg:px-6 lg:py-2 lg:text-base">
                       {btn.icon &&
                         (() => {
                           const Ic = getIcon(btn.icon);
@@ -345,7 +346,7 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
 
             {data.stat && (
               <div
-                className="max-lg:order-4 max-lg:mt-4 flex items-start gap-2 text-[0.88rem] text-muted-foreground"
+                className="max-lg:order-4 max-lg:mt-4 flex items-start gap-2 text-[0.95rem] md:text-[1rem] lg:text-[1.05rem] text-muted-foreground"
                 data-testid="text-hero-stat"
               >
                 <span className="w-[0.45rem] h-[0.45rem] rounded-full bg-muted-foreground/40 flex-shrink-0 mt-[0.15rem]" />

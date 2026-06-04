@@ -291,6 +291,11 @@
       "id": "light-blue-diagonal-gradient",
       "label": "Light Blue Diagonal Gradient",
       "value": "linear-gradient(to bottom right, hsl(var(--primary) / 0.05), transparent, hsl(var(--chart-2) / 0.05))"
+    },
+    {
+      "id": "hero-orbit-gradient",
+      "label": "Hero Orbit Gradient",
+      "value": "linear-gradient(to bottom left, hsl(var(--primary) / 0.14), transparent 60%)"
     }
   ],
   "accents": [
