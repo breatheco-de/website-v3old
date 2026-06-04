@@ -25,7 +25,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: APLICAR
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -52,14 +51,6 @@ sections:
         location:
           visible: true
           required: true
-      terms_url: /terminos-condiciones
-      privacy_url: /politica-privacidad
-      consent:
-        sms: true
-        marketing: true
-        marketing_text: Acepto recibir información a través de correo electrónico, WhatsApp y/u otros canales sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto, y puedes darte de baja fácilmente en cualquier momento.
-        sms_usa_only: true
-      show_terms: true
       turnstile:
         enabled: true
     next_steps:

@@ -3,6 +3,7 @@ import path from "path";
 import yaml from "js-yaml";
 import { escapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import { validateFormSection } from "@shared/validateFormSection";
+import { getConsentKeyError } from "@shared/consentLegacyKeys";
 import { getTrackingSettings } from "./settings";
 import { generateSectionId } from "./utils/generateSectionId";
 
@@ -486,6 +487,12 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
       }
     }
 
+    // Reject obsolete consent keys before writing to disk.
+    const consentErr = getConsentKeyError(localeData);
+    if (consentErr) {
+      return { success: false, error: consentErr };
+    }
+
     // Write locale data back to file (without _common.yml content)
     const updatedYaml = safeYamlDump(localeData, {
       lineWidth: -1, // Don't wrap lines
@@ -587,6 +594,12 @@ function writeStructuralChangesToTemplate(opts: {
       );
     }
 
+    // Reject obsolete consent keys before writing to disk.
+    const consentErrStructural = getConsentKeyError(templateData);
+    if (consentErrStructural) {
+      return { success: false, error: consentErrStructural };
+    }
+
     const updatedYaml = safeYamlDump(templateData, {
       lineWidth: -1,
       noRefs: true,
@@ -643,6 +656,12 @@ function writeTopLevelFieldsToPerEntryFile(opts: {
       } else {
         setValueAtPath(entryData, op.path as string, op.value);
       }
+    }
+
+    // Reject obsolete consent keys before writing to disk.
+    const consentErrEntry = getConsentKeyError(entryData);
+    if (consentErrEntry) {
+      return { success: false, error: consentErrEntry };
     }
 
     const dumped = safeYamlDump(entryData, { lineWidth: -1, noRefs: true });
@@ -795,6 +814,12 @@ function handleSharedTemplateEdit(opts: {
     }
 
     if (templateDirty) {
+      // Reject obsolete consent keys before writing to disk.
+      const consentErrTemplate = getConsentKeyError(templateData);
+      if (consentErrTemplate) {
+        return { success: false, error: consentErrTemplate };
+      }
+
       const updatedYaml = safeYamlDump(templateData, {
         lineWidth: -1,
         noRefs: true,

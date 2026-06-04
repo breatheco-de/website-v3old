@@ -4,7 +4,6 @@ yaml: |
   - type: article
     show_toc: true
     toc_position: top
-    max_width: md
     content: |
       # Privacy Policy
 

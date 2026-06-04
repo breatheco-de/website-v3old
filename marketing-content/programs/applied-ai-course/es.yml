@@ -96,7 +96,6 @@ sections:
       variant: stacked
       submit_label: Obtener el Resumen Completo
       conversion_name: request_more_info
-      tags: request_more_info
       automations: soft
       fields:
         email:
@@ -481,7 +480,6 @@ sections:
       variant: stacked
       submit_label: Aplicar ahora
       conversion_name: student_application
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -501,11 +499,6 @@ sections:
           default: applied-ai
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
-      show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
     form_background: hsl(var(--card))
@@ -525,7 +518,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: Enviar Solicitud
-      tags: website-lead
       automations: strong
       fields:
         email:

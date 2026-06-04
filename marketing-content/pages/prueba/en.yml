@@ -27,7 +27,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: See If You Qualify. It's Free
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -49,15 +48,6 @@ sections:
           default: ai-engineering
       success:
         message: You're in. Someone from our admissions team will reach out within a few minutes via email — check your inbox.
-      terms_url: /terms-and-conditions
-      privacy_url: /privacy-policy
-      consent:
-        sms: true
-        marketing: true
-        marketing_text: I agree to receive information via email, WhatsApp and/or other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe easily at any time.
-        sms_text: I agree to receive SMS/text messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information.
-        sms_usa_only: true
-      show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get the Full AI Engineering Program Details
@@ -117,7 +107,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: Submit Application
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -695,7 +684,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: See If You Qualify
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -718,11 +706,6 @@ sections:
           default: ai-engineering
       success:
         message: You're in. Someone from our admissions team will reach out within minutes — check your inbox.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: I agree to receive information about courses and promotions
-      show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
     section_id: cta_banner-55y7oh

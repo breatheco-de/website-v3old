@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { AlertTriangle, ArrowDown, ArrowLeftRight, ArrowUp, Check, ChevronLeft, ChevronRight, Clock3, Code, Copy, Eye, History, Link, Loader2, Monitor, MoreVertical, Pencil, Smartphone, Space, Sparkles, Trash2, Unlink, X } from "lucide-react";
-import { IconPin, IconEdit, IconArrowBackUp } from "@tabler/icons-react";
+import { IconPin, IconEdit, IconArrowBackUp, IconPencil, IconChevronDown } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import type { Section, SectionLayout, ShowOn, ResponsiveSpacing } from "@shared/schema";
 import { Label } from "@/components/ui/label";
@@ -9,6 +9,7 @@ import { useEditModeOptional } from "@/contexts/EditModeContext";
 import { getLocationBySlug } from "@/lib/locations";
 import { usePageHistoryOptional } from "@/contexts/PageHistoryContext";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -421,6 +422,7 @@ export function EditableSection({ children, section, index, sectionType, content
     }) as { contentType: string; slug: string; sectionIndex: number }[];
   const [bindingDialogOpen, setBindingDialogOpen] = useState(false);
   const [bindingConfirmForAI, setBindingConfirmForAI] = useState(false);
+  const [anchorCopied, setAnchorCopied] = useState(false);
   const pendingAIApply = useRef<(() => Promise<void>) | null>(null);
 
   const openBindingDialog = () => {
@@ -1703,11 +1705,55 @@ export function EditableSection({ children, section, index, sectionType, content
             <p className="text-muted-foreground">
               Include <span className="font-mono font-medium text-foreground">#{(currentSection as { section_id?: string }).section_id ?? `${sectionType}-${index}`}</span> on the website URL to take the user to this section scroll position directly.
             </p>
+            <button
+              className="mt-2 flex items-center gap-1.5 text-muted-foreground hover-elevate rounded px-1.5 py-1 -mx-1.5"
+              data-testid={`button-copy-anchor-link-${index}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                const anchorId = (currentSection as { section_id?: string }).section_id ?? `${sectionType}-${index}`;
+                const path = window.location.pathname.startsWith('/private/preview/')
+                  ? `/${locale}/${contentType}/${slug}`
+                  : window.location.pathname;
+                const url = `${window.location.origin}${path}#${anchorId}`;
+                navigator.clipboard.writeText(url);
+                setAnchorCopied(true);
+                setTimeout(() => setAnchorCopied(false), 2000);
+              }}
+            >
+              {anchorCopied ? (
+                <Check className="h-3.5 w-3.5 text-green-600 dark:text-green-400" />
+              ) : (
+                <Copy className="h-3.5 w-3.5" />
+              )}
+              <span>{anchorCopied ? "Copied!" : "Copy link to this section"}</span>
+            </button>
           </PopoverContent>
         </Popover>
-        <span className="px-2 py-1 bg-muted/90 backdrop-blur-sm rounded text-xs text-muted-foreground">
-          Variant: {deslugify((currentSection as { variant?: string }).variant || "default")}
-        </span>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              className="flex items-center gap-1 px-2 py-1 bg-muted/90 backdrop-blur-sm rounded text-xs text-muted-foreground hover-elevate cursor-pointer"
+              data-testid={`badge-variant-${index}`}
+            >
+              Variant: {deslugify((currentSection as { variant?: string }).variant || "default")}
+              <IconChevronDown className="h-3 w-3 shrink-0" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent side="bottom" align="start" onClick={(e) => e.stopPropagation()}>
+            <DropdownMenuItem
+              className="flex items-center gap-2 cursor-pointer"
+              onSelect={() => {
+                const variantName = (currentSection as { variant?: string }).variant || "default";
+                const params = new URLSearchParams({ variant: variantName });
+                if (version) params.set("version", String(version));
+                window.open(`/private/component-showcase/${sectionType}?${params.toString()}`, "_blank");
+              }}
+            >
+              <IconPencil className="h-4 w-4 shrink-0" />
+              Edit this variant
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         </div>
       </div>
       

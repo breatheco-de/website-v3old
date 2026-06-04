@@ -32,7 +32,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Start Your Application
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -55,15 +54,6 @@ sections:
           default: ai-engineering
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
-      terms_url: /terms-and-conditions
-      privacy_url: /privacy-policy
-      consent:
-        sms: true
-        marketing: true
-        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe at any time.
-        sms_text: I agree to receive SMS messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4-6 messages per month. We will never share your contact information.
-        sms_usa_only: true
-      show_terms: true
     form_vertical_align: top
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get the AI Engineering Program Overview
@@ -124,7 +114,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: See If You Qualify. It's Free
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -243,7 +232,7 @@ sections:
       desktop: none sm
   - type: syllabus
     variant: program-modules
-    program_title: AI Engineering — Program Modules
+    program_title: AI Engineering Program Modules
     program_description: Build real AI-powered systems from day one. This curriculum is organized around two tracks — Core AI and Agents, and Infrastructure for AI — plus a capstone that integrates everything into a fully transformed, deployed company. Supported by complementary foundations in modern development tools and practices throughout.
     tech_logos:
       - name: Python
@@ -850,7 +839,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Apply Now
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -874,10 +862,6 @@ sections:
           default: ai-engineering
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contac
     section_id: cta_banner-1klq8h
     paddingY:
       desktop: lg none

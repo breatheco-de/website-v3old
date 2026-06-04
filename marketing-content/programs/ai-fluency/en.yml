@@ -19,9 +19,9 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: AI Fluency Program
-    title_highlight: Program
-    subtitle: AI skills now carry a 56% salary premium over colleagues in the same role. In 4 weeks, you will know how to build real automations, direct AI like a collaborator, and work the way the best professionals already do.
+    title: AI Fluency. The New Baseline for Professionals.
+    title_highlight: The New Baseline for Professionals.
+    subtitle: AI skills now carry a 56% salary premium across industries. In our 4-week intensive upskilling program, you'll learn to build AI workflows, automate tasks, and leverage AI as a collaborator, not just a tool. No coding required.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -30,9 +30,9 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduates
     bullet_points:
-      - Build real automations for your job tasks. No coding required.
-      - Use AI agents, prompt patterns, and n8n to automate recurring tasks.
-      - Leave with working automations and the skills to keep building.
+      - AI workflows built around your job, your tasks, your tools.
+      - Automate repetitive work with agents and n8n.
+      - Master AI collaboration. Build anything.
     tutors:
       - name: Expert Instructor
         role: Lead Instructor
@@ -43,7 +43,7 @@ sections:
     tutors_label: "Your tutors:"
     description: AI is not the future, it is the foundation. The professionals pulling ahead right now are leveraging AI's capacities with intention. This is your way in.
     signup_card:
-      title: Get the Program Overview
+      title: Get the Full Program Overview
       description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, and pricing. It takes 2 minutes."
       cta_button:
         text: Send Me the Details
@@ -61,22 +61,21 @@ sections:
           text: 1:1 Mentorship Session Included
         - icon: IconRobot
           text: AI-Powered Learning & Feedback
-    section_id: hero-aifluency
     paddingY:
       desktop: lg md
     marginY:
       desktop: none
+    section_id: hero-aifluency
   - type: modal
     version: "1.0"
-    heading: Request Program Details
-    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
+    heading: Get the Full Program Details
+    description: Fill in your contact info and our admissions team will send you everything you need to know.
     show_close: true
     size: md
     form:
       variant: stacked
-      submit_label: Get the Full Overview
+      submit_label: Send Me the Details
       conversion_name: request_more_info
-      tags: request_more_info
       automations: soft
       fields:
         email:
@@ -91,10 +90,10 @@ sections:
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | datascience-ml }}
+          default: {{ single.bc_slug | ai-fluency }}
       success:
-        message: Thank you. A program advisor will reach out with the details within 24 hours.
-    section_id: modal-qf93fn
+        message: Check your inbox. Our admissions team will be in touch shortly.
+    section_id: modal-aifluency
   - type: awards_marquee
     section_id: awards_marquee-tjpzl5
     version: v1.0
@@ -138,214 +137,60 @@ sections:
       desktop: none
     marginY:
       desktop: md
+  - type: features_quad
+    version: "1.0"
+    variant: default
+    heading: Is This Program Right for You?
+    description: If you are nodding at any of these, you're exactly who this is built for.
+    cards:
+      - icon: IconRocket
+        title: You use AI tools but are not leveraging their full potential.
+      - icon: IconClock
+        title: Repetitive tasks are taking up your time and attention.
+      - icon: IconTrendingUp
+        title: You know AI fluency is becoming a must-have to stay ahead in your career.
+      - icon: IconCoin
+        title: You want the salary premium that comes with real AI skills.
+    background: hsl(var(--card))
+    section_id: features_quad-aifluency
+    marginY:
+      desktop: none lg
   - type: features_grid
     version: "1.0"
     variant: stats-charts
-    subtitle: The demand is there. The talent isn't.
-    title: Why AI Engineering Now
-    description: In the past two years, AI has created 1.3 million new roles globally — and only 3% of the workforce has the skills to fill them. LinkedIn ranks AI Engineer among the fastest-growing jobs of 2026. The demand is there. The talent isn't. That's your opportunity.
+    subtitle: The data is clear.
+    title: AI Fluency Is No Longer Optional
+    description: Professionals with AI skills earn more, advance faster, and are in higher demand in every industry, not just tech. The shift is already underway. These are the numbers behind it.
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
     card_gauge_accent: hsl(var(--destructive) / 0.5)
     card_trend_accent: hsl(var(--accent))
     card_bars:
-      title: More New AI Roles Than Job Losses
-      description: Annual delta · 2021-2025 · indexed
-      stat_value: +340%
-      stat_label: net new AI roles created since 2021
-      displaced_label: Displaced
-      created_label: Created by AI
+      title: AI Skills Command a Salary Premium
+      description: Same role · with vs without AI skills · PwC 2025
+      stat_value: +56%
+      stat_label: salary premium for AI-skilled workers over same-role peers
+      displaced_label: Without AI skills
+      created_label: With AI skills
     card_gauge:
-      title: Who's Qualified for AI Roles?
-      description: Global workforce · 2025 data
-      gauge_percentage: 3
-      gauge_label: qualified
-      stat_label: of the workforce is not ready for AI roles today
-      bar1_label: Traditional workforce
-      bar2_label: AI-ready professionals
+      title: AI Literacy Is Becoming a Job Requirement
+      description: Global job roles · LinkedIn 2025
+      gauge_percentage: 30
+      gauge_label: require AI literacy
+      stat_label: of job roles now require AI literacy globally
+      bar1_label: Roles requiring AI literacy
+      bar2_label: Roles without AI requirement
     card_trend:
-      title: Demand Is Accelerating
-      description: Indexed job postings · 2020 → 2027 projected
-      stat_value: 1.3M
-      stat_label: new AI roles created globally in two years
-      end_label: 1.3M · 2027
-    section_id: features_grid-21s11v
+      title: Demand for AI-Fluent Workers Is Accelerating
+      description: Indexed demand growth · LinkedIn/WEF 2026
+      stat_value: 7x
+      stat_label: growth in demand for AI-fluent workers since 2023
+      end_label: 7x · 2026
+    section_id: features_grid-aifluency
     paddingY:
       desktop: none lg
     marginY:
-      desktop: md lg
-  - type: syllabus
-    section_id: syllabus-bcr1mu
-    variant: program-modules
-    program_title: AI Native Full Stack — Program Modules
-    program_description: Build real AI-powered systems from day one. This curriculum is organized around two tracks — Core AI and Agents, and Infrastructure for AI — plus a capstone that integrates everything into a fully transformed, deployed company. Supported by complementary foundations in modern development tools and practices throughout.
-    tech_logos:
-      - name: Python
-        icon: python
-      - name: OpenAI
-        icon: openai
-      - name: n8n
-        icon: n8n
-      - name: Docker
-        icon: docker
-      - name: React
-        icon: react
-    module_cards:
-      - title: Personal Assistants with OpenClaw
-        duration: Core AI and Agents
-        objectives:
-          - Configure an open-source AI agent as a personal assistant
-          - Assign tasks and integrate external applications with the agent
-        projects: Deploy and configure a self-hosted AI assistant — yours, under your control, without relying on external vendors.
-        orientation: vertical
-        icon: IconRobot
-      - title: Advanced Personal Assistants with OpenClaw
-        duration: Core AI and Agents
-        objectives:
-          - Identify scenarios where an agent solves real business problems
-          - Develop custom skills for OpenClaw
-          - Implement contextual memory (episodic, semantic, procedural)
-          - Advanced configuration and extension of the agent
-        projects: Take your basic assistant agent to a productive tool with real autonomy in business contexts.
-        orientation: vertical
-        icon: IconRobot
-      - title: Working with AI Coding Agents
-        duration: Core AI and Agents
-        objectives:
-          - Build memory banks and context rules from an existing codebase
-          - Write executable specifications for agents (agent specs)
-          - Synthesize reusable skills so agents act with precision
-        projects: Build memory banks and context rules that turn a coding agent into a collaborator that understands your codebase.
-        orientation: vertical
-        icon: IconCode
-      - title: LLMs, Training & RAG
-        duration: Core AI and Agents
-        objectives:
-          - Prepare data and select models for training
-          - Implement RAG techniques on proprietary knowledge bases
-          - Work with vector databases
-          - Evaluate, debug, and integrate models in production
-        projects: Implement RAG so your agent answers with proprietary, up-to-date knowledge.
-        orientation: vertical
-        icon: IconDatabase
-      - title: Agentic Engineering
-        duration: Core AI and Agents
-        objectives:
-          - Build agents with tool calling (real function calls)
-          - Implement guardrails as a security and control mechanism
-          - Provide tools to the agent via CLIs optimized for AI
-          - Extend agent capabilities with the Model Context Protocol (MCP)
-          - Give an agent persistent memory
-        projects: Build agents that call tools, access external systems via MCPs and CLIs, and operate with persistent memory.
-        orientation: vertical
-        icon: IconBolt
-      - title: Agentic Workflows
-        duration: Core AI and Agents
-        objectives:
-          - Design multi-agent systems with routing and arbitration
-          - Implement shared memory across agents
-          - Deploy agentic workflows with serverless and durable functions
-        projects: Design systems where multiple agents collaborate, distribute tasks, and run autonomously at scale.
-        orientation: vertical
-        icon: IconLayoutKanban
-      - title: Backend Development with Coding Agents
-        duration: Infrastructure for AI
-        objectives:
-          - Design backend architectures for AI-powered solutions
-          - Create agent loops integrating LLMs with APIs
-          - Implement lightweight storage and CSV data processing
-          - Build and expose REST APIs for frontends and agents
-        projects: Build robust APIs with FastAPI, implement agent loops in Python, and design backend architectures for AI use cases.
-        orientation: vertical
-        icon: IconServer
-      - title: Workflow Automations
-        duration: Infrastructure for AI
-        objectives:
-          - Model business logic with workflow diagrams
-          - Implement basic and advanced flows in n8n
-          - Integrate LLMs and external apps in automations
-          - Deploy maintainable workflows with error handling
-        projects: Build AI-powered business automations in n8n that run autonomously without manual intervention.
-        orientation: vertical
-        icon: IconCode
-      - title: Data Pipelines
-        duration: Infrastructure for AI
-        objectives:
-          - Manipulate and prepare datasets with Python
-          - Build data pipelines from the application to analysis systems
-        projects: Build pipelines that take raw data, transform it, and leave it ready to feed models, reports, or agents.
-        orientation: vertical
-        icon: IconChartBar
-      - title: Telemetry
-        duration: Infrastructure for AI
-        objectives:
-          - Optimize storage for reporting and data integrity
-          - Identify data collection opportunities in real scenarios
-          - Collect telemetry and user context from the application
-          - Build reports from telemetry data
-        projects: Instrument applications to collect behavioral data and make decisions based on real evidence.
-        orientation: vertical
-        icon: IconChartBar
-      - title: Asynchronous Processing and Offloading
-        duration: Infrastructure for AI
-        objectives:
-          - Implement background processing for costly tasks
-          - Manage process queues with workers
-          - Use queues to delegate work between agents and services
-        projects: Implement background processing and queue systems that let agents delegate heavy work without blocking users.
-        orientation: vertical
-        icon: IconServer
-      - title: Real-Time
-        duration: Infrastructure for AI
-        objectives:
-          - Build support chats with LLMs in real time
-          - Implement response streaming with generators (yield)
-          - Integrate webhooks and pub/sub in AI applications
-        projects: Implement real-time communication between users and language models using streaming, WebSockets, and event-driven architectures.
-        orientation: vertical
-        icon: IconBolt
-      - title: Web Application Authentication
-        duration: Infrastructure for AI
-        objectives:
-          - Implement authentication and route restrictions in FastAPI
-          - Build complete authentication flows (login, tokens, sessions)
-        projects: Implement secure authentication in FastAPI and build complete login flows that define what each user — and agent — can do.
-        orientation: vertical
-        icon: IconCode
-      - title: Error Handling, Debugging and Testing
-        duration: Infrastructure for AI
-        objectives:
-          - Understand and manage runtime errors with flow control
-          - Develop test suites for robust applications
-        projects: Verify AI-generated code with controlled error handling and test suites that validate expected behavior.
-        orientation: vertical
-        icon: IconCode
-      - title: Cybersecurity in AI Applications
-        duration: Infrastructure for AI
-        objectives:
-          - Identify and fix OWASP Top 10 vulnerabilities in web applications
-          - Implement security practices specific to AI integrations
-          - Use LLMs as a cybersecurity auditing tool
-        projects: Identify critical vulnerabilities in AI applications and implement safe practices in model integration.
-        orientation: vertical
-        icon: IconCode
-      - title: AI-Transformed Company
-        duration: Capstone
-        objectives:
-          - AI-generated frontend
-          - API with full authentication
-          - Telemetry and reporting pipeline
-          - Agent-generated automated workflows
-          - RAG knowledge layer
-          - Agents with tool calling
-          - Real-time communication
-        projects: Integrate everything you have learned into a working, deployed system — a full transformation of a company through AI.
-        orientation: horizontal
-        icon: IconCode
-    marginY:
-      desktop: md none
-    paddingY:
-      desktop: md
+      desktop: lg
   - type: trust_cards
     version: v1.0
     title: Top rated across all major platforms.
@@ -372,115 +217,93 @@ sections:
     background: hsl(var(--secondary))
     maxWidth:
       desktop: 6xl
+  - type: syllabus
+    variant: program-modules
+    program_title: AI Fluency Program Overview
+    program_description: Learn by doing, one week at a time. The program starts with an audit of your own job and tasks, so everything you learn applies directly to your work. Each week combines self-paced modules and a live session with your instructor and cohort to practice, troubleshoot, and get feedback. Four weeks. One live automation and the skills to keep expanding your professional capabilities with AI as your collaborator.
+    tech_logos:
+      - name: OpenAI
+        icon: openai
+      - name: n8n
+        icon: n8n
+      - name: Git
+        icon: git
+    module_cards:
+      - title: How AI Really Works
+        duration: Week 1
+        objectives:
+          - What LLMs are and how they work
+          - Why model choice matters for cost and quality
+          - The difference between a chatbot, assistant, and agent
+          - "Prompt fundamentals: role, context, format, constraints"
+          - "Job audit: identify your top automation candidates"
+        projects: Write your first 5 prompts for real tasks you do every week.
+        orientation: vertical
+        icon: IconBolt
+      - title: Prompting as a Skill
+        duration: Week 2
+        objectives:
+          - "Prompt patterns: chain of thought, few-shot, persona, structured output"
+          - Prompting for emails, reports, research, and meeting summaries
+          - Managing AI context effectively
+          - Building a personal prompt library
+        projects: Leave with 3-5 working prompts for your actual job tasks.
+        orientation: vertical
+        icon: IconCode
+      - title: Your Personal AI Assistant
+        duration: Week 3
+        objectives:
+          - What AI agents are and how skills work
+          - Installing and configuring OpenClaw
+          - Creating custom skills from prompt templates
+          - Connecting your assistant to Google Drive, Gmail, or Notion
+        projects: Run a custom skill on a real personal task.
+        orientation: vertical
+        icon: IconRobot
+      - title: Automation Pipelines with n8n
+        duration: Week 4
+        objectives:
+          - "n8n fundamentals: nodes, triggers, and workflows"
+          - Connecting n8n to Gmail, Slack, Google Sheets, and webhooks
+          - Linking n8n to an AI agent for smart decision-making steps
+          - "Final project prep: map and build your automation"
+        projects: Build and demo a live automation that handles a real recurring task.
+        orientation: vertical
+        icon: IconLayoutKanban
+      - title: AI-Automated Workflow
+        duration: Capstone Project
+        objectives:
+          - A live n8n automation solving a real personal or professional task
+          - At least one AI decision-making step integrated into the workflow
+          - Live demo presented to instructor and peers
+        projects: A real automation you built, own, and can keep improving.
+        orientation: horizontal
+        icon: IconChartBar
+    marginY:
+      desktop: md
+    paddingY:
+      desktop: lg
+    section_id: syllabus-aifluency
   - type: human_and_ai_duo
     version: "1.0"
-    heading: "Human + AI: The Perfect Support Duo"
-    description: Learning works best when human expertise and AI support come together. At 4Geeks, you'll progress faster and smarter through unlimited 1:1 mentorship and AI-powered support from Rigobot.
+    heading: Human and AI Support, So You Never Lose Momentum
+    description: Staying motivated is easy when everything clicks. It can get hard when you hit a wall. AI Fluency pairs a real human mentor with Rigobot, our AI tutor, so you always have somewhere to turn and no reason to stop.
     bullet_groups:
-      - title: "Our team of expert mentors:"
+      - title: "Your expert mentor:"
         image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
         bullets:
-          - text: Personalized guidance
-          - text: Live troubleshooting
-          - text: Expert bug fixing assistance
-          - text: Industry insights and career advice
-      - title: "Rigobot + Learnpack:"
+          - text: A 1:1 session with a senior instructor, included in your enrollment
+          - text: Expert guidance tailored to you.
+          - text: Focused on your actual tasks, workflows, and goals
+          - text: Additional sessions available to book anytime, at extra cost
+      - title: "Rigobot, your AI tutor:"
         image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
         bullets:
-          - text: Instant feedback and tutoring 24/7
-          - text: Adjusts advice to your skills and progress
-          - text: Debugging and problem-solving support
-          - text: Hundreds of hands-on coding exercises and tests
-    images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
-        alt: Asian student learning to code
-        object_fit: cover
-        object_position: 40%20%
-        border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male-133x500.webp
-        alt: Latino student working on a project
-        object_fit: cover
-        object_position: 50%30%
-        border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_african-133x500.webp
-        alt: African student collaborating with team
-        object_fit: cover
-        object_position: 50%15%
-        border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latina_female-133x500.webp
-        alt: Latina student celebrating success
-        object_fit: cover
-        object_position: 50%30%
-        border_radius: 0.5rem
-    image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
-    image_alt: Woman working on laptop in cafe
-    background: bg-background
-    paddingY:
-      mobile: sm none
-      desktop: md none
+          - text: Available 24/7 throughout the program
+          - text: Ask for help, feedback, or an explanation whenever you need it
+          - text: Your always-on tutor for all self-paced modules
+          - text: Adapts to your skill level and what you are working on
     section_id: human_and_ai_duo-hz7p4j
-  - type: ai_learning
-    variant: feature-tabs
-    badge: Why 4Geeks?
-    title: The Most Personalized Path to an AI Career
-    description: Progress faster than ever before, with a support system built around your pace, your goals, your career.
-    features:
-      - icon: Robot
-        title: AI-powered feedback 24/7
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Instant feedback from Rigobot, our custom AI tutor
-          - text: Advice adjusted to your skill level and progress
-          - text: Instant help at any hour, day or night
-          - text: Hundreds of interactive coding exercises and tests
-        video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
-      - icon: Headset
-        title: Unlimited 1:1 mentorship, for life
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Lifelong access to 1:1 technical mentorship
-          - text: {{ global.global_teacher_student_ratio | 7:1 }} student-to-instructor ratio
-          - text: Weekly check-ins and peer collaboration via Slack
-          - text: Dedicated channels for coding support, job boards, and career advice
-        video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
-      - icon: TrendingUp
-        title: Career support built for the AI job market
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Lifelong 1:1 career coaching
-          - text: Resume and portfolio built to pass AI-based screening
-          - text: Interview prep and salary negotiation
-          - text: Direct referrals to our 400+ employer network
-        video_url: https://youtu.be/-2ZvlgDnltc
-    section_id: ai_learning-p4d93r
-    marginY:
-      desktop: md xl
-    paddingY:
-      desktop: md sm
-    background: hsl(210 100% 50% / 0.05)
-  - type: features_grid
-    version: "1.0"
-    variant: stats-cards
-    title: The Roles You Can Land. And the Salaries That Follow.
-    subtitle: High demand. High salaries.
-    description: AI Engineering roles are among the fastest-growing and highest-paying in tech right now. Companies are hiring urgently and paying a premium for engineers who can build with AI. LinkedIn reports 42x growth in Forward-Deployed Engineering alone since 2023. These are some of the roles our graduates are landing.
-    card_color: bg-background
-    items:
-      - value: $105K–$155K
-        title: Forward-Deployed Engineer
-      - value: $95K–$135K
-        title: AI Software Engineer
-      - value: $90K–$130K
-        title: AI-Fluent Full Stack Engineer
-    section_id: features_grid-wx7svv
-    marginY:
-      desktop: none xl
-    paddingY:
-      desktop: md none
-    background: hsl(var(--card))
   - type: pricing
     version: "1.0"
     variant: product
@@ -590,7 +413,7 @@ sections:
   - type: testimonials
     section_id: testimonials-ghxelh
     title: The People Behind the Numbers.
-    subtitle: "Different backgrounds. One outcome: a career in tech."
+    subtitle: "Different backgrounds. One outcome: real AI fluency."
     related_features:
       - content-and-syllabus
       - career-support
@@ -601,41 +424,6 @@ sections:
       desktop: md lg
     marginY:
       desktop: none md
-  - type: whos_hiring
-    section_id: whos_hiring-pli2th
-    variant: carousel
-    title: Where Our Graduates Work
-    subtitle: From startups to global tech leaders, our graduates work at some of the most recognized companies worldwide.
-    logos:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
-        alt: Microsoft
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70.webp
-        alt: Google Developers
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
-        alt: Boats Group
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70.webp
-        alt: Meta
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp
-        alt: eBay
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
-        alt: National Geographic
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
-        alt: Evernote
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp
-        alt: Telefonica
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
-        alt: Twilio
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
-        alt: Uber
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70.webp
-        alt: Neo9
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
-        alt: Jooble
-    marginY:
-      desktop: md xl
-    paddingY:
-      desktop: none
-    background: hsl(var(--background))
   - type: faq
     section_id: faq-f4yd0z
     title: FAQ
@@ -677,7 +465,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Start Your Application
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -697,11 +484,6 @@ sections:
           default: {{ single.bc_slug | ai-engineering }}
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: I agree to receive information about courses and promotions
-      show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
     form_background: hsl(var(--card))
@@ -721,7 +503,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: Submit Application
-      tags: website-lead
       automations: strong
       fields:
         email:

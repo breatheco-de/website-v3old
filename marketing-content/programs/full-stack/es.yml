@@ -193,7 +193,6 @@ sections:
       variant: stacked
       submit_label: Obtener
       conversion_name: request_more_info
-      tags: request_more_info
       automations: soft
       fields:
         email:
@@ -683,7 +682,6 @@ sections:
       variant: stacked
       submit_label: {{ global.call_to_action_apply | Aplicar ahora }}
       conversion_name: student_application
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -703,11 +701,6 @@ sections:
           default: full-stack
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-      show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
     form_background: hsl(var(--card))
@@ -726,7 +719,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: Enviar solicitud
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -748,8 +740,3 @@ sections:
           default: full-stack
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-      show_terms: true

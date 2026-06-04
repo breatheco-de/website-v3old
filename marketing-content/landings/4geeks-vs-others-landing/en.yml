@@ -32,7 +32,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Talk to Admissions
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -55,15 +54,6 @@ sections:
           default: ai-engineering
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
-      terms_url: /terms-and-conditions
-      privacy_url: /privacy-policy
-      consent:
-        sms: true
-        marketing: true
-        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe at any time.
-        sms_text: I agree to receive SMS messages about workshops, events, courses and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4-6 messages per month. We will never share your contact information.
-        sms_usa_only: true
-      show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Want to Find the Right Program?
@@ -726,7 +716,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Start Your Application
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -750,11 +739,6 @@ sections:
           required: true
       success:
         message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: I agree to receive information via email, WhatsApp and other channels about workshops, events, courses and other marketing materials. We will never share your contact information and you can unsubscribe at any time.
-      show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
     section_id: cta_banner-a80141
@@ -773,7 +757,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: See If You Qualify. It's Free
-      tags: website-lead
       automations: strong
       fields:
         email:

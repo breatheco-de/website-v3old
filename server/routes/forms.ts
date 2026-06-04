@@ -203,8 +203,18 @@ import {
   ValidationFixRunLogEntry,
   FixerItemStatus,
 } from "./_helpers";
+import { getTrackingSettings } from "../settings";
+import { buildLeadPayload } from "../utils/buildLeadPayload";
+import { isPrivateDestination } from "./webhooks";
 
 export function registerFormsRoutes(app: Express): void {
+  app.get("/api/turnstile/status", (_req, res) => {
+    const siteKey = process.env.TURNSTILE_SITE_KEY;
+    const secretKey = process.env.TURNSTILE_SECRET_KEY;
+    const configured = Boolean(siteKey && siteKey.length > 0 && secretKey && secretKey.length > 0);
+    res.json({ configured });
+  });
+
   app.get("/api/turnstile/site-key", (_req, res) => {
     const siteKey = process.env.TURNSTILE_SITE_KEY;
     if (!siteKey) {
@@ -413,80 +423,49 @@ export function registerFormsRoutes(app: Express): void {
         return;
       }
 
-      // Build the payload for Breathecode API
-      const payload = {
-        first_name: leadData.first_name || null,
-        last_name: leadData.last_name || null,
-        phone: leadData.phone || null,
-        email: leadData.email,
-        location: leadData.location || null,
-        course: leadData.program || null,
-        consent: leadData.consent_whatsapp || false,
-        sms_consent: leadData.sms_consent || false,
-        consent_email: leadData.consent_email || false,
-        comment: leadData.comment || null,
-        client_comments: leadData.client_comments || null,
-        // Session/tracking data
-        utm_url: leadData.utm_url || null,
-        utm_source: leadData.utm_source || null,
-        utm_medium: leadData.utm_medium || null,
-        utm_campaign: leadData.utm_campaign || null,
-        utm_content: leadData.utm_content || null,
-        utm_term: leadData.utm_term || null,
-        utm_placement: leadData.utm_placement || null,
-        utm_plan: leadData.utm_plan || null,
-        // Ad platform click IDs
-        gclid: leadData.gclid || null,
-        fbclid: leadData.fbclid || null,
-        msclkid: leadData.msclkid || null,
-        ttclid: leadData.ttclid || null,
-        // Referral
-        referral: leadData.referral || leadData.ref || null,
-        coupon: leadData.coupon || null,
-        // Geo data
-        latitude: leadData.latitude || null,
-        longitude: leadData.longitude || null,
-        city: leadData.city || null,
-        country: leadData.country || null,
-        // Language
-        language: leadData.language || "en",
-        utm_language: leadData.language || "en",
-        browser_lang: leadData.browser_lang || null,
-        // Tags and automation
-        tags: leadData.tags || "website-lead",
-        automations: leadData.automations || "strong",
-        action: "submit",
-        // Turnstile token for bot protection
-        token: leadData.token || null,
-      };
+      const cleanPayload = buildLeadPayload(leadData as Record<string, unknown>);
 
-      // Remove null, undefined, and empty string values from payload
-      const cleanPayload = Object.fromEntries(
-        Object.entries(payload).filter(
-          ([_, value]) => value !== null && value !== undefined && value !== "",
-        ),
-      );
+      // Resolve webhook destination: global settings → DEFAULT_WEBHOOK_URL env var
+      const globalWebhook = getTrackingSettings().webhook;
+      const webhookUrl: string | undefined = globalWebhook?.url || process.env.DEFAULT_WEBHOOK_URL;
+      const webhookMethod: string = globalWebhook?.url
+        ? (globalWebhook.method || "POST")
+        : (process.env.DEFAULT_WEBHOOK_METHOD || "POST");
+      const webhookAuthHeader: string | undefined = globalWebhook?.url ? globalWebhook.auth_header : undefined;
 
-      // Post to Breathecode API
-      const response = await fetch(`${BREATHECODE_HOST}/v2/marketing/lead`, {
-        method: "POST",
+      if (!webhookUrl) {
+        res.json({ success: true, skipped: "no_webhook" });
+        return;
+      }
+
+      if (isPrivateDestination(webhookUrl)) {
+        console.warn(`[LeadSubmission] Blocked private/internal destination: ${webhookUrl}`);
+        res.json({ success: true, skipped: "no_webhook" });
+        return;
+      }
+
+      const fetchOptions: RequestInit = {
+        method: webhookMethod,
         headers: {
           "Content-Type": "application/json",
+          ...(webhookAuthHeader ? { Authorization: webhookAuthHeader } : {}),
         },
         body: JSON.stringify(cleanPayload),
-      });
+      };
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Breathecode API error:", response.status, errorText);
-        res.status(response.status).json({
+      const webhookResponse = await fetch(webhookUrl, fetchOptions);
+
+      if (!webhookResponse.ok) {
+        const errorText = await webhookResponse.text();
+        console.error("Lead webhook delivery error:", webhookResponse.status, errorText);
+        res.status(webhookResponse.status).json({
           error: "Failed to submit lead",
           details: errorText,
         });
         return;
       }
 
-      const result = await response.json();
+      const result = await webhookResponse.json().catch(() => ({}));
       res.json({ success: true, data: result });
     } catch (error) {
       console.error("Lead submission error:", error);

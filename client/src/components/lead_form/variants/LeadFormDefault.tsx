@@ -32,7 +32,8 @@ import { useSectionContext } from "@/contexts/SectionContext";
 import { apiRequest } from "@/lib/queryClient";
 import { PhoneInput } from "@/components/ui/phone-input";
 import type { Country } from "react-phone-number-input";
-import { trackFormSubmission, type ConversionName } from "@/lib/tracking";
+import { trackFormSubmission, resolveWebhook, hashEmail, type ConversionName, type TrackingSettingsResponse } from "@/lib/tracking";
+import { resolveFormDefaults } from "@shared/resolveFormDefaults";
 
 interface FieldConfig {
   visible?: boolean;
@@ -55,6 +56,10 @@ export interface LeadFormData {
   submit_label?: string;
   tags?: string;
   automations?: string;
+  webhook?: {
+    url: string;
+    method?: "POST" | "GET";
+  };
   fields?: {
     email?: FieldConfig;
     first_name?: FieldConfig;
@@ -70,8 +75,6 @@ export interface LeadFormData {
     url?: string;
     message?: string;
   };
-  terms_url?: string;
-  privacy_url?: string;
   consent?: {
     email?: boolean;
     sms?: boolean;
@@ -82,6 +85,8 @@ export interface LeadFormData {
     sms_usa_only?: boolean;
   };
   show_terms?: boolean;
+  terms_url?: string;
+  privacy_url?: string;
   className?: string;
   button_className?: string;
   terms_className?: string;
@@ -124,9 +129,10 @@ interface ConsentSectionProps {
   locale: string;
   formOptions?: FormOptions;
   sessionLocation: { slug: string; region: string; country?: string } | null;
+  consentSettings?: Record<string, string>;
 }
 
-function ConsentSection({ consent, form, locale, formOptions, sessionLocation }: ConsentSectionProps) {
+function ConsentSection({ consent, form, locale, formOptions, sessionLocation, consentSettings }: ConsentSectionProps) {
   const selectedLocationSlug = form.watch("location");
   
   const isUSALocation = (): boolean => {
@@ -157,13 +163,21 @@ function ConsentSection({ consent, form, locale, formOptions, sessionLocation }:
 
   const showSmsConsent = consent.sms && (!consent.sms_usa_only || isUSALocation());
 
-  const defaultMarketingText = locale === "es"
+  const defaultMarketingText = consentSettings?.consent_general || (locale === "es"
     ? "Acepto recibir información a través de correo electrónico, WhatsApp y/u otros canales sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes cancelar fácilmente en cualquier momento."
-    : "I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.";
+    : "I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.");
 
-  const defaultSmsText = locale === "es"
+  const defaultSmsText = consentSettings?.consent_sms || (locale === "es"
     ? "Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir hasta 4-6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes cancelar fácilmente en cualquier momento."
-    : "I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.";
+    : "I agree to receive SMS/text messages about workshops, events, courses, and other marketing materials. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. You may receive up to 4–6 text messages per month. We will never share your contact information, and you can easily opt out at any moment.");
+
+  const defaultEmailText = consentSettings?.consent_email || (locale === "es"
+    ? "Acepto recibir información por correo electrónico sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes cancelar fácilmente en cualquier momento."
+    : "I agree to receive information via email about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.");
+
+  const defaultWhatsappText = consentSettings?.consent_whatsapp || (locale === "es"
+    ? "Acepto recibir información a través de WhatsApp sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes cancelar fácilmente en cualquier momento."
+    : "I agree to receive information via WhatsApp about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment.");
 
   return (
     <div className="space-y-4">
@@ -218,10 +232,7 @@ function ConsentSection({ consent, form, locale, formOptions, sessionLocation }:
                 </FormControl>
                 <div className="space-y-1 leading-none">
                   <span className="text-xs text-muted-foreground cursor-pointer">
-                    {locale === "es"
-                      ? "Acepto recibir información por correo electrónico sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes cancelar fácilmente en cualquier momento."
-                      : "I agree to receive information via email about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment."
-                    }
+                    {defaultEmailText}
                   </span>
                 </div>
               </label>
@@ -271,11 +282,8 @@ function ConsentSection({ consent, form, locale, formOptions, sessionLocation }:
                 </FormControl>
                 <div className="space-y-1 leading-none">
                   <span className="text-xs text-muted-foreground cursor-pointer">
-                  {locale === "es"
-                    ? "Acepto recibir información a través de WhatsApp sobre talleres, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes cancelar fácilmente en cualquier momento."
-                    : "I agree to receive information via WhatsApp about workshops, events, courses, and other marketing materials. We'll never share your contact information, and you can easily opt out at any moment."
-                  }
-                </span>
+                    {defaultWhatsappText}
+                  </span>
               </div>
             </label>
             </FormItem>
@@ -309,10 +317,56 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
     enabled: turnstileEnabled,
   });
 
+  const { data: trackingSettings } = useQuery<TrackingSettingsResponse>({
+    queryKey: ["/api/settings/tracking"],
+  });
+
+  const { data: legalSettings } = useQuery<{ legal_terms_url: string; legal_privacy_url: string }>({
+    queryKey: ["/api/settings/legal"],
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const { data: consentSettings } = useQuery<Record<string, string>>({
+    queryKey: ["/api/settings/consent"],
+    staleTime: 5 * 60 * 1000,
+  });
+
   const variant = data.variant || "stacked";
   const fields = data.fields || {};
-  const consent = data.consent || {};
-  const showTerms = data.show_terms !== false;
+
+  // Apply per-event defaults via resolveFormDefaults (form-level YAML values always win)
+  const eventEntry = data.conversion_name
+    ? trackingSettings?.conversion_events?.find((e) => e.name === data.conversion_name)
+    : undefined;
+
+  const resolvedData: LeadFormData = (() => {
+    if (!eventEntry) return data;
+    const wrapped = resolveFormDefaults(
+      { _f: data } as Record<string, unknown>,
+      {
+        name: eventEntry.name,
+        automations: eventEntry.automations,
+        tags: eventEntry.tags,
+        consent: eventEntry.consent,
+        webhook: eventEntry.webhook,
+      },
+      "_f"
+    );
+    return wrapped._f as LeadFormData;
+  })();
+
+  const consent: NonNullable<LeadFormData["consent"]> = resolvedData.consent ?? {};
+  const showTerms = resolvedData.show_terms ?? true;
+  const effectiveTags = (() => {
+    const t = resolvedData.tags;
+    if (Array.isArray(t) && (t as string[]).length) return (t as string[]).join(",");
+    if (typeof t === "string" && t) return t;
+    return "website-lead";
+  })();
+  const effectiveAutomations = resolvedData.automations || "strong";
+  // Effective terms/privacy URLs: form YAML wins; event default fills gap; legal settings fallback
+  const effectiveTermsUrl = resolvedData.terms_url || null;
+  const effectivePrivacyUrl = resolvedData.privacy_url || null;
 
   const hasLandingLocations = landingLocations && landingLocations.length > 0;
   const singleLandingLocation = hasLandingLocations && landingLocations.length === 1 ? landingLocations[0] : null;
@@ -481,10 +535,37 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
         utm_plan: utm.utm_plan,
         ppc_tracking_id: utm.ppc_tracking_id,
         referral: utm.referral || utm.ref,
-        tags: data.tags || "website-lead",
-        automations: data.automations || "strong",
+        tags: effectiveTags,
+        automations: effectiveAutomations,
+        conversion_name: data.conversion_name,
         token: turnstileToken,
       };
+
+      // Webhook priority: per-form (YAML) → per-event → global.
+      // Any configured level sends the full lead payload instead of Breathecode.
+      // Global webhook: server reads credentials from settings (auth_header never exposed to client).
+      // Per-form / per-event: client supplies the URL; no auth credentials at those levels.
+      const formWebhook = data.webhook?.url ? data.webhook : null;
+      const eventWebhook = data.conversion_name
+        ? (trackingSettings?.conversion_events?.find(e => e.name === data.conversion_name)?.webhook ?? null)
+        : null;
+      const globalWebhook = trackingSettings?.webhook?.url ? trackingSettings.webhook : null;
+
+      const webhookOverride = formWebhook ?? eventWebhook ?? null;
+
+      if (webhookOverride || globalWebhook) {
+        const body: Record<string, unknown> = { payload };
+        if (webhookOverride) {
+          // Pass URL/method for per-form or per-event webhooks; server needs no credentials
+          body.webhook = { url: webhookOverride.url, method: webhookOverride.method || "POST" };
+        }
+        // When no override, server reads global URL/method/auth_header from settings
+        return fetch("/api/leads/webhook-delivery", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+      }
 
       return apiRequest("POST", "/api/leads", payload);
     },
@@ -505,6 +586,46 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
             location: variables.location || sessionLocation?.slug,
           }
         );
+
+        // The secondary curated webhook is only fired when ALL three webhook levels
+        // are unconfigured (i.e., primary submission went to Breathecode).
+        // When any webhook level was used above, the full payload was already delivered.
+        const hasAnyWebhook = !!(
+          (data.webhook?.url) ||
+          (data.conversion_name && trackingSettings?.conversion_events?.find(e => e.name === data.conversion_name)?.webhook?.url) ||
+          trackingSettings?.webhook?.url
+        );
+        if (!hasAnyWebhook) {
+          try {
+            const resolvedWebhook = resolveWebhook(data.webhook ?? null, data.conversion_name, trackingSettings ?? null);
+            if (resolvedWebhook) {
+              const webhookPayload: Record<string, unknown> = {
+                conversion_name: data.conversion_name,
+                program: variables.program || programContext,
+                location: variables.location || sessionLocation?.slug,
+                utm_source: utm.utm_source,
+                utm_medium: utm.utm_medium,
+                utm_campaign: utm.utm_campaign,
+                utm_content: utm.utm_content,
+                utm_term: utm.utm_term,
+              };
+              if (variables.email) {
+                webhookPayload.email_hash = await hashEmail(variables.email);
+              }
+              fetch("/api/conversion-webhook", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  url: resolvedWebhook.url,
+                  method: resolvedWebhook.method || "POST",
+                  payload: webhookPayload,
+                }),
+              }).catch((err) => console.warn("[LeadForm] Webhook delivery failed (non-blocking):", err));
+            }
+          } catch (err) {
+            console.warn("[LeadForm] Webhook resolution failed (non-blocking):", err);
+          }
+        }
       }
 
       if (data.success?.url) {
@@ -1128,6 +1249,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
               locale={locale}
               formOptions={formOptions}
               sessionLocation={sessionLocation}
+              consentSettings={consentSettings}
             />
           )}
 
@@ -1175,7 +1297,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
             <p className={`text-xs text-center ${data.terms_className || "text-muted-foreground"}`} style={termsStyle} data-testid="text-terms">
               {locale === "es" ? "Al registrarte, aceptas los " : "By signing up, you agree to the "}
               <a 
-                href={data.terms_url || (locale === "es" ? "/es/terminos-y-condiciones" : "/en/terms-conditions")} 
+                href={effectiveTermsUrl || legalSettings?.legal_terms_url || (locale === "es" ? "/es/terminos-y-condiciones" : "/en/terms-conditions")} 
                 className="underline hover:text-foreground"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -1185,7 +1307,7 @@ export default function LeadForm({ data, termsStyle }: LeadFormProps) {
               </a>
               {locale === "es" ? " y la " : " and "}
               <a 
-                href={data.privacy_url || (locale === "es" ? "/es/politicas-de-privacidad" : "/en/privacy-policy")} 
+                href={effectivePrivacyUrl || legalSettings?.legal_privacy_url || (locale === "es" ? "/es/politicas-de-privacidad" : "/en/privacy-policy")} 
                 className="underline hover:text-foreground"
                 target="_blank"
                 rel="noopener noreferrer"

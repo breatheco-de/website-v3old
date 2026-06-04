@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { registerPageTools } from "./tools/pages.js";
 import { registerComponentTools } from "./tools/components.js";
 import { registerUserTools } from "./tools/user.js";
@@ -223,6 +225,23 @@ async function authMiddleware(
 
 app.get("/health", (_req, res) => {
   res.json({ status: "ok", server: "content-pages-mcp", version: "1.0.0" });
+});
+
+// ─── Tool catalog (no auth — metadata only) ───────────────────────────────────
+
+app.get("/tools", async (_req, res) => {
+  try {
+    const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+    const mcp = createMcpServer();
+    const client = new Client({ name: "internal-introspect", version: "1.0.0" });
+    await Promise.all([mcp.connect(serverTransport), client.connect(clientTransport)]);
+    const result = await client.listTools();
+    await Promise.all([client.close(), mcp.close()]);
+    res.json({ tools: result.tools });
+  } catch (err) {
+    console.error("[MCP] /tools introspection error:", err);
+    res.status(500).json({ tools: [], error: "Failed to list tools" });
+  }
 });
 
 // ─── OAuth 2.0 endpoints ──────────────────────────────────────────────────────

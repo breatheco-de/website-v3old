@@ -25,6 +25,7 @@ export interface VariableDefinition {
   by_locale?: Record<string, string>;
   by_region?: Record<string, string>;
   by_location?: Record<string, string>;
+  isReserved?: boolean;
 }
 
 export interface VariableContext {
@@ -83,6 +84,8 @@ class VariableManager {
       this.lastModified = stat.mtimeMs;
       this.initialized = true;
 
+      this.aliasReservedIntoGlobal();
+
       const count = Object.keys(this.variables).length;
       console.log(`[VariableManager] Loaded ${count} variable definitions`);
 
@@ -91,6 +94,18 @@ class VariableManager {
       console.error("[VariableManager] Failed to load variables.yml:", err);
       this.variables = {};
       this.initialized = true;
+    }
+  }
+
+  private aliasReservedIntoGlobal(): void {
+    for (const [key, def] of Object.entries(this.variables)) {
+      if (!key.startsWith("reserved.")) continue;
+      const suffix = key.slice("reserved.".length);
+      const globalKey = `global.${suffix}`;
+      // Mark the reserved entry itself
+      this.variables[key] = { ...def, isReserved: true };
+      // Alias into global namespace (reserved value takes precedence)
+      this.variables[globalKey] = { ...def, isReserved: true };
     }
   }
 
@@ -402,9 +417,72 @@ class VariableManager {
     this.save();
   }
 
+  getLegalSettings(): { legal_terms_url: string; legal_privacy_url: string } {
+    this.ensureInitialized();
+    return {
+      legal_terms_url: this.variables["reserved.legal_terms_url"]?.default ?? "",
+      legal_privacy_url: this.variables["reserved.legal_privacy_url"]?.default ?? "",
+    };
+  }
+
+  getConsentSettings(): Record<string, string> {
+    this.ensureInitialized();
+    return {
+      consent_whatsapp: this.variables["reserved.consent_whatsapp"]?.default ?? "",
+      consent_sms: this.variables["reserved.consent_sms"]?.default ?? "",
+      consent_email: this.variables["reserved.consent_email"]?.default ?? "",
+      consent_general: this.variables["reserved.consent_general"]?.default ?? "",
+    };
+  }
+
+  updateConsentSetting(key: "consent_whatsapp" | "consent_sms" | "consent_email" | "consent_general", value: string): void {
+    this.ensureInitialized();
+    const reservedKey = `reserved.${key}`;
+    const globalKey = `global.${key}`;
+    if (!this.variables[reservedKey]) {
+      this.variables[reservedKey] = {};
+    }
+    this.variables[reservedKey].default = value;
+    this.variables[reservedKey].isReserved = true;
+    if (!this.variables[globalKey]) {
+      this.variables[globalKey] = {};
+    }
+    this.variables[globalKey].default = value;
+    this.variables[globalKey].isReserved = true;
+    this.save();
+  }
+
+  updateLegalSetting(key: "legal_terms_url" | "legal_privacy_url", value: string): void {
+    this.ensureInitialized();
+    const reservedKey = `reserved.${key}`;
+    const globalKey = `global.${key}`;
+    if (!this.variables[reservedKey]) {
+      this.variables[reservedKey] = {};
+    }
+    this.variables[reservedKey].default = value;
+    this.variables[reservedKey].isReserved = true;
+    // Keep global alias in sync (in-memory only; file only has reserved.* keys)
+    if (!this.variables[globalKey]) {
+      this.variables[globalKey] = {};
+    }
+    this.variables[globalKey].default = value;
+    this.variables[globalKey].isReserved = true;
+    this.save();
+  }
+
   private save(): void {
     try {
-      const content = yaml.dump(this.variables, {
+      // Only persist non-aliased entries (no global.* that came from reserved.*)
+      const toSave: Record<string, VariableDefinition> = {};
+      for (const [key, def] of Object.entries(this.variables)) {
+        if (key.startsWith("global.") && this.variables[`reserved.${key.slice("global.".length)}`]) {
+          // Skip — this is an aliased entry, the source is the reserved.* key
+          continue;
+        }
+        const { isReserved: _skip, ...rest } = def;
+        toSave[key] = rest;
+      }
+      const content = yaml.dump(toSave, {
         lineWidth: -1,
         quotingType: '"',
         forceQuotes: true,

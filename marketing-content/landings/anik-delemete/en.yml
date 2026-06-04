@@ -297,10 +297,6 @@ sections:
     type: faq
   - background: hsl(var(--primary))
     form:
-      consent:
-        email: true
-        marketing: true
-        marketing_text: I agree to receive information about courses and promotions
       fields:
         email:
           placeholder: Your email address
@@ -318,7 +314,6 @@ sections:
           default: ai-engineering
           required: true
           visible: false
-      show_terms: true
       submit_label: Start Your Application
       success:
         message: Check your inbox. Our admissions team will be in touch shortly.

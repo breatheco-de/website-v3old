@@ -357,7 +357,6 @@ sections:
       variant: stacked
       submit_label: Get the details
       conversion_name: request_more_info
-      tags: request_more_info
       automations: soft
       fields:
         email:
@@ -378,11 +377,6 @@ sections:
           default: auto
       success:
         message: Thank you! We'll be in touch soon.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: I agree to receive information about courses and promotions
-      show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
     form_background: hsl(var(--card))
@@ -402,7 +396,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: Submit Application
-      tags: website-lead
       automations: strong
       fields:
         email:

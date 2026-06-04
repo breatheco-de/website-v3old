@@ -31,6 +31,7 @@ export interface FormStateEntry {
   conversion_name: string;
   automations?: string;
   tags?: string[];
+  consent?: Record<string, unknown>;
   variant?: string;
 }
 
@@ -129,6 +130,7 @@ function extractFormBlocks(
     conversion_name: string;
     automations?: string;
     tags: string[];
+    consent?: Record<string, unknown>;
     variant?: string;
   }>
 ): void {
@@ -149,6 +151,9 @@ function extractFormBlocks(
       tags: Array.isArray(record.tags)
         ? (record.tags as string[]).filter((t) => typeof t === "string")
         : [],
+      ...(record.consent && typeof record.consent === "object" && !Array.isArray(record.consent)
+        ? { consent: record.consent as Record<string, unknown> }
+        : {}),
       variant,
     });
     return;
@@ -164,6 +169,9 @@ function extractFormBlocks(
           tags: Array.isArray(formObj.tags)
             ? (formObj.tags as string[]).filter((t) => typeof t === "string")
             : [],
+          ...(formObj.consent && typeof formObj.consent === "object" && !Array.isArray(formObj.consent)
+            ? { consent: formObj.consent as Record<string, unknown> }
+            : {}),
           variant,
         });
       }
@@ -202,7 +210,7 @@ function scanFile(absPath: string): FormStateEntry[] {
     const section_type = typeof sec.type === "string" ? sec.type : "";
     const variant = typeof sec.variant === "string" ? sec.variant : undefined;
 
-    const formBlocks: Array<{ conversion_name: string; automations?: string; tags: string[]; variant?: string }> = [];
+    const formBlocks: Array<{ conversion_name: string; automations?: string; tags: string[]; consent?: Record<string, unknown>; variant?: string }> = [];
     extractFormBlocks(sec, section_id, section_type, variant, formBlocks);
 
     for (const block of formBlocks) {
@@ -216,6 +224,7 @@ function scanFile(absPath: string): FormStateEntry[] {
         conversion_name: block.conversion_name,
         ...(block.automations ? { automations: block.automations } : {}),
         ...(block.tags.length > 0 ? { tags: block.tags } : {}),
+        ...(block.consent ? { consent: block.consent } : {}),
         ...(block.variant !== undefined ? { variant: block.variant } : {}),
       });
     }

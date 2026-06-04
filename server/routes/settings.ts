@@ -359,6 +359,11 @@ export function registerSettingsRoutes(app: Express): void {
       const { name } = req.params;
       const body = req.body;
 
+      const def = variableManager.getDefinition(name);
+      if (def?.isReserved) {
+        return res.status(403).json({ error: `Variable "${name}" is reserved and cannot be modified here. Use Settings → Legal.` });
+      }
+
       const { action } = body as { action: string };
       if (!action) {
         return res.status(400).json({ error: "action is required" });
@@ -444,6 +449,11 @@ export function registerSettingsRoutes(app: Express): void {
       const { name } = req.params;
       const body = req.body;
 
+      const defToDelete = variableManager.getDefinition(name);
+      if (defToDelete?.isReserved) {
+        return res.status(403).json({ error: `Variable "${name}" is reserved and cannot be deleted. Manage it in Settings → Legal.` });
+      }
+
       if (body.level) {
         const { level, key } = body as { level: string; key?: string };
         const VALID_LEVELS = [
@@ -512,6 +522,11 @@ export function registerSettingsRoutes(app: Express): void {
       const { newName, author } = req.body as { newName: string; author?: string };
       const authorName = author && typeof author === "string" ? author : undefined;
 
+      const defToRename = variableManager.getDefinition(oldName);
+      if (defToRename?.isReserved) {
+        return res.status(403).json({ error: `Variable "${oldName}" is reserved and cannot be renamed.` });
+      }
+
       if (!newName || typeof newName !== "string") {
         return res.status(400).json({ error: "newName is required" });
       }
@@ -563,6 +578,68 @@ export function registerSettingsRoutes(app: Express): void {
         .json({ error: err?.message || "Failed to rename variable" });
     }
   });
+  app.get("/api/settings/legal", (_req, res) => {
+    try {
+      res.json(variableManager.getLegalSettings());
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || "Failed to load legal settings" });
+    }
+  });
+
+  app.put("/api/settings/legal", (req, res) => {
+    try {
+      const schema = z.object({
+        legal_terms_url: z.string().optional(),
+        legal_privacy_url: z.string().optional(),
+      });
+      const parsed = schema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ error: "Invalid request body" });
+      }
+      const { legal_terms_url, legal_privacy_url } = parsed.data;
+      if (legal_terms_url !== undefined) {
+        variableManager.updateLegalSetting("legal_terms_url", legal_terms_url);
+      }
+      if (legal_privacy_url !== undefined) {
+        variableManager.updateLegalSetting("legal_privacy_url", legal_privacy_url);
+      }
+      res.json({ success: true, ...variableManager.getLegalSettings() });
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || "Failed to save legal settings" });
+    }
+  });
+
+  app.get("/api/settings/consent", (_req, res) => {
+    try {
+      res.json(variableManager.getConsentSettings());
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || "Failed to load consent settings" });
+    }
+  });
+
+  app.put("/api/settings/consent", (req, res) => {
+    try {
+      const schema = z.object({
+        consent_whatsapp: z.string().optional(),
+        consent_sms: z.string().optional(),
+        consent_email: z.string().optional(),
+        consent_general: z.string().optional(),
+      });
+      const parsed = schema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ error: "Invalid request body" });
+      }
+      const { consent_whatsapp, consent_sms, consent_email, consent_general } = parsed.data;
+      if (consent_whatsapp !== undefined) variableManager.updateConsentSetting("consent_whatsapp", consent_whatsapp);
+      if (consent_sms !== undefined) variableManager.updateConsentSetting("consent_sms", consent_sms);
+      if (consent_email !== undefined) variableManager.updateConsentSetting("consent_email", consent_email);
+      if (consent_general !== undefined) variableManager.updateConsentSetting("consent_general", consent_general);
+      res.json({ success: true, ...variableManager.getConsentSettings() });
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || "Failed to save consent settings" });
+    }
+  });
+
   app.get("/api/settings/home-page", (_req, res) => {
     res.json(getHomePage());
   });
@@ -589,16 +666,25 @@ export function registerSettingsRoutes(app: Express): void {
   });
 
   app.get("/api/settings/tracking", (_req, res) => {
-    res.json(getTrackingSettings());
+    res.json({
+      ...getTrackingSettings(),
+      has_env_webhook: !!process.env.DEFAULT_WEBHOOK_URL,
+    });
   });
 
   app.put("/api/settings/tracking", async (req, res) => {
     try {
-      const { conversion_events } = req.body;
-      if (!Array.isArray(conversion_events)) {
-        return res.status(400).json({ error: "Request body must contain a conversion_events array" });
+      const { conversion_events, webhook } = req.body;
+      if (conversion_events === undefined && webhook === undefined) {
+        return res.status(400).json({ error: "Request body must contain conversion_events or webhook" });
       }
-      updateTrackingSettings({ conversion_events });
+      if (conversion_events !== undefined && !Array.isArray(conversion_events)) {
+        return res.status(400).json({ error: "conversion_events must be an array" });
+      }
+      updateTrackingSettings({
+        ...(conversion_events !== undefined ? { conversion_events } : {}),
+        ...(webhook !== undefined ? { webhook } : {}),
+      });
       res.json({ success: true, ...getTrackingSettings() });
     } catch (err: any) {
       res.status(400).json({ error: err.message || String(err) });
@@ -653,6 +739,7 @@ export function registerSettingsRoutes(app: Express): void {
   });
 
   app.get("/api/form-state/suggestions", (_req, res) => {
+    buildFormState();
     res.json(getFormStateSuggestions());
   });
 
@@ -669,13 +756,16 @@ export function registerSettingsRoutes(app: Express): void {
     const usages = getConversionNameUsages(name);
     res.json({
       name,
-      usages: usages.map(({ file, content_type, slug, locale, section_id, section_type }) => ({
+      usages: usages.map(({ file, content_type, slug, locale, section_id, section_type, tags, consent }) => ({
         file,
         content_type,
         slug,
         locale,
         section_id,
         section_type,
+        tags: tags && tags.length > 0 ? tags : undefined,
+        consent: consent && Object.keys(consent).length > 0 ? consent : undefined,
+        page_url: resolveContentTypeUrl(content_type, { slug }, locale) ?? null,
       })),
     });
   });

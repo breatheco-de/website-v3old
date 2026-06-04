@@ -81,7 +81,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: APPLY
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -108,14 +107,6 @@ sections:
         location:
           visible: true
           required: true
-      terms_url: /terms-conditions
-      privacy_url: /privacy-policy
-      consent:
-        sms: true
-        marketing: true
-        marketing_text: I agree to receive information through email, WhatsApp and/or other channels about workshops, events, courses, and other marketing materials. We will never share your contact information, and you can easily opt out at any moment.
-        sms_usa_only: true
-      show_terms: true
       turnstile:
         enabled: true
     next_steps:

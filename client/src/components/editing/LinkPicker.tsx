@@ -118,9 +118,10 @@ interface LinkPickerProps {
   testId?: string;
   portalContainer?: HTMLElement | null;
   compact?: boolean;
+  allowedTypes?: LinkType[];
 }
 
-export function LinkPicker({ value, onChange, locale = "en", allSections, contextPath, testId = "link-picker", portalContainer, compact = false }: LinkPickerProps) {
+export function LinkPicker({ value, onChange, locale = "en", allSections, contextPath, testId = "link-picker", portalContainer, compact = false, allowedTypes }: LinkPickerProps) {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [customUrl, setCustomUrl] = useState(value || "");
@@ -205,12 +206,15 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
     setOpen(false);
   };
 
-  const typeOptions: { type: LinkType; icon: typeof Link; label: string }[] = [
+  const allTypeOptions: { type: LinkType; icon: typeof Link; label: string }[] = [
     { type: "internal", icon: Link, label: "Page" },
     { type: "external", icon: ExternalLink, label: "External" },
     { type: "modal", icon: PanelBottom, label: "Modal" },
     { type: "scroll", icon: ArrowDown, label: "Section" },
   ];
+  const typeOptions = allowedTypes
+    ? allTypeOptions.filter((o) => allowedTypes.includes(o.type))
+    : allTypeOptions;
 
   const displayValue = value || "No link set";
   const isExternal = value?.startsWith("http");

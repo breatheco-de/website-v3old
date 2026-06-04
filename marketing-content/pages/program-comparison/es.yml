@@ -52,11 +52,6 @@ sections:
           - Para quien quiere cambiar de carrera y construir sistemas de AI. No se requiere experiencia técnica previa. Ideal para developers, career switchers y profesionales técnicos.
           - Para marketers, abogados, consultores, ejecutivos y cualquier profesional con trabajo cognitivo que aún hace manualmente lo que AI puede hacer mejor. Sin código requerido.
           - Para quien quiere explorar antes de comprometerse. Elige hasta 4 cursos del catálogo, a tu ritmo, con la opción de acreditar lo aprendido si después decides el bootcamp completo.
-      - feature: La pregunta que responde
-        values:
-          - Quiero construir sistemas de AI y que me paguen bien por eso.
-          - Quiero usar AI en mi trabajo actual sin tener que aprender código.
-          - No sé exactamente qué quiero. Necesito explorar primero.
       - feature: Por qué ahora
         values:
           - El 73% de las Fortune 500 está contratando AI Engineers hoy. Los salarios crecieron 40% en dos años. No es una moda, es la nueva columna vertebral del software, y los roles de Cybersecurity, Fullstack y Data Science hoy se construyen sobre esta base.
@@ -85,13 +80,13 @@ sections:
       - feature: Costo
         values:
           - $14,999 (descuentos y becas disponibles)
-          - $900 (pago trimestral o anual disponible)
-          - $30/mes o $199/año, 7 días gratis para probar
+          - {{ global.ai.fluency.price | $900 }} (Descuentos y pagos por cuotas disponible)
+          - $49.99/mes. Planes de 3, 6 o 12 meses. 25% de descuento en el plan anual. 7 días gratis para probar.
       - feature: Planes de Pago
         values:
           - Planes mensuales, descuento por pago adelantado, préstamos e ISA disponibles.
-          - Trimestral o anual. Descuento aplicado en pago anual.
-          - Mensual o anual. Sin contratos. Cancela cuando quieras.
+          - Pago de contado con 10% off o en 4 cuotas de sin recargo.
+          - Trimestral, semestral o anual. El plan anual incluye 25% de descuento. Sin contratos, cancela cuando quieras.
       - feature: Garantía de Empleo
         values:
           - Disponible por $2,000 adicionales.
@@ -147,7 +142,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: Enviar solicitud
-      tags: website-lead
       automations: strong
       fields:
         email:
@@ -205,7 +199,6 @@ sections:
       consent:
         email: true
         marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
       show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80

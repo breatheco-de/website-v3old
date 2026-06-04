@@ -440,7 +440,6 @@ sections:
       variant: stacked
       submit_label: Start Your Application
       conversion_name: request_more_info
-      tags: request_more_info
       fields:
         email:
           visible: true
@@ -459,11 +458,6 @@ sections:
           required: true
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: I agree to receive information about courses and promotions
-      show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
     marginY:
@@ -480,7 +474,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: Submit Application
-      tags: website-lead
       automations: strong
       fields:
         email:

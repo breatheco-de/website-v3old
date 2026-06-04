@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { AlertTriangle, Check, ChevronDown, CloudUpload, Code, Database, ExternalLink, HelpCircle, Image, Info, Laptop, Link, Unlink, Loader2, MapPin, Monitor, Pencil, Plus, Redo2, RefreshCw, Save, Search, Settings, Smartphone, Trash2, Undo2, Upload, Video, X } from "lucide-react";
-import { IconGitBranch, IconTargetArrow } from "@tabler/icons-react";
+import { IconGitBranch, IconTargetArrow, IconFileCode, IconPencil, IconX, IconShieldCheck } from "@tabler/icons-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { BindingConfirmDialog } from "./BindingConfirmDialog";
 import { getIcon } from "@/lib/icons";
@@ -35,6 +35,7 @@ import { useToast } from "@/hooks/use-toast";
 import { editContent } from "@/lib/contentApi";
 import { emitContentUpdated, registerEditorDirtyCheck } from "@/lib/contentEvents";
 import { getDebugToken } from "@/hooks/useDebugAuth";
+import { encodeHtmlValues } from "@shared/htmlEncoding";
 import {
   parseEditorType,
   type ColorPickerVariant,
@@ -70,6 +71,13 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { useConversionNames } from "@/lib/tracking";
+import { buildWebhookSamplePayload } from "@/lib/webhookPayload";
+import { useSession } from "@/contexts/SessionContext";
+import { apiRequest } from "@/lib/queryClient";
+import { AutomationsTagsCard } from "./AutomationsTagsCard";
+import { ConsentCard } from "./ConsentCard";
+import type { ConsentValues } from "./ConsentCard";
+import { WebhookCard, type WebhookSource } from "./WebhookCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import CodeMirror from "@uiw/react-codemirror";
 import type { EditorView } from "@codemirror/view";
@@ -87,136 +95,8 @@ import { useUndoRedo } from "@/hooks/useUndoRedo";
 import ReactCrop from "react-image-crop";
 import type { Crop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-
-function TagInput({
-  values,
-  suggestions,
-  onChange,
-  placeholder,
-  max,
-  testId,
-}: {
-  values: string[];
-  suggestions: string[];
-  onChange: (v: string[]) => void;
-  placeholder?: string;
-  max?: number;
-  testId?: string;
-}) {
-  const [inputValue, setInputValue] = useState("");
-  const [open, setOpen] = useState(false);
-  const [highlightIndex, setHighlightIndex] = useState(0);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const filtered = suggestions.filter(
-    (s) => s.toLowerCase().includes(inputValue.toLowerCase()) && !values.includes(s),
-  );
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const addValue = (val: string) => {
-    const trimmed = val.trim();
-    if (!trimmed || values.includes(trimmed)) { setInputValue(""); return; }
-    if (max && values.length >= max) {
-      onChange([trimmed]);
-    } else {
-      onChange([...values, trimmed]);
-    }
-    setInputValue("");
-    setOpen(false);
-    setHighlightIndex(0);
-    inputRef.current?.focus();
-  };
-
-  const removeValue = (i: number) => {
-    onChange(values.filter((_, idx) => idx !== i));
-    inputRef.current?.focus();
-  };
-
-  const canAddMore = !max || values.length < max;
-
-  return (
-    <div ref={containerRef} className="relative" data-testid={testId}>
-      <div
-        className="flex flex-wrap gap-1.5 items-center min-h-9 w-full rounded-md border border-input bg-background px-2 py-1.5 text-sm cursor-text focus-within:ring-1 focus-within:ring-ring"
-        onClick={() => inputRef.current?.focus()}
-      >
-        {values.map((v, i) => (
-          <Badge key={v} variant="secondary" className="gap-1 text-xs font-mono pr-1 no-default-active-elevate">
-            {v}
-            <button
-              type="button"
-              onClick={(e) => { e.stopPropagation(); removeValue(i); }}
-              className="rounded-sm opacity-60 hover:opacity-100 leading-none"
-            >
-              <X className="h-3 w-3" />
-            </button>
-          </Badge>
-        ))}
-        {canAddMore && (
-          <input
-            ref={inputRef}
-            value={inputValue}
-            onChange={(e) => {
-              setInputValue(e.target.value);
-              setOpen(true);
-              setHighlightIndex(0);
-            }}
-            onFocus={() => setOpen(true)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                if (open && filtered.length > 0) {
-                  addValue(filtered[highlightIndex] ?? inputValue);
-                } else if (inputValue.trim()) {
-                  addValue(inputValue);
-                }
-              } else if (e.key === "ArrowDown") {
-                e.preventDefault();
-                setHighlightIndex((n) => Math.min(n + 1, filtered.length - 1));
-              } else if (e.key === "ArrowUp") {
-                e.preventDefault();
-                setHighlightIndex((n) => Math.max(n - 1, 0));
-              } else if (e.key === "Escape") {
-                setOpen(false);
-              } else if (e.key === "Backspace" && !inputValue && values.length > 0) {
-                removeValue(values.length - 1);
-              }
-            }}
-            placeholder={values.length === 0 ? placeholder : ""}
-            className="flex-1 min-w-[100px] bg-transparent outline-none text-sm placeholder:text-muted-foreground"
-          />
-        )}
-      </div>
-      {open && filtered.length > 0 && (
-        <div className="absolute z-50 top-full mt-1 w-full max-h-40 overflow-y-auto rounded-md border bg-popover text-popover-foreground shadow-md">
-          {filtered.map((s, i) => (
-            <button
-              key={s}
-              type="button"
-              onMouseDown={(e) => { e.preventDefault(); addValue(s); }}
-              onMouseEnter={() => setHighlightIndex(i)}
-              className={`w-full text-left px-3 py-1.5 text-sm font-mono transition-colors ${
-                i === highlightIndex ? "bg-accent text-accent-foreground" : ""
-              }`}
-            >
-              {s}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
+import { resolveFormDefaults } from "@shared/resolveFormDefaults";
+import type { TrackingSettingsResponse } from "@/lib/tracking";
 
 function safeYamlLoad(yamlStr: string): unknown {
   const { escaped, map } = escapeTemplateVars(yamlStr);
@@ -584,6 +464,7 @@ export function SectionEditorPanel({
   singleEntry,
 }: SectionEditorPanelProps) {
   const { toast } = useToast();
+  const { session } = useSession();
   const [yamlContent, setYamlContent] = useState("");
   const [parseError, setParseError] = useState<string | null>(null);
   const [hasChanges, setHasChanges] = useState(false);
@@ -663,6 +544,12 @@ export function SectionEditorPanel({
   const bindingQueryClient = useQueryClient();
   const [bindingDialogOpen, setBindingDialogOpen] = useState(false);
   const [bindingConfirmOpen, setBindingConfirmOpen] = useState(false);
+  const [exampleDialogOpen, setExampleDialogOpen] = useState(false);
+  const [exampleCopied, setExampleCopied] = useState(false);
+  const [locationsPickerOpen, setLocationsPickerOpen] = useState(false);
+  const [conversionNameEditing, setConversionNameEditing] = useState(false);
+  const [consentsEditing, setConsentsEditing] = useState(false);
+  const [webhookEditing, setWebhookEditing] = useState(false);
 
   const sectionComponentType = (section as Record<string, unknown>)?.type as string || "";
 
@@ -798,13 +685,18 @@ export function SectionEditorPanel({
 
   // Store initial state when section loads for undo capability
   const initialYamlRef = useRef<string | null>(null);
+  // Stable ref so the effect below can read the latest section without it being a dep
+  const sectionRef = useRef(section);
+  sectionRef.current = section;
 
-  // Clear undo history and store initial state when section or slug changes
+  // Clear undo history and store initial state when section identity changes.
+  // clearUndoHistory is stable (useCallback in useUndoRedo); sectionRef lets us
+  // read the latest section value without adding the unstable section object to
+  // deps (which would cause an infinite re-render loop).
   useEffect(() => {
     clearUndoHistory();
-    // Store the initial YAML so we can undo back to it
     try {
-      const sectionForEditor = stripTransientDynamicKeys(section);
+      const sectionForEditor = stripTransientDynamicKeys(sectionRef.current);
       const yamlStr = safeYamlDump(sectionForEditor, {
         lineWidth: -1,
         noRefs: true,
@@ -814,7 +706,8 @@ export function SectionEditorPanel({
     } catch {
       initialYamlRef.current = null;
     }
-  }, [sectionIndex, section, slug, clearUndoHistory]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sectionIndex, slug]);
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -1771,6 +1664,26 @@ export function SectionEditorPanel({
   // Get configured field editors from the component registry API
   const sectionType = (section as { type: string }).type || "";
 
+  // Component example query — lazy, only runs when the example dialog is open
+  const schemaVersion = `v${version !== undefined ? version : 1}.0`;
+  const { data: examplesData, isLoading: examplesLoading } = useQuery<{
+    examples: Array<{ name: string; description?: string; yaml: string }>;
+  }>({
+    queryKey: ["/api/component-registry", sectionType, schemaVersion, "examples"],
+    queryFn: async () => {
+      const res = await fetch(`/api/component-registry/${sectionType}/${schemaVersion}/examples`);
+      if (!res.ok) return { examples: [] };
+      return res.json();
+    },
+    enabled: exampleDialogOpen && !!sectionType,
+    staleTime: 5 * 60 * 1000,
+  });
+  const componentExamples = examplesData?.examples ?? [];
+  const currentVariantForExample = (parsedSection?.variant as string) || "default";
+  const bestExampleIdx = componentExamples.findIndex(
+    (ex) => ex.yaml.includes(`variant: ${currentVariantForExample}`)
+  );
+
   // Fetch all field editors from component registry
   const { data: allFieldEditors } = useQuery<
     Record<string, Record<string, EditorType>>
@@ -1791,18 +1704,58 @@ export function SectionEditorPanel({
     queryKey: ["/api/form-state/suggestions"],
   });
 
+  const { data: trackingSettings } = useQuery<TrackingSettingsResponse>({
+    queryKey: ["/api/settings/tracking"],
+  });
+
+  const { data: formOptions, isLoading: formOptionsLoading } = useQuery<{
+    locations: Array<{ slug: string; name: string; city: string; country: string; region: string }>;
+    regions: Array<{ slug: string; label: string }>;
+  }>({
+    queryKey: ["/api/form-options"],
+  });
+
   const formSettingsPath: string | null = (() => {
     const rawFields = allFieldEditors?.[sectionType] || {};
+    const currentVariant = (parsedSection as Record<string, unknown>)?.variant as string | undefined;
+    let globalPath: string | null = null;
     for (const [fieldPath, editorType] of Object.entries(rawFields)) {
       if (editorType === "form-settings") {
         const colonIndex = fieldPath.indexOf(":");
         if (colonIndex > 0 && !fieldPath.startsWith("color-picker:")) {
-          return fieldPath.substring(colonIndex + 1);
+          const variantPrefix = fieldPath.substring(0, colonIndex);
+          const actualPath = fieldPath.substring(colonIndex + 1);
+          if (currentVariant && variantPrefix === currentVariant) {
+            return actualPath;
+          }
+          if (globalPath === null) globalPath = actualPath;
+        } else {
+          if (globalPath === null) globalPath = fieldPath;
         }
-        return fieldPath;
       }
     }
-    return null;
+    return globalPath;
+  })();
+
+  const resolvedParsedSection: Record<string, unknown> | null = (() => {
+    if (!parsedSection || !formSettingsPath) return parsedSection ?? null;
+    const conversionName = String(
+      getValueAtFieldPath(parsedSection, `${formSettingsPath}.conversion_name`) ?? ""
+    );
+    if (!conversionName) return parsedSection;
+    const event = trackingSettings?.conversion_events?.find((e) => e.name === conversionName);
+    if (!event) return parsedSection;
+    return resolveFormDefaults(
+      parsedSection,
+      {
+        name: event.name,
+        automations: event.automations,
+        tags: event.tags,
+        consent: event.consent,
+        webhook: event.webhook,
+      },
+      formSettingsPath
+    );
   })();
 
   // Get configured fields for current section type, filtering by variant
@@ -1994,13 +1947,13 @@ export function SectionEditorPanel({
           "Content-Type": "application/json",
           ...(token ? { Authorization: `Token ${token}` } : {}),
         },
-        body: JSON.stringify({
+        body: JSON.stringify(encodeHtmlValues({
           contentType,
           slug,
           locale,
           sectionIndex,
           sectionData: parsed as Record<string, unknown>,
-        }),
+        })),
       });
       const data = await resp.json();
       if (data.success) {
@@ -2121,6 +2074,15 @@ export function SectionEditorPanel({
           </p>
         </div>
         <div className="flex items-center gap-1">
+          <Button
+            size="icon"
+            variant="ghost"
+            onClick={() => setExampleDialogOpen(true)}
+            title="View full code example"
+            data-testid="button-view-example"
+          >
+            <IconFileCode className="h-4 w-4" />
+          </Button>
           {contentType && slug && (
             <Button
               size="icon"
@@ -6415,101 +6377,548 @@ export function SectionEditorPanel({
           ) : (
             <div className="space-y-6">
               {/* Conversion Name */}
-              <div className="space-y-2">
-                <Label
-                  htmlFor="conversion-name"
-                  className="text-sm font-medium"
-                  data-testid="label-conversion-name"
-                >
-                  Conversion Name
-                </Label>
-                <Select
-                  value={String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.conversion_name`) ?? "")}
-                  onValueChange={(val) => updateProperty(`${formSettingsPath}.conversion_name`, val === "__clear__" ? "" : val)}
-                  data-testid="select-conversion-name"
-                >
-                  <SelectTrigger className="w-full" data-testid="combobox-conversion-name">
-                    <SelectValue placeholder="Select conversion event…" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {conversionNames.length === 0 ? (
-                      <SelectItem value="__loading__" disabled>
-                        {conversionNamesLoading ? "Loading…" : "No events configured"}
-                      </SelectItem>
+              {(() => {
+                const storedConversionName = String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.conversion_name`) ?? "");
+                const showPicker = conversionNameEditing || !storedConversionName;
+                return (
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <Label
+                        htmlFor="conversion-name"
+                        className="text-sm font-medium"
+                        data-testid="label-conversion-name"
+                      >
+                        Conversion Name
+                      </Label>
+                      {storedConversionName && !showPicker && (
+                        <Button
+                          type="button"
+                          size="icon"
+                          variant="ghost"
+                          className="h-6 w-6"
+                          onClick={() => setConversionNameEditing(true)}
+                          data-testid="button-edit-conversion-name"
+                        >
+                          <IconPencil className="h-3.5 w-3.5" />
+                        </Button>
+                      )}
+                      {showPicker && storedConversionName && (
+                        <Button
+                          type="button"
+                          size="icon"
+                          variant="ghost"
+                          className="h-6 w-6"
+                          onClick={() => setConversionNameEditing(false)}
+                          data-testid="button-cancel-edit-conversion-name"
+                        >
+                          <IconX className="h-3.5 w-3.5" />
+                        </Button>
+                      )}
+                    </div>
+
+                    {!showPicker ? (
+                      <div
+                        className="flex items-center gap-2 px-3 py-2 rounded-md bg-muted/50 border"
+                        data-testid="display-conversion-name"
+                      >
+                        <IconTargetArrow className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                        <span className="text-sm font-mono">{storedConversionName}</span>
+                      </div>
                     ) : (
-                      <>
-                        <SelectItem value="__clear__" data-testid="conversion-name-option-clear">
-                          <span className="text-muted-foreground">— None —</span>
-                        </SelectItem>
-                        {conversionNames.map((name) => (
-                          <SelectItem key={name} value={name} data-testid={`conversion-name-option-${name}`}>
-                            {name}
-                          </SelectItem>
-                        ))}
-                      </>
+                      <Select
+                        value={storedConversionName}
+                        onValueChange={(val) => {
+                          updateProperty(`${formSettingsPath}.conversion_name`, val === "__clear__" ? "" : val);
+                          setConversionNameEditing(false);
+                        }}
+                        data-testid="select-conversion-name"
+                        open={conversionNameEditing || !storedConversionName ? undefined : false}
+                      >
+                        <SelectTrigger className="w-full" data-testid="combobox-conversion-name">
+                          <SelectValue placeholder="Select conversion event…" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {storedConversionName && (
+                            <SelectItem value="__clear__" data-testid="conversion-name-option-clear">
+                              <span className="text-muted-foreground">— None —</span>
+                            </SelectItem>
+                          )}
+                          {conversionNames.length === 0 && (
+                            <SelectItem value="__loading__" disabled>
+                              {conversionNamesLoading ? "Loading…" : "No events configured"}
+                            </SelectItem>
+                          )}
+                          {conversionNames.map((name) => (
+                            <SelectItem key={name} value={name} data-testid={`conversion-name-option-${name}`}>
+                              {name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     )}
-                  </SelectContent>
-                </Select>
-                <p className="text-xs text-muted-foreground">
-                  GTM event fired on form submission. Must match a configured conversion event.
-                </p>
-              </div>
 
-              {/* Automations */}
-              <div className="space-y-2">
-                <Label
-                  htmlFor="conversion-automations"
-                  className="text-sm font-medium"
-                  data-testid="label-conversion-automations"
-                >
-                  Automations
-                </Label>
-                <TagInput
-                  values={(() => {
-                    const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.automations`);
-                    return v ? [String(v)] : [];
-                  })()}
-                  suggestions={formStateSuggestions?.automations ?? []}
-                  onChange={(vals) => updateProperty(`${formSettingsPath}.automations`, vals[0] ?? "")}
-                  placeholder="e.g. hubspot-lead-nurture"
-                  max={1}
-                  testId="input-conversion-automations"
-                />
-                <p className="text-xs text-muted-foreground">
-                  CRM automation workflow to trigger on submission.
-                </p>
-              </div>
+                    <p className="text-xs text-muted-foreground">
+                      GTM event fired on form submission. Must match a configured conversion event.
+                    </p>
+                  </div>
+                );
+              })()}
 
-              {/* Tags */}
-              <div className="space-y-2">
-                <Label
-                  htmlFor="conversion-tags"
-                  className="text-sm font-medium"
-                  data-testid="label-conversion-tags"
-                >
-                  Tags
-                </Label>
-                <TagInput
-                  values={(() => {
-                    const v = getValueAtFieldPath(parsedSection, `${formSettingsPath}.tags`);
-                    if (Array.isArray(v)) return v as string[];
-                    return v ? String(v).split(",").map((t) => t.trim()).filter(Boolean) : [];
-                  })()}
-                  suggestions={formStateSuggestions?.tags ?? []}
-                  onChange={(vals) => {
-                    if (vals.length > 0) {
-                      updatePropertyWithValue(`${formSettingsPath}.tags`, vals);
-                    } else {
-                      updatePropertyWithValue(`${formSettingsPath}.tags`, undefined);
+              {/* Automations + Tags grouped card */}
+              {(() => {
+                const convName = String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.conversion_name`) ?? "");
+                const convEvent = convName
+                  ? trackingSettings?.conversion_events?.find((e) => e.name === convName)
+                  : undefined;
+                const inheritedAutomation = convEvent?.automations ?? undefined;
+                const inheritedTags: string[] | undefined = convEvent?.tags
+                  ? (Array.isArray(convEvent.tags) ? convEvent.tags : [String(convEvent.tags)])
+                  : undefined;
+                const rawAutomationVal = getValueAtFieldPath(parsedSection, `${formSettingsPath}.automations`);
+                const automationOverridden = rawAutomationVal !== undefined;
+                const rawTagsVal = getValueAtFieldPath(parsedSection, `${formSettingsPath}.tags`);
+                const tagsOverridden = rawTagsVal !== undefined;
+                return (
+                  <AutomationsTagsCard
+                    automation={
+                      rawAutomationVal && !Array.isArray(rawAutomationVal)
+                        ? String(rawAutomationVal)
+                        : ""
                     }
-                  }}
-                  placeholder="e.g. lead, bootcamp, latam"
-                  testId="input-conversion-tags"
-                />
-                <p className="text-xs text-muted-foreground">
-                  Comma-separated labels applied to form submissions for segmentation.
-                </p>
-              </div>
+                    tags={(() => {
+                      if (Array.isArray(rawTagsVal)) return rawTagsVal as string[];
+                      return rawTagsVal && !Array.isArray(rawTagsVal)
+                        ? String(rawTagsVal).split(",").map((t) => t.trim()).filter(Boolean)
+                        : [];
+                    })()}
+                    onAutomationChange={(val) => {
+                      if (automationOverridden && !val) {
+                        updatePropertyWithValue(`${formSettingsPath}.automations`, []);
+                      } else {
+                        updateProperty(`${formSettingsPath}.automations`, val);
+                      }
+                    }}
+                    onTagsChange={(vals) => {
+                      if (vals.length > 0) {
+                        updatePropertyWithValue(`${formSettingsPath}.tags`, vals);
+                      } else if (tagsOverridden) {
+                        updatePropertyWithValue(`${formSettingsPath}.tags`, []);
+                      } else {
+                        updatePropertyWithValue(`${formSettingsPath}.tags`, undefined);
+                      }
+                    }}
+                    automationSuggestions={formStateSuggestions?.automations ?? []}
+                    tagSuggestions={formStateSuggestions?.tags ?? []}
+                    inheritedAutomation={inheritedAutomation}
+                    inheritedTags={inheritedTags}
+                    automationOverridden={automationOverridden}
+                    tagsOverridden={tagsOverridden}
+                    onAutomationOverrideChange={(override) => {
+                      if (override) {
+                        if (inheritedAutomation) {
+                          updateProperty(`${formSettingsPath}.automations`, inheritedAutomation);
+                        } else {
+                          updatePropertyWithValue(`${formSettingsPath}.automations`, []);
+                        }
+                      } else {
+                        updatePropertyWithValue(`${formSettingsPath}.automations`, undefined);
+                      }
+                    }}
+                    onTagsOverrideChange={(override) => {
+                      if (override) {
+                        if (inheritedTags && inheritedTags.length > 0) {
+                          updatePropertyWithValue(`${formSettingsPath}.tags`, inheritedTags);
+                        } else {
+                          updatePropertyWithValue(`${formSettingsPath}.tags`, []);
+                        }
+                      } else {
+                        updatePropertyWithValue(`${formSettingsPath}.tags`, undefined);
+                      }
+                    }}
+                  />
+                );
+              })()}
+
+              {/* Consents card */}
+              {sectionType === "apply_form" ? (
+                /* apply_form: free-text consent strings at root — keep inline */
+                (() => {
+                  const applyConsentMarketing = String(getValueAtFieldPath(parsedSection, "consent_marketing") ?? "");
+                  const applyConsentSms       = String(getValueAtFieldPath(parsedSection, "consent_sms") ?? "");
+                  const applyTermsUrl         = String(getValueAtFieldPath(parsedSection, "terms_link_url") ?? "");
+                  const applyPrivacyUrl       = String(getValueAtFieldPath(parsedSection, "privacy_link_url") ?? "");
+                  const activeChannels = [
+                    applyConsentMarketing ? "Marketing" : null,
+                    applyConsentSms ? "SMS" : null,
+                  ].filter(Boolean) as string[];
+                  return (
+                    <div className="rounded-md border bg-muted/20 p-3 space-y-3" data-testid="card-consents">
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-1.5">
+                          <IconShieldCheck className="h-3.5 w-3.5 text-muted-foreground" />
+                          <span className="text-sm font-medium">Consents</span>
+                        </div>
+                        <Button
+                          type="button"
+                          size="icon"
+                          variant="ghost"
+                          className="h-6 w-6"
+                          onClick={() => setConsentsEditing((v) => !v)}
+                          data-testid="button-edit-consents"
+                        >
+                          {consentsEditing ? <IconX className="h-3.5 w-3.5" /> : <IconPencil className="h-3.5 w-3.5" />}
+                        </Button>
+                      </div>
+                      {!consentsEditing ? (
+                        <div className="space-y-1.5">
+                          <div className="flex items-start gap-2">
+                            <span className="text-xs text-muted-foreground w-20 flex-shrink-0 pt-0.5">Channels</span>
+                            {activeChannels.length > 0 ? (
+                              <div className="flex flex-wrap gap-1">
+                                {activeChannels.map((ch) => (
+                                  <Badge key={ch} variant="secondary" className="text-[11px] px-1.5 py-0 leading-4 font-normal">
+                                    {ch}
+                                  </Badge>
+                                ))}
+                              </div>
+                            ) : (
+                              <span className="text-xs text-muted-foreground italic">none enabled</span>
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="space-y-3">
+                          <div className="space-y-1.5">
+                            <Label className="text-xs text-muted-foreground">Marketing consent text</Label>
+                            <Textarea
+                              rows={3}
+                              value={applyConsentMarketing}
+                              onChange={(e) => updateProperty("consent_marketing", e.target.value)}
+                              placeholder="I agree to receive information through email, WhatsApp..."
+                              className="text-xs resize-none"
+                              data-testid="input-consent-marketing-text"
+                            />
+                          </div>
+                          <div className="space-y-1.5">
+                            <Label className="text-xs text-muted-foreground">SMS consent text</Label>
+                            <Textarea
+                              rows={3}
+                              value={applyConsentSms}
+                              onChange={(e) => updateProperty("consent_sms", e.target.value)}
+                              placeholder="I agree to receive SMS/text messages..."
+                              className="text-xs resize-none"
+                              data-testid="input-consent-sms-text"
+                            />
+                          </div>
+                          <div className="grid grid-cols-2 gap-2">
+                            <div className="space-y-1.5">
+                              <Label className="text-xs text-muted-foreground">Terms URL</Label>
+                              <Input
+                                value={applyTermsUrl}
+                                onChange={(e) => updateProperty("terms_link_url", e.target.value)}
+                                placeholder="/terms-conditions"
+                                className="text-xs h-8"
+                                data-testid="input-consent-terms-url"
+                              />
+                            </div>
+                            <div className="space-y-1.5">
+                              <Label className="text-xs text-muted-foreground">Privacy URL</Label>
+                              <Input
+                                value={applyPrivacyUrl}
+                                onChange={(e) => updateProperty("privacy_link_url", e.target.value)}
+                                placeholder="/privacy-policy"
+                                className="text-xs h-8"
+                                data-testid="input-consent-privacy-url"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()
+              ) : (() => {
+                /* hero / lead_form: boolean toggles — use shared ConsentCard */
+                const convName = String(getValueAtFieldPath(parsedSection, `${formSettingsPath}.conversion_name`) ?? "");
+                  const convEvent = convName
+                    ? trackingSettings?.conversion_events?.find((e) => e.name === convName)
+                    : undefined;
+
+                  const rawMarketing   = getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.marketing`);
+                  const rawSms         = getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.sms`);
+                  const rawWhatsapp    = getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.whatsapp`);
+                  const rawSmsUsaOnly  = getValueAtFieldPath(parsedSection, `${formSettingsPath}.consent.sms_usa_only`);
+                  const rawShowTerms   = getValueAtFieldPath(parsedSection, `${formSettingsPath}.show_terms`);
+
+                  const specificFields = {
+                    marketing:  rawMarketing  !== null && rawMarketing  !== undefined,
+                    sms:        rawSms        !== null && rawSms        !== undefined,
+                    whatsapp:   rawWhatsapp   !== null && rawWhatsapp   !== undefined,
+                    smsUsaOnly: rawSmsUsaOnly !== null && rawSmsUsaOnly !== undefined,
+                    showTerms:  rawShowTerms  !== null && rawShowTerms  !== undefined,
+                    termsUrl:   false,
+                    privacyUrl: false,
+                  };
+
+                  const inheritedValues: Partial<ConsentValues> | undefined = convEvent
+                    ? {
+                        marketing:  !!convEvent.consent?.marketing,
+                        sms:        !!convEvent.consent?.sms,
+                        whatsapp:   !!convEvent.consent?.whatsapp,
+                        smsUsaOnly: !!convEvent.consent?.sms_usa_only,
+                        showTerms:  !!convEvent.consent?.show_terms,
+                        termsUrl:   convEvent.consent?.terms_url ?? "",
+                        privacyUrl: convEvent.consent?.privacy_url ?? "",
+                      }
+                    : undefined;
+
+                  const isConsentOverridden = Object.values(specificFields).some(Boolean);
+                  return (
+                    <ConsentCard
+                      values={{
+                        marketing: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.marketing`),
+                        sms: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.sms`),
+                        whatsapp: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.whatsapp`),
+                        smsUsaOnly: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.consent.sms_usa_only`),
+                        showTerms: !!getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.show_terms`),
+                        termsUrl: String(getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.terms_url`) ?? ""),
+                        privacyUrl: String(getValueAtFieldPath(resolvedParsedSection, `${formSettingsPath}.privacy_url`) ?? ""),
+                      }}
+                      inheritedValues={inheritedValues}
+                      specificFields={specificFields}
+                      isOverridden={isConsentOverridden}
+                      onChange={(field, value) => {
+                        const pathMap: Record<keyof ConsentValues, string> = {
+                          marketing: `${formSettingsPath}.consent.marketing`,
+                          sms: `${formSettingsPath}.consent.sms`,
+                          whatsapp: `${formSettingsPath}.consent.whatsapp`,
+                          smsUsaOnly: `${formSettingsPath}.consent.sms_usa_only`,
+                          showTerms: `${formSettingsPath}.show_terms`,
+                          termsUrl: `${formSettingsPath}.terms_url`,
+                          privacyUrl: `${formSettingsPath}.privacy_url`,
+                        };
+                        if (typeof value === "boolean") {
+                          updatePropertyWithValue(pathMap[field], value);
+                        } else {
+                          updateProperty(pathMap[field], value as string);
+                        }
+                      }}
+                      onOverrideChange={(override) => {
+                        try {
+                          const parsed = safeYamlLoad(yamlContent) as Record<string, unknown>;
+                          if (!parsed || typeof parsed !== "object") return;
+                          pushUndoState(yamlContent);
+                          const setProp = (path: string, val: unknown) => {
+                            const parts = path.split(".");
+                            let cur = parsed as Record<string, unknown>;
+                            for (let i = 0; i < parts.length - 1; i++) {
+                              if (!cur[parts[i]] || typeof cur[parts[i]] !== "object") cur[parts[i]] = {};
+                              cur = cur[parts[i]] as Record<string, unknown>;
+                            }
+                            const k = parts[parts.length - 1];
+                            if (val !== undefined) { cur[k] = val; } else { delete cur[k]; }
+                          };
+                          if (override) {
+                            const eff = (p: string) => getValueAtFieldPath(resolvedParsedSection, p);
+                            setProp(`${formSettingsPath}.consent.marketing`,    !!eff(`${formSettingsPath}.consent.marketing`));
+                            setProp(`${formSettingsPath}.consent.sms`,          !!eff(`${formSettingsPath}.consent.sms`));
+                            setProp(`${formSettingsPath}.consent.whatsapp`,     !!eff(`${formSettingsPath}.consent.whatsapp`));
+                            setProp(`${formSettingsPath}.consent.sms_usa_only`, !!eff(`${formSettingsPath}.consent.sms_usa_only`));
+                            setProp(`${formSettingsPath}.show_terms`,           !!eff(`${formSettingsPath}.show_terms`));
+                          } else {
+                            setProp(`${formSettingsPath}.consent.marketing`,    undefined);
+                            setProp(`${formSettingsPath}.consent.sms`,          undefined);
+                            setProp(`${formSettingsPath}.consent.whatsapp`,     undefined);
+                            setProp(`${formSettingsPath}.consent.sms_usa_only`, undefined);
+                            setProp(`${formSettingsPath}.show_terms`,           undefined);
+                          }
+                          setYamlContent(safeYamlDump(parsed, { lineWidth: -1, noRefs: true, quotingType: '"' }));
+                          setHasChanges(true);
+                          setParseError(null);
+                        } catch (e) {
+                          console.error("Error updating consent override:", e);
+                        }
+                      }}
+                    />
+                  );
+                })()}
+
+              {/* Locations */}
+              {(() => {
+                const rawLocs = getValueAtFieldPath(parsedSection, `${formSettingsPath}.locations`);
+                const selectedLocs: string[] = Array.isArray(rawLocs)
+                  ? (rawLocs as string[])
+                  : rawLocs
+                  ? [String(rawLocs)]
+                  : [];
+                // Purely data-driven: auto when no locations stored
+                const isAutoDetect = selectedLocs.length === 0;
+
+                const locationOptions = (formOptions?.locations ?? []).map((loc) => ({
+                  value: loc.slug,
+                  label: `${loc.name} — ${loc.city}`,
+                  group: loc.region,
+                  badgeLabel: loc.city,
+                  searchTerms: [loc.city, loc.country, loc.slug, loc.name],
+                }));
+
+                const groupLabels = Object.fromEntries(
+                  (formOptions?.regions ?? []).map((r) => [r.slug, r.label])
+                );
+
+                return (
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between gap-3">
+                      <Label className="text-sm font-medium" data-testid="label-conversion-locations">
+                        Locations
+                      </Label>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-muted-foreground">
+                          {isAutoDetect ? "Auto-detect" : "Manual"}
+                        </span>
+                        <Switch
+                          checked={isAutoDetect}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              // ON → clear locations, back to auto-detect
+                              updatePropertyWithValue(`${formSettingsPath}.locations`, undefined);
+                              setLocationsPickerOpen(false);
+                            } else {
+                              // OFF → open picker so user can choose campuses immediately
+                              setLocationsPickerOpen(true);
+                            }
+                          }}
+                          data-testid="switch-locations-auto-detect"
+                        />
+                      </div>
+                    </div>
+                    {isAutoDetect && !locationsPickerOpen ? (
+                      <p className="text-xs text-muted-foreground">
+                        Location is auto-detected from the visitor's IP address.
+                      </p>
+                    ) : (
+                      <SearchableMultiSelect
+                        options={locationOptions}
+                        value={selectedLocs}
+                        onChange={(vals) => {
+                          updatePropertyWithValue(
+                            `${formSettingsPath}.locations`,
+                            vals.length > 0 ? vals : undefined
+                          );
+                          if (vals.length === 0) setLocationsPickerOpen(false);
+                        }}
+                        open={locationsPickerOpen && isAutoDetect ? locationsPickerOpen : undefined}
+                        onOpenChange={(o) => {
+                          // Only manage externally when in the transient "picker open, no selections" state
+                          if (isAutoDetect) setLocationsPickerOpen(o);
+                        }}
+                        label="Select campuses"
+                        searchPlaceholder="Search locations…"
+                        groupLabels={groupLabels}
+                        isLoading={formOptionsLoading}
+                        testIdPrefix="location"
+                        emptyMessage="No locations found"
+                      />
+                    )}
+                  </div>
+                );
+              })()}
+
+              {/* Webhook */}
+              {(() => {
+                const rawSectionWebhookUrl = String(
+                  getValueAtFieldPath(parsedSection, `${formSettingsPath}.webhook.url`) ?? ""
+                );
+                const storedConversionName = String(
+                  getValueAtFieldPath(parsedSection, `${formSettingsPath}.conversion_name`) ?? ""
+                );
+                const eventWebhookUrl =
+                  storedConversionName
+                    ? (trackingSettings?.conversion_events?.find(
+                        (e) => e.name === storedConversionName
+                      )?.webhook?.url ?? "")
+                    : "";
+                const globalWebhookUrl = trackingSettings?.webhook?.url ?? "";
+                const webhookSource: WebhookSource = rawSectionWebhookUrl
+                  ? "section"
+                  : eventWebhookUrl
+                  ? "event"
+                  : globalWebhookUrl
+                  ? "global"
+                  : "none";
+                const webhookHint =
+                  webhookSource === "section"
+                    ? "This section overrides the event default and global webhook. Clear the URL to fall back to the next level."
+                    : webhookSource === "event"
+                    ? "No section URL set — currently falling back to the event default. Enter a URL here to override it for this section only."
+                    : webhookSource === "global"
+                    ? "No section URL set — currently falling back to the global webhook. Enter a URL here to override it for this section only."
+                    : "No webhook configured at any level. Enter a URL to receive form submissions via webhook.";
+                const sectionSource = resolvedParsedSection ?? parsedSection ?? {};
+                const webhookSamplePayload = buildWebhookSamplePayload(
+                  sectionSource,
+                  formSettingsPath,
+                  session
+                );
+                return (
+                  <WebhookCard
+                    url={rawSectionWebhookUrl}
+                    method={
+                      (getValueAtFieldPath(
+                        parsedSection,
+                        `${formSettingsPath}.webhook.method`
+                      ) as "POST" | "GET") ?? "POST"
+                    }
+                    authHeader={String(
+                      getValueAtFieldPath(
+                        parsedSection,
+                        `${formSettingsPath}.webhook.auth_header`
+                      ) ?? ""
+                    )}
+                    editing={webhookEditing}
+                    onEditingChange={setWebhookEditing}
+                    onChange={(field, value) => {
+                      if (field === "url") {
+                        if (!value) {
+                          // Clear the entire webhook block to avoid orphaned keys (method, auth_header)
+                          updatePropertyWithValue(`${formSettingsPath}.webhook`, undefined);
+                        } else {
+                          updateProperty(`${formSettingsPath}.webhook.url`, value);
+                        }
+                      } else if (field === "method") {
+                        updateProperty(`${formSettingsPath}.webhook.method`, value);
+                      } else if (field === "authHeader") {
+                        updateProperty(`${formSettingsPath}.webhook.auth_header`, value);
+                      }
+                    }}
+                    hint={webhookHint}
+                    source={webhookSource}
+                    inheritedUrl={
+                      webhookSource === "event"
+                        ? eventWebhookUrl
+                        : webhookSource === "global"
+                        ? globalWebhookUrl
+                        : undefined
+                    }
+                    samplePayload={webhookSamplePayload}
+                    onTest={async () => {
+                      try {
+                        const res = await apiRequest("POST", "/api/tracking/webhook/test", {
+                          payload: webhookSamplePayload,
+                        });
+                        const data = await res.json().catch(() => ({}));
+                        if (!res.ok || !(data as any).ok) {
+                          return { ok: false, error: (data as any).error || `HTTP ${res.status}` };
+                        }
+                        return { ok: true, status: (data as any).status };
+                      } catch (e: any) {
+                        return { ok: false, error: e.message };
+                      }
+                    }}
+                    testIdPrefix="section-webhook"
+                  />
+                );
+              })()}
             </div>
           )}
         </TabsContent>
@@ -7556,6 +7965,83 @@ export function SectionEditorPanel({
         confirmLabel="Save to all"
         confirmIcon={<Save className="h-4 w-4 mr-2" />}
       />
+
+      {/* Component Example Dialog */}
+      <Dialog open={exampleDialogOpen} onOpenChange={setExampleDialogOpen}>
+        <DialogContent className="max-w-3xl h-[80vh] flex flex-col gap-0 p-0">
+          <DialogHeader className="px-5 pt-5 pb-3 shrink-0">
+            <DialogTitle className="flex items-center gap-2 text-base">
+              <IconFileCode className="h-4 w-4 shrink-0" />
+              {sectionType}{currentVariantForExample && currentVariantForExample !== "default" ? ` — ${currentVariantForExample}` : ""} — Code example
+            </DialogTitle>
+            {componentExamples.length === 0 && !examplesLoading && (
+              <DialogDescription className="text-sm text-muted-foreground">
+                No examples found for this component type.
+              </DialogDescription>
+            )}
+          </DialogHeader>
+
+          {/* CodeMirror viewer */}
+          <div className="flex-1 min-h-0 relative">
+            {examplesLoading ? (
+              <div className="flex items-center justify-center h-full text-muted-foreground gap-2">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span className="text-sm">Loading example…</span>
+              </div>
+            ) : componentExamples.length === 0 ? (
+              <div className="flex items-center justify-center h-full text-muted-foreground">
+                <span className="text-sm">No examples registered for <code className="font-mono text-xs bg-muted px-1 py-0.5 rounded">{sectionType}</code></span>
+              </div>
+            ) : (() => {
+              const ex = componentExamples[Math.max(0, bestExampleIdx)];
+              return (
+                <>
+                  {ex.description && (
+                    <p className="px-4 py-2 text-xs text-muted-foreground border-b bg-muted/30 shrink-0">{ex.description}</p>
+                  )}
+                  <div className="absolute inset-0 top-0">
+                    <CodeMirror
+                      value={ex.yaml}
+                      height="100%"
+                      extensions={[yaml()]}
+                      theme={oneDark}
+                      editable={false}
+                      basicSetup={{ lineNumbers: true, foldGutter: true, highlightActiveLine: false }}
+                      className="h-full [&_.cm-editor]:h-full [&_.cm-scroller]:overflow-auto"
+                    />
+                  </div>
+                </>
+              );
+            })()}
+          </div>
+
+          {/* Footer with copy button */}
+          {componentExamples.length > 0 && !examplesLoading && (
+            <div className="px-5 py-3 border-t shrink-0 flex items-center justify-end gap-3">
+              {(() => {
+                const ex = componentExamples[Math.max(0, bestExampleIdx)];
+                return (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => {
+                      navigator.clipboard.writeText(ex?.yaml ?? "").then(() => {
+                        setExampleCopied(true);
+                        setTimeout(() => setExampleCopied(false), 2000);
+                      });
+                    }}
+                    data-testid="button-copy-example"
+                    className="shrink-0 gap-1.5"
+                  >
+                    {exampleCopied ? <Check className="h-3.5 w-3.5" /> : <IconFileCode className="h-3.5 w-3.5" />}
+                    {exampleCopied ? "Copied!" : "Copy YAML"}
+                  </Button>
+                );
+              })()}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={scopeDialogOpen} onOpenChange={(o) => { if (!o && !isSaving) setScopeDialogOpen(false); }}>
         <DialogContent className="sm:max-w-md">

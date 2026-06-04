@@ -515,3 +515,33 @@ global.who_is_eligible_work_authorization:
   default: "Have authorization to work in your country of residence"
 global.address_miami:
   default: "1111 Brickell Ave, Miami, FL 33129"
+reserved.legal_terms_url:
+  default: ""
+reserved.legal_privacy_url:
+  default: ""
+reserved.consent_whatsapp:
+  default: ""
+reserved.consent_sms:
+  default: ""
+reserved.consent_email:
+  default: ""
+reserved.consent_general:
+  default: ""
+global.ai_fluency_price:
+  default: "$900"
+  conditions:
+    - query:
+        region: "europe"
+      value: "€900"
+    - query:
+        region: "latam"
+      value: "$500"
+global.ai.fluency.price:
+  default: "$900"
+  conditions:
+    - query:
+        region: "europe"
+      value: "€900"
+    - query:
+        region: "latam"
+      value: "$500"

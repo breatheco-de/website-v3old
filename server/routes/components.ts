@@ -9,6 +9,7 @@ import { getAllQueueState } from "../image-queue-state";
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
+import { decodeHtmlValues } from "@shared/htmlEncoding";
 import { execSync as _execSync, execFile } from "child_process";
 import {
   versioningUpdateSchema,
@@ -752,6 +753,7 @@ export function registerComponentsRoutes(app: Express): void {
 
   app.put("/api/content/raw-file", async (req, res) => {
     try {
+      req.body = decodeHtmlValues(req.body);
       const rawFilePath: string = req.body.filePath || "";
 
       // Reject writes to internal data files that could be used for privilege escalation

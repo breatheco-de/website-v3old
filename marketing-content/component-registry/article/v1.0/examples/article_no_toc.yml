@@ -3,7 +3,6 @@ description: "Plain article rendering without table of contents, suitable for sh
 yaml: |
   - type: article
     show_toc: false
-    max_width: md
     content: |
       # About Our Program
 

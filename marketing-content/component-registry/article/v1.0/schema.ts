@@ -12,7 +12,6 @@ export const articleSectionSchema = z.object({
   content: z.string().describe("Markdown content for the article body"),
   show_toc: z.boolean().optional().describe("Whether to show the auto-generated table of contents"),
   toc_position: z.enum(["top", "side"]).optional().describe("Position of the table of contents: top (above content) or side (sticky sidebar following scroll)"),
-  max_width: z.enum(["sm", "md", "lg", "xl", "full"]).optional().describe("Maximum width of the article content area"),
 });
 
 export type ArticleSection = z.infer<typeof articleSectionSchema>;

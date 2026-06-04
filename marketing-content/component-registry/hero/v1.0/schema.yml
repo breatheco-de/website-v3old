@@ -515,12 +515,6 @@ variant_props:
               required: false
               description: Success message if no redirect
           description: Success behavior after form submission
-        terms_url:
-          type: string
-          required: false
-        privacy_url:
-          type: string
-          required: false
         consent:
           type: object
           required: false

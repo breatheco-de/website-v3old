@@ -43,7 +43,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Iniciar mi aplicación
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -66,12 +65,6 @@ sections:
           default: ai-engineering
       success:
         message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
-      terms_url: /terminos-condiciones
-      privacy_url: /politica-privacidad
-      consent:
-        marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-      show_terms: true
     form_card_title: Obtén la guía completa del programa
     form_card_subtitle: Te enviamos el programa completo con plan de estudios, opciones de financiación y más. Solo toma 2 minutos.
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
@@ -117,7 +110,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: Enviar solicitud
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -696,7 +688,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Aplicar ahora
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -720,11 +711,6 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
-      show_terms: true
       button_className: bg-primary border-white
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))

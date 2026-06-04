@@ -57,13 +57,43 @@ export interface VisitorContext {
   };
 }
 
+export interface WebhookConfig {
+  url: string;
+  method?: "POST" | "GET";
+  auth_header?: string;
+}
+
+export interface ConsentDefaults {
+  marketing?: boolean;
+  sms?: boolean;
+  whatsapp?: boolean;
+  sms_usa_only?: boolean;
+  marketing_text?: string;
+  sms_text?: string;
+  show_terms?: boolean;
+  terms_url?: string;
+  privacy_url?: string;
+}
+
 export interface ConversionEventEntry {
   name: string;
   description?: string;
+  automations?: string;
+  tags?: string[];
+  consent?: ConsentDefaults;
+  webhook?: WebhookConfig;
+}
+
+export interface TrackingWebhook {
+  url: string;
+  method?: string;
+  auth_header?: string;
 }
 
 export interface TrackingSettingsResponse {
   conversion_events: ConversionEventEntry[];
+  webhook?: TrackingWebhook;
+  has_env_webhook?: boolean;
 }
 
 // Extend Window to include dataLayer
@@ -195,6 +225,79 @@ export function setVisitorContext(context: VisitorContext): void {
   });
 
   console.log("[Tracking] User context set:", context);
+}
+
+/**
+ * Resolve the webhook to fire for a conversion using the three-level priority chain:
+ *   1. formWebhook  — highest priority, set directly on the form component
+ *   2. per-event    — tracking.conversion_events[name].webhook
+ *   3. global       — tracking.webhook
+ * Returns null when no webhook is configured at any level (silent no-op).
+ */
+export function resolveWebhook(
+  formWebhook: WebhookConfig | undefined | null,
+  conversionName: string,
+  settings: TrackingSettingsResponse | null | undefined
+): WebhookConfig | null {
+  if (formWebhook?.url) return formWebhook;
+
+  if (settings) {
+    const eventEntry = settings.conversion_events.find((e) => e.name === conversionName);
+    if (eventEntry?.webhook?.url) return eventEntry.webhook;
+    if (settings.webhook?.url) return settings.webhook;
+  }
+
+  return null;
+}
+
+/**
+ * Sample lead payload — mirrors the full payload shape built in LeadFormDefault.tsx.
+ * Used as the single source of truth for the UI "Sample payload" display and
+ * the webhook test button. Update this when the form payload shape changes.
+ */
+export const SAMPLE_LEAD_PAYLOAD: Record<string, unknown> = {
+  email: "jane.doe@example.com",
+  first_name: "Jane",
+  last_name: "Doe",
+  phone: "+13055550100",
+  program: "ai-engineering",
+  location: "miami-usa",
+  region: "us",
+  coupon: "",
+  language: "en",
+  browser_lang: "en-US",
+  latitude: "25.7617",
+  longitude: "-80.1918",
+  city: "Miami",
+  country: "US",
+  utm_url: "https://example.com/en/apply?utm_source=google",
+  utm_source: "google",
+  utm_medium: "cpc",
+  utm_campaign: "brand-2024",
+  utm_content: "hero-cta",
+  utm_term: "ai bootcamp",
+  utm_placement: "",
+  utm_plan: "",
+  ppc_tracking_id: "",
+  referral: "",
+  tags: "website-lead",
+  automations: "strong",
+  consent_email: true,
+  sms_consent: false,
+  consent_whatsapp: false,
+  token: "<turnstile_token>",
+};
+
+/**
+ * Builds a sample lead payload for the webhook test button and payload viewer.
+ * Spreads SAMPLE_LEAD_PAYLOAD and merges in any caller-provided overrides so that
+ * session-derived fields (UTM, geo, language) and section-specific YML values
+ * (program, tags, automations, consent) replace the generic placeholders.
+ */
+export function buildSamplePayload(
+  overrides?: Partial<Record<string, unknown>>
+): Record<string, unknown> {
+  return { ...SAMPLE_LEAD_PAYLOAD, ...overrides };
 }
 
 /**

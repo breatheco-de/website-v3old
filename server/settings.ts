@@ -29,13 +29,42 @@ export interface OptimizationSettings {
   tagmanager: TagManagerSettings;
 }
 
+export interface WebhookConfig {
+  url: string;
+  method: "POST" | "GET";
+  auth_header?: string;
+}
+
+export interface ConsentDefaults {
+  marketing?: boolean;
+  sms?: boolean;
+  whatsapp?: boolean;
+  sms_usa_only?: boolean;
+  marketing_text?: string;
+  sms_text?: string;
+  show_terms?: boolean;
+  terms_url?: string;
+  privacy_url?: string;
+}
+
 export interface ConversionEventEntry {
   name: string;
   description?: string;
+  automations?: string;
+  tags?: string[];
+  consent?: ConsentDefaults;
+  webhook?: WebhookConfig;
+}
+
+export interface TrackingWebhook {
+  url: string;
+  method?: string;
+  auth_header?: string;
 }
 
 export interface TrackingSettings {
   conversion_events: ConversionEventEntry[];
+  webhook?: TrackingWebhook;
 }
 
 interface SiteSettings {
@@ -117,15 +146,63 @@ function loadSettings(): SiteSettings {
 
     const trackingRaw = parsed.tracking as Record<string, unknown> | undefined;
     const conversionEventsRaw = trackingRaw?.conversion_events;
+
+    const parseWebhookConfig = (raw: unknown): WebhookConfig | undefined => {
+      if (!raw || typeof raw !== "object") return undefined;
+      const w = raw as Record<string, unknown>;
+      if (typeof w.url !== "string" || !w.url.trim()) return undefined;
+      const method = w.method === "GET" ? "GET" : "POST";
+      return {
+        url: w.url.trim(),
+        method,
+        ...(typeof w.auth_header === "string" && w.auth_header ? { auth_header: w.auth_header } : {}),
+      };
+    };
+    const parseWebhook = (raw: unknown): TrackingWebhook | undefined => {
+      if (!raw || typeof raw !== "object") return undefined;
+      const w = raw as Record<string, unknown>;
+      if (typeof w.url !== "string" || !w.url.trim()) return undefined;
+      const method = typeof w.method === "string" ? w.method : "POST";
+      return {
+        url: w.url.trim(),
+        method,
+        ...(typeof w.auth_header === "string" && w.auth_header ? { auth_header: w.auth_header } : {}),
+      };
+    };
+    const parseConsent = (raw: Record<string, unknown>): ConsentDefaults => {
+      const result: ConsentDefaults = {};
+      if (typeof raw.marketing === "boolean") result.marketing = raw.marketing;
+      if (typeof raw.sms === "boolean") result.sms = raw.sms;
+      if (typeof raw.whatsapp === "boolean") result.whatsapp = raw.whatsapp;
+      if (typeof raw.sms_usa_only === "boolean") result.sms_usa_only = raw.sms_usa_only;
+      if (typeof raw.marketing_text === "string" && raw.marketing_text) result.marketing_text = raw.marketing_text;
+      if (typeof raw.sms_text === "string" && raw.sms_text) result.sms_text = raw.sms_text;
+      if (typeof raw.show_terms === "boolean") result.show_terms = raw.show_terms;
+      if (typeof raw.terms_url === "string" && raw.terms_url) result.terms_url = raw.terms_url;
+      if (typeof raw.privacy_url === "string" && raw.privacy_url) result.privacy_url = raw.privacy_url;
+      return result;
+    };
     const tracking: TrackingSettings = {
       conversion_events: Array.isArray(conversionEventsRaw)
         ? (conversionEventsRaw as Array<Record<string, unknown>>)
             .filter((e) => e && typeof e.name === "string")
-            .map((e) => ({
-              name: e.name as string,
-              description: typeof e.description === "string" ? e.description : undefined,
-            }))
+            .map((e) => {
+              const entry: ConversionEventEntry = {
+                name: e.name as string,
+                ...(typeof e.description === "string" ? { description: e.description } : {}),
+                ...(typeof e.automations === "string" && e.automations ? { automations: e.automations } : {}),
+                ...(Array.isArray(e.tags) && e.tags.length > 0
+                  ? { tags: e.tags.filter((t) => typeof t === "string") as string[] }
+                  : {}),
+                ...(e.consent && typeof e.consent === "object"
+                  ? { consent: parseConsent(e.consent as Record<string, unknown>) }
+                  : {}),
+                ...(parseWebhookConfig(e.webhook) ? { webhook: parseWebhookConfig(e.webhook) } : {}),
+              };
+              return entry;
+            })
         : defaults.tracking.conversion_events,
+      webhook: parseWebhook(trackingRaw?.webhook),
     };
 
     cached = { ...defaults, i18n, home_page, optimization, tracking };
@@ -250,17 +327,31 @@ export function getTrackingSettings(): TrackingSettings {
   return loadSettings().tracking;
 }
 
-export function updateTrackingSettings(input: { conversion_events: Array<{ name: string; description?: string }> }): void {
-  if (!Array.isArray(input.conversion_events)) {
+export function updateTrackingSettings(input: {
+  conversion_events?: ConversionEventEntry[];
+  webhook?: { url: string; method?: string; auth_header?: string } | null;
+}): void {
+  if (input.conversion_events !== undefined && !Array.isArray(input.conversion_events)) {
     throw new Error("conversion_events must be an array");
   }
 
-  for (const entry of input.conversion_events) {
-    if (typeof entry.name !== "string" || !entry.name.trim()) {
-      throw new Error("Each conversion event must have a non-empty name");
+  if (input.conversion_events !== undefined) {
+    for (const entry of input.conversion_events) {
+      if (typeof entry.name !== "string" || !entry.name.trim()) {
+        throw new Error("Each conversion event must have a non-empty name");
+      }
+      if (!/^[a-z][a-z0-9_]*$/.test(entry.name.trim())) {
+        throw new Error(`Invalid conversion event name: "${entry.name}" — use lowercase letters, digits, and underscores only`);
+      }
     }
-    if (!/^[a-z][a-z0-9_]*$/.test(entry.name.trim())) {
-      throw new Error(`Invalid conversion event name: "${entry.name}" — use lowercase letters, digits, and underscores only`);
+  }
+
+  if (input.webhook !== undefined && input.webhook !== null) {
+    if (typeof input.webhook.url !== "string" || !input.webhook.url.trim()) {
+      throw new Error("webhook.url must be a non-empty string");
+    }
+    if (input.webhook.method !== undefined && !["POST", "GET"].includes(input.webhook.method)) {
+      throw new Error('webhook.method must be "POST" or "GET"');
     }
   }
 
@@ -272,17 +363,51 @@ export function updateTrackingSettings(input: { conversion_events: Array<{ name:
     } catch {}
   }
 
-  existing.tracking = {
-    conversion_events: input.conversion_events.map((e) => ({
-      name: e.name.trim(),
-      ...(e.description ? { description: e.description } : {}),
-    })),
-  };
+  const currentTracking = (existing.tracking as Record<string, unknown>) || {};
+
+  const nextTracking: Record<string, unknown> = { ...currentTracking };
+
+  if (input.conversion_events !== undefined) {
+    nextTracking.conversion_events = input.conversion_events.map((e) => {
+      const serialized: Record<string, unknown> = { name: e.name.trim() };
+      if (e.description) serialized.description = e.description;
+      if (e.automations?.trim()) serialized.automations = e.automations.trim();
+      if (e.tags && e.tags.length > 0) serialized.tags = e.tags;
+      if (e.consent && Object.keys(e.consent).length > 0) serialized.consent = e.consent;
+      if (e.webhook?.url?.trim()) {
+        serialized.webhook = {
+          url: e.webhook.url.trim(),
+          method: e.webhook.method ?? "POST",
+          ...(e.webhook.auth_header?.trim() ? { auth_header: e.webhook.auth_header.trim() } : {}),
+        };
+      }
+      return serialized;
+    });
+  }
+
+  if (input.webhook !== undefined) {
+    if (input.webhook === null) {
+      delete nextTracking.webhook;
+    } else {
+      nextTracking.webhook = {
+        url: input.webhook.url.trim(),
+        method: input.webhook.method ?? "POST",
+        ...(input.webhook.auth_header ? { auth_header: input.webhook.auth_header.trim() } : {}),
+      };
+    }
+  }
+
+  existing.tracking = nextTracking;
 
   const output = yaml.dump(existing, { lineWidth: 120, noRefs: true });
   fs.writeFileSync(SETTINGS_PATH, output, "utf-8");
   resetSettings();
-  console.log(`[Settings] Updated tracking.conversion_events: ${input.conversion_events.length} event(s)`);
+  if (input.conversion_events !== undefined) {
+    console.log(`[Settings] Updated tracking.conversion_events: ${input.conversion_events.length} event(s)`);
+  }
+  if (input.webhook !== undefined) {
+    console.log(`[Settings] Updated tracking.webhook: ${input.webhook ? input.webhook.url : "(cleared)"}`);
+  }
 }
 
 export function updateOptimizationSettings(input: { tagmanager: Partial<TagManagerSettings> }): void {

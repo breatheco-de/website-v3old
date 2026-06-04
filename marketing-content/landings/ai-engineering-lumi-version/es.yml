@@ -30,7 +30,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Aplicar ahora
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -53,15 +52,6 @@ sections:
           default: ai-engineering
       success:
         message: ¡Revisa tu bandeja de entrada! Tu programa está en camino.
-      terms_url: /terminos-condiciones
-      privacy_url: /politica-privacidad
-      consent:
-        sms: true
-        marketing: true
-        marketing_text: Acepto recibir información por email, WhatsApp y/o otros canales sobre talleres, eventos, cursos y materiales de marketing. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        sms_text: Acepto recibir SMS sobre talleres, eventos, cursos y materiales de marketing. Pueden aplicar cargos por mensaje y datos. Responde STOP para cancelar, HELP para ayuda. Puedes recibir 4–6 mensajes al mes. Nunca compartiremos tus datos y puedes darte de baja cuando quieras.
-        sms_usa_only: false
-      show_terms: true
     cta_button:
       text: Descargar programa
       url: /programa/ai-engineering
@@ -88,7 +78,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: Aplicar ahora
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -649,7 +638,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Aplicar ahora
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -673,11 +661,6 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
-      show_terms: true
       button_className: bg-primary border-white
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))

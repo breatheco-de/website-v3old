@@ -18,7 +18,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Solicita información
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -40,15 +39,6 @@ sections:
           default: ai-engineering
       success:
         message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
-      terms_url: /terms-and-conditions
-      privacy_url: /privacy-policy
-      consent:
-        sms: true
-        marketing: true
-        marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
-        sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4-6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
-        sms_usa_only: true
-      show_terms: true
     form_vertical_align: top
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Recibe todos los detalles del programa
@@ -495,7 +485,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Comprueba si cumples los requisitos
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -518,11 +507,6 @@ sections:
           default: ai-engineering
       success:
         message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
-      show_terms: true
       button_className: bg-primary border-white
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))

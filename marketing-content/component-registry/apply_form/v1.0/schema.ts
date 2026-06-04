@@ -4,6 +4,12 @@
  */
 import { z } from "zod";
 
+// Webhook configuration — matches the shared WebhookConfig shape
+const webhookSchema = z.object({
+  url: z.string().url(),
+  method: z.enum(["POST", "GET"]).default("POST"),
+}).optional();
+
 export const applyFormHeroSchema = z.object({
   title: z.string(),
   subtitle: z.string(),
@@ -44,6 +50,8 @@ export const applyFormLeadFormSchema = z.object({
   submit_label: z.string().optional(),
   tags: z.string().optional(),
   automations: z.string().optional(),
+  // Form-level webhook — highest priority in the three-level chain
+  webhook: webhookSchema,
   fields: z.object({
     email: fieldConfigSchema,
     first_name: fieldConfigSchema,
@@ -84,6 +92,8 @@ export const applyFormSectionSchema = z.object({
   type: z.literal("apply_form"),
   version: z.string().optional(),
   hero: applyFormHeroSchema,
+  // Section-level webhook — used as fallback if form.webhook is not set
+  webhook: webhookSchema,
   form: applyFormLeadFormSchema,
   next_steps: applyFormNextStepsSchema,
 });

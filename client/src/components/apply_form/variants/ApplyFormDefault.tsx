@@ -20,6 +20,10 @@ interface ApplyFormSectionData {
     subtitle: string;
     note?: string;
   };
+  webhook?: {
+    url: string;
+    method?: "POST" | "GET";
+  };
   form: LeadFormData;
   next_steps: {
     title: string;
@@ -45,7 +49,7 @@ export function ApplyFormSection({ data, landingLocations }: ApplyFormSectionPro
             <Card className="border shadow-sm" data-testid="card-apply-form">
               <CardContent className="p-6">
                 <Suspense fallback={<LeadFormFallback />}>
-                  <LeadForm data={data.form} />
+                  <LeadForm data={{ ...data.form, webhook: data.form.webhook ?? data.webhook }} />
                 </Suspense>
               </CardContent>
             </Card>

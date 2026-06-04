@@ -1,3 +1,25 @@
+import { resolveFormDefaults, type ConversionEventDefaults } from "./resolveFormDefaults";
+
+/**
+ * Resolves a form section's effective settings by merging conversion event defaults.
+ * Form-level YAML values always win; missing fields fall back to the event definition.
+ *
+ * Use this as the canonical entry point before rendering or validating any form
+ * section — ensures automations, tags, consent, and webhook are consistently derived
+ * across the editor UI, live render path, and submission handling.
+ *
+ * @param section       The raw parsed section object from YAML.
+ * @param conversionEvent The matching ConversionEventEntry (or null/undefined).
+ * @param formSettingsPath Dot-path to the form settings object within the section (default "form").
+ */
+export function resolveFormSection(
+  section: Record<string, unknown>,
+  conversionEvent: ConversionEventDefaults | null | undefined,
+  formSettingsPath: string = "form"
+): Record<string, unknown> {
+  return resolveFormDefaults(section, conversionEvent, formSettingsPath);
+}
+
 /**
  * Validates a section's `form` config.
  *

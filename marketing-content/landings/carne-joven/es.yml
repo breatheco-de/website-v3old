@@ -17,7 +17,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Solicita tu plaza
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -37,15 +36,6 @@ sections:
           default: ai-engineering
       success:
         message: Una vez completado el formulario, recibirás en tu correo toda la información del curso y las opciones de financiamiento disponibles.
-      terms_url: /terms-and-conditions
-      privacy_url: /privacy-policy
-      consent:
-        sms: true
-        marketing: true
-        marketing_text: Acepto recibir información vía email, WhatsApp y/o otros canales sobre talleres de programación, eventos, cursos y otros materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
-        sms_text: Acepto recibir mensajes SMS/texto sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4–6 mensajes de texto por mes. Nunca compartiremos tu información de contacto y puedes darte de baja fácilmente en cualquier momento.
-        sms_usa_only: true
-      show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get Full Program Details
@@ -419,7 +409,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Aplicar ahora
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -442,11 +431,6 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
-      show_terms: true
       button_className: bg-primary border-white
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))

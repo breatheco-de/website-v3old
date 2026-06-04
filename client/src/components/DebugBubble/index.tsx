@@ -1709,6 +1709,16 @@ export function DebugBubble() {
     isCheckingSession,
     handleCheckSession,
     setSessionModalOpen,
+    publicPageUrl: (() => {
+      if (!pathname.startsWith('/private/preview/') || !contentInfo.type || !contentInfo.slug) return null;
+      const searchParams = new URLSearchParams(window.location.search);
+      const locale = normalizeLocale(searchParams.get('locale') || 'en');
+      const ct = contentTypesMap?.[contentInfo.type];
+      if (!ct?.url_pattern) return null;
+      const pattern = ct.url_pattern[locale] || ct.url_pattern['default'] || ct.url_pattern['en'];
+      if (!pattern) return null;
+      return pattern.replace(':slug', contentInfo.slug);
+    })(),
   };
 
   // Don't render if hide_debug param is set (for embedded previews)

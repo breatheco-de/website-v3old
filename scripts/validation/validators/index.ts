@@ -26,6 +26,7 @@ import { lighthouseValidator } from "./lighthouse";
 import { fieldMappingsValidator } from "./field-mappings";
 import { orphanedFilesValidator } from "./orphaned-files";
 import { formsValidator } from "./forms";
+import { consentLegacyKeysValidator } from "./consent-legacy-keys";
 
 export const validators: Validator[] = [
   redirectValidator,
@@ -48,6 +49,7 @@ export const validators: Validator[] = [
   fieldMappingsValidator,
   orphanedFilesValidator,
   formsValidator,
+  consentLegacyKeysValidator,
 ];
 
 export const slowValidators: Validator[] = [lighthouseValidator];
@@ -98,4 +100,5 @@ export {
   fieldMappingsValidator,
   orphanedFilesValidator,
   formsValidator,
+  consentLegacyKeysValidator,
 };

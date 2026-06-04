@@ -82,5 +82,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "credibility:pills[].logos[].image_id": "image-picker:logo",
   "credibility:pills[].background_color": "color-picker",
   "credibility:pills_url": "link-picker",
+  "productShowcase:form": "form-settings",
+  "ApplyFormProductShowcase:form": "form-settings",
   "signup_card.form": "form-settings",
 };

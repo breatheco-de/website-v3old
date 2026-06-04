@@ -517,7 +517,6 @@ sections:
       variant: stacked
       submit_label: Obtener los detalles
       conversion_name: request_more_info
-      tags: request_more_info
       fields:
         email:
           visible: true
@@ -537,11 +536,6 @@ sections:
           default: auto
       success:
         message: ¡Gracias! Nos pondremos en contacto contigo pronto.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: Acepto recibir información sobre cursos y promociones
-      show_terms: true
       button_className: bg-primary
       terms_className: text-white/80
     form_background: hsl(var(--card))

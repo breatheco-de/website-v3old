@@ -6,6 +6,9 @@ import { getDatabaseName, getAllTypes } from "../content-types";
 import { databaseManager } from "../database";
 import { clearMarkdownCache } from "../markdown";
 import { invalidateContentCaches } from "./_helpers";
+import { getTrackingSettings } from "../settings";
+import { buildLeadPayload } from "../utils/buildLeadPayload";
+import { z } from "zod";
 
 function buildBaseUrlFromRequest(req: Request): string {
   const host = req.get("x-forwarded-host") || req.get("host") || "localhost:5000";
@@ -25,7 +28,308 @@ function timingSafeEqual(a: string, b: string): boolean {
   }
 }
 
+const conversionWebhookBodySchema = z.object({
+  url: z.string().url(),
+  method: z.enum(["POST", "GET"]).default("POST"),
+  auth_header: z.string().optional(),
+  payload: z.record(z.unknown()),
+});
+
+/**
+ * Reject URLs that point to private/internal network destinations to prevent SSRF.
+ * Blocks: localhost, loopback, RFC-1918 private ranges, link-local, IPv6 loopback,
+ * and the AWS/GCP/Azure instance metadata endpoints.
+ */
+export function isPrivateDestination(urlStr: string): boolean {
+  let parsed: URL;
+  try {
+    parsed = new URL(urlStr);
+  } catch {
+    return true; // unparsable → block
+  }
+
+  // Only allow http and https
+  if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return true;
+
+  const host = parsed.hostname.toLowerCase();
+
+  // IPv6 loopback / link-local
+  if (host === "::1" || host === "[::1]") return true;
+  if (host.startsWith("fe80")) return true;
+
+  // Metadata service hostnames used by cloud providers
+  const blockedHostnames = [
+    "metadata.google.internal",
+    "metadata.internal",
+    "169.254.169.254", // AWS/GCP/Azure IMDS
+  ];
+  if (blockedHostnames.includes(host)) return true;
+
+  // Reject numeric IPv4 addresses that are private/loopback
+  const ipv4 = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(host);
+  if (ipv4) {
+    const [, a, b, c] = ipv4.map(Number);
+    if (
+      a === 127 || // loopback 127.x.x.x
+      a === 10 || // RFC-1918 10.x.x.x
+      (a === 172 && b >= 16 && b <= 31) || // RFC-1918 172.16-31.x.x
+      (a === 192 && b === 168) || // RFC-1918 192.168.x.x
+      (a === 169 && b === 254) || // link-local 169.254.x.x
+      (a === 100 && b >= 64 && b <= 127) // CGNAT 100.64-127.x.x
+    ) {
+      return true;
+    }
+  }
+
+  // Block bare "localhost" hostname variants
+  if (host === "localhost" || host.endsWith(".localhost")) return true;
+
+  return false;
+}
+
 export function registerWebhooksRoutes(app: Express): void {
+  /**
+   * POST /api/conversion-webhook
+   * Server-side proxy that fires a conversion webhook to avoid CORS issues with
+   * third-party destinations (Zapier, Make, CRMs, etc.).
+   * Body: { url, method, payload }
+   * Returns 200 on upstream success, 502 on upstream failure or network error.
+   * Callers should treat failures as non-blocking — the form success flow must
+   * not depend on this endpoint.
+   */
+  app.post("/api/conversion-webhook", async (req, res) => {
+    const parsed = conversionWebhookBodySchema.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({ error: "Invalid request body", details: parsed.error.issues });
+      return;
+    }
+
+    const { url, method, auth_header, payload } = parsed.data;
+
+    // SSRF protection: block private/internal network destinations
+    if (isPrivateDestination(url)) {
+      console.warn(`[ConversionWebhook] Blocked private/internal destination: ${url}`);
+      res.status(400).json({ error: "Webhook destination is not allowed (private or internal address)" });
+      return;
+    }
+
+    try {
+      let fetchUrl = url;
+      const fetchOptions: RequestInit = { method };
+
+      if (method === "POST") {
+        fetchOptions.headers = {
+          "Content-Type": "application/json",
+          ...(auth_header ? { Authorization: auth_header } : {}),
+        };
+        fetchOptions.body = JSON.stringify(payload);
+      } else {
+        // GET: serialize payload as query params so conversion fields are delivered
+        const params = new URLSearchParams();
+        for (const [key, value] of Object.entries(payload)) {
+          if (value !== undefined && value !== null) {
+            params.set(key, String(value));
+          }
+        }
+        const sep = url.includes("?") ? "&" : "?";
+        fetchUrl = `${url}${sep}${params.toString()}`;
+        if (auth_header) {
+          fetchOptions.headers = { Authorization: auth_header };
+        }
+      }
+
+      const response = await fetch(fetchUrl, fetchOptions);
+      console.log(`[ConversionWebhook] Delivered to ${url} — status ${response.status}`);
+
+      if (!response.ok) {
+        const body = await response.text().catch(() => "");
+        console.warn(`[ConversionWebhook] Upstream returned ${response.status}: ${body.slice(0, 200)}`);
+        res.status(502).json({
+          error: "Upstream webhook returned a non-2xx response",
+          upstream_status: response.status,
+          upstream_body: body.slice(0, 500),
+        });
+        return;
+      }
+
+      res.json({ success: true, status: response.status });
+    } catch (err) {
+      console.error("[ConversionWebhook] Failed to deliver webhook:", err);
+      res.status(502).json({ error: "Failed to deliver webhook", details: String(err) });
+    }
+  });
+  /**
+   * POST /api/leads/webhook-delivery
+   * Primary lead submission path when any webhook level is configured.
+   * Body: { payload, webhook?: { url, method } }
+   *   - When `webhook` is omitted → reads URL/method/auth_header from global
+   *     settings server-side (credentials never leave the server).
+   *   - When `webhook.url` is supplied → uses that URL/method as-is; intended
+   *     for per-form and per-event webhooks which have no auth credentials.
+   * Always returns 200 — delivery failures are non-blocking so the form shows
+   * success regardless of upstream response.
+   */
+  app.post("/api/leads/webhook-delivery", async (req, res) => {
+    const body = req.body;
+    if (!body || typeof body !== "object" || Array.isArray(body)) {
+      res.status(400).json({ error: "Request body must be an object." });
+      return;
+    }
+
+    const incoming = body.payload;
+    if (!incoming || typeof incoming !== "object" || Array.isArray(incoming)) {
+      res.status(400).json({ error: "Request body must include a payload object." });
+      return;
+    }
+
+    const payload = buildLeadPayload(incoming as Record<string, unknown>);
+
+    // Resolve webhook config: use supplied override or fall back to global settings
+    const override = body.webhook as { url?: string; method?: string } | undefined;
+    let url: string;
+    let method: string;
+    let auth_header: string | undefined;
+
+    if (override?.url) {
+      url = override.url;
+      method = override.method || "POST";
+      // Per-form / per-event webhooks have no auth credentials
+    } else {
+      const globalWebhook = getTrackingSettings().webhook;
+      const envUrl = process.env.DEFAULT_WEBHOOK_URL;
+      if (!globalWebhook?.url && !envUrl) {
+        res.status(400).json({ error: "No webhook URL configured." });
+        return;
+      }
+      if (globalWebhook?.url) {
+        url = globalWebhook.url;
+        method = globalWebhook.method || "POST";
+        auth_header = globalWebhook.auth_header;
+      } else {
+        url = envUrl!;
+        method = process.env.DEFAULT_WEBHOOK_METHOD || "POST";
+      }
+    }
+
+    // Always respond 200 immediately — delivery is non-blocking
+    res.json({ success: true });
+
+    if (isPrivateDestination(url)) {
+      console.warn(`[LeadWebhookDelivery] Blocked private/internal destination: ${url}`);
+      return;
+    }
+
+    try {
+      let fetchUrl = url;
+      const fetchOptions: RequestInit = { method };
+      const authHeaders: Record<string, string> = auth_header ? { Authorization: auth_header } : {};
+
+      if (method === "POST") {
+        fetchOptions.headers = { "Content-Type": "application/json", ...authHeaders };
+        fetchOptions.body = JSON.stringify(payload);
+      } else {
+        fetchOptions.headers = authHeaders;
+        const params = new URLSearchParams();
+        for (const [key, value] of Object.entries(payload as Record<string, unknown>)) {
+          if (value !== undefined && value !== null) {
+            params.set(key, String(value));
+          }
+        }
+        const sep = url.includes("?") ? "&" : "?";
+        fetchUrl = `${url}${sep}${params.toString()}`;
+      }
+
+      const response = await fetch(fetchUrl, fetchOptions);
+      console.log(`[LeadWebhookDelivery] Delivered to ${url} — status ${response.status}`);
+    } catch (err) {
+      console.error("[LeadWebhookDelivery] Failed to deliver:", err);
+    }
+  });
+
+  /**
+   * POST /api/tracking/webhook/test
+   * Fires a test request with the provided payload to the globally configured
+   * webhook URL. Reads the webhook config (url, method, auth_header) from
+   * settings.yml so the frontend doesn't need to pass credentials.
+   * Body: { payload: Record<string, unknown> }
+   * Returns: { ok: boolean, status: number, error?: string }
+   */
+  app.post("/api/tracking/webhook/test", async (req, res) => {
+    try {
+      const auth = await requireCapability(req, res, "content_edit");
+      if (!auth.authorized) return;
+
+      const tracking = getTrackingSettings();
+      const webhook = tracking.webhook;
+      const envUrl = process.env.DEFAULT_WEBHOOK_URL;
+
+      if (!webhook?.url && !envUrl) {
+        res.status(400).json({ ok: false, error: "No global webhook URL configured." });
+        return;
+      }
+
+      const incoming = req.body?.payload;
+      if (!incoming || typeof incoming !== "object" || Array.isArray(incoming)) {
+        res.status(400).json({ ok: false, error: "Request body must include a payload object." });
+        return;
+      }
+
+      const payload = buildLeadPayload(incoming as Record<string, unknown>);
+
+      const url = webhook?.url || envUrl!;
+      const method = webhook?.method || (webhook?.url ? "POST" : (process.env.DEFAULT_WEBHOOK_METHOD || "POST"));
+      const auth_header = webhook?.url ? webhook.auth_header : undefined;
+
+      if (isPrivateDestination(url)) {
+        res.status(400).json({ ok: false, error: "Webhook destination is not allowed (private or internal address)" });
+        return;
+      }
+
+      try {
+        let fetchUrl = url;
+        const fetchOptions: RequestInit = { method };
+
+        if (method === "POST") {
+          fetchOptions.headers = {
+            "Content-Type": "application/json",
+            ...(auth_header ? { Authorization: auth_header } : {}),
+          };
+          fetchOptions.body = JSON.stringify(payload);
+        } else {
+          const params = new URLSearchParams();
+          for (const [key, value] of Object.entries(payload)) {
+            if (value !== undefined && value !== null) {
+              params.set(key, String(value));
+            }
+          }
+          const sep = url.includes("?") ? "&" : "?";
+          fetchUrl = `${url}${sep}${params.toString()}`;
+          if (auth_header) {
+            fetchOptions.headers = { Authorization: auth_header };
+          }
+        }
+
+        const response = await fetch(fetchUrl, fetchOptions);
+        const status = response.status;
+
+        if (!response.ok) {
+          const body = await response.text().catch(() => "");
+          console.warn(`[WebhookTest] Upstream returned ${status}: ${body.slice(0, 200)}`);
+          res.json({ ok: false, status, error: `Upstream returned ${status}: ${body.slice(0, 200)}` });
+          return;
+        }
+
+        console.log(`[WebhookTest] Delivered to ${url} — status ${status}`);
+        res.json({ ok: true, status });
+      } catch (err) {
+        console.error("[WebhookTest] Failed to deliver:", err);
+        res.json({ ok: false, status: 0, error: String(err) });
+      }
+    } catch (err) {
+      res.status(500).json({ ok: false, error: String(err) });
+    }
+  });
+
   app.post("/api/webhooks/clear-cache", async (req, res) => {
     try {
       const secret = getWebhookSecret();

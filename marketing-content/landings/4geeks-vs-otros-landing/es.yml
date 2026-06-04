@@ -34,7 +34,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Hablar con Admisiones
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -57,20 +56,6 @@ sections:
           default: ai-engineering
       success:
         message: Revisa tu bandeja de entrada. Nuestro equipo de admisiones se pondrá en contacto contigo en breve con todo lo que necesitas saber.
-      terms_url: /terms-and-conditions
-      privacy_url: /privacy-policy
-      consent:
-        sms: true
-        marketing: true
-        marketing_text: >-
-          Acepto recibir información por email, WhatsApp y otros canales sobre talleres, eventos, cursos y otros
-          materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja en cualquier momento.
-        sms_text: >-
-          Acepto recibir mensajes SMS sobre talleres, eventos, cursos y otros materiales de marketing. Pueden aplicarse
-          tarifas de mensajes y datos. Responde STOP para darte de baja, HELP para ayuda. Puedes recibir hasta 4-6 mensajes
-          al mes. Nunca compartiremos tu información de contacto.
-        sms_usa_only: true
-      show_terms: true
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: ¿Quieres encontrar el programa adecuado?
@@ -838,7 +823,6 @@ sections:
       variant: stacked
       conversion_name: student_application
       submit_label: Iniciar tu solicitud
-      tags: website-lead
       fields:
         email:
           visible: true
@@ -862,13 +846,6 @@ sections:
           required: true
       success:
         message: Ya estás dentro. Alguien de nuestro equipo de admisiones se pondrá en contacto contigo en unos minutos por correo. Revisa tu bandeja de entrada.
-      consent:
-        email: true
-        marketing: true
-        marketing_text: >-
-          Acepto recibir información por email, WhatsApp y otros canales sobre talleres, eventos, cursos y otros
-          materiales de marketing. Nunca compartiremos tu información de contacto y puedes darte de baja en cualquier momento.
-      show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
     section_id: cta_banner-kjpaa1
@@ -887,7 +864,6 @@ sections:
       variant: inline
       conversion_name: student_application
       submit_label: Descubre si calificas. Es gratis
-      tags: website-lead
       automations: strong
       fields:
         email:
