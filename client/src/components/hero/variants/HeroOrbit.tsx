@@ -20,7 +20,7 @@ function getSize(): number {
   if (typeof window === "undefined") return 580;
   if (window.innerWidth <= MOBILE_BP) return 310;
   if (window.innerWidth <= MD_BP) return 510;
-  return 580;
+  return 570;
 }
 
 function useOrbitSize(): number {
@@ -176,7 +176,7 @@ function OrbitDiagram({
     <div
       ref={sceneRef}
       className="relative flex items-center justify-center flex-shrink-0"
-      style={{ width: size, height: size }}
+      style={{ width: size, height: scale(540, size) }}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setMouse(null)}
     >
@@ -266,16 +266,9 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
     <section
       data-testid="section-hero-orbit"
       className="w-full"
-      style={
-        data.background
-          ? { background: data.background }
-          : {
-              background:
-                "linear-gradient(to bottom left, hsl(var(--primary) / 0.08), transparent 60%)",
-            }
-      }
+
     >
-      <div className="py-10 lg:py-16">
+      <div>
         <div className="w-full grid grid-cols-1 lg:grid-cols-[2fr_3fr] lg:gap-x-1">
 
           {/* TOP LEFT — eyebrow + title */}
