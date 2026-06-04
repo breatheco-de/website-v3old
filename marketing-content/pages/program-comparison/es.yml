@@ -85,7 +85,7 @@ sections:
       - feature: Costo
         values:
           - $14,999 (descuentos y becas disponibles)
-          - {{ global.ai.fluency.price | $900 }} (pago trimestral o anual disponible)
+          - {{ global.ai.fluency.price | $900 }} (Descuentos y pagos por cuotas disponible)
           - $30/mes o $199/año, 7 días gratis para probar
       - feature: Planes de Pago
         values:
