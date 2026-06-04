@@ -12,4 +12,4 @@ locations:
   - santiago-chile
 layout:
   menu:
-    top: main-footer
+    top: logo-only
