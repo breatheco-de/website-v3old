@@ -62,6 +62,9 @@ export {
   heroCredibilityPillSchema,
   heroCredibilityMarqueeItemSchema,
   heroCredibilitySchema,
+  heroOrbitBadgeSchema,
+  heroOrbitDiagramSchema,
+  heroOrbitSchema,
   type TrustBar,
   type AwardBadge,
   type HeroImage,
@@ -76,6 +79,9 @@ export {
   type HeroCredibilityPill,
   type HeroCredibilityMarqueeItem,
   type HeroCredibility,
+  type HeroOrbitBadge,
+  type HeroOrbitDiagram,
+  type HeroOrbit,
 } from "../marketing-content/component-registry/hero/v1.0/schema";
 
 // Variant types for type narrowing (schemas are internal to component registry)

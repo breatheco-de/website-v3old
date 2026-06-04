@@ -40,6 +40,9 @@ variants:
   credibility:
     description: Two column hero with large rich-text title on the left and a vertical stack of credibility pills on the right, plus an optional muted watermark marquee at the bottom
     best_for: Homepage hero sections, trust-building landing pages, program overview pages
+  orbit:
+    description: Two-column hero with eyebrow, large title and CTAs on the left, and an animated multi-ring orbit diagram on the right. Orbit badges are categorized as highlight (primary color) or default (muted). Fully responsive — collapses to single column on mobile.
+    best_for: Homepage hero sections, AI/tech product pages, program overview pages where the concept of convergence or interconnection is key
 variant_props:
   singleColumn:
     badge:
@@ -898,6 +901,107 @@ variant_props:
           type: string
           required: true
           description: Light/muted text following the bold text (e.g. rating or description)
+  orbit:
+    eyebrow:
+      type: string
+      required: false
+      description: Small uppercase label above the title, shown with a green live-dot
+      example: "NO MATTER WHAT YOU'RE SEEKING"
+    title:
+      type: string
+      required: true
+      description: "Main headline. Supports HTML — wrap text in <em> for italic primary-color emphasis"
+      example: "All roads lead to <em>AI.</em>"
+    body:
+      type: string
+      required: false
+      description: Short description paragraph below the title
+    stat:
+      type: string
+      required: false
+      description: "Single stat line shown at the bottom-left. Supports HTML — use <strong> for bold numbers"
+      example: "<strong>1.3M</strong> new AI roles opening"
+    background:
+      type: string
+      required: false
+      description: "Optional CSS background value. Defaults to a subtle primary gradient."
+    cta_buttons:
+      type: array
+      required: false
+      items:
+        text:
+          type: string
+          required: true
+        url:
+          type: string
+          required: true
+        variant:
+          type: string
+          required: true
+          options:
+            - primary
+            - secondary
+            - outline
+        icon:
+          type: string
+          required: false
+          description: Tabler icon name (without 'Icon' prefix)
+      description: "Call-to-action buttons (recommended: 2 max)"
+    orbit_diagram:
+      type: object
+      required: false
+      properties:
+        center_label:
+          type: string
+          required: false
+          description: Text inside the center sphere
+          example: AI
+        legend_start:
+          type: string
+          required: false
+          description: Label for the gray (muted) legend dot
+          example: Where you started
+        legend_highlight:
+          type: string
+          required: false
+          description: Label for the primary-color legend dot
+          example: "Where 4Geeks is now"
+        badges:
+          type: object
+          required: false
+          properties:
+            inner:
+              type: array
+              required: false
+              items:
+                label:
+                  type: string
+                  required: true
+                highlight:
+                  type: boolean
+                  required: false
+                  description: "true = primary color pill, false = muted pill"
+            middle:
+              type: array
+              required: false
+              items:
+                label:
+                  type: string
+                  required: true
+                highlight:
+                  type: boolean
+                  required: false
+            outer:
+              type: array
+              required: false
+              items:
+                label:
+                  type: string
+                  required: true
+                highlight:
+                  type: boolean
+                  required: false
+          description: "Badge pills for each of the three orbit rings. Each ring accepts 2 or more items."
 props:
   title:
     type: string

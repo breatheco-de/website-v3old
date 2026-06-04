@@ -309,6 +309,37 @@ export const heroApplyFormProductShowcaseSchema = z.object({
   }).optional(),
 }).passthrough();
 
+// ─── HeroOrbit sub-schemas ────────────────────────────────────────────────────
+
+export const heroOrbitBadgeSchema = z.object({
+  label: z.string(),
+  highlight: z.boolean().optional(),
+});
+
+export const heroOrbitDiagramSchema = z.object({
+  center_label: z.string().optional(),
+  legend_start: z.string().optional(),
+  legend_highlight: z.string().optional(),
+  badges: z.object({
+    inner: z.array(heroOrbitBadgeSchema).optional(),
+    middle: z.array(heroOrbitBadgeSchema).optional(),
+    outer: z.array(heroOrbitBadgeSchema).optional(),
+  }).optional(),
+});
+
+export const heroOrbitSchema = z.object({
+  type: z.literal("hero"),
+  version: z.string().optional(),
+  variant: z.literal("orbit"),
+  eyebrow: z.string().optional(),
+  title: z.string(),
+  body: z.string().optional(),
+  stat: z.string().optional(),
+  background: z.string().optional(),
+  cta_buttons: z.array(ctaButtonSchema).optional(),
+  orbit_diagram: heroOrbitDiagramSchema.optional(),
+}).passthrough();
+
 // ─── HeroCredibility sub-schemas ─────────────────────────────────────────────
 
 export const heroCredibilityPillLogoSchema = z.object({
@@ -354,6 +385,7 @@ export const heroSectionSchema = z.union([
   heroCourseSchema,
   heroApplyFormProductShowcaseSchema,
   heroCredibilitySchema,
+  heroOrbitSchema,
 ]);
 
 // Type exports
@@ -379,4 +411,7 @@ export type HeroCredibilityPillLogo = z.infer<typeof heroCredibilityPillLogoSche
 export type HeroCredibilityPill = z.infer<typeof heroCredibilityPillSchema>;
 export type HeroCredibilityMarqueeItem = z.infer<typeof heroCredibilityMarqueeItemSchema>;
 export type HeroCredibility = z.infer<typeof heroCredibilitySchema>;
+export type HeroOrbitBadge = z.infer<typeof heroOrbitBadgeSchema>;
+export type HeroOrbitDiagram = z.infer<typeof heroOrbitDiagramSchema>;
+export type HeroOrbit = z.infer<typeof heroOrbitSchema>;
 export type HeroSection = z.infer<typeof heroSectionSchema>;
