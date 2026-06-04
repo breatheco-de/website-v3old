@@ -304,6 +304,19 @@ sections:
           - text: Your always-on tutor for all self-paced modules
           - text: Adapts to your skill level and what you are working on
     section_id: human_and_ai_duo-hz7p4j
+  - type: why_learn_ai
+    version: "1.0"
+    variant: default
+    title: Why Should I Learn to Build and Code with AI?
+    subtitle: Software Development as You Know It Will Cease to Exist
+    description: Coding with AI will become a new standard, but it's a very different profession from traditional software development. The developers who embrace AI tools now will have a significant advantage in the job market.
+    cta:
+      text: Join now!
+      url: /signup
+      variant: primary
+    section_id: why_learn_ai-wqo9sj
+    paddingY:
+      desktop: sm
   - type: two_column_accordion_card
     version: "1.0"
     variant: image_background
