@@ -424,41 +424,6 @@ sections:
       desktop: md lg
     marginY:
       desktop: none md
-  - type: whos_hiring
-    section_id: whos_hiring-pli2th
-    variant: carousel
-    title: Where Our Graduates Work
-    subtitle: From startups to global tech leaders, our graduates work at some of the most recognized companies worldwide.
-    logos:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
-        alt: Microsoft
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70.webp
-        alt: Google Developers
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
-        alt: Boats Group
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70.webp
-        alt: Meta
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp
-        alt: eBay
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
-        alt: National Geographic
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
-        alt: Evernote
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp
-        alt: Telefonica
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
-        alt: Twilio
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
-        alt: Uber
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70.webp
-        alt: Neo9
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
-        alt: Jooble
-    marginY:
-      desktop: md xl
-    paddingY:
-      desktop: none
-    background: hsl(var(--background))
   - type: faq
     section_id: faq-f4yd0z
     title: FAQ
