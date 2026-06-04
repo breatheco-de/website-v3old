@@ -141,7 +141,7 @@ sections:
     version: "1.0"
     variant: default
     heading: Is This Program Right for You?
-    description: If you are nodding at any of these, you are exactly who this is built for.
+    description: If you are nodding at any of these, you're exactly who this is built for.
     cards:
       - icon: IconRocket
         title: You use AI tools but are not leveraging their full potential.
