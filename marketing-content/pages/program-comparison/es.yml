@@ -52,11 +52,6 @@ sections:
           - Para quien quiere cambiar de carrera y construir sistemas de AI. No se requiere experiencia técnica previa. Ideal para developers, career switchers y profesionales técnicos.
           - Para marketers, abogados, consultores, ejecutivos y cualquier profesional con trabajo cognitivo que aún hace manualmente lo que AI puede hacer mejor. Sin código requerido.
           - Para quien quiere explorar antes de comprometerse. Elige hasta 4 cursos del catálogo, a tu ritmo, con la opción de acreditar lo aprendido si después decides el bootcamp completo.
-      - feature: La pregunta que responde
-        values:
-          - Quiero construir sistemas de AI y que me paguen bien por eso.
-          - Quiero usar AI en mi trabajo actual sin tener que aprender código.
-          - No sé exactamente qué quiero. Necesito explorar primero.
       - feature: Por qué ahora
         values:
           - El 73% de las Fortune 500 está contratando AI Engineers hoy. Los salarios crecieron 40% en dos años. No es una moda, es la nueva columna vertebral del software, y los roles de Cybersecurity, Fullstack y Data Science hoy se construyen sobre esta base.
