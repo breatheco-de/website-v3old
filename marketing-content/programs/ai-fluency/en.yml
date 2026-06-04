@@ -68,13 +68,13 @@ sections:
     section_id: hero-aifluency
   - type: modal
     version: "1.0"
-    heading: Request Program Details
-    description: Enter your details to receive the complete syllabus, program structure, schedule options, tuition information, and support framework.
+    heading: Get the Full Program Details
+    description: Fill in your contact info and our admissions team will send you everything you need to know.
     show_close: true
     size: md
     form:
       variant: stacked
-      submit_label: Get the Full Overview
+      submit_label: Send Me the Details
       conversion_name: request_more_info
       automations: soft
       fields:
@@ -90,10 +90,10 @@ sections:
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | datascience-ml }}
+          default: {{ single.bc_slug | ai-fluency }}
       success:
-        message: Thank you. A program advisor will reach out with the details within 24 hours.
-    section_id: modal-qf93fn
+        message: Check your inbox. Our admissions team will be in touch shortly.
+    section_id: modal-aifluency
   - type: awards_marquee
     section_id: awards_marquee-tjpzl5
     version: v1.0
