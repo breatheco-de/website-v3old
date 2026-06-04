@@ -287,7 +287,7 @@ sections:
   - type: human_and_ai_duo
     version: "1.0"
     heading: Human and AI Support, So You Never Lose Momentum
-    description: Staying motivated is easy when everything clicks. It gets hard when you hit a wall. AI Fluency pairs a real human mentor with Rigobot, our AI tutor, so you always have somewhere to turn and no reason to stop.
+    description: Staying motivated is easy when everything clicks. It can get really hard when you hit a wall. AI Fluency pairs a real human mentor with Rigobot, our AI tutor, so you always have somewhere to turn and no reason to stop.
     bullet_groups:
       - title: "Your expert mentor:"
         image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
