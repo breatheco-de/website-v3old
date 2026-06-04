@@ -140,7 +140,7 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: Is AI Fluency Right for You?
+    heading: Is this Program Right for You?
     description: If you are nodding at any of these, you are exactly who this is built for.
     cards:
       - icon: IconRocket
