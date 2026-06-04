@@ -275,7 +275,7 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
             }
       }
     >
-      <div className="py-10 lg:py-0 lg:min-h-[90vh] flex items-center">
+      <div className="py-10 lg:py-16">
         <div className="w-full grid grid-cols-1 lg:grid-cols-[2fr_3fr] lg:gap-x-1">
 
           {/* TOP LEFT — eyebrow + title */}
