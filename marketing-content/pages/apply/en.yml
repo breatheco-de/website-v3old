@@ -70,18 +70,6 @@ sections:
     paddingY:
       mobile: sm none
       desktop: lg none
-  - type: breadcrumb
-    version: v1.0
-    items:
-      - label: Home
-        url: /
-      - label: Career Programs
-        url: /en/career-programs
-      - label: Full Stack Developer
-    section_id: breadcrumb-27bpj2
-    description: <span>Hello</span>
-    paddingY:
-      desktop: sm
   - type: apply_form
     section_id: apply_form-fw5ak2
     version: "1.0"
