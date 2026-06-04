@@ -34,7 +34,7 @@ sections:
     form:
       variant: stacked
       conversion_name: request_more_info
-      submit_label: Start Your Application
+      submit_label: Download program
       fields:
         email:
           visible: true
