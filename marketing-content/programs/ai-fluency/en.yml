@@ -174,177 +174,72 @@ sections:
     marginY:
       desktop: md lg
   - type: syllabus
-    section_id: syllabus-bcr1mu
     variant: program-modules
-    program_title: AI Native Full Stack — Program Modules
-    program_description: Build real AI-powered systems from day one. This curriculum is organized around two tracks — Core AI and Agents, and Infrastructure for AI — plus a capstone that integrates everything into a fully transformed, deployed company. Supported by complementary foundations in modern development tools and practices throughout.
+    program_title: AI Fluency Program Overview
+    program_description: Learn by doing, one week at a time. The program starts with an audit of your own job and tasks — so everything you learn applies directly to your work. Each week combines self-paced modules and a live session with your instructor and cohort to practice, troubleshoot, and get feedback. Four weeks. One live automation and the skills to keep expanding your professional capabilities with AI as your collaborator.
     tech_logos:
-      - name: Python
-        icon: python
       - name: OpenAI
         icon: openai
       - name: n8n
         icon: n8n
-      - name: Docker
-        icon: docker
-      - name: React
-        icon: react
+      - name: Git
+        icon: git
     module_cards:
-      - title: Personal Assistants with OpenClaw
-        duration: Core AI and Agents
+      - title: How AI Really Works
+        duration: Week 1
         objectives:
-          - Configure an open-source AI agent as a personal assistant
-          - Assign tasks and integrate external applications with the agent
-        projects: Deploy and configure a self-hosted AI assistant — yours, under your control, without relying on external vendors.
-        orientation: vertical
-        icon: IconRobot
-      - title: Advanced Personal Assistants with OpenClaw
-        duration: Core AI and Agents
-        objectives:
-          - Identify scenarios where an agent solves real business problems
-          - Develop custom skills for OpenClaw
-          - Implement contextual memory (episodic, semantic, procedural)
-          - Advanced configuration and extension of the agent
-        projects: Take your basic assistant agent to a productive tool with real autonomy in business contexts.
-        orientation: vertical
-        icon: IconRobot
-      - title: Working with AI Coding Agents
-        duration: Core AI and Agents
-        objectives:
-          - Build memory banks and context rules from an existing codebase
-          - Write executable specifications for agents (agent specs)
-          - Synthesize reusable skills so agents act with precision
-        projects: Build memory banks and context rules that turn a coding agent into a collaborator that understands your codebase.
-        orientation: vertical
-        icon: IconCode
-      - title: LLMs, Training & RAG
-        duration: Core AI and Agents
-        objectives:
-          - Prepare data and select models for training
-          - Implement RAG techniques on proprietary knowledge bases
-          - Work with vector databases
-          - Evaluate, debug, and integrate models in production
-        projects: Implement RAG so your agent answers with proprietary, up-to-date knowledge.
-        orientation: vertical
-        icon: IconDatabase
-      - title: Agentic Engineering
-        duration: Core AI and Agents
-        objectives:
-          - Build agents with tool calling (real function calls)
-          - Implement guardrails as a security and control mechanism
-          - Provide tools to the agent via CLIs optimized for AI
-          - Extend agent capabilities with the Model Context Protocol (MCP)
-          - Give an agent persistent memory
-        projects: Build agents that call tools, access external systems via MCPs and CLIs, and operate with persistent memory.
+          - What LLMs are and how they work
+          - Why model choice matters for cost and quality
+          - The difference between a chatbot, assistant, and agent
+          - Prompt fundamentals: role, context, format, constraints
+          - Job audit: identify your top automation candidates
+        projects: Write your first 5 prompts for real tasks you do every week.
         orientation: vertical
         icon: IconBolt
-      - title: Agentic Workflows
-        duration: Core AI and Agents
+      - title: Prompting as a Skill
+        duration: Week 2
         objectives:
-          - Design multi-agent systems with routing and arbitration
-          - Implement shared memory across agents
-          - Deploy agentic workflows with serverless and durable functions
-        projects: Design systems where multiple agents collaborate, distribute tasks, and run autonomously at scale.
+          - Prompt patterns: chain of thought, few-shot, persona, structured output
+          - Prompting for emails, reports, research, and meeting summaries
+          - Managing AI context effectively
+          - Building a personal prompt library
+        projects: Leave with 3-5 working prompts for your actual job tasks.
+        orientation: vertical
+        icon: IconCode
+      - title: Your Personal AI Assistant
+        duration: Week 3
+        objectives:
+          - What AI agents are and how skills work
+          - Installing and configuring OpenClaw
+          - Creating custom skills from prompt templates
+          - Connecting your assistant to Google Drive, Gmail, or Notion
+        projects: Run a custom skill on a real personal task.
+        orientation: vertical
+        icon: IconRobot
+      - title: Automation Pipelines with n8n
+        duration: Week 4
+        objectives:
+          - n8n fundamentals: nodes, triggers, and workflows
+          - Connecting n8n to Gmail, Slack, Google Sheets, and webhooks
+          - Linking n8n to an AI agent for smart decision-making steps
+          - Final project prep: map and build your automation
+        projects: Build and demo a live automation that handles a real recurring task.
         orientation: vertical
         icon: IconLayoutKanban
-      - title: Backend Development with Coding Agents
-        duration: Infrastructure for AI
+      - title: AI-Automated Workflow
+        duration: Capstone Project
         objectives:
-          - Design backend architectures for AI-powered solutions
-          - Create agent loops integrating LLMs with APIs
-          - Implement lightweight storage and CSV data processing
-          - Build and expose REST APIs for frontends and agents
-        projects: Build robust APIs with FastAPI, implement agent loops in Python, and design backend architectures for AI use cases.
-        orientation: vertical
-        icon: IconServer
-      - title: Workflow Automations
-        duration: Infrastructure for AI
-        objectives:
-          - Model business logic with workflow diagrams
-          - Implement basic and advanced flows in n8n
-          - Integrate LLMs and external apps in automations
-          - Deploy maintainable workflows with error handling
-        projects: Build AI-powered business automations in n8n that run autonomously without manual intervention.
-        orientation: vertical
-        icon: IconCode
-      - title: Data Pipelines
-        duration: Infrastructure for AI
-        objectives:
-          - Manipulate and prepare datasets with Python
-          - Build data pipelines from the application to analysis systems
-        projects: Build pipelines that take raw data, transform it, and leave it ready to feed models, reports, or agents.
-        orientation: vertical
-        icon: IconChartBar
-      - title: Telemetry
-        duration: Infrastructure for AI
-        objectives:
-          - Optimize storage for reporting and data integrity
-          - Identify data collection opportunities in real scenarios
-          - Collect telemetry and user context from the application
-          - Build reports from telemetry data
-        projects: Instrument applications to collect behavioral data and make decisions based on real evidence.
-        orientation: vertical
-        icon: IconChartBar
-      - title: Asynchronous Processing and Offloading
-        duration: Infrastructure for AI
-        objectives:
-          - Implement background processing for costly tasks
-          - Manage process queues with workers
-          - Use queues to delegate work between agents and services
-        projects: Implement background processing and queue systems that let agents delegate heavy work without blocking users.
-        orientation: vertical
-        icon: IconServer
-      - title: Real-Time
-        duration: Infrastructure for AI
-        objectives:
-          - Build support chats with LLMs in real time
-          - Implement response streaming with generators (yield)
-          - Integrate webhooks and pub/sub in AI applications
-        projects: Implement real-time communication between users and language models using streaming, WebSockets, and event-driven architectures.
-        orientation: vertical
-        icon: IconBolt
-      - title: Web Application Authentication
-        duration: Infrastructure for AI
-        objectives:
-          - Implement authentication and route restrictions in FastAPI
-          - Build complete authentication flows (login, tokens, sessions)
-        projects: Implement secure authentication in FastAPI and build complete login flows that define what each user — and agent — can do.
-        orientation: vertical
-        icon: IconCode
-      - title: Error Handling, Debugging and Testing
-        duration: Infrastructure for AI
-        objectives:
-          - Understand and manage runtime errors with flow control
-          - Develop test suites for robust applications
-        projects: Verify AI-generated code with controlled error handling and test suites that validate expected behavior.
-        orientation: vertical
-        icon: IconCode
-      - title: Cybersecurity in AI Applications
-        duration: Infrastructure for AI
-        objectives:
-          - Identify and fix OWASP Top 10 vulnerabilities in web applications
-          - Implement security practices specific to AI integrations
-          - Use LLMs as a cybersecurity auditing tool
-        projects: Identify critical vulnerabilities in AI applications and implement safe practices in model integration.
-        orientation: vertical
-        icon: IconCode
-      - title: AI-Transformed Company
-        duration: Capstone
-        objectives:
-          - AI-generated frontend
-          - API with full authentication
-          - Telemetry and reporting pipeline
-          - Agent-generated automated workflows
-          - RAG knowledge layer
-          - Agents with tool calling
-          - Real-time communication
-        projects: Integrate everything you have learned into a working, deployed system — a full transformation of a company through AI.
+          - A live n8n automation solving a real personal or professional task
+          - At least one AI decision-making step integrated into the workflow
+          - Live demo presented to instructor and peers
+        projects: A real automation you built, own, and can keep improving.
         orientation: horizontal
-        icon: IconCode
+        icon: IconChartBar
     marginY:
-      desktop: md none
+      desktop: md xl
     paddingY:
-      desktop: md
+      desktop: lg
+    section_id: syllabus-aifluency
   - type: trust_cards
     version: v1.0
     title: Top rated across all major platforms.
