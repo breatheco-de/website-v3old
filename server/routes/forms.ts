@@ -204,6 +204,7 @@ import {
   FixerItemStatus,
 } from "./_helpers";
 import { getTrackingSettings } from "../settings";
+import { buildLeadPayload } from "../utils/buildLeadPayload";
 import { isPrivateDestination } from "./webhooks";
 
 export function registerFormsRoutes(app: Express): void {
@@ -422,76 +423,7 @@ export function registerFormsRoutes(app: Express): void {
         return;
       }
 
-      // Resolve conversion event defaults — fill in missing tags/automations from the
-      // event definition when the form section YAML doesn't override them explicitly.
-      const conversionName: string = leadData.conversion_name || "";
-      const matchingEvent = conversionName
-        ? getTrackingSettings().conversion_events.find((e) => e.name === conversionName)
-        : undefined;
-
-      const effectiveTags: string =
-        leadData.tags ||
-        (matchingEvent?.tags?.length ? matchingEvent.tags.join(",") : null) ||
-        "website-lead";
-
-      const effectiveAutomations: string =
-        leadData.automations ||
-        matchingEvent?.automations ||
-        "strong";
-
-      // Build the payload for Breathecode API
-      const payload = {
-        first_name: leadData.first_name || null,
-        last_name: leadData.last_name || null,
-        phone: leadData.phone || null,
-        email: leadData.email,
-        location: leadData.location || null,
-        course: leadData.program || null,
-        consent: leadData.consent_whatsapp || false,
-        sms_consent: leadData.sms_consent || false,
-        consent_email: leadData.consent_email || false,
-        comment: leadData.comment || null,
-        client_comments: leadData.client_comments || null,
-        // Session/tracking data
-        utm_url: leadData.utm_url || null,
-        utm_source: leadData.utm_source || null,
-        utm_medium: leadData.utm_medium || null,
-        utm_campaign: leadData.utm_campaign || null,
-        utm_content: leadData.utm_content || null,
-        utm_term: leadData.utm_term || null,
-        utm_placement: leadData.utm_placement || null,
-        utm_plan: leadData.utm_plan || null,
-        // Ad platform click IDs
-        gclid: leadData.gclid || null,
-        fbclid: leadData.fbclid || null,
-        msclkid: leadData.msclkid || null,
-        ttclid: leadData.ttclid || null,
-        // Referral
-        referral: leadData.referral || leadData.ref || null,
-        coupon: leadData.coupon || null,
-        // Geo data
-        latitude: leadData.latitude || null,
-        longitude: leadData.longitude || null,
-        city: leadData.city || null,
-        country: leadData.country || null,
-        // Language
-        language: leadData.language || "en",
-        utm_language: leadData.language || "en",
-        browser_lang: leadData.browser_lang || null,
-        // Tags and automation — form-level wins; event-level default fills gaps
-        tags: effectiveTags,
-        automations: effectiveAutomations,
-        action: "submit",
-        // Turnstile token for bot protection
-        token: leadData.token || null,
-      };
-
-      // Remove null, undefined, and empty string values from payload
-      const cleanPayload = Object.fromEntries(
-        Object.entries(payload).filter(
-          ([_, value]) => value !== null && value !== undefined && value !== "",
-        ),
-      );
+      const cleanPayload = buildLeadPayload(leadData as Record<string, unknown>);
 
       // Resolve webhook destination: global settings → DEFAULT_WEBHOOK_URL env var
       const globalWebhook = getTrackingSettings().webhook;
