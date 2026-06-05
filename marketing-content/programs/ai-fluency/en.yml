@@ -333,7 +333,7 @@ sections:
     marginY:
       desktop: lg md
     paddingY:
-      desktop: md
+      desktop: md lg
     background: hsl(210 100% 50% / 0.05)
   - type: pricing
     version: "1.0"
@@ -369,7 +369,7 @@ sections:
     marginY:
       desktop: md xl
     paddingY:
-      desktop: lg md
+      desktop: md
     showOnLocations:
       - barcelona-spain
       - madrid-spain
