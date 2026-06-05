@@ -91,19 +91,6 @@ function OrbitRing({ radiusPct, duration, clockwise, badges, startDeg = 0 }: Orb
   );
 }
 
-/* ─── Default badge sets ────────────────────────────────────── */
-const DEFAULT_INNER: BadgeItem[] = [
-  { label: "Full Stack with AI", highlight: false },
-  { label: "AI Flex", highlight: true },
-];
-const DEFAULT_MIDDLE: BadgeItem[] = [
-  { label: "Data Science & ML", highlight: false },
-  { label: "AI Fluency", highlight: true },
-];
-const DEFAULT_OUTER: BadgeItem[] = [
-  { label: "AI Engineering", highlight: true },
-  { label: "Cybersecurity", highlight: false },
-];
 
 /* ─── cqw constants (all sizes as % of container width) ─────── */
 // BASE = 650 (original design width)
@@ -208,28 +195,34 @@ function OrbitDiagram({
         />
       </div>
 
-      {/* Legend — absolute below diagram, doesn't affect grid height */}
-      <div
-        className="absolute flex items-center gap-5 whitespace-nowrap"
-        style={{ top: "calc(100% + 18px)", left: "50%", transform: "translateX(-50%)" }}
-      >
-        <div className="flex items-center gap-[0.4rem] text-[0.75rem] text-muted-foreground">
-          <span
-            className="rounded-full flex-shrink-0"
-            style={{
-              width: "0.65rem",
-              height: "0.65rem",
-              background: "hsl(215 14% 80%)",
-              border: "1.5px solid hsl(215 14% 62%)",
-            }}
-          />
-          <span>{legendStart}</span>
+      {/* Legend — absolute below diagram, only shown if text is provided */}
+      {(legendStart || legendHighlight) && (
+        <div
+          className="absolute flex items-center gap-5 whitespace-nowrap"
+          style={{ top: "calc(100% + 18px)", left: "50%", transform: "translateX(-50%)" }}
+        >
+          {legendStart && (
+            <div className="flex items-center gap-[0.4rem] text-[0.75rem] text-muted-foreground">
+              <span
+                className="rounded-full flex-shrink-0"
+                style={{
+                  width: "0.65rem",
+                  height: "0.65rem",
+                  background: "hsl(215 14% 80%)",
+                  border: "1.5px solid hsl(215 14% 62%)",
+                }}
+              />
+              <span>{legendStart}</span>
+            </div>
+          )}
+          {legendHighlight && (
+            <div className="flex items-center gap-[0.4rem] text-[0.75rem] text-muted-foreground">
+              <span className="rounded-full flex-shrink-0 bg-primary" style={{ width: "0.8rem", height: "0.8rem" }} />
+              <span>{legendHighlight}</span>
+            </div>
+          )}
         </div>
-        <div className="flex items-center gap-[0.4rem] text-[0.75rem] text-muted-foreground">
-          <span className="rounded-full flex-shrink-0 bg-primary" style={{ width: "0.8rem", height: "0.8rem" }} />
-          <span>{legendHighlight}</span>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -239,12 +232,12 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
   const handleLinkClick = useInternalNav();
 
   const diagram = data.orbit_diagram ?? {};
-  const centerLabel     = diagram.center_label    ?? "AI";
-  const legendStart     = diagram.legend_start    ?? "Where you started";
-  const legendHighlight = diagram.legend_highlight ?? "Where 4Geeks is now";
-  const inner  = (diagram.badges?.inner  ?? DEFAULT_INNER)  as BadgeItem[];
-  const middle = (diagram.badges?.middle ?? DEFAULT_MIDDLE) as BadgeItem[];
-  const outer  = (diagram.badges?.outer  ?? DEFAULT_OUTER)  as BadgeItem[];
+  const centerLabel     = diagram.center_label    ?? "";
+  const legendStart     = diagram.legend_start    ?? "";
+  const legendHighlight = diagram.legend_highlight ?? "";
+  const inner  = (diagram.badges?.inner  ?? []) as BadgeItem[];
+  const middle = (diagram.badges?.middle ?? []) as BadgeItem[];
+  const outer  = (diagram.badges?.outer  ?? []) as BadgeItem[];
 
   return (
     <section

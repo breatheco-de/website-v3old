@@ -781,8 +781,8 @@ export { stickyCtaSectionSchema, type StickyCtaSection } from "../marketing-cont
 import { modalSectionSchema } from "../marketing-content/component-registry/modal/v1.0/schema";
 export { modalSectionSchema, type ModalSection } from "../marketing-content/component-registry/modal/v1.0/schema";
 import { bentoCardsSectionSchema } from "../marketing-content/component-registry/bento_cards/v1.0/schema";
-import { bannerSectionSchema, type BannerSection } from "../marketing-content/component-registry/banner/v1.0/schema";
-export { bannerSectionSchema, type BannerSection };
+import { bannerSchema, bannerSectionSchema, bannerMarqueeBadgesSchema, type BannerSection, type BannerMarqueeBadges } from "../marketing-content/component-registry/banner/v1.0/schema";
+export { bannerSectionSchema, bannerMarqueeBadgesSchema, type BannerSection, type BannerMarqueeBadges };
 import { imageRowSectionSchema, type ImageRowSection } from "../marketing-content/component-registry/image_row/v1.0/schema";
 export { imageRowSectionSchema, type ImageRowSection };
 import { courseSelectorSectionSchema, type CourseSelectorSection, type CourseItem, type CourseBadge, type CourseTag } from "../marketing-content/component-registry/course_selector/v1.0/schema";
@@ -1082,7 +1082,7 @@ const baseSectionSchema = z.union([
   splitCardsSectionSchema,
   stickyCtaSectionSchema,
   bentoCardsSectionSchema,
-  bannerSectionSchema,
+  bannerSchema,
   imageRowSectionSchema,
   featureQuadSectionSchema,
   courseSelectorSectionSchema,
