@@ -14,7 +14,7 @@ function Badge({ label }: { label: string }) {
       className="flex items-center gap-4 py-[0.6rem] px-[1.1rem] bg-background border rounded-full whitespace-nowrap flex-shrink-0"
       data-testid="badge-marquee-item"
     >
-      <span className="w-[0.45rem] h-[0.45rem] rounded-full flex-shrink-0 bg-muted-foreground/50" />
+      <span className="w-[0.45rem] h-[0.45rem] rounded-full flex-shrink-0 bg-primary/80" />
       <span className="text-[0.9rem] font-semibold text-foreground">{label}</span>
     </div>
   );
@@ -93,7 +93,7 @@ export default function BannerMarqueeBadges({ data }: Props) {
           )}
           {title && (
             <h2
-              className="text-[2.6rem] md:text-[3.75rem] lg:text-[5rem] font-black leading-[1.02] text-foreground tracking-[-0.02em] m-0 [&_em]:text-primary [&_em]:italic"
+              className="font-inter text-[2.6rem] md:text-[3.75rem] lg:text-[5rem] font-black leading-[1.02] text-foreground tracking-[-0.02em] m-0 [&_em]:text-primary [&_em]:italic"
               data-testid="text-banner-title"
               dangerouslySetInnerHTML={{ __html: title }}
             />
