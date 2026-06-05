@@ -173,6 +173,8 @@ sections:
     paddingY:
       desktop: sm
     background: hsl(var(--muted))
+    marginY:
+      desktop: none lg
   - type: features_grid
     version: "1.0"
     variant: stats-charts
