@@ -23,7 +23,7 @@ function Badge({ label }: { label: string }) {
 function Marquee({
   badges,
   direction,
-  speed = 28,
+  speed = 20,
 }: {
   badges: string[];
   direction: "fwd" | "rev";
@@ -63,12 +63,12 @@ export default function BannerMarqueeBadges({ data }: Props) {
     cta_buttons,
     top_badges = [],
     bottom_badges = [],
-    marquee_speed = 36,
+    marquee_speed = 30,
   } = data;
 
   return (
     <section
-      className="overflow-hidden py-12 md:py-8 max-md:py-7"
+      className="overflow-hidden"
       data-testid="section-banner-marquee-badges"
     >
       <Marquee badges={top_badges} direction="fwd" speed={marquee_speed} />
@@ -84,11 +84,11 @@ export default function BannerMarqueeBadges({ data }: Props) {
         >
           {subtitle && (
             <div
-              className="text-[0.85rem] md:text-[0.75rem] lg:text-[0.85rem] font-bold tracking-[0.12em] text-primary uppercase"
+              className="flex items-center gap-2 text-[0.85rem] md:text-[0.75rem] lg:text-[0.85rem] font-bold tracking-[0.12em] text-primary uppercase"
               data-testid="text-banner-subtitle"
             >
-              <span className="inline-block w-[0.55rem] h-[0.55rem] rounded-full bg-[hsl(142_71%_45%)] align-middle mr-[0.45rem]" />
-              {subtitle}
+              <span className="w-[0.55rem] h-[0.55rem] rounded-full bg-[hsl(142_71%_45%)] flex-shrink-0" />
+              <span>{subtitle}</span>
             </div>
           )}
           {title && (
