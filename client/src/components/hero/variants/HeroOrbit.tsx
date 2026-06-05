@@ -93,39 +93,28 @@ function OrbitRing({ radiusPct, duration, clockwise, badges, startDeg = 0 }: Orb
 
 
 /* ─── cqw constants (all sizes as % of container width) ─────── */
-// BASE = 650 (original design width)
-// cqw(x) = x / 650 * 100
 const CQW = {
-  ringOuter:  83.1,   // scale(540) dashed ring diameter
-  ringMiddle: 62.3,   // scale(405)
-  ringInner:  41.5,   // scale(270)
-  radOuter:   41.5,   // scale(270) animated ring radius
-  radMiddle:  31.1,   // scale(202)
-  radInner:   20.8,   // scale(135)
-  center:     27.1,   // scale(176) center sphere diameter
-  centerFont:  7.1,   // scale(46)  center font-size
-  spotlight:  24.6,   // scale(160) spotlight circle radius
-  pulseInset:  1.5,   // scale(10)  pulse ring inset
+  ringOuter:  83.1,
+  ringMiddle: 62.3,
+  ringInner:  41.5,
+  radOuter:   41.5,
+  radMiddle:  31.1,
+  radInner:   20.8,
+  center:     27.1,
+  centerFont:  7.1,
+  spotlight:  24.6,
+  pulseInset:  1.5,
 };
 
-/* ─── Orbit diagram ─────────────────────────────────────────── */
+/* ─── Orbit diagram (no legend — legend lives in grid row 3) ── */
 interface OrbitDiagramProps {
   centerLabel: string;
-  legendStart: string;
-  legendHighlight: string;
   inner: BadgeItem[];
   middle: BadgeItem[];
   outer: BadgeItem[];
 }
 
-function OrbitDiagram({
-  centerLabel,
-  legendStart,
-  legendHighlight,
-  inner,
-  middle,
-  outer,
-}: OrbitDiagramProps) {
+function OrbitDiagram({ centerLabel, inner, middle, outer }: OrbitDiagramProps) {
   const sceneRef = useRef<HTMLDivElement>(null);
   const [mouse, setMouse] = useState<{ x: number; y: number } | null>(null);
 
@@ -194,35 +183,6 @@ function OrbitDiagram({
           style={{ inset: `-${CQW.pulseInset}cqw`, animation: "pulse-ring 4.2s ease-out infinite" }}
         />
       </div>
-
-      {/* Legend — absolute below diagram, only shown if text is provided */}
-      {(legendStart || legendHighlight) && (
-        <div
-          className="absolute flex items-center gap-5 whitespace-nowrap"
-          style={{ top: "calc(100% + 18px)", left: "50%", transform: "translateX(-50%)" }}
-        >
-          {legendStart && (
-            <div className="flex items-center gap-[0.4rem] text-[0.75rem] text-muted-foreground">
-              <span
-                className="rounded-full flex-shrink-0"
-                style={{
-                  width: "0.65rem",
-                  height: "0.65rem",
-                  background: "hsl(215 14% 80%)",
-                  border: "1.5px solid hsl(215 14% 62%)",
-                }}
-              />
-              <span>{legendStart}</span>
-            </div>
-          )}
-          {legendHighlight && (
-            <div className="flex items-center gap-[0.4rem] text-[0.75rem] text-muted-foreground">
-              <span className="rounded-full flex-shrink-0 bg-primary" style={{ width: "0.8rem", height: "0.8rem" }} />
-              <span>{legendHighlight}</span>
-            </div>
-          )}
-        </div>
-      )}
     </div>
   );
 }
@@ -239,10 +199,10 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
   const middle = (diagram.badges?.middle ?? []) as BadgeItem[];
   const outer  = (diagram.badges?.outer  ?? []) as BadgeItem[];
 
+  const hasLegend = !!(legendStart || legendHighlight);
+
   return (
-    <section
-      data-testid="section-hero-orbit"
-    >
+    <section data-testid="section-hero-orbit">
       <div>
         <div className="w-full grid grid-cols-1 md:grid-cols-[2fr_3fr] md:gap-x-1">
 
@@ -258,21 +218,29 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
               </div>
             )}
             <h1
-              className="font-inter text-[2.75rem] md:text-[3.1rem] lg:text-[3.9rem] font-black leading-none text-foreground m-0 [&_em]:text-primary [&_em]:italic"
+              className="font-inter font-black leading-none text-foreground m-0 [&_em]:text-primary [&_em]:italic"
               data-testid="text-hero-title"
-              dangerouslySetInnerHTML={{ __html: data.title ?? "" }}
-            />
+            >
+              {/* Mobile: strip custom font-size so Tailwind controls size */}
+              <span
+                className="block md:hidden text-[2.75rem]"
+                dangerouslySetInnerHTML={{ __html: (data.title ?? "").replace(/font-size\s*:[^;"]*;?/gi, "") }}
+              />
+              {/* Desktop: full rich text with custom font-size preserved */}
+              <span
+                className="hidden md:block text-[3.1rem] lg:text-[3.9rem]"
+                dangerouslySetInnerHTML={{ __html: data.title ?? "" }}
+              />
+            </h1>
           </div>
 
-          {/* RIGHT — orbit (spans 2 rows on desktop, order-3 on mobile) */}
+          {/* RIGHT — orbit diagram (spans 2 rows on desktop, order-3 on mobile) */}
           <div
             className="max-md:order-3 md:row-span-2 md:col-start-2 md:row-start-1 flex items-center justify-center max-md:py-8"
             data-testid="hero-orbit-diagram"
           >
             <OrbitDiagram
               centerLabel={centerLabel}
-              legendStart={legendStart}
-              legendHighlight={legendHighlight}
               inner={inner}
               middle={middle}
               outer={outer}
@@ -292,35 +260,36 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
 
             {data.cta_buttons && data.cta_buttons.length > 0 && (
               <div
-                className="max-md:order-2 max-md:mt-4 flex flex-wrap items-center justify-center md:justify-start gap-2 md:gap-3"
+                className="max-md:order-2 max-md:mt-4 flex flex-wrap gap-2 md:gap-3"
                 data-testid="hero-cta-buttons"
               >
                 {data.cta_buttons.map((btn, i) => (
-                  <Button
-                    key={i}
-                    variant={btn.variant === "primary" ? "default" : (btn.variant as "outline" | "secondary")}
-                    asChild
-                    data-testid={`button-hero-cta-${i}`}
-                  >
-                    <a href={btn.url} onClick={handleLinkClick} className="flex items-center !gap-1 px-2 py-1 text-sm lg:gap-2 lg:px-5 lg:py-1 font-semibold">
-                      {btn.icon &&
-                        (() => {
-                          const Ic = getIcon(btn.icon);
-                          return Ic ? createElement(Ic, { className: "h-4 w-4" }) : null;
-                        })()}
-                      {btn.text}
-                    </a>
-                  </Button>
+                  <div key={i} className="flex-1 min-w-fit flex justify-center md:flex-none">
+                    <Button
+                      variant={btn.variant === "primary" ? "default" : (btn.variant as "outline" | "secondary")}
+                      asChild
+                      data-testid={`button-hero-cta-${i}`}
+                    >
+                      <a href={btn.url} onClick={handleLinkClick} className="flex items-center !gap-1 px-2 py-1 text-sm lg:gap-2 lg:px-5 lg:py-1 font-semibold">
+                        {btn.icon &&
+                          (() => {
+                            const Ic = getIcon(btn.icon);
+                            return Ic ? createElement(Ic, { className: "h-4 w-4" }) : null;
+                          })()}
+                        {btn.text}
+                      </a>
+                    </Button>
+                  </div>
                 ))}
               </div>
             )}
 
             {data.stat && (
               <div
-                className="max-md:order-4 max-md:mt-4 flex items-start gap-2 text-[0.95rem] md:text-[1rem] lg:text-[1.05rem] text-muted-foreground"
+                className="max-md:order-5 max-md:mt-4 flex items-start gap-2 text-[0.95rem] md:text-[1rem] lg:text-[1.05rem] text-muted-foreground"
                 data-testid="text-hero-stat"
               >
-                <span className="w-[0.45rem] h-[0.45rem] rounded-full bg-muted-foreground/40 flex-shrink-0 mt-[0.15rem]" />
+                <span className="w-[0.45rem] h-[0.45rem] rounded-full bg-muted-foreground/40 flex-shrink-0 mt-[0.5rem]" />
                 <p
                   className="m-0 [&_strong]:text-foreground"
                   dangerouslySetInnerHTML={{ __html: data.stat }}
@@ -328,6 +297,35 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
               </div>
             )}
           </div>
+
+          {/* LEGEND — 3rd grid row, right column, normal flow (not absolute) */}
+          {hasLegend && (
+            <div
+              className="max-md:order-4 max-md:mt-2 md:col-start-2 md:row-start-3 flex items-center justify-center gap-5 whitespace-nowrap pt-[18px]"
+              data-testid="hero-orbit-legend"
+            >
+              {legendStart && (
+                <div className="flex items-center gap-[0.4rem] text-[0.75rem] text-muted-foreground">
+                  <span
+                    className="rounded-full flex-shrink-0"
+                    style={{
+                      width: "0.65rem",
+                      height: "0.65rem",
+                      background: "hsl(215 14% 80%)",
+                      border: "1.5px solid hsl(215 14% 62%)",
+                    }}
+                  />
+                  <span>{legendStart}</span>
+                </div>
+              )}
+              {legendHighlight && (
+                <div className="flex items-center gap-[0.4rem] text-[0.75rem] text-muted-foreground">
+                  <span className="rounded-full flex-shrink-0 bg-primary" style={{ width: "0.8rem", height: "0.8rem" }} />
+                  <span>{legendHighlight}</span>
+                </div>
+              )}
+            </div>
+          )}
 
         </div>
       </div>

@@ -5,6 +5,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "cta.url": "link-picker",
 
   // marqueeBadges variant
-  "marqueeBadges:title": "rich-text-editor",
+  "marqueeBadges:title": "rich-text-editor:custom-font-size,custom-letter-spacing,custom-line-height,custom-font-weight",
+  "marqueeBadges:body": "rich-text-editor",
   "marqueeBadges:cta_buttons[]": "cta-picker",
 };

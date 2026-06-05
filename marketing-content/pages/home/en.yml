@@ -23,7 +23,7 @@ sections:
     version: v1.0
     variant: orbit
     eyebrow: NO MATTER WHAT YOU'RE SEEKING
-    title: All roads lead to <em>AI.</em>
+    title: "<span style=\"font-size: 3.75rem;\">All roads lead to <em>AI.</em></span><em></em>"
     body: Cybersecurity, Full Stack, Data Science — the skills still matter. But every one now runs on AI, and that's where the jobs are. We rebuilt 4Geeks around it.
     stat: <strong>1.3M</strong> new AI roles opening — every field now hires for AI fluency
     cta_buttons:
@@ -99,6 +99,7 @@ sections:
     section_id: banner-qrp5dz
     paddingY:
       desktop: sm
+    background: hsl(var(--muted))
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thiriving in tech.

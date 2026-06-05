@@ -74,7 +74,7 @@ export default function BannerMarqueeBadges({ data }: Props) {
       <Marquee badges={top_badges} direction="fwd" speed={marquee_speed} />
 
       <div
-        className="w-full md:w-fit md:max-w-[70rem] mx-auto px-5 md:px-8 py-6 md:py-5 grid grid-cols-1 md:grid-cols-[auto_auto] gap-4 md:gap-8 lg:gap-12 items-center"
+        className="w-full md:w-fit md:max-w-[70rem] mx-auto px-5 md:px-8 py-6 grid grid-cols-1 md:grid-cols-[auto_auto] gap-4 md:gap-8 lg:gap-12 items-center"
         data-testid="banner-marquee-badges-content"
       >
         {/* Left: subtitle + title */}
@@ -93,10 +93,20 @@ export default function BannerMarqueeBadges({ data }: Props) {
           )}
           {title && (
             <h2
-              className="font-inter text-[2.6rem] md:text-[3.75rem] lg:text-[4.8rem] font-black leading-[1.02] text-foreground tracking-[-0.02em] m-0 [&_em]:text-primary [&_em]:italic"
+              className="font-inter font-black leading-[1.02] text-foreground tracking-[-0.02em] m-0 [&_em]:text-primary [&_em]:italic"
               data-testid="text-banner-title"
-              dangerouslySetInnerHTML={{ __html: title }}
-            />
+            >
+              {/* Mobile: strip custom font-size so Tailwind controls size */}
+              <span
+                className="block md:hidden text-[2.6rem]"
+                dangerouslySetInnerHTML={{ __html: title.replace(/font-size\s*:[^;"]*;?/gi, "") }}
+              />
+              {/* Desktop: full rich text with custom font-size preserved */}
+              <span
+                className="hidden md:block text-[3.75rem] lg:text-[4.8rem]"
+                dangerouslySetInnerHTML={{ __html: title }}
+              />
+            </h2>
           )}
         </div>
 
