@@ -143,7 +143,7 @@ sections:
       Every one of those paths now runs on AI, and that's where the hiring is. So we rebuilt 4Geeks into three AI tracks built for the new job market: AI Engineering, AI Fluency and AI Flex.
     cta_buttons:
       - text: Compare the three tracks
-        url: /en/compare
+        url: /en/program-comparison
         variant: primary
         icon: arrow-right
     top_badges:
