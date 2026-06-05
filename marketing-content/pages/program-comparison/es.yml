@@ -33,7 +33,7 @@ sections:
         source: Course Report
     section_id: hero-qljc9m
     paddingY:
-      desktop: lg sm
+      desktop: lg
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     marginY:
       desktop: none md
