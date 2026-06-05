@@ -130,7 +130,7 @@ sections:
     version: v1.0
     variant: marqueeBadges
     subtitle: No importa qué viniste buscando
-    title: "<span style=\"font-size: 2.25rem;\">La IA es <span style=\"color: hsl(var(--primary));\"><i>el camino</i></span>.</span>"
+    title: "<span style=\"font-size: 3.75rem;\"><span>La IA es <span style=\"color: hsl(var(--primary));\"><i>el camino</i></span>.</span></span>"
     body: |
       Todos esos caminos hoy se construyen sobre IA, y ahí es donde está la contratación. Por eso reconstruimos 4Geeks en tres tracks de IA pensados para el nuevo mercado laboral: AI Engineering, AI Fluency y AI Flex.
     cta_buttons:
