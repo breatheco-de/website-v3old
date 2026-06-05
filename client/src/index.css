@@ -907,3 +907,62 @@
 .chat-markdown a:hover {
   opacity: 0.8;
 }
+
+/* ── HeroOrbit animation ────────────────────────────────────── */
+.orbit-scene {
+  container-type: size;
+}
+.orbit-item-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+.orbit-cw {
+  animation: spin-cw var(--duration, 20s) linear infinite;
+  transform: rotate(var(--angle, 0deg)) translateX(var(--radius, 100px));
+}
+.orbit-ccw {
+  animation: spin-ccw var(--duration, 20s) linear infinite;
+  transform: rotate(var(--angle, 0deg)) translateX(var(--radius, 100px));
+}
+.orbit-cw .orbit-item-inner { animation: counter-spin-cw var(--duration, 20s) linear infinite; }
+.orbit-ccw .orbit-item-inner { animation: counter-spin-ccw var(--duration, 20s) linear infinite; }
+
+@keyframes spin-cw {
+  from { transform: rotate(var(--angle, 0deg))                    translateX(var(--radius, 100px)); }
+  to   { transform: rotate(calc(var(--angle, 0deg) + 360deg)) translateX(var(--radius, 100px)); }
+}
+@keyframes spin-ccw {
+  from { transform: rotate(var(--angle, 0deg))                    translateX(var(--radius, 100px)); }
+  to   { transform: rotate(calc(var(--angle, 0deg) - 360deg)) translateX(var(--radius, 100px)); }
+}
+@keyframes counter-spin-cw {
+  from { transform: translate(-50%, -50%) rotate(calc(-1 * var(--angle, 0deg))); }
+  to   { transform: translate(-50%, -50%) rotate(calc(-1 * var(--angle, 0deg) - 360deg)); }
+}
+@keyframes counter-spin-ccw {
+  from { transform: translate(-50%, -50%) rotate(calc(-1 * var(--angle, 0deg))); }
+  to   { transform: translate(-50%, -50%) rotate(calc(-1 * var(--angle, 0deg) + 360deg)); }
+}
+@keyframes pulse-ring {
+  0%   { transform: scale(1);    opacity: 0.65; }
+  65%  { transform: scale(1.18); opacity: 0;    }
+  100% { transform: scale(1.18); opacity: 0;    }
+}
+
+/* ─── BannerMarqueeBadges marquee animations ─────────────────── */
+@keyframes marquee-scroll-fwd {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+@keyframes marquee-scroll-rev {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-fwd {
+  animation: marquee-scroll-fwd var(--marquee-speed, 28s) linear infinite;
+}
+.marquee-rev {
+  animation: marquee-scroll-rev var(--marquee-speed, 28s) linear infinite;
+}

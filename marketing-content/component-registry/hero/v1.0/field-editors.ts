@@ -16,6 +16,9 @@ export const fieldEditors: Record<string, EditorType> = {
   // Global - applies to all variants that have this field
   "signup_card.features[].icon": "icon-picker",
   "simpleTwoColumn:cta_buttons[]": "cta-picker",
+  "orbit:cta_buttons[]": "cta-picker",
+  "orbit:title": "rich-text-editor:custom-font-size,custom-letter-spacing,custom-line-height,custom-font-weight",
+  "orbit:body": "rich-text-editor",
 
   // Variant-specific - prefixed with variant name
   "productShowcase:image": "image-with-style-picker",

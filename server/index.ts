@@ -58,6 +58,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use('/attached_assets', express.static(path.join(process.cwd(), 'attached_assets')));
 app.use('/marketing-content/images', express.static(path.join(process.cwd(), 'marketing-content', 'images')));
 
+
 app.use(compression({
   filter: (req, res) => {
     if (req.headers['x-no-compression']) {
