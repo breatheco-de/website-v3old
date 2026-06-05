@@ -320,7 +320,7 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: The full tuition cost is $900. Pay upfront and receive a 10% discount on your enrollment.
+        text: The full tuition is $900. Pay upfront and receive a 10% discount.
       - icon: IconCheck
         text: Spread your payments with flexible financing through Affirm or Klarna. Terms and availability vary by region.
       - icon: IconCheck
