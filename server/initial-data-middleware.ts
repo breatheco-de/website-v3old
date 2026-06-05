@@ -100,6 +100,12 @@ function resolveBlogConfigQuery(): SingleQuery | null {
 }
 
 export async function resolvePageQuery(url: string): Promise<SingleQuery | null> {
+  // Don't seed page data for force_variant requests — the SSR render would use
+  // the default-page data while the client needs a different query key for the
+  // variant, causing a hydration mismatch. Return null so SSR emits an empty
+  // shell; the client spinner + fetch handles it cleanly.
+  if (url.includes("force_variant=")) return null;
+
   const cleanUrl = url.split("?")[0].split("#")[0];
 
   if (

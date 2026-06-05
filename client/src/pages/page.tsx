@@ -49,7 +49,9 @@ export default function Page() {
   }, [i18nLocale, i18n]);
 
   const { data: page, isPending, isLoading, error, refetch } = useQuery<TemplatePage>({
-    queryKey: ["/api/pages", slug, locale, forceVariant],
+    queryKey: forceVariant
+      ? ["/api/pages", slug, locale, forceVariant]
+      : ["/api/pages", slug, locale],
     queryFn: async () => {
       const qs = new URLSearchParams({ locale });
       if (forceVariant) qs.set("force_variant", forceVariant);
@@ -109,6 +111,12 @@ export default function Page() {
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
+  }
+
+  // During SSR, page data is not yet available for variant URLs or uncached pages.
+  // Return null so the SSR HTML stays empty — the client will render correctly after hydration.
+  if (IS_SERVER && !page && !error) {
+    return null;
   }
 
   if (error || !page) {
