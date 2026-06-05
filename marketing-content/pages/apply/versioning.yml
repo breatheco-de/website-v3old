@@ -1,2 +1,4 @@
 en:
-  variants: []
+  variants:
+    - slug: test
+      allocation: 0
