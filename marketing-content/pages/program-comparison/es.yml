@@ -41,7 +41,7 @@ sections:
     version: v1.0
     variant: orbit
     eyebrow: NO IMPORTA QUE BUSCAS
-    title: "<span style=\"font-size: 3.75rem;\"> La AI es<em>&nbsp;</em></span><div><span style=\"font-size: 3.75rem;\"><em>El camino.</em></span><em></em></div>"
+    title: "<span style=\"font-size: 3.75rem;\"> La AI es<em>&nbsp;</em></span><div><span style=\"font-size: 3.75rem;\"><em><span style=\"font-size: 3.75rem;\">El camino.</span></em></span><em></em></div>"
     body: Cybersecurity, Full Stack, Data Science — el mercado los absorbió. Hoy todos esos roles se construyen sobre AI. Aquí están las tres formas de llegar, dependiendo de dónde estés parado.
     stat: <strong>1.3M</strong> new AI roles opening — every field now hires for AI fluency
     cta_buttons:
