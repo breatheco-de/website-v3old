@@ -29,7 +29,7 @@ sections:
         variant: primary
         icon: ChevronRight
       - text: Explore our programs
-        url: "#course_selector"
+        url: /es/inicio#course_selector-4m5sh4
         variant: outline
     orbit_diagram:
       center_label: AI
