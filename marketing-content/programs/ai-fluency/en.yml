@@ -308,59 +308,32 @@ sections:
     version: "1.0"
     variant: product
     title: Tuition & Financing Options
-    subtitle: Investing in a new career matters. We make it easier with multiple ways to fund your enrollment.
+    subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Credit-Based Financing: starting at"
-    financing_amount: {{ global.price_ai_engineering | $399 }}
+    financing_text: "Flexible Financing: starting at"
+    financing_amount: {{ global.price_ai_fluency_financing | $150 }}
     tech_icons:
       - openai
-      - python
-      - react
-      - nodejs
-      - api
-      - brain
-      - robot
-      - settings
+      - claude
+      - n8n
+      - openclaw
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
+        text: Pay upfront and receive a 10% discount on your enrollment.
       - icon: IconCheck
-        text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
+        text: Spread your payments with flexible financing through Affirm or Klarna. Terms and availability vary by region.
       - icon: IconCheck
-        text: Finance your tuition in monthly installments, with term lengths of up to 48 months depending on your region.
+        text: One 1:1 mentorship session included. Add more at any time for $25 each.
     cta:
       text: Get more info
-      url: "#modal-qf93fn"
+      url: "#modal-aifluency"
       variant: primary
-    section_id: pricing-dy3guv
+    section_id: pricing-aifluency
     marginY:
       desktop: lg md
     paddingY:
       desktop: md
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - tampa-usa
-      - orlando-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
-      - mexicocity-mexico
     background: hsl(var(--secondary))
   - type: pricing
     version: "1.0"
