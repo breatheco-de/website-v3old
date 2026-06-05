@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Compare Tech Career Programs | 4Geeks Academy
-  description: "Compare 4Geeks Academy programs side by side: AI Engineering, Data Science, Cybersecurity, and Full Stack. Salaries, durations, costs, and job titles all in one place."
+  page_title: Program Comparison | 4Geeks
+  description: "Compare all 4Geeks Academy programs: AI Engineering, AI Fluent for Professionals, and AI Flex. Find the one that's right for you."
   redirects:
     - /program-comparison
     - /compare-programs
@@ -21,15 +21,15 @@ sections:
     variant: orbit
     eyebrow: NO MATTER WHAT YOU'RE SEEKING
     title: "<span style=\"font-size: 3.75rem;\">All roads lead to <em>AI.</em></span><em></em>"
-    body: Cybersecurity, Full Stack, Data Science — the skills still matter. But every one now runs on AI, and that's where the jobs are. We rebuilt 4Geeks around it.
-    stat: <strong>1.3M</strong> new AI roles opening — every field now hires for AI fluency
+    body: Cybersecurity, Full Stack, Data Science. The market absorbed them, and today all those roles are built on AI. These are the three paths forward, depending on where you're starting from today.
+    stat: <strong>1.3M</strong> new AI roles opening. Every industry now hires for AI fluency.
     cta_buttons:
       - text: Start your application
         url: /en/apply
         variant: primary
         icon: ChevronRight
       - text: Explore our programs
-        url: /es/inicio#course_selector-4m5sh4
+        url: /en/home#course_selector-4m5sh4
         variant: outline
     orbit_diagram:
       center_label: AI
@@ -53,697 +53,146 @@ sections:
             highlight: false
     section_id: hero-1v86vv
     paddingY:
-      desktop: sm
+      desktop: lg sm
     maxWidth:
       mobile: xl
       desktop: xl
     background: linear-gradient(to bottom left, hsl(var(--primary) / 0.14), transparent 60%)
+    marginY:
+      desktop: none xl
   - type: comparison_table
-    version: "1.0"
-    title: Choose Your New Career
-    subtitle: Compare our programs to see which skills, roles, and career opportunities align with your goals.
+    section_id: comparison_table-9ssv52
+    version: "2.0"
     columns:
       - name: Category
         highlight: true
       - name: AI Engineering
-      - name: Full Stack Development with AI
-      - name: Data Science & Machine Learning with AI
-      - name: Cybersecurity
+      - name: AI Fluent for Professionals
+      - name: AI Flex
     rows:
-      - feature: What It Is
+      - feature: Who It's For
         values:
-          - Learn to design and orchestrate complete AI systems by developing a real AI-native business from architecture to deployment.
-          - Learn to build web applications and software from scratch using front-end, back-end, and AI-powered development tools.
-          - Learn to gather, analyze, and model data using Python, machine learning, and AI.
-          - Learn to protect systems, networks, and data from cyber threats.
-      - feature: Why It Matters
+          - For anyone who wants to change careers and build AI systems. No prior technical experience required. Ideal for developers, career switchers, and technical professionals.
+          - For marketers, lawyers, consultants, executives, and any professional with cognitive work who still does manually what AI can do better. No coding required.
+          - For anyone who wants to explore before committing. Choose up to 4 courses from the catalog, at your own pace, with the option to credit what you've learned if you later decide on the full bootcamp.
+      - feature: Why Now
         values:
-          - Companies are racing to integrate AI into real operations and services. AI engineers design the systems, agents, and workflows that power modern AI-driven businesses.
-          - Companies need scalable digital solutions. Full Stack Developers power operations, marketing, and customer experiences. With AI, they automate processes and build smarter software.
-          - Businesses rely on data to drive decisions. Data Scientists turn raw data into insights, while machine learning automates predictions and personalizes experiences.
-          - Every business faces cyber risks. Cybersecurity experts defend data, ensure compliance, and prevent costly attacks in today's digital-first world.
-      - feature: What You'll Learn
+          - 73% of Fortune 500 companies are hiring AI Engineers today. Salaries grew 40% in two years. This isn't a trend — it's the new backbone of software, and Cybersecurity, Full Stack, and Data Science roles today are all built on this foundation.
+          - Professionals who use AI productively complete tasks 40–60% faster (MIT, BCG). A productivity gap between colleagues already exists. Those who don't adapt aren't competing on equal footing.
+          - The catalog runs from Prompt Engineering to Data Science and ML. Each course comes with its own certificate — and they all count if you later decide to do the full AI Engineering Bootcamp.
+      - feature: What You'll Build
         values:
-          - AI system architecture, LLM integrations, AI agents, workflow automation, APIs, databases, modern AI development tools, and AI-assisted engineering workflows.
-          - HTML, CSS, JavaScript, Python, React, databases, APIs, GitHub workflows, and AI tools like OpenAI/GPT, Cursor, Vercel v0.
-          - Python, SQL, statistics, data visualization, machine learning, AI tools, and real-world modeling techniques.
-          - Network security, ethical hacking, risk assessment, threat analysis, incident response, and tools like Wireshark and Splunk.
-      - feature: Ideal For
+          - Agents with tool calling, RAG pipelines, multi-agent systems with LangGraph, APIs with FastAPI, automated workflows with n8n, and a full capstone that transforms a real company with AI.
+          - A personal prompt library for your actual work, a working automation in n8n, and elimination of your 3 most repetitive tasks. All in 4 weeks, no code.
+          - Something real in an area you care about. Choose Vibe Coding and you build an app. Choose Prompt Engineering and you leave with a library ready to use tomorrow. Choose No-Code and you have an active workflow. Each course has its own project. We recommend 4 courses based on your profile, but you have access to the full catalog.
+      - feature: Target Roles
         values:
-          - Builders who want to design and implement real AI systems and architectures. Great for developers, technical problem-solvers, and career switchers aiming for advanced AI roles.
-          - Creative problem-solvers who enjoy building and seeing results come to life.
-          - Analytical thinkers who love numbers, trends, and solving patterns.
-          - Detail-oriented people who enjoy puzzles, rules, and outsmarting threats.
-      - feature: Day-to-Day Work
-        values:
-          - Design AI-powered systems, orchestrate agent workflows, integrate models into operational pipelines, automate business processes, and deploy scalable AI infrastructure.
-          - Build and improve web applications, develop front-end interfaces, implement back-end logic, integrate APIs, and ship new product features.
-          - Clean and analyze data, build models, create dashboards, and deliver insights.
-          - Monitor networks, test defenses, respond to incidents, and develop security policies.
-      - feature: Job Titles
-        values:
-          - AI Engineer, Forward-Deployed Engineer, AI Software Engineer, AI Systems Engineer, Automation Engineer.
-          - Full Stack Developer, Front-End Developer, Back-End Developer, AI Software Engineer, Web Developer.
-          - Data Analyst, Data Scientist, Machine Learning Engineer, BI Analyst.
-          - Cybersecurity Analyst, SOC Analyst, Penetration Tester, Security Consultant.
+          - AI Engineer, Forward-Deployed Engineer, AI Systems Engineer, Automation Engineer, AI Software Engineer
+          - N/A. Designed to enhance the role you already have, not to change it.
+          - Varies based on courses chosen. Can be a path toward AI Engineering or a complement to any technical career.
       - feature: Average U.S. Salary
         values:
           - $100K to $160K
-          - $75K to $110K
-          - $85K to $130K
-          - $80K to $120K
-      - feature: Bootcamp Schedule
+          - Productivity gain in your current role — not an immediate change in base salary.
+          - As you complete more courses, you strengthen your current field. If you later decide to pursue AI Engineering, you'll already have a solid foundation and an average salary backed by market demand of $100K to $160K in the U.S.
+      - feature: Duration
         values:
-          - Part-Time (24 weeks). Accelerated Morning Track (15 weeks)
-          - Part-Time (20 weeks).
-          - Part-Time (16 weeks).
-          - Part-Time (16 weeks).
-      - feature: Course Delivery
-        values:
-          - Online.
-          - Online (select cities).
-          - Online.
-          - Online.
+          - Part-Time 24 weeks or 15-week intensive
+          - 4 weeks, 1 live class per week plus self-paced modules
+          - No fixed end date — progress at your own pace. Each course has its own estimated hours (6 to 22 hrs).
       - feature: Cost
         values:
-          - $14,999 (discounts and scholarships available).
-          - $10,999 (discounts and scholarships available).
-          - $10,999 (discounts and scholarships available).
-          - $9,999 (discounts and scholarships available).
+          - $14,999 (discounts and scholarships available)
+          - {{ global.ai.fluency.price | $900 }} (Discounts and installment payments available)
+          - $49.99/month. 3, 6, or 12-month plans. 25% off the annual plan. 7-day free trial.
       - feature: Payment Plans
         values:
-          - Monthly plans, upfront discounts, loans, and income-based options.
-          - Monthly plans, upfront discounts, loans, and income-based options.
-          - Monthly plans, upfront discounts, loans, and income-based options.
-          - Monthly plans, upfront discounts, loans, and income-based options.
+          - Monthly plans, upfront payment discount, loans and ISA available.
+          - Pay in full with 10% off or in 4 interest-free installments.
+          - Quarterly, semi-annual, or annual. Annual plan includes 25% off. No contracts — cancel anytime.
       - feature: Job Guarantee
         values:
-          - Available for additional $2,000.
-          - Available for additional $2,000. Included in the full time course option at no extra cost.
-          - Available for additional $2,000.
-          - Available for additional $2,000.
+          - Available for an additional $2,000.
+          - N/A.
+          - N/A — not a career-change program.
       - feature: Best For You If
         values:
-          - You want to design and implement real AI systems that power modern businesses. Ideal for developers or ambitious career switchers aiming to work directly with modern AI technologies and automation.
-          - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
-          - You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break into AI or data-driven roles. A math or business background helps, but is not required.
-          - You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or compliance work, or dream of working in IT security, law enforcement, or defense.
-      - feature: Ready to start?
+          - You want a new job in tech, with engineering-level pay, building the systems others simply use. Works even if you don't know how to code today.
+          - You already have a job and want to be the most productive person on your team using AI. You don't want to learn code — you want results this week.
+          - You're not sure what you want to learn. You prefer to try before committing, or you need a specific skill without doing a full bootcamp.
+      - feature: Were You Looking for Another Program?
+        values:
+          - Cybersecurity, Data Science, and Full Stack modules live inside AI Engineering. The market absorbed them — today they're built on the same foundation of agents, LLMs, and automation.
+          - If you were looking for Cybersecurity or Data Science for your current job, AI Fluent gives you the tools to use AI in your professional context without changing careers.
+          - Fullstack Dev, Data Science and ML, and No-Code are available as individual courses in the AI Flex catalog. Explore them before committing to a bootcamp.
+      - feature: Ready to Get Started?
         values:
           - cta:
               - text: Apply Now
                 url: /en/apply
                 variant: primary
-              - text: Learn More
+              - text: View full program
                 url: /en/career-programs/ai-engineering
                 variant: outline
           - cta:
-              - text: Apply Now
-                url: /en/apply
+              - text: Learn more
+                url: /en/career-programs/ai-fluent
                 variant: primary
-              - text: Learn More
-                url: /en/career-programs/full-stack
-                variant: outline
           - cta:
-              - text: Apply Now
-                url: /en/apply
+              - text: Start free — 7 days
+                url: /en/ai-flex
                 variant: primary
-              - text: Learn More
-                url: /en/career-programs/data-science-ml
+              - text: View catalog
+                url: /en/ai-flex/catalog
                 variant: outline
-          - cta:
-              - text: Apply Now
-                url: /en/apply
-                variant: primary
-              - text: Learn More
-                url: /en/career-programs/cybersecurity
-                variant: outline
-    footer_note: "* Program details subject to change"
-    section_id: comparison_table-7id0o1
-    marginY:
-      desktop: xl lg
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-  - type: hero
-    section_id: hero-fzh5wv
+    footer_note: "* Some programs are subject to regional availability. Discounts and scholarships available for all career programs."
+    other_programs_note:
+      title: Were You Looking for Cybersecurity, Full Stack, or Data Science?
+      message: These programs are still available. The market is absorbing them into AI. A Cybersecurity expert today uses LLMs for auditing. A Data Scientist today works with AI pipelines. A Full Stack Developer today builds with agents. If you're interested in any of them, let us know and we'll help you find the path that makes the most sense for you.
+      programs:
+        - name: Full Stack Development with AI
+          url: /en/career-programs/full-stack
+        - name: Data Science & Machine Learning with AI
+          url: /en/career-programs/data-science-ml
+        - name: Cybersecurity
+          url: /en/career-programs/cybersecurity
+  - type: sticky_cta
     version: "1.0"
-    variant: singleColumn
-    title: Find Your Best Path Into Tech
-    badge: Compare our programs
-    trust_bar:
-      rating: {{ global.global_review_rating | 4.8 }}/5
-      rating_count: 2,500+
-      trusted_text: Trusted by {{ global.global_total_alumni | 10,000 }}+ students
-    award_badges:
-      - name: Best Coding Bootcamp
-        source: Forbes
-        year: "2024"
-      - name: Top Tech School
-        source: Course Report
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-    paddingY:
-      desktop: md none
-  - type: comparison_table
-    version: "1.0"
-    title: Choose Your New Career
-    subtitle: Compare our programs to see which skills, roles, and career opportunities align with your goals.
-    columns:
-      - name: Category
-        highlight: true
-      - name: AI Engineering
-      - name: Full Stack Development with AI
-      - name: Data Science & Machine Learning with AI
-      - name: Cybersecurity
-    rows:
-      - feature: What It Is
-        values:
-          - Learn to design and orchestrate complete AI systems by developing a real AI-native business from architecture to deployment.
-          - Learn to build websites, apps, and software from scratch with front-end, back-end, and AI tools.
-          - Learn to gather, analyze, and model data using Python, machine learning, and AI.
-          - Learn to protect systems, networks, and data from cyber threats.
-      - feature: Why It Matters
-        values:
-          - Companies are racing to integrate AI into real operations and services. AI engineers design the systems, agents, and workflows that power modern AI-driven businesses.
-          - Companies need scalable digital solutions. Full Stack Developers power operations, marketing, and customer experiences. With AI, they automate processes and build smarter products.
-          - Businesses rely on data to drive decisions. Data Scientists turn raw data into insights, while machine learning automates predictions and personalizes experiences.
-          - Every business faces cyber risks. Cybersecurity experts defend data, ensure compliance, and prevent costly attacks in today's digital-first world.
-      - feature: What You'll Learn
-        values:
-          - AI system architecture, LLM integrations, AI agents, workflow automation, APIs, databases, modern AI development tools, and AI-assisted engineering workflows.
-          - HTML, CSS, JavaScript, Python, React, databases, APIs, GitHub workflows, and AI tools like OpenAI/GPT, Cursor, Vercel v0.
-          - Python, SQL, statistics, data visualization, machine learning, AI tools, and real-world modeling techniques.
-          - Network security, ethical hacking, risk assessment, threat analysis, incident response, and tools like Wireshark and Splunk.
-      - feature: Ideal For
-        values:
-          - Builders who want to design and implement real AI systems and architectures. Great for developers, technical problem-solvers, and career switchers aiming for advanced AI roles.
-          - Creative problem-solvers who enjoy building and seeing results come to life.
-          - Analytical thinkers who love numbers, trends, and solving patterns.
-          - Detail-oriented people who enjoy puzzles, rules, and outsmarting threats.
-      - feature: Day-to-Day Work
-        values:
-          - Design AI-powered systems, orchestrate agent workflows, integrate models into operational pipelines, automate business processes, and deploy scalable AI infrastructure.
-          - Build and test websites and apps, integrate APIs, collaborate with designers, and launch features.
-          - Clean and analyze data, build models, create dashboards, and deliver insights.
-          - Monitor networks, test defenses, respond to incidents, and develop security policies.
-      - feature: Job Titles
-        values:
-          - AI Engineer, Forward-Deployed Engineer, AI Software Engineer, AI Systems Engineer, Automation Engineer.
-          - Full Stack Developer, Front-End Developer, Back-End Developer, AI Software Engineer, Web Developer.
-          - Data Analyst, Data Scientist, Machine Learning Engineer, BI Analyst.
-          - Cybersecurity Analyst, SOC Analyst, Penetration Tester, Security Consultant.
-      - feature: Average U.S. Salary
-        values:
-          - $85K to $130K
-          - $75K to $110K
-          - $85K to $130K
-          - $80K to $120K
-      - feature: Bootcamp Schedule
-        values:
-          - Part-Time (24 weeks).
-          - Part-Time (20 weeks).
-          - Part-Time (18 weeks).
-          - Part-Time (16 weeks).
-      - feature: Course Delivery
-        values:
-          - Online.
-          - Online.
-          - Online.
-          - Online.
-      - feature: Cost
-        values:
-          - $3,500 (discounts and scholarships available).
-          - $2,500 (discounts and scholarships available).
-          - $3,250 (discounts and scholarships available).
-          - $2,500 (discounts and scholarships available).
-      - feature: Payment Plans
-        values:
-          - Monthly plans, upfront discounts, and loans.
-          - Monthly plans, upfront discounts, and loans.
-          - Monthly plans, upfront discounts, and loans.
-          - Monthly plans, upfront discounts, and loans.
-      - feature: Best For You If
-        values:
-          - You want to design and implement real AI systems that power modern businesses. Ideal for developers or ambitious career switchers aiming to work directly with modern AI technologies and automation.
-          - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
-          - You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break into AI or data-driven roles. A math or business background helps, but is not required.
-          - You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or compliance work, or dream of working in IT security, law enforcement, or defense.
-      - feature: Ready to start?
-        values:
-          - cta:
-              - text: Apply Now
-                url: /en/apply
-                variant: primary
-              - text: Learn More
-                url: /en/career-programs/full-stack
-                variant: outline
-          - cta:
-              - text: Apply Now
-                url: /en/apply
-                variant: primary
-              - text: Learn More
-                url: /en/career-programs/data-science-ml
-                variant: outline
-          - cta:
-              - text: Apply Now
-                url: /en/apply
-                variant: primary
-              - text: Learn More
-                url: /en/career-programs/cybersecurity
-                variant: outline
-    footer_note: "* Program details subject to change"
-    section_id: comparison_table-0yx5qx
-    marginY:
-      desktop: none lg
-    showOnLocations:
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
-  - type: comparison_table
-    version: "1.0"
-    title: Choose Your New Career
-    subtitle: Compare our programs to see which skills, roles, and career opportunities align with your goals.
-    columns:
-      - name: Category
-        highlight: true
-      - name: AI Engineering
-      - name: Full Stack Development with AI
-      - name: Data Science & Machine Learning with AI
-      - name: Cybersecurity
-    rows:
-      - feature: What It Is
-        values:
-          - Learn to design and orchestrate complete AI systems by developing a real AI-native business from architecture to deployment.
-          - Learn to build websites, apps, and software from scratch with front-end, back-end, and AI tools.
-          - Learn to gather, analyze, and model data using Python, machine learning, and AI.
-          - Learn to protect systems, networks, and data from cyber threats.
-      - feature: Why It Matters
-        values:
-          - Companies are racing to integrate AI into real operations and services. AI engineers design the systems, agents, and workflows that power modern AI-driven businesses.
-          - Companies need scalable digital solutions. Full Stack Developers power operations, marketing, and customer experiences. With AI, they automate processes and build smarter products.
-          - Businesses rely on data to drive decisions. Data Scientists turn raw data into insights, while machine learning automates predictions and personalizes experiences.
-          - Every business faces cyber risks. Cybersecurity experts defend data, ensure compliance, and prevent costly attacks in today's digital-first world.
-      - feature: What You'll Learn
-        values:
-          - AI system architecture, LLM integrations, AI agents, workflow automation, APIs, databases, modern AI development tools, and AI-assisted engineering workflows.
-          - HTML, CSS, JavaScript, Python, React, databases, APIs, GitHub workflows, and AI tools like OpenAI/GPT, Cursor, Vercel v0.
-          - Python, SQL, statistics, data visualization, machine learning, AI tools, and real-world modeling techniques.
-          - Network security, ethical hacking, risk assessment, threat analysis, incident response, and tools like Wireshark and Splunk.
-      - feature: Ideal For
-        values:
-          - Builders who want to design and implement real AI systems and architectures. Great for developers, technical problem-solvers, and career switchers aiming for advanced AI roles.
-          - Creative problem-solvers who enjoy building and seeing results come to life.
-          - Analytical thinkers who love numbers, trends, and solving patterns.
-          - Detail-oriented people who enjoy puzzles, rules, and outsmarting threats.
-      - feature: Day-to-Day Work
-        values:
-          - Design AI-powered systems, orchestrate agent workflows, integrate models into operational pipelines, automate business processes, and deploy scalable AI infrastructure.
-          - Build and test websites and apps, integrate APIs, collaborate with designers, and launch features.
-          - Clean and analyze data, build models, create dashboards, and deliver insights.
-          - Monitor networks, test defenses, respond to incidents, and develop security policies.
-      - feature: Job Titles
-        values:
-          - AI Engineer, Forward-Deployed Engineer, AI Software Engineer, AI Systems Engineer, Automation Engineer.
-          - Full Stack Developer, Front-End Developer, Back-End Developer, AI Software Engineer, Web Developer.
-          - Data Analyst, Data Scientist, Machine Learning Engineer, BI Analyst.
-          - Cybersecurity Analyst, SOC Analyst, Penetration Tester, Security Consultant.
-      - feature: Average U.S. Salary
-        values:
-          - 25.000€ to 60.000€
-          - 22.000€ to 40.000€
-          - 30.000€ to 60.000€
-          - 25.000€ to 45.000€
-      - feature: Bootcamp Schedule
-        values:
-          - Part-Time (24 weeks).
-          - Part-Time (20 weeks).
-          - Part-Time (18 weeks).
-          - Part-Time (16 weeks).
-      - feature: Course Delivery
-        values:
-          - Online.
-          - Online.
-          - Online.
-          - Online.
-      - feature: Cost
-        values:
-          - 6.250€ Launch price (discounts and scholarships available).
-          - 6.800€ (discounts and scholarships available).
-          - 7.800€ (discounts and scholarships available).
-          - 7.800€ (discounts and scholarships available).
-      - feature: Payment Plans
-        values:
-          - Monthly plans, upfront discounts, and loans.
-          - Monthly plans, upfront discounts, and loans.
-          - Monthly plans, upfront discounts, and loans.
-          - Monthly plans, upfront discounts, and loans.
-      - feature: Best For You If
-        values:
-          - You want to design and implement real AI systems that power modern businesses. Ideal for developers or ambitious career switchers aiming to work directly with modern AI technologies and automation.
-          - "You love creating things from scratch: websites, apps, or tools. You enjoy problem-solving and AI-powered software engineering. Great for career-switchers, freelancers, or those aiming for startup and tech jobs."
-          - You enjoy working with data, spotting patterns, and solving real-world problems. Ideal if you want to break into AI or data-driven roles. A math or business background helps, but is not required.
-          - You want a future-proof career protecting data and systems. Perfect if you enjoy strategy, puzzles, or compliance work, or dream of working in IT security, law enforcement, or defense.
-      - feature: Ready to start?
-        values:
-          - cta:
-              - text: Apply Now
-                url: /en/apply
-                variant: primary
-              - text: Learn More
-                url: /en/career-programs/full-stack
-                variant: outline
-          - cta:
-              - text: Apply Now
-                url: /en/apply
-                variant: primary
-              - text: Learn More
-                url: /en/career-programs/data-science-ml
-                variant: outline
-          - cta:
-              - text: Apply Now
-                url: /en/apply
-                variant: primary
-              - text: Learn More
-                url: /en/career-programs/cybersecurity
-                variant: outline
-    footer_note: "* Program details subject to change"
-    section_id: comparison_table-0yx5qx
-    marginY:
-      desktop: none lg
-    showOnLocations:
-      - barcelona-spain
-      - berlin-germany
-      - hamburg-germany
-      - dublin-ireland
-      - lisbon-portugal
-      - madrid-spain
-      - malaga-spain
-      - milan-italy
-      - munich-germany
-      - rome-italy
-      - valencia-spain
-  - type: course_selector
-    version: "1.0"
-    variant: solid
-    heading: Program Tuition
-    subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
-    courses:
-      - name: AI Engineering
-        icon: Brain
-        duration: 24 weeks
-        label: Updated in 2026
-        title: AI Engineering
-        badges:
-          - icon: DollarSign
-            text: $14,999 full tuition
-          - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
-        description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
-        price: $349
-        price_info: or less depending on your plan
-        cta_text: Discover program
-        cta_url: /en/career-programs/ai-engineering
-        course_background: accent
-      - name: Full Stack Development with AI
-        icon: Code
-        duration: 20 weeks
-        label: Updated in 2026
-        title: Full Stack Software Development
-        badges:
-          - icon: DollarSign
-            text: $10,999 full tuition
-          - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
-        tags:
-          - icon: ""
-            text: ""
-        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
-        price: $299
-        price_info: or less depending on your plan
-        cta_text: View Program Details
-        cta_url: /en/career-programs/full-stack
-        course_background: hsl(var(--destructive))
-      - name: Data Science & ML
-        icon: ChartLine
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Data Science & Machine Learning with AI
-        badges:
-          - icon: DollarSign
-            text: $10,999 full tuition
-          - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
-        description: Master AI-powered data analysis and build intelligent models to solve real-world problems.
-        price: $299
-        price_info: or less depending on your plan
-        cta_text: Discover program
-        cta_url: /en/career-programs/data-science-ml
-        course_background: primary
-      - name: Cybersecurity
-        icon: Shield
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Cybersecurity
-        badges:
-          - icon: DollarSign
-            text: $9,999 full tuition
-          - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
-        description: Learn to protect systems and data with modern cybersecurity tools, hands-on labs, and practical exercises.
-        price: $299
-        price_info: or less depending on your plan
-        cta_text: Discover program
-        cta_url: /en/career-programs/cybersecurity
-        course_background: hsl(var(--secondary-foreground))
-    section_id: course_selector-tvtjvo
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-  - type: course_selector
-    section_id: course_selector-w8db5w
-    version: "1.0"
-    variant: solid
-    heading: Program Tuition
-    subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
-    courses:
-      - name: AI Engineering
-        icon: Brain
-        duration: 24 weeks
-        label: Updated in 2026
-        title: AI Engineering
-        badges:
-          - icon: DollarSign
-            text: {{ global.price_full_ai_engineering | $14,999 }} full tuition
-          - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
-        description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
-        price: {{ global.price_ai_engineering | $349 }}
-        price_info: or less depending on your plan
-        cta_text: Discover program
-        cta_url: /en/career-programs/ai-engineering
-        course_background: accent
-      - name: Full Stack Development with AI
-        icon: Code
-        duration: 20 weeks
-        label: Updated in 2026
-        title: Full Stack Software Development
-        badges:
-          - icon: DollarSign
-            text: {{ global.price_full_fullstack | $10,999 }} full tuition
-          - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
-        tags:
-          - icon: ""
-            text: ""
-        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
-        price: {{ global.price_fullstack | $299 }}
-        price_info: or less depending on your plan
-        cta_text: View Program Details
-        cta_url: /en/career-programs/full-stack
-        course_background: hsl(var(--destructive))
-      - name: Data Science & ML
-        icon: ChartLine
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Data Science & Machine Learning with AI
-        badges:
-          - icon: DollarSign
-            text: {{ global.price_full_datascience | $14,999 }} full tuition
-          - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
-        description: Master AI-powered data analysis and build intelligent models to solve real-world problems.
-        price: {{ global.price_datascience | 299$ }}
-        price_info: or less depending on your plan
-        cta_text: Discover program
-        cta_url: /en/career-programs/data-science-ml
-        course_background: primary
-      - name: Cybersecurity
-        icon: Shield
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Cybersecurity
-        badges:
-          - icon: DollarSign
-            text: {{ global.price_full_cybersecurity | $14,999 }} full tuition
-          - icon: CheckCircle
-            text: Qualifies for 10% upfront discount, interest-free installments, extended financing, optional Job Guarantee*
-        description: Learn to protect systems and data with modern cybersecurity tools, hands-on labs, and practical exercises.
-        price: {{ global.price_cybersecurity | 299$ }}
-        price_info: or less depending on your plan
-        cta_text: Discover program
-        cta_url: /en/career-programs/cybersecurity
-        course_background: hsl(var(--secondary-foreground))
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none lg
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
-  - type: course_selector
-    version: "1.0"
-    variant: solid
-    heading: Program Tuition
-    subheading: "<span style=\"font-size: 1.125rem;\">See tuition and funding options for each program.&nbsp;<div></div></span><div><span style=\"font-size: 0.875rem;\">*The Job Guarantee is not available in all regions.<span style=\"color: hsl(var(--primary));\"> <a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\">Terms and conditions apply.</a></span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\"></a></span></div>"
-    courses:
-      - name: AI Engineering
-        icon: Brain
-        duration: 24 weeks
-        label: Updated in 2026
-        title: AI Engineering
-        badges:
-          - icon: DollarSign
-            text: €6.250 launch price
-          - icon: CheckCircle
-            text: Spring offer, valid until May 1*
-        description: Build and scale a fully AI-native business while learning production-ready AI systems and workflows.
-        price: {{ global.price_ai_engineering | $349 }}
-        price_info: Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and subject to lender approval.*
-        cta_text: Discover program
-        cta_url: /en/career-programs/ai-engineering
-        course_background: accent
-      - name: Full Stack Development with AI
-        icon: Code
-        duration: 20 weeks
-        label: Updated in 2026
-        title: Full Stack Software Development
-        badges:
-          - icon: DollarSign
-            text: {{ global.price_full_fullstack | $10,999 }} full tuition
-          - icon: CheckCircle
-            text: Explore available scholarships based on your profile and financing options that can help you take the next step.*
-        tags:
-          - icon: ""
-            text: ""
-        description: "Master modern web development from frontend to backend and build production-ready applications using industry-standard tools.  "
-        price: {{ global.price_fullstack | $299 }}
-        price_info: Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to lender approval.*
-        cta_text: View Program Details
-        cta_url: /en/career-programs/full-stack
-        course_background: hsl(var(--destructive))
-      - name: Data Science & ML
-        icon: ChartLine
-        duration: 18 weeks
-        label: Updated in 2026
-        title: Data Science & Machine Learning with AI
-        badges:
-          - icon: DollarSign
-            text: {{ global.price_full_datascience | $14,999 }} full tuition
-          - icon: CheckCircle
-            text: Explore available scholarships based on your profile and financing options that can help you take the next step.*
-        description: Master AI-powered data analysis and build intelligent models to solve real-world problems.
-        price: {{ global.price_datascience | 299$ }}
-        price_info: Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to lender approval.*
-        cta_text: Discover program
-        cta_url: /en/career-programs/data-science-ml
-        course_background: primary
-      - name: Cybersecurity
-        icon: Shield
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Cybersecurity
-        badges:
-          - icon: DollarSign
-            text: {{ global.price_full_cybersecurity | $14,999 }} full tuition
-          - icon: CheckCircle
-            text: Explore available scholarships based on your profile and financing options that can help you take the next step.*
-        description: Learn to protect systems and data with modern cybersecurity tools, hands-on labs, and practical exercises.
-        price: {{ global.price_cybersecurity | 299$ }}
-        price_info: Estimated installment from €200/month financing with 4Geeks partners after a €500 deposit and subject to lender approval.*
-        cta_text: Discover program
-        cta_url: /en/career-programs/cybersecurity
-        course_background: hsl(var(--secondary-foreground))
-    section_id: course_selector-qbqdzx
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none lg
-    showOnLocations:
-      - barcelona-spain
-      - berlin-germany
-      - dublin-ireland
-      - hamburg-germany
-      - lisbon-portugal
-      - madrid-spain
-      - malaga-spain
-      - milan-italy
-      - munich-germany
-      - rome-italy
-      - valencia-spain
+    heading: Ready to start your tech career?
+    button_label: Apply Now
+    show_dismiss: false
+    form:
+      variant: inline
+      conversion_name: student_application
+      submit_label: Submit application
+      automations: strong
+      fields:
+        email:
+          visible: true
+          required: true
+          placeholder: Email
+        first_name:
+          visible: true
+          required: true
+          placeholder: First name
+        last_name:
+          visible: true
+          required: true
+          placeholder: Last name
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: true
+          required: true
+      success:
+        message: Thanks! We'll be in touch within 24 hours.
+    load: eager
+    section_id: sticky_cta-kjqv4c
   - type: cta_banner
     section_id: cta_banner-uhjj0i
     version: "1.0"
-    title: Take the Next Step Toward Your Tech Career
+    title: Take the next step toward your tech career
     subtitle: Get pricing, program details, and personalized guidance.
     background: hsl(var(--primary))
     variant: form
@@ -751,6 +200,7 @@ sections:
       variant: stacked
       submit_label: Get the details
       conversion_name: request_more_info
+      tags: request_more_info
       fields:
         email:
           visible: true
@@ -769,39 +219,13 @@ sections:
           required: true
       success:
         message: Thank you! We'll be in touch soon.
+      consent:
+        email: true
+        marketing: true
+      show_terms: true
       button_className: bg-white text-primary hover:bg-white/90 border-white
       terms_className: text-white/80
     marginY:
       desktop: lg none
     paddingY:
       desktop: md
-  - type: sticky_cta
-    section_id: sticky_cta-c53354
-    version: "1.0"
-    heading: Ready to start your tech career?
-    button_label: Apply Now
-    show_dismiss: false
-    form:
-      variant: inline
-      conversion_name: student_application
-      submit_label: Submit Application
-      automations: strong
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        last_name:
-          visible: true
-          required: false
-        phone:
-          visible: true
-          required: false
-        program:
-          visible: false
-          required: false
-          default: ai-engineering
-      success:
-        message: Thanks! We'll be in touch within 24 hours.
