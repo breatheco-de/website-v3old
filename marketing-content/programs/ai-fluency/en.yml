@@ -334,7 +334,7 @@ sections:
       desktop: lg md
     paddingY:
       desktop: md
-    background: hsl(var(--secondary))
+    background: hsl(210 100% 50% / 0.05)
   - type: pricing
     version: "1.0"
     variant: product
