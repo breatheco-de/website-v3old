@@ -156,7 +156,7 @@ function OrbitDiagram({
       ref={sceneRef}
       className="orbit-scene relative flex items-center justify-center flex-shrink-0"
       style={{
-        width: "clamp(310px, 48vw, 570px)",
+        width: "clamp(275px, 48vw, 570px)",
         aspectRatio: "650 / 540",
       }}
       onMouseMove={handleMouseMove}
@@ -251,10 +251,10 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
       data-testid="section-hero-orbit"
     >
       <div>
-        <div className="w-full grid grid-cols-1 lg:grid-cols-[2fr_680px] lg:gap-x-1">
+        <div className="w-full grid grid-cols-1 md:grid-cols-[2fr_3fr] md:gap-x-1">
 
           {/* TOP LEFT — eyebrow + title */}
-          <div className="flex flex-col gap-4 lg:self-end lg:pb-4">
+          <div className="flex flex-col gap-4 md:self-end md:pb-4">
             {data.eyebrow && (
               <div
                 className="flex items-center gap-2 text-[0.72rem] font-bold tracking-[0.12em] text-primary uppercase"
@@ -273,7 +273,7 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
 
           {/* RIGHT — orbit (spans 2 rows on desktop, order-3 on mobile) */}
           <div
-            className="max-lg:order-3 lg:row-span-2 lg:col-start-2 lg:row-start-1 flex items-center justify-center max-lg:py-8"
+            className="max-md:order-3 md:row-span-2 md:col-start-2 md:row-start-1 flex items-center justify-center max-md:py-8"
             data-testid="hero-orbit-diagram"
           >
             <OrbitDiagram
@@ -287,10 +287,10 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
           </div>
 
           {/* BOTTOM LEFT — body + CTAs + stat */}
-          <div className="max-lg:contents lg:flex lg:flex-col lg:gap-[1.4rem] lg:self-start lg:pt-4">
+          <div className="max-md:contents md:flex md:flex-col md:gap-[1.4rem] md:self-start md:pt-4">
             {data.body && (
               <p
-                className="max-lg:order-1 max-lg:mt-4 text-muted-foreground text-[0.88rem] md:text-[0.92rem] lg:text-[1.1rem] lg:max-w-[430px] leading-[1.65] m-0 font-medium"
+                className="max-md:order-1 max-md:mt-4 text-muted-foreground text-[0.88rem] md:text-[0.92rem] lg:text-[1.1rem] lg:max-w-[430px] leading-[1.65] m-0 font-medium"
                 data-testid="text-hero-body"
               >
                 {data.body}
@@ -299,7 +299,7 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
 
             {data.cta_buttons && data.cta_buttons.length > 0 && (
               <div
-                className="max-lg:order-2 max-lg:mt-4 flex items-center gap-3"
+                className="max-md:order-2 max-md:mt-4 flex flex-wrap items-center justify-center md:justify-start gap-2 md:gap-3"
                 data-testid="hero-cta-buttons"
               >
                 {data.cta_buttons.map((btn, i) => (
@@ -309,7 +309,7 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
                     asChild
                     data-testid={`button-hero-cta-${i}`}
                   >
-                    <a href={btn.url} onClick={handleLinkClick} className="flex items-center gap-1.5 px-4 py-1 text-sm lg:gap-2 lg:px-5 lg:py-1 font-semibold">
+                    <a href={btn.url} onClick={handleLinkClick} className="flex items-center !gap-1 px-2 py-1 text-sm lg:gap-2 lg:px-5 lg:py-1 font-semibold">
                       {btn.icon &&
                         (() => {
                           const Ic = getIcon(btn.icon);
@@ -324,7 +324,7 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
 
             {data.stat && (
               <div
-                className="max-lg:order-4 max-lg:mt-4 flex items-start gap-2 text-[0.95rem] md:text-[1rem] lg:text-[1.05rem] text-muted-foreground"
+                className="max-md:order-4 max-md:mt-4 flex items-start gap-2 text-[0.95rem] md:text-[1rem] lg:text-[1.05rem] text-muted-foreground"
                 data-testid="text-hero-stat"
               >
                 <span className="w-[0.45rem] h-[0.45rem] rounded-full bg-muted-foreground/40 flex-shrink-0 mt-[0.15rem]" />

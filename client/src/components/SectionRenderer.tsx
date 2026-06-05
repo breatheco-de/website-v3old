@@ -148,8 +148,8 @@ function parseResponsiveInnerPaddingXFromMaxWidth(value: ResponsiveSpacing | und
   if (!maxWidth) return null;
 
   return {
-    mobile: hasConstrainedMaxWidth(maxWidth.mobile) ? "1rem" : DEFAULT_INNER_PADDING_X,
-    desktop: hasConstrainedMaxWidth(maxWidth.desktop) ? "1rem" : DEFAULT_INNER_PADDING_X,
+    mobile: hasConstrainedMaxWidth(maxWidth.mobile) ? "0.8rem" : DEFAULT_INNER_PADDING_X,
+    desktop: hasConstrainedMaxWidth(maxWidth.desktop) ? "0.8rem" : DEFAULT_INNER_PADDING_X,
   };
 }
 
@@ -1363,6 +1363,8 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
             marginLeft: "auto",
             marginRight: "auto",
             width: "100%",
+            paddingLeft: "var(--section-inner-px)",
+            paddingRight: "var(--section-inner-px)",
           };
           const showOn = (rawSection as SectionLayout).showOn;
 
