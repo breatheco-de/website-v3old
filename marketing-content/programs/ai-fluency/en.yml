@@ -430,8 +430,8 @@ sections:
           - valencia-spain
   - type: cta_banner
     version: "1.0"
-    title: Ready to Become an {{ single.job_role | AI Engineer }}?
-    subtitle: The fastest-growing job of 2026 is a click away. This is your window. Join the next cohort.
+    title: Ready to Build Your AI Fluency?
+    subtitle: Join the next cohort and leave with real skills, a live automation, and a certificate. Your next step starts here.
     background: hsl(var(--primary))
     variant: form
     form:
@@ -454,7 +454,7 @@ sections:
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | ai-engineering }}
+          default: {{ single.bc_slug | ai-fluency }}
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
       button_className: bg-primary
@@ -465,7 +465,7 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-    section_id: cta_banner-7h2ckt
+    section_id: cta_banner-aifluency
   - type: sticky_cta
     section_id: sticky_cta-euuky9
     version: "1.0"
