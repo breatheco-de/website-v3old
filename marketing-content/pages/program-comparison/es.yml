@@ -42,7 +42,7 @@ sections:
     variant: orbit
     eyebrow: NO IMPORTA QUE BUSCAS
     title: "<span style=\"font-size: 3.75rem;\"> La AI es el <em>camino.</em></span><em></em>"
-    body: Cybersecurity, Full Stack, Data Science — the skills still matter. But every one now runs on AI, and that's where the jobs are. We rebuilt 4Geeks around it.
+    body: Cybersecurity, Full Stack, Data Science — el mercado los absorbió. Hoy todos esos roles se construyen sobre AI. Aquí están las tres formas de llegar, dependiendo de dónde estés parado.
     stat: <strong>1.3M</strong> new AI roles opening — every field now hires for AI fluency
     cta_buttons:
       - text: Start your application
