@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { Code, Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { IS_SERVER } from "@/lib/initialData";
-import { useParams, useLocation } from "wouter";
+import { useParams, useLocation, useSearch } from "wouter";
 import { useTranslation } from "react-i18next";
 import { SectionRenderer } from "@/components/SectionRenderer";
 import { apiFetch } from "@/lib/queryClient";
@@ -24,12 +24,14 @@ const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditor
 
 export default function Page() {
   const [location, setLocation] = useLocation();
+  const searchString = useSearch();
   const { i18n } = useTranslation();
   const localeMatch = location.split("?")[0].match(/^\/([a-z]{2}(?:-[a-z]{2})?)\//i);
   const locale = localeMatch ? localeMatch[1].toLowerCase() : "en";
   const i18nLocale = locale.split("-")[0];
   const params = useParams<{ slug: string }>();
   const slugFromPath = location.split("?")[0].replace(/^\/[a-z]{2}(?:-[a-z]{2})?\//i, "").split("/")[0] || "";
+  const forceVariant = new URLSearchParams(searchString).get("force_variant") ?? undefined;
 
   const { data: homePageSettings } = useQuery<{ type: string; slug: string }>({
     queryKey: ["/api/settings/home-page"],
@@ -47,9 +49,11 @@ export default function Page() {
   }, [i18nLocale, i18n]);
 
   const { data: page, isLoading, error, refetch } = useQuery<TemplatePage>({
-    queryKey: ["/api/pages", slug, locale],
+    queryKey: ["/api/pages", slug, locale, forceVariant],
     queryFn: async () => {
-      const response = await apiFetch(`/api/pages/${slug}?locale=${locale}`);
+      const qs = new URLSearchParams({ locale });
+      if (forceVariant) qs.set("force_variant", forceVariant);
+      const response = await apiFetch(`/api/pages/${slug}?${qs}`);
       if (!response.ok) {
         throw new Error("Page not found");
       }

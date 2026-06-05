@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSearch } from "wouter";
 import { deslugify } from "../utils/debugHelpers";
-import { IconArrowLeft, IconGitBranch, IconRefresh, IconPencil, IconCheck, IconX, IconPlayerPlay, IconPlus, IconHistory, IconExternalLink, IconArrowBackUp, IconCrown, IconTrash, IconDots, IconCode } from "@tabler/icons-react";
+import { IconArrowLeft, IconGitBranch, IconRefresh, IconPencil, IconCheck, IconX, IconPlayerPlay, IconPlus, IconHistory, IconExternalLink, IconArrowBackUp, IconCrown, IconTrash, IconDots, IconCode, IconShare, IconCopy } from "@tabler/icons-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
@@ -54,6 +54,8 @@ export function VersioningView({
   const [createVersionLocale, setCreateVersionLocale] = useState("en");
   const [isCreatingVersion, setIsCreatingVersion] = useState(false);
 
+  const [shareTarget, setShareTarget] = useState<{ locale: string; slug: string } | null>(null);
+
   const [promoteTarget, setPromoteTarget] = useState<{ locale: string; slug: string } | null>(null);
   const [isPromoting, setIsPromoting] = useState(false);
 
@@ -76,6 +78,13 @@ export function VersioningView({
     }
   };
 
+  const buildPublicPath = (type: string, slug: string, locale: string): string => {
+    if (type === "program") return `/${locale}/career-programs/${slug}`;
+    if (type === "location") return `/${locale}/location/${slug}`;
+    if (type === "landing") return `/landing/${slug}`;
+    return `/${locale}/${slug}`;
+  };
+
   const handleSwitchVariant = (locale: string, variantSlug: string) => {
     persistOpenStateForNavigation();
     if (isPreview && contentInfo.type && contentInfo.slug) {
@@ -85,11 +94,7 @@ export function VersioningView({
     } else {
       const { type, slug } = contentInfo;
       if (!type || !slug) return;
-      let basePath = "";
-      if (type === "program") basePath = `/${locale}/career-programs/${slug}`;
-      else if (type === "location") basePath = `/${locale}/location/${slug}`;
-      else if (type === "landing") basePath = `/landing/${slug}`;
-      else basePath = `/${locale}/${slug}`;
+      const basePath = buildPublicPath(type, slug, locale);
       window.location.href = `${basePath}?force_variant=${encodeURIComponent(variantSlug)}`;
     }
   };
@@ -110,12 +115,7 @@ export function VersioningView({
     } else {
       const { type, slug } = contentInfo;
       if (!type || !slug) return;
-      let basePath = "";
-      if (type === "program") basePath = `/${locale}/career-programs/${slug}`;
-      else if (type === "location") basePath = `/${locale}/location/${slug}`;
-      else if (type === "landing") basePath = `/landing/${slug}`;
-      else basePath = `/${locale}/${slug}`;
-      window.location.href = basePath;
+      window.location.href = buildPublicPath(type, slug, locale);
     }
   };
 
@@ -645,6 +645,26 @@ export function VersioningView({
                                     <Button
                                       size="icon"
                                       variant="ghost"
+                                      className="h-5 w-5 shrink-0"
+                                      onClick={() => setShareTarget({ locale, slug: variant.slug })}
+                                      data-testid={`button-share-variant-${locale}-${variant.slug}`}
+                                    >
+                                      <IconShare className="h-3 w-3" />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent side="top">
+                                    <p>Share preview link</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+                            )}
+                            {!isEditing && (
+                              <TooltipProvider delayDuration={300}>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      size="icon"
+                                      variant="ghost"
                                       className="h-5 w-5 shrink-0 transition-colors hover:bg-yellow-100 hover:text-yellow-700 dark:hover:bg-yellow-900/40 dark:hover:text-yellow-400"
                                       onClick={() => setPromoteTarget({ locale, slug: variant.slug })}
                                       data-testid={`button-promote-variant-${locale}-${variant.slug}`}
@@ -892,6 +912,47 @@ export function VersioningView({
               </DialogFooter>
             </>
           )}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={shareTarget !== null} onOpenChange={(open) => { if (!open) setShareTarget(null); }}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Share this variant</DialogTitle>
+            <DialogDescription>
+              Anyone with this link will see the{" "}
+              <code className="text-xs bg-muted px-1 py-0.5 rounded">{shareTarget?.slug}</code>{" "}
+              variant regardless of traffic allocation. Use it to share a preview with stakeholders or clients without changing any live traffic split.
+            </DialogDescription>
+          </DialogHeader>
+          {shareTarget && contentInfo.type && contentInfo.slug && (
+            <div className="flex items-center gap-2">
+              <Input
+                readOnly
+                value={`${window.location.origin}${buildPublicPath(contentInfo.type, contentInfo.slug, shareTarget.locale)}?force_variant=${encodeURIComponent(shareTarget.slug)}`}
+                className="font-mono text-xs"
+                data-testid="input-share-variant-url"
+              />
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={() => {
+                  const url = `${window.location.origin}${buildPublicPath(contentInfo.type!, contentInfo.slug!, shareTarget.locale)}?force_variant=${encodeURIComponent(shareTarget.slug)}`;
+                  navigator.clipboard.writeText(url).then(() => {
+                    toast({ title: "Copied!", description: "Variant link copied to clipboard." });
+                  });
+                }}
+                data-testid="button-copy-share-url"
+              >
+                <IconCopy className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShareTarget(null)} data-testid="button-close-share-modal">
+              Close
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
 

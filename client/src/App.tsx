@@ -77,7 +77,6 @@ const DatabaseSinglePage = lazyWithRetry(() => import("@/pages/DatabaseSinglePag
 
 const PreviewFrame = lazyWithRetry(() => import("@/pages/PreviewFrame"));
 const PrivateRouter = lazyWithRetry(() => import("@/pages/PrivateRouter"));
-const ApplyPage = lazyWithRetry(() => import("@/pages/ApplyPage"));
 const TermsPage = lazyWithRetry(() => import("@/pages/TermsPage"));
 const PrivacyPage = lazyWithRetry(() => import("@/pages/PrivacyPage"));
 
@@ -244,8 +243,6 @@ function Router() {
         })}
         <Route path="/preview-frame" component={PreviewFrame} />
         <Route path="/private/*" component={PrivateRouter} />
-        <Route path="/en/apply" component={ApplyPage} />
-        <Route path="/es/aplica" component={ApplyPage} />
         <Route path="/terms-conditions" component={TermsPage} />
         <Route path="/terminos-condiciones" component={TermsPage} />
         <Route path="/privacy-policy" component={PrivacyPage} />

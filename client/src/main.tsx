@@ -41,8 +41,6 @@ const rootEl = document.getElementById("root")!;
       chunkLoads = [import("@/pages/PrivateRouter")];
     } else if (path === "/preview-frame") {
       chunkLoads = [import("@/pages/PreviewFrame")];
-    } else if (path === "/en/apply" || path === "/es/aplica") {
-      chunkLoads = [import("@/pages/ApplyPage")];
     } else if (
       path === "/terms-conditions" ||
       path === "/terminos-condiciones"

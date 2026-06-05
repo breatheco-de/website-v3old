@@ -63,7 +63,7 @@ sections:
     section_id: hero-zojvst
     version: "1.0"
     variant: singleColumn
-    title: Your Future in Tech Starts Here
+    title: Your Futuree in Tech Starts Here
     subtitle: "You’re one step closer to your new career in tech, congratulations! Fill out the form below, and our admissions team will walk you through the next steps.<div><br></div><div><span style=\"font-size: 12px; text-align: center;\">Florida residents: Only our full-stack development program is authorized by the Commission for Independent Education in Florida. Our job guarantee bundle is not offered in Florida where our only physical location is in Miami.</span></div>"
     marginY:
       desktop: md none
