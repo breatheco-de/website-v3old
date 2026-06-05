@@ -19,7 +19,7 @@ sections:
     version: v1.0
     variant: orbit
     eyebrow: NO IMPORTA QUÉ BUSCABAS
-    title: "<span style=\"font-size: 3.75rem;\"> La IA es<em>&nbsp;</em></span><div><span style=\"font-size: 3.75rem;\"><em><span style=\"font-size: 3.75rem;\">el camino.</span></em></span><em></em></div>"
+    title: "<span style=\"font-size: 3.75rem;\"> La IA es<em>&nbsp;</em></span><div><span style=\"font-size: 3.75rem;\"><em><span style=\"font-size: 3.75rem;\">El camino.</span></em></span><em></em></div>"
     body: Cybersecurity, Full Stack, Data Science. El mercado los absorbió y hoy todos esos roles se construyen sobre IA. Estas son las tres formas de llegar, según dónde estés parado hoy.
     stat: <strong>1.3M</strong> nuevos roles de IA abriéndose. Hoy cada sector contrata por fluidez en IA.
     cta_buttons:
