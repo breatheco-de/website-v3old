@@ -11,7 +11,7 @@ interface Props {
 function Badge({ label }: { label: string }) {
   return (
     <div
-      className="flex items-center gap-4 max-md:gap-[0.4rem] py-[0.6rem] px-[1.1rem] max-md:py-[0.3rem] max-md:px-[0.7rem] bg-background borderrounded-full whitespace-nowrap flex-shrink-0"
+      className="flex items-center gap-4 max-md:gap-[0.4rem] py-[0.6rem] px-[1.1rem] max-md:py-[0.3rem] max-md:px-[0.7rem] bg-background rounded-full whitespace-nowrap flex-shrink-0"
       data-testid="badge-marquee-item"
     >
       <span className="w-[0.45rem] h-[0.45rem] max-md:w-[0.35rem] max-md:h-[0.35rem] rounded-full flex-shrink-0 bg-primary/80" />
@@ -84,11 +84,11 @@ export default function BannerMarqueeBadges({ data }: Props) {
         >
           {subtitle && (
             <div
-              className="flex items-center gap-2 text-[0.85rem] md:text-[0.75rem] lg:text-[0.85rem] font-bold tracking-[0.12em] text-primary uppercase"
+              className="text-[0.85rem] md:text-[0.75rem] lg:text-[0.85rem] font-bold tracking-[0.12em] text-primary uppercase"
               data-testid="text-banner-subtitle"
             >
-              <span className="w-[0.55rem] h-[0.55rem] rounded-full bg-[hsl(142_71%_45%)] flex-shrink-0" />
-              <span>{subtitle}</span>
+              <span className="inline-block w-[0.55rem] h-[0.55rem] rounded-full bg-[hsl(142_71%_45%)] align-middle mr-[0.45rem]" />
+              {subtitle}
             </div>
           )}
           {title && (

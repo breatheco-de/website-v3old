@@ -210,11 +210,11 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
           <div className="flex flex-col gap-4 md:self-end md:pb-4">
             {data.eyebrow && (
               <div
-                className="flex items-start gap-2 text-[0.65rem] md:text-[0.72rem] font-bold tracking-[0.12em] text-primary uppercase"
+                className="text-[0.65rem] md:text-[0.72rem] font-bold tracking-[0.12em] text-primary uppercase"
                 data-testid="text-hero-eyebrow"
               >
-                <span className="w-[0.55rem] h-[0.55rem] rounded-full bg-[hsl(142_71%_45%)] flex-shrink-0 mt-[0.25rem]" />
-                <span>{data.eyebrow}</span>
+                <span className="inline-block w-[0.55rem] h-[0.55rem] rounded-full bg-[hsl(142_71%_45%)] align-middle mr-[0.45rem]" />
+                {data.eyebrow}
               </div>
             )}
             <h1
@@ -285,14 +285,11 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
 
             {data.stat && (
               <div
-                className="max-md:order-5 max-md:mt-4 flex items-start gap-2 text-[0.95rem] md:text-[1rem] lg:text-[1.05rem] text-muted-foreground"
+                className="max-md:order-5 max-md:mt-4 text-[0.95rem] md:text-[1rem] lg:text-[1.05rem] text-muted-foreground"
                 data-testid="text-hero-stat"
               >
-                <span className="w-[0.45rem] h-[0.45rem] rounded-full bg-muted-foreground/40 flex-shrink-0 mt-[0.3rem]" />
-                <p
-                  className="m-0 [&_strong]:text-foreground"
-                  dangerouslySetInnerHTML={{ __html: data.stat }}
-                />
+                <span className="inline-block w-[0.45rem] h-[0.45rem] rounded-full bg-muted-foreground/40 align-middle mr-[0.5rem]" />
+                <span className="[&_strong]:text-foreground" dangerouslySetInnerHTML={{ __html: data.stat }} />
               </div>
             )}
           </div>
