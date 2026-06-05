@@ -1011,7 +1011,7 @@ export function RichTextArea({
                     className={`flex items-center justify-between gap-4 px-3 py-1.5 rounded-md text-left hover:bg-muted/50 transition-colors${isActive ? " bg-accent/20 font-medium" : ""}`}
                     data-testid={testId ? `${testId}-fontsize-${size.id}` : undefined}
                   >
-                    <span style={{ fontSize: size.value }} className="text-foreground">
+                    <span style={{ fontSize: `min(${size.value}, 1.25rem)` }} className="text-foreground">
                       {size.label}
                     </span>
                     <span className="text-xs text-muted-foreground">{size.tailwind}</span>
