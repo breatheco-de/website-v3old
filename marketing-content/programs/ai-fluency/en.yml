@@ -151,7 +151,7 @@ sections:
         title: You know AI fluency is becoming a must-have to stay ahead in your career.
       - icon: IconCoin
         title: You want the salary premium that comes with real AI skills.
-    background: hsl(var(--card))
+    background: hsl(var(--muted))
     section_id: features_quad-aifluency
     marginY:
       desktop: none lg
