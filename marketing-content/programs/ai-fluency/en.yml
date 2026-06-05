@@ -68,7 +68,7 @@ sections:
     section_id: hero-aifluency
   - type: modal
     version: "1.0"
-    heading: Get the Full Program Details
+    heading: Get the Program Details
     description: Fill in your contact info and our admissions team will send you everything you need to know.
     show_close: true
     size: md
