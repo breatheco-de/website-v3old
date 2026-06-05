@@ -382,7 +382,7 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
-    background: hsl(var(--secondary))
+    background: hsl(210 100% 50% / 0.05)
   - type: testimonials
     section_id: testimonials-ghxelh
     title: The People Behind the Numbers.
