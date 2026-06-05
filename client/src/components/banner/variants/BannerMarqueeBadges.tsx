@@ -11,11 +11,11 @@ interface Props {
 function Badge({ label }: { label: string }) {
   return (
     <div
-      className="flex items-center gap-4 py-[0.6rem] px-[1.1rem] bg-background border rounded-full whitespace-nowrap flex-shrink-0"
+      className="flex items-center gap-4 max-md:gap-[0.4rem] py-[0.6rem] px-[1.1rem] max-md:py-[0.3rem] max-md:px-[0.7rem] bg-background border rounded-full whitespace-nowrap flex-shrink-0"
       data-testid="badge-marquee-item"
     >
-      <span className="w-[0.45rem] h-[0.45rem] rounded-full flex-shrink-0 bg-primary/80" />
-      <span className="text-[0.9rem] font-semibold text-foreground">{label}</span>
+      <span className="w-[0.45rem] h-[0.45rem] max-md:w-[0.35rem] max-md:h-[0.35rem] rounded-full flex-shrink-0 bg-primary/80" />
+      <span className="text-[0.9rem] max-md:text-[0.72rem] font-semibold text-foreground">{label}</span>
     </div>
   );
 }
@@ -84,7 +84,7 @@ export default function BannerMarqueeBadges({ data }: Props) {
         >
           {subtitle && (
             <div
-              className="flex items-center gap-2 text-[0.85rem] font-bold tracking-[0.12em] text-primary uppercase"
+              className="flex items-center gap-2 text-[0.85rem] md:text-[0.75rem] lg:text-[0.85rem] font-bold tracking-[0.12em] text-primary uppercase"
               data-testid="text-banner-subtitle"
             >
               <span className="w-[0.55rem] h-[0.55rem] rounded-full bg-[hsl(142_71%_45%)] flex-shrink-0" />
@@ -93,7 +93,7 @@ export default function BannerMarqueeBadges({ data }: Props) {
           )}
           {title && (
             <h2
-              className="font-inter text-[2.6rem] md:text-[3.75rem] lg:text-[5rem] font-black leading-[1.02] text-foreground tracking-[-0.02em] m-0 [&_em]:text-primary [&_em]:italic"
+              className="font-inter text-[2.6rem] md:text-[3.75rem] lg:text-[4.8rem] font-black leading-[1.02] text-foreground tracking-[-0.02em] m-0 [&_em]:text-primary [&_em]:italic"
               data-testid="text-banner-title"
               dangerouslySetInnerHTML={{ __html: title }}
             />
