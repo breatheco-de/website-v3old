@@ -1726,15 +1726,10 @@ export function DebugBubble() {
     return null;
   }
 
-  // Show fork bubble only on /private/preview routes when versioning.yml has ≥ 1 variant.
-  // versioning.yml only lists alternate/test variants — the default is implicit — so even
-  // a single entry means there are effectively 2 variants to switch between.
   const forkVariantCount = !versioningData?.versioning ? 0 : Math.max(...Object.values(versioningData.versioning).map((ld) => ld?.variants?.length ?? 0));
 
-  const showForkBubble = !shouldHide &&
-    versioningData?.hasVersioningFile &&
-    versioningData?.versioning != null &&
-    forkVariantCount >= 1;
+  // Fork bubble is always visible alongside the debug bubble — same show/hide rules.
+  const showForkBubble = !shouldHide;
 
   const search = useSearch();
   const activeVariant = new URLSearchParams(search).get("variant");
