@@ -55,6 +55,24 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
+// Legacy bare-path redirects — permanent 301s to locale-prefixed equivalents
+const _legacyPageRedirects: Record<string, string> = {
+  "/terms-conditions":      "/en/terms-conditions",
+  "/terminos-condiciones":  "/es/terms-conditions",
+  "/privacy-policy":        "/en/privacy-policy",
+  "/politica-privacidad":   "/es/privacy-policy",
+};
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const target = _legacyPageRedirects[req.path];
+  if (target) {
+    const url = req.originalUrl;
+    const qIndex = url.indexOf("?");
+    const qs = qIndex >= 0 ? url.slice(qIndex) : "";
+    return res.redirect(301, target + qs);
+  }
+  next();
+});
+
 app.use('/attached_assets', express.static(path.join(process.cwd(), 'attached_assets')));
 app.use('/marketing-content/images', express.static(path.join(process.cwd(), 'marketing-content', 'images')));
 

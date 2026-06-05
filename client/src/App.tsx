@@ -77,9 +77,6 @@ const DatabaseSinglePage = lazyWithRetry(() => import("@/pages/DatabaseSinglePag
 
 const PreviewFrame = lazyWithRetry(() => import("@/pages/PreviewFrame"));
 const PrivateRouter = lazyWithRetry(() => import("@/pages/PrivateRouter"));
-const TermsPage = lazyWithRetry(() => import("@/pages/TermsPage"));
-const PrivacyPage = lazyWithRetry(() => import("@/pages/PrivacyPage"));
-
 // Admin/editor-only UI — deferred into separate chunks so regular visitors
 // never download them as part of the initial bundle. They are already
 // client-only (inside <ClientOnly>) so no SSR preload is needed.
@@ -243,10 +240,6 @@ function Router() {
         })}
         <Route path="/preview-frame" component={PreviewFrame} />
         <Route path="/private/*" component={PrivateRouter} />
-        <Route path="/terms-conditions" component={TermsPage} />
-        <Route path="/terminos-condiciones" component={TermsPage} />
-        <Route path="/privacy-policy" component={PrivacyPage} />
-        <Route path="/politica-privacidad" component={PrivacyPage} />
         <Route path="/en/:slug" component={TemplatePage} />
         <Route path="/es/:slug" component={TemplatePage} />
         <Route path="/:locale/programas-de-carrera/:slug">
