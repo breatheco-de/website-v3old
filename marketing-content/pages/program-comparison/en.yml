@@ -5,7 +5,7 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: Compare Tech Career Programs | 4Geeks Academy
+  page_title: "Compare Tech Career Programs | 4Geeks Academy"
   description: "Compare 4Geeks Academy programs side by side: AI Engineering, Data Science, Cybersecurity, and Full Stack. Salaries, durations, costs, and job titles all in one place."
   redirects:
     - /program-comparison
@@ -32,7 +32,7 @@ sections:
         values:
           - Learn to design and orchestrate complete AI systems by developing a real AI-native business from architecture to deployment.
           - Learn to build web applications and software from scratch using front-end, back-end, and AI-powered development tools.
-          - Learn to gatherss, analyze, and model data using Python, machine learning, and AI.
+          - Learn to gather, analyze, and model data using Python, machine learning, and AI.
           - Learn to protect systems, networks, and data from cyber threats.
       - feature: Why It Matters
         values:
