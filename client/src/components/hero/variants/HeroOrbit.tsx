@@ -210,10 +210,10 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
           <div className="flex flex-col gap-4 md:self-end md:pb-4">
             {data.eyebrow && (
               <div
-                className="flex items-center gap-2 text-[0.72rem] font-bold tracking-[0.12em] text-primary uppercase"
+                className="flex items-start gap-2 text-[0.65rem] md:text-[0.72rem] font-bold tracking-[0.12em] text-primary uppercase"
                 data-testid="text-hero-eyebrow"
               >
-                <span className="w-[0.55rem] h-[0.55rem] rounded-full bg-[hsl(142_71%_45%)] flex-shrink-0" />
+                <span className="w-[0.55rem] h-[0.55rem] rounded-full bg-[hsl(142_71%_45%)] flex-shrink-0 mt-[0.25rem]" />
                 <span>{data.eyebrow}</span>
               </div>
             )}
@@ -260,26 +260,25 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
 
             {data.cta_buttons && data.cta_buttons.length > 0 && (
               <div
-                className="max-md:order-2 max-md:mt-4 flex flex-wrap gap-2 md:gap-3"
+                className="max-md:order-2 max-md:mt-4 flex flex-wrap justify-center md:justify-start gap-2 md:gap-3"
                 data-testid="hero-cta-buttons"
               >
                 {data.cta_buttons.map((btn, i) => (
-                  <div key={i} className="flex-1 min-w-fit flex justify-center md:flex-none">
-                    <Button
-                      variant={btn.variant === "primary" ? "default" : (btn.variant as "outline" | "secondary")}
-                      asChild
-                      data-testid={`button-hero-cta-${i}`}
-                    >
-                      <a href={btn.url} onClick={handleLinkClick} className="flex items-center !gap-1 px-2 py-1 text-sm lg:gap-2 lg:px-5 lg:py-1 font-semibold">
-                        {btn.icon &&
-                          (() => {
-                            const Ic = getIcon(btn.icon);
-                            return Ic ? createElement(Ic, { className: "h-4 w-4" }) : null;
-                          })()}
-                        {btn.text}
-                      </a>
-                    </Button>
-                  </div>
+                  <Button
+                    key={i}
+                    variant={btn.variant === "primary" ? "default" : (btn.variant as "outline" | "secondary")}
+                    asChild
+                    data-testid={`button-hero-cta-${i}`}
+                  >
+                    <a href={btn.url} onClick={handleLinkClick} className="flex items-center !gap-1 px-2 py-1 text-sm lg:gap-2 lg:px-5 lg:py-1 font-semibold">
+                      {btn.icon &&
+                        (() => {
+                          const Ic = getIcon(btn.icon);
+                          return Ic ? createElement(Ic, { className: "h-4 w-4" }) : null;
+                        })()}
+                      {btn.text}
+                    </a>
+                  </Button>
                 ))}
               </div>
             )}
@@ -289,7 +288,7 @@ export default function HeroOrbit({ data }: HeroOrbitProps) {
                 className="max-md:order-5 max-md:mt-4 flex items-start gap-2 text-[0.95rem] md:text-[1rem] lg:text-[1.05rem] text-muted-foreground"
                 data-testid="text-hero-stat"
               >
-                <span className="w-[0.45rem] h-[0.45rem] rounded-full bg-muted-foreground/40 flex-shrink-0 mt-[0.5rem]" />
+                <span className="w-[0.45rem] h-[0.45rem] rounded-full bg-muted-foreground/40 flex-shrink-0 mt-[0.3rem]" />
                 <p
                   className="m-0 [&_strong]:text-foreground"
                   dangerouslySetInnerHTML={{ __html: data.stat }}

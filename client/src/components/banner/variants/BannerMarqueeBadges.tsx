@@ -11,7 +11,7 @@ interface Props {
 function Badge({ label }: { label: string }) {
   return (
     <div
-      className="flex items-center gap-4 max-md:gap-[0.4rem] py-[0.6rem] px-[1.1rem] max-md:py-[0.3rem] max-md:px-[0.7rem] bg-background border rounded-full whitespace-nowrap flex-shrink-0"
+      className="flex items-center gap-4 max-md:gap-[0.4rem] py-[0.6rem] px-[1.1rem] max-md:py-[0.3rem] max-md:px-[0.7rem] bg-background borderrounded-full whitespace-nowrap flex-shrink-0"
       data-testid="badge-marquee-item"
     >
       <span className="w-[0.45rem] h-[0.45rem] max-md:w-[0.35rem] max-md:h-[0.35rem] rounded-full flex-shrink-0 bg-primary/80" />
@@ -63,7 +63,7 @@ export default function BannerMarqueeBadges({ data }: Props) {
     cta_buttons,
     top_badges = [],
     bottom_badges = [],
-    marquee_speed = 28,
+    marquee_speed = 36,
   } = data;
 
   return (
