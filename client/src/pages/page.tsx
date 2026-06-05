@@ -48,7 +48,7 @@ export default function Page() {
     }
   }, [i18nLocale, i18n]);
 
-  const { data: page, isLoading, error, refetch } = useQuery<TemplatePage>({
+  const { data: page, isPending, isLoading, error, refetch } = useQuery<TemplatePage>({
     queryKey: ["/api/pages", slug, locale, forceVariant],
     queryFn: async () => {
       const qs = new URLSearchParams({ locale });
@@ -100,7 +100,7 @@ export default function Page() {
   } = useMenuConfig({ layout: (page as any)?.layout, locale });
   const topChromeHeights = getMenuChromeHeights(topMenuConfig);
 
-  if (isLoading && !IS_SERVER) {
+  if ((isPending || isLoading) && !IS_SERVER) {
     return (
       <div 
         className="min-h-screen flex items-center justify-center"
