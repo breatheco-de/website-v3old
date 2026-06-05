@@ -14,7 +14,7 @@ function Badge({ label }: { label: string }) {
       className="flex items-center gap-4 py-[0.6rem] px-[1.1rem] bg-background border rounded-full whitespace-nowrap flex-shrink-0"
       data-testid="badge-marquee-item"
     >
-      <span className="w-[0.45rem] h-[0.45rem] rounded-full flex-shrink-0 bg-primary" />
+      <span className="w-[0.45rem] h-[0.45rem] rounded-full flex-shrink-0 bg-muted-foreground/50" />
       <span className="text-[0.9rem] font-semibold text-foreground">{label}</span>
     </div>
   );
@@ -87,7 +87,7 @@ export default function BannerMarqueeBadges({ data }: Props) {
               className="flex items-center gap-2 text-[0.85rem] font-bold tracking-[0.12em] text-primary uppercase"
               data-testid="text-banner-subtitle"
             >
-              <span className="w-[0.55rem] h-[0.55rem] rounded-full bg-primary flex-shrink-0" />
+              <span className="w-[0.55rem] h-[0.55rem] rounded-full bg-[hsl(142_71%_45%)] flex-shrink-0" />
               <span>{subtitle}</span>
             </div>
           )}
