@@ -13,7 +13,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { getDebugToken } from "@/hooks/useDebugAuth";
-import { emitVariantCreated } from "@/lib/contentEvents";
+import { emitVariantCreated, emitVariantDeleted, emitVariantPromoted } from "@/lib/contentEvents";
 import type { MenuView, ContentInfo, VersioningResponse } from "../types";
 import { STORAGE_KEY, OPEN_STORAGE_KEY } from "../types";
 
@@ -181,6 +181,7 @@ export function VersioningView({
         return;
       }
       toast({ title: `Variant "${promoteTarget.slug}" promoted to default` });
+      emitVariantPromoted({ contentType: contentInfo.type, slug: contentInfo.slug, locale: promoteTarget.locale, variantSlug: promoteTarget.slug });
       setPromoteTarget(null);
       if (onVersioningDataUpdate) {
         fetch(`/api/versioning/${contentInfo.type}/${contentInfo.slug}`)
@@ -212,6 +213,7 @@ export function VersioningView({
         return;
       }
       toast({ title: `Variant "${deleteTarget.slug}" deleted` });
+      emitVariantDeleted({ contentType: contentInfo.type, slug: contentInfo.slug, locale: deleteTarget.locale, variantSlug: deleteTarget.slug });
       setDeleteTarget(null);
       if (onVersioningDataUpdate) {
         onVersioningDataUpdate(data);

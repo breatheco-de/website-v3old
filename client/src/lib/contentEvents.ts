@@ -110,6 +110,70 @@ export function subscribeToVariantCreated(listener: VariantCreatedListener): () 
 }
 
 // ---------------------------------------------------------------------------
+// VariantDeleted — fired after a variant is successfully deleted
+// ---------------------------------------------------------------------------
+
+export interface VariantDeletedPayload {
+  contentType: string;
+  slug: string;
+  locale: string;
+  variantSlug: string;
+}
+
+type VariantDeletedListener = (payload: VariantDeletedPayload) => void;
+
+const variantDeletedListeners = new Set<VariantDeletedListener>();
+
+export function emitVariantDeleted(payload: VariantDeletedPayload): void {
+  variantDeletedListeners.forEach(listener => {
+    try {
+      listener(payload);
+    } catch (error) {
+      console.error("[contentEvents] VariantDeleted listener error:", error);
+    }
+  });
+}
+
+export function subscribeToVariantDeleted(listener: VariantDeletedListener): () => void {
+  variantDeletedListeners.add(listener);
+  return () => {
+    variantDeletedListeners.delete(listener);
+  };
+}
+
+// ---------------------------------------------------------------------------
+// VariantPromoted — fired after a variant is successfully promoted to default
+// ---------------------------------------------------------------------------
+
+export interface VariantPromotedPayload {
+  contentType: string;
+  slug: string;
+  locale: string;
+  variantSlug: string;
+}
+
+type VariantPromotedListener = (payload: VariantPromotedPayload) => void;
+
+const variantPromotedListeners = new Set<VariantPromotedListener>();
+
+export function emitVariantPromoted(payload: VariantPromotedPayload): void {
+  variantPromotedListeners.forEach(listener => {
+    try {
+      listener(payload);
+    } catch (error) {
+      console.error("[contentEvents] VariantPromoted listener error:", error);
+    }
+  });
+}
+
+export function subscribeToVariantPromoted(listener: VariantPromotedListener): () => void {
+  variantPromotedListeners.add(listener);
+  return () => {
+    variantPromotedListeners.delete(listener);
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Editor dirty check
 // ---------------------------------------------------------------------------
 

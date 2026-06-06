@@ -1,7 +1,7 @@
 import { useState, useEffect, lazy, Suspense, useRef } from "react";
 import { AlertTriangle, ArrowRight, ArrowUp, Award, BarChart2, Blocks, Book, Brain, Bug, Building2, Columns2, CreditCard, File, Folder, FolderCode, HelpCircle, Image, MessageSquare, PanelBottom, Rocket, Sparkles, Table, Users, X } from "lucide-react";
 import { IconGitFork } from "@tabler/icons-react";
-import { subscribeToContentUpdates, subscribeToVariantCreated } from "@/lib/contentEvents";
+import { subscribeToContentUpdates, subscribeToVariantCreated, subscribeToVariantDeleted, subscribeToVariantPromoted } from "@/lib/contentEvents";
 import { useTranslation } from "react-i18next";
 import { useLocation, useSearch } from "wouter";
 import { useInternalNav } from "@/hooks/useInternalNav";
@@ -531,6 +531,42 @@ export function DebugBubble() {
   useEffect(() => {
     if (!contentInfo.type || !contentInfo.slug) return;
     return subscribeToVariantCreated((payload) => {
+      if (payload.contentType !== contentInfo.type || payload.slug !== contentInfo.slug) return;
+      setVersioningLoading(true);
+      fetch(`/api/versioning/${contentInfo.type}/${contentInfo.slug}`)
+        .then((res) => res.json())
+        .then((data: VersioningResponse) => {
+          setVersioningData(data);
+          setVersioningLoading(false);
+        })
+        .catch(() => {
+          setVersioningLoading(false);
+        });
+    });
+  }, [contentInfo.type, contentInfo.slug]);
+
+  // Re-fetch versioning data whenever a variant is deleted for the current page
+  useEffect(() => {
+    if (!contentInfo.type || !contentInfo.slug) return;
+    return subscribeToVariantDeleted((payload) => {
+      if (payload.contentType !== contentInfo.type || payload.slug !== contentInfo.slug) return;
+      setVersioningLoading(true);
+      fetch(`/api/versioning/${contentInfo.type}/${contentInfo.slug}`)
+        .then((res) => res.json())
+        .then((data: VersioningResponse) => {
+          setVersioningData(data);
+          setVersioningLoading(false);
+        })
+        .catch(() => {
+          setVersioningLoading(false);
+        });
+    });
+  }, [contentInfo.type, contentInfo.slug]);
+
+  // Re-fetch versioning data whenever a variant is promoted for the current page
+  useEffect(() => {
+    if (!contentInfo.type || !contentInfo.slug) return;
+    return subscribeToVariantPromoted((payload) => {
       if (payload.contentType !== contentInfo.type || payload.slug !== contentInfo.slug) return;
       setVersioningLoading(true);
       fetch(`/api/versioning/${contentInfo.type}/${contentInfo.slug}`)
