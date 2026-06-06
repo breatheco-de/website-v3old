@@ -2,3 +2,5 @@ en:
   variants:
     - slug: test
       allocation: 0
+    - slug: draft
+      allocation: 0

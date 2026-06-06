@@ -13,6 +13,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { getDebugToken } from "@/hooks/useDebugAuth";
+import { emitVariantCreated } from "@/lib/contentEvents";
 import type { MenuView, ContentInfo, VersioningResponse } from "../types";
 import { STORAGE_KEY, OPEN_STORAGE_KEY } from "../types";
 
@@ -145,6 +146,7 @@ export function VersioningView({
         return;
       }
       toast({ title: `Version "${createVersionSlug}" created` });
+      emitVariantCreated({ contentType: type, slug, locale: createVersionLocale, variantSlug: createVersionSlug });
       setCreateVersionOpen(false);
       setCreateVersionSlug("");
       if (onVersioningDataUpdate) {

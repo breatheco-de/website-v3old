@@ -5,7 +5,7 @@ import { EditModeProvider } from "@/contexts/EditModeContext";
 import { SyncProvider } from "@/contexts/SyncContext";
 import { SyncConflictBanner } from "@/components/SyncConflictBanner";
 import { PageHistoryProvider, usePageHistoryOptional } from "@/contexts/PageHistoryContext";
-import { subscribeToEditStarted } from "@/lib/contentEvents";
+import { subscribeToEditStarted, emitVariantCreated } from "@/lib/contentEvents";
 import { FirstEditPromptModal, type ExistingVariant } from "@/components/editing/FirstEditPromptModal";
 import { navigate } from "wouter/use-browser-location";
 import { useSearch } from "wouter";
@@ -160,6 +160,7 @@ function FirstEditGate({ children }: { children: React.ReactNode }) {
       throw new Error(data.error || "Failed to create variant");
     }
 
+    emitVariantCreated({ contentType, slug, locale, variantSlug: variantName });
     editMode.markPagePrompted(slug);
     setModalOpen(false);
 

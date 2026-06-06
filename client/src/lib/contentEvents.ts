@@ -78,6 +78,38 @@ export function subscribeToEditStarted(listener: EditStartedListener): () => voi
 }
 
 // ---------------------------------------------------------------------------
+// VariantCreated — fired after a new variant is successfully created
+// ---------------------------------------------------------------------------
+
+export interface VariantCreatedPayload {
+  contentType: string;
+  slug: string;
+  locale: string;
+  variantSlug: string;
+}
+
+type VariantCreatedListener = (payload: VariantCreatedPayload) => void;
+
+const variantCreatedListeners = new Set<VariantCreatedListener>();
+
+export function emitVariantCreated(payload: VariantCreatedPayload): void {
+  variantCreatedListeners.forEach(listener => {
+    try {
+      listener(payload);
+    } catch (error) {
+      console.error("[contentEvents] VariantCreated listener error:", error);
+    }
+  });
+}
+
+export function subscribeToVariantCreated(listener: VariantCreatedListener): () => void {
+  variantCreatedListeners.add(listener);
+  return () => {
+    variantCreatedListeners.delete(listener);
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Editor dirty check
 // ---------------------------------------------------------------------------
 
