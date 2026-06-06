@@ -75,6 +75,10 @@ interface EditModeContextValue {
   previewBreakpoint: PreviewBreakpoint;
   setPreviewBreakpoint: (breakpoint: PreviewBreakpoint) => void;
   togglePreviewBreakpoint: () => void;
+  /** Slugs that have already been prompted for first-edit this session. */
+  promptedPageSlugs: Set<string>;
+  /** Mark a slug as prompted so subsequent edits skip the modal. */
+  markPagePrompted: (slug: string) => void;
 }
 
 const EditModeContext = createContext<EditModeContextValue | null>(null);
@@ -95,6 +99,7 @@ export function EditModeProvider({ children }: EditModeProviderProps) {
   const [pendingChanges, setPendingChanges] = useState<Map<string, EditOperation[]>>(new Map());
   const [isSaving, setIsSaving] = useState(false);
   const [previewBreakpoint, setPreviewBreakpointState] = useState<PreviewBreakpoint>(getStoredPreviewBreakpoint);
+  const [promptedPageSlugs, setPromptedPageSlugs] = useState<Set<string>>(new Set());
   const contentTypesMap = useContentTypes();
   const contentTypesRef = useRef(contentTypesMap);
 
@@ -160,6 +165,14 @@ export function EditModeProvider({ children }: EditModeProviderProps) {
     setPendingChanges(prev => {
       const next = new Map(prev);
       next.delete(pageKey);
+      return next;
+    });
+  };
+
+  const markPagePrompted = (slug: string) => {
+    setPromptedPageSlugs(prev => {
+      const next = new Set(prev);
+      next.add(slug);
       return next;
     });
   };
@@ -243,6 +256,8 @@ export function EditModeProvider({ children }: EditModeProviderProps) {
     previewBreakpoint,
     setPreviewBreakpoint,
     togglePreviewBreakpoint,
+    promptedPageSlugs,
+    markPagePrompted,
   };
 
   return (

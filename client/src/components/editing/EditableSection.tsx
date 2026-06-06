@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, lazy, Suspense } from "react";
+import { useState, useEffect, useRef, useCallback, lazy, Suspense } from "react";
 import { AlertTriangle, ArrowDown, ArrowLeftRight, ArrowUp, Check, ChevronLeft, ChevronRight, Clock3, Code, Copy, Eye, History, Link, Loader2, Monitor, MoreVertical, Pencil, Smartphone, Space, Sparkles, Trash2, Unlink, X } from "lucide-react";
 import { IconPin, IconEdit, IconArrowBackUp, IconPencil, IconChevronDown } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
@@ -17,7 +17,7 @@ import { DbTemplateWarningDialog } from "@/components/editing/DbTemplateWarningD
 import { getDebugToken, resolveAuthorName } from "@/hooks/useDebugAuth";
 import { useContentTypes, useContentTypesRaw, getFolderFromType } from "@/hooks/useContentTypes";
 import { useToast } from "@/hooks/use-toast";
-import { emitContentUpdated } from "@/lib/contentEvents";
+import { emitContentUpdated, emitEditStarted } from "@/lib/contentEvents";
 import { renderSection } from "@/components/SectionRenderer";
 import yaml from "js-yaml";
 import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
@@ -425,9 +425,22 @@ export function EditableSection({ children, section, index, sectionType, content
   const [anchorCopied, setAnchorCopied] = useState(false);
   const pendingAIApply = useRef<(() => Promise<void>) | null>(null);
 
+  // Gate any section action behind the first-edit prompt when on a promoted page
+  const gatedAction = useCallback((action: () => void): void => {
+    emitEditStarted({
+      contentType: contentType || "",
+      slug: slug || "",
+      locale: locale || "en",
+      variant: variant || "",
+      resume: action,
+    });
+  }, [contentType, slug, locale, variant]);
+
   const openBindingDialog = () => {
-    refetchBindingData();
-    setBindingDialogOpen(true);
+    gatedAction(() => {
+      refetchBindingData();
+      setBindingDialogOpen(true);
+    });
   };
 
   const selectedVariant = variants[selectedVariantIndex] || "";
@@ -952,9 +965,32 @@ export function EditableSection({ children, section, index, sectionType, content
     }
   };
 
+  // Auto-open when the user just created a variant and navigated here
+  useEffect(() => {
+    if (typeof sessionStorage === "undefined") return;
+    const raw = sessionStorage.getItem("firstEdit_autoOpen");
+    if (!raw) return;
+    try {
+      const { sectionIndex: savedIndex } = JSON.parse(raw);
+      if (savedIndex === index) {
+        sessionStorage.removeItem("firstEdit_autoOpen");
+        setIsEditorOpen(true);
+      }
+    } catch {
+      sessionStorage.removeItem("firstEdit_autoOpen");
+    }
+  }, [index]);
+
   const handleOpenEditor = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsEditorOpen(true);
+    emitEditStarted({
+      contentType: contentType || "",
+      slug: slug || "",
+      locale: locale || "en",
+      sectionIndex: index,
+      variant: variant || "",
+      resume: () => setIsEditorOpen(true),
+    });
   };
   
   const handleCloseEditor = () => {
@@ -1046,7 +1082,7 @@ export function EditableSection({ children, section, index, sectionType, content
         </button>
         {onMoveUp && (
           <button
-            onClick={(e) => { e.stopPropagation(); onMoveUp(index); }}
+            onClick={(e) => { e.stopPropagation(); gatedAction(() => onMoveUp!(index)); }}
             disabled={!canMoveUp}
             className={`p-2 bg-muted text-muted-foreground rounded-md shadow-lg hover-elevate ${!canMoveUp ? 'opacity-40 cursor-not-allowed' : ''}`}
             data-testid={`button-move-up-section-${index}`}
@@ -1057,7 +1093,7 @@ export function EditableSection({ children, section, index, sectionType, content
         )}
         {onMoveDown && (
           <button
-            onClick={(e) => { e.stopPropagation(); onMoveDown(index); }}
+            onClick={(e) => { e.stopPropagation(); gatedAction(() => onMoveDown!(index)); }}
             disabled={!canMoveDown}
             className={`p-2 bg-muted text-muted-foreground rounded-md shadow-lg hover-elevate ${!canMoveDown ? 'opacity-40 cursor-not-allowed' : ''}`}
             data-testid={`button-move-down-section-${index}`}
@@ -1068,7 +1104,7 @@ export function EditableSection({ children, section, index, sectionType, content
         )}
         {onDelete && (
           <button
-            onClick={(e) => { e.stopPropagation(); onDelete(index); }}
+            onClick={(e) => { e.stopPropagation(); gatedAction(() => onDelete!(index)); }}
             className="hidden md:block p-2 bg-muted text-destructive rounded-md shadow-lg hover-elevate"
             data-testid={`button-delete-section-${index}`}
             title="Delete section"
@@ -1078,7 +1114,7 @@ export function EditableSection({ children, section, index, sectionType, content
         )}
         {onDuplicate && (
           <button
-            onClick={(e) => { e.stopPropagation(); onDuplicate(index); }}
+            onClick={(e) => { e.stopPropagation(); gatedAction(() => onDuplicate!(index)); }}
             className="hidden md:block p-2 bg-muted text-muted-foreground rounded-md shadow-lg hover-elevate"
             data-testid={`button-duplicate-section-${index}`}
             title="Duplicate section"
@@ -1209,7 +1245,7 @@ export function EditableSection({ children, section, index, sectionType, content
               </button>
               {onDelete && (
                 <button
-                  onClick={(e) => { e.stopPropagation(); setMobileMoreOpen(false); onDelete(index); }}
+                  onClick={(e) => { e.stopPropagation(); setMobileMoreOpen(false); gatedAction(() => onDelete!(index)); }}
                   className="flex items-center gap-2 px-3 py-2 text-sm text-destructive rounded-md hover-elevate"
                   data-testid={`button-delete-section-mobile-${index}`}
                 >
@@ -1219,7 +1255,7 @@ export function EditableSection({ children, section, index, sectionType, content
               )}
               {onDuplicate && (
                 <button
-                  onClick={(e) => { e.stopPropagation(); setMobileMoreOpen(false); onDuplicate(index); }}
+                  onClick={(e) => { e.stopPropagation(); setMobileMoreOpen(false); gatedAction(() => onDuplicate!(index)); }}
                   className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground rounded-md hover-elevate"
                   data-testid={`button-duplicate-section-mobile-${index}`}
                 >

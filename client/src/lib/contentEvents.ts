@@ -1,3 +1,18 @@
+/**
+ * Content lifecycle event bus.
+ *
+ * This is the single place for all content lifecycle events — edit started,
+ * content saved, etc. Add new events here rather than using ad-hoc
+ * `dispatchEvent` / `EventEmitter` patterns elsewhere in the codebase.
+ * This makes the pattern discoverable for future contributors and ensures
+ * that cross-cutting concerns (like the first-edit variant prompt) only need
+ * to be wired up once.
+ */
+
+// ---------------------------------------------------------------------------
+// ContentUpdated — fired after a successful save
+// ---------------------------------------------------------------------------
+
 export interface ContentUpdatedPayload {
   contentType: string;
   slug: string;
@@ -24,6 +39,47 @@ export function subscribeToContentUpdates(listener: ContentEventListener): () =>
     listeners.delete(listener);
   };
 }
+
+// ---------------------------------------------------------------------------
+// EditStarted — fired when the editor is about to open for a section
+// ---------------------------------------------------------------------------
+
+export interface EditStartedPayload {
+  contentType: string;
+  slug: string;
+  locale: string;
+  /** Zero-based index of the section the editor is opening. */
+  sectionIndex?: number;
+  /** The current variant slug, or empty string / undefined when on the promoted variant. */
+  variant?: string;
+  /** Call this to unblock the original edit action after the modal resolves. */
+  resume: () => void;
+}
+
+type EditStartedListener = (payload: EditStartedPayload) => void;
+
+const editStartedListeners = new Set<EditStartedListener>();
+
+export function emitEditStarted(payload: EditStartedPayload): void {
+  editStartedListeners.forEach(listener => {
+    try {
+      listener(payload);
+    } catch (error) {
+      console.error("[contentEvents] EditStarted listener error:", error);
+    }
+  });
+}
+
+export function subscribeToEditStarted(listener: EditStartedListener): () => void {
+  editStartedListeners.add(listener);
+  return () => {
+    editStartedListeners.delete(listener);
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Editor dirty check
+// ---------------------------------------------------------------------------
 
 type EditorDirtyChecker = () => boolean;
 let editorDirtyChecker: EditorDirtyChecker | null = null;
