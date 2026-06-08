@@ -13,6 +13,9 @@
  */
 
 import { Storage } from "@google-cloud/storage";
+import { child as loggerChild } from "./logger";
+
+const gcsLogger = loggerChild({ module: "gcs", worker: "gcs" });
 
 export interface GCSConfig {
   bucketName: string;
@@ -48,7 +51,7 @@ class GCSClient {
       try {
         opts.credentials = JSON.parse(config.credentialsJson);
       } catch {
-        console.error("[GCS] Failed to parse GCS_CREDENTIALS_JSON, falling back to default auth");
+        gcsLogger.error("failed to parse GCS_CREDENTIALS_JSON, falling back to default auth");
       }
     } else if (config.keyFilename) {
       opts.keyFilename = config.keyFilename;
@@ -56,13 +59,13 @@ class GCSClient {
 
     this.storage = new Storage(opts);
     this._available = true;
-    console.log(`[GCS] Initialized for bucket: ${this.bucketName}`);
+    gcsLogger.info({ bucket: this.bucketName }, "initialized");
   }
 
   initFromEnv(): void {
     const bucket = process.env.GCS_BUCKET_NAME;
     if (!bucket) {
-      console.log("[GCS] GCS_BUCKET_NAME not set — GCS unavailable");
+      gcsLogger.info("GCS_BUCKET_NAME not set — GCS unavailable");
       return;
     }
 
@@ -122,7 +125,7 @@ class GCSClient {
         attempt++;
         if (!is429 || attempt >= UPLOAD_MAX_RETRIES) throw err;
         const delayMs = UPLOAD_RETRY_BASE_MS * Math.pow(2, attempt - 1);
-        console.warn(`[GCS] 429 on upload "${key}", retry ${attempt}/${UPLOAD_MAX_RETRIES - 1} in ${delayMs}ms`);
+        gcsLogger.warn({ key, attempt, maxRetries: UPLOAD_MAX_RETRIES - 1, delayMs }, "429 on upload, retrying");
         await new Promise((resolve) => setTimeout(resolve, delayMs));
       }
     }
@@ -143,7 +146,7 @@ class GCSClient {
       try {
         await this.upload(key, data, contentType, options);
       } catch (err) {
-        console.error(`[GCS] debouncedUpload failed for "${key}":`, err);
+        gcsLogger.error({ err, key }, "debouncedUpload failed");
       }
     }, delayMs);
 
@@ -153,7 +156,7 @@ class GCSClient {
   async flushPending(): Promise<void> {
     if (this._pendingUploads.size === 0) return;
 
-    console.log(`[GCS] Flushing ${this._pendingUploads.size} pending upload(s) before shutdown…`);
+    gcsLogger.info({ count: this._pendingUploads.size }, "flushing pending uploads before shutdown");
     const entries = Array.from(this._pendingUploads.entries());
     this._pendingUploads.clear();
 
@@ -162,9 +165,9 @@ class GCSClient {
         clearTimeout(pending.timer);
         try {
           await this.upload(key, pending.data, pending.contentType, pending.options);
-          console.log(`[GCS] Flushed pending upload: "${key}"`);
+          gcsLogger.info({ key }, "flushed pending upload");
         } catch (err) {
-          console.error(`[GCS] Failed to flush pending upload for "${key}":`, err);
+          gcsLogger.error({ err, key }, "failed to flush pending upload");
         }
       })
     );

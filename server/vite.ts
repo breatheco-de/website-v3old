@@ -30,6 +30,9 @@ import viteConfig from "../vite.config";
 import { contentIndex } from "./content-index";
 import { resolveInitialData, resolvePreloadHints, injectSsrMetaTags, type PreloadHint } from "./initial-data-middleware";
 import { applyNonBlockingCss } from "./utils/html-transforms";
+import { child as loggerChild } from "./logger";
+
+const ssrLogger = loggerChild({ module: "ssr" });
 
 function buildPreloadTags(hints: PreloadHint[]): string {
   if (hints.length === 0) return "";
@@ -83,14 +86,9 @@ function isKnownRoute(url: string): boolean {
 }
 
 export function log(message: string, source = "express") {
-  const formattedTime = new Date().toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: true,
-  });
-
-  console.log(`${formattedTime} [${source}] ${message}`);
+  // Route through Pino so every server log line is structured JSON in production.
+  // pino-pretty renders it with a human-readable timestamp in development.
+  ssrLogger.info({ source }, message);
 }
 
 export async function setupVite(app: Express, server: Server) {
@@ -181,7 +179,7 @@ export async function setupVite(app: Express, server: Server) {
           const { render } = await vite.ssrLoadModule(entryServerAbs);
           appHtml = await render(url, initialDataPayload);
         } catch (ssrErr) {
-          console.warn("[SSR] render failed, falling back to client-only:", (ssrErr as Error).stack ?? ssrErr);
+          ssrLogger.warn({ err: ssrErr, url }, "render failed, falling back to client-only");
         }
       }
 
@@ -226,7 +224,7 @@ async function getSsrRender() {
       ssrRenderFn = mod.render;
     }
   } catch (e) {
-    console.warn("[SSR] Could not load SSR bundle:", (e as Error).stack ?? e);
+    ssrLogger.warn({ err: e }, "could not load SSR bundle");
   }
   return ssrRenderFn;
 }
@@ -284,7 +282,7 @@ export function serveStatic(app: Express) {
         return;
       }
     } catch (e) {
-      console.warn("[SSR] Production render failed, falling back:", (e as Error).stack ?? e);
+      ssrLogger.warn({ err: e, url }, "production render failed, falling back");
     }
 
     if (ssrSchemaHtml) {

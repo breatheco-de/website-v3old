@@ -19,8 +19,23 @@ import { getVersioningManager } from "./versioning/VersioningManager";
 import http from "http";
 import { registerSgtmProxy } from "./sgtm-proxy";
 import { getOptimizationSettings } from "./settings";
+import logger from "./logger";
 // Note: gcs.initFromEnv() is called by media.initFromEnv() in routes.ts,
 // which happens before sync-state needs it.
+
+// ─── Process-level crash guards ─────────────────────────────────────────────
+// Registered before any async work so no early failure goes unlogged.
+process.on("uncaughtException", (err) => {
+  logger.fatal({ err }, "[FATAL] uncaught exception");
+  process.exit(1);
+});
+
+process.on("unhandledRejection", (reason) => {
+  const err = reason instanceof Error ? reason : new Error(String(reason));
+  logger.fatal({ err }, "[FATAL] unhandled rejection");
+  process.exit(1);
+});
+// ─────────────────────────────────────────────────────────────────────────────
 
 const app = express();
 
@@ -149,6 +164,14 @@ app.use((req, res, next) => {
   setAutoCommitCallback(queueFileChange);
   log('[AutoCommit] Auto-commit callback registered');
 
+  // ─── Health endpoint ──────────────────────────────────────────────────────────
+  // Registered first — before all other routes — so health-checks always get an
+  // immediate 200 even while SSR / DB warmup is still in progress.
+  app.get("/health", (_req, res) => {
+    res.json({ status: "ok", uptime: process.uptime(), env: process.env.NODE_ENV ?? "development" });
+  });
+  // ─────────────────────────────────────────────────────────────────────────────
+
   // ─── MCP server proxy ────────────────────────────────────────────────────────
   // Port 3001 is firewalled. Proxy MCP and OAuth traffic through port 5000 so
   // the server is reachable without publishing. Set PUBLIC_URL to the base URL
@@ -220,14 +243,6 @@ app.use((req, res, next) => {
 
   const server = await registerRoutes(app);
 
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
-
-    res.status(status).json({ message });
-    throw err;
-  });
-
   // Fallback redirects: only fire for URLs that would otherwise 404
   // Registered before Vite's catch-all so they can intercept unknown routes
   app.use(fallbackRedirectMiddleware);
@@ -242,6 +257,25 @@ app.use((req, res, next) => {
   } else {
     serveStatic(app);
   }
+
+  // ─── Global error handler ────────────────────────────────────────────────────
+  // Registered after all middleware (including Vite/static) so it catches errors
+  // from every route and middleware. No re-throw — a single response is enough;
+  // re-throwing was crashing the process via uncaughtException.
+  app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
+    const status = err.status || err.statusCode || 500;
+    const message = err.message || "Internal Server Error";
+
+    logger.error(
+      { err, method: req.method, url: req.originalUrl, status },
+      "unhandled route error"
+    );
+
+    if (!res.headersSent) {
+      res.status(status).json({ message });
+    }
+  });
+  // ─────────────────────────────────────────────────────────────────────────────
 
   // Run the fast content-index scan synchronously before the server begins
   // listening so the first request is never blocked by the initial scan.
@@ -264,19 +298,33 @@ app.use((req, res, next) => {
     reusePort: true,
   }, () => {
     log(`serving on port ${port}`);
+
+    // ─── Periodic memory usage logging ───────────────────────────────────────
+    const memLogger = logger.child({ module: "memory" });
+    setInterval(() => {
+      const mem = process.memoryUsage();
+      const heapUsedMb = Math.round(mem.heapUsed / 1024 / 1024);
+      const heapTotalMb = Math.round(mem.heapTotal / 1024 / 1024);
+      const rssMb = Math.round(mem.rss / 1024 / 1024);
+      const heapRatio = mem.heapUsed / mem.heapTotal;
+      const logFn = heapRatio > 0.80 ? memLogger.warn.bind(memLogger) : memLogger.info.bind(memLogger);
+      logFn({ heapUsedMb, heapTotalMb, rssMb }, "process memory usage");
+    }, 5 * 60 * 1000).unref();
+    // ─────────────────────────────────────────────────────────────────────────
+
     // All deferred background tasks fire here — server is already ready to handle requests.
     contentIndex.startSlowScanAsync();
     databaseManager.warmup().catch((err) => {
-      console.error("[DatabaseManager] Warmup error:", err);
+      logger.error({ err, worker: "DatabaseManager" }, "warmup error");
     });
     startBackgroundSync().catch((err) => {
-      console.error("[SyncState] Failed to start background sync:", err);
+      logger.error({ err, worker: "SyncState" }, "failed to start background sync");
     });
     loadUsersStateFromBucket().catch((err) => {
-      console.error("[UserStore] Failed to load users state:", err);
+      logger.error({ err, worker: "UserStore" }, "failed to load users state");
     });
     loadFormStateFromBucket().catch((err) => {
-      console.error("[FormState] Failed to load form state:", err);
+      logger.error({ err, worker: "FormState" }, "failed to load form state");
     });
     addFileModifiedListener((filePath) => {
       if (filePath.startsWith("marketing-content/") && (filePath.endsWith(".yml") || filePath.endsWith(".yaml"))) {
@@ -286,20 +334,20 @@ app.use((req, res, next) => {
   });
 
   async function gracefulShutdown(signal: string): Promise<void> {
-    log(`[Shutdown] Received ${signal}, flushing pending GCS uploads…`);
+    logger.info({ signal }, "[Shutdown] flushing pending GCS uploads…");
     try {
       await getVersioningManager().shutdown();
       await gcs.flushPending();
     } catch (err) {
-      console.error("[Shutdown] Error during graceful shutdown:", err);
+      logger.error({ err }, "[Shutdown] error during graceful shutdown");
     }
     server.close(() => {
-      log("[Shutdown] HTTP server closed.");
+      logger.info("[Shutdown] HTTP server closed.");
       process.exit(0);
     });
     // Force exit after 10 s if server.close() hangs
     setTimeout(() => {
-      console.error("[Shutdown] Forced exit after timeout.");
+      logger.error("[Shutdown] forced exit after timeout.");
       process.exit(1);
     }, 10_000).unref();
   }

@@ -9,6 +9,9 @@ import {
   markJobFailed,
 } from "./image-registry";
 import type { Preset } from "./image-optimizer";
+import { child as loggerChild } from "./logger";
+
+const workerLogger = loggerChild({ module: "ImageQueueWorker", worker: "ImageQueueWorker" });
 
 const FETCH_TIMEOUT_MS = 10_000;
 const MAX_RETRIES = 3;
@@ -49,7 +52,7 @@ function isSafeUrl(rawUrl: string): boolean {
 
 async function fetchWithTimeout(url: string): Promise<Buffer | null> {
   if (!isSafeUrl(url)) {
-    console.warn(`[ImageQueueWorker] Blocked fetch to disallowed URL: ${url}`);
+    workerLogger.warn({ url }, "blocked fetch to disallowed URL");
     return null;
   }
   try {
@@ -113,7 +116,7 @@ async function processExternalEntry(entry: { id: string; source_url?: string; ta
     usage_count: 0,
   });
 
-  console.log(`[ImageQueueWorker] Cached external image "${url}" as "${id}"`);
+  workerLogger.info({ id, url }, "cached external image");
 }
 
 async function processOptimizeEntry(entry: { id: string; src: string }): Promise<void> {
@@ -138,19 +141,19 @@ async function processOptimizeEntry(entry: { id: string; src: string }): Promise
         format: result.format,
         srcset: result.srcset,
       }, "optimize");
-      console.log(`[ImageQueueWorker] Optimized image "${id}"`);
+      workerLogger.info({ id }, "optimized image");
     } else {
       markJobFailed(id, `processImageFromSrc returned null for "${id}"`, "optimize");
     }
   } catch (err) {
     markJobFailed(id, String(err), "optimize");
-    console.error(`[ImageQueueWorker] Error optimizing "${id}":`, err);
+    workerLogger.error({ err, id }, "error optimizing image");
   }
 }
 
 async function tick(): Promise<void> {
   if (tickRunning) {
-    console.log("[ImageQueueWorker] Tick skipped — previous tick still running");
+    workerLogger.info("tick skipped — previous tick still running");
     return;
   }
 
@@ -161,8 +164,9 @@ async function tick(): Promise<void> {
 
     if (externalPending.length === 0 && optimizePending.length === 0) return;
 
-    console.log(
-      `[ImageQueueWorker] Tick: ${externalPending.length} external, ${optimizePending.length} optimize pending`
+    workerLogger.info(
+      { external: externalPending.length, optimize: optimizePending.length },
+      "tick: processing pending jobs"
     );
 
     await Promise.allSettled([
@@ -181,7 +185,7 @@ export function runNow(): void {
 }
 
 export function start(): void {
-  console.log("[ImageQueueWorker] Starting background worker (30s interval)");
+  workerLogger.info("starting background worker (30s interval)");
   setInterval(() => void tick(), 30_000);
   void tick();
 }

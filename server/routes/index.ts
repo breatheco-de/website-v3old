@@ -1,6 +1,7 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "../storage";
+import { child as loggerChild } from "../logger";
 import { geoGet, geoSet } from "../geo-cache";
 import { getQueueStats, enqueueOptimization, getPendingOptimizations, getFailedEntries, retryFailedImages, resetOptimizeSession, getOptimizeSession, enqueueExternalImage } from "../image-registry";
 import { getAllQueueState } from "../image-queue-state";
@@ -251,6 +252,8 @@ import { registerEcommerceRoutes } from "./ecommerce";
 import { registerWebhooksRoutes } from "./webhooks";
 import { setWorkerRunNow } from "./_worker-state";
 
+const routesLogger = loggerChild({ module: "routes" });
+
 export async function registerRoutes(app: Express): Promise<Server> {
   media.initFromEnv();
 
@@ -321,7 +324,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     setWorkerRunNow(runNow);
     start();
   }).catch((err) => {
-    console.error("[ImageQueueWorker] Failed to start:", err);
+    routesLogger.error({ err, worker: "ImageQueueWorker" }, "failed to start image queue worker");
   });
 
   return httpServer;
@@ -331,7 +334,7 @@ export async function startBackgroundSync(): Promise<void> {
   const { logSync } = await import("../sync-log");
   const { loadSyncStateFromBucket } = await import("../sync-state");
 
-  console.log("[GitHub] Reconciling sync state in background (non-blocking)...");
+  routesLogger.info("reconciling sync state in background (non-blocking)...");
   loadSyncStateFromBucket()
     .then(async () => {
       const {
@@ -398,6 +401,6 @@ export async function startBackgroundSync(): Promise<void> {
         "ERROR",
         `Failed to load/reconcile on startup: ${err instanceof Error ? err.message : String(err)}`,
       );
-      console.error("[SyncState] Failed to load/reconcile on startup:", err);
+      routesLogger.error({ err, worker: "SyncState" }, "failed to load/reconcile on startup");
     });
 }

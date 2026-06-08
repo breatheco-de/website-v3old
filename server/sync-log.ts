@@ -3,6 +3,9 @@ import * as path from 'path';
 import * as crypto from 'crypto';
 import { execSync } from 'child_process';
 import { gcs } from './gcs';
+import { child as loggerChild } from './logger';
+
+const syncLogLogger = loggerChild({ module: "SyncLog", worker: "SyncLog" });
 
 const SYNC_LOG_PATH = path.join(process.cwd(), 'marketing-content', '.sync-log-state.txt');
 const GCS_SYNC_LOG_KEY = 'sync/sync-log-state.txt';
@@ -122,7 +125,7 @@ function saveLocal(): void {
     const content = logEntries.map(e => JSON.stringify(e)).join('\n') + '\n';
     fs.writeFileSync(SYNC_LOG_PATH, content, 'utf-8');
   } catch (error) {
-    console.error('[SyncLog] Error saving local log:', error);
+    syncLogLogger.error({ err: error }, "error saving local log");
   }
 }
 
@@ -132,7 +135,7 @@ async function saveToBucket(): Promise<void> {
     const content = logEntries.map(e => JSON.stringify(e)).join('\n') + '\n';
     gcs.debouncedUpload(GCS_SYNC_LOG_KEY, Buffer.from(content, 'utf-8'), 'text/plain', 2_000);
   } catch (error) {
-    console.error('[SyncLog] Error saving log to bucket:', error);
+    syncLogLogger.error({ err: error }, "error saving log to bucket");
   }
 }
 
@@ -177,7 +180,7 @@ export async function loadSyncLog(): Promise<void> {
         }
       }
     } catch (error) {
-      console.error('[SyncLog] Error loading from bucket:', error);
+      syncLogLogger.error({ err: error }, "error loading from bucket");
     }
   }
 
@@ -199,7 +202,7 @@ export function logSync(category: SyncLogCategory, message: string, person?: str
   scheduleSave();
 
   const legacyText = `${entry.ts} [${category}] ${message}`;
-  console.log(`[SyncLog] ${legacyText}`);
+  syncLogLogger.info({ category, person }, legacyText);
 }
 
 export function getInstanceId(): string {
