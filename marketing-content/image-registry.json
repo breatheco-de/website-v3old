@@ -20586,14 +20586,29 @@
       ]
     },
     "blog_posts-group_original-736x491-q85-a53350c8": {
-      "src": "",
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/group_original-736x491-q85-640w.webp",
       "alt": "Image from blog_posts",
       "tags": [
         "blog_posts"
       ],
       "source_url": "https://storage.googleapis.com/4geeks-academy-website/media/group_original-736x491-q85.webp",
       "usage_count": 0,
-      "source_item": "los-5-frameworks-fundamentales-para-frontend"
+      "source_item": "los-5-frameworks-fundamentales-para-frontend",
+      "width": 736,
+      "height": 491,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/group_original-736x491-q85-640w.webp"
+        }
+      ]
     }
   }
 }
