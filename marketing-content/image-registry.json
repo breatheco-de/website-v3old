@@ -20584,6 +20584,16 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/group_original-736x491-q85-720w.webp"
         }
       ]
+    },
+    "blog_posts-group_original-736x491-q85-a53350c8": {
+      "src": "",
+      "alt": "Image from blog_posts",
+      "tags": [
+        "blog_posts"
+      ],
+      "source_url": "https://storage.googleapis.com/4geeks-academy-website/media/group_original-736x491-q85.webp",
+      "usage_count": 0,
+      "source_item": "los-5-frameworks-fundamentales-para-frontend"
     }
   }
 }
