@@ -205,6 +205,7 @@ import {
   FixerItemStatus,
 } from "./_helpers";
 import { child } from "../logger";
+import { sqlite } from "../db";
 const log = child({ module: "routes/admin" });
 
 
@@ -1936,6 +1937,75 @@ export function registerAdminRoutes(app: Express): void {
       res.json(data);
     } catch {
       res.status(502).json({ tools: [], error: "MCP server unavailable" });
+    }
+  });
+
+  // Error & Warning Log dashboard endpoint
+  app.get("/api/admin/error-log", async (req, res) => {
+    const auth = await requireCapability(req, res, "webmaster");
+    if (!auth.authorized) return;
+
+    const levelParam = (req.query.level as string | undefined);
+    const validLevel = levelParam === "error" || levelParam === "warn" ? levelParam : null;
+
+    const cutoff = Date.now() - 48 * 60 * 60 * 1000;
+
+    try {
+      const levelFilter = validLevel ? " AND level = ?" : "";
+      const args = validLevel ? [cutoff, validLevel] : [cutoff];
+
+      const totals = sqlite.prepare(
+        `SELECT
+           SUM(CASE WHEN level = 'error' THEN 1 ELSE 0 END) AS totalErrors,
+           SUM(CASE WHEN level = 'warn' THEN 1 ELSE 0 END) AS totalWarnings
+         FROM error_log WHERE ts >= ?`
+      ).get(cutoff) as { totalErrors: number; totalWarnings: number };
+
+      const byModule = sqlite.prepare(
+        `SELECT module,
+                SUM(CASE WHEN level = 'error' THEN 1 ELSE 0 END) AS errors,
+                SUM(CASE WHEN level = 'warn' THEN 1 ELSE 0 END) AS warnings
+         FROM error_log
+         WHERE ts >= ?${levelFilter}
+         GROUP BY module
+         ORDER BY (errors + warnings) DESC
+         LIMIT 50`
+      ).all(...args) as Array<{ module: string; errors: number; warnings: number }>;
+
+      const topIssueRow = sqlite.prepare(
+        `SELECT err_name, COUNT(*) AS cnt
+         FROM error_log
+         WHERE ts >= ? AND err_name IS NOT NULL${levelFilter}
+         GROUP BY err_name
+         ORDER BY cnt DESC
+         LIMIT 1`
+      ).get(...args) as { err_name: string; cnt: number } | undefined;
+
+      const recent = sqlite.prepare(
+        `SELECT id, ts, level, module, message, err_name
+         FROM error_log
+         WHERE ts >= ?${levelFilter}
+         ORDER BY ts DESC
+         LIMIT 100`
+      ).all(...args) as Array<{
+        id: number;
+        ts: number;
+        level: string;
+        module: string;
+        message: string;
+        err_name: string | null;
+      }>;
+
+      res.json({
+        totalErrors: totals?.totalErrors ?? 0,
+        totalWarnings: totals?.totalWarnings ?? 0,
+        byModule,
+        topIssue: topIssueRow?.err_name ?? null,
+        recent,
+      });
+    } catch (err) {
+      log.error({ err }, "Failed to query error_log:");
+      res.status(500).json({ error: "Failed to query error log" });
     }
   });
 

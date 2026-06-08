@@ -1,0 +1,270 @@
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { IconAlertTriangle, IconAlertCircle, IconServerBolt, IconBug, IconRefresh } from "@tabler/icons-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+type LevelFilter = "all" | "error" | "warn";
+
+interface ErrorLogEntry {
+  id: number;
+  ts: number;
+  level: "error" | "warn";
+  module: string;
+  message: string;
+  err_name: string | null;
+}
+
+interface ModuleBreakdown {
+  module: string;
+  errors: number;
+  warnings: number;
+}
+
+interface ErrorLogResponse {
+  totalErrors: number;
+  totalWarnings: number;
+  byModule: ModuleBreakdown[];
+  topIssue: string | null;
+  recent: ErrorLogEntry[];
+}
+
+function formatTs(ts: number) {
+  const d = new Date(ts);
+  return d.toLocaleTimeString("en-US", {
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
+}
+
+function LevelBadge({ level }: { level: "error" | "warn" }) {
+  if (level === "error") {
+    return (
+      <Badge variant="destructive" className="text-xs font-mono uppercase">
+        error
+      </Badge>
+    );
+  }
+  return (
+    <Badge variant="outline" className="text-xs font-mono uppercase text-amber-600 border-amber-400">
+      warn
+    </Badge>
+  );
+}
+
+export default function ErrorLogPage() {
+  const [levelFilter, setLevelFilter] = useState<LevelFilter>("all");
+
+  const { data, isLoading, refetch, isFetching } = useQuery<ErrorLogResponse>({
+    queryKey: ["/api/admin/error-log", levelFilter],
+    queryFn: async () => {
+      const params = levelFilter !== "all" ? `?level=${levelFilter}` : "";
+      const res = await fetch(`/api/admin/error-log${params}`);
+      if (!res.ok) throw new Error("Failed to fetch error log");
+      return res.json();
+    },
+    refetchInterval: 30000,
+  });
+
+  const topModule = data?.byModule?.[0]?.module ?? "—";
+
+  return (
+    <div className="p-6 space-y-6 max-w-6xl">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-bold">Error &amp; Warning Log</h1>
+          <p className="text-sm text-muted-foreground mt-0.5">Server-side warn/error events — last 48 hours</p>
+        </div>
+        <Button
+          variant="outline"
+          size="default"
+          onClick={() => refetch()}
+          disabled={isFetching}
+          data-testid="button-refresh-error-log"
+        >
+          <IconRefresh className={`w-4 h-4 mr-2 ${isFetching ? "animate-spin" : ""}`} />
+          Refresh
+        </Button>
+      </div>
+
+      {/* KPI Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card data-testid="card-total-errors">
+          <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2 space-y-0">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total Errors</CardTitle>
+            <IconAlertCircle className="w-4 h-4 text-destructive" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold" data-testid="text-total-errors">
+              {isLoading ? "—" : (data?.totalErrors ?? 0)}
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">last 48h</p>
+          </CardContent>
+        </Card>
+
+        <Card data-testid="card-total-warnings">
+          <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2 space-y-0">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total Warnings</CardTitle>
+            <IconAlertTriangle className="w-4 h-4 text-amber-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold" data-testid="text-total-warnings">
+              {isLoading ? "—" : (data?.totalWarnings ?? 0)}
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">last 48h</p>
+          </CardContent>
+        </Card>
+
+        <Card data-testid="card-top-module">
+          <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2 space-y-0">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Top Failing Module</CardTitle>
+            <IconServerBolt className="w-4 h-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-base font-semibold truncate" data-testid="text-top-module">
+              {isLoading ? "—" : topModule}
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">most events</p>
+          </CardContent>
+        </Card>
+
+        <Card data-testid="card-top-issue">
+          <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2 space-y-0">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Top Issue Type</CardTitle>
+            <IconBug className="w-4 h-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-base font-semibold truncate" data-testid="text-top-issue">
+              {isLoading ? "—" : (data?.topIssue ?? "—")}
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">most common error name</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Module Breakdown */}
+      {data?.byModule && data.byModule.length > 0 && (
+        <Card data-testid="card-module-breakdown">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base">By Module</CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Module</TableHead>
+                  <TableHead className="text-right">Errors</TableHead>
+                  <TableHead className="text-right">Warnings</TableHead>
+                  <TableHead className="text-right">Total</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.byModule.map((row) => (
+                  <TableRow key={row.module} data-testid={`row-module-${row.module}`}>
+                    <TableCell className="font-mono text-sm">{row.module}</TableCell>
+                    <TableCell className="text-right">
+                      {row.errors > 0 ? (
+                        <span className="text-destructive font-medium">{row.errors}</span>
+                      ) : (
+                        <span className="text-muted-foreground">0</span>
+                      )}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {row.warnings > 0 ? (
+                        <span className="text-amber-600 font-medium">{row.warnings}</span>
+                      ) : (
+                        <span className="text-muted-foreground">0</span>
+                      )}
+                    </TableCell>
+                    <TableCell className="text-right font-medium">
+                      {row.errors + row.warnings}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Recent Events */}
+      <Card data-testid="card-recent-events">
+        <CardHeader className="pb-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <CardTitle className="text-base">Recent Events</CardTitle>
+            <div className="flex gap-1" role="group" aria-label="Filter by level">
+              {(["all", "error", "warn"] as LevelFilter[]).map((f) => (
+                <Button
+                  key={f}
+                  variant={levelFilter === f ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setLevelFilter(f)}
+                  data-testid={`button-filter-${f}`}
+                >
+                  {f === "all" ? "All" : f === "error" ? "Errors" : "Warnings"}
+                </Button>
+              ))}
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="p-0">
+          {isLoading ? (
+            <div className="p-6 text-center text-muted-foreground text-sm">Loading…</div>
+          ) : !data?.recent || data.recent.length === 0 ? (
+            <div className="p-6 text-center text-muted-foreground text-sm">
+              No events in the last 48 hours.
+            </div>
+          ) : (
+            <div className="overflow-auto max-h-[480px]">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-40">Time</TableHead>
+                    <TableHead className="w-20">Level</TableHead>
+                    <TableHead className="w-44">Module</TableHead>
+                    <TableHead>Message</TableHead>
+                    <TableHead className="w-36">Error Type</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {data.recent.map((entry) => (
+                    <TableRow key={entry.id} data-testid={`row-event-${entry.id}`}>
+                      <TableCell className="font-mono text-xs text-muted-foreground whitespace-nowrap">
+                        {formatTs(entry.ts)}
+                      </TableCell>
+                      <TableCell>
+                        <LevelBadge level={entry.level} />
+                      </TableCell>
+                      <TableCell className="font-mono text-xs text-muted-foreground truncate max-w-[10rem]">
+                        {entry.module}
+                      </TableCell>
+                      <TableCell className="text-sm text-foreground max-w-xs">
+                        <span className="line-clamp-2">{entry.message}</span>
+                      </TableCell>
+                      <TableCell className="font-mono text-xs text-muted-foreground">
+                        {entry.err_name ?? "—"}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

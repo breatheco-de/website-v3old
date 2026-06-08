@@ -2,7 +2,7 @@ import Database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import * as fs from "fs";
 import * as path from "path";
-import { child } from "./logger";
+import { child, registerLogSink } from "./logger";
 const log = child({ module: "db" });
 
 
@@ -13,7 +13,7 @@ if (!fs.existsSync(dataDir)) {
 }
 
 const dbPath = path.join(dataDir, "app.db");
-const sqlite = new Database(dbPath);
+export const sqlite = new Database(dbPath);
 
 sqlite.pragma("journal_mode = WAL");
 sqlite.pragma("foreign_keys = ON");
@@ -51,7 +51,6 @@ try {
 }
 
 sqlite.exec(`
-
   CREATE TABLE IF NOT EXISTS conversation_messages (
     id TEXT PRIMARY KEY,
     conversation_id TEXT NOT NULL,
@@ -74,8 +73,53 @@ sqlite.exec(`
     updated_at INTEGER,
     updated_by TEXT
   );
+
+  CREATE TABLE IF NOT EXISTS error_log (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ts INTEGER NOT NULL,
+    level TEXT NOT NULL,
+    module TEXT NOT NULL,
+    message TEXT NOT NULL,
+    err_name TEXT,
+    err_stack TEXT
+  );
+
+  CREATE INDEX IF NOT EXISTS error_log_ts_idx ON error_log (ts);
+  CREATE INDEX IF NOT EXISTS error_log_level_idx ON error_log (level);
 `);
 
 log.info(`[DB] SQLite database: ${dbPath}`);
+
+// Prepared statement for inserting error log entries
+const _insertErrorLog = sqlite.prepare(
+  "INSERT INTO error_log (ts, level, module, message, err_name, err_stack) VALUES (?, ?, ?, ?, ?, ?)"
+);
+
+// Pruning: remove entries older than 48h
+const _pruneErrorLog = sqlite.prepare(
+  "DELETE FROM error_log WHERE ts < ?"
+);
+
+function pruneOldErrorLogs() {
+  const cutoff = Date.now() - 48 * 60 * 60 * 1000;
+  try {
+    _pruneErrorLog.run(cutoff);
+  } catch {
+    // non-fatal
+  }
+}
+
+// Run pruning on startup and then every hour
+pruneOldErrorLogs();
+setInterval(pruneOldErrorLogs, 60 * 60 * 1000).unref();
+
+// Register log sink so logger.ts can insert warn/error entries into SQLite
+registerLogSink((ts, level, module, message, errName, errStack) => {
+  try {
+    _insertErrorLog.run(ts, level, module, message, errName, errStack);
+  } catch {
+    // never throw from a log sink
+  }
+});
 
 export const db = drizzle(sqlite);

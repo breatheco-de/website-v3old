@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { AlertTriangle, ArrowLeft, ArrowRight, BarChart2, Blocks, Book, Brain, Check, ChevronRight, CloudDownload, Cookie, Database, Github, GitBranch, Image, Languages, Map, MapPin, Menu, MessageCircle, Monitor, Moon, Palette, Pencil, Plus, RefreshCw, Route, Settings, Smartphone, Stethoscope, Sun, X } from "lucide-react";
-import { IconLogout, IconServer, IconShoppingBag, IconTargetArrow, IconShield } from "@tabler/icons-react";
+import { IconLogout, IconServer, IconShoppingBag, IconTargetArrow, IconShield, IconAlertTriangle } from "@tabler/icons-react";
 import { useDebugAuth } from "@/hooks/useDebugAuth";
 import { useTranslation } from "react-i18next";
 import { badgeVariants } from "@/components/ui/badge";
@@ -650,6 +650,14 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               href="/private/diagnostics"
               indicator="arrow"
               testId="link-diagnostics"
+            />
+
+            <MenuItem
+              icon={IconAlertTriangle}
+              label="Error Log"
+              href="/private/error-log"
+              indicator="arrow"
+              testId="link-error-log"
             />
 
             <ExpandableMenuItem
