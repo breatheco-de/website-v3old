@@ -10,6 +10,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { gcs } from "./gcs";
 import {
+
   CAPABILITY_REGISTRY,
   SCOPED_CAPABILITIES,
   GLOBAL_CAPABILITIES,
@@ -18,6 +19,9 @@ import {
   type GlobalCapability,
   type CapabilityName,
 } from "../shared/capabilities";
+import { child } from "./logger";
+const log = child({ module: "user-store" });
+
 
 export type { ScopedCapability, GlobalCapability, CapabilityName };
 export { SCOPED_CAPABILITIES, GLOBAL_CAPABILITIES, ALL_CAPABILITIES, CAPABILITY_REGISTRY };
@@ -113,7 +117,7 @@ function saveLocal(): void {
     }
     fs.writeFileSync(LOCAL_PATH, JSON.stringify(state, null, 2), "utf-8");
   } catch (err) {
-    console.error("[UserStore] Error saving local file:", err);
+    log.error({ err: err }, "[UserStore] Error saving local file:");
   }
 }
 
@@ -123,14 +127,14 @@ async function saveToBucket(): Promise<void> {
     const content = JSON.stringify(state, null, 2);
     gcs.debouncedUpload(GCS_KEY, Buffer.from(content, "utf-8"), "application/json");
   } catch (err) {
-    console.error("[UserStore] Error saving to GCS:", err);
+    log.error({ err: err }, "[UserStore] Error saving to GCS:");
   }
 }
 
 function save(): void {
   saveLocal();
   saveToBucket().catch((err) => {
-    console.error("[UserStore] Background GCS save failed:", err);
+    log.error({ err: err }, "[UserStore] Background GCS save failed:");
   });
 }
 
@@ -141,7 +145,7 @@ function loadLocal(): UsersState {
       return JSON.parse(raw) as UsersState;
     }
   } catch (err) {
-    console.error("[UserStore] Error loading local file:", err);
+    log.error({ err: err }, "[UserStore] Error loading local file:");
   }
   return { roles: { ...DEFAULT_STATE.roles }, users: {} };
 }
@@ -152,7 +156,7 @@ function loadLocal(): UsersState {
  */
 export async function loadUsersStateFromBucket(): Promise<void> {
   if (!IS_PRODUCTION) {
-    console.log("[UserStore] Development mode — using local file only");
+    log.info("[UserStore] Development mode — using local file only");
     state = loadLocal();
     // Always sync built-in webmaster role from code
     if (!state.roles) state.roles = {};
@@ -163,7 +167,7 @@ export async function loadUsersStateFromBucket(): Promise<void> {
   }
 
   if (!gcs.available) {
-    console.log("[UserStore] GCS unavailable — loading from local file");
+    log.info("[UserStore] GCS unavailable — loading from local file");
     state = loadLocal();
     // Always sync built-in webmaster role from code
     if (!state.roles) state.roles = {};
@@ -176,20 +180,20 @@ export async function loadUsersStateFromBucket(): Promise<void> {
   try {
     const exists = await gcs.exists(GCS_KEY);
     if (!exists) {
-      console.log("[UserStore] No users state in GCS — using local file");
+      log.info("[UserStore] No users state in GCS — using local file");
       state = loadLocal();
     } else {
       const data = await gcs.download(GCS_KEY);
       if (data) {
         state = JSON.parse(data.toString("utf-8")) as UsersState;
-        console.log("[UserStore] Loaded users state from GCS");
+        log.info("[UserStore] Loaded users state from GCS");
         saveLocal();
       } else {
         state = loadLocal();
       }
     }
   } catch (err) {
-    console.error("[UserStore] Error loading from GCS:", err);
+    log.error({ err: err }, "[UserStore] Error loading from GCS:");
     state = loadLocal();
   }
 

@@ -8,6 +8,10 @@ import { escapeTemplateVars, unescapeObjectVars } from "@shared/templateVars";
 import { getFolder, getContentTypeConfig, resolveUrlPatternWithMapping } from "./content-types";
 import { getBaseUrl, generateHreflangTags, generateListingHreflangTags, generateHomepageHreflangTags } from "./hreflang";
 import { getHomePage, getSupportedLocales, getDefaultLocale } from "./settings";
+import { child } from "./logger";
+const log = child({ module: "ssr-schema" });
+
+
 
 const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
 
@@ -479,7 +483,7 @@ export function generateSsrSchemaHtml(url: string): string {
       : generateHreflangTags(route.contentType, route.slug, route.locale);
     return [...hreflangTags, robotsTag, ...socialTags, ...scripts].join("\n");
   } catch (err) {
-    console.error("[SSR-Schema] Error generating schema for", url, err);
+    log.error("[SSR-Schema] Error generating schema for", url, err);
     return "";
   }
 }

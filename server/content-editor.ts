@@ -29,6 +29,10 @@ import {
 } from "./sitemap";
 import { clearRedirectCache } from "./redirects";
 import { clearSsrSchemaCache } from "./ssr-schema";
+import { child } from "./logger";
+const log = child({ module: "content-editor" });
+
+
 
 interface ContentEditRequest {
   contentType: string;
@@ -518,7 +522,7 @@ export async function editContent(request: ContentEditRequest): Promise<{ succes
     const updatedSections = (mergedContent.sections as unknown[]) || [];
     return { success: true, updatedSections };
   } catch (error) {
-    console.error("Content edit error:", error);
+    log.error({ err: error }, "Content edit error:");
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
@@ -617,7 +621,7 @@ function writeStructuralChangesToTemplate(opts: {
     const updatedSections = (localeData.sections as unknown[]) || [];
     return { success: true, updatedSections };
   } catch (err) {
-    console.error("[editContent] Structural template write error:", err);
+    log.error({ err: err }, "[editContent] Structural template write error:");
     return { success: false, error: err instanceof Error ? err.message : "Unknown error" };
   }
 }
@@ -669,7 +673,7 @@ function writeTopLevelFieldsToPerEntryFile(opts: {
     markFileAsModified(perEntryPath, author);
     return { success: true };
   } catch (err) {
-    console.error("[writeTopLevelFieldsToPerEntryFile] Error:", err);
+    log.error({ err: err }, "[writeTopLevelFieldsToPerEntryFile] Error:");
     return { success: false, error: err instanceof Error ? err.message : "Unknown error" };
   }
 }
@@ -765,7 +769,7 @@ function handleSharedTemplateEdit(opts: {
   if (Object.keys(dbUpdates).length > 0 && dbName) {
     const patched = databaseManager.patchDbEntry(dbName, lookupKey, slug, dbUpdates, fieldMapping, author);
     if (!patched) {
-      console.warn(`[editContent] patchDbEntry found no matching entry for ${dbName}/${slug}`);
+      log.warn(`[editContent] patchDbEntry found no matching entry for ${dbName}/${slug}`);
     }
   }
 
@@ -830,7 +834,7 @@ function handleSharedTemplateEdit(opts: {
       markFileAsModified(filePath, author);
     }
   } catch (err) {
-    console.error("[editContent] Failed to write non-DB field changes to shared template:", err instanceof Error ? err.message : err);
+    log.error("[editContent] Failed to write non-DB field changes to shared template:", err instanceof Error ? err.message : err);
   }
 
   // Apply operations to localeData in-memory so the returned sections reflect
@@ -839,7 +843,7 @@ function handleSharedTemplateEdit(opts: {
     try {
       applyOperation(localeData, operation);
     } catch (err) {
-      console.warn("[editContent] Skipping invalid operation on shared template:", operation.action, err instanceof Error ? err.message : err);
+      log.warn("[editContent] Skipping invalid operation on shared template:", operation.action, err instanceof Error ? err.message : err);
     }
   }
 
@@ -903,7 +907,7 @@ export function editCommonContent(request: CommonEditRequest): { success: boolea
 
     return { success: true };
   } catch (error) {
-    console.error("Common content edit error:", error);
+    log.error({ err: error }, "Common content edit error:");
     return { success: false, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
@@ -936,7 +940,7 @@ export function getContentForEdit(
 
     return { content };
   } catch (error) {
-    console.error("Error reading content:", error);
+    log.error({ err: error }, "Error reading content:");
     return { content: null, error: error instanceof Error ? error.message : "Unknown error" };
   }
 }
@@ -1124,13 +1128,13 @@ export async function deleteContentEntry(
         markFileAsModified(`marketing-content/${typeFolder}/${resolvedSlug}/${file}`, author);
       }
       fs.rmSync(folderPath, { recursive: true, force: true });
-      console.log(`[Content] Deleted ${type}/${slug} (all locales removed, folder cleaned up)`);
+      log.info(`[Content] Deleted ${type}/${slug} (all locales removed, folder cleaned up)`);
       try {
         const { removeSlugFromAllDependants } = await import("./utils/sectionAnchors");
         removeSlugFromAllDependants(type, resolvedSlug);
       } catch { /* non-fatal */ }
     } else {
-      console.log(`[Content] Deleted ${deletedFiles.join(", ")} from ${type}/${slug} (${remainingFiles.length} locale(s) remaining)`);
+      log.info(`[Content] Deleted ${deletedFiles.join(", ")} from ${type}/${slug} (${remainingFiles.length} locale(s) remaining)`);
     }
 
     if (remainingFiles.length === 0) {
@@ -1162,7 +1166,7 @@ export async function deleteContentEntry(
     markFileAsModified(`marketing-content/${typeFolder}/${resolvedSlug}/${file}`, author);
   }
   fs.rmSync(folderPath, { recursive: true, force: true });
-  console.log(`[Content] Deleted ${type}/${slug}`);
+  log.info(`[Content] Deleted ${type}/${slug}`);
   invalidateSitemapEntriesByContentKey(`${type}:${resolvedSlug}`);
   contentIndex.refresh();
   invalidateContentCaches(type);
@@ -1398,7 +1402,7 @@ export async function createContentEntry(
         };
       }
     } catch (dupError) {
-      console.error("Error duplicating content:", dupError);
+      log.error({ err: dupError }, "Error duplicating content:");
       // Fall through to fresh create
     }
   }

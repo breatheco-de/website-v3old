@@ -9,6 +9,10 @@ import { getContextManager, type ContextManager } from "./ContextManager";
 import { getLLMService, type LLMService } from "./LLMService";
 import { SYSTEM_PROMPT, buildAdaptationPrompt, buildContextBlock, buildTargetStructureBlock, extractConstraintsFromExample, buildConstraintsBlock } from "./prompts";
 import { componentToJsonSchema, validateContentAgainstSchema } from "./SchemaConverter";
+import { child } from "../logger";
+const log = child({ module: "ai/ContentAdapter" });
+
+
 
 // Singleton instance
 let instance: ContentAdapter | null = null;
@@ -151,7 +155,7 @@ Respond with a JSON object that matches the target component structure.`;
       const validation = validateContentAgainstSchema(result.content, context.component, context.targetVariant);
       
       if (!validation.valid) {
-        console.warn("Structured output missing required fields:", validation.errors);
+        log.warn("Structured output missing required fields:", validation.errors);
         // Continue with cleaned content, letting downstream validation handle issues
       }
 
@@ -184,7 +188,7 @@ Respond with a JSON object that matches the target component structure.`;
       };
     } catch (error) {
       // If structured output fails (e.g., schema too complex), fall back to text-based approach
-      console.warn("Structured output failed, falling back to text-based adaptation:", error);
+      log.warn("Structured output failed, falling back to text-based adaptation:", error);
       return this.adapt(options);
     }
   }
@@ -215,7 +219,7 @@ Respond with a JSON object that matches the target component structure.`;
 
     if (!validation.valid) {
       // Try to fix by resending full context with error information
-      console.warn("Invalid YAML output, attempting to fix:", validation.error);
+      log.warn("Invalid YAML output, attempting to fix:", validation.error);
       
       const fixPrompt = `${prompt}
 

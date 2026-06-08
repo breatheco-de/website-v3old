@@ -4,6 +4,10 @@
 
 import * as yaml from "js-yaml";
 import type { FullContext, ComponentContext } from "./types";
+import { child } from "../logger";
+const log = child({ module: "ai/prompts" });
+
+
 
 // Known enum fields that should have their values extracted and enforced
 const KNOWN_ENUM_FIELDS = ["color", "variant", "background", "theme", "size", "alignment"];
@@ -89,7 +93,7 @@ export function extractConstraintsFromExample(exampleYaml: string): ExampleConst
 
     traverse(parsed);
   } catch (error) {
-    console.warn("Failed to parse example YAML for constraints:", error);
+    log.warn("Failed to parse example YAML for constraints:", error);
   }
 
   return constraints;

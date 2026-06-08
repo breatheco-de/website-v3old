@@ -16,6 +16,10 @@ import { fetchMarkdownContent } from "./markdown";
 import { applyComponentSectionDefaults, applyComponentImageSizes } from "./component-registry";
 import { readSectionAnchors, resolveAnchorAlias, writeSectionAnchors } from "./utils/sectionAnchors";
 import type { TemplatePage } from "@shared/schema";
+import { child } from "./logger";
+const log = child({ module: "database-single-loader" });
+
+
 
 export const TEMPLATE_EXPR_RE = /\{\{[\s\S]*?\}\}/;
 
@@ -363,7 +367,7 @@ export async function loadDatabaseSinglePage(
   const merged = mergeSingleTemplate(contentType, locale, slug, accum);
 
   if (!merged) {
-    console.error(
+    log.error(
       `[DatabaseSingle] Template not found: single.${locale}.yml for ${contentType}`,
     );
     return null;
@@ -379,7 +383,7 @@ export async function loadDatabaseSinglePage(
   }
 
   if (!databaseManager.exists(dbName)) {
-    console.error(`[DatabaseSingle] Database "${dbName}" not found`);
+    log.error(`[DatabaseSingle] Database "${dbName}" not found`);
     return null;
   }
 
@@ -431,7 +435,7 @@ export async function loadDatabaseSinglePage(
     }
 
     if (!matchItem) {
-      console.log(
+      log.info(
         `[DatabaseSingle] Item not found: ${lookupKey}=${slug} in ${dbName}`,
       );
       return null;
@@ -486,7 +490,7 @@ export async function loadDatabaseSinglePage(
 
     return page;
   } catch (err) {
-    console.error(
+    log.error(
       `[DatabaseSingle] Error loading ${contentType}/${slug}:`,
       err,
     );

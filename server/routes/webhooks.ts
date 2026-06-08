@@ -9,6 +9,10 @@ import { invalidateContentCaches } from "./_helpers";
 import { getTrackingSettings } from "../settings";
 import { buildLeadPayload } from "../utils/buildLeadPayload";
 import { z } from "zod";
+import { child } from "../logger";
+const log = child({ module: "routes/webhooks" });
+
+
 
 function buildBaseUrlFromRequest(req: Request): string {
   const host = req.get("x-forwarded-host") || req.get("host") || "localhost:5000";
@@ -108,7 +112,7 @@ export function registerWebhooksRoutes(app: Express): void {
 
     // SSRF protection: block private/internal network destinations
     if (isPrivateDestination(url)) {
-      console.warn(`[ConversionWebhook] Blocked private/internal destination: ${url}`);
+      log.warn(`[ConversionWebhook] Blocked private/internal destination: ${url}`);
       res.status(400).json({ error: "Webhook destination is not allowed (private or internal address)" });
       return;
     }
@@ -139,11 +143,11 @@ export function registerWebhooksRoutes(app: Express): void {
       }
 
       const response = await fetch(fetchUrl, fetchOptions);
-      console.log(`[ConversionWebhook] Delivered to ${url} — status ${response.status}`);
+      log.info(`[ConversionWebhook] Delivered to ${url} — status ${response.status}`);
 
       if (!response.ok) {
         const body = await response.text().catch(() => "");
-        console.warn(`[ConversionWebhook] Upstream returned ${response.status}: ${body.slice(0, 200)}`);
+        log.warn(`[ConversionWebhook] Upstream returned ${response.status}: ${body.slice(0, 200)}`);
         res.status(502).json({
           error: "Upstream webhook returned a non-2xx response",
           upstream_status: response.status,
@@ -154,7 +158,7 @@ export function registerWebhooksRoutes(app: Express): void {
 
       res.json({ success: true, status: response.status });
     } catch (err) {
-      console.error("[ConversionWebhook] Failed to deliver webhook:", err);
+      log.error({ err: err }, "[ConversionWebhook] Failed to deliver webhook:");
       res.status(502).json({ error: "Failed to deliver webhook", details: String(err) });
     }
   });
@@ -215,7 +219,7 @@ export function registerWebhooksRoutes(app: Express): void {
     res.json({ success: true });
 
     if (isPrivateDestination(url)) {
-      console.warn(`[LeadWebhookDelivery] Blocked private/internal destination: ${url}`);
+      log.warn(`[LeadWebhookDelivery] Blocked private/internal destination: ${url}`);
       return;
     }
 
@@ -240,9 +244,9 @@ export function registerWebhooksRoutes(app: Express): void {
       }
 
       const response = await fetch(fetchUrl, fetchOptions);
-      console.log(`[LeadWebhookDelivery] Delivered to ${url} — status ${response.status}`);
+      log.info(`[LeadWebhookDelivery] Delivered to ${url} — status ${response.status}`);
     } catch (err) {
-      console.error("[LeadWebhookDelivery] Failed to deliver:", err);
+      log.error({ err: err }, "[LeadWebhookDelivery] Failed to deliver:");
     }
   });
 
@@ -314,15 +318,15 @@ export function registerWebhooksRoutes(app: Express): void {
 
         if (!response.ok) {
           const body = await response.text().catch(() => "");
-          console.warn(`[WebhookTest] Upstream returned ${status}: ${body.slice(0, 200)}`);
+          log.warn(`[WebhookTest] Upstream returned ${status}: ${body.slice(0, 200)}`);
           res.json({ ok: false, status, error: `Upstream returned ${status}: ${body.slice(0, 200)}` });
           return;
         }
 
-        console.log(`[WebhookTest] Delivered to ${url} — status ${status}`);
+        log.info(`[WebhookTest] Delivered to ${url} — status ${status}`);
         res.json({ ok: true, status });
       } catch (err) {
-        console.error("[WebhookTest] Failed to deliver:", err);
+        log.error({ err: err }, "[WebhookTest] Failed to deliver:");
         res.json({ ok: false, status: 0, error: String(err) });
       }
     } catch (err) {

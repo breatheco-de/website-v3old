@@ -1,4 +1,8 @@
 import vm from "vm";
+import { child } from "./logger";
+const log = child({ module: "transform" });
+
+
 
 export const FUNCTION_PREFIX = "function:";
 export const OPTIONAL_PREFIX = "?";
@@ -11,7 +15,7 @@ function warnTransformTimeout(contentType: string, slug: string, fieldPath: stri
   const last = transformTimeoutLastWarn.get(key) ?? 0;
   if (now - last >= 60_000) {
     transformTimeoutLastWarn.set(key, now);
-    console.warn(`[Transform] Runtime error in transformer (${contentType}/${slug} field=${fieldPath}): ${message}`);
+    log.warn(`[Transform] Runtime error in transformer (${contentType}/${slug} field=${fieldPath}): ${message}`);
   }
 }
 
@@ -54,7 +58,7 @@ export function compileTransformer(prefixedValue: string): CompiledTransformer |
     compiledCache.set(prefixedValue, compiled);
     return compiled;
   } catch (err) {
-    console.warn(`[Transform] Failed to compile transformer: ${err}`);
+    log.warn(`[Transform] Failed to compile transformer: ${err}`);
     compiledCache.set(prefixedValue, null);
     return null;
   }

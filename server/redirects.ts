@@ -1,5 +1,9 @@
 import type { Request, Response, NextFunction } from "express";
 import { contentIndex, type RedirectEntry } from "./content-index";
+import { child } from "./logger";
+const log = child({ module: "redirects" });
+
+
 
 let redirectMap: Map<string, RedirectEntry> | null = null;
 let regexRedirectsBefore: Array<{ regex: RegExp; entry: RedirectEntry }> | null = null;
@@ -27,7 +31,7 @@ function buildRedirectMap(): Map<string, RedirectEntry> {
 
     if (isRegexPattern(entry.from)) {
       if (entry.from.length > 500) {
-        console.warn(`[Redirects] Regex pattern too long, skipping: ${entry.from.substring(0, 50)}...`);
+        log.warn(`[Redirects] Regex pattern too long, skipping: ${entry.from.substring(0, 50)}...`);
         continue;
       }
       try {
@@ -42,7 +46,7 @@ function buildRedirectMap(): Map<string, RedirectEntry> {
           regexBefore.push({ regex, entry });
         }
       } catch {
-        console.warn(`[Redirects] Invalid regex pattern: ${entry.from}`);
+        log.warn(`[Redirects] Invalid regex pattern: ${entry.from}`);
       }
     } else {
       if (isFallback) {
@@ -70,7 +74,7 @@ function buildRedirectMap(): Map<string, RedirectEntry> {
   regexRedirectsFallbackNonCustom = regexFbNonCustom;
   const totalBefore = map.size + regexBefore.length;
   const totalFallback = fbMap.size + regexFb.length + fbNonCustomMap.size + regexFbNonCustom.length;
-  console.log(`[Redirects] Loaded ${map.size} exact redirects, ${regexBefore.length} regex redirects (before), ${totalFallback} fallback redirects (${fbNonCustomMap.size + regexFbNonCustom.length} non-custom)`);
+  log.info(`[Redirects] Loaded ${map.size} exact redirects, ${regexBefore.length} regex redirects (before), ${totalFallback} fallback redirects (${fbNonCustomMap.size + regexFbNonCustom.length} non-custom)`);
   return map;
 }
 
@@ -131,7 +135,7 @@ export function redirectMiddleware(req: Request, res: Response, next: NextFuncti
     const status = entry.status || 301;
     const target = resolveRedirectTarget(entry, req);
     const qs = getQueryString(req);
-    console.log(`[Redirects] ${status}: ${req.path} -> ${target}${qs}`);
+    log.info(`[Redirects] ${status}: ${req.path} -> ${target}${qs}`);
     res.redirect(status, target + qs);
     return;
   }
@@ -144,7 +148,7 @@ export function redirectMiddleware(req: Request, res: Response, next: NextFuncti
         const status = regexEntry.status || 301;
         const target = resolveRedirectTarget(regexEntry, req, captureGroups);
         const qs = getQueryString(req);
-        console.log(`[Redirects] ${status} (regex): ${req.path} -> ${target}${qs}`);
+        log.info(`[Redirects] ${status} (regex): ${req.path} -> ${target}${qs}`);
         res.redirect(status, target + qs);
         return;
       }
@@ -171,7 +175,7 @@ export function fallbackRedirectMiddleware(req: Request, res: Response, next: Ne
       const status = entry.status || 301;
       const target = resolveRedirectTarget(entry, req);
       const qs = getQueryString(req);
-      console.log(`[Redirects] ${status} (fallback non-custom): ${req.path} -> ${target}${qs}`);
+      log.info(`[Redirects] ${status} (fallback non-custom): ${req.path} -> ${target}${qs}`);
       res.redirect(status, target + qs);
       return;
     }
@@ -185,7 +189,7 @@ export function fallbackRedirectMiddleware(req: Request, res: Response, next: Ne
         const status = regexEntry.status || 301;
         const target = resolveRedirectTarget(regexEntry, req, captureGroups);
         const qs = getQueryString(req);
-        console.log(`[Redirects] ${status} (fallback non-custom regex): ${req.path} -> ${target}${qs}`);
+        log.info(`[Redirects] ${status} (fallback non-custom regex): ${req.path} -> ${target}${qs}`);
         res.redirect(status, target + qs);
         return;
       }
@@ -207,7 +211,7 @@ export function fallbackRedirectMiddleware(req: Request, res: Response, next: Ne
       const status = entry.status || 301;
       const target = resolveRedirectTarget(entry, req);
       const qs = getQueryString(req);
-      console.log(`[Redirects] ${status} (fallback): ${req.path} -> ${target}${qs}`);
+      log.info(`[Redirects] ${status} (fallback): ${req.path} -> ${target}${qs}`);
       res.redirect(status, target + qs);
       return;
     }
@@ -221,7 +225,7 @@ export function fallbackRedirectMiddleware(req: Request, res: Response, next: Ne
         const status = regexEntry.status || 301;
         const target = resolveRedirectTarget(regexEntry, req, captureGroups);
         const qs = getQueryString(req);
-        console.log(`[Redirects] ${status} (fallback regex): ${req.path} -> ${target}${qs}`);
+        log.info(`[Redirects] ${status} (fallback regex): ${req.path} -> ${target}${qs}`);
         res.redirect(status, target + qs);
         return;
       }
@@ -417,5 +421,5 @@ export function clearRedirectCache(): void {
   regexRedirectsBefore = null;
   fallbackMap = null;
   regexRedirectsFallback = null;
-  console.log("[Redirects] Cache cleared");
+  log.info("[Redirects] Cache cleared");
 }

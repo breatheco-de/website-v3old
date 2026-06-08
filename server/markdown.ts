@@ -1,4 +1,8 @@
 const markdownCache = new Map<string, { content: string; fetched_at: number }>();
+import { child } from "./logger";
+const log = child({ module: "markdown" });
+
+
 
 export async function fetchMarkdownContent(readmeUrl: string): Promise<string> {
   const ttlMs = 24 * 60 * 60 * 1000;
@@ -17,7 +21,7 @@ export async function fetchMarkdownContent(readmeUrl: string): Promise<string> {
     markdownCache.set(readmeUrl, { content, fetched_at: Date.now() });
     return content;
   } catch (err) {
-    console.error(`[Markdown] Failed to fetch from ${readmeUrl}:`, err);
+    log.error({ err: err }, `[Markdown] Failed to fetch from ${readmeUrl}:`);
     return cached?.content || "";
   }
 }
@@ -25,14 +29,14 @@ export async function fetchMarkdownContent(readmeUrl: string): Promise<string> {
 export function clearMarkdownCache(slug?: string): void {
   if (!slug) {
     markdownCache.clear();
-    console.log("[Markdown] Cleared all cache entries");
+    log.info("[Markdown] Cleared all cache entries");
     return;
   }
   const keys = Array.from(markdownCache.keys());
   for (const url of keys) {
     if (url.includes(slug)) {
       markdownCache.delete(url);
-      console.log(`[Markdown] Cleared cache for slug containing: ${slug}`);
+      log.info(`[Markdown] Cleared cache for slug containing: ${slug}`);
     }
   }
 }

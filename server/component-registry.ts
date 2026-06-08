@@ -2,11 +2,15 @@ import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
 import {
+
   escapeTemplateVars,
   unescapeObjectVars,
   escapeObjectVars,
   unescapeYamlDump,
 } from "../shared/templateVars";
+import { child } from "./logger";
+const log = child({ module: "component-registry" });
+
 
 function safeYamlLoad(content: string): unknown {
   const { escaped, map } = escapeTemplateVars(content);
@@ -96,7 +100,7 @@ export function listComponents(): string[] {
       return fs.statSync(dirPath).isDirectory();
     });
   } catch (error) {
-    console.error("Error listing components:", error);
+    log.error({ err: error }, "Error listing components:");
     return [];
   }
 }
@@ -115,7 +119,7 @@ export function listVersions(componentType: string): string[] {
       .sort(compareVersions);
     return versions;
   } catch (error) {
-    console.error(`Error listing versions for ${componentType}:`, error);
+    log.error({ err: error }, `Error listing versions for ${componentType}:`);
     return [];
   }
 }
@@ -129,7 +133,7 @@ export function loadSchema(componentType: string, version: string): ComponentSch
     const content = fs.readFileSync(schemaPath, "utf8");
     return yaml.load(content) as ComponentSchema;
   } catch (error) {
-    console.error(`Error loading schema for ${componentType}/${version}:`, error);
+    log.error({ err: error }, `Error loading schema for ${componentType}/${version}:`);
     return null;
   }
 }
@@ -365,7 +369,7 @@ export function loadExamples(componentType: string, version: string): ComponentE
       };
     });
   } catch (error) {
-    console.error(`Error loading examples for ${componentType}/${version}:`, error);
+    log.error({ err: error }, `Error loading examples for ${componentType}/${version}:`);
     return [];
   }
 }
@@ -454,7 +458,7 @@ export function createNewVersion(componentType: string, baseVersion: string): { 
     
     return { success: true, newVersion: newVersionStr };
   } catch (error) {
-    console.error(`Error creating new version for ${componentType}:`, error);
+    log.error({ err: error }, `Error creating new version for ${componentType}:`);
     return { success: false, newVersion: '', error: String(error) };
   }
 }
@@ -526,12 +530,12 @@ export function loadAllFieldEditors(): AllFieldEditors {
             }
           }
         } catch (parseError) {
-          console.error(`Error parsing field-editors for ${componentType}:`, parseError);
+          log.error({ err: parseError }, `Error parsing field-editors for ${componentType}:`);
         }
       }
     }
   } catch (error) {
-    console.error("Error loading field editors:", error);
+    log.error({ err: error }, "Error loading field editors:");
   }
   
   return result;
@@ -613,7 +617,7 @@ export function saveExample(
     
     return { success: true, filePath };
   } catch (error) {
-    console.error(`Error saving example for ${componentType}/${version}:`, error);
+    log.error({ err: error }, `Error saving example for ${componentType}/${version}:`);
     return { success: false, error: String(error) };
   }
 }
@@ -711,7 +715,7 @@ export function deleteExample(
     fs.unlinkSync(deletedFilePath);
     return { success: true, filePath: deletedFilePath };
   } catch (error) {
-    console.error(`Error deleting example ${exampleName} for ${componentType}/${version}:`, error);
+    log.error({ err: error }, `Error deleting example ${exampleName} for ${componentType}/${version}:`);
     return { success: false, error: String(error) };
   }
 }
@@ -824,7 +828,7 @@ export function createExample(
     fs.writeFileSync(fullFilePath, fileContent);
     return { success: true, filename, exampleName: yamlTitle, filePath: fullFilePath };
   } catch (error) {
-    console.error(`Error creating example for ${componentType}/${version}:`, error);
+    log.error({ err: error }, `Error creating example for ${componentType}/${version}:`);
     return { success: false, error: String(error) };
   }
 }
@@ -856,7 +860,7 @@ export function deleteVariant(
 
     return { success: true, deletedExamples: deleted, deletedExamplePaths: deletedPaths, tsxPath };
   } catch (error) {
-    console.error(`Error deleting variant ${variantName} for ${componentType}:`, error);
+    log.error({ err: error }, `Error deleting variant ${variantName} for ${componentType}:`);
     return { success: false, deletedExamples: [], deletedExamplePaths: [], tsxPath: resolveVariantTsxPath(componentType, variantName), error: String(error) };
   }
 }
@@ -897,7 +901,7 @@ export function getComponentSectionDefaults(): Record<string, Record<string, unk
       }
     }
   } catch (error) {
-    console.error("Error loading component section defaults:", error);
+    log.error({ err: error }, "Error loading component section defaults:");
   }
 
   _sectionDefaultsCache = defaults;

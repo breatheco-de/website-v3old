@@ -21,6 +21,9 @@ import {
   computeFileSha,
   type PendingChange,
 } from './sync-state';
+import { child } from "./logger";
+const log = child({ module: "github" });
+
 
 interface GitHubCommitOptions {
   filePath: string;
@@ -62,14 +65,14 @@ async function getFileSha(config: GitHubConfig, filePath: string): Promise<strin
     }
     
     if (!response.ok) {
-      console.error('GitHub API error getting file SHA:', response.status, await response.text());
+      log.error('GitHub API error getting file SHA:', response.status, await response.text());
       return null;
     }
     
     const data: GitHubFileResponse = await response.json();
     return data.sha || null;
   } catch (error) {
-    console.error('Error getting file SHA from GitHub:', error);
+    log.error({ err: error }, 'Error getting file SHA from GitHub:');
     return null;
   }
 }
@@ -169,7 +172,7 @@ export async function commitToGitHub(options: GitHubCommitOptions): Promise<{ su
     
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('GitHub API error:', response.status, errorText);
+      log.error('GitHub API error:', response.status, errorText);
       return { 
         success: false, 
         error: `GitHub API error: ${response.status}` 
@@ -179,14 +182,14 @@ export async function commitToGitHub(options: GitHubCommitOptions): Promise<{ su
     const data = await response.json();
     const commitUrl = data.commit?.html_url;
     
-    console.log(`Content committed to GitHub: ${options.filePath}`);
+    log.info(`Content committed to GitHub: ${options.filePath}`);
     if (commitUrl) {
-      console.log(`Commit URL: ${commitUrl}`);
+      log.info(`Commit URL: ${commitUrl}`);
     }
     
     return { success: true, commitUrl };
   } catch (error) {
-    console.error('Error committing to GitHub:', error);
+    log.error({ err: error }, 'Error committing to GitHub:');
     return { 
       success: false, 
       error: error instanceof Error ? error.message : 'Unknown error' 
@@ -221,7 +224,7 @@ async function fetchFilesFromTree(config: GitHubConfig, commitSha: string): Prom
     });
     
     if (!response.ok) {
-      console.error('GitHub API error fetching tree:', response.status);
+      log.error({ err: response.status }, 'GitHub API error fetching tree:');
       return [];
     }
     
@@ -234,7 +237,7 @@ async function fetchFilesFromTree(config: GitHubConfig, commitSha: string): Prom
     
     return files;
   } catch (error) {
-    console.error('Error fetching files from tree:', error);
+    log.error({ err: error }, 'Error fetching files from tree:');
     return [];
   }
 }
@@ -308,14 +311,14 @@ async function createBlob(config: GitHubConfig, content: string): Promise<string
     });
     
     if (!response.ok) {
-      console.error('GitHub API error creating blob:', response.status);
+      log.error({ err: response.status }, 'GitHub API error creating blob:');
       return null;
     }
     
     const data = await response.json();
     return data.sha;
   } catch (error) {
-    console.error('Error creating blob:', error);
+    log.error({ err: error }, 'Error creating blob:');
     return null;
   }
 }
@@ -336,14 +339,14 @@ async function getTreeSha(config: GitHubConfig, commitSha: string): Promise<stri
     });
     
     if (!response.ok) {
-      console.error('GitHub API error getting commit:', response.status);
+      log.error({ err: response.status }, 'GitHub API error getting commit:');
       return null;
     }
     
     const data = await response.json();
     return data.tree?.sha || null;
   } catch (error) {
-    console.error('Error getting tree SHA:', error);
+    log.error({ err: error }, 'Error getting tree SHA:');
     return null;
   }
 }
@@ -381,14 +384,14 @@ async function createTree(
     });
     
     if (!response.ok) {
-      console.error('GitHub API error creating tree:', response.status, await response.text());
+      log.error('GitHub API error creating tree:', response.status, await response.text());
       return null;
     }
     
     const data = await response.json();
     return data.sha;
   } catch (error) {
-    console.error('Error creating tree:', error);
+    log.error({ err: error }, 'Error creating tree:');
     return null;
   }
 }
@@ -421,14 +424,14 @@ async function createCommitObject(
     });
     
     if (!response.ok) {
-      console.error('GitHub API error creating commit:', response.status, await response.text());
+      log.error('GitHub API error creating commit:', response.status, await response.text());
       return null;
     }
     
     const data = await response.json();
     return data.sha;
   } catch (error) {
-    console.error('Error creating commit:', error);
+    log.error({ err: error }, 'Error creating commit:');
     return null;
   }
 }
@@ -460,13 +463,13 @@ async function updateBranchRef(
     
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('GitHub API error updating ref:', response.status, errorText);
+      log.error('GitHub API error updating ref:', response.status, errorText);
       return false;
     }
     
     return true;
   } catch (error) {
-    console.error('Error updating branch ref:', error);
+    log.error({ err: error }, 'Error updating branch ref:');
     return false;
   }
 }
@@ -513,14 +516,14 @@ async function getBranchHeadSha(config: GitHubConfig): Promise<string | null> {
     });
     
     if (!response.ok) {
-      console.error('GitHub API error getting branch head:', response.status);
+      log.error({ err: response.status }, 'GitHub API error getting branch head:');
       return null;
     }
     
     const data = await response.json();
     return data.object?.sha || null;
   } catch (error) {
-    console.error('Error getting branch head:', error);
+    log.error({ err: error }, 'Error getting branch head:');
     return null;
   }
 }
@@ -610,10 +613,10 @@ export async function commitAndPush(
     
     updateSyncStateAfterCommit(newCommitSha, committedFiles);
     
-    console.log(`Committed and pushed to GitHub via API: ${newCommitSha}`);
+    log.info(`Committed and pushed to GitHub via API: ${newCommitSha}`);
     return { success: true, commitHash: newCommitSha };
   } catch (error) {
-    console.error('Error committing and pushing:', error);
+    log.error({ err: error }, 'Error committing and pushing:');
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return { success: false, error: errorMessage };
   }
@@ -704,7 +707,7 @@ export async function getGitHubSyncStatus(): Promise<GitHubSyncStatus> {
       branch: config.branch,
     };
   } catch (error) {
-    console.error('Error checking GitHub sync status:', error);
+    log.error({ err: error }, 'Error checking GitHub sync status:');
     return {
       configured: true,
       syncEnabled,
@@ -807,7 +810,7 @@ export async function getConflictInfo(): Promise<ConflictInfo> {
     });
     
     if (!response.ok) {
-      console.error('GitHub API error comparing commits:', response.status);
+      log.error({ err: response.status }, 'GitHub API error comparing commits:');
       return {
         hasConflict: true,
         behindBy: 1,
@@ -852,7 +855,7 @@ export async function getConflictInfo(): Promise<ConflictInfo> {
       remoteCommit,
     };
   } catch (error) {
-    console.error('Error getting conflict info:', error);
+    log.error({ err: error }, 'Error getting conflict info:');
     return {
       hasConflict: true,
       behindBy: 1,
@@ -1025,7 +1028,7 @@ export async function syncWithRemote(): Promise<{ success: boolean; error?: stri
     
     return { success: true };
   } catch (error) {
-    console.error('Error syncing with remote:', error);
+    log.error({ err: error }, 'Error syncing with remote:');
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 }
@@ -1157,7 +1160,7 @@ export async function reconcileSyncStateOnStartup(): Promise<void> {
     }
   } catch (error) {
     logSync('ERROR', `Reconciliation error: ${error instanceof Error ? error.message : String(error)}`);
-    console.error('[SyncReconcile] Error during reconciliation:', error);
+    log.error({ err: error }, '[SyncReconcile] Error during reconciliation:');
   }
 }
 
@@ -1358,7 +1361,7 @@ export async function ensureWebhook(): Promise<void> {
     }
   } catch (error) {
     logSync('ERROR', `Webhook setup error: ${error instanceof Error ? error.message : String(error)}`);
-    console.error('[Webhook] Error ensuring webhook:', error);
+    log.error({ err: error }, '[Webhook] Error ensuring webhook:');
   }
 }
 
@@ -1422,13 +1425,13 @@ async function adoptWebhook(config: GitHubConfig, hookId: number, newSecret: str
     );
     if (!response.ok) {
       const text = await response.text();
-      console.error(`[Webhook] GitHub API error adopting webhook: ${response.status}`, text);
+      log.error({ err: text }, `[Webhook] GitHub API error adopting webhook: ${response.status}`);
       return null;
     }
     const data = await response.json();
     return data.id;
   } catch (error) {
-    console.error('[Webhook] Error adopting webhook:', error);
+    log.error({ err: error }, '[Webhook] Error adopting webhook:');
     return null;
   }
 }
@@ -1461,14 +1464,14 @@ async function createWebhook(config: GitHubConfig, url: string, secret: string):
 
     if (!response.ok) {
       const text = await response.text();
-      console.error(`[Webhook] GitHub API error creating webhook: ${response.status}`, text);
+      log.error({ err: text }, `[Webhook] GitHub API error creating webhook: ${response.status}`);
       return null;
     }
 
     const data = await response.json();
     return data.id;
   } catch (error) {
-    console.error('[Webhook] Error creating webhook:', error);
+    log.error({ err: error }, '[Webhook] Error creating webhook:');
     return null;
   }
 }
@@ -1563,7 +1566,7 @@ export async function getRemoteFileContent(filePath: string): Promise<{
             return { success: true, content, sha: data.sha };
           }
         } catch (dlError) {
-          console.error('Error downloading file via download_url:', dlError);
+          log.error({ err: dlError }, 'Error downloading file via download_url:');
         }
       }
       return { success: false, error: "No content in response" };
@@ -1574,7 +1577,7 @@ export async function getRemoteFileContent(filePath: string): Promise<{
     
     return { success: true, content, sha: data.sha };
   } catch (error) {
-    console.error('Error fetching remote file:', error);
+    log.error({ err: error }, 'Error fetching remote file:');
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 }
@@ -1624,7 +1627,7 @@ export async function pullSingleFile(filePath: string): Promise<{
       
       return { success: true };
     } catch (error) {
-      console.error('Error deleting local file:', error);
+      log.error({ err: error }, 'Error deleting local file:');
       return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
     }
   }
@@ -1659,7 +1662,7 @@ export async function pullSingleFile(filePath: string): Promise<{
     
     return { success: true };
   } catch (error) {
-    console.error('Error writing file:', error);
+    log.error({ err: error }, 'Error writing file:');
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 }
@@ -1733,7 +1736,7 @@ export async function commitSingleFile(options: {
     
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('GitHub API error:', response.status, errorText);
+      log.error('GitHub API error:', response.status, errorText);
       return { success: false, error: `GitHub API error: ${response.status}` };
     }
     
@@ -1749,7 +1752,7 @@ export async function commitSingleFile(options: {
     
     return { success: true, commitSha };
   } catch (error) {
-    console.error('Error committing file:', error);
+    log.error({ err: error }, 'Error committing file:');
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 }

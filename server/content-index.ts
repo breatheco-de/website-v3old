@@ -7,6 +7,10 @@ import { escapeTemplateVars, unescapeObjectVars, escapeObjectVars, unescapeYamlD
 import { deepMerge } from "./utils/deepMerge";
 import { regenerateSectionIds } from "./utils/regenerateSectionIds";
 import { normalizeUrlPattern, getAllConfigs, getFieldMapping, resolveUrlPatternWithMapping, getFullFieldMapping } from "./content-types";
+import { child } from "./logger";
+const log = child({ module: "content-index" });
+
+
 
 export const MARKETING_CONTENT_PATH = path.join(process.cwd(), "marketing-content");
 
@@ -123,7 +127,7 @@ class ContentIndex {
   private loadContentTypes(): Record<string, ContentTypeConfig> {
     const configPath = path.join(process.cwd(), "marketing-content", "content-types.yml");
     if (!fs.existsSync(configPath)) {
-      console.warn("[ContentIndex] content-types.yml not found, using empty config");
+      log.warn("[ContentIndex] content-types.yml not found, using empty config");
       return {};
     }
     try {
@@ -137,7 +141,7 @@ class ContentIndex {
       }
       return parsed as Record<string, ContentTypeConfig>;
     } catch (err) {
-      console.error("[ContentIndex] Failed to read content-types.yml:", err);
+      log.error({ err: err }, "[ContentIndex] Failed to read content-types.yml:");
       return {};
     }
   }
@@ -323,7 +327,7 @@ class ContentIndex {
     }
 
     this.initialized = true;
-    console.log(`[ContentIndex] Fast scan: ${this.entries.length} entries indexed (image/variable/redirect/SEO deferred to background)`);
+    log.info(`[ContentIndex] Fast scan: ${this.entries.length} entries indexed (image/variable/redirect/SEO deferred to background)`);
   }
 
   /**
@@ -369,7 +373,7 @@ class ContentIndex {
     this.warnMissingSlugMappings();
 
     this.slowPhaseReady = true;
-    console.log(`[ContentIndex] Slow scan complete: ${this.imageUsage.size} image refs, ${this.variableUsage.size} variable refs, ${this.menuUsage.size} menu refs, ${this.redirectEntries.length} redirects, ${this.seoIndex.size} SEO entries`);
+    log.info(`[ContentIndex] Slow scan complete: ${this.imageUsage.size} image refs, ${this.variableUsage.size} variable refs, ${this.menuUsage.size} menu refs, ${this.redirectEntries.length} redirects, ${this.seoIndex.size} SEO entries`);
   }
 
   /** Start the slow scan asynchronously in the next event-loop tick. */
@@ -378,7 +382,7 @@ class ContentIndex {
       try {
         this.scanSlow();
       } catch (err) {
-        console.error("[ContentIndex] Error during background slow scan:", err);
+        log.error({ err: err }, "[ContentIndex] Error during background slow scan:");
       }
     });
   }
@@ -396,7 +400,7 @@ class ContentIndex {
     this.scanFast();
     this.scanSlow();
     // Re-emit a unified log for callers that expect the original combined message
-    console.log(`[ContentIndex] Scanned ${this.entries.length} content entries, ${this.imageUsage.size} image references tracked, ${this.variableUsage.size} variable references tracked, ${this.menuUsage.size} menu references tracked, ${this.redirectEntries.length} redirects, ${this.seoIndex.size} seo entries tracked`);
+    log.info(`[ContentIndex] Scanned ${this.entries.length} content entries, ${this.imageUsage.size} image references tracked, ${this.variableUsage.size} variable references tracked, ${this.menuUsage.size} menu references tracked, ${this.redirectEntries.length} redirects, ${this.seoIndex.size} seo entries tracked`);
   }
 
   safeYamlLoad(raw: string): Record<string, unknown> | null {
@@ -667,7 +671,7 @@ class ContentIndex {
         });
       }
     } catch (err) {
-      console.error("[ContentIndex] Failed to read custom-redirects.yml:", err);
+      log.error({ err: err }, "[ContentIndex] Failed to read custom-redirects.yml:");
     }
   }
 
@@ -676,10 +680,10 @@ class ContentIndex {
       const configs = getAllConfigs();
       for (const [typeName, config] of Object.entries(configs)) {
         if (config.database && !config.field_mapping?._slug) {
-          console.warn(`[ContentIndex] WARNING: Database-backed content type "${typeName}" is missing _slug in field_mapping. This is required for URL resolution.`);
+          log.warn(`[ContentIndex] WARNING: Database-backed content type "${typeName}" is missing _slug in field_mapping. This is required for URL resolution.`);
         }
         if (config.database && !config.field_mapping?._locale) {
-          console.warn(`[ContentIndex] WARNING: Database-backed content type "${typeName}" is missing _locale in field_mapping. This is required for locale resolution.`);
+          log.warn(`[ContentIndex] WARNING: Database-backed content type "${typeName}" is missing _locale in field_mapping. This is required for locale resolution.`);
         }
       }
     } catch {}
@@ -694,13 +698,13 @@ class ContentIndex {
 
       if (!fs.existsSync(typeDir)) {
         fs.mkdirSync(typeDir, { recursive: true });
-        console.log(`[ContentIndex] Auto-created folder: marketing-content/${folder}/`);
+        log.info(`[ContentIndex] Auto-created folder: marketing-content/${folder}/`);
       }
 
       const commonPath = path.join(typeDir, "_common.single.yml");
       if (!fs.existsSync(commonPath)) {
         fs.writeFileSync(commonPath, "# Common data shared across all single (database-backed) entries\n");
-        console.log(`[ContentIndex] Auto-created: marketing-content/${folder}/_common.single.yml`);
+        log.info(`[ContentIndex] Auto-created: marketing-content/${folder}/_common.single.yml`);
       }
 
       const locales = Object.keys(config.url_pattern).filter(k => k !== "default");
@@ -717,7 +721,7 @@ class ContentIndex {
             "",
           ].join("\n");
           fs.writeFileSync(singlePath, template);
-          console.log(`[ContentIndex] Auto-created single template: marketing-content/${folder}/single.${locale}.yml`);
+          log.info(`[ContentIndex] Auto-created single template: marketing-content/${folder}/single.${locale}.yml`);
         }
       }
     }
@@ -1228,7 +1232,7 @@ class ContentIndex {
       const content = fs.readFileSync(commonPath, "utf8");
       return this.safeYamlLoad(content) as Record<string, unknown>;
     } catch (error) {
-      console.error(`Error loading common data for ${contentType}/${slug}:`, error);
+      log.error({ err: error }, `Error loading common data for ${contentType}/${slug}:`);
       return null;
     }
   }
@@ -1355,7 +1359,7 @@ class ContentIndex {
         .filter(entry => entry.isDirectory())
         .map(entry => entry.name);
     } catch (error) {
-      console.error(`Error listing ${contentType}:`, error);
+      log.error({ err: error }, `Error listing ${contentType}:`);
       return [];
     }
   }
@@ -1378,7 +1382,7 @@ class ContentIndex {
         })
         .map(f => f.replace(".yml", ""));
     } catch (error) {
-      console.error(`Error getting locales for ${contentType}/${slug}:`, error);
+      log.error({ err: error }, `Error getting locales for ${contentType}/${slug}:`);
       return [];
     }
   }
@@ -1735,7 +1739,7 @@ class ContentIndex {
         const dumped = yaml.dump(escapedOut, { lineWidth: 120, noRefs: true, sortKeys: false });
         fs.writeFileSync(absFilePath, unescapeYamlDump(dumped, mapOut), "utf-8");
       } catch (e) {
-        console.error(`Error processing ${absFilePath}:`, e);
+        log.error({ err: e }, `Error processing ${absFilePath}:`);
       }
     };
 

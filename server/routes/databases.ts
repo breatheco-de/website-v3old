@@ -171,6 +171,7 @@ import type { CapabilityName } from "../user-store";
 
 
 import {
+
   BREATHECODE_HOST,
   extractToken,
   requireCapability,
@@ -204,6 +205,9 @@ import {
   ValidationFixRunLogEntry,
   FixerItemStatus,
 } from "./_helpers";
+import { child } from "../logger";
+const log = child({ module: "routes/databases" });
+
 
 export function registerDatabasesRoutes(app: Express): void {
   app.get("/api/database-single/:contentType/:slug", async (req, res) => {
@@ -235,7 +239,7 @@ export function registerDatabasesRoutes(app: Express): void {
       const { layout: _dbSingleStripLayout, ...dbSingleRest } = dbSingleData;
       res.json({ ...dbSingleRest, layout: dbSingleLayout });
     } catch (error) {
-      console.error("[DatabaseSingle] Error:", error);
+      log.error({ err: error }, "[DatabaseSingle] Error:");
       res.status(500).json({ error: "Failed to load database single page" });
     }
   });
@@ -496,7 +500,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
 
       res.json(parsed);
     } catch (err) {
-      console.error("AI analyze-fields (database) error:", err);
+      log.error({ err: err }, "AI analyze-fields (database) error:");
       res.status(500).json({ error: String(err) });
     }
   });
@@ -834,7 +838,7 @@ Keep normalized keys lowercase with underscores. Aim for 10-25 of the most usefu
       const cached = await databaseManager.fetchItems(name, false);
       const { indexItems } = await import("../vector-search");
       indexItems(name, cached.items, vsConfig.fields).catch((err: unknown) => {
-        console.error(`[reindex] Background indexing error for "${name}":`, err);
+        log.error({ err: err }, `[reindex] Background indexing error for "${name}":`);
       });
       res.json({ success: true, count: cached.items.length });
     } catch (err: unknown) {

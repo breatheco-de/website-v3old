@@ -4,6 +4,10 @@ import { getSupportedLocales } from "./settings";
 import { applyTransformIfNeeded } from "./transform";
 import { getFileLastmod } from "./sync-state";
 import { databaseManager } from "./database";
+import { child } from "./logger";
+const log = child({ module: "sitemap" });
+
+
 
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -123,7 +127,7 @@ function getAvailablePrograms(): AvailableProgram[] {
 
     return programs;
   } catch (error) {
-    console.error("Error scanning programs:", error);
+    log.error({ err: error }, "Error scanning programs:");
     return [];
   }
 }
@@ -157,7 +161,7 @@ function getAvailableLocations(): AvailableLocation[] {
 
     return locations;
   } catch (error) {
-    console.error("Error scanning locations:", error);
+    log.error({ err: error }, "Error scanning locations:");
     return [];
   }
 }
@@ -190,7 +194,7 @@ function getAvailableTemplatePages(): AvailableTemplatePage[] {
 
     return pages;
   } catch (error) {
-    console.error("Error scanning template pages:", error);
+    log.error({ err: error }, "Error scanning template pages:");
     return [];
   }
 }
@@ -264,7 +268,7 @@ function buildCanonicalSitemapEntries(): Map<string, CanonicalSitemapEntry> {
   const programs = getAvailablePrograms();
   for (const program of programs) {
     if (!shouldIndex(program.meta.robots)) {
-      console.log(
+      log.info(
         `[Sitemap] Skipping noindex program: ${program.slug} (${program.locale})`,
       );
       continue;
@@ -286,7 +290,7 @@ function buildCanonicalSitemapEntries(): Map<string, CanonicalSitemapEntry> {
   const locations = getAvailableLocations();
   for (const location of locations) {
     if (!shouldIndex(location.meta.robots)) {
-      console.log(
+      log.info(
         `[Sitemap] Skipping noindex location: ${location.slug} (${location.locale})`,
       );
       continue;
@@ -308,7 +312,7 @@ function buildCanonicalSitemapEntries(): Map<string, CanonicalSitemapEntry> {
   const templatePages = getAvailableTemplatePages();
   for (const page of templatePages) {
     if (!shouldIndex(page.meta.robots)) {
-      console.log(
+      log.info(
         `[Sitemap] Skipping noindex template page: ${page.slug} (${page.locale})`,
       );
       continue;
@@ -332,7 +336,7 @@ function buildCanonicalSitemapEntries(): Map<string, CanonicalSitemapEntry> {
       const dbName = typeConfig.database.slug;
       const items = databaseManager.getMappedItems(dbName);
       if (!items || items.length === 0) {
-        console.warn(`[Sitemap] No cached items for DB-backed type "${typeName}" (db: ${dbName}) — skipping`);
+        log.warn(`[Sitemap] No cached items for DB-backed type "${typeName}" (db: ${dbName}) — skipping`);
         continue;
       }
       const localeFieldKey = getLocaleKey(typeName);
@@ -363,7 +367,7 @@ function buildCanonicalSitemapEntries(): Map<string, CanonicalSitemapEntry> {
       }
     }
   } catch (err) {
-    console.warn("[Sitemap] Could not load DB-backed content types for sitemap:", err);
+    log.warn("[Sitemap] Could not load DB-backed content types for sitemap:", err);
   }
 
   const handledTypes = new Set(["program", "location", "page"]);
@@ -384,7 +388,7 @@ function buildCanonicalSitemapEntries(): Map<string, CanonicalSitemapEntry> {
 
           const meta = (merged.meta as ContentMeta) || {};
           if (!shouldIndex(meta.robots)) {
-            console.log(`[Sitemap] Skipping noindex ${typeName}: ${slug} (${locale})`);
+            log.info(`[Sitemap] Skipping noindex ${typeName}: ${slug} (${locale})`);
             continue;
           }
 
@@ -404,7 +408,7 @@ function buildCanonicalSitemapEntries(): Map<string, CanonicalSitemapEntry> {
       }
     }
   } catch (err) {
-    console.warn("[Sitemap] Error generating dynamic content type entries:", err);
+    log.warn("[Sitemap] Error generating dynamic content type entries:", err);
   }
 
   return entriesMap;
@@ -487,12 +491,12 @@ function getCanonicalEntries(): Map<string, CanonicalSitemapEntry> {
 
   // Check if cache exists and is still valid
   if (sitemapCache && now - sitemapCache.generatedAt < CACHE_TTL_MS) {
-    console.log("[Sitemap] Serving from cache");
+    log.info("[Sitemap] Serving from cache");
     return sitemapCache.entries;
   }
 
   // Generate fresh entries
-  console.log("[Sitemap] Generating fresh sitemap entries");
+  log.info("[Sitemap] Generating fresh sitemap entries");
   const entriesMap = buildCanonicalSitemapEntries();
 
   sitemapCache = {
@@ -522,7 +526,7 @@ export function clearSitemapCache(): { success: boolean; message: string } {
     const age = Date.now() - sitemapCache.generatedAt;
     const ageMinutes = Math.round(age / 1000 / 60);
     sitemapCache = null;
-    console.log("[Sitemap] Cache cleared");
+    log.info("[Sitemap] Cache cleared");
     return {
       success: true,
       message: `Cache cleared. Previous cache was ${ageMinutes} minutes old.`,
@@ -577,7 +581,7 @@ export function getSitemapCacheStatus(): {
 export function invalidateSitemapEntry(mapKey: string): void {
   if (!sitemapCache) return;
   sitemapCache.entries.delete(mapKey);
-  console.log(`[Sitemap] Invalidated entry: ${mapKey}`);
+  log.info(`[Sitemap] Invalidated entry: ${mapKey}`);
 }
 
 /**
@@ -596,7 +600,7 @@ export function invalidateSitemapEntriesByContentKey(contentKey: string): void {
     }
   }
   if (removed > 0) {
-    console.log(`[Sitemap] Invalidated ${removed} entr${removed === 1 ? "y" : "ies"} for contentKey: ${contentKey}`);
+    log.info(`[Sitemap] Invalidated ${removed} entr${removed === 1 ? "y" : "ies"} for contentKey: ${contentKey}`);
   }
 }
 
@@ -608,7 +612,7 @@ export function upsertSitemapEntry(entry: CanonicalSitemapEntry): void {
   if (!sitemapCache) return;
   const key = buildMapKey(entry);
   sitemapCache.entries.set(key, entry);
-  console.log(`[Sitemap] Upserted entry: ${key} → ${entry.loc}`);
+  log.info(`[Sitemap] Upserted entry: ${key} → ${entry.loc}`);
 }
 
 /**

@@ -7,6 +7,10 @@ import {
   type ResolvedToken,
 } from "./template-parser";
 import { markFileAsModified } from "./sync-state";
+import { child } from "./logger";
+const log = child({ module: "variable-manager" });
+
+
 
 const VARIABLES_PATH = path.join(
   process.cwd(),
@@ -71,7 +75,7 @@ class VariableManager {
   private load(): void {
     try {
       if (!fs.existsSync(VARIABLES_PATH)) {
-        console.warn("[VariableManager] variables.yml not found");
+        log.warn("[VariableManager] variables.yml not found");
         this.variables = {};
         this.initialized = true;
         return;
@@ -87,11 +91,11 @@ class VariableManager {
       this.aliasReservedIntoGlobal();
 
       const count = Object.keys(this.variables).length;
-      console.log(`[VariableManager] Loaded ${count} variable definitions`);
+      log.info(`[VariableManager] Loaded ${count} variable definitions`);
 
       this.autoMigrate();
     } catch (err) {
-      console.error("[VariableManager] Failed to load variables.yml:", err);
+      log.error({ err: err }, "[VariableManager] Failed to load variables.yml:");
       this.variables = {};
       this.initialized = true;
     }
@@ -114,7 +118,7 @@ class VariableManager {
       (def) => def.by_location || def.by_region || def.by_locale,
     );
     if (needsMigration) {
-      console.log("[VariableManager] Legacy by_* fields detected, auto-migrating to conditions...");
+      log.info("[VariableManager] Legacy by_* fields detected, auto-migrating to conditions...");
       this.migrateToConditions();
     }
   }
@@ -151,7 +155,7 @@ class VariableManager {
     }
 
     this.save();
-    console.log("[VariableManager] Migration to conditions format complete");
+    log.info("[VariableManager] Migration to conditions format complete");
   }
 
   private reloadIfChanged(): void {
@@ -159,7 +163,7 @@ class VariableManager {
       if (!fs.existsSync(VARIABLES_PATH)) return;
       const stat = fs.statSync(VARIABLES_PATH);
       if (stat.mtimeMs > this.lastModified) {
-        console.log("[VariableManager] variables.yml changed, reloading...");
+        log.info("[VariableManager] variables.yml changed, reloading...");
         this.load();
       }
     } catch {
@@ -491,9 +495,9 @@ class VariableManager {
       const stat = fs.statSync(VARIABLES_PATH);
       this.lastModified = stat.mtimeMs;
       markFileAsModified("marketing-content/variables.yml");
-      console.log("[VariableManager] Saved variables.yml");
+      log.info("[VariableManager] Saved variables.yml");
     } catch (err) {
-      console.error("[VariableManager] Failed to save variables.yml:", err);
+      log.error({ err: err }, "[VariableManager] Failed to save variables.yml:");
       throw err;
     }
   }

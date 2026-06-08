@@ -170,6 +170,7 @@ import type { CapabilityName } from "../user-store";
 
 
 import {
+
   BREATHECODE_HOST,
   extractToken,
   requireCapability,
@@ -203,6 +204,9 @@ import {
   ValidationFixRunLogEntry,
   FixerItemStatus,
 } from "./_helpers";
+import { child } from "../logger";
+const log = child({ module: "routes/auth" });
+
 
 export function registerAuthRoutes(app: Express): void {
   app.get("/api/auth/check-capability", async (req, res) => {
@@ -283,7 +287,7 @@ export function registerAuthRoutes(app: Express): void {
       });
       if (noWebmasterExists) {
         userStore.assignRoles(profile.username, ["webmaster"]);
-        console.log(`[UserStore] Bootstrap: no webmaster existed — "${profile.username}" auto-assigned webmaster role`);
+        log.info(`[UserStore] Bootstrap: no webmaster existed — "${profile.username}" auto-assigned webmaster role`);
       }
 
       // Claim any pending pre-registration that matches this user's email
@@ -295,7 +299,7 @@ export function registerAuthRoutes(app: Express): void {
           if (!currentRoles.includes(pendingRole)) {
             userStore.assignRoles(profile.username, [...currentRoles, pendingRole]);
           }
-          console.log(`[UserStore] Claimed pending role "${pendingRole}" for user "${profile.username}" via email match`);
+          log.info(`[UserStore] Claimed pending role "${pendingRole}" for user "${profile.username}" via email match`);
         }
       }
 
@@ -304,7 +308,7 @@ export function registerAuthRoutes(app: Express): void {
 
       res.json({ valid: true, capabilities, userName, username: profile.username, expiresAt: profile.expiresAt ?? null });
     } catch (error) {
-      console.error("Token validation error:", error);
+      log.error({ err: error }, "Token validation error:");
       res.json({ valid: false, capabilities: [] });
     }
   });
@@ -389,7 +393,7 @@ export function registerAuthRoutes(app: Express): void {
         );
       } catch (networkError) {
         // Network error - don't invalidate session, return error status
-        console.error("Network error checking session:", networkError);
+        log.error({ err: networkError }, "Network error checking session:");
         res.json({
           valid: false,
           networkError: true,
@@ -430,7 +434,7 @@ export function registerAuthRoutes(app: Express): void {
         expiresAt: tokenInfo.expires_at || null,
       });
     } catch (error) {
-      console.error("Session check error:", error);
+      log.error({ err: error }, "Session check error:");
       // Unknown error - don't invalidate session
       res.json({
         valid: false,

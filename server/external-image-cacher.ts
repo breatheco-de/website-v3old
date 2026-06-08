@@ -1,6 +1,10 @@
 import type { DatabaseConfig } from "./database";
 import { enqueueExternalImage } from "./image-registry";
 import { mediaGallery } from "./media-gallery";
+import { child } from "./logger";
+const log = child({ module: "external-image-cacher" });
+
+
 
 const PRIVATE_IP_RANGES = [
   /^127\./,
@@ -111,12 +115,12 @@ export const ExternalImageCacher = {
     if (enqueued > 0 || backfilled > 0) {
       mediaGallery.persistRegistry();
       if (enqueued > 0) {
-        console.log(
+        log.info(
           `[ExternalImageCacher] Enqueued ${enqueued} new URL(s) for db "${dbName}" (worker will process them)`
         );
       }
       if (backfilled > 0) {
-        console.log(
+        log.info(
           `[ExternalImageCacher] Backfilled source_item on ${backfilled} existing entry(s) for db "${dbName}"`
         );
       }

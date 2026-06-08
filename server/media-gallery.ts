@@ -9,6 +9,10 @@ import { markFileAsModified } from "./sync-state";
 import { processImageBuffer } from "./image-optimizer";
 import type { Preset } from "./image-optimizer";
 import { importMigrated } from "./image-queue-state";
+import { child } from "./logger";
+const log = child({ module: "media-gallery" });
+
+
 
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), "marketing-content");
 const MARKETING_IMAGES_DIR = path.join(MARKETING_CONTENT_DIR, "images");
@@ -146,7 +150,7 @@ class MediaGallery {
       }
       if (Object.keys(toMigrate).length > 0) {
         importMigrated(toMigrate);
-        console.log(`[MediaGallery] Migrated queue state for ${Object.keys(toMigrate).length} entries to .image-queue-state.json`);
+        log.info(`[MediaGallery] Migrated queue state for ${Object.keys(toMigrate).length} entries to .image-queue-state.json`);
         // Write the cleaned registry back to disk immediately so the fields
         // are never committed to version control again.
         fs.writeFileSync(REGISTRY_PATH, JSON.stringify(raw, null, 2) + "\n", "utf8");
@@ -156,10 +160,10 @@ class MediaGallery {
       this.registryCache = raw;
       this.lastModified = fs.statSync(REGISTRY_PATH).mtimeMs;
 
-      console.log(`[MediaGallery] Loaded ${Object.keys(this.registryCache.images).length} images, ${Object.keys(this.registryCache.presets).length} presets`);
+      log.info(`[MediaGallery] Loaded ${Object.keys(this.registryCache.images).length} images, ${Object.keys(this.registryCache.presets).length} presets`);
       return this.registryCache;
     } catch (error) {
-      console.error("[MediaGallery] Failed to load registry:", error);
+      log.error({ err: error }, "[MediaGallery] Failed to load registry:");
       return null;
     }
   }
@@ -1078,7 +1082,7 @@ class MediaGallery {
       await media.delete(imageEntry.src);
     } catch (err) {
       const msg = `Failed to delete primary file ${imageEntry.src}: ${err instanceof Error ? err.message : String(err)}`;
-      console.warn(`[MediaGallery] ${msg}`);
+      log.warn(`[MediaGallery] ${msg}`);
       errors.push(msg);
     }
     if (imageEntry.srcset) {
@@ -1087,7 +1091,7 @@ class MediaGallery {
           await media.delete(entry.url);
         } catch (err) {
           const msg = `Failed to delete srcset variant ${entry.url}: ${err instanceof Error ? err.message : String(err)}`;
-          console.warn(`[MediaGallery] ${msg}`);
+          log.warn(`[MediaGallery] ${msg}`);
           errors.push(msg);
         }
       }
@@ -1350,13 +1354,13 @@ class MediaGallery {
       .then(({ classifyAndApply }) => classifyAndApply(imageId))
       .then((result) => {
         if (result.added.length > 0) {
-          console.log(
+          log.info(
             `[MediaGallery] Auto-tagged "${imageId}" with: ${result.added.join(", ")}`,
           );
         }
       })
       .catch((err) => {
-        console.warn(
+        log.warn(
           `[MediaGallery] Auto-tag failed for "${imageId}":`,
           err instanceof Error ? err.message : String(err),
         );
@@ -1373,7 +1377,7 @@ class MediaGallery {
     processImageBuffer(id, buffer, src, tags, presets, false, undefined, tagDefinitions)
       .then((result) => {
         if (!result) {
-          console.log(`[MediaGallery] Background optimization produced no variants for "${id}"`);
+          log.info(`[MediaGallery] Background optimization produced no variants for "${id}"`);
           return;
         }
 
@@ -1382,7 +1386,7 @@ class MediaGallery {
 
         const existing = currentRegistry.images[id];
         if (!existing) {
-          console.log(`[MediaGallery] Image "${id}" no longer in registry, skipping optimization update`);
+          log.info(`[MediaGallery] Image "${id}" no longer in registry, skipping optimization update`);
           return;
         }
 
@@ -1397,12 +1401,12 @@ class MediaGallery {
         };
 
         this.saveRegistry(currentRegistry);
-        console.log(
+        log.info(
           `[MediaGallery] Optimized "${id}": ${result.width}x${result.height} → ${result.srcset.length} variant(s) [${result.preset.join(", ")}]`
         );
       })
       .catch((err) => {
-        console.error(`[MediaGallery] Background optimization failed for "${id}":`, err);
+        log.error({ err: err }, `[MediaGallery] Background optimization failed for "${id}":`);
       });
   }
 

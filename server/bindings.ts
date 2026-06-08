@@ -5,6 +5,10 @@ import { escapeObjectVars, unescapeYamlDump } from "@shared/templateVars";
 import { markFileAsModified } from "./sync-state";
 import { generateSectionId } from "./utils/generateSectionId";
 import { contentIndex, MARKETING_CONTENT_PATH } from "./content-index";
+import { child } from "./logger";
+const log = child({ module: "bindings" });
+
+
 
 function safeYamlDump(obj: unknown, opts?: yaml.DumpOptions): string {
   const { escaped, map } = escapeObjectVars(obj);
@@ -145,13 +149,13 @@ class BindingManager {
         this.data = { groups: [] };
       }
     } catch (error) {
-      console.error("[BindingManager] Error loading bindings:", error);
+      log.error({ err: error }, "[BindingManager] Error loading bindings:");
       this.data = { groups: [] };
     }
     this.migrateFromSectionIndex();
     this.rebuildIndex();
     this.loaded = true;
-    console.log(`[BindingManager] Loaded ${this.data.groups.length} binding groups`);
+    log.info(`[BindingManager] Loaded ${this.data.groups.length} binding groups`);
   }
 
   private migrateFromSectionIndex(): void {
@@ -169,7 +173,7 @@ class BindingManager {
             migrated++;
             needsSave = true;
           } catch (err) {
-            console.error(`[BindingManager] Migration failed for ${legacyMember.contentType}/${legacyMember.slug}[${legacyMember.sectionIndex}]:`, err);
+            log.error({ err: err }, `[BindingManager] Migration failed for ${legacyMember.contentType}/${legacyMember.slug}[${legacyMember.sectionIndex}]:`);
           }
         } else if (legacyMember.sectionId) {
           newMembers.push({ contentType: legacyMember.contentType, slug: legacyMember.slug, sectionId: legacyMember.sectionId });
@@ -181,7 +185,7 @@ class BindingManager {
     this.data.groups = this.data.groups.filter(g => g.members.length >= 2);
 
     if (needsSave) {
-      console.log(`[BindingManager] Migrated ${migrated} members from sectionIndex to sectionId`);
+      log.info(`[BindingManager] Migrated ${migrated} members from sectionIndex to sectionId`);
       this.save();
     }
   }
@@ -199,7 +203,7 @@ class BindingManager {
       fs.writeFileSync(BINDINGS_FILE, JSON.stringify(this.data, null, 2), "utf-8");
       markFileAsModified("marketing-content/section-bindings.json", author);
     } catch (error) {
-      console.error("[BindingManager] Error saving bindings:", error);
+      log.error({ err: error }, "[BindingManager] Error saving bindings:");
     }
   }
 
@@ -347,7 +351,7 @@ class BindingManager {
         fs.writeFileSync(filePath, updatedYaml, "utf-8");
         markFileAsModified(filePath, author);
       } catch (err) {
-        console.error(`[BindingManager] Error propagating to ${sibling.contentType}/${sibling.slug}:`, err);
+        log.error({ err: err }, `[BindingManager] Error propagating to ${sibling.contentType}/${sibling.slug}:`);
       }
     }
   }
@@ -566,7 +570,7 @@ class BindingManager {
     if (removed > 0) {
       this.rebuildIndex();
       this.save();
-      console.log(`[BindingManager] Cleaned up ${removed} stale references`);
+      log.info(`[BindingManager] Cleaned up ${removed} stale references`);
     }
 
     return removed;

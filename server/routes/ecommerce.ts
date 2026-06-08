@@ -12,6 +12,10 @@
 import type { Express } from "express";
 import { z } from "zod";
 import { ecommerceManager } from "../ecommerce/ecommerce-manager";
+import { child } from "../logger";
+const log = child({ module: "routes/ecommerce" });
+
+
 
 const productIdSchema = z.object({
   productId: z.string().min(1).regex(/^[a-z0-9-_]+$/i),
@@ -31,7 +35,7 @@ export function registerEcommerceRoutes(app: Express): void {
       }));
       res.json({ products, settings: ecommerceManager.getSettings() });
     } catch (err) {
-      console.error("[EcommerceRoutes] GET /api/ecommerce/products:", err);
+      log.error({ err: err }, "[EcommerceRoutes] GET /api/ecommerce/products:");
       res.status(500).json({ error: "Internal server error" });
     }
   });
@@ -50,7 +54,7 @@ export function registerEcommerceRoutes(app: Express): void {
       }
       res.json({ product: resolved, settings: ecommerceManager.getSettings() });
     } catch (err) {
-      console.error(`[EcommerceRoutes] GET /api/ecommerce/products/${parsed.data.productId}:`, err);
+      log.error({ err: err }, `[EcommerceRoutes] GET /api/ecommerce/products/${parsed.data.productId}:`);
       res.status(500).json({ error: "Internal server error" });
     }
   });
@@ -69,7 +73,7 @@ export function registerEcommerceRoutes(app: Express): void {
       }
       res.json({ plan, settings: ecommerceManager.getSettings() });
     } catch (err) {
-      console.error(`[EcommerceRoutes] GET /api/ecommerce/plans/${parsed.data.planId}:`, err);
+      log.error({ err: err }, `[EcommerceRoutes] GET /api/ecommerce/plans/${parsed.data.planId}:`);
       res.status(500).json({ error: "Internal server error" });
     }
   });

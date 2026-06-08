@@ -2,6 +2,10 @@ import Database from "better-sqlite3";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import * as fs from "fs";
 import * as path from "path";
+import { child } from "./logger";
+const log = child({ module: "db" });
+
+
 
 const dataDir = path.resolve("data");
 if (!fs.existsSync(dataDir)) {
@@ -40,10 +44,10 @@ try {
   const hasUserId = cols.some(c => c.name === "user_id");
   if (hasVisitorId && !hasUserId) {
     sqlite.exec("ALTER TABLE conversations RENAME COLUMN visitor_id TO user_id");
-    console.log("[DB] Migrated conversations.visitor_id → user_id");
+    log.info("[DB] Migrated conversations.visitor_id → user_id");
   }
 } catch (err) {
-  console.warn("[DB] Column migration check failed (non-fatal):", err);
+  log.warn("[DB] Column migration check failed (non-fatal):", err);
 }
 
 sqlite.exec(`
@@ -72,6 +76,6 @@ sqlite.exec(`
   );
 `);
 
-console.log(`[DB] SQLite database: ${dbPath}`);
+log.info(`[DB] SQLite database: ${dbPath}`);
 
 export const db = drizzle(sqlite);

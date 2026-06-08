@@ -171,6 +171,7 @@ import type { CapabilityName } from "../user-store";
 
 
 import {
+
   BREATHECODE_HOST,
   extractToken,
   requireCapability,
@@ -204,6 +205,9 @@ import {
   ValidationFixRunLogEntry,
   FixerItemStatus,
 } from "./_helpers";
+import { child } from "../logger";
+const log = child({ module: "routes/sections" });
+
 
 export function registerSectionsRoutes(app: Express): void {
   // ── Per-entry section operations ──
@@ -367,7 +371,7 @@ export function registerSectionsRoutes(app: Express): void {
 
       res.json({ success: true });
     } catch (error) {
-      console.error("[per-entry-section-remove] Error:", error);
+      log.error({ err: error }, "[per-entry-section-remove] Error:");
       res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
     }
   });
@@ -425,7 +429,7 @@ export function registerSectionsRoutes(app: Express): void {
 
       res.json({ success: true });
     } catch (error) {
-      console.error("[per-entry-section-restore] Error:", error);
+      log.error({ err: error }, "[per-entry-section-restore] Error:");
       res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
     }
   });
@@ -484,7 +488,7 @@ export function registerSectionsRoutes(app: Express): void {
 
       res.json({ success: true });
     } catch (error) {
-      console.error("[per-entry-section-patch-reset] Error:", error);
+      log.error({ err: error }, "[per-entry-section-patch-reset] Error:");
       res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
     }
   });
@@ -609,7 +613,7 @@ export function registerSectionsRoutes(app: Express): void {
       const updatedPage = await loadDatabaseSinglePage(contentType, slug, locale);
       res.json({ success: true, sections: updatedPage?.sections ?? [] });
     } catch (error) {
-      console.error("[per-entry-section-add] Error:", error);
+      log.error({ err: error }, "[per-entry-section-add] Error:");
       res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
     }
   });
@@ -741,7 +745,7 @@ export function registerSectionsRoutes(app: Express): void {
 
       res.json({ success: true });
     } catch (error) {
-      console.error("[per-entry-section-delete-from-template] Error:", error);
+      log.error({ err: error }, "[per-entry-section-delete-from-template] Error:");
       res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
     }
   });
@@ -875,7 +879,7 @@ export function registerSectionsRoutes(app: Express): void {
 
       res.json({ success: true });
     } catch (error) {
-      console.error("[per-entry-section-update] Error:", error);
+      log.error({ err: error }, "[per-entry-section-update] Error:");
       res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
     }
   });
@@ -1069,7 +1073,7 @@ export function registerSectionsRoutes(app: Express): void {
         res.status(400).json({ error: result.error });
       }
     } catch (error) {
-      console.error("Content edit error:", error);
+      log.error({ err: error }, "Content edit error:");
       res.status(500).json({ error: "Internal server error" });
     }
   });
@@ -1147,7 +1151,7 @@ export function registerSectionsRoutes(app: Express): void {
         res.status(400).json({ error: result.error });
       }
     } catch (error) {
-      console.error("Common content edit error:", error);
+      log.error({ err: error }, "Common content edit error:");
       res.status(500).json({ error: "Internal server error" });
     }
   });
@@ -1162,7 +1166,7 @@ export function registerSectionsRoutes(app: Express): void {
       if (!result.success) { res.status(result.statusCode).json({ error: result.error }); return; }
       res.json(result.data);
     } catch (error) {
-      console.error("[Content] Rename slug error:", error);
+      log.error({ err: error }, "[Content] Rename slug error:");
       res.status(500).json({ error: "Failed to rename slug" });
     }
   });
@@ -1318,7 +1322,7 @@ export function registerSectionsRoutes(app: Express): void {
       if (!result.success) { res.status(result.statusCode).json({ error: result.error }); return; }
       res.json(result.data);
     } catch (error) {
-      console.error("Content create error:", error);
+      log.error({ err: error }, "Content create error:");
       res.status(500).json({ error: "Internal server error" });
     }
   });
@@ -1340,7 +1344,7 @@ export function registerSectionsRoutes(app: Express): void {
       if (!result.success) { res.status(result.statusCode).json({ error: result.error }); return; }
       res.json(result.data);
     } catch (error) {
-      console.error("Content delete error:", error);
+      log.error({ err: error }, "Content delete error:");
       res.status(500).json({ error: "Internal server error" });
     }
   });
@@ -1365,7 +1369,7 @@ export function registerSectionsRoutes(app: Express): void {
       const dependants = anchors.dependants[sectionId] ?? [];
       res.json({ dependants });
     } catch (error) {
-      console.error("[section-dependants] Error:", error);
+      log.error({ err: error }, "[section-dependants] Error:");
       res.status(500).json({ error: error instanceof Error ? error.message : "Unknown error" });
     }
   });

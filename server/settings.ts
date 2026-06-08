@@ -1,6 +1,10 @@
 import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
+import { child } from "./logger";
+const log = child({ module: "settings" });
+
+
 
 const SETTINGS_PATH = path.join(process.cwd(), "marketing-content", "settings.yml");
 
@@ -104,7 +108,7 @@ function loadSettings(): SiteSettings {
   };
 
   if (!fs.existsSync(SETTINGS_PATH)) {
-    console.warn("[Settings] settings.yml not found, using defaults");
+    log.warn("[Settings] settings.yml not found, using defaults");
     cached = defaults;
     return cached;
   }
@@ -206,12 +210,12 @@ function loadSettings(): SiteSettings {
     };
 
     cached = { ...defaults, i18n, home_page, optimization, tracking };
-    console.log(
+    log.info(
       `[Settings] Loaded: ${i18n.supported_locales.length} locale(s), default="${i18n.default_locale}", home_page="${home_page.slug}", conversion_events=${tracking.conversion_events.length}`
     );
     return cached;
   } catch (err) {
-    console.error("[Settings] Failed to parse settings.yml, using defaults:", err);
+    log.error({ err: err }, "[Settings] Failed to parse settings.yml, using defaults:");
     cached = defaults;
     return cached;
   }
@@ -310,7 +314,7 @@ export function updateLocaleSettings(input: {
   const output = yaml.dump(existing, { lineWidth: 120, noRefs: true });
   fs.writeFileSync(SETTINGS_PATH, output, "utf-8");
   resetSettings();
-  console.log(
+  log.info(
     `[Settings] Updated: ${supported_locales.length} locale(s), default="${default_locale}"`
   );
 }
@@ -403,10 +407,10 @@ export function updateTrackingSettings(input: {
   fs.writeFileSync(SETTINGS_PATH, output, "utf-8");
   resetSettings();
   if (input.conversion_events !== undefined) {
-    console.log(`[Settings] Updated tracking.conversion_events: ${input.conversion_events.length} event(s)`);
+    log.info(`[Settings] Updated tracking.conversion_events: ${input.conversion_events.length} event(s)`);
   }
   if (input.webhook !== undefined) {
-    console.log(`[Settings] Updated tracking.webhook: ${input.webhook ? input.webhook.url : "(cleared)"}`);
+    log.info(`[Settings] Updated tracking.webhook: ${input.webhook ? input.webhook.url : "(cleared)"}`);
   }
 }
 
@@ -453,5 +457,5 @@ export function updateOptimizationSettings(input: { tagmanager: Partial<TagManag
   const output = yaml.dump(existing, { lineWidth: 120, noRefs: true });
   fs.writeFileSync(SETTINGS_PATH, output, "utf-8");
   resetSettings();
-  console.log(`[Settings] Updated optimization.tagmanager: enabled=${updated.sgtm_enabled}, url="${updated.sgtm_server_url}", path="${updated.sgtm_proxy_path}"`);
+  log.info(`[Settings] Updated optimization.tagmanager: enabled=${updated.sgtm_enabled}, url="${updated.sgtm_server_url}", path="${updated.sgtm_proxy_path}"`);
 }

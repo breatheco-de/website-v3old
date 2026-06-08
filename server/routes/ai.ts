@@ -170,6 +170,7 @@ import type { CapabilityName } from "../user-store";
 
 
 import {
+
   BREATHECODE_HOST,
   extractToken,
   requireCapability,
@@ -203,6 +204,9 @@ import {
   ValidationFixRunLogEntry,
   FixerItemStatus,
 } from "./_helpers";
+import { child } from "../logger";
+const log = child({ module: "routes/ai" });
+
 
 export function registerAiRoutes(app: Express): void {
   // ============================================
@@ -270,7 +274,7 @@ export function registerAiRoutes(app: Express): void {
 
       res.json(result);
     } catch (error) {
-      console.error("AI adaptation error:", error);
+      log.error({ err: error }, "AI adaptation error:");
       res.status(500).json({
         error: "AI adaptation failed",
         message: error instanceof Error ? error.message : "Unknown error",
@@ -328,7 +332,7 @@ export function registerAiRoutes(app: Express): void {
       });
       res.json(analysis);
     } catch (error: any) {
-      console.error("Error analyzing data payload:", error?.message || error);
+      log.error("Error analyzing data payload:", error?.message || error);
       const message = error?.message || "Failed to analyze data";
       res.status(500).json({ error: message });
     }
@@ -376,7 +380,7 @@ export function registerAiRoutes(app: Express): void {
       });
       res.json(config);
     } catch (error: any) {
-      console.error("Error generating table config:", error?.message || error);
+      log.error("Error generating table config:", error?.message || error);
       const message =
         error?.message || "Failed to generate table configuration";
       res.status(500).json({ error: message });
@@ -422,7 +426,7 @@ export function registerAiRoutes(app: Express): void {
       });
       res.json(config);
     } catch (error: any) {
-      console.error("Error refining table config:", error?.message || error);
+      log.error("Error refining table config:", error?.message || error);
       const message = error?.message || "Failed to refine table configuration";
       res.status(500).json({ error: message });
     }
@@ -468,7 +472,7 @@ export function registerAiRoutes(app: Express): void {
       });
       res.json(result);
     } catch (error: any) {
-      console.error("Error generating global filter:", error?.message || error);
+      log.error("Error generating global filter:", error?.message || error);
       const message = error?.message || "Failed to generate global filter";
       res.status(500).json({ error: message });
     }
@@ -560,7 +564,7 @@ export function registerAiRoutes(app: Express): void {
         agent_icon: bubble.agent_icon || null,
       });
     } catch (err) {
-      console.error("[Chat Config] Error:", err);
+      log.error({ err: err }, "[Chat Config] Error:");
       res.json({ enabled: false, page_patterns: [], content_types: [] });
     }
   });
@@ -601,7 +605,7 @@ export function registerAiRoutes(app: Express): void {
 
       res.json({ conversation_id: conv.id });
     } catch (err) {
-      console.error("[Chat Start] Error:", err);
+      log.error({ err: err }, "[Chat Start] Error:");
       res.status(500).json({ error: "Failed to start conversation" });
     }
   });
@@ -655,7 +659,7 @@ export function registerAiRoutes(app: Express): void {
         trace: result.trace,
       });
     } catch (err) {
-      console.error("[Chat Message] Error:", err);
+      log.error({ err: err }, "[Chat Message] Error:");
       res.status(500).json({ error: "Failed to process message" });
     }
   });

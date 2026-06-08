@@ -14,6 +14,7 @@ import { getAvailableSchemaKeys } from "../schema-org";
 import { generateSsrSchemaHtml } from "../ssr-schema";
 import { mediaGallery } from "../media-gallery";
 import {
+
   safeYamlLoad,
   requireCapability,
   createValidationFixRun,
@@ -28,6 +29,9 @@ import {
   ValidationFixRunLogEntry,
   FixerItemStatus,
 } from "./_helpers";
+import { child } from "../logger";
+const log = child({ module: "routes/validation" });
+
 
 export function registerValidationRoutes(app: Express): void {
   // ============================================
@@ -62,7 +66,7 @@ export function registerValidationRoutes(app: Express): void {
 
       res.json(result);
     } catch (error) {
-      console.error("Validation error:", error);
+      log.error({ err: error }, "Validation error:");
       res.status(500).json({
         error: "Validation failed",
         message: error instanceof Error ? error.message : "Unknown error",
@@ -83,7 +87,7 @@ export function registerValidationRoutes(app: Express): void {
       });
       res.json(result);
     } catch (error) {
-      console.error("Validation error:", error);
+      log.error({ err: error }, "Validation error:");
       res.status(500).json({
         error: "Validation failed",
         message: error instanceof Error ? error.message : "Unknown error",
@@ -114,7 +118,7 @@ export function registerValidationRoutes(app: Express): void {
         issueCount,
       });
     } catch (error) {
-      console.error("Validation prompt error:", error);
+      log.error({ err: error }, "Validation prompt error:");
       res.status(500).json({
         error: "Validation prompt failed",
         message: error instanceof Error ? error.message : "Unknown error",
@@ -159,7 +163,7 @@ export function registerValidationRoutes(app: Express): void {
         issueCount,
       });
     } catch (error) {
-      console.error("Fix-prompt error:", error);
+      log.error({ err: error }, "Fix-prompt error:");
       res.status(500).json({
         error: "Fix prompt failed",
         message: error instanceof Error ? error.message : "Unknown error",
@@ -190,7 +194,7 @@ export function registerValidationRoutes(app: Express): void {
 
       res.json({ ok: true, path: filePath, timestamp, summary: result.summary });
     } catch (error) {
-      console.error("Save-report error:", error);
+      log.error({ err: error }, "Save-report error:");
       res.status(500).json({
         error: "Failed to save report",
         message: error instanceof Error ? error.message : "Unknown error",
@@ -217,7 +221,7 @@ export function registerValidationRoutes(app: Express): void {
 
       res.json(result);
     } catch (error) {
-      console.error("Validation error:", error);
+      log.error({ err: error }, "Validation error:");
       res.status(500).json({
         error: "Validation failed",
         message: error instanceof Error ? error.message : "Unknown error",
@@ -258,7 +262,7 @@ export function registerValidationRoutes(app: Express): void {
         redirects: context.redirectMap.size,
       });
     } catch (error) {
-      console.error("Context build error:", error);
+      log.error({ err: error }, "Context build error:");
       res.status(500).json({ error: "Failed to get context" });
     }
   });
@@ -330,7 +334,7 @@ export function registerValidationRoutes(app: Express): void {
         pipeline,
       });
     } catch (error) {
-      console.error("Fixer error:", error);
+      log.error({ err: error }, "Fixer error:");
       res.status(500).json({
         error: "Fixer failed",
         message: error instanceof Error ? error.message : "Unknown error",
@@ -391,7 +395,7 @@ export function registerValidationRoutes(app: Express): void {
 
       res.json({ pages, total: pages.length });
     } catch (error) {
-      console.error("Diagnostics pages error:", error);
+      log.error({ err: error }, "Diagnostics pages error:");
       res.status(500).json({ error: "Failed to load pages" });
     }
   });
@@ -878,7 +882,7 @@ export function registerValidationRoutes(app: Express): void {
         },
       });
     } catch (error) {
-      console.error("Diagnostics page error:", error);
+      log.error({ err: error }, "Diagnostics page error:");
       res.status(500).json({ error: "Failed to generate page diagnostics" });
     }
   });

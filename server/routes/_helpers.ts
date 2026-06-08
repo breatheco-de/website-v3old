@@ -169,6 +169,10 @@ import { getBaseUrl } from "../hreflang";
 import * as userManager from "../user-manager";
 import * as userStore from "../user-store";
 import type { CapabilityName } from "../user-store";
+import { child } from "../logger";
+const log = child({ module: "routes/_helpers" });
+
+
 
 export const BREATHECODE_HOST =
   process.env.VITE_BREATHECODE_HOST || "https://breathecode.herokuapp.com";
@@ -492,7 +496,7 @@ export function loadCareerProgramsListing(locale: string) {
   });
 
   if (!result.success) {
-    console.warn(result.error);
+    log.warn(result.error);
     return null;
   }
 
@@ -536,7 +540,7 @@ export function loadCareerProgram(slug: string, locale: string): CareerProgram |
   });
 
   if (!result.success) {
-    console.warn(result.error);
+    log.warn(result.error);
     return null;
   }
 
@@ -581,7 +585,7 @@ export function loadLandingPage(slug: string, locale?: string): LandingPage | nu
   });
 
   if (!result.success) {
-    console.warn(result.error);
+    log.warn(result.error);
     return null;
   }
 
@@ -626,7 +630,7 @@ export function loadLocationPage(slug: string, locale: string): LocationPage | n
   });
 
   if (!result.success) {
-    console.warn(result.error);
+    log.warn(result.error);
     return null;
   }
 
@@ -680,7 +684,7 @@ export function loadTemplatePage(slug: string, locale: string): TemplatePage | n
   });
 
   if (!result.success) {
-    console.warn(result.error);
+    log.warn(result.error);
     return null;
   }
 

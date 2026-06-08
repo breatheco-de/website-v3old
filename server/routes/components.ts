@@ -171,6 +171,7 @@ import type { CapabilityName } from "../user-store";
 
 
 import {
+
   BREATHECODE_HOST,
   extractToken,
   requireCapability,
@@ -204,6 +205,9 @@ import {
   ValidationFixRunLogEntry,
   FixerItemStatus,
 } from "./_helpers";
+import { child } from "../logger";
+const log = child({ module: "routes/components" });
+
 
 export function registerComponentsRoutes(app: Express): void {
 
@@ -553,7 +557,7 @@ export function registerComponentsRoutes(app: Express): void {
       }
       res.json({ files: entry.files, directory: entry.directory });
     } catch (error) {
-      console.error("Error listing folder:", error);
+      log.error({ err: error }, "Error listing folder:");
       res.status(500).json({ error: "Failed to list folder" });
     }
   });
@@ -594,7 +598,7 @@ export function registerComponentsRoutes(app: Express): void {
         });
       }
     } catch (error) {
-      console.error("Error resolving folder:", error);
+      log.error({ err: error }, "Error resolving folder:");
       res.status(500).json({ error: "Failed to resolve folder" });
     }
   });
@@ -605,7 +609,7 @@ export function registerComponentsRoutes(app: Express): void {
       const stats = contentIndex.getStats();
       res.json({ entries, stats });
     } catch (error) {
-      console.error("Error listing content index:", error);
+      log.error({ err: error }, "Error listing content index:");
       res.status(500).json({ error: "Failed to list content index" });
     }
   });
@@ -616,7 +620,7 @@ export function registerComponentsRoutes(app: Express): void {
       const stats = contentIndex.getStats();
       res.json({ refreshed: true, stats });
     } catch (error) {
-      console.error("Error refreshing content index:", error);
+      log.error({ err: error }, "Error refreshing content index:");
       res.status(500).json({ error: "Failed to refresh content index" });
     }
   });
@@ -652,7 +656,7 @@ export function registerComponentsRoutes(app: Express): void {
       const content = fs.readFileSync(fullPath, "utf-8");
       res.type("text/yaml").send(content);
     } catch (error) {
-      console.error("Error reading file:", error);
+      log.error({ err: error }, "Error reading file:");
       res.status(500).json({ error: "Failed to read file" });
     }
   });
@@ -746,7 +750,7 @@ export function registerComponentsRoutes(app: Express): void {
 
       res.json({ exists: true, files, resolvedSlug });
     } catch (error) {
-      console.error("Error reading raw content file:", error);
+      log.error({ err: error }, "Error reading raw content file:");
       res.status(500).json({ error: "Failed to read content file" });
     }
   });
@@ -841,7 +845,7 @@ export function registerComponentsRoutes(app: Express): void {
 
       res.json({ success: true });
     } catch (error) {
-      console.error("Error saving raw content file:", error);
+      log.error({ err: error }, "Error saving raw content file:");
       res.status(500).json({ error: "Failed to save content file" });
     }
   });
@@ -869,7 +873,7 @@ export function registerComponentsRoutes(app: Express): void {
       }));
       res.json({ groups: enrichedGroups });
     } catch (error) {
-      console.error("Error fetching bindings:", error);
+      log.error({ err: error }, "Error fetching bindings:");
       res.status(500).json({ error: "Failed to fetch bindings" });
     }
   });
@@ -917,7 +921,7 @@ export function registerComponentsRoutes(app: Express): void {
       };
       res.json({ group: enrichedGroup });
     } catch (error) {
-      console.error("Error finding binding for section:", error);
+      log.error({ err: error }, "Error finding binding for section:");
       res.status(500).json({ error: "Failed to find binding" });
     }
   });
@@ -997,7 +1001,7 @@ export function registerComponentsRoutes(app: Express): void {
 
       res.json({ candidates });
     } catch (error) {
-      console.error("Error finding binding candidates:", error);
+      log.error({ err: error }, "Error finding binding candidates:");
       res.status(500).json({ error: "Failed to find candidates" });
     }
   });
@@ -1087,7 +1091,7 @@ export function registerComponentsRoutes(app: Express): void {
     } catch (error) {
       const msg =
         error instanceof Error ? error.message : "Failed to create binding";
-      console.error("Error creating binding:", error);
+      log.error({ err: error }, "Error creating binding:");
       res.status(400).json({ error: msg });
     }
   });
@@ -1114,7 +1118,7 @@ export function registerComponentsRoutes(app: Express): void {
     } catch (error) {
       const msg =
         error instanceof Error ? error.message : "Failed to rename binding";
-      console.error("Error renaming binding:", error);
+      log.error({ err: error }, "Error renaming binding:");
       res.status(400).json({ error: msg });
     }
   });
@@ -1182,7 +1186,7 @@ export function registerComponentsRoutes(app: Express): void {
     } catch (error) {
       const msg =
         error instanceof Error ? error.message : "Failed to add member";
-      console.error("Error adding binding member:", error);
+      log.error({ err: error }, "Error adding binding member:");
       res.status(400).json({ error: msg });
     }
   });
@@ -1259,7 +1263,7 @@ export function registerComponentsRoutes(app: Express): void {
     } catch (error) {
       const msg =
         error instanceof Error ? error.message : "Failed to remove member";
-      console.error("Error removing binding member:", error);
+      log.error({ err: error }, "Error removing binding member:");
       res.status(400).json({ error: msg });
     }
   });
@@ -1276,7 +1280,7 @@ export function registerComponentsRoutes(app: Express): void {
       bindingManager.deleteGroup(groupId, deleteGroupAuthorName);
       res.json({ success: true });
     } catch (error) {
-      console.error("Error deleting binding:", error);
+      log.error({ err: error }, "Error deleting binding:");
       res.status(500).json({ error: "Failed to delete binding" });
     }
   });
@@ -1287,7 +1291,7 @@ export function registerComponentsRoutes(app: Express): void {
       const removed = bindingManager.cleanupStaleReferences();
       res.json({ removed });
     } catch (error) {
-      console.error("Error cleaning up bindings:", error);
+      log.error({ err: error }, "Error cleaning up bindings:");
       res.status(500).json({ error: "Failed to cleanup bindings" });
     }
   });

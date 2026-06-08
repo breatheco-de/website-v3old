@@ -7,6 +7,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
 import type {
+
   BrandContext,
   ContentContext,
   ComponentContext,
@@ -14,6 +15,9 @@ import type {
   ICache,
   AdaptOptions,
 } from "./types";
+import { child } from "../logger";
+const log = child({ module: "ai/ContextManager" });
+
 
 // Simple mtime-based cache implementation
 class MtimeCache<T> implements ICache<T> {
@@ -93,7 +97,7 @@ export class ContextManager {
       this.brandCache.set(cacheKey, brandContext, currentMtime);
       return brandContext;
     } catch (error) {
-      console.error("Failed to load brand context:", error);
+      log.error({ err: error }, "Failed to load brand context:");
       throw new Error("Brand context not found or invalid");
     }
   }
@@ -173,7 +177,7 @@ export class ContextManager {
       this.componentCache.set(cacheKey, componentContext, currentMtime);
       return componentContext;
     } catch (error) {
-      console.error(`Failed to load component context for ${name}/${version}:`, error);
+      log.error({ err: error }, `Failed to load component context for ${name}/${version}:`);
       throw new Error(`Component schema not found: ${name}/${version}`);
     }
   }

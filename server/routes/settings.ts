@@ -173,6 +173,7 @@ import type { CapabilityName } from "../user-store";
 
 
 import {
+
   BREATHECODE_HOST,
   extractToken,
   requireCapability,
@@ -206,6 +207,9 @@ import {
   ValidationFixRunLogEntry,
   FixerItemStatus,
 } from "./_helpers";
+import { child } from "../logger";
+const log = child({ module: "routes/settings" });
+
 
 export function registerSettingsRoutes(app: Express): void {
   app.get("/api/version", (_req, res) => {
@@ -238,7 +242,7 @@ export function registerSettingsRoutes(app: Express): void {
       const theme = JSON.parse(themeContent);
       res.json(theme);
     } catch (error) {
-      console.error("Error loading theme:", error);
+      log.error({ err: error }, "Error loading theme:");
       res.status(500).json({ error: "Failed to load theme configuration" });
     }
   });
@@ -257,7 +261,7 @@ export function registerSettingsRoutes(app: Express): void {
       markFileAsModified('marketing-content/theme.json');
       res.json({ success: true });
     } catch (error) {
-      console.error("Error saving theme colors:", error);
+      log.error({ err: error }, "Error saving theme colors:");
       res.status(500).json({ error: "Failed to save theme colors" });
     }
   });
@@ -276,7 +280,7 @@ export function registerSettingsRoutes(app: Express): void {
       markFileAsModified('marketing-content/theme.json');
       res.json({ success: true });
     } catch (error) {
-      console.error("Error saving preview examples:", error);
+      log.error({ err: error }, "Error saving preview examples:");
       res.status(500).json({ error: "Failed to save preview examples" });
     }
   });
@@ -345,7 +349,7 @@ export function registerSettingsRoutes(app: Express): void {
         res.json({ ok: true });
       }
     } catch (error) {
-      console.error("Error saving theme palettes:", error);
+      log.error({ err: error }, "Error saving theme palettes:");
       res.status(500).json({ error: "Failed to save theme palettes" });
     }
   });
@@ -1279,7 +1283,7 @@ export function registerSettingsRoutes(app: Express): void {
       const { data: resolved } = variableManager.resolveDeep(data, context);
       res.json({ name, locale: locale || "en", data: resolved });
     } catch (error) {
-      console.error(`Error loading menu ${name}:`, error);
+      log.error({ err: error }, `Error loading menu ${name}:`);
       res.status(500).json({ error: "Failed to parse menu file" });
     }
   });
@@ -1651,7 +1655,7 @@ export function registerSettingsRoutes(app: Express): void {
             markFileAsModified(translationFilePath, authorName);
             syncResults[targetLocale] = "synced";
           } catch (syncError) {
-            console.error(
+            log.error(
               `Error syncing structure to ${targetLocale}:`,
               syncError,
             );
@@ -1668,7 +1672,7 @@ export function registerSettingsRoutes(app: Express): void {
         message: "Structure updated in English and synced to all translations",
       });
     } catch (error) {
-      console.error(`Error saving menu structure ${name}:`, error);
+      log.error({ err: error }, `Error saving menu structure ${name}:`);
       res.status(500).json({ error: "Failed to save menu structure" });
     }
   });
@@ -1729,7 +1733,7 @@ export function registerSettingsRoutes(app: Express): void {
 
         dataToSave = mergeTextOnlyFromTranslation(masterData, data);
       } catch (e) {
-        console.error("Error syncing translation to master structure:", e);
+        log.error({ err: e }, "Error syncing translation to master structure:");
         res
           .status(500)
           .json({ error: "Failed to sync translation with master structure" });
@@ -1757,7 +1761,7 @@ export function registerSettingsRoutes(app: Express): void {
           : `${locale} translations updated`,
       });
     } catch (error) {
-      console.error(`Error saving menu translations ${name}:`, error);
+      log.error({ err: error }, `Error saving menu translations ${name}:`);
       res.status(500).json({ error: "Failed to save menu translations" });
     }
   });

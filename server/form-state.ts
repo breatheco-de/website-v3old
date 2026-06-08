@@ -11,6 +11,10 @@ import * as fs from "fs";
 import * as path from "path";
 import { gcs } from "./gcs";
 import { safeYamlLoad } from "./routes/_helpers";
+import { child } from "./logger";
+const log = child({ module: "form-state" });
+
+
 
 const LOCAL_PATH = path.join(
   process.cwd(),
@@ -59,7 +63,7 @@ function saveLocal(): void {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(LOCAL_PATH, JSON.stringify(state, null, 2), "utf-8");
   } catch (err) {
-    console.error("[FormState] Error saving local file:", err);
+    log.error({ err: err }, "[FormState] Error saving local file:");
   }
 }
 
@@ -69,14 +73,14 @@ async function saveToBucket(): Promise<void> {
     const content = JSON.stringify(state, null, 2);
     gcs.debouncedUpload(GCS_KEY, Buffer.from(content, "utf-8"), "application/json");
   } catch (err) {
-    console.error("[FormState] Error saving to GCS:", err);
+    log.error({ err: err }, "[FormState] Error saving to GCS:");
   }
 }
 
 function save(): void {
   saveLocal();
   saveToBucket().catch((err) => {
-    console.error("[FormState] Background GCS save failed:", err);
+    log.error({ err: err }, "[FormState] Background GCS save failed:");
   });
 }
 
@@ -279,7 +283,7 @@ export function buildFormState(): void {
   rebuildIndex();
   save();
 
-  console.log(`[FormState] Built: ${forms.length} form entry(ies) across ${Object.keys(state.conversion_names).length} conversion name(s)`);
+  log.info(`[FormState] Built: ${forms.length} form entry(ies) across ${Object.keys(state.conversion_names).length} conversion name(s)`);
 }
 
 /**
@@ -318,11 +322,11 @@ export async function loadFormStateFromBucket(): Promise<void> {
         if (data) {
           state = JSON.parse(data.toString("utf-8")) as FormState;
           saveLocal();
-          console.log("[FormState] Loaded cached form state from GCS");
+          log.info("[FormState] Loaded cached form state from GCS");
         }
       }
     } catch (err) {
-      console.error("[FormState] Error loading from GCS — will rebuild:", err);
+      log.error({ err: err }, "[FormState] Error loading from GCS — will rebuild:");
     }
   }
 

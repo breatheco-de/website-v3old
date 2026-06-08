@@ -8,6 +8,10 @@ import { resolveBySourceUrl } from "./image-registry";
 import { IDatabaseCache, CacheEntry, SqliteCache, CACHE_DIR } from "./db-cache";
 import { markFileAsModified } from "./sync-state";
 import { setJobState } from "./db-job-state";
+import { child } from "./logger";
+const log = child({ module: "database" });
+
+
 
 const DB_DIR = path.join(process.cwd(), "marketing-content", "db");
 
@@ -282,7 +286,7 @@ async function fetchFromApi(
       url.searchParams.set("limit", String(pageSize));
       url.searchParams.set("offset", String(offset));
 
-      console.log(
+      log.info(
         `[fetchFromApi] Fetching page ${page + 1} (offset=${offset}, limit=${pageSize}) from ${apiConfig.endpoint}`
       );
 
@@ -337,7 +341,7 @@ async function fetchFromApi(
     });
   }
 
-  console.log(`[fetchFromApi] Fetched ${allItems.length} total items from ${apiConfig.endpoint}`);
+  log.info(`[fetchFromApi] Fetched ${allItems.length} total items from ${apiConfig.endpoint}`);
   return allItems;
 }
 
@@ -452,11 +456,11 @@ export class DatabaseManager {
 
     const migrated = this.cache.migrateFromJson(dbNames, CACHE_DIR);
     if (migrated.length > 0) {
-      console.log(
+      log.info(
         `[DatabaseManager] Migrated ${migrated.length} database(s) from JSON cache to SQLite: ${migrated.join(", ")}`
       );
     } else {
-      console.log(`[DatabaseManager] No legacy JSON cache files to migrate`);
+      log.info(`[DatabaseManager] No legacy JSON cache files to migrate`);
     }
   }
 
@@ -478,11 +482,11 @@ export class DatabaseManager {
         const raw = fs.readFileSync(configPath, "utf-8");
         this.configs.set(folder, yaml.load(raw) as DatabaseConfig);
       } catch (err) {
-        console.error(`[DatabaseManager] Failed to load config for "${folder}":`, err);
+        log.error({ err: err }, `[DatabaseManager] Failed to load config for "${folder}":`);
       }
     }
 
-    console.log(`[DatabaseManager] Loaded ${this.configs.size} database(s)`);
+    log.info(`[DatabaseManager] Loaded ${this.configs.size} database(s)`);
   }
 
   private validateName(name: string): void {
@@ -625,7 +629,7 @@ export class DatabaseManager {
     const overridesFile = this.loadOverridesFile(name);
     if (overridesFile && Object.keys(overridesFile.entries).length > 0) {
       items = this.applyOverridesToItems(items, overridesFile.lookup_key, overridesFile.entries);
-      console.log(`[DatabaseManager] Applied persistent overrides to ${name} (${Object.keys(overridesFile.entries).length} slug(s))`);
+      log.info(`[DatabaseManager] Applied persistent overrides to ${name} (${Object.keys(overridesFile.entries).length} slug(s))`);
     }
 
     // Compute facets: distinct sorted values per tag/select editor field
@@ -668,10 +672,10 @@ export class DatabaseManager {
     if (vsConfig?.enabled && vsConfig.fields?.length > 0) {
       import("./vector-search").then(({ indexItems }) => {
         indexItems(name, items, vsConfig.fields).catch((err) => {
-          console.error(`[DatabaseManager] Background vector indexing failed for "${name}":`, err);
+          log.error({ err: err }, `[DatabaseManager] Background vector indexing failed for "${name}":`);
         });
       }).catch((err) => {
-        console.error(`[DatabaseManager] Failed to import vector-search module:`, err);
+        log.error({ err: err }, `[DatabaseManager] Failed to import vector-search module:`);
       });
     }
 
@@ -689,22 +693,22 @@ export class DatabaseManager {
     });
 
     if (toWarm.length === 0) {
-      console.log(`[DatabaseManager] Warmup: all ${names.length} database(s) already cached`);
+      log.info(`[DatabaseManager] Warmup: all ${names.length} database(s) already cached`);
       return;
     }
 
-    console.log(`[DatabaseManager] Warmup: pre-fetching ${toWarm.length} database(s): ${toWarm.join(", ")}`);
+    log.info(`[DatabaseManager] Warmup: pre-fetching ${toWarm.length} database(s): ${toWarm.join(", ")}`);
 
     for (const name of toWarm) {
       try {
         await this.fetchItems(name);
-        console.log(`[DatabaseManager] Warmup: "${name}" cached successfully`);
+        log.info(`[DatabaseManager] Warmup: "${name}" cached successfully`);
       } catch (err) {
-        console.error(`[DatabaseManager] Warmup: failed to fetch "${name}":`, err);
+        log.error({ err: err }, `[DatabaseManager] Warmup: failed to fetch "${name}":`);
       }
     }
 
-    console.log(`[DatabaseManager] Warmup complete`);
+    log.info(`[DatabaseManager] Warmup complete`);
   }
 
   async test(
@@ -792,13 +796,13 @@ export class DatabaseManager {
   ): Promise<Record<string, unknown>[]> {
     const ctConfig = getContentTypeConfig(contentType);
     if (!ctConfig?.database?.slug) {
-      console.warn(`[DatabaseManager] No database configured for content type "${contentType}"`);
+      log.warn(`[DatabaseManager] No database configured for content type "${contentType}"`);
       return [];
     }
 
     const dbName = ctConfig.database.slug;
     if (!this.exists(dbName)) {
-      console.warn(`[DatabaseManager] Database "${dbName}" not found for content type "${contentType}"`);
+      log.warn(`[DatabaseManager] Database "${dbName}" not found for content type "${contentType}"`);
       return [];
     }
 
@@ -832,7 +836,7 @@ export class DatabaseManager {
       }
       return applyContentTypeMapping(rawItems, ctMapping, contentType);
     } catch (err) {
-      console.error(`[DatabaseManager] Failed to fetch mapped items for "${contentType}":`, err);
+      log.error({ err: err }, `[DatabaseManager] Failed to fetch mapped items for "${contentType}":`);
       return [];
     }
   }

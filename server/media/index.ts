@@ -2,6 +2,10 @@ import type { StorageProvider, MediaConfig, ProviderName } from "./types";
 import { LocalProvider } from "./local-provider";
 import { GCSProvider } from "./gcs-provider";
 import { gcs } from "../gcs";
+import { child } from "../logger";
+const log = child({ module: "media/index" });
+
+
 
 export type { StorageProvider, MediaConfig, ProviderName };
 export { LocalProvider } from "./local-provider";
@@ -22,12 +26,12 @@ class Media {
       const mediaBasePath = config?.gcs?.basePath || process.env.GCS_BASE_PATH || "media";
       const gcsProvider = new GCSProvider({ basePath: mediaBasePath });
       this.providers.set("gcs", gcsProvider);
-      console.log(`[Media] GCS provider configured for bucket: ${gcs.getBucketName()} (basePath: ${mediaBasePath})`);
+      log.info(`[Media] GCS provider configured for bucket: ${gcs.getBucketName()} (basePath: ${mediaBasePath})`);
     }
 
     this.defaultProviderName = config?.defaultProvider || "local";
     this.initialized = true;
-    console.log(`[Media] Initialized with default provider: ${this.defaultProviderName}, ${this.providers.size} provider(s) active`);
+    log.info(`[Media] Initialized with default provider: ${this.defaultProviderName}, ${this.providers.size} provider(s) active`);
   }
 
   initFromEnv(): void {

@@ -206,6 +206,10 @@ import {
 import { getTrackingSettings } from "../settings";
 import { buildLeadPayload } from "../utils/buildLeadPayload";
 import { isPrivateDestination } from "./webhooks";
+import { child } from "../logger";
+const log = child({ module: "routes/forms" });
+
+
 
 export function registerFormsRoutes(app: Express): void {
   app.get("/api/turnstile/status", (_req, res) => {
@@ -269,7 +273,7 @@ export function registerFormsRoutes(app: Express): void {
         });
       }
     } catch (error) {
-      console.error("Turnstile verification error:", error);
+      log.error({ err: error }, "Turnstile verification error:");
       res.status(500).json({ success: false, error: "Verification failed" });
     }
   });
@@ -301,7 +305,7 @@ export function registerFormsRoutes(app: Express): void {
       }
 
       // Log the application (in production, this would send to a CRM or database)
-      console.log("New application received:", {
+      log.info("New application received:", {
         program,
         location,
         firstName,
@@ -322,7 +326,7 @@ export function registerFormsRoutes(app: Express): void {
 
       res.json({ success: true, message: "Application received" });
     } catch (error) {
-      console.error("Error processing application:", error);
+      log.error({ err: error }, "Error processing application:");
       res.status(500).json({ error: "Failed to process application" });
     }
   });
@@ -388,7 +392,7 @@ export function registerFormsRoutes(app: Express): void {
         }
       }
     } catch (error) {
-      console.error("Error loading locations:", error);
+      log.error({ err: error }, "Error loading locations:");
     }
 
     // Group locations by region
@@ -439,7 +443,7 @@ export function registerFormsRoutes(app: Express): void {
       }
 
       if (isPrivateDestination(webhookUrl)) {
-        console.warn(`[LeadSubmission] Blocked private/internal destination: ${webhookUrl}`);
+        log.warn(`[LeadSubmission] Blocked private/internal destination: ${webhookUrl}`);
         res.json({ success: true, skipped: "no_webhook" });
         return;
       }
@@ -457,7 +461,7 @@ export function registerFormsRoutes(app: Express): void {
 
       if (!webhookResponse.ok) {
         const errorText = await webhookResponse.text();
-        console.error("Lead webhook delivery error:", webhookResponse.status, errorText);
+        log.error("Lead webhook delivery error:", webhookResponse.status, errorText);
         res.status(webhookResponse.status).json({
           error: "Failed to submit lead",
           details: errorText,
@@ -468,7 +472,7 @@ export function registerFormsRoutes(app: Express): void {
       const result = await webhookResponse.json().catch(() => ({}));
       res.json({ success: true, data: result });
     } catch (error) {
-      console.error("Lead submission error:", error);
+      log.error({ err: error }, "Lead submission error:");
       res.status(500).json({ error: "Internal server error" });
     }
   });

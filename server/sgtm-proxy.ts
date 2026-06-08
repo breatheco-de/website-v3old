@@ -3,8 +3,8 @@ import http from "http";
 import https from "https";
 import { URL } from "url";
 import { getOptimizationSettings } from "./settings";
-
-const log = (msg: string) => console.log(`[sGTM Proxy] ${msg}`);
+import { child } from "./logger";
+const log = child({ module: "sgtm-proxy" });
 
 let cachedAgentKey: string | null = null;
 let proxyAgent: http.Agent | https.Agent | null = null;
@@ -82,7 +82,7 @@ export function registerSgtmProxy(app: Express): void {
     try {
       parsedTarget = new URL(targetUrl);
     } catch {
-      log(`Invalid target URL: ${targetUrl}`);
+      log.warn({ targetUrl }, '[sGTM Proxy] Invalid target URL');
       return res.status(502).json({ error: "Invalid sGTM server URL" });
     }
 
@@ -119,7 +119,7 @@ export function registerSgtmProxy(app: Express): void {
     });
 
     proxyReq.on("error", (err) => {
-      log(`Error proxying to ${targetUrl}: ${err.message}`);
+      log.error({ err, targetUrl }, '[sGTM Proxy] Error proxying');
       if (!res.headersSent) {
         res.status(502).json({ error: "sGTM server unavailable" });
       }
@@ -136,5 +136,5 @@ export function registerSgtmProxy(app: Express): void {
     }
   });
 
-  log("Proxy middleware registered (dynamic — reads config per request)");
+  log.info('[sGTM Proxy] Proxy middleware registered (dynamic — reads config per request)');
 }

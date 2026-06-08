@@ -1,6 +1,10 @@
 import { QdrantClient } from "@qdrant/js-client-rest";
 import { createHash } from "crypto";
 import { setJobState } from "./db-job-state";
+import { child } from "./logger";
+const log = child({ module: "vector-search" });
+
+
 
 const QDRANT_URL = process.env.QDRANT_URL || "http://localhost:6333";
 const VECTOR_SIZE = 384;
@@ -44,7 +48,7 @@ async function getEmbedder(): Promise<(texts: string[]) => Promise<number[][]>> 
         return data;
       };
 
-      console.log(`[vector-search] Local embedding model "${EMBEDDING_MODEL}" loaded`);
+      log.info(`[vector-search] Local embedding model "${EMBEDDING_MODEL}" loaded`);
     })();
   }
 
@@ -84,7 +88,7 @@ async function ensureCollection(dbName: string): Promise<void> {
     const info = await client.getCollection(name);
     const existingSize = (info.config?.params?.vectors as { size?: number } | undefined)?.size;
     if (existingSize !== undefined && existingSize !== VECTOR_SIZE) {
-      console.log(`[vector-search] Collection "${name}" has vector size ${existingSize}, expected ${VECTOR_SIZE} — recreating`);
+      log.info(`[vector-search] Collection "${name}" has vector size ${existingSize}, expected ${VECTOR_SIZE} — recreating`);
       await client.deleteCollection(name);
       throw new Error("recreate");
     }
@@ -92,7 +96,7 @@ async function ensureCollection(dbName: string): Promise<void> {
     await client.createCollection(name, {
       vectors: { size: VECTOR_SIZE, distance: "Cosine" },
     });
-    console.log(`[vector-search] Created collection "${name}" (size=${VECTOR_SIZE})`);
+    log.info(`[vector-search] Created collection "${name}" (size=${VECTOR_SIZE})`);
   }
 }
 
@@ -103,7 +107,7 @@ async function recreateCollection(dbName: string): Promise<void> {
   await client.createCollection(name, {
     vectors: { size: VECTOR_SIZE, distance: "Cosine" },
   });
-  console.log(`[vector-search] Recreated collection "${name}" (size=${VECTOR_SIZE})`);
+  log.info(`[vector-search] Recreated collection "${name}" (size=${VECTOR_SIZE})`);
 }
 
 function buildText(item: Record<string, unknown>, fields: string[]): string {
@@ -143,7 +147,7 @@ export async function indexItems(
   fields: string[]
 ): Promise<void> {
   if (!(await isAvailable())) {
-    console.log(`[vector-search] Qdrant not available — skipping index for "${dbName}"`);
+    log.info(`[vector-search] Qdrant not available — skipping index for "${dbName}"`);
     return;
   }
 
@@ -185,7 +189,7 @@ export async function indexItems(
         fetched: indexed,
         total: items.length,
       });
-      console.log(
+      log.info(
         `[vector-search] Indexed batch ${Math.floor(start / BATCH_SIZE) + 1} (${batch.length} items) for "${dbName}"`
       );
     }
@@ -196,14 +200,14 @@ export async function indexItems(
       total: items.length,
       finishedAt: new Date().toISOString(),
     });
-    console.log(`[vector-search] Indexed ${items.length} items for "${dbName}"`);
+    log.info(`[vector-search] Indexed ${items.length} items for "${dbName}"`);
   } catch (err) {
     setJobState(dbName, "index", {
       status: "error",
       error: err instanceof Error ? err.message : String(err),
       finishedAt: new Date().toISOString(),
     });
-    console.error(`[vector-search] Failed to index "${dbName}":`, err);
+    log.error({ err: err }, `[vector-search] Failed to index "${dbName}":`);
     resetAvailabilityCache();
   }
 }
@@ -258,7 +262,7 @@ export async function search(
       };
     });
   } catch (err) {
-    console.error(`[vector-search] Search failed for "${dbName}":`, err);
+    log.error({ err: err }, `[vector-search] Search failed for "${dbName}":`);
     resetAvailabilityCache();
     return [];
   }

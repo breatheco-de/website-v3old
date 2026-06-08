@@ -1,5 +1,9 @@
 import * as fs from "fs";
 import * as path from "path";
+import { child } from "./logger";
+const log = child({ module: "image-queue-state" });
+
+
 
 const QUEUE_STATE_PATH = path.join(
   process.cwd(),
@@ -36,7 +40,7 @@ function persist(): void {
       "utf8"
     );
   } catch (err) {
-    console.error("[ImageQueueState] Failed to persist:", err);
+    log.error({ err: err }, "[ImageQueueState] Failed to persist:");
   }
 }
 

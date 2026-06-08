@@ -7,6 +7,10 @@ import { getFolder, getType } from "../content-types";
 import { addFileModifiedListener, markFileAsModified } from "../sync-state";
 import { gcs } from "../gcs";
 import { hashUserId } from "./cookie-utils";
+import { child } from "../logger";
+const log = child({ module: "versioning/VersioningManager" });
+
+
 
 const CONTENT_DIR = path.join(process.cwd(), "marketing-content");
 const STATE_FILE = path.join(CONTENT_DIR, ".versioning-state.json");
@@ -97,7 +101,7 @@ export class VersioningManager {
         this.applyLoadedState(JSON.parse(data));
       }
     } catch (error) {
-      console.error("[Versioning] Error loading state:", error);
+      log.error({ err: error }, "[Versioning] Error loading state:");
     }
   }
 
@@ -113,34 +117,34 @@ export class VersioningManager {
       visitorSets.set(key, new Set(visitorIds as string[]));
     }
 
-    console.log("[Versioning] Loaded state:", Object.keys(this.state.counts).length, "variant keys");
+    log.info("[Versioning] Loaded state:", Object.keys(this.state.counts).length, "variant keys");
   }
 
   private async loadStateFromBucket(): Promise<void> {
     if (!IS_PRODUCTION || !gcs.available) {
-      if (!IS_PRODUCTION) console.log("[Versioning] Development mode, using local file only");
+      if (!IS_PRODUCTION) log.info("[Versioning] Development mode, using local file only");
       return;
     }
 
     try {
       const exists = await gcs.exists(GCS_STATE_KEY);
       if (!exists) {
-        console.log("[Versioning] No state found in bucket, using local file");
+        log.info("[Versioning] No state found in bucket, using local file");
         return;
       }
 
       const data = await gcs.download(GCS_STATE_KEY);
       if (!data) {
-        console.log("[Versioning] Empty download from bucket, using local file");
+        log.info("[Versioning] Empty download from bucket, using local file");
         return;
       }
 
       const loaded = JSON.parse(data.toString("utf-8"));
       this.applyLoadedState(loaded);
       this.saveStateLocal();
-      console.log("[Versioning] Loaded state from GCS bucket");
+      log.info("[Versioning] Loaded state from GCS bucket");
     } catch (error) {
-      console.error("[Versioning] Error loading from bucket:", error);
+      log.error({ err: error }, "[Versioning] Error loading from bucket:");
     }
   }
 
@@ -149,7 +153,7 @@ export class VersioningManager {
       this.state.lastFlushed = Date.now();
       fs.writeFileSync(STATE_FILE, JSON.stringify(this.state, null, 2));
     } catch (error) {
-      console.error("[Versioning] Error saving state locally:", error);
+      log.error({ err: error }, "[Versioning] Error saving state locally:");
     }
   }
 
@@ -173,7 +177,7 @@ export class VersioningManager {
         const content = JSON.stringify(this.state, null, 2);
         await gcs.upload(GCS_STATE_KEY, Buffer.from(content, "utf-8"), "application/json");
       } catch (error) {
-        console.error("[Versioning] Error saving to bucket on shutdown:", error);
+        log.error({ err: error }, "[Versioning] Error saving to bucket on shutdown:");
       }
     }
   }
@@ -199,7 +203,7 @@ export class VersioningManager {
       this.configCache.set(cacheKey, parsed);
       return parsed;
     } catch (error) {
-      console.error(`[Versioning] Error loading config for ${contentType}/${slug}:`, error);
+      log.error({ err: error }, `[Versioning] Error loading config for ${contentType}/${slug}:`);
       return null;
     }
   }
@@ -244,7 +248,7 @@ export class VersioningManager {
     const filePath = this.findVariantFile(contentDir, variantSlug, locale);
 
     if (!filePath) {
-      console.warn(`[Versioning] Variant file not found: ${variantSlug}.${locale}.yml (or .v*.${locale}.yml) in ${contentDir}`);
+      log.warn(`[Versioning] Variant file not found: ${variantSlug}.${locale}.yml (or .v*.${locale}.yml) in ${contentDir}`);
       return null;
     }
 
@@ -266,7 +270,7 @@ export class VersioningManager {
       this.contentCache.set(cacheKey, merged);
       return merged;
     } catch (error) {
-      console.error(`[Versioning] Error loading variant content:`, error);
+      log.error({ err: error }, `[Versioning] Error loading variant content:`);
       return null;
     }
   }
@@ -396,7 +400,7 @@ export class VersioningManager {
       const rawParsed = yaml.load(escaped);
       return (rawParsed ? unescapeObjectVars(rawParsed, map) : rawParsed) as VersioningFile;
     } catch (error) {
-      console.error(`[Versioning] Error loading config for ${contentType}/${slug}:`, error);
+      log.error({ err: error }, `[Versioning] Error loading config for ${contentType}/${slug}:`);
       return null;
     }
   }
@@ -432,7 +436,7 @@ export class VersioningManager {
     this.configCache.delete(cacheKey);
     this.contentCache.clear();
     markFileAsModified(configPath, "system");
-    console.log(`[Versioning] Updated versioning.yml for ${contentType}/${slug} — queued for auto-commit (${configPath})`);
+    log.info(`[Versioning] Updated versioning.yml for ${contentType}/${slug} — queued for auto-commit (${configPath})`);
   }
 
   /**
@@ -442,7 +446,7 @@ export class VersioningManager {
   public invalidateVariantCache(contentType: string, slug: string, variantSlug: string, locale: string): void {
     const cacheKey = `${contentType}:${slug}:${variantSlug}.${locale}`;
     this.contentCache.delete(cacheKey);
-    console.log(`[Versioning] Cache invalidated for ${cacheKey}`);
+    log.info(`[Versioning] Cache invalidated for ${cacheKey}`);
   }
 
   /**
@@ -451,7 +455,7 @@ export class VersioningManager {
   public clearCache(): void {
     this.configCache.clear();
     this.contentCache.clear();
-    console.log("[Versioning] Cache cleared");
+    log.info("[Versioning] Cache cleared");
   }
 
   /**
@@ -549,7 +553,7 @@ export class VersioningManager {
         folderPath: `marketing-content/${getFolder(contentType)}/${slug}`,
       };
     } catch (error) {
-      console.error(`[Versioning] Error getting variants for ${contentType}/${slug}:`, error);
+      log.error({ err: error }, `[Versioning] Error getting variants for ${contentType}/${slug}:`);
       return null;
     }
   }

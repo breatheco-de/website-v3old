@@ -1,5 +1,9 @@
 import * as fs from "fs";
 import * as path from "path";
+import { child } from "./logger";
+const log = child({ module: "db-job-state" });
+
+
 
 const STATE_PATH = path.join(
   process.cwd(),
@@ -49,7 +53,7 @@ function persist(): void {
       "utf8"
     );
   } catch (err) {
-    console.error("[DbJobState] Failed to persist:", err);
+    log.error({ err: err }, "[DbJobState] Failed to persist:");
   }
 }
 

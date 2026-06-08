@@ -171,6 +171,7 @@ import type { CapabilityName } from "../user-store";
 
 
 import {
+
   BREATHECODE_HOST,
   extractToken,
   requireCapability,
@@ -204,6 +205,9 @@ import {
   ValidationFixRunLogEntry,
   FixerItemStatus,
 } from "./_helpers";
+import { child } from "../logger";
+const log = child({ module: "routes/media" });
+
 
 export function registerMediaRoutes(app: Express): void {
   app.get("/api/image-registry/stats", (req, res) => {
@@ -665,7 +669,7 @@ export function registerMediaRoutes(app: Express): void {
 
   app.post("/api/media/crop-resize", async (req, res) => {
     if (process.env.DEBUG_CROP_RESIZE) {
-      console.log("[CropResize] Handler reached — body keys:", Object.keys(req.body || {}));
+      log.info("[CropResize] Handler reached — body keys:", Object.keys(req.body || {}));
     }
     try {
       const bodySchema = z.object({
@@ -795,7 +799,7 @@ export function registerMediaRoutes(app: Express): void {
         quality_override: qualityToSave,
       });
 
-      console.log(`[CropResize] Created "${uniqueId}" (${targetWidth}x${targetHeight}) from "${rootId}"`);
+      log.info(`[CropResize] Created "${uniqueId}" (${targetWidth}x${targetHeight}) from "${rootId}"`);
 
       (async () => {
         try {
@@ -811,16 +815,16 @@ export function registerMediaRoutes(app: Express): void {
             newEntry.widths_generated = result.widths_generated;
             newEntry.srcset = result.srcset;
             mediaGallery.persistRegistry();
-            console.log(`[CropResize] Optimization complete for "${uniqueId}"`);
+            log.info(`[CropResize] Optimization complete for "${uniqueId}"`);
           }
         } catch (err) {
-          console.error(`[CropResize] Background optimization failed for "${uniqueId}":`, err);
+          log.error({ err: err }, `[CropResize] Background optimization failed for "${uniqueId}":`);
         }
       })();
 
       res.json({ id: uniqueId, src: newSrc, width: targetWidth, height: targetHeight });
     } catch (error: any) {
-      console.error("[CropResize] Error:", error);
+      log.error({ err: error }, "[CropResize] Error:");
       res.status(500).json({ error: error.message || "Crop/resize failed" });
     }
   });
@@ -873,7 +877,7 @@ export function registerMediaRoutes(app: Express): void {
       resetOptimizeSession(targetIds.length);
       triggerWorkerRunNow();
 
-      console.log(`[OptimizeBatch] Enqueued ${targetIds.length} image(s) for background optimization`);
+      log.info(`[OptimizeBatch] Enqueued ${targetIds.length} image(s) for background optimization`);
       res.json({ queued: targetIds.length, message: `Queued ${targetIds.length} image(s) for background optimization` });
     } catch (error: any) {
       res.status(500).json({ error: error.message || "Batch optimize failed" });
@@ -937,7 +941,7 @@ export function registerMediaRoutes(app: Express): void {
       if (message.includes("not found")) {
         res.status(404).json({ error: message });
       } else {
-        console.error("[Classify] Error:", error);
+        log.error({ err: error }, "[Classify] Error:");
         res.status(500).json({ error: "Classification failed", message });
       }
     }

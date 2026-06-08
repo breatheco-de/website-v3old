@@ -170,6 +170,7 @@ import type { CapabilityName } from "../user-store";
 
 
 import {
+
   BREATHECODE_HOST,
   extractToken,
   requireCapability,
@@ -203,6 +204,9 @@ import {
   ValidationFixRunLogEntry,
   FixerItemStatus,
 } from "./_helpers";
+import { child } from "../logger";
+const log = child({ module: "routes/github" });
+
 
 export function registerGithubRoutes(app: Express): void {
   // GitHub sync status endpoint
@@ -212,7 +216,7 @@ export function registerGithubRoutes(app: Express): void {
       const status = await getGitHubSyncStatus();
       res.json(status);
     } catch (error) {
-      console.error("Error checking GitHub sync status:", error);
+      log.error({ err: error }, "Error checking GitHub sync status:");
       res.status(500).json({ error: "Failed to check sync status" });
     }
   });
@@ -374,7 +378,7 @@ export function registerGithubRoutes(app: Express): void {
         "ERROR",
         `Webhook handler error: ${error instanceof Error ? error.message : String(error)}`,
       );
-      console.error("[Webhook] Error handling webhook:", error);
+      log.error({ err: error }, "[Webhook] Error handling webhook:");
       res.status(500).json({ error: "Internal server error" });
     }
   });
@@ -734,7 +738,7 @@ export function registerGithubRoutes(app: Express): void {
       const changes = await getAllSyncChanges();
       res.json({ changes, count: changes.length });
     } catch (error) {
-      console.error("Error getting sync changes:", error);
+      log.error({ err: error }, "Error getting sync changes:");
       res.status(500).json({ error: "Failed to get sync changes" });
     }
   });
@@ -831,7 +835,7 @@ export function registerGithubRoutes(app: Express): void {
         res.status(400).json({ success: false, error: result.error });
       }
     } catch (error) {
-      console.error("Error committing to GitHub:", error);
+      log.error({ err: error }, "Error committing to GitHub:");
       res.status(500).json({ error: "Failed to commit changes" });
     }
   });
@@ -843,7 +847,7 @@ export function registerGithubRoutes(app: Express): void {
       const conflictInfo = await getConflictInfo();
       res.json(conflictInfo);
     } catch (error) {
-      console.error("Error getting conflict info:", error);
+      log.error({ err: error }, "Error getting conflict info:");
       res.status(500).json({ error: "Failed to get conflict info" });
     }
   });
@@ -860,7 +864,7 @@ export function registerGithubRoutes(app: Express): void {
         res.status(400).json({ success: false, error: result.error });
       }
     } catch (error) {
-      console.error("Error syncing with remote:", error);
+      log.error({ err: error }, "Error syncing with remote:");
       res.status(500).json({ error: "Failed to sync with remote" });
     }
   });
@@ -872,7 +876,7 @@ export function registerGithubRoutes(app: Express): void {
       const result = await checkPullConflicts();
       res.json(result);
     } catch (error) {
-      console.error("Error checking pull conflicts:", error);
+      log.error({ err: error }, "Error checking pull conflicts:");
       res.status(500).json({ error: "Failed to check pull conflicts" });
     }
   });
@@ -889,7 +893,7 @@ export function registerGithubRoutes(app: Express): void {
       const status = await getRemoteFileStatus(filePath);
       res.json(status);
     } catch (error) {
-      console.error("Error getting file status:", error);
+      log.error({ err: error }, "Error getting file status:");
       res.status(500).json({ error: "Failed to get file status" });
     }
   });
@@ -911,7 +915,7 @@ export function registerGithubRoutes(app: Express): void {
         res.status(400).json({ success: false, error: result.error });
       }
     } catch (error) {
-      console.error("Error committing file:", error);
+      log.error({ err: error }, "Error committing file:");
       res.status(500).json({ error: "Failed to commit file" });
     }
   });
@@ -933,7 +937,7 @@ export function registerGithubRoutes(app: Express): void {
         res.status(400).json({ success: false, error: result.error });
       }
     } catch (error) {
-      console.error("Error pulling file:", error);
+      log.error({ err: error }, "Error pulling file:");
       res.status(500).json({ error: "Failed to pull file" });
     }
   });
@@ -950,7 +954,7 @@ export function registerGithubRoutes(app: Express): void {
         res.status(400).json({ success: false, error: result.error });
       }
     } catch (error) {
-      console.error("Error syncing with remote:", error);
+      log.error({ err: error }, "Error syncing with remote:");
       res.status(500).json({ error: "Failed to sync with remote" });
     }
   });
@@ -960,7 +964,7 @@ export function registerGithubRoutes(app: Express): void {
       const { getAutoCommitStatus } = await import("../auto-commit");
       res.json(getAutoCommitStatus());
     } catch (error) {
-      console.error("Error getting auto-commit status:", error);
+      log.error({ err: error }, "Error getting auto-commit status:");
       res.status(500).json({ error: "Failed to get auto-commit status" });
     }
   });
@@ -971,7 +975,7 @@ export function registerGithubRoutes(app: Express): void {
       const result = await flushPendingChanges();
       res.json(result);
     } catch (error) {
-      console.error("Error flushing auto-commit:", error);
+      log.error({ err: error }, "Error flushing auto-commit:");
       res.status(500).json({ error: "Failed to flush pending changes" });
     }
   });
@@ -992,7 +996,7 @@ export function registerGithubRoutes(app: Express): void {
           .json({ error: "commitIntervalSeconds must be a number >= 1" });
       }
     } catch (error) {
-      console.error("Error updating auto-commit config:", error);
+      log.error({ err: error }, "Error updating auto-commit config:");
       res.status(500).json({ error: "Failed to update auto-commit config" });
     }
   });
@@ -1002,7 +1006,7 @@ export function registerGithubRoutes(app: Express): void {
       const { getConflictedFiles } = await import("../auto-commit");
       res.json({ conflicts: getConflictedFiles() });
     } catch (error) {
-      console.error("Error getting conflicts:", error);
+      log.error({ err: error }, "Error getting conflicts:");
       res.status(500).json({ error: "Failed to get conflicts" });
     }
   });
@@ -1018,7 +1022,7 @@ export function registerGithubRoutes(app: Express): void {
       const cleared = clearConflict(filePath);
       res.json({ success: cleared });
     } catch (error) {
-      console.error("Error clearing conflict:", error);
+      log.error({ err: error }, "Error clearing conflict:");
       res.status(500).json({ error: "Failed to clear conflict" });
     }
   });

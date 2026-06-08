@@ -20,6 +20,10 @@ import fs from "fs";
 import path from "path";
 import { contentIndex } from "../content-index";
 import type { EcommerceProduct, EcommercePlan, EcommerceSettings } from "./types";
+import { child } from "../logger";
+const log = child({ module: "ecommerce/ecommerce-index" });
+
+
 
 export const MARKETING_CONTENT_DIR = path.join(process.cwd(), "marketing-content");
 export const ECOMMERCE_SETTINGS_PATH = path.join(MARKETING_CONTENT_DIR, "ecommerce-settings.yml");
@@ -90,7 +94,7 @@ function loadGlobalSettings(): { settings: EcommerceSettings; plansRaw: Record<s
 
     return { settings, plansRaw };
   } catch (err) {
-    console.error("[EcommerceIndex] Failed to parse ecommerce-settings.yml:", err);
+    log.error({ err: err }, "[EcommerceIndex] Failed to parse ecommerce-settings.yml:");
     return { settings: { ...DEFAULTS_SETTINGS }, plansRaw: {} };
   }
 }
@@ -107,7 +111,7 @@ function parsePlanFromMap(
   const price = typeof p.price === "number" ? p.price : null;
 
   if (!name || price === null) {
-    console.warn(`[EcommerceIndex] Skipping plan "${planId}" — missing name or price`);
+    log.warn(`[EcommerceIndex] Skipping plan "${planId}" — missing name or price`);
     return null;
   }
 
@@ -139,7 +143,7 @@ function loadYml(filePath: string): Record<string, unknown> | null {
     const parsed = contentIndex.safeYamlLoad(raw) as Record<string, unknown> | null;
     return parsed ?? null;
   } catch (err) {
-    console.error(`[EcommerceIndex] Failed to parse ${filePath}:`, err);
+    log.error({ err: err }, `[EcommerceIndex] Failed to parse ${filePath}:`);
     return null;
   }
 }
@@ -160,7 +164,7 @@ export function scanEcommerceContent(): void {
     const plan = parsePlanFromMap(planId, planData, settings.currency);
     if (plan) planMap.set(planId, plan);
   }
-  console.log(`[EcommerceIndex] Loaded ${planMap.size} plans from ecommerce-settings.yml`);
+  log.info(`[EcommerceIndex] Loaded ${planMap.size} plans from ecommerce-settings.yml`);
 
   // 2. Walk content-type directories.
   //    Use content-types.yml to resolve canonical keys (e.g. "programs" → "program")
@@ -222,7 +226,7 @@ export function scanEcommerceContent(): void {
     }
   }
 
-  console.log(`[EcommerceIndex] Scanned ${productCount} products from co-located _ecommerce.yml files`);
+  log.info(`[EcommerceIndex] Scanned ${productCount} products from co-located _ecommerce.yml files`);
 }
 
 // ------------------------------------------------------------------
@@ -241,11 +245,11 @@ export function startEcommerceWatcher(): void {
     const isSettingsFile = filename === "ecommerce-settings.yml";
     const isEcommerceFile = filename.endsWith("_ecommerce.yml") || filename.endsWith("_ecommerce.yaml");
     if (!isSettingsFile && !isEcommerceFile) return;
-    console.log(`[EcommerceIndex] File changed: ${filename} — rescanning`);
+    log.info(`[EcommerceIndex] File changed: ${filename} — rescanning`);
     try {
       scanEcommerceContent();
     } catch (err) {
-      console.error("[EcommerceIndex] Error during rescan:", err);
+      log.error({ err: err }, "[EcommerceIndex] Error during rescan:");
     }
   });
 }

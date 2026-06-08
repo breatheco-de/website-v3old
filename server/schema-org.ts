@@ -1,6 +1,10 @@
 import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
+import { child } from "./logger";
+const log = child({ module: "schema-org" });
+
+
 
 interface SchemaLocales {
   [locale: string]: Record<string, unknown>;
@@ -35,7 +39,7 @@ function loadSchemaConfig(): SchemaOrgConfig {
   const schemaPath = path.join(process.cwd(), "marketing-content", "schema-org.yml");
   
   if (!fs.existsSync(schemaPath)) {
-    console.warn("[SchemaOrg] schema-org.yml not found");
+    log.warn("[SchemaOrg] schema-org.yml not found");
     return {};
   }
 
@@ -44,7 +48,7 @@ function loadSchemaConfig(): SchemaOrgConfig {
     schemaCache = yaml.load(content) as SchemaOrgConfig;
     return schemaCache || {};
   } catch (err) {
-    console.error("[SchemaOrg] Error loading schema-org.yml:", err);
+    log.error({ err: err }, "[SchemaOrg] Error loading schema-org.yml:");
     return {};
   }
 }

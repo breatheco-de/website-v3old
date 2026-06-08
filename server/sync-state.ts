@@ -10,6 +10,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as crypto from 'crypto';
 import { gcs } from './gcs';
+import { child } from "./logger";
+const log = child({ module: "sync-state" });
+
+
 
 const SYNC_STATE_PATH = path.join(process.cwd(), 'marketing-content', '.sync-state.json');
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), 'marketing-content');
@@ -23,35 +27,35 @@ const IS_PRODUCTION = process.env.NODE_ENV === 'production';
  */
 export async function loadSyncStateFromBucket(): Promise<SyncState> {
   if (!IS_PRODUCTION) {
-    console.log('[SyncState] Development mode, using local file only');
+    log.info('[SyncState] Development mode, using local file only');
     return loadSyncState();
   }
 
   if (!gcs.available) {
-    console.log('[SyncState] GCS unavailable, loading from local file');
+    log.info('[SyncState] GCS unavailable, loading from local file');
     return loadSyncState();
   }
 
   try {
     const exists = await gcs.exists(GCS_SYNC_STATE_KEY);
     if (!exists) {
-      console.log('[SyncState] No sync state found in bucket, using local file');
+      log.info('[SyncState] No sync state found in bucket, using local file');
       return loadSyncState();
     }
 
     const data = await gcs.download(GCS_SYNC_STATE_KEY);
     if (!data) {
-      console.log('[SyncState] Empty download from bucket, using local file');
+      log.info('[SyncState] Empty download from bucket, using local file');
       return loadSyncState();
     }
 
     const state = JSON.parse(data.toString('utf-8')) as SyncStateWithConfig;
-    console.log('[SyncState] Loaded sync state from GCS bucket (authenticated)');
+    log.info('[SyncState] Loaded sync state from GCS bucket (authenticated)');
 
     saveSyncStateLocal(state);
     return state;
   } catch (error) {
-    console.error('[SyncState] Error loading from bucket:', error);
+    log.error({ err: error }, '[SyncState] Error loading from bucket:');
     return loadSyncState();
   }
 }
@@ -67,7 +71,7 @@ async function saveSyncStateToBucket(state: SyncStateWithConfig): Promise<void> 
     const content = JSON.stringify(state, null, 2);
     gcs.debouncedUpload(GCS_SYNC_STATE_KEY, Buffer.from(content, 'utf-8'), 'application/json');
   } catch (error) {
-    console.error('[SyncState] Error saving to bucket:', error);
+    log.error({ err: error }, '[SyncState] Error saving to bucket:');
   }
 }
 
@@ -202,7 +206,7 @@ function saveSyncStateLocal(state: SyncStateWithConfig): void {
     }
     fs.writeFileSync(SYNC_STATE_PATH, JSON.stringify(state, null, 2), 'utf-8');
   } catch (error) {
-    console.error('Error saving sync state locally:', error);
+    log.error({ err: error }, 'Error saving sync state locally:');
   }
 }
 
@@ -230,7 +234,7 @@ export function loadSyncState(): SyncState {
       return state;
     }
   } catch (error) {
-    console.error('Error loading sync state:', error);
+    log.error({ err: error }, 'Error loading sync state:');
   }
   return { ...DEFAULT_SYNC_STATE };
 }
@@ -245,7 +249,7 @@ export function saveSyncState(state: SyncState): void {
   }
   saveSyncStateLocal(stateWithConfig);
   saveSyncStateToBucket(stateWithConfig).catch(err => {
-    console.error('[SyncState] Background bucket save failed:', err);
+    log.error({ err: err }, '[SyncState] Background bucket save failed:');
   });
 }
 
@@ -445,7 +449,7 @@ export function detectPendingChanges(): PendingChange[] {
         });
       }
     } catch (error) {
-      console.error(`Error checking file ${filePath}:`, error);
+      log.error({ err: error }, `Error checking file ${filePath}:`);
     }
   }
   
@@ -577,7 +581,7 @@ export function rebuildSyncStateFromLocal(commitSha: string): void {
         ...(existing?.pulledFromCommit ? { pulledFromCommit: existing.pulledFromCommit } : {}),
       };
     } catch (error) {
-      console.error(`Error reading file ${filePath}:`, error);
+      log.error({ err: error }, `Error reading file ${filePath}:`);
     }
   }
   

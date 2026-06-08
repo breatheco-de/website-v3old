@@ -171,6 +171,7 @@ import type { CapabilityName } from "../user-store";
 
 
 import {
+
   BREATHECODE_HOST,
   extractToken,
   requireCapability,
@@ -204,6 +205,9 @@ import {
   ValidationFixRunLogEntry,
   FixerItemStatus,
 } from "./_helpers";
+import { child } from "../logger";
+const log = child({ module: "routes/content" });
+
 
 export function registerContentRoutes(app: Express): void {
   app.get("/api/career-programs", (req, res) => {
@@ -708,7 +712,7 @@ export function registerContentRoutes(app: Express): void {
         });
       }
     } catch (error) {
-      console.error("[Blog] Error fetching posts:", error);
+      log.error({ err: error }, "[Blog] Error fetching posts:");
       res.status(500).json({ error: "Failed to fetch blog posts" });
     }
   });
@@ -740,7 +744,7 @@ export function registerContentRoutes(app: Express): void {
       const blogLayout = resolveLayout("blog", post as unknown as Record<string, unknown>);
       res.json({ ...post, content, layout: blogLayout });
     } catch (error) {
-      console.error("[Blog] Error fetching post:", error);
+      log.error({ err: error }, "[Blog] Error fetching post:");
       res.status(500).json({ error: "Failed to fetch blog post" });
     }
   });
@@ -776,7 +780,7 @@ export function registerContentRoutes(app: Express): void {
       clearMarkdownCache(slug);
       res.json({ success: true, message: `Cache cleared for "${slug}"` });
     } catch (error) {
-      console.error("[Blog] Error clearing post cache:", error);
+      log.error({ err: error }, "[Blog] Error clearing post cache:");
       res.status(500).json({ error: "Failed to clear post cache" });
     }
   });
@@ -1460,7 +1464,7 @@ export function registerContentRoutes(app: Express): void {
       }
       res.json({ count: stripped.length, results: stripped, ...(facets ? { facets } : {}) });
     } catch (err) {
-      console.error(
+      log.error(
         `[ContentTypes] Error fetching items for ${req.params.type}:`,
         err,
       );
@@ -1944,7 +1948,7 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       res.json(parsed);
     } catch (err) {
-      console.error("AI analyze-fields error:", err);
+      log.error({ err: err }, "AI analyze-fields error:");
       res.status(500).json({ error: String(err) });
     }
   });
@@ -2008,7 +2012,7 @@ Return JSON with this exact structure:
 
       res.json(parsed);
     } catch (err) {
-      console.error("AI analyze-response error:", err);
+      log.error({ err: err }, "AI analyze-response error:");
       res.status(500).json({ error: String(err) });
     }
   });
@@ -2081,7 +2085,7 @@ Important: Only include mappings where you are confident the field exists. Use d
 
       res.json(parsed);
     } catch (err) {
-      console.error("AI analyze-fields error:", err);
+      log.error({ err: err }, "AI analyze-fields error:");
       res.status(500).json({ error: String(err) });
     }
   });
@@ -2158,7 +2162,7 @@ Important: Only include mappings where you are confident the field exists. Use d
       const data = safeYamlLoad(content) as unknown[];
       res.json({ testimonials: data || [] });
     } catch (error) {
-      console.error("Error loading testimonials:", error);
+      log.error({ err: error }, "Error loading testimonials:");
       res.status(500).json({ error: "Failed to load testimonials" });
     }
   });

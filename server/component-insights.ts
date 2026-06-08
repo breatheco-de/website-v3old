@@ -4,12 +4,16 @@ import yaml from "js-yaml";
 import { getAllConfigs } from "./content-types";
 import { contentIndex } from "./content-index";
 import type {
+
   ComponentInsightsData,
   ComponentPairing,
   ComponentSequence,
   IntentCluster,
   PageIntent,
 } from "@shared/schema";
+import { child } from "./logger";
+const log = child({ module: "component-insights" });
+
 
 const SETTINGS_PATH = path.join(process.cwd(), "marketing-content", "settings.yml");
 const OUTPUT_PATH = path.join(process.cwd(), "marketing-content", "component-insights.json");
@@ -71,7 +75,7 @@ function readInsightsFieldsFromYaml(data: Record<string, unknown>): {
     if (typeof raw === "number" && Number.isInteger(raw) && raw > 0) {
       weight = raw;
     } else {
-      console.warn(
+      log.warn(
         `[ComponentInsights] insights_weight "${raw}" is not a positive integer — ignoring, using default 1.`
       );
     }
@@ -164,7 +168,7 @@ function scanPages(validIntentIds: Set<string>, contentTypeIntentMap: Map<string
         ? resolvedIntent
         : (() => {
             if (pageIntent) {
-              console.warn(
+              log.warn(
                 `[ComponentInsights] Unknown intent "${pageIntent}" on ${contentType}/${slug}, falling back to "${DEFAULT_INTENT}"`
               );
             }
@@ -265,7 +269,7 @@ export function runScan(): ComponentInsightsData {
     if (typeof raw.insights_intent === "string") {
       const ctIntent = raw.insights_intent as string;
       if (!validIntentIds.has(ctIntent)) {
-        console.warn(
+        log.warn(
           `[ComponentInsights] Content type "${ct}" has insights_intent "${ctIntent}" which is not in settings.yml page_intents. Falling back to "${DEFAULT_INTENT}".`
         );
       } else {
@@ -304,7 +308,7 @@ export function runScan(): ComponentInsightsData {
   };
 
   fs.writeFileSync(OUTPUT_PATH, JSON.stringify(data, null, 2), "utf-8");
-  console.log(`[ComponentInsights] Wrote ${OUTPUT_PATH} — ${pages.length} pages scanned`);
+  log.info(`[ComponentInsights] Wrote ${OUTPUT_PATH} — ${pages.length} pages scanned`);
 
   return data;
 }

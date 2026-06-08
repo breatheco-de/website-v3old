@@ -9,6 +9,10 @@ import * as path from "path";
 import * as yaml from "js-yaml";
 import { contentIndex } from "./content-index";
 import { resolvePageQuery } from "./initial-data-middleware";
+import { child } from "./logger";
+const log = child({ module: "navigation-eager-manifest" });
+
+
 
 const OUT_FILE = path.join(
   process.cwd(),
@@ -213,7 +217,7 @@ export async function regenerateNavigationEagerManifest(): Promise<void> {
   const payload = buildManifestPayload(paths, generatedAt);
   fs.writeFileSync(OUT_FILE, `${JSON.stringify(payload, null, 2)}\n`, "utf-8");
 
-  console.log(
+  log.info(
     `[NavigationManifest] wrote ${OUT_FILE} (${resolved} paths, ${skipped} skipped, ${sorted.length} candidates)`,
   );
 }

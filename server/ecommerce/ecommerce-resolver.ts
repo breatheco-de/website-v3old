@@ -19,6 +19,10 @@
 
 import { ecommerceManager } from "./ecommerce-manager";
 import type { EcommerceRenderContext } from "./types";
+import { child } from "../logger";
+const log = child({ module: "ecommerce/ecommerce-resolver" });
+
+
 
 type RenderContext = Record<string, unknown>;
 
@@ -62,7 +66,7 @@ export function enrichWithEcommerceData(
       }
     }
   } catch (err) {
-    console.error(`[EcommerceResolver] Error enriching ${contentType}/${slug}:`, err);
+    log.error({ err: err }, `[EcommerceResolver] Error enriching ${contentType}/${slug}:`);
   }
 
   return renderContext;

@@ -24,6 +24,10 @@ import {
   shouldTrackFile,
 } from './sync-state';
 import { getAllFolders } from './content-types';
+import { child } from "./logger";
+const log = child({ module: "auto-commit" });
+
+
 
 interface PendingFileChange {
   filePath: string;
@@ -145,7 +149,7 @@ function scheduleCommit(useBackoff = false): void {
     timer = null;
     nextSyncAt = null;
     processQueue().catch(err => {
-      console.error('[AutoCommit] Error processing queue:', err);
+      log.error({ err: err }, '[AutoCommit] Error processing queue:');
       const msg = err instanceof Error ? err.message : 'Unknown error';
       lastError = `Queue processing error: ${msg}`;
       scheduleRetry();
@@ -157,7 +161,7 @@ function scheduleRetry(): void {
   if (pendingChanges.size === 0) return;
   const currentIndex = BACKOFF_STEPS.indexOf(retryBackoffMs);
   retryBackoffMs = BACKOFF_STEPS[Math.min((currentIndex < 0 ? 0 : currentIndex + 1), BACKOFF_STEPS.length - 1)];
-  console.log(`[AutoCommit] Scheduling retry with backoff: ${retryBackoffMs / 1000}s`);
+  log.info(`[AutoCommit] Scheduling retry with backoff: ${retryBackoffMs / 1000}s`);
   scheduleCommit(true);
 }
 
@@ -200,7 +204,7 @@ async function processQueue(): Promise<void> {
   } catch (error) {
     const msg = error instanceof Error ? error.message : 'Unknown error';
     lastError = `Queue processing error: ${msg}`;
-    console.error('[AutoCommit] Queue processing error:', error);
+    log.error({ err: error }, '[AutoCommit] Queue processing error:');
     hadFailure = true;
     for (const [key, val] of Array.from(snapshotChanges.entries())) {
       if (!pendingChanges.has(key)) pendingChanges.set(key, val);
@@ -262,18 +266,18 @@ async function commitBatch(config: GitHubConfig, author: string, files: string[]
     lastCommitAt = new Date().toISOString();
     lastCommitSha = result.commitSha;
     updateSyncStateAfterCommit(result.commitSha, files);
-    console.log(`[AutoCommit] Committed ${files.length} file(s) by ${author}: ${result.commitSha.substring(0, 7)}`);
+    log.info(`[AutoCommit] Committed ${files.length} file(s) by ${author}: ${result.commitSha.substring(0, 7)}`);
     const { logSync, refreshGithubCommit } = await import("./sync-log");
     logSync('COMMIT', `Auto-commit ${result.commitSha.substring(0, 7)} by ${author}: ${fileNames}`, author);
     refreshGithubCommit();
   } else if (result.error?.includes('422') || result.error?.includes('conflict') || result.error?.includes('Update is not a fast forward')) {
-    console.warn(`[AutoCommit] Conflict detected for batch by ${author}, retrying individual files...`);
+    log.warn(`[AutoCommit] Conflict detected for batch by ${author}, retrying individual files...`);
     const { logSync } = await import("./sync-log");
     logSync('CONFLICT', `Auto-commit conflict by ${author}, retrying individually: ${fileNames}`, author);
     await retryIndividualFiles(config, author, existingFiles, deletedFiles);
   } else {
     lastError = result.error || 'Unknown commit error';
-    console.error(`[AutoCommit] Batch commit failed: ${lastError}`);
+    log.error(`[AutoCommit] Batch commit failed: ${lastError}`);
     const { logSync } = await import("./sync-log");
     logSync('ERROR', `Auto-commit failed by ${author}: ${lastError}`, author);
     for (const filePath of files) {
@@ -302,11 +306,11 @@ async function retryIndividualFiles(
       lastCommitAt = new Date().toISOString();
       lastCommitSha = result.commitSha;
       updateSyncStateAfterCommit(result.commitSha, [file.path]);
-      console.log(`[AutoCommit] Individual commit succeeded: ${fileName}`);
+      log.info(`[AutoCommit] Individual commit succeeded: ${fileName}`);
     } else {
       conflictedFiles.add(file.path);
       lastError = `Conflict on ${fileName}: ${result.error}`;
-      console.warn(`[AutoCommit] Conflict on ${fileName}, marked as conflicted`);
+      log.warn(`[AutoCommit] Conflict on ${fileName}, marked as conflicted`);
       const { logSync } = await import("./sync-log");
       logSync('CONFLICT', `Conflict on ${fileName} by ${author}: ${result.error ?? 'push rejected'}`, author);
     }
@@ -314,7 +318,7 @@ async function retryIndividualFiles(
 
   for (const filePath of deletedFiles) {
     conflictedFiles.add(filePath);
-    console.warn(`[AutoCommit] Skipping delete for conflicted file: ${filePath}`);
+    log.warn(`[AutoCommit] Skipping delete for conflicted file: ${filePath}`);
     const { logSync } = await import("./sync-log");
     logSync('CONFLICT', `Conflict on deleted file ${filePath.replace('marketing-content/', '')} by ${author}: push rejected`, author);
   }

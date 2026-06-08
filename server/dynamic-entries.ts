@@ -6,6 +6,10 @@ import {
   resolveContentTypeUrl,
 } from "./content-types";
 import { applyTransformIfNeeded } from "./transform";
+import { child } from "./logger";
+const log = child({ module: "dynamic-entries" });
+
+
 
 const SINGLE_VAR_PATTERN = /\{\{\s*single\.([a-zA-Z_][a-zA-Z0-9_.]*)\s*(?:\|\s*([^}]*?))?\s*\}\}/g;
 const EXACT_SINGLE_VAR_PATTERN = /^\{\{\s*single\.([a-zA-Z_][a-zA-Z0-9_.]*)\s*(?:\|\s*([^}]*?))?\s*\}\}$/;
@@ -285,7 +289,7 @@ export async function resolveDynamicEntries(
         },
       });
     } catch (err) {
-      console.error("[DynamicEntries] Error resolving section:", err);
+      log.error({ err: err }, "[DynamicEntries] Error resolving section:");
       resolved.push(section);
     }
   }

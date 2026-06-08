@@ -3,6 +3,10 @@ import { getDefaultLocale } from "../settings";
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
+import { child } from "../logger";
+const log = child({ module: "ai/ContentCompiler" });
+
+
 
 interface CompiledContext {
   pageContext: string;
@@ -87,7 +91,7 @@ export class ContentCompiler {
 
       return lines.join("\n");
     } catch (err) {
-      console.error(`[ContentCompiler] Error compiling ${contentType}/${slug}:`, err);
+      log.error({ err: err }, `[ContentCompiler] Error compiling ${contentType}/${slug}:`);
       return `Error loading content for ${contentType}/${slug}`;
     }
   }
@@ -127,7 +131,7 @@ export class ContentCompiler {
 
       return lines.join("\n");
     } catch (err) {
-      console.error(`[ContentCompiler] Error compiling page/${slug}:`, err);
+      log.error({ err: err }, `[ContentCompiler] Error compiling page/${slug}:`);
       return "";
     }
   }

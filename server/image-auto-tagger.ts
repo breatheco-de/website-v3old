@@ -5,6 +5,10 @@ import { LLMService } from "./ai/LLMService";
 import { escapeTemplateVars } from "../shared/templateVars";
 import { mediaGallery } from "./media-gallery";
 import { getAllDirectories } from "./content-types";
+import { child } from "./logger";
+const log = child({ module: "image-auto-tagger" });
+
+
 
 const MARKETING_CONTENT_DIR = path.join(process.cwd(), "marketing-content");
 const LLM_YML_PATH = path.join(MARKETING_CONTENT_DIR, "llm.yml");
@@ -348,7 +352,7 @@ async function aiClassify(
       }
     }
   } catch (err) {
-    console.warn(
+    log.warn(
       `[ImageAutoTagger] AI classification failed for ${imageId}:`,
       err instanceof Error ? err.message : String(err),
     );

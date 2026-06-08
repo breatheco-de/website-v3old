@@ -170,6 +170,7 @@ import type { CapabilityName } from "../user-store";
 
 
 import {
+
   BREATHECODE_HOST,
   extractToken,
   requireCapability,
@@ -203,6 +204,9 @@ import {
   ValidationFixRunLogEntry,
   FixerItemStatus,
 } from "./_helpers";
+import { child } from "../logger";
+const log = child({ module: "routes/admin" });
+
 
 export function registerAdminRoutes(app: Express): void {
   // Clear sitemap cache (requires token validation)
@@ -214,7 +218,7 @@ export function registerAdminRoutes(app: Express): void {
       const result = clearSitemapCache();
       res.json(result);
     } catch (error) {
-      console.error("Error clearing sitemap cache:", error);
+      log.error({ err: error }, "Error clearing sitemap cache:");
       res.status(500).json({ error: "Failed to clear cache" });
     }
   });
@@ -285,7 +289,7 @@ export function registerAdminRoutes(app: Express): void {
 
       res.json({ success: true, message: `Cache refreshed for ${urlPath}` });
     } catch (error) {
-      console.error("Error clearing page cache:", error);
+      log.error({ err: error }, "Error clearing page cache:");
       res.status(500).json({ error: "Failed to clear page cache" });
     }
   });
@@ -322,7 +326,7 @@ export function registerAdminRoutes(app: Express): void {
       const urls = contentIndex.getLocaleUrls(baseSlug, parsed.contentType);
       res.json({ urls, contentType: parsed.contentType, slug: baseSlug });
     } catch (err) {
-      console.error("[API] Failed to resolve locale URLs:", err);
+      log.error({ err: err }, "[API] Failed to resolve locale URLs:");
       res.status(500).json({ error: "Failed to resolve locale URLs" });
     }
   });
@@ -350,7 +354,7 @@ export function registerAdminRoutes(app: Express): void {
       const urls = contentIndex.getLocaleUrls(baseSlug, parsed.contentType);
       res.json({ urls, contentType: parsed.contentType, slug: baseSlug });
     } catch (err) {
-      console.error("[Debug] Failed to resolve locale URLs:", err);
+      log.error({ err: err }, "[Debug] Failed to resolve locale URLs:");
       res.status(500).json({ error: "Failed to resolve locale URLs" });
     }
   });
@@ -545,7 +549,7 @@ export function registerAdminRoutes(app: Express): void {
         file: `${entry.directory}/${targetFile}`,
       });
     } catch (err) {
-      console.error("[Debug] Failed to add redirect:", err);
+      log.error({ err: err }, "[Debug] Failed to add redirect:");
       res.status(500).json({ error: "Failed to add redirect" });
     }
   });
@@ -707,7 +711,7 @@ export function registerAdminRoutes(app: Express): void {
         message: `Redirect "${normalizedFrom}" deleted from "${sourceFile}"`,
       });
     } catch (err) {
-      console.error("[Debug] Failed to delete redirect:", err);
+      log.error({ err: err }, "[Debug] Failed to delete redirect:");
       res.status(500).json({ error: "Failed to delete redirect" });
     }
   });
@@ -773,7 +777,7 @@ export function registerAdminRoutes(app: Express): void {
         message: `Custom redirects reordered (${newEntries.length} entries)`,
       });
     } catch (err) {
-      console.error("[Debug] Failed to reorder redirects:", err);
+      log.error({ err: err }, "[Debug] Failed to reorder redirects:");
       res.status(500).json({ error: "Failed to reorder redirects" });
     }
   });
@@ -872,7 +876,7 @@ export function registerAdminRoutes(app: Express): void {
         priority: priority === "fallback" ? "fallback" : "before",
       });
     } catch (err) {
-      console.error("[Debug] Failed to update redirect priority:", err);
+      log.error({ err: err }, "[Debug] Failed to update redirect priority:");
       res.status(500).json({ error: "Failed to update redirect priority" });
     }
   });
@@ -1044,7 +1048,7 @@ export function registerAdminRoutes(app: Express): void {
       pages.sort((a, b) => b.priority - a.priority);
       res.json(pages);
     } catch (err) {
-      console.error("[Lighthouse] pages error:", err);
+      log.error({ err: err }, "[Lighthouse] pages error:");
       res.status(500).json({ error: "Failed to load pages" });
     }
   });
@@ -1080,7 +1084,7 @@ export function registerAdminRoutes(app: Express): void {
       }
       res.json({ runs, latestRun: runs[0]?.date ?? null });
     } catch (err) {
-      console.error("[Lighthouse] reports error:", err);
+      log.error({ err: err }, "[Lighthouse] reports error:");
       res.json({ runs: [], latestRun: null });
     }
   });
@@ -1104,7 +1108,7 @@ export function registerAdminRoutes(app: Express): void {
       const pages = JSON.parse(buf.toString());
       res.json(pages);
     } catch (err) {
-      console.error("[Lighthouse] report date error:", err);
+      log.error({ err: err }, "[Lighthouse] report date error:");
       res.status(500).json({ error: "Failed to load report" });
     }
   });
@@ -1201,7 +1205,7 @@ export function registerAdminRoutes(app: Express): void {
 
       res.json({ date: dateDir, pageCount: pages.length, avgPerformanceScore });
     } catch (err) {
-      console.error("[Lighthouse] run error:", err);
+      log.error({ err: err }, "[Lighthouse] run error:");
       res.status(500).json({ error: "Audit failed", message: String(err) });
     }
   });
@@ -1220,7 +1224,7 @@ export function registerAdminRoutes(app: Express): void {
       }));
       res.json({ tools: definitions });
     } catch (err) {
-      console.error("[AI Tool Definitions] Error:", err);
+      log.error({ err: err }, "[AI Tool Definitions] Error:");
       res.status(500).json({ error: "Failed to load tool definitions" });
     }
   });
@@ -1233,7 +1237,7 @@ export function registerAdminRoutes(app: Express): void {
       const llmConfig = loadLLMConfig();
       res.json({ question_tags: llmConfig.question_tags || [] });
     } catch (err) {
-      console.error("[AI Question Tags] Error:", err);
+      log.error({ err: err }, "[AI Question Tags] Error:");
       res.status(500).json({ error: "Failed to load question tags" });
     }
   });
@@ -1270,7 +1274,7 @@ export function registerAdminRoutes(app: Express): void {
         model_chat: modelChat,
       });
     } catch (err) {
-      console.error("[AI Knowledge GET] Error:", err);
+      log.error({ err: err }, "[AI Knowledge GET] Error:");
       res.status(500).json({ error: "Failed to load knowledge" });
     }
   });
@@ -1290,7 +1294,7 @@ export function registerAdminRoutes(app: Express): void {
       await conversationStore.setKnowledge(key, value, updated_by);
       res.json({ success: true });
     } catch (err) {
-      console.error("[AI Knowledge POST] Error:", err);
+      log.error({ err: err }, "[AI Knowledge POST] Error:");
       res.status(500).json({ error: "Failed to save knowledge" });
     }
   });
@@ -1344,7 +1348,7 @@ export function registerAdminRoutes(app: Express): void {
 
       res.json({ success: true });
     } catch (err) {
-      console.error("[AI Knowledge PATCH] Error:", err);
+      log.error({ err: err }, "[AI Knowledge PATCH] Error:");
       res.status(500).json({ error: "Failed to update knowledge" });
     }
   });
@@ -1369,7 +1373,7 @@ export function registerAdminRoutes(app: Express): void {
       const result = await conversationStore.listConversations(filters);
       res.json(result);
     } catch (err) {
-      console.error("[AI Conversations GET] Error:", err);
+      log.error({ err: err }, "[AI Conversations GET] Error:");
       res.status(500).json({ error: "Failed to load conversations" });
     }
   });
@@ -1410,7 +1414,7 @@ export function registerAdminRoutes(app: Express): void {
 
       res.json(msg);
     } catch (err) {
-      console.error("[AI Message PATCH] Error:", err);
+      log.error({ err: err }, "[AI Message PATCH] Error:");
       res.status(500).json({ error: "Failed to update message" });
     }
   });
@@ -1433,7 +1437,7 @@ export function registerAdminRoutes(app: Express): void {
 
       res.json({ clusters, total_questions: recentMessages.length });
     } catch (err) {
-      console.error("[AI Cluster] Error:", err);
+      log.error({ err: err }, "[AI Cluster] Error:");
       res.status(500).json({ error: "Failed to cluster questions" });
     }
   });
@@ -1487,7 +1491,7 @@ export function registerAdminRoutes(app: Express): void {
         question_tag: response.questionTag,
       });
     } catch (err) {
-      console.error("[AI Preview] Error:", err);
+      log.error({ err: err }, "[AI Preview] Error:");
       res.status(500).json({ error: "Failed to generate preview" });
     }
   });
@@ -1500,7 +1504,7 @@ export function registerAdminRoutes(app: Express): void {
       const data = runComponentInsightsScan();
       res.json(data);
     } catch (err) {
-      console.error("[ComponentInsights] Rebuild failed:", err);
+      log.error({ err: err }, "[ComponentInsights] Rebuild failed:");
       res.status(500).json({ error: "Rebuild failed", details: err instanceof Error ? err.message : String(err) });
     }
   });
@@ -1587,7 +1591,7 @@ export function registerAdminRoutes(app: Express): void {
       const result = getComponentUsageData(componentType, { intent, contentType });
       res.json(result);
     } catch (err) {
-      console.error("[ComponentInsights] Component usage failed:", err);
+      log.error({ err: err }, "[ComponentInsights] Component usage failed:");
       res.status(500).json({ error: "Failed to get component usage", details: err instanceof Error ? err.message : String(err) });
     }
   });
@@ -1645,7 +1649,7 @@ export function registerAdminRoutes(app: Express): void {
           }
         }
       } catch (err) {
-        console.error("[SSR-DB] Error generating schema for", url, err);
+        log.error("[SSR-DB] Error generating schema for", url, err);
       }
     } else if (isListingRoute && listingResolved) {
       schemaHtml = generateListingSsrHtml(
@@ -1668,7 +1672,7 @@ export function registerAdminRoutes(app: Express): void {
           }
         }
       } catch (err) {
-        console.error("[SSR-Blog] Error generating schema for", url, err);
+        log.error("[SSR-Blog] Error generating schema for", url, err);
       }
     } else {
       schemaHtml = generateSsrSchemaHtml(url);

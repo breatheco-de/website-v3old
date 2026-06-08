@@ -4,6 +4,10 @@
  */
 
 import type { ComponentContext, PropDefinition } from "./types";
+import { child } from "../logger";
+const log = child({ module: "ai/SchemaConverter" });
+
+
 
 export interface JSONSchema {
   type: string;
@@ -429,7 +433,7 @@ export function validateContentAgainstSchema(
   // Warn about unknown properties
   for (const key of Object.keys(content)) {
     if (!validProps.includes(key)) {
-      console.warn(`Removing unknown property not in schema: ${key}`);
+      log.warn(`Removing unknown property not in schema: ${key}`);
     }
   }
 

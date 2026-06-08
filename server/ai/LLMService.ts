@@ -8,6 +8,10 @@ import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
 import type { ILLMClient, LLMOptions, StructuredOutputOptions } from "./types";
+import { child } from "../logger";
+const log = child({ module: "ai/LLMService" });
+
+
 
 interface LLMYamlConfig {
   provider?: {
@@ -33,7 +37,7 @@ function loadYamlConfig(): LLMYamlConfig | null {
       return yaml.load(raw) as LLMYamlConfig;
     }
   } catch (err) {
-    console.warn("Failed to load llm.yml config, using env var fallback:", err);
+    log.warn("Failed to load llm.yml config, using env var fallback:", err);
   }
   return null;
 }
@@ -111,7 +115,7 @@ export class LLMService implements ILLMClient {
       cachedConfigMtime !== null &&
       currentMtime !== cachedConfigMtime
     ) {
-      console.log("[LLM] Config file changed, reinitializing...");
+      log.info("[LLM] Config file changed, reinitializing...");
       instance = null;
     }
     if (!instance) {
@@ -166,7 +170,7 @@ export class LLMService implements ILLMClient {
           errorMessage.includes("network") ||
           errorMessage.includes("ECONNRESET")
         ) {
-          console.warn(
+          log.warn(
             `LLM error (attempt ${attempt}/${MAX_RETRIES}), retrying in ${backoffMs}ms...`,
           );
           await this.sleep(backoffMs);
@@ -236,7 +240,7 @@ export class LLMService implements ILLMClient {
           errorMessage.includes("network") ||
           errorMessage.includes("ECONNRESET")
         ) {
-          console.warn(
+          log.warn(
             `LLM vision error (attempt ${attempt}/${MAX_RETRIES}), retrying in ${backoffMs}ms...`,
           );
           await this.sleep(backoffMs);
@@ -307,7 +311,7 @@ export class LLMService implements ILLMClient {
           errorMessage.includes("timeout") ||
           errorMessage.includes("network")
         ) {
-          console.warn(
+          log.warn(
             `LLM error (attempt ${attempt}/${MAX_RETRIES}), retrying in ${backoffMs}ms...`,
           );
           await this.sleep(backoffMs);
@@ -388,7 +392,7 @@ export class LLMService implements ILLMClient {
           errorMessage.includes("timeout") ||
           errorMessage.includes("network")
         ) {
-          console.warn(
+          log.warn(
             `LLM error (attempt ${attempt}/${MAX_RETRIES}), retrying in ${backoffMs}ms...`,
           );
           await this.sleep(backoffMs);

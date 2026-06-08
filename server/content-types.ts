@@ -3,6 +3,10 @@ import path from "path";
 import yaml from "js-yaml";
 import { getSupportedLocales, getDefaultLocale } from "./settings";
 import { markFileAsModified } from "./sync-state";
+import { child } from "./logger";
+const log = child({ module: "content-types" });
+
+
 
 export interface DatabaseConfig {
   slug: string;
@@ -110,7 +114,7 @@ function loadRegistry(): ContentTypesRegistry {
       const raw = fs.readFileSync(CONFIG_PATH, "utf-8");
       parsed = (yaml.load(raw) as Record<string, any>) || {};
     } catch (err) {
-      console.error("[ContentTypes] Failed to read content-types.yml:", err);
+      log.error({ err: err }, "[ContentTypes] Failed to read content-types.yml:");
     }
   }
 
@@ -350,7 +354,7 @@ export function updateContentTypeConfig(type: string, update: Partial<ContentTyp
   writeConfigWithHeader(allTypes);
   markFileAsModified(CONFIG_PATH);
   resetRegistry();
-  console.log(`[ContentTypes] Updated config for "${singular}"`);
+  log.info(`[ContentTypes] Updated config for "${singular}"`);
 }
 
 export function addContentType(name: string, config: ContentTypeEntry): void {
@@ -374,7 +378,7 @@ export function addContentType(name: string, config: ContentTypeEntry): void {
   const isNewDir = !fs.existsSync(dirPath);
   if (isNewDir) {
     fs.mkdirSync(dirPath, { recursive: true });
-    console.log(`[ContentTypes] Created directory: marketing-content/${config.directory}/`);
+    log.info(`[ContentTypes] Created directory: marketing-content/${config.directory}/`);
   }
 
   if (isNewDir) {
@@ -421,11 +425,11 @@ export function addContentType(name: string, config: ContentTypeEntry): void {
       markFileAsModified(localeYmlPath);
     }
 
-    console.log(`[ContentTypes] Created sample entry: marketing-content/${config.directory}/${sampleSlug}/ (${locales.length} locale(s))`);
+    log.info(`[ContentTypes] Created sample entry: marketing-content/${config.directory}/${sampleSlug}/ (${locales.length} locale(s))`);
   }
 
   resetRegistry();
-  console.log(`[ContentTypes] Added content type "${name}"`);
+  log.info(`[ContentTypes] Added content type "${name}"`);
 }
 
 export function deleteContentType(name: string): void {
@@ -440,7 +444,7 @@ export function deleteContentType(name: string): void {
   writeConfigWithHeader(allTypes);
   markFileAsModified(CONFIG_PATH);
   resetRegistry();
-  console.log(`[ContentTypes] Deleted content type "${singular}"`);
+  log.info(`[ContentTypes] Deleted content type "${singular}"`);
 }
 
 export function resetRegistry(): void {

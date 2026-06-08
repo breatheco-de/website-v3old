@@ -1,6 +1,10 @@
 import fs from "fs";
 import path from "path";
 import Database from "better-sqlite3";
+import { child } from "./logger";
+const log = child({ module: "db-cache" });
+
+
 
 export const CACHE_DIR = path.join(process.cwd(), ".cache");
 
@@ -221,7 +225,7 @@ export class SqliteCache implements IDatabaseCache {
             !Array.isArray(entry.items) ||
             typeof entry.raw_count !== "number"
           ) {
-            console.warn(`[SqliteCache] Skipping malformed JSON cache: ${jsonPath}`);
+            log.warn(`[SqliteCache] Skipping malformed JSON cache: ${jsonPath}`);
             continue;
           }
 
@@ -235,11 +239,11 @@ export class SqliteCache implements IDatabaseCache {
 
           fs.unlinkSync(jsonPath);
           anyMigrated = true;
-          console.log(
+          log.info(
             `[SqliteCache] Migrated ${jsonPath} → SQLite (db=${dbName}, variant=${variant || "mapped"})`
           );
         } catch (err) {
-          console.warn(`[SqliteCache] Failed to migrate ${jsonPath}:`, err);
+          log.warn(`[SqliteCache] Failed to migrate ${jsonPath}:`, err);
         }
       }
 

@@ -6,6 +6,10 @@ import { gcs } from "../gcs";
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
+import { child } from "../logger";
+const log = child({ module: "ai/ConversationStore" });
+
+
 
 export class ConversationStore {
   async createConversation(data: InsertConversation): Promise<Conversation> {
@@ -112,7 +116,7 @@ export class ConversationStore {
         }
       }
     } catch (err) {
-      console.warn("[ConversationStore] Failed to read empty_conversation_grace_minutes from llm.yml, using default:", err);
+      log.warn("[ConversationStore] Failed to read empty_conversation_grace_minutes from llm.yml, using default:", err);
     }
     const cutoffEpochSec = Math.floor((Date.now() - graceMinutes * 60 * 1000) / 1000);
     conditions.push(
@@ -166,7 +170,7 @@ export class ConversationStore {
       const key = `conversations/${conversationId}/context.json`;
       await gcs.upload(key, Buffer.from(JSON.stringify(context, null, 2)), "application/json");
     } catch (err) {
-      console.error("[ConversationStore] Failed to save context snapshot:", err);
+      log.error({ err: err }, "[ConversationStore] Failed to save context snapshot:");
     }
   }
 

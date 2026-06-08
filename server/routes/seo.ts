@@ -170,6 +170,7 @@ import type { CapabilityName } from "../user-store";
 
 
 import {
+
   BREATHECODE_HOST,
   extractToken,
   requireCapability,
@@ -203,6 +204,9 @@ import {
   ValidationFixRunLogEntry,
   FixerItemStatus,
 } from "./_helpers";
+import { child } from "../logger";
+const log = child({ module: "routes/seo" });
+
 
 export function registerSeoRoutes(app: Express): void {
   // Dynamic robots.txt — uses SITE_URL at request time so staging and production
@@ -649,7 +653,7 @@ Sitemap: ${baseUrl}/sitemap.xml
 
       res.json(responseData);
     } catch (error) {
-      console.error("[SEO Preview] Error:", error);
+      log.error({ err: error }, "[SEO Preview] Error:");
       res.status(500).json({ error: "Internal server error" });
     }
   });
@@ -721,14 +725,14 @@ Sitemap: ${baseUrl}/sitemap.xml
             strippedVariants.push(variantFile);
           }
         } catch (e) {
-          console.warn(
+          log.warn(
             `[Update Locations] Could not process variant ${variantFile}:`,
             e,
           );
         }
       }
       if (strippedVariants.length > 0) {
-        console.log(
+        log.info(
           `[Update Locations] Removed locations from variants: ${strippedVariants.join(", ")}`,
         );
       }
@@ -742,7 +746,7 @@ Sitemap: ${baseUrl}/sitemap.xml
         strippedVariants,
       });
     } catch (error) {
-      console.error("[Update Locations] Error:", error);
+      log.error({ err: error }, "[Update Locations] Error:");
       res.status(500).json({ error: "Internal server error" });
     }
   });

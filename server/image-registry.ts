@@ -29,10 +29,10 @@ export function loadImageRegistry(): ImageRegistry | null {
     registryCache = JSON.parse(content) as ImageRegistry;
     lastModified = currentModified;
 
-    console.log(`[Image Registry] Loaded ${Object.keys(registryCache.images).length} images, ${Object.keys(registryCache.presets).length} presets`);
+    log.info(`[Image Registry] Loaded ${Object.keys(registryCache.images).length} images, ${Object.keys(registryCache.presets).length} presets`);
     return registryCache;
   } catch (error) {
-    console.error("[Image Registry] Failed to load:", error);
+    log.error({ err: error }, "[Image Registry] Failed to load:");
     return null;
   }
 }
@@ -284,7 +284,7 @@ export function markJobFailed(id: string, message: string, jobType: "optimize" |
   if (!entry) return;
 
   setQueueState(id, { failed_at: new Date().toISOString(), error: message });
-  console.warn(`[ImageRegistry] Job failed for "${id}": ${message}`);
+  log.warn(`[ImageRegistry] Job failed for "${id}": ${message}`);
 
   if (jobType === "optimize") {
     optimizeSession.processed += 1;
@@ -372,6 +372,10 @@ export function getQueueStats(tag?: string): { queued: number; cached: number; f
 // ─── Internal helpers ─────────────────────────────────────────────────────────
 
 import crypto from "crypto";
+import { child } from "./logger";
+const log = child({ module: "image-registry" });
+
+
 
 function _urlToId(url: string, dbName: string): string {
   const hash = crypto.createHash("sha1").update(url).digest("hex").slice(0, 8);

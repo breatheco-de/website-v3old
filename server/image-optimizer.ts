@@ -3,6 +3,10 @@ import path from "path";
 import sharp from "sharp";
 import { gcs } from "./gcs";
 import type { ImageEntry, ImageRegistry } from "@shared/schema";
+import { child } from "./logger";
+const log = child({ module: "image-optimizer" });
+
+
 
 export interface SrcsetEntry {
   w: number;
@@ -144,7 +148,7 @@ export async function processImageBuffer(
   try {
     metadata = await sharp(buffer).metadata();
   } catch (err) {
-    console.error(`[ImageOptimizer] ${id}: sharp metadata failed: ${(err as Error).message}`);
+    log.error(`[ImageOptimizer] ${id}: sharp metadata failed: ${(err as Error).message}`);
     return null;
   }
 
@@ -152,7 +156,7 @@ export async function processImageBuffer(
   const intrinsicHeight = metadata.height || 0;
 
   if (!intrinsicWidth || !intrinsicHeight) {
-    console.error(`[ImageOptimizer] ${id}: could not determine dimensions`);
+    log.error(`[ImageOptimizer] ${id}: could not determine dimensions`);
     return null;
   }
 
@@ -171,7 +175,7 @@ export async function processImageBuffer(
   const originalKey = gcsKey ?? localKey;
 
   if (!originalKey && !dryRun) {
-    console.log(`[ImageOptimizer] ${id}: skipping optimization — cannot determine storage key for src: ${src}`);
+    log.info(`[ImageOptimizer] ${id}: skipping optimization — cannot determine storage key for src: ${src}`);
     return {
       width: intrinsicWidth,
       height: intrinsicHeight,
@@ -212,13 +216,13 @@ export async function processImageBuffer(
         if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
         fs.writeFileSync(diskPath, resized);
         vUrl = `/${vKey}`;
-        console.log(`[ImageOptimizer] ${id}: wrote local variant ${vUrl} (${actualWidth}w)`);
+        log.info(`[ImageOptimizer] ${id}: wrote local variant ${vUrl} (${actualWidth}w)`);
       }
 
       srcset.push({ w: actualWidth, url: vUrl });
       widthsGenerated.push(actualWidth);
     } catch (err) {
-      console.error(`[ImageOptimizer] ${id}: failed to process ${w}w: ${(err as Error).message}`);
+      log.error(`[ImageOptimizer] ${id}: failed to process ${w}w: ${(err as Error).message}`);
     }
   }
 
@@ -246,7 +250,7 @@ export async function processImageFromSrc(
 ): Promise<ProcessImageResult | null> {
   const buffer = await downloadImage(entry.src);
   if (!buffer) {
-    console.error(`[ImageOptimizer] ${id}: failed to download ${entry.src}`);
+    log.error(`[ImageOptimizer] ${id}: failed to download ${entry.src}`);
     return null;
   }
 
