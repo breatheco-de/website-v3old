@@ -51,7 +51,7 @@ sections:
     show_toc: true
     max_width: xl
     maxWidth:
-      desktop: lg
+      desktop: xl
   - type: sticky_cta
     section_id: sticky_cta-tuz71t
     version: "1.0"
