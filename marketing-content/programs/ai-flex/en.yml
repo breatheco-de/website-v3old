@@ -19,8 +19,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: AI Flex. Serious AI skills. At your pace.
-    title_highlight: Serious AI skills. At your pace.
+    title: AI Flex. Serious AI Skills. At Your Pace.
+    title_highlight: Serious AI Skills. At Your Pace.
     subtitle: The skills gap between professionals who use AI well and those who don't is widening fast. AI Flex gives you access to 8 courses covering automation, AI workflows, vibe coding, and data skills. Follow curated learning paths or build your own. A new set of 4 courses every subscription cycle, fully self-paced.
     students_enrolled:
       avatars:
