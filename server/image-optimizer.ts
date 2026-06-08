@@ -134,6 +134,13 @@ export interface ProcessImageResult {
   srcset: SrcsetEntry[];
 }
 
+export class ImageEncodingError extends Error {
+  constructor(id: string, message: string) {
+    super(`[ImageOptimizer] ${id}: ${message}`);
+    this.name = "ImageEncodingError";
+  }
+}
+
 export async function processImageBuffer(
   id: string,
   buffer: Buffer,
@@ -227,7 +234,10 @@ export async function processImageBuffer(
   }
 
   if (srcset.length === 0) {
-    return null;
+    throw new ImageEncodingError(
+      id,
+      `all ${filteredWidths.length} width variant(s) failed to encode — buffer passed metadata check but is unprocessable`,
+    );
   }
 
   return {

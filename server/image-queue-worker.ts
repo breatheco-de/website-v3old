@@ -1,6 +1,6 @@
 import pLimit from "p-limit";
 import { mediaGallery } from "./media-gallery";
-import { processImageBuffer, processImageFromSrc } from "./image-optimizer";
+import { processImageBuffer, processImageFromSrc, ImageEncodingError } from "./image-optimizer";
 import {
   getPendingExternalImages,
   getPendingOptimizations,
@@ -127,7 +127,16 @@ async function processExternalEntry(entry: { id: string; source_url?: string; ta
     if (attempt > 0) {
       await new Promise<void>((r) => setTimeout(r, Math.pow(2, attempt - 1) * 1000));
     }
-    result = await processImageBuffer(id, buffer, url, entry.tags ?? [dbName], presets, false, undefined, tagDefinitions);
+    try {
+      result = await processImageBuffer(id, buffer, url, entry.tags ?? [dbName], presets, false, undefined, tagDefinitions);
+    } catch (err) {
+      if (err instanceof ImageEncodingError) {
+        workerLogger.warn({ id, url }, `[ImageQueueWorker] fast-fail: ${(err as Error).message}`);
+        markJobFailed(id, (err as Error).message);
+        return;
+      }
+      throw err;
+    }
     if (result) break;
   }
 
