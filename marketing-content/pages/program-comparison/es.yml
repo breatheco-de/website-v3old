@@ -16,27 +16,49 @@ schema:
     - website
 sections:
   - type: hero
-    version: "1.0"
-    variant: singleColumn
-    badge: Compara nuestros programas
-    title: No importa qué buscas, AI es el camino
-    subtitle: "Cybersecurity, Fullstack, Data Science: el mercado los absorbió. Hoy todos esos roles se construyen sobre AI. Aquí están las tres formas de llegar, dependiendo de dónde estás parado."
-    trust_bar:
-      rating: 4.8/5
-      rating_count: 2,500+
-      trusted_text: Trusted by 10,000+ students
-    award_badges:
-      - name: Best Coding Bootcamp
-        source: Forbes
-        year: "2024"
-      - name: Top Tech School
-        source: Course Report
-    section_id: hero-qljc9m
+    version: v1.0
+    variant: orbit
+    eyebrow: NO IMPORTA QUÉ BUSCABAS
+    title: "<span style=\"font-size: 3.75rem;\"> La IA es<em>&nbsp;</em></span><div><span style=\"font-size: 3.75rem;\"><em><span style=\"font-size: 3.75rem;\">El camino.</span></em></span><em></em></div>"
+    body: Cybersecurity, Full Stack, Data Science. El mercado los absorbió y hoy todos esos roles se construyen sobre IA. Estas son las tres formas de llegar, según dónde estés parado hoy.
+    stat: <strong>1.3M</strong> nuevos roles de IA abriéndose. Hoy cada sector contrata por fluidez en IA.
+    cta_buttons:
+      - text: Iniciar mi aplicación
+        url: /es/apply
+        variant: primary
+        icon: ChevronRight
+      - text: Explora nuestros programas
+        url: /es/inicio#course_selector-4m5sh4
+        variant: outline
+    orbit_diagram:
+      center_label: IA
+      legend_start: Donde empezaste
+      legend_highlight: Donde está 4Geeks ahora
+      badges:
+        inner:
+          - label: Full Stack con IA
+            highlight: false
+          - label: AI Flex
+            highlight: true
+        middle:
+          - label: Data Science y ML
+            highlight: false
+          - label: AI Fluency
+            highlight: true
+        outer:
+          - label: AI Engineering
+            highlight: true
+          - label: Cybersecurity
+            highlight: false
+    section_id: hero-1v86vv
     paddingY:
       desktop: lg sm
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    maxWidth:
+      mobile: xl
+      desktop: xl
+    background: linear-gradient(to bottom left, hsl(var(--primary) / 0.14), transparent 60%)
     marginY:
-      desktop: none md
+      desktop: none xl
   - type: comparison_table
     section_id: comparison_table-9ssv52
     version: "2.0"

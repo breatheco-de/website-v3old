@@ -28,6 +28,8 @@ sections:
     toc_position: side
     max_width: lg
     content: {{ single.content }}
+    maxWidth:
+      desktop: 2xl
   - type: cta_banner
     version: "1.0"
     variant: form

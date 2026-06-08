@@ -5,7 +5,7 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: "Terms and Conditions | 4Geeks"
+  page_title: Terms and Conditions | 4Geeks
   description: Discover 4Geeks Academy's terms and conditions, protecting students and ensuring a smooth learning experience online.
   redirects:
     - /terms-conditions
@@ -50,6 +50,8 @@ sections:
       For further reference, you may visit the Terms and Conditions page directly.
     show_toc: true
     max_width: xl
+    maxWidth:
+      desktop: 2xl
   - type: sticky_cta
     section_id: sticky_cta-tuz71t
     version: "1.0"

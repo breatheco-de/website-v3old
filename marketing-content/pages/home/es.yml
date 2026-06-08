@@ -126,6 +126,47 @@ sections:
       desktop: none
     maxWidth:
       desktop: 6xl
+  - type: banner
+    version: v1.0
+    variant: marqueeBadges
+    subtitle: No importa qué viniste buscando
+    title: "<span style=\"font-size: 3.75rem;\"><span style=\"font-size: 4.0625rem;\"><span style=\"font-size: 4.25rem;\"><span style=\"font-size: 4.0625rem;\"><span style=\"font-size: 3.75rem;\"><span>La IA es <span style=\"color: hsl(var(--primary));\"><i>el camino</i></span>.</span></span></span></span></span></span>"
+    body: |
+      Todos esos caminos hoy se construyen sobre IA, y ahí es donde está la contratación. Por eso reconstruimos 4Geeks en tres tracks de IA pensados para el nuevo mercado laboral: AI Engineering, AI Fluency y AI Flex.
+    cta_buttons:
+      - text: Compara los tres tracks
+        url: /es/program-comparison
+        variant: primary
+        icon: arrow-right
+    top_badges:
+      - Full Stack
+      - Data Science
+      - Machine Learning
+      - Web Development
+      - Data Analytics
+      - DevOps
+      - AI Engineering
+      - Cloud Computing
+      - Backend Dev
+      - AI Flex
+    bottom_badges:
+      - Python
+      - Front End
+      - SQL & Databases
+      - Networking
+      - Cybersecurity
+      - AI Fluency
+      - Engineering
+      - React
+      - Node.js
+      - Prompt Engineering
+    marquee_speed: 30
+    section_id: banner-qrp5dz
+    paddingY:
+      desktop: sm
+    background: hsl(var(--muted))
+    marginY:
+      desktop: none xl
   - type: features_grid
     version: "1.0"
     variant: stats-charts
