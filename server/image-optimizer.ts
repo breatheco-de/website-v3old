@@ -148,7 +148,7 @@ export async function processImageBuffer(
   try {
     metadata = await sharp(buffer).metadata();
   } catch (err) {
-    log.error(`[ImageOptimizer] ${id}: sharp metadata failed: ${(err as Error).message}`);
+    log.warn(`[ImageOptimizer] ${id}: sharp metadata failed: ${(err as Error).message}`);
     return null;
   }
 
@@ -222,7 +222,7 @@ export async function processImageBuffer(
       srcset.push({ w: actualWidth, url: vUrl });
       widthsGenerated.push(actualWidth);
     } catch (err) {
-      log.error(`[ImageOptimizer] ${id}: failed to process ${w}w: ${(err as Error).message}`);
+      log.warn(`[ImageOptimizer] ${id}: failed to process ${w}w: ${(err as Error).message}`);
     }
   }
 

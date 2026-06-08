@@ -50,6 +50,14 @@ function isSafeUrl(rawUrl: string): boolean {
   return true;
 }
 
+const NON_IMAGE_CONTENT_TYPE_PREFIXES = ["text/", "application/json", "application/xhtml"];
+
+function isNonImageContentType(contentType: string | null): boolean {
+  if (!contentType) return false;
+  const lower = contentType.toLowerCase();
+  return NON_IMAGE_CONTENT_TYPE_PREFIXES.some((prefix) => lower.startsWith(prefix));
+}
+
 async function fetchWithTimeout(url: string): Promise<Buffer | null> {
   if (!isSafeUrl(url)) {
     workerLogger.warn({ url }, "blocked fetch to disallowed URL");
@@ -65,10 +73,30 @@ async function fetchWithTimeout(url: string): Promise<Buffer | null> {
       clearTimeout(timer);
     }
     if (!resp.ok) return null;
+    const contentType = resp.headers.get("content-type");
+    if (isNonImageContentType(contentType)) {
+      workerLogger.warn({ url, contentType }, "[ImageQueueWorker] Skipped non-image buffer (content-type check)");
+      return null;
+    }
     return Buffer.from(await resp.arrayBuffer());
   } catch {
     return null;
   }
+}
+
+const IMAGE_MAGIC_BYTES: Array<{ label: string; bytes: number[] }> = [
+  { label: "JPEG",  bytes: [0xff, 0xd8, 0xff] },
+  { label: "PNG",   bytes: [0x89, 0x50, 0x4e, 0x47] },
+  { label: "GIF",   bytes: [0x47, 0x49, 0x46] },
+  { label: "WEBP",  bytes: [0x52, 0x49, 0x46, 0x46] },
+  { label: "AVIF",  bytes: [0x00, 0x00, 0x00] },
+];
+
+function isImageBuffer(buf: Buffer): boolean {
+  for (const { bytes } of IMAGE_MAGIC_BYTES) {
+    if (bytes.every((b, i) => buf[i] === b)) return true;
+  }
+  return false;
 }
 
 async function processExternalEntry(entry: { id: string; source_url?: string; tags?: string[] }): Promise<void> {
@@ -81,6 +109,12 @@ async function processExternalEntry(entry: { id: string; source_url?: string; ta
   const buffer = await fetchWithTimeout(url);
   if (!buffer) {
     markJobFailed(id, `Failed to fetch ${url}`);
+    return;
+  }
+
+  if (!isImageBuffer(buffer)) {
+    workerLogger.warn({ id, url }, "[ImageQueueWorker] Skipped non-image buffer (magic-bytes check)");
+    markJobFailed(id, `Non-image buffer received for ${url}`);
     return;
   }
 
