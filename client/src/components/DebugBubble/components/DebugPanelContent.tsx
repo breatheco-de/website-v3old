@@ -193,6 +193,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
   const [createMenuOpen, setCreateMenuOpen] = useState(false);
   const [settingsExpanded, setSettingsExpanded] = useState(false);
   const [storeExpanded, setStoreExpanded] = useState(false);
+  const [diagnosticsExpanded, setDiagnosticsExpanded] = useState(false);
 
   const { data: versionData } = useQuery<{ version: string }>({
     queryKey: ["/api/version"],
@@ -508,6 +509,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   props.setAiAgentsExpanded(false);
                   setSettingsExpanded(false);
                   setStoreExpanded(false);
+                  setDiagnosticsExpanded(false);
                 }
               }}
               testId="button-sitemap-toggle"
@@ -591,6 +593,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   props.setAiAgentsExpanded(false);
                   setSettingsExpanded(false);
                   setStoreExpanded(false);
+                  setDiagnosticsExpanded(false);
                 }
               }}
               testId="button-components-toggle"
@@ -630,6 +633,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   props.setComponentsExpanded(false);
                   setSettingsExpanded(false);
                   setStoreExpanded(false);
+                  setDiagnosticsExpanded(false);
                 }
               }}
               testId="button-ai-agents-toggle"
@@ -657,34 +661,51 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               />
             </ExpandableMenuItem>
 
-            <MenuItem
+            <ExpandableMenuItem
               icon={Stethoscope}
-              label="Diagnostics"
-              href="/private/diagnostics"
-              indicator="arrow"
-              testId="link-diagnostics"
-            />
-
-            <MenuItem
-              icon={IconAlertTriangle}
-              label="Error Log"
-              href="/private/error-log"
-              indicator="arrow"
-              testId="link-error-log"
-              rightContent={
-                errorLogCount > 0 ? (
-                  <span
-                    className={cn(
-                      badgeVariants({ variant: errorLogData && errorLogData.totalErrors > 0 ? "destructive" : "secondary" }),
-                      "text-xs px-1.5 py-0 min-w-[1.25rem] text-center tabular-nums"
-                    )}
-                    data-testid="badge-error-log-count"
-                  >
-                    {errorLogCount}
-                  </span>
-                ) : undefined
-              }
-            />
+              label="Errors & Diagnostics"
+              expanded={diagnosticsExpanded}
+              onToggle={() => {
+                const opening = !diagnosticsExpanded;
+                setDiagnosticsExpanded(opening);
+                if (opening) {
+                  props.setSitemapExpanded(false);
+                  props.setComponentsExpanded(false);
+                  props.setAiAgentsExpanded(false);
+                  setSettingsExpanded(false);
+                  setStoreExpanded(false);
+                }
+              }}
+              testId="button-diagnostics-toggle"
+            >
+              <MenuItem
+                icon={Stethoscope}
+                label="Diagnostics"
+                href="/private/diagnostics"
+                indicator="arrow"
+                testId="link-diagnostics"
+              />
+              <MenuItem
+                icon={IconAlertTriangle}
+                label="Server Error Log"
+                href="/private/error-log"
+                indicator="arrow"
+                testId="link-error-log"
+                rightContent={
+                  errorLogCount > 0 ? (
+                    <span
+                      className={cn(
+                        badgeVariants({ variant: errorLogData && errorLogData.totalErrors > 0 ? "destructive" : "secondary" }),
+                        "text-xs px-1.5 py-0 min-w-[1.25rem] text-center tabular-nums"
+                      )}
+                      data-testid="badge-error-log-count"
+                    >
+                      {errorLogCount}
+                    </span>
+                  ) : undefined
+                }
+              />
+            </ExpandableMenuItem>
 
             <ExpandableMenuItem
               icon={IconShoppingBag}
@@ -698,6 +719,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   props.setComponentsExpanded(false);
                   props.setAiAgentsExpanded(false);
                   setSettingsExpanded(false);
+                  setDiagnosticsExpanded(false);
                 }
               }}
               testId="button-store-toggle"
@@ -737,6 +759,7 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
                   props.setComponentsExpanded(false);
                   props.setAiAgentsExpanded(false);
                   setStoreExpanded(false);
+                  setDiagnosticsExpanded(false);
                 }
               }}
               testId="button-settings-toggle"
