@@ -20491,6 +20491,30 @@
       "widths_generated": [],
       "format": "webp",
       "srcset": []
+    },
+    "group_original-736x491-q85": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/group_original-736x491-q85.webp",
+      "alt": "Original group illustration",
+      "focal_point": "center",
+      "tags": [
+        "illustration",
+        "hero",
+        "logo",
+        "card",
+        "photo",
+        "badge",
+        "partner",
+        "press",
+        "testimonial",
+        "team",
+        "award"
+      ],
+      "usage_count": 0,
+      "width": 736,
+      "height": 491,
+      "format": "webp",
+      "parentId": "group_original",
+      "quality_override": 85
     }
   }
 }
