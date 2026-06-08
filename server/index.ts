@@ -308,7 +308,7 @@ app.use((req, res, next) => {
       const rssMb = Math.round(mem.rss / 1024 / 1024);
       const heapRatio = mem.heapUsed / mem.heapTotal;
       const logFn = heapRatio > 0.80 ? memLogger.warn.bind(memLogger) : memLogger.info.bind(memLogger);
-      logFn({ heapUsedMb, heapTotalMb, rssMb }, "process memory usage");
+      logFn({ heapUsedMb, heapTotalMb, rssMb }, `high memory usage: heap ${heapUsedMb}/${heapTotalMb} MB (${Math.round(heapRatio * 100)}% used), rss ${rssMb} MB`);
     }, 5 * 60 * 1000).unref();
     // ─────────────────────────────────────────────────────────────────────────
 
