@@ -5,7 +5,7 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: "Cookie Policy | 4Geeks Academy"
+  page_title: Cookie Policy | 4Geeks Academy
   description: Discover how 4Geeks Academy protects your data with our transparent cookie policy and learn more about our programs.
   redirects:
     - /us/cookies
@@ -30,6 +30,8 @@ sections:
       Through the use of these technologies, the web server may remember certain user data, such as display preferences, username and password, products of interest, and other relevant information that helps improve the browsing experience.
     show_toc: true
     max_width: xl
+    maxWidth:
+      desktop: 2xl
   - type: sticky_cta
     section_id: sticky_cta-7t17bh
     version: "1.0"
