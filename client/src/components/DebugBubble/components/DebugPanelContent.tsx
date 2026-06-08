@@ -199,6 +199,19 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
     staleTime: Infinity,
   });
 
+  const { data: errorLogData } = useQuery<{ totalErrors: number; totalWarnings: number }>({
+    queryKey: ["/api/admin/error-log", "badge"],
+    queryFn: async () => {
+      const res = await fetch("/api/admin/error-log");
+      if (!res.ok) throw new Error("Failed to fetch error log");
+      return res.json();
+    },
+    refetchInterval: 60000,
+    staleTime: 30000,
+  });
+
+  const errorLogCount = (errorLogData?.totalErrors ?? 0) + (errorLogData?.totalWarnings ?? 0);
+
   if (props.noTokenDetected) {
     return (
       <div className="p-4 pl-[8px] pr-[8px]">
@@ -658,6 +671,19 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
               href="/private/error-log"
               indicator="arrow"
               testId="link-error-log"
+              rightContent={
+                errorLogCount > 0 ? (
+                  <span
+                    className={cn(
+                      badgeVariants({ variant: errorLogData && errorLogData.totalErrors > 0 ? "destructive" : "secondary" }),
+                      "text-xs px-1.5 py-0 min-w-[1.25rem] text-center tabular-nums"
+                    )}
+                    data-testid="badge-error-log-count"
+                  >
+                    {errorLogCount}
+                  </span>
+                ) : undefined
+              }
             />
 
             <ExpandableMenuItem
