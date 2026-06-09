@@ -250,7 +250,7 @@ sections:
       desktop: none md
   - type: syllabus
     variant: program-modules
-    program_title: AI Native Full Stack — Módulos del programa
+    program_title: AI Engineering — Módulos del programa
     program_description: Construye sistemas reales con IA desde el primer día. Este currículo se organiza en dos tracks — IA Central y Agentes, e Infraestructura para IA — más un capstone que integra todo en una empresa completamente transformada y desplegada. Apoyado por fundamentos complementarios en herramientas y prácticas de desarrollo moderno a lo largo del programa.
     tech_logos:
       - name: Python
@@ -431,7 +431,7 @@ sections:
       video: https://www.youtube.com/watch?v=rtpfwwfE0yY
       justify: center
     right:
-      heading: "Joshua Bravo: de asistente de cocina a desarrollador Full Stack en una fintech"
+      heading: "Joshua Bravo: de asistente de cocina a Trabajar en una fintech"
       sub_heading: Graduado de 4Geeks Academy, ahora trabajando en tecnología
       description: Joshua trabajaba como asistente de cocina y contable mientras intentaba aprender a programar solo con tutoriales de YouTube. Sabía que necesitaba algo más estructurado para dar el salto real. Tras completar el bootcamp de Full Stack en 4Geeks, construyó aplicaciones web completas de cero y consiguió empleo como desarrollador en Regcheq, una startup fintech. Hoy hace lo que le apasiona.
       button:

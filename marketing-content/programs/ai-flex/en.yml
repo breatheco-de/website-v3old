@@ -38,7 +38,7 @@ sections:
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutor:"
-    description: AI is not the future, it is the foundation. The professionals moving fastest right now are building real skills, not waiting for the right moment. AI Flex is where you go deeper.
+    description: AI is not the future, it is the foundation. Build yours with AI Flex.
     signup_card:
       title: Get Started Today
       description: "Fill in your details and we'll send you everything you need: course catalog, path options, and pricing. It takes 2 minutes."
@@ -134,60 +134,42 @@ sections:
       desktop: none
     marginY:
       desktop: md lg
-  - type: features_quad
-    version: "1.0"
-    variant: default
-    heading: Is This Program Right for You?
-    description: If you are nodding at any of these, you're exactly who this is built for.
-    cards:
-      - icon: IconRocket
-        title: You use AI tools but are not leveraging their full potential.
-      - icon: IconClock
-        title: Repetitive tasks are taking up your time and attention.
-      - icon: IconTrendingUp
-        title: You know AI fluency is becoming a must-have to stay ahead in your career.
-      - icon: IconCoin
-        title: You want the salary premium that comes with real AI skills.
-    background: hsl(var(--muted))
-    section_id: features_quad-7xi4xb
-    marginY:
-      desktop: none lg
   - type: features_grid
     version: "1.0"
     variant: stats-charts
-    subtitle: The data is clear.
-    title: AI Fluency Is No Longer Optional
-    description: Professionals with AI skills earn more, advance faster, and are in higher demand in every industry, not just tech. The shift is already underway. These are the numbers behind it.
+    subtitle: The data is in.
+    title: What AI Skills Get You
+    description: Across industries, professionals who build AI skills are working faster, earning more, and taking on more.
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
     card_gauge_accent: hsl(var(--destructive) / 0.5)
     card_trend_accent: hsl(var(--accent))
     card_bars:
-      title: AI Skills Command a Salary Premium
+      title: The Salary Premium Is Real
       description: Same role · with vs without AI skills · PwC 2025
       stat_value: +56%
-      stat_label: salary premium for AI-skilled workers over same-role peers
+      stat_label: earned by AI-skilled workers over same-role peers
       displaced_label: Without AI skills
       created_label: With AI skills
-    card_gauge:
-      title: AI Literacy Is Becoming a Job Requirement
-      description: Global job roles · LinkedIn 2025
-      gauge_percentage: 30
-      gauge_label: require AI literacy
-      stat_label: of job roles now require AI literacy globally
-      bar1_label: Roles requiring AI literacy
-      bar2_label: Roles without AI requirement
     card_trend:
-      title: Demand for AI-Fluent Workers Is Accelerating
-      description: Indexed demand growth · LinkedIn/WEF 2026
+      title: Demand Grew 7x in Two Years
+      description: Roles requiring AI fluency · McKinsey 2025
       stat_value: 7x
-      stat_label: growth in demand for AI-fluent workers since 2023
-      end_label: 7x · 2026
-    section_id: features_grid-ganf45
+      stat_label: growth in roles requiring AI fluency since 2023
+      end_label: 7x · 2025
+    card_gauge:
+      title: The Productivity Jump Is Real
+      description: Productivity growth · AI-exposed industries · PwC 2025
+      gauge_percentage: 27
+      gauge_label: productivity growth rate
+      stat_label: productivity growth in companies using AI well, up from 7% in 2022
+      bar1_label: AI-adopting companies
+      bar2_label: Industry average
     paddingY:
       desktop: none lg
     marginY:
       desktop: lg
+    section_id: features_grid-aiflex-whynow
   - type: trust_cards
     version: v1.0
     title: Top rated across all major platforms.
@@ -283,24 +265,22 @@ sections:
     section_id: syllabus-sdr4er
   - type: human_and_ai_duo
     version: "1.0"
-    heading: Human and AI Support, So You Never Lose Momentum
-    description: Staying motivated is easy when everything clicks. It gets really hard when you hit a wall. AI Fluency pairs a real human mentor with Rigobot, our AI tutor, so you always have somewhere to turn to and no reason to stop.
+    heading: 24/7 AI Tutoring. Human Expertise on Demand.
+    description: Rigobot is available around the clock throughout your subscription — ask for help, get feedback, or work through a concept whenever you need it. If you want a human perspective, senior mentors are available to book anytime.
     bullet_groups:
-      - title: "Your expert mentor:"
-        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
-        bullets:
-          - text: A 1:1 session with a senior instructor, included in your enrollment
-          - text: Expert guidance tailored to you.
-          - text: Focused on your actual tasks, workflows, and goals
-          - text: Additional sessions available to book anytime, at extra cost
       - title: "Rigobot, your AI tutor:"
         image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
         bullets:
-          - text: Available 24/7 throughout the program
-          - text: Ask for help, feedback, or an explanation whenever you need it
-          - text: Your always-on tutor for all self-paced modules
-          - text: Adapts to your skill level and what you are working on
-    section_id: human_and_ai_duo-ukcsrs
+          - text: Available 24/7 across every course in the catalog
+          - text: Ask for help, get feedback, or work through a concept at any point
+          - text: Adapts to your level and what you are working on
+      - title: "Expert mentors:"
+        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
+        bullets:
+          - text: Book a 1:1 session with a senior instructor for $25
+          - text: Focused on your actual work, your pace, your questions
+          - text: Add as many sessions as you need, whenever you need them
+    section_id: human_and_ai_duo-aiflex
   - type: pricing
     version: "1.0"
     variant: product

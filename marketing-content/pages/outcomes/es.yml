@@ -17,7 +17,6 @@ sections:
     variant: simpleTwoColumn
     title: Resultados profesionales reales, respaldados por datos
     subtitle: Descubre los resultados profesionales verificados de nuestros graduados contratados en ingeniería de IA, ciencia de datos y ciberseguridad. Medimos el éxito por resultados reales.
-    badge: Informe de Resultados de 4Geeks Academy
     image:
       src: https://storage.googleapis.com/4geeks-academy-website/media/outcomes_1765562850573.png
       alt: Gráfico de crecimiento de resultados de estudiantes

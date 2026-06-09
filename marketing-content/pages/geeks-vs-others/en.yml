@@ -169,7 +169,7 @@ sections:
       - icon: School
         title: Scholarships available
         description: Partial scholarships are available for eligible students.
-    background: hsl(var(--secondary))
+    background: hsl(var(--muted))
     marginY:
       desktop: none xl
     section_id: features_quad-b9rpp3
