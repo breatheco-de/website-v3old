@@ -459,7 +459,7 @@ export function DebugBubble() {
         })
         .catch(() => setSitemapLoading(false));
     }
-    if (menuView === "sitemap") {
+    if (menuView !== "databases" && menuView !== "content-types") {
       fetch("/api/validation/cache-summary")
         .then((res) => res.json())
         .then((data) => setValidationSummary(data))

@@ -1,11 +1,11 @@
 {
   "meta": {
-    "lastFullRunAt": "2026-06-09T17:34:05.554Z",
+    "lastFullRunAt": "2026-06-09T17:40:37.925Z",
     "version": 1
   },
   "pages": {
     "/en/career-programs/ai-engineering": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -33,7 +33,7 @@
       ]
     },
     "/es/programas-de-carrera/ai-engineering": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -117,7 +117,7 @@
       ]
     },
     "/en/career-programs/ai-engineering-new": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -130,7 +130,7 @@
       ]
     },
     "/es/programas-de-carrera/ai-engineering-new": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -207,7 +207,7 @@
       ]
     },
     "/en/career-programs/ai-flex": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -249,7 +249,7 @@
       ]
     },
     "/es/programas-de-carrera/ai-flex": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -326,7 +326,7 @@
       ]
     },
     "/en/career-programs/ai-fluency": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -368,7 +368,7 @@
       ]
     },
     "/es/programas-de-carrera/ai-fluency": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -445,7 +445,7 @@
       ]
     },
     "/en/career-programs/applied-ai-course": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -458,7 +458,7 @@
       ]
     },
     "/es/programas-de-carrera/applied-ai-course": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -471,7 +471,7 @@
       ]
     },
     "/en/career-programs/cybersecurity": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -491,7 +491,7 @@
       ]
     },
     "/es/programas-de-carrera/cybersecurity": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -504,7 +504,7 @@
       ]
     },
     "/en/career-programs/data-science-ml": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -517,7 +517,7 @@
       ]
     },
     "/es/programas-de-carrera/data-science-ml": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -530,7 +530,7 @@
       ]
     },
     "/en/career-programs/full-stack": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -550,7 +550,7 @@
       ]
     },
     "/es/programas-de-carrera/full-stack": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -563,7 +563,7 @@
       ]
     },
     "/en/location/atlanta-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -576,7 +576,7 @@
       ]
     },
     "/es/ubicacion/atlanta-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -589,7 +589,7 @@
       ]
     },
     "/en/location/austin-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -602,7 +602,7 @@
       ]
     },
     "/es/ubicacion/austin-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -615,7 +615,7 @@
       ]
     },
     "/en/location/barcelona-spain": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -628,7 +628,7 @@
       ]
     },
     "/es/ubicacion/barcelona-spain": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -641,7 +641,7 @@
       ]
     },
     "/en/location/berlin-germany": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -654,7 +654,7 @@
       ]
     },
     "/es/ubicacion/berlin-germany": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -667,7 +667,7 @@
       ]
     },
     "/en/location/bogota-colombia": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -680,7 +680,7 @@
       ]
     },
     "/es/ubicacion/bogota-colombia": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -693,7 +693,7 @@
       ]
     },
     "/en/location/buenosaires-argentina": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -706,7 +706,7 @@
       ]
     },
     "/es/ubicacion/buenosaires-argentina": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -719,7 +719,7 @@
       ]
     },
     "/en/location/caracas-venezuela": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -732,7 +732,7 @@
       ]
     },
     "/es/ubicacion/caracas-venezuela": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -745,7 +745,7 @@
       ]
     },
     "/en/location/chicago-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -758,7 +758,7 @@
       ]
     },
     "/es/ubicacion/chicago-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -771,7 +771,7 @@
       ]
     },
     "/en/location/costa-rica": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -784,7 +784,7 @@
       ]
     },
     "/es/ubicacion/costa-rica": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -797,7 +797,7 @@
       ]
     },
     "/en/location/dallas-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -810,7 +810,7 @@
       ]
     },
     "/es/ubicacion/dallas-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -823,7 +823,7 @@
       ]
     },
     "/en/location/dublin-ireland": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -836,7 +836,7 @@
       ]
     },
     "/es/ubicacion/dublin-ireland": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -849,7 +849,7 @@
       ]
     },
     "/en/location/hamburg-germany": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -862,7 +862,7 @@
       ]
     },
     "/es/ubicacion/hamburg-germany": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -875,7 +875,7 @@
       ]
     },
     "/en/location/houston-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -888,7 +888,7 @@
       ]
     },
     "/es/ubicacion/houston-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -901,7 +901,7 @@
       ]
     },
     "/en/location/lapaz-bolivia": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -914,7 +914,7 @@
       ]
     },
     "/es/ubicacion/lapaz-bolivia": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -927,7 +927,7 @@
       ]
     },
     "/en/location/lima-peru": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -940,7 +940,7 @@
       ]
     },
     "/es/ubicacion/lima-peru": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -953,7 +953,7 @@
       ]
     },
     "/en/location/lisbon-portugal": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -966,7 +966,7 @@
       ]
     },
     "/es/ubicacion/lisbon-portugal": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -979,7 +979,7 @@
       ]
     },
     "/en/location/losangeles-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -992,7 +992,7 @@
       ]
     },
     "/es/ubicacion/losangeles-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1005,7 +1005,7 @@
       ]
     },
     "/en/location/madrid-spain": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1018,7 +1018,7 @@
       ]
     },
     "/es/ubicacion/madrid-spain": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1031,7 +1031,7 @@
       ]
     },
     "/en/location/malaga-spain": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1044,7 +1044,7 @@
       ]
     },
     "/es/ubicacion/malaga-spain": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1057,7 +1057,7 @@
       ]
     },
     "/en/location/mexicocity-mexico": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1070,7 +1070,7 @@
       ]
     },
     "/es/ubicacion/mexicocity-mexico": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1083,7 +1083,7 @@
       ]
     },
     "/en/location/miami-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1096,7 +1096,7 @@
       ]
     },
     "/es/ubicacion/miami-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1109,7 +1109,7 @@
       ]
     },
     "/en/location/milan-italy": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1122,7 +1122,7 @@
       ]
     },
     "/es/ubicacion/milan-italy": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1135,7 +1135,7 @@
       ]
     },
     "/en/location/montevideo-uruguay": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1148,7 +1148,7 @@
       ]
     },
     "/es/ubicacion/montevideo-uruguay": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1161,7 +1161,7 @@
       ]
     },
     "/en/location/munich-germany": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1174,7 +1174,7 @@
       ]
     },
     "/es/ubicacion/munich-germany": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1187,7 +1187,7 @@
       ]
     },
     "/en/location/newyork-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1200,7 +1200,7 @@
       ]
     },
     "/es/ubicacion/newyork-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1213,7 +1213,7 @@
       ]
     },
     "/en/location/orlando-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1226,7 +1226,7 @@
       ]
     },
     "/es/ubicacion/orlando-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1239,7 +1239,7 @@
       ]
     },
     "/en/location/panamacity-panama": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1252,7 +1252,7 @@
       ]
     },
     "/es/ubicacion/panamacity-panama": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1265,7 +1265,7 @@
       ]
     },
     "/en/location/quito-ecuador": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1278,7 +1278,7 @@
       ]
     },
     "/es/ubicacion/quito-ecuador": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1291,7 +1291,7 @@
       ]
     },
     "/en/location/remote": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1304,7 +1304,7 @@
       ]
     },
     "/es/ubicacion/remote": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1317,7 +1317,7 @@
       ]
     },
     "/en/location/rest-of-america": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1337,7 +1337,7 @@
       ]
     },
     "/es/ubicacion/rest-of-america": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1357,7 +1357,7 @@
       ]
     },
     "/en/location/rest-of-europe": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1370,7 +1370,7 @@
       ]
     },
     "/es/ubicacion/rest-of-europe": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -1440,7 +1440,7 @@
       ]
     },
     "/en/location/rome-italy": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1453,7 +1453,7 @@
       ]
     },
     "/es/ubicacion/rome-italy": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1466,7 +1466,7 @@
       ]
     },
     "/en/location/santiago-chile": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1479,7 +1479,7 @@
       ]
     },
     "/es/ubicacion/santiago-chile": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1492,7 +1492,7 @@
       ]
     },
     "/en/location/tampa-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1505,7 +1505,7 @@
       ]
     },
     "/es/ubicacion/tampa-usa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1518,7 +1518,7 @@
       ]
     },
     "/en/location/toronto-canada": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1531,7 +1531,7 @@
       ]
     },
     "/es/ubicacion/toronto-canada": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1544,7 +1544,7 @@
       ]
     },
     "/en/location/valencia-spain": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1557,7 +1557,7 @@
       ]
     },
     "/es/ubicacion/valencia-spain": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1570,7 +1570,7 @@
       ]
     },
     "/landing/4geeks-pricing": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1597,7 +1597,7 @@
       ]
     },
     "/landing/4geeks-vs-others-landing": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1624,7 +1624,7 @@
       ]
     },
     "/landing/4geeks-vs-otros-landing": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -1687,7 +1687,7 @@
       ]
     },
     "/landing/ai-bootcamp-with-job-placement": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1707,7 +1707,7 @@
       ]
     },
     "/landing/ai-engineering-bootcamp": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1727,7 +1727,7 @@
       ]
     },
     "/landing/ai-engineering-chile": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1747,7 +1747,7 @@
       ]
     },
     "/landing/ai-engineering-coding-florida": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1774,7 +1774,7 @@
       ]
     },
     "/landing/ai-engineering-en": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1794,7 +1794,7 @@
       ]
     },
     "/landing/ai-engineering-es": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -1822,7 +1822,7 @@
       ]
     },
     "/landing/ai-engineering-for-developers": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1856,7 +1856,7 @@
       ]
     },
     "/landing/ai-engineering-lumi-version": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -1926,7 +1926,7 @@
       ]
     },
     "/landing/ai-engineering-spain": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -1946,7 +1946,7 @@
       ]
     },
     "/landing/anik-delemete": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -1995,7 +1995,7 @@
       ]
     },
     "/landing/carne-joven": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2022,7 +2022,7 @@
       ]
     },
     "/landing/de-aprender-programacion-a-ser-ai-engineer-mexico": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2042,7 +2042,7 @@
       ]
     },
     "/landing/es-programa-de-desarrollo-full-stack-con-ia": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2083,7 +2083,7 @@
       ]
     },
     "/landing/es-programas-espaa": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2103,7 +2103,7 @@
       ]
     },
     "/landing/from-developer-to-certified-ai-engineer-with-job-guarantee": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2123,7 +2123,7 @@
       ]
     },
     "/landing/herramientas-de-ia-para-programar": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2143,7 +2143,7 @@
       ]
     },
     "/landing/job-guarantee": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -2171,7 +2171,7 @@
       ]
     },
     "/landing/latam-video-ingeniera-de-ia": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -2213,7 +2213,7 @@
       ]
     },
     "/landing/programas-latam": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2247,7 +2247,7 @@
       ]
     },
     "/landing/workshop-aiengineering-reskill": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -2289,7 +2289,7 @@
       ]
     },
     "/landing/workshop-aiengineering-reskill-latam": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -2338,7 +2338,7 @@
       ]
     },
     "/en/apply": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2358,7 +2358,7 @@
       ]
     },
     "/es/apply": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2378,7 +2378,7 @@
       ]
     },
     "/en/awards": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2398,7 +2398,7 @@
       ]
     },
     "/es/awards": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2418,7 +2418,7 @@
       ]
     },
     "/en/blog": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2438,7 +2438,7 @@
       ]
     },
     "/es/blog": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2458,7 +2458,7 @@
       ]
     },
     "/en/coding-bootcamp": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2478,7 +2478,7 @@
       ]
     },
     "/es/coding-bootcamp": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2498,7 +2498,7 @@
       ]
     },
     "/en/coding-bootcamp-in-spanish": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -2526,7 +2526,7 @@
       ]
     },
     "/es/coding-bootcamp-in-spanish": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -2554,7 +2554,7 @@
       ]
     },
     "/es/comparar-new": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -2617,7 +2617,7 @@
       ]
     },
     "/en/component-test": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -2659,7 +2659,7 @@
       ]
     },
     "/en/contact-us": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2679,7 +2679,7 @@
       ]
     },
     "/es/contact-us": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2699,7 +2699,7 @@
       ]
     },
     "/en/cookies": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2719,7 +2719,7 @@
       ]
     },
     "/es/cookies": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -2747,7 +2747,7 @@
       ]
     },
     "/es/ejemplo": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -2775,7 +2775,7 @@
       ]
     },
     "/en/faq": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2795,7 +2795,7 @@
       ]
     },
     "/es/faq": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -2830,7 +2830,7 @@
       ]
     },
     "/en/financials": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2850,7 +2850,7 @@
       ]
     },
     "/es/financials": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2870,7 +2870,7 @@
       ]
     },
     "/en/geekforce-career-support": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -2905,7 +2905,7 @@
       ]
     },
     "/es/geekforce-career-support": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -2925,7 +2925,7 @@
       ]
     },
     "/en/geekpal-new": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -3002,7 +3002,7 @@
       ]
     },
     "/es/geekpal-new": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -3072,7 +3072,7 @@
       ]
     },
     "/en/geekpal-support": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -3128,7 +3128,7 @@
       ]
     },
     "/es/geekpal-support": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -3191,7 +3191,7 @@
       ]
     },
     "/en/geeks-vs-others": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3211,7 +3211,7 @@
       ]
     },
     "/es/geeks-vs-others": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3231,7 +3231,7 @@
       ]
     },
     "/en/graduates-and-projects": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3251,7 +3251,7 @@
       ]
     },
     "/es/graduates-and-projects": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3271,7 +3271,7 @@
       ]
     },
     "/en/home": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3291,7 +3291,7 @@
       ]
     },
     "/es/home": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3311,7 +3311,7 @@
       ]
     },
     "/en/home-copia-prueba": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -3374,7 +3374,7 @@
       ]
     },
     "/es/home-copia-prueba": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -3437,7 +3437,7 @@
       ]
     },
     "/es/home-new": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3457,7 +3457,7 @@
       ]
     },
     "/en/home-prueba-lorena": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3477,7 +3477,7 @@
       ]
     },
     "/es/home-prueba-lorena": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3497,7 +3497,7 @@
       ]
     },
     "/en/job-guarantee": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3517,7 +3517,7 @@
       ]
     },
     "/es/job-guarantee": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3537,7 +3537,7 @@
       ]
     },
     "/en/learnpack": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3564,7 +3564,7 @@
       ]
     },
     "/es/learnpack": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3591,7 +3591,7 @@
       ]
     },
     "/es/limpieza-componentes-final": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -3675,7 +3675,7 @@
       ]
     },
     "/en/lumi-home": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3695,7 +3695,7 @@
       ]
     },
     "/es/lumi-home": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3715,7 +3715,7 @@
       ]
     },
     "/en/online-platform": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3742,7 +3742,7 @@
       ]
     },
     "/es/online-platform": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3769,7 +3769,7 @@
       ]
     },
     "/en/outcomes": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3796,7 +3796,7 @@
       ]
     },
     "/es/outcomes": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3823,7 +3823,7 @@
       ]
     },
     "/en/partners": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3843,7 +3843,7 @@
       ]
     },
     "/es/partners": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3863,7 +3863,7 @@
       ]
     },
     "/en/press": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3883,7 +3883,7 @@
       ]
     },
     "/es/press": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3903,7 +3903,7 @@
       ]
     },
     "/en/privacy-policy": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3923,7 +3923,7 @@
       ]
     },
     "/es/privacy-policy": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3943,7 +3943,7 @@
       ]
     },
     "/en/program-comparison": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3970,7 +3970,7 @@
       ]
     },
     "/es/program-comparison": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -3990,7 +3990,7 @@
       ]
     },
     "/es/propuesta-univermilenium": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -4032,7 +4032,7 @@
       ]
     },
     "/en/prueba": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4073,7 +4073,7 @@
       ]
     },
     "/en/rigobot-ai-coding-mentor": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4100,7 +4100,7 @@
       ]
     },
     "/es/rigobot-ai-coding-mentor": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4127,7 +4127,7 @@
       ]
     },
     "/en/sample-page": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4147,7 +4147,7 @@
       ]
     },
     "/en/scholarships": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4167,7 +4167,7 @@
       ]
     },
     "/es/scholarships": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4187,7 +4187,7 @@
       ]
     },
     "/en/terms-conditions": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4214,7 +4214,7 @@
       ]
     },
     "/es/terms-conditions": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -4242,7 +4242,7 @@
       ]
     },
     "/en/test-dup": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -4312,7 +4312,7 @@
       ]
     },
     "/es/test-dup": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -4375,7 +4375,7 @@
       ]
     },
     "/en/test-mcp-page": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -4424,7 +4424,7 @@
       ]
     },
     "/es/test-mcp-page": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -4466,7 +4466,7 @@
       ]
     },
     "/en/testimonials": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4486,7 +4486,7 @@
       ]
     },
     "/es/testimonials": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4506,7 +4506,7 @@
       ]
     },
     "/en/the-academy": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4526,7 +4526,7 @@
       ]
     },
     "/es/the-academy": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4546,7 +4546,7 @@
       ]
     },
     "/en/upcoming-dates": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4566,7 +4566,7 @@
       ]
     },
     "/es/upcoming-dates": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4586,7 +4586,7 @@
       ]
     },
     "/en/work-with-us": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4613,7 +4613,7 @@
       ]
     },
     "/es/work-with-us": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4640,7 +4640,7 @@
       ]
     },
     "/en/blog//4geeks-in-the-ai-era": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4653,7 +4653,7 @@
       ]
     },
     "/en/blog//best-online-coding-bootcamp": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4694,7 +4694,7 @@
       ]
     },
     "/en/blog//full-stack-developer-portfolio": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4728,7 +4728,7 @@
       ]
     },
     "/en/blog//full-stack-developer-salary-2024": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -4763,7 +4763,7 @@
       ]
     },
     "/en/blog//geekforce-the-career-launch-engine": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4804,7 +4804,7 @@
       ]
     },
     "/es/blog//juegos-gratis-para-practicar-tus-habilidades-de-programacion": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4838,7 +4838,7 @@
       ]
     },
     "/en/blog//lambda-school-alternative": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -4880,7 +4880,7 @@
       ]
     },
     "/en/blog//learnpack-build-teach-learn": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -4922,7 +4922,7 @@
       ]
     },
     "/en/blog//machine-learning-course-syllabus": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4963,7 +4963,7 @@
       ]
     },
     "/en/blog//outcomes-report-2024": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -4997,7 +4997,7 @@
       ]
     },
     "/es/blog//que-es-data-science": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -5038,7 +5038,7 @@
       ]
     },
     "/es/descargable/guia-de-html-css": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -5079,7 +5079,7 @@
       ]
     },
     "/es/descargable/guia-de-js": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -5113,7 +5113,7 @@
       ]
     },
     "/en/downloadable/sample-downloadable": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -5141,7 +5141,7 @@
       ]
     },
     "/es/descargable/sample-downloadable": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -5169,7 +5169,7 @@
       ]
     },
     "/en/downloadable/testing": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [],
       "warnings": [
         {
@@ -5189,7 +5189,7 @@
       ]
     },
     "/en/outcomes-report/sample-outcome-report": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
@@ -5217,7 +5217,7 @@
       ]
     },
     "/es/informe-de-resultados/sample-outcome-report": {
-      "lastRunAt": "2026-06-09T17:34:05.554Z",
+      "lastRunAt": "2026-06-09T17:40:37.925Z",
       "errors": [
         {
           "type": "error",
