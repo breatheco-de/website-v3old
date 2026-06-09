@@ -30,6 +30,7 @@ import viteConfig from "../vite.config";
 import { contentIndex } from "./content-index";
 import { resolveInitialData, resolvePreloadHints, injectSsrMetaTags, type PreloadHint } from "./initial-data-middleware";
 import { applyNonBlockingCss } from "./utils/html-transforms";
+import { getEntryAssets, buildEntryPreloadTags, buildEntryLinkHeader } from "./utils/vite-manifest";
 import { child as loggerChild } from "./logger";
 
 const ssrLogger = loggerChild({ module: "ssr" });
@@ -242,6 +243,30 @@ export function serveStatic(app: Express) {
 
   const indexHtmlPath = path.resolve(distPath, "index.html");
 
+  // Resolve entry-chunk assets from the Vite manifest once at startup.
+  // getEntryAssets is cached — returns empty arrays if the manifest is absent.
+  const entryAssets = getEntryAssets(distPath);
+  const entryPreloadTags = buildEntryPreloadTags(entryAssets);
+  const entryLinkHeader = buildEntryLinkHeader(entryAssets);
+
+  /** Inject entry-chunk preload tags at the top of <head> and set the Link header. */
+  function applyEntryPreloads(html: string, res: import("express").Response): string {
+    if (entryLinkHeader) {
+      // Merge with any existing Link header set by upstream middleware.
+      const existing = res.getHeader("Link");
+      const merged = existing
+        ? `${existing}, ${entryLinkHeader}`
+        : entryLinkHeader;
+      res.setHeader("Link", merged);
+    }
+    if (entryPreloadTags) {
+      // Inject immediately after the opening <head> tag so the browser
+      // discovers these assets before any existing stylesheet or script links.
+      html = html.replace(/(<head[^>]*>)/, `$1\n${entryPreloadTags}`);
+    }
+    return html;
+  }
+
   app.use("*", async (_req, res) => {
     const url = _req.originalUrl;
     const status = isKnownRoute(url) ? 200 : 404;
@@ -277,6 +302,7 @@ export function serveStatic(app: Express) {
         }
 
         html = applyNonBlockingCss(html);
+        html = applyEntryPreloads(html, res);
 
         res.status(status).set({ "Content-Type": "text/html" }).send(html);
         return;
@@ -292,6 +318,7 @@ export function serveStatic(app: Express) {
           html = html.replace("</head>", `${ssrSchemaHtml}\n</head>`);
         }
         html = applyNonBlockingCss(html);
+        html = applyEntryPreloads(html, res);
         res.status(status).set({ "Content-Type": "text/html" }).send(html);
         return;
       } catch {
@@ -302,6 +329,7 @@ export function serveStatic(app: Express) {
     try {
       let html = await fs.promises.readFile(indexHtmlPath, "utf-8");
       html = applyNonBlockingCss(html);
+      html = applyEntryPreloads(html, res);
       res.status(status).set({ "Content-Type": "text/html" }).send(html);
     } catch {
       res.status(status).sendFile(indexHtmlPath);
