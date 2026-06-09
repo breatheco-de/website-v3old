@@ -1063,7 +1063,7 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     try {
       const group = deleteDialog.bindingGroup;
       const token = getDebugToken();
-      await fetch(`/api/bindings/${group.id}/members`, {
+      const unbindRes = await fetch(`/api/bindings/${group.id}/members`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -1071,6 +1071,18 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
         },
         body: JSON.stringify({ contentType, slug, sectionIndex: deleteDialog.index }),
       });
+
+      if (!unbindRes.ok) {
+        let description = `Server returned ${unbindRes.status}`;
+        try {
+          const body = await unbindRes.json();
+          if (body?.error) description = body.error;
+        } catch {
+          // ignore parse errors
+        }
+        toast({ title: "Failed to remove binding", description, variant: "destructive" });
+        return;
+      }
 
       const result = await sendEditOperation(contentType, slug, locale, [
         { action: "remove_item", path: "sections", index: deleteDialog.index }
