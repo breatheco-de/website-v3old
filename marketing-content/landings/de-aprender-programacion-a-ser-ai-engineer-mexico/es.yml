@@ -250,7 +250,7 @@ sections:
       desktop: none md
   - type: syllabus
     variant: program-modules
-    program_title: AI Native Full Stack — Módulos del programa
+    program_title: AI Engineering — Módulos del programa
     program_description: Construye sistemas reales con IA desde el primer día. Este currículo se organiza en dos tracks — IA Central y Agentes, e Infraestructura para IA — más un capstone que integra todo en una empresa completamente transformada y desplegada. Apoyado por fundamentos complementarios en herramientas y prácticas de desarrollo moderno a lo largo del programa.
     tech_logos:
       - name: Python
