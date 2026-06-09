@@ -6,3 +6,11 @@ export function applyNonBlockingCss(html: string): string {
       `<noscript><link rel="stylesheet" ${attrs}></noscript>`
   );
 }
+
+export function applyEntryModulePreload(html: string): string {
+  return html.replace(
+    /(<script type="module" crossorigin src="(\/assets\/index-[^"]+\.js)"><\/script>)/g,
+    (match, _full, src) =>
+      `<link rel="modulepreload" crossorigin href="${src}">${match}`
+  );
+}
