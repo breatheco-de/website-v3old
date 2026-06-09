@@ -347,7 +347,10 @@ function buildCanonicalSitemapEntries(): Map<string, CanonicalSitemapEntry> {
       for (const item of items) {
         let locale = "en";
         if (localeFieldKey) {
-          const langVal = String(item[localeFieldKey] || "en");
+          const resolvedLocaleField = (fieldMapping && localeFieldKey in fieldMapping)
+            ? fieldMapping[localeFieldKey]
+            : localeFieldKey;
+          const langVal = String(item[resolvedLocaleField] || item[localeFieldKey] || "en");
           locale = localeSource ? applyTransformIfNeeded(localeSource, langVal) : langVal;
         }
         const urlPattern = urlPatterns[locale] || urlPatterns["en"];
