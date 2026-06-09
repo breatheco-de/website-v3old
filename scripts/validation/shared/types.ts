@@ -40,7 +40,7 @@ export interface ValidatorMetadata {
   description: string;
   apiExposed: boolean;
   estimatedDuration: "fast" | "medium" | "slow";
-  category: "content" | "seo" | "integrity" | "components" | "performance" | "forms";
+  category: "content" | "seo" | "integrity" | "components" | "performance" | "forms" | "bindings";
 }
 
 export interface Validator extends ValidatorMetadata {

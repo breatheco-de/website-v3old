@@ -27,6 +27,7 @@ import { fieldMappingsValidator } from "./field-mappings";
 import { orphanedFilesValidator } from "./orphaned-files";
 import { formsValidator } from "./forms";
 import { consentLegacyKeysValidator } from "./consent-legacy-keys";
+import { bindingIntegrityValidator } from "./binding-integrity";
 
 export const validators: Validator[] = [
   redirectValidator,
@@ -50,6 +51,7 @@ export const validators: Validator[] = [
   orphanedFilesValidator,
   formsValidator,
   consentLegacyKeysValidator,
+  bindingIntegrityValidator,
 ];
 
 export const slowValidators: Validator[] = [lighthouseValidator];
@@ -101,4 +103,5 @@ export {
   orphanedFilesValidator,
   formsValidator,
   consentLegacyKeysValidator,
+  bindingIntegrityValidator,
 };

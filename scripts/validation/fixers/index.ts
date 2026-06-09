@@ -13,6 +13,7 @@ import { imageAutoTagsFixer } from "./image-auto-tags";
 import { invalidImageTagsFixer } from "./invalid-image-tags";
 import { orphanedImagesCleanupFixer } from "./orphaned-images-cleanup";
 import { dbTemplateRestoreFixer } from "./db-template-restore";
+import { bindingCleanupFixer } from "./binding-cleanup";
 
 export type { Fixer, FixerContext, FixerResult, ProgressEvent } from "./types";
 
@@ -24,6 +25,7 @@ const fixers: Fixer[] = [
   invalidImageTagsFixer,
   orphanedImagesCleanupFixer,
   dbTemplateRestoreFixer,
+  bindingCleanupFixer,
 ];
 
 export const fixerMap = new Map<string, Fixer>(fixers.map((f) => [f.name, f]));
