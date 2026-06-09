@@ -9,8 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import type { PageDiagnostics } from "../types";
-import { AlertTriangle, Clock } from "lucide-react";
-import { IconRefresh, IconLoader2 } from "@tabler/icons-react";
+import { IconAlertTriangle, IconRefresh, IconLoader2, IconClock } from "@tabler/icons-react";
 
 interface PageErrorsModalProps {
   open: boolean;
@@ -28,6 +27,11 @@ function formatStaleness(isoDate: string): string {
   if (hrs < 24) return `${hrs} hour${hrs === 1 ? "" : "s"} ago`;
   const days = Math.floor(hrs / 24);
   return `${days} day${days === 1 ? "" : "s"} ago`;
+}
+
+function localeFlag(locale: string): string {
+  if (locale === "es") return "🇪🇸";
+  return "🇺🇸";
 }
 
 export function PageErrorsModal(props: PageErrorsModalProps) {
@@ -61,34 +65,24 @@ export function PageErrorsModal(props: PageErrorsModalProps) {
       <DialogContent className="sm:max-w-lg max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <AlertTriangle className="h-5 w-5 text-destructive" />
-            Page Diagnostics
+            <IconAlertTriangle className="h-5 w-5 text-destructive" />
+            {pageDiagnostics
+              ? `${pageDiagnostics.contentType} · ${pageDiagnostics.slug}`
+              : "Page Diagnostics"}
           </DialogTitle>
-          <DialogDescription>
-            {pageDiagnostics ? `Issues found on ${pageDiagnostics.url}` : 'Loading diagnostics...'}
+          <DialogDescription data-testid="text-modal-description">
+            {pageDiagnostics
+              ? `${pageDiagnostics.url} ${localeFlag(pageDiagnostics.locale)}`
+              : "Loading diagnostics…"}
           </DialogDescription>
         </DialogHeader>
         {pageDiagnostics && (
           <div className="space-y-4">
-            <div className="p-3 rounded-md bg-muted/50 border border-border text-sm">
-              <div className="grid grid-cols-2 gap-1 text-muted-foreground">
-                <span>Content Type:</span>
-                <span className="font-mono text-foreground" data-testid="text-modal-content-type">{pageDiagnostics.contentType}</span>
-                <span>Slug:</span>
-                <span className="font-mono text-foreground" data-testid="text-modal-slug">{pageDiagnostics.slug}</span>
-                <span>Locale:</span>
-                <span className="font-mono text-foreground" data-testid="text-modal-locale">{pageDiagnostics.locale}</span>
-                <span>Schema Valid:</span>
-                <span className={`font-mono ${pageDiagnostics.schemaValidation?.valid ? "text-green-600 dark:text-green-400" : "text-destructive"}`} data-testid="text-modal-schema-valid">
-                  {pageDiagnostics.schemaValidation?.valid ? "Yes" : "No"}
-                </span>
-              </div>
-            </div>
-
             {(() => {
               const errors = pageDiagnostics.issues?.filter(i => i.type === "error") || [];
               const warnings = pageDiagnostics.issues?.filter(i => i.type === "warning") || [];
               const infos = pageDiagnostics.issues?.filter(i => i.type === "info") || [];
+              if (errors.length === 0 && warnings.length === 0 && infos.length === 0) return null;
               return (
                 <>
                   {errors.length > 0 && (
@@ -132,11 +126,6 @@ export function PageErrorsModal(props: PageErrorsModalProps) {
                       ))}
                     </div>
                   )}
-                  {errors.length === 0 && warnings.length === 0 && infos.length === 0 && (
-                    <div className="p-3 rounded-md bg-muted/50 border border-border text-sm text-muted-foreground" data-testid="modal-no-issues">
-                      No issues found. The content loads and validates correctly.
-                    </div>
-                  )}
                 </>
               );
             })()}
@@ -145,7 +134,7 @@ export function PageErrorsModal(props: PageErrorsModalProps) {
             <div className="border-t border-border pt-4 space-y-2">
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                  <Clock className="h-3.5 w-3.5" />
+                  <IconClock className="h-3.5 w-3.5" />
                   Last validation run
                 </div>
                 <Button
