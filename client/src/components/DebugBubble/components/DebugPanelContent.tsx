@@ -110,6 +110,8 @@ export interface DebugPanelContentProps {
   handleDownloadYml: (url: string) => void;
   handleEditYaml: (url: string) => void;
   handleRefreshCache: (url: SitemapUrl) => void;
+  validationSummary: Record<string, { errorCount: number; warningCount: number }>;
+  onOpenDiagnosticsForUrl: (urlPath: string) => void;
   contentLocale: string | null;
 
   session: { location?: { slug?: string; name?: string } };
@@ -1030,6 +1032,8 @@ export function DebugPanelContent(props: DebugPanelContentProps) {
           handleDownloadYml={props.handleDownloadYml}
           handleEditYaml={props.handleEditYaml}
           handleRefreshCache={props.handleRefreshCache}
+          validationSummary={props.validationSummary}
+          onOpenDiagnosticsForUrl={props.onOpenDiagnosticsForUrl}
         />
       )}
     </>

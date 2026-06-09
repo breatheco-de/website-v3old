@@ -311,6 +311,9 @@ export function DebugBubble() {
     setPageDiagnosticsLoading(false);
   };
 
+  // Validation cache summary for sitemap badges
+  const [validationSummary, setValidationSummary] = useState<Record<string, { errorCount: number; warningCount: number }>>({});
+
   // Detect current content info from URL
   const contentInfo = detectContentInfo(pathname, contentTypesMap, homePageSettings ?? null);
 
@@ -455,6 +458,12 @@ export function DebugBubble() {
           setSitemapLoading(false);
         })
         .catch(() => setSitemapLoading(false));
+    }
+    if (menuView === "sitemap") {
+      fetch("/api/validation/cache-summary")
+        .then((res) => res.json())
+        .then((data) => setValidationSummary(data))
+        .catch(() => {});
     }
   }, [menuView]);
 
@@ -1579,6 +1588,21 @@ export function DebugBubble() {
     }
   };
 
+  const handleOpenDiagnosticsForUrl = async (urlPath: string) => {
+    setPageDiagnosticsLoading(true);
+    setPageDiagnostics(null);
+    setPageErrorsModalOpen(true);
+    try {
+      const res = await fetch(`/api/diagnostics/page?url=${encodeURIComponent(urlPath)}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      setPageDiagnostics(data);
+    } catch {
+    } finally {
+      setPageDiagnosticsLoading(false);
+    }
+  };
+
   const confirmDeletePage = async (localesToDelete: string[]) => {
     if (!deletingPage || deleteConfirmInput !== deletingPage.slug) return;
     setIsDeletingPage(true);
@@ -1756,6 +1780,8 @@ export function DebugBubble() {
     handleDownloadYml,
     handleEditYaml,
     handleRefreshCache,
+    validationSummary,
+    onOpenDiagnosticsForUrl: handleOpenDiagnosticsForUrl,
     contentLocale: pageDiagnostics?.locale || null,
     session,
     currentLocationOverride,

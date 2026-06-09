@@ -416,6 +416,19 @@ export function registerValidationRoutes(app: Express): void {
     res.json({ ok: true, cleared });
   });
 
+  app.get("/api/validation/cache-summary", (_req, res) => {
+    const cache = getValidationCacheService();
+    const all = cache.getAll();
+    const summary: Record<string, { errorCount: number; warningCount: number }> = {};
+    for (const [url, entry] of all) {
+      summary[url] = {
+        errorCount: entry.errors.length,
+        warningCount: entry.warnings.length,
+      };
+    }
+    res.json(summary);
+  });
+
   // ============================================
   // Diagnostics API
   // ============================================
