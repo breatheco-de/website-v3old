@@ -47,7 +47,7 @@ export function PageErrorsModal(props: PageErrorsModalProps) {
       await fetch("/api/validation/run", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ validators: ["content", "seo"] }),
+        body: JSON.stringify({ validators: ["meta", "seo-depth", "seo-intent", "schema-completeness", "content-quality", "images"] }),
       });
       if (onRefreshDiagnostics) {
         await onRefreshDiagnostics();
