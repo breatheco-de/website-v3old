@@ -297,6 +297,20 @@ export function DebugBubble() {
   const [pageDiagnostics, setPageDiagnostics] = useState<PageDiagnostics | null>(null);
   const [pageDiagnosticsLoading, setPageDiagnosticsLoading] = useState(false);
 
+  const refreshPageDiagnostics = async () => {
+    const url = pageDiagnostics?.url;
+    if (!url) return;
+    setPageDiagnosticsLoading(true);
+    try {
+      const res = await fetch(`/api/diagnostics/page?url=${encodeURIComponent(url)}`);
+      if (res.ok) {
+        const data = await res.json();
+        setPageDiagnostics(data);
+      }
+    } catch {}
+    setPageDiagnosticsLoading(false);
+  };
+
   // Detect current content info from URL
   const contentInfo = detectContentInfo(pathname, contentTypesMap, homePageSettings ?? null);
 
@@ -2024,6 +2038,7 @@ export function DebugBubble() {
         open={pageErrorsModalOpen}
         onOpenChange={setPageErrorsModalOpen}
         pageDiagnostics={pageDiagnostics}
+        onRefreshDiagnostics={refreshPageDiagnostics}
       />
       <SeoModal
         open={seoModalOpen}

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,11 +10,13 @@ import {
 import { Button } from "@/components/ui/button";
 import type { PageDiagnostics } from "../types";
 import { AlertTriangle, Clock } from "lucide-react";
+import { IconRefresh, IconLoader2 } from "@tabler/icons-react";
 
 interface PageErrorsModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   pageDiagnostics: PageDiagnostics | null;
+  onRefreshDiagnostics?: () => Promise<void>;
 }
 
 function formatStaleness(isoDate: string): string {
@@ -32,7 +35,26 @@ export function PageErrorsModal(props: PageErrorsModalProps) {
     open,
     onOpenChange,
     pageDiagnostics,
+    onRefreshDiagnostics,
   } = props;
+
+  const [isRunningValidation, setIsRunningValidation] = useState(false);
+
+  async function handleRunValidation() {
+    if (isRunningValidation) return;
+    setIsRunningValidation(true);
+    try {
+      await fetch("/api/validation/run", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ validators: ["content", "seo"] }),
+      });
+      if (onRefreshDiagnostics) {
+        await onRefreshDiagnostics();
+      }
+    } catch {}
+    setIsRunningValidation(false);
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -121,9 +143,30 @@ export function PageErrorsModal(props: PageErrorsModalProps) {
 
             {/* Cached validation results */}
             <div className="border-t border-border pt-4 space-y-2">
-              <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                <Clock className="h-3.5 w-3.5" />
-                Last validation run
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                  <Clock className="h-3.5 w-3.5" />
+                  Last validation run
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleRunValidation}
+                  disabled={isRunningValidation}
+                  data-testid="button-run-validation"
+                >
+                  {isRunningValidation ? (
+                    <>
+                      <IconLoader2 className="h-3.5 w-3.5 animate-spin" />
+                      Running…
+                    </>
+                  ) : (
+                    <>
+                      <IconRefresh className="h-3.5 w-3.5" />
+                      Run validation
+                    </>
+                  )}
+                </Button>
               </div>
               {pageDiagnostics.cached ? (
                 <>
@@ -159,7 +202,7 @@ export function PageErrorsModal(props: PageErrorsModalProps) {
                 </>
               ) : (
                 <div className="p-3 rounded-md bg-muted/50 border border-border text-sm text-muted-foreground" data-testid="cached-not-yet-validated">
-                  Not yet validated — run validation from the Diagnostics dashboard to populate this section.
+                  Not yet validated — click "Run validation" to populate this section.
                 </div>
               )}
             </div>
