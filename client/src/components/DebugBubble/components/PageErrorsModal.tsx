@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import type { PageDiagnostics } from "../types";
 import { IconAlertTriangle, IconRefresh, IconLoader2, IconClock } from "@tabler/icons-react";
+import * as Flags from "country-flag-icons/react/3x2";
 
 interface PageErrorsModalProps {
   open: boolean;
@@ -29,9 +30,9 @@ function formatStaleness(isoDate: string): string {
   return `${days} day${days === 1 ? "" : "s"} ago`;
 }
 
-function localeFlag(locale: string): string {
-  if (locale === "es") return "🇪🇸";
-  return "🇺🇸";
+function LocaleFlag({ locale }: { locale: string }) {
+  const FlagComponent = locale === "es" ? Flags.ES : Flags.US;
+  return <FlagComponent className="h-3.5 w-auto rounded-sm" title={locale === "es" ? "Spanish" : "English"} />;
 }
 
 export function PageErrorsModal(props: PageErrorsModalProps) {
@@ -70,10 +71,13 @@ export function PageErrorsModal(props: PageErrorsModalProps) {
               ? `${pageDiagnostics.contentType} · ${pageDiagnostics.slug}`
               : "Page Diagnostics"}
           </DialogTitle>
-          <DialogDescription data-testid="text-modal-description">
-            {pageDiagnostics
-              ? `${pageDiagnostics.url} ${localeFlag(pageDiagnostics.locale)}`
-              : "Loading diagnostics…"}
+          <DialogDescription data-testid="text-modal-description" className="flex items-center gap-1.5">
+            {pageDiagnostics ? (
+              <>
+                <span>{pageDiagnostics.url}</span>
+                <LocaleFlag locale={pageDiagnostics.locale} />
+              </>
+            ) : "Loading diagnostics…"}
           </DialogDescription>
         </DialogHeader>
         {pageDiagnostics && (
