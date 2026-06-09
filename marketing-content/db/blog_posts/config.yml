@@ -25,7 +25,7 @@ field_mapping:
   description: description
   status: status
   language: >-
-    function:KHZhbHVlLCBpdGVtKSA9PiB7IGNvbnN0IHYgPSBTdHJpbmcoaXRlbS5sYW5ndWFnZSB8fCAnJyk7IHJldHVybiB2ID09PSAndXMnID8gJ2VuJyA6IHY7IH0=
+    function:KHZhbHVlLCBpdGVtKSA9PiB7IGNvbnN0IHYgPSBTdHJpbmcoaXRlbS5sYW5nIHx8ICcnKTsgcmV0dXJuIHYgPT09ICd1cycgPyAnZW4nIDogdjsgfQ==
   published_at: published_at
   updated_at: updated_at
   url: url
