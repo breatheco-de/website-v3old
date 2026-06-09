@@ -1102,23 +1102,42 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
   // create_page
   mcp.tool(
     "create_page",
-    "Create a new YAML-driven page. IMPORTANT: Before calling this tool, ask the user for the page title, SEO meta title (page_title), meta description, and robots value. Do not call this tool without those values. Creates the page directory, writes the initial locale file, and seeds _common.yml. Returns the new page entry with slug, contentType, locales, and urls.",
+    "Create a brand-new YAML-driven page in a single call. " +
+    "Writes _common.yml (slug + any locale-independent data) and one or more locale files in one operation. " +
+    "Validates that the slug does not already exist and that the content type is valid and not DB-backed. " +
+    "Refreshes the cache and marks all written files for Git auto-commit.\n\n" +
+    "What the caller must supply:\n" +
+    "  • contentType — a non-DB-backed content type from content-types.yml\n" +
+    "  • slug — URL-safe identifier that must not already exist\n" +
+    "  • common — object written verbatim to _common.yml (locale-independent fields, e.g. title, layout, bc_slug)\n" +
+    "  • locales — map of locale code → { meta?, sections } for every locale to seed\n\n" +
+    "What the server handles: content-type + slug validation, directory creation, writing _common.yml " +
+    "and all locale files, cache refresh, and Git mark-modified for each file.\n\n" +
+    "Possible errors: unknown/DB-backed contentType, slug already exists, path traversal detected, " +
+    "invalid locale code, permission denied.",
     {
-      slug: z.string().describe("URL-safe slug for the new page, e.g. 'machine-learning-bootcamp'"),
       contentType: z.string().describe("Content type, e.g. 'program', 'page', 'landing', 'location'. Must match a non-DB-backed entry in content-types.yml."),
-      locale: z.string().default("en").describe("Initial locale to create, e.g. 'en'"),
-      title: z.string().describe("Page title (visible heading, used as the H1)"),
-      page_title: z.string().describe("SEO meta title shown in browser tab and search results, e.g. 'Machine Learning Bootcamp | 4Geeks'"),
-      meta_description: z.string().describe("SEO meta description (150-160 characters) summarising the page for search engines"),
-      robots: z.string().describe("Robots directive, e.g. 'index, follow' or 'noindex, nofollow'. Must be supplied explicitly; typical value is 'index, follow'."),
-      meta: z.record(z.unknown()).optional().describe("Optional extra meta fields, e.g. { priority: 0.8, change_frequency: 'weekly', og_image: '...' }. The page_title, meta_description, and robots top-level parameters take precedence over any matching keys here."),
-      common: z.record(z.unknown()).optional().describe("Optional extra fields for _common.yml (locale-independent data, e.g. bc_slug, job_role)"),
+      slug: z.string().describe("URL-safe slug for the new page, e.g. 'machine-learning-bootcamp'. Must not already exist for this content type."),
+      common: z.record(z.unknown()).describe("Fields written verbatim to _common.yml (locale-independent data). Typically includes: title, layout, and any content-type-specific fields like bc_slug or job_role. E.g. { title: 'ML Bootcamp', layout: 'LandingLayout' }"),
+      locales: z.record(z.object({
+        meta: z.record(z.unknown()).optional().describe("Meta/SEO fields for this locale, e.g. { page_title: '...', description: '...', robots: 'index, follow' }"),
+        sections: z.array(z.record(z.unknown())).describe("Sections array for this locale. May be empty ([]) for a blank page."),
+      })).describe("Map of locale code → { meta?, sections }. Must include at least one locale. E.g. { en: { meta: { page_title: 'ML Bootcamp | 4Geeks', description: '...', robots: 'index, follow' }, sections: [] } }"),
     },
-    async ({ slug, contentType, locale, title, page_title, meta_description, robots, meta, common }) => {
+    async ({ contentType, slug, common, locales }) => {
       try {
         assertSafeSegment(slug, "slug");
         assertSafeSegment(contentType, "contentType");
-        assertSafeLocale(locale);
+      } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
+
+      const localeKeys = Object.keys(locales);
+      if (localeKeys.length === 0) {
+        return { content: [{ type: "text", text: "'locales' must contain at least one locale." }], isError: true };
+      }
+      try {
+        for (const loc of localeKeys) assertSafeLocale(loc);
       } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
@@ -1139,7 +1158,8 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
         }
       }
 
-      const pageDir = path.join(MARKETING_CONTENT_PATH, getDirectory(contentType, config), slug);
+      const ctDir = getDirectory(contentType, config);
+      const pageDir = path.join(MARKETING_CONTENT_PATH, ctDir, slug);
       try { assertWithinBase(pageDir, MARKETING_CONTENT_PATH); } catch (e) {
         return { content: [{ type: "text", text: (e as Error).message }], isError: true };
       }
@@ -1147,37 +1167,52 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
         return { content: [{ type: "text", text: `Page '${slug}' already exists for contentType '${contentType}'.` }], isError: true };
       }
 
+      // Validate all locale file paths before creating anything
+      for (const loc of localeKeys) {
+        const lp = path.join(pageDir, `${loc}.yml`);
+        try { assertWithinBase(lp, MARKETING_CONTENT_PATH); } catch (e) {
+          return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+        }
+      }
+
       fs.mkdirSync(pageDir, { recursive: true });
 
-      const mergedMeta: Record<string, unknown> = {
-        ...(meta || {}),
-        page_title,
-        description: meta_description,
-        robots,
-      };
-      const localeData: Record<string, unknown> = { slug, title, meta: mergedMeta, sections: [] };
-      const localeFilePath = path.join(pageDir, `${locale}.yml`);
-      fs.writeFileSync(localeFilePath, safeDump(localeData), "utf-8");
-
-      const commonData: Record<string, unknown> = { slug, ...(common || {}) };
+      // Write _common.yml
+      const commonData: Record<string, unknown> = { slug, ...common };
       fs.writeFileSync(path.join(pageDir, "_common.yml"), safeDump(commonData), "utf-8");
 
-      const localeRelPath = `marketing-content/${getDirectory(contentType, config)}/${slug}/${locale}.yml`;
-      const commonRelPath = `marketing-content/${getDirectory(contentType, config)}/${slug}/_common.yml`;
+      // Write each locale file
+      const createdLocales: string[] = [];
+      for (const [loc, localeContent] of Object.entries(locales)) {
+        const localeData: Record<string, unknown> = {
+          slug,
+          sections: localeContent.sections,
+          ...(localeContent.meta && Object.keys(localeContent.meta).length > 0 ? { meta: localeContent.meta } : {}),
+        };
+        fs.writeFileSync(path.join(pageDir, `${loc}.yml`), safeDump(localeData), "utf-8");
+        createdLocales.push(loc);
+      }
+
+      // Mark all files modified and refresh cache
+      const commonRelPath = `marketing-content/${ctDir}/${slug}/_common.yml`;
+      const localeRelPaths = createdLocales.map(loc => `marketing-content/${ctDir}/${slug}/${loc}.yml`);
       await Promise.all([
-        callMarkModifiedApi(localeRelPath),
         callMarkModifiedApi(commonRelPath),
+        ...localeRelPaths.map(p => callMarkModifiedApi(p)),
         callRefreshCacheApi(contentType),
       ]);
 
+      // Build URL map across all created locales
       const urlPattern = config.url_pattern;
       let urls: Record<string, string> | undefined;
       if (urlPattern) {
         const resolvedUrls: Record<string, string> = {};
-        if (urlPattern["default"]) {
-          resolvedUrls[locale] = urlPattern["default"].replace(":slug", slug);
-        } else if (urlPattern[locale]) {
-          resolvedUrls[locale] = urlPattern[locale].replace(":slug", slug);
+        for (const loc of createdLocales) {
+          if (urlPattern["default"]) {
+            resolvedUrls[loc] = urlPattern["default"].replace(":slug", slug);
+          } else if (urlPattern[loc]) {
+            resolvedUrls[loc] = urlPattern[loc].replace(":slug", slug);
+          }
         }
         if (Object.keys(resolvedUrls).length > 0) urls = resolvedUrls;
       }
@@ -1185,9 +1220,9 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
       const entry = {
         slug,
         contentType,
-        directory: `marketing-content/${getDirectory(contentType, config)}/${slug}`,
-        locales: [locale],
-        title,
+        directory: `marketing-content/${ctDir}/${slug}`,
+        locales: createdLocales,
+        ...(common.title ? { title: common.title } : {}),
         ...(urls ? { urls } : {}),
       };
       return { content: [{ type: "text", text: JSON.stringify(entry, null, 2) }] };
@@ -1518,6 +1553,414 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
       );
       if (reorderApiErr) return reorderApiErr;
       return { content: [{ type: "text", text: `Sections reordered in ${resolved.contentType}/${slug}/${fileName}` }] };
+    }
+  );
+
+  // replace_page_sections
+  mcp.tool(
+    "replace_page_sections",
+    "Atomically replace ALL sections in a page's locale file in one call — the high-throughput " +
+    "alternative to calling update_section_field N times. " +
+    "Optionally also replaces the meta block in the same call. " +
+    "The caller supplies the complete new sections array; the server replaces the existing array atomically. " +
+    "Accepts the same variant and confirm_live_edit versioning guards as update_section_field. " +
+    "contentType is optional — omit it and the server will auto-detect from slug.\n\n" +
+    "What the caller must supply: a complete sections array (every section, in order). " +
+    "What the server handles: path-sanitisation, conflict detection, atomic write via edit-sections API, " +
+    "cache refresh, and Git mark-modified.\n\n" +
+    "Possible errors: page/locale not found, path traversal detected, remote conflict " +
+    "(returns remoteContent + intendedContent for manual merge), permission denied.\n\n" +
+    "IMPORTANT — versioning safety: If the page has active variants (a versioning.yml exists), " +
+    "you MUST ask the user before calling this tool: " +
+    "'Do you want to edit the live version directly, or create a new draft variant first?' " +
+    "To edit the live version directly pass confirm_live_edit: true. " +
+    "To edit a variant, call create_variant first and pass the returned slug as the 'variant' parameter here.",
+    {
+      slug: z.string().describe("Page slug"),
+      locale: z.string().default("en").describe("Locale code, e.g. 'en' or 'es'"),
+      sections: z.array(z.record(z.unknown())).describe("Complete new sections array. Replaces the entire existing sections array atomically. Every section must include a 'type' field."),
+      meta: z.record(z.unknown()).optional().describe("Optional meta fields to update at the same time. Each key is shallow-merged into the existing meta object (e.g. { page_title: '...', description: '...' })."),
+      contentType: z.string().optional().describe("Content type hint (e.g. 'page', 'program'). Omit to auto-detect from slug."),
+      variant: z.string().optional().describe("Variant slug to write to (e.g. 'draft-v2'). Writes to {variantSlug}.{locale}.yml instead of the live locale file."),
+      confirm_live_edit: z.boolean().optional().describe("Set to true to confirm you want to overwrite the live locale file directly when a versioning.yml exists. Required when no 'variant' is supplied and the page has active variants."),
+    },
+    async ({ slug, locale, sections, meta, contentType, variant, confirm_live_edit }) => {
+      try {
+        assertSafeSegment(slug, "slug");
+        assertSafeLocale(locale);
+        if (contentType) assertSafeSegment(contentType, "contentType");
+        if (variant) assertSafeSegment(variant, "variant");
+      } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
+
+      const resolved = resolveContentType(slug, contentType);
+      if (!resolved) {
+        return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
+      }
+
+      if (mcpToken) {
+        if (!await checkCap(mcpToken, "content_edit_structure", resolved.contentType)) {
+          return denyResponse("content_edit_structure", resolved.contentType);
+        }
+      }
+
+      if (!variant && !confirm_live_edit) {
+        const versioning = loadVersioning(resolved.contentType, slug);
+        if (versioning) {
+          const availableVariants = Object.entries(versioning).flatMap(([loc, data]) =>
+            (data.variants || []).map(v => ({ locale: loc, slug: v.slug, allocation: v.allocation }))
+          );
+          return {
+            content: [{
+              type: "text",
+              text: JSON.stringify({
+                action_required: "confirm_live_edit",
+                message:
+                  `Page '${slug}' has active variants. Before editing the live version, please ask the user: ` +
+                  `"Do you want to edit the live version directly, or create a new draft variant first?" ` +
+                  `To edit the live version, re-call with confirm_live_edit: true. ` +
+                  `To edit a draft, call create_variant then re-call with variant: <variantSlug>.`,
+                available_variants: availableVariants,
+                options: [
+                  "Pass confirm_live_edit: true to overwrite the live locale file directly",
+                  "Call create_variant to create a draft, then pass variant: <variantSlug> to edit the draft instead",
+                ],
+              }, null, 2),
+            }],
+          };
+        }
+      }
+
+      const ctDir = getDirectory(resolved.contentType, resolved.config);
+      const dir = path.join(MARKETING_CONTENT_PATH, ctDir, slug);
+      const fileName = variant ? `${variant}.${locale}.yml` : `${locale}.yml`;
+      const filePath = path.join(dir, fileName);
+      try { assertWithinBase(filePath, MARKETING_CONTENT_PATH); } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
+      if (!fs.existsSync(filePath)) {
+        return { content: [{ type: "text", text: `File not found: ${resolved.contentType}/${slug}/${fileName}` }], isError: true };
+      }
+
+      const relativePath = `marketing-content/${ctDir}/${slug}/${fileName}`;
+
+      // Compute intended content for conflict check
+      const currentData = safeLoad(fs.readFileSync(filePath, "utf-8")) || {};
+      currentData.sections = sections;
+      if (meta) {
+        const existingMeta = (typeof currentData.meta === "object" && currentData.meta !== null && !Array.isArray(currentData.meta))
+          ? currentData.meta as Record<string, unknown>
+          : {};
+        currentData.meta = { ...existingMeta, ...meta };
+      }
+      const intendedContent = safeDump(currentData);
+      const conflictCheck = await checkRemoteConflict(relativePath);
+      if (conflictCheck.conflict) {
+        return conflictError({
+          relativePath,
+          remoteContent: conflictCheck.remoteContent,
+          intendedContent,
+          intendedChange: { action: "replace_page_sections", sectionsCount: sections.length, ...(meta ? { meta } : {}) },
+        });
+      }
+
+      // Build operations: replace all sections, then apply any meta fields
+      const operations: Record<string, unknown>[] = [{ action: "replace_all_sections", sections }];
+      if (meta) {
+        for (const [k, v] of Object.entries(meta)) {
+          operations.push({ action: "update_field", path: `meta.${k}`, value: v });
+        }
+      }
+
+      const apiErr = await callEditSectionsApi(
+        { contentType: resolved.contentType, slug, locale, variant, operations },
+        mcpToken
+      );
+      if (apiErr) return apiErr;
+
+      const parts: string[] = [`sections (${sections.length} item${sections.length !== 1 ? "s" : ""})`];
+      if (meta) parts.push(`meta (${Object.keys(meta).length} field${Object.keys(meta).length !== 1 ? "s" : ""})`);
+      return { content: [{ type: "text", text: `Replaced ${parts.join(" and ")} in ${resolved.contentType}/${slug}/${fileName}` }] };
+    }
+  );
+
+  // batch_update_fields
+  mcp.tool(
+    "batch_update_fields",
+    "Apply multiple field updates to a single page/locale atomically in one call, reducing N round-trips to 1. " +
+    "Accepts an array of { field_path, value } objects targeting any combination of sections and meta paths. " +
+    "field_path routing rules:\n" +
+    "  • 'sections.*' (e.g. 'sections.0.title') → locale file\n" +
+    "  • 'meta.robots', 'meta.priority', 'meta.change_frequency' → _common.yml\n" +
+    "  • 'meta.page_title', 'meta.description', 'meta.og_image', 'meta.og_type', " +
+    "    'meta.og_url', 'meta.og_locale', 'meta.canonical_url' → locale file\n" +
+    "  • Any other 'meta.*' key → locale file\n" +
+    "  • Safe top-level fields: 'title', 'slug' → locale file\n\n" +
+    "What the caller must supply: a non-empty updates array with valid field_path strings and values. " +
+    "What the server handles: routing, conflict detection per file, atomic write(s), cache refresh, Git mark-modified.\n\n" +
+    "Possible errors: invalid/disallowed field_path, page/locale not found, remote conflict " +
+    "(returns remoteContent + intendedContent), permission denied.\n\n" +
+    "IMPORTANT — versioning safety: If the page has active variants (a versioning.yml exists), " +
+    "you MUST ask the user before calling this tool: " +
+    "'Do you want to edit the live version directly, or create a new draft variant first?' " +
+    "To edit the live version directly pass confirm_live_edit: true. " +
+    "To edit a variant, call create_variant first and pass the returned slug as the 'variant' parameter here.",
+    {
+      slug: z.string().describe("Page slug"),
+      locale: z.string().default("en").describe("Locale code, e.g. 'en' or 'es'"),
+      updates: z.array(z.object({
+        field_path: z.string().describe("Dot-notation path, e.g. 'sections.0.title', 'meta.description', 'title'"),
+        value: z.unknown().describe("New value for the field"),
+      })).min(1).describe("Array of { field_path, value } updates. Minimum 1. Applied atomically to the target file(s)."),
+      contentType: z.string().optional().describe("Content type hint (e.g. 'page', 'program'). Omit to auto-detect from slug."),
+      variant: z.string().optional().describe("Variant slug to write to (e.g. 'draft-v2'). Writes to {variantSlug}.{locale}.yml instead of the live locale file. Does not affect _common.yml routing."),
+      confirm_live_edit: z.boolean().optional().describe("Set to true to confirm you want to overwrite the live locale file directly when a versioning.yml exists. Required when no 'variant' is supplied and the page has active variants."),
+    },
+    async ({ slug, locale, updates, contentType, variant, confirm_live_edit }) => {
+      try {
+        assertSafeSegment(slug, "slug");
+        assertSafeLocale(locale);
+        if (contentType) assertSafeSegment(contentType, "contentType");
+        if (variant) assertSafeSegment(variant, "variant");
+      } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
+
+      // Validate all field paths
+      const badPaths = updates.filter(u =>
+        !u.field_path.startsWith("sections.") &&
+        !u.field_path.startsWith("meta.") &&
+        !SAFE_TOP_LEVEL_FIELDS.has(u.field_path)
+      );
+      if (badPaths.length > 0) {
+        return {
+          content: [{ type: "text", text: `Disallowed field_path(s): ${badPaths.map(u => u.field_path).join(", ")}. Must start with 'sections.', 'meta.', or be one of: ${[...SAFE_TOP_LEVEL_FIELDS].join(", ")}.` }],
+          isError: true,
+        };
+      }
+
+      const resolved = resolveContentType(slug, contentType);
+      if (!resolved) {
+        return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
+      }
+
+      if (mcpToken) {
+        if (!await checkCap(mcpToken, "content_edit_text", resolved.contentType)) {
+          return denyResponse("content_edit_text", resolved.contentType);
+        }
+      }
+
+      if (!variant && !confirm_live_edit) {
+        const versioning = loadVersioning(resolved.contentType, slug);
+        if (versioning) {
+          const availableVariants = Object.entries(versioning).flatMap(([loc, data]) =>
+            (data.variants || []).map(v => ({ locale: loc, slug: v.slug, allocation: v.allocation }))
+          );
+          return {
+            content: [{
+              type: "text",
+              text: JSON.stringify({
+                action_required: "confirm_live_edit",
+                message:
+                  `Page '${slug}' has active variants. Before editing the live version, please ask the user: ` +
+                  `"Do you want to edit the live version directly, or create a new draft variant first?" ` +
+                  `To edit the live version, re-call with confirm_live_edit: true. ` +
+                  `To edit a draft, call create_variant then re-call with variant: <variantSlug>.`,
+                available_variants: availableVariants,
+                options: [
+                  "Pass confirm_live_edit: true to overwrite the live locale file directly",
+                  "Call create_variant to create a draft, then pass variant: <variantSlug> to edit the draft instead",
+                ],
+              }, null, 2),
+            }],
+          };
+        }
+      }
+
+      const ctDir = getDirectory(resolved.contentType, resolved.config);
+      const dir = path.join(MARKETING_CONTENT_PATH, ctDir, slug);
+      const fileName = variant ? `${variant}.${locale}.yml` : `${locale}.yml`;
+      const localeFilePath = path.join(dir, fileName);
+      try { assertWithinBase(localeFilePath, MARKETING_CONTENT_PATH); } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
+      const commonFilePath = path.join(dir, "_common.yml");
+
+      // Split updates into locale-file paths vs _common.yml paths
+      const localeEntries: Array<[string, unknown]> = [];
+      const commonEntries: Array<[string, unknown]> = [];
+      for (const { field_path, value } of updates) {
+        const metaKey = field_path.startsWith("meta.") ? field_path.slice(5).split(".")[0] : null;
+        if (metaKey && META_COMMON_FIELDS.has(metaKey)) {
+          commonEntries.push([field_path, value]);
+        } else {
+          localeEntries.push([field_path, value]);
+        }
+      }
+
+      const localeRelPath = `marketing-content/${ctDir}/${slug}/${fileName}`;
+      const commonRelPath = `marketing-content/${ctDir}/${slug}/_common.yml`;
+
+      // Validate file existence before any writes
+      if (localeEntries.length > 0 && !fs.existsSync(localeFilePath)) {
+        return { content: [{ type: "text", text: `File not found: ${resolved.contentType}/${slug}/${fileName}` }], isError: true };
+      }
+
+      // Run ALL conflict checks upfront before any write, so we never produce partial state
+      // when updates span both the locale file and _common.yml.
+      if (localeEntries.length > 0) {
+        const conflictErr = await getConflictError(localeFilePath, localeRelPath, localeEntries, { updates: localeEntries.map(([p, v]) => ({ field_path: p, value: v })) });
+        if (conflictErr) return conflictErr;
+      }
+      if (commonEntries.length > 0) {
+        const conflictErr = await getConflictError(commonFilePath, commonRelPath, commonEntries, { updates: commonEntries.map(([p, v]) => ({ field_path: p, value: v })) });
+        if (conflictErr) return conflictErr;
+      }
+
+      // Both conflict checks passed — now apply writes sequentially
+      const results: string[] = [];
+
+      if (localeEntries.length > 0) {
+        const ops = localeEntries.map(([p, v]) => ({ action: "update_field", path: p, value: v }));
+        const apiErr = await callEditSectionsApi(
+          { contentType: resolved.contentType, slug, locale, variant, operations: ops },
+          mcpToken
+        );
+        if (apiErr) return apiErr;
+        results.push(`${localeEntries.length} field${localeEntries.length !== 1 ? "s" : ""} → ${fileName}`);
+      }
+
+      if (commonEntries.length > 0) {
+        const ops = commonEntries.map(([p, v]) => ({ action: "update_field", path: p, value: v }));
+        const apiErr = await callEditCommonApi(
+          { contentType: resolved.contentType, slug, operations: ops },
+          mcpToken
+        );
+        if (apiErr) return apiErr;
+        results.push(`${commonEntries.length} field${commonEntries.length !== 1 ? "s" : ""} → _common.yml`);
+      }
+
+      const total = updates.length;
+      return { content: [{ type: "text", text: `Applied ${total} update${total !== 1 ? "s" : ""} to ${resolved.contentType}/${slug}: ${results.join("; ")}` }] };
+    }
+  );
+
+  // translate_page
+  mcp.tool(
+    "translate_page",
+    "Write (or overwrite) a target-locale YAML file for an existing page with a fully-translated payload. " +
+    "Does NOT perform AI translation — the caller must supply the translated content. " +
+    "Use this to create a new locale or refresh an existing translation in one call rather than N field updates.\n\n" +
+    "What the caller must supply: source_locale (used only for existence validation), target_locale, " +
+    "and a content object with at minimum a 'sections' array. " +
+    "A 'meta' block is recommended (page_title, description, etc.).\n\n" +
+    "What the server handles: validates the slug and source locale exist, path-sanitisation, " +
+    "conflict detection if the target locale file already exists, writes the target locale file " +
+    "(creates if missing, overwrites if present), cache refresh, and Git mark-modified.\n\n" +
+    "Possible errors: slug not found, source locale not found, path traversal detected, " +
+    "remote conflict on existing target locale (returns remoteContent + intendedContent for manual merge), " +
+    "permission denied.",
+    {
+      slug: z.string().describe("Page slug of the page to translate"),
+      contentType: z.string().optional().describe("Content type hint (e.g. 'page', 'program'). Omit to auto-detect from slug."),
+      source_locale: z.string().describe("The locale code of the existing source file used for validation, e.g. 'en'"),
+      target_locale: z.string().describe("The locale code to write the translated content to, e.g. 'es' or 'fr'"),
+      content: z.object({
+        meta: z.record(z.unknown()).optional().describe("Translated meta block (page_title, description, og_image, etc.)"),
+        sections: z.array(z.record(z.unknown())).describe("Fully translated sections array. Every section must include a 'type' field."),
+      }).describe("The complete translated payload. Caller is responsible for providing accurate translations."),
+    },
+    async ({ slug, contentType, source_locale, target_locale, content }) => {
+      try {
+        assertSafeSegment(slug, "slug");
+        assertSafeLocale(source_locale);
+        assertSafeLocale(target_locale);
+        if (contentType) assertSafeSegment(contentType, "contentType");
+      } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
+
+      if (source_locale === target_locale) {
+        return { content: [{ type: "text", text: `source_locale and target_locale must be different (both are '${source_locale}').` }], isError: true };
+      }
+
+      const resolved = resolveContentType(slug, contentType);
+      if (!resolved) {
+        return { content: [{ type: "text", text: `Page not found for slug '${slug}'${contentType ? ` (contentType: ${contentType})` : ""}` }], isError: true };
+      }
+
+      if (mcpToken) {
+        if (!await checkCap(mcpToken, "content_edit_text", resolved.contentType)) {
+          return denyResponse("content_edit_text", resolved.contentType);
+        }
+      }
+
+      const ctDir = getDirectory(resolved.contentType, resolved.config);
+      const dir = path.join(MARKETING_CONTENT_PATH, ctDir, slug);
+
+      // Validate source locale exists
+      const sourceFilePath = path.join(dir, `${source_locale}.yml`);
+      try { assertWithinBase(sourceFilePath, MARKETING_CONTENT_PATH); } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
+      if (!fs.existsSync(sourceFilePath)) {
+        return { content: [{ type: "text", text: `Source locale '${source_locale}' not found for page '${slug}' (expected: ${resolved.contentType}/${slug}/${source_locale}.yml)` }], isError: true };
+      }
+
+      const targetFileName = `${target_locale}.yml`;
+      const targetFilePath = path.join(dir, targetFileName);
+      try { assertWithinBase(targetFilePath, MARKETING_CONTENT_PATH); } catch (e) {
+        return { content: [{ type: "text", text: (e as Error).message }], isError: true };
+      }
+
+      const targetRelPath = `marketing-content/${ctDir}/${slug}/${targetFileName}`;
+
+      // Build the full locale file content
+      const localeData: Record<string, unknown> = { slug, sections: content.sections };
+      if (content.meta && Object.keys(content.meta).length > 0) {
+        localeData.meta = content.meta;
+      }
+      const intendedContent = safeDump(localeData);
+
+      // Conflict check only if target file already exists
+      if (fs.existsSync(targetFilePath)) {
+        const conflictCheck = await checkRemoteConflict(targetRelPath);
+        if (conflictCheck.conflict) {
+          return conflictError({
+            relativePath: targetRelPath,
+            remoteContent: conflictCheck.remoteContent,
+            intendedContent,
+            intendedChange: { action: "translate_page", source_locale, target_locale },
+          });
+        }
+      }
+
+      // Write the target locale file directly
+      const isNew = !fs.existsSync(targetFilePath);
+      fs.writeFileSync(targetFilePath, intendedContent, "utf-8");
+
+      await Promise.all([
+        callMarkModifiedApi(targetRelPath),
+        callRefreshCacheApi(resolved.contentType),
+      ]);
+
+      return {
+        content: [{
+          type: "text",
+          text: JSON.stringify({
+            success: true,
+            message: `Translated content ${isNew ? "created" : "updated"} at ${resolved.contentType}/${slug}/${targetFileName}`,
+            slug,
+            contentType: resolved.contentType,
+            source_locale,
+            target_locale,
+            created: isNew,
+            sectionsCount: content.sections.length,
+            metaKeys: content.meta ? Object.keys(content.meta) : [],
+          }, null, 2),
+        }],
+      };
     }
   );
 
