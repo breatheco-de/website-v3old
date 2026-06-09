@@ -134,24 +134,6 @@ sections:
       desktop: none
     marginY:
       desktop: md lg
-  - type: features_quad
-    version: "1.0"
-    variant: default
-    heading: Is This Program Right for You?
-    description: If you are nodding at any of these, you're exactly who this is built for.
-    cards:
-      - icon: IconRocket
-        title: You use AI tools but are not leveraging their full potential.
-      - icon: IconClock
-        title: Repetitive tasks are taking up your time and attention.
-      - icon: IconTrendingUp
-        title: You know AI fluency is becoming a must-have to stay ahead in your career.
-      - icon: IconCoin
-        title: You want the salary premium that comes with real AI skills.
-    background: hsl(var(--muted))
-    section_id: features_quad-7xi4xb
-    marginY:
-      desktop: none lg
   - type: features_grid
     version: "1.0"
     variant: stats-charts
