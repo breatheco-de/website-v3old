@@ -22,6 +22,7 @@ export interface ValidationIssue {
   line?: number;
   suggestion?: string;
   fix?: FixHint;
+  category?: ValidatorMetadata["category"];
 }
 
 export interface ValidatorResult {

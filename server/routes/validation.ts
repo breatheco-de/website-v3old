@@ -78,11 +78,13 @@ export function registerValidationRoutes(app: Express): void {
           for (const v of result.validators) {
             for (const issue of v.errors) {
               if (!issue.file) continue;
+              if (v.category) issue.category = v.category;
               if (!byFile.has(issue.file)) byFile.set(issue.file, { errors: [], warnings: [] });
               byFile.get(issue.file)!.errors.push(issue);
             }
             for (const issue of v.warnings) {
               if (!issue.file) continue;
+              if (v.category) issue.category = v.category;
               if (!byFile.has(issue.file)) byFile.set(issue.file, { errors: [], warnings: [] });
               byFile.get(issue.file)!.warnings.push(issue);
             }
@@ -177,11 +179,13 @@ export function registerValidationRoutes(app: Express): void {
         for (const v of result.validators) {
           for (const issue of v.errors) {
             if (!issue.file) continue;
+            if (v.category) issue.category = v.category;
             if (!byFile.has(issue.file)) byFile.set(issue.file, { errors: [], warnings: [] });
             byFile.get(issue.file)!.errors.push(issue);
           }
           for (const issue of v.warnings) {
             if (!issue.file) continue;
+            if (v.category) issue.category = v.category;
             if (!byFile.has(issue.file)) byFile.set(issue.file, { errors: [], warnings: [] });
             byFile.get(issue.file)!.warnings.push(issue);
           }

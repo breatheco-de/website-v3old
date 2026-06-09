@@ -16,7 +16,7 @@ import { child } from "../logger";
 const log = child({ module: "validationCacheService" });
 
 const CACHE_FILE = path.join(process.cwd(), "marketing-content", "validation-cache.json");
-const CACHE_VERSION = 1;
+const CACHE_VERSION = 2;
 
 function emptyCache(): ValidationCacheFile {
   return {
@@ -31,6 +31,10 @@ function readFromDisk(): ValidationCacheFile {
       const raw = fs.readFileSync(CACHE_FILE, "utf-8");
       const parsed = JSON.parse(raw) as ValidationCacheFile;
       if (parsed && typeof parsed === "object" && parsed.pages) {
+        if ((parsed.meta?.version ?? 0) < CACHE_VERSION) {
+          log.info("[ValidationCache] Stale cache version — discarding and starting fresh");
+          return emptyCache();
+        }
         return parsed;
       }
     }

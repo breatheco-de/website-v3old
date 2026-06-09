@@ -220,87 +220,6 @@ const VALIDATION_CACHE_PATH = path.join(
   process.cwd(), "marketing-content", "validation-cache.json"
 );
 
-// Maps all known validator issue codes to their category.
-// Covers every validator in scripts/validation/validators/. Unknown codes fall back to "other".
-const CODE_CATEGORY_MAP: Record<string, string> = {
-  // ── seo (meta validator) ──────────────────────────────────────────────────
-  MISSING_PAGE_TITLE: "seo", MISSING_DESCRIPTION: "seo",
-  INVALID_PRIORITY: "seo", INVALID_CHANGE_FREQUENCY: "seo",
-  UNKNOWN_ROBOTS_DIRECTIVE: "seo",
-  // ── seo (seo-depth validator) ─────────────────────────────────────────────
-  TITLE_TOO_SHORT: "seo", TITLE_TOO_LONG: "seo",
-  DESCRIPTION_TOO_SHORT: "seo", DESCRIPTION_TOO_LONG: "seo",
-  MISSING_OG_IMAGE: "seo", MISSING_CANONICAL: "seo",
-  DUPLICATE_TITLE: "seo", DUPLICATE_DESCRIPTION: "seo",
-  // ── seo (seo-intent validator) ────────────────────────────────────────────
-  MISSING_INTENT: "seo", INVALID_INTENT: "seo", ORPHAN_PAGE: "seo",
-  INVALID_PILLAR: "seo", INVALID_FOCUS_FEATURE: "seo", CONFIG_MISSING: "seo",
-  // ── seo (schema validator) ────────────────────────────────────────────────
-  INVALID_SCHEMA_REF: "seo", INVALID_SCHEMA_OVERRIDE: "seo",
-  EMPTY_SCHEMA_INCLUDE: "seo",
-  // ── seo (schema-completeness validator) ──────────────────────────────────
-  SCHEMA_RENDER_ERROR: "seo", SCHEMA_INVALID_INCLUDE: "seo",
-  PAGE_NO_SCHEMA: "seo", SCHEMA_MISSING_NAME: "seo",
-  SCHEMA_MISSING_DESCRIPTION: "seo", SCHEMA_PLACEHOLDER_VALUE: "seo",
-  FAQ_SECTION_NO_SCHEMA: "seo",
-  // ── integrity (redirects validator) ──────────────────────────────────────
-  SELF_REDIRECT: "integrity", REDIRECT_CONFLICT: "integrity",
-  REDIRECT_OVERLAP: "integrity", REDIRECT_OVERWRITES_CONTENT: "integrity",
-  CUSTOM_REDIRECT_MISSING_DEST: "integrity", REDIRECT_LOOP: "integrity",
-  REGEX_SHADOWED: "integrity",
-  // ── integrity (sitemap validator) ─────────────────────────────────────────
-  CONTENT_NOT_IN_SITEMAP: "integrity", ORPHAN_SITEMAP_ENTRY: "integrity",
-  DUPLICATE_SITEMAP_ENTRY: "integrity", SITEMAP_MISSING_XHTML_NAMESPACE: "integrity",
-  SITEMAP_MISSING_HREFLANG: "integrity",
-  // ── integrity (field-mappings validator) ──────────────────────────────────
-  FIELD_MAPPING_MISSING: "integrity", FIELD_MAPPING_PARTIAL: "integrity",
-  // ── integrity (orphaned-files validator) ──────────────────────────────────
-  ORPHANED_FILE: "integrity",
-  // ── integrity (database-singles validator) ────────────────────────────────
-  MISSING_SINGLE_TEMPLATE: "integrity", DATABASE_UNREACHABLE: "integrity",
-  MISSING_LOCALE_FIELD: "integrity", DUPLICATE_DATABASE_SLUG: "integrity",
-  DISK_OVERRIDES_DATABASE: "integrity", UNRESOLVED_SINGLE_VARS: "integrity",
-  // ── integrity (slug-conflicts validator) ──────────────────────────────────
-  URL_CONFLICT: "integrity",
-  // ── integrity (broken-anchors validator) ──────────────────────────────────
-  BROKEN_ANCHOR: "integrity",
-  // ── content (images validator) ────────────────────────────────────────────
-  REGISTRY_LOAD_ERROR: "content", IMAGE_REFERENCE_NOT_IN_REGISTRY: "content",
-  IMAGE_SRC_FILE_MISSING: "content", IMAGE_ALT_MISSING: "content",
-  IMAGE_ALT_PLACEHOLDER: "content", ORPHANED_REGISTRY_ENTRY: "content",
-  // ── content (image-optimization validator) ────────────────────────────────
-  IMAGE_NOT_OPTIMIZED: "content", IMAGE_WIDTHS_OUTDATED: "content",
-  // ── content (image-tags validator) ────────────────────────────────────────
-  IMAGE_UNTAGGED: "content", TAG_NOT_IN_DEFINITIONS: "content",
-  IMAGE_MISSING_PRESET_FOR_TAG: "content",
-  // ── content (hero-image-tags validator) ───────────────────────────────────
-  HERO_IMAGE_NOT_IN_REGISTRY: "content", HERO_IMAGE_MISSING_TAG: "content",
-  HERO_IMAGE_MISSING_PRESET: "content",
-  // ── content (backgrounds validator) ──────────────────────────────────────
-  NO_THEME_CONFIG: "content", INVALID_BACKGROUND: "content",
-  // ── content (faqs validator) ──────────────────────────────────────────────
-  FAQ_FILE_NOT_FOUND: "content", INVALID_FAQ_STRUCTURE: "content",
-  MISSING_LAST_UPDATED: "content", INVALID_DATE_FORMAT: "content",
-  STALE_FAQ_ANSWER: "content", TOO_MANY_TAGS: "content", FAQ_PARSE_ERROR: "content",
-  // ── content (content-quality validator) ──────────────────────────────────
-  EMPTY_SECTIONS: "content", SECTION_MISSING_TYPE: "content",
-  EMPTY_FIELD_VALUE: "content", BROKEN_INTERNAL_LINK: "content",
-  MISSING_TRANSLATION: "content",
-  // ── components (components validator) ────────────────────────────────────
-  NO_COMPONENT_REGISTRY: "components", NO_VERSIONS: "components",
-  MISSING_SCHEMA: "components", INVALID_SCHEMA_YAML: "components",
-  MISSING_SCHEMA_NAME: "components", INVALID_SECTION_DEFAULTS: "components",
-  INVALID_SECTION_DEFAULT: "components", NO_EXAMPLES: "components",
-  EMPTY_EXAMPLES: "components", MISSING_EXAMPLE_NAME: "components",
-  INVALID_EXAMPLE_VARIANT: "components", INVALID_EXAMPLE_YAML: "components",
-  // ── forms (forms + consent-legacy-keys validators) ────────────────────────
-  FORM_MISSING_CONVERSION_NAME: "forms", CONSENT_OBSOLETE_KEY: "forms",
-  // ── bindings (binding-integrity validator) ────────────────────────────────
-  BINDING_CHECK_FAILED: "bindings", STALE_BINDING_REFERENCES: "bindings",
-  // ── performance (lighthouse validator) ───────────────────────────────────
-  PSI_NO_BASE_URL: "performance", PSI_NO_PAGES: "performance",
-  PSI_REQUEST_FAILED: "performance",
-};
 
 interface MappedValidationIssue {
   code: string;
@@ -325,8 +244,8 @@ function getCachedValidationIssues(
     const raw = fs.readFileSync(VALIDATION_CACHE_PATH, "utf-8");
     const cache = JSON.parse(raw) as {
       pages: Record<string, {
-        errors: Array<{ type?: string; code: string; message: string; file?: string; suggestion?: string }>;
-        warnings: Array<{ type?: string; code: string; message: string; file?: string; suggestion?: string }>;
+        errors: Array<{ type?: string; code: string; message: string; category?: string; file?: string; suggestion?: string }>;
+        warnings: Array<{ type?: string; code: string; message: string; category?: string; file?: string; suggestion?: string }>;
       }>;
     };
     const entry = cache.pages?.[url];
@@ -337,7 +256,7 @@ function getCachedValidationIssues(
         code: e.code,
         message: e.message,
         severity: "error" as const,
-        category: CODE_CATEGORY_MAP[e.code] ?? "other",
+        category: e.category ?? "other",
         ...(e.file ? { file: e.file } : {}),
         ...(e.suggestion ? { suggestion: e.suggestion } : {}),
       })),
@@ -345,7 +264,7 @@ function getCachedValidationIssues(
         code: w.code,
         message: w.message,
         severity: "warning" as const,
-        category: CODE_CATEGORY_MAP[w.code] ?? "other",
+        category: w.category ?? "other",
         ...(w.file ? { file: w.file } : {}),
         ...(w.suggestion ? { suggestion: w.suggestion } : {}),
       })),
@@ -630,7 +549,7 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
             };
 
             for (const v of data.validators) {
-              const cat = v.category ?? CODE_CATEGORY_MAP[v.name] ?? "other";
+              const cat = v.category ?? "other";
               for (const e of v.errors) {
                 slugIssues.push({
                   code: e.code,
