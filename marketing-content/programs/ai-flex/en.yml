@@ -170,40 +170,6 @@ sections:
     marginY:
       desktop: lg
     section_id: features_grid-aiflex-whynow
-  - type: features_grid
-    version: "1.0"
-    variant: stats-charts
-    subtitle: The data is in.
-    title: What AI Skills Get You
-    description: Across industries, professionals who build AI skills are working faster, earning more, and taking on more.
-    background: bg-slate-950
-    card_bars_accent: hsl(var(--primary))
-    card_trend_accent: hsl(var(--accent))
-    card_bars:
-      title: The Salary Premium Is Real
-      description: Same role · with vs without AI skills · PwC 2025
-      stat_value: +56%
-      stat_label: earned by AI-skilled workers over same-role peers
-      displaced_label: Without AI skills
-      created_label: With AI skills
-    card_trend:
-      title: Demand Grew 7x in Two Years
-      description: Roles requiring AI fluency · McKinsey 2025
-      stat_value: 7x
-      stat_label: growth in roles requiring AI fluency since 2023
-      end_label: 7x · 2025
-    card_bars_2:
-      title: The Productivity Jump Is Real
-      description: Productivity growth · AI-exposed vs other industries · PwC 2025
-      stat_value: +27%
-      stat_label: productivity growth in companies using AI well, vs 7% elsewhere
-      displaced_label: Other industries
-      created_label: AI-adopting companies
-    paddingY:
-      desktop: none lg
-    marginY:
-      desktop: lg
-    section_id: features_grid-aiflex-whynow
   - type: trust_cards
     version: v1.0
     title: Top rated across all major platforms.
