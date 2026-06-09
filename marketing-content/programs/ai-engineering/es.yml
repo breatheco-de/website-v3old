@@ -51,7 +51,7 @@ sections:
       description: Accede a la hoja de ruta de 10 hitos y descubre nuestra Metodología de Caso de Empresa.
       cta_button:
         text: Recibir el plan de estudios
-        url: "#apply-modal"
+        url: "#modal-ubwgcj"
         variant: primary
       login_link:
         text: ¿Ya eres estudiante? Inicia sesión.
