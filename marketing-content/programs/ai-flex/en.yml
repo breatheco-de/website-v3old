@@ -5,9 +5,7 @@ settings:
     eager_count: 3
 meta:
   page_title: AI Flex
-  description: >-
-    AI Engineer: fastest-growing job of 2026. Get job-ready in 24 weeks. 84% hiring rate, $95K–$135K salaries. Lifelong
-    mentorship and career support. 4Geeks.
+  description: "AI Engineer: fastest-growing job of 2026. Get job-ready in 24 weeks. 84% hiring rate, $95K–$135K salaries. Lifelong mentorship and career support. 4Geeks."
   robots: index, follow
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
@@ -19,14 +17,11 @@ schema:
     - courses:ai-engineering
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: course
-    title: AI Fluency. The sharpest professionals are already here.
-    title_highlight: The sharpest professionals are already here.
-    subtitle: >-
-      AI skills now carry a 56% salary premium across industries. In our 4-week intensive upskilling program, you'll
-      learn to build AI workflows, automate tasks, and leverage AI as a collaborator, not just a tool. No coding
-      required.
+    title: AI Flex. Serious AI Skills. At Your Pace.
+    title_highlight: Serious AI Skills. At Your Pace.
+    subtitle: The skills gap between professionals who use AI well and those who don't is widening fast. AI Flex gives you access to 8 courses covering automation, AI workflows, vibe coding, and data skills. Follow curated learning paths or build your own. A new set of 4 courses every subscription cycle, fully self-paced.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -35,48 +30,41 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduates
     bullet_points:
-      - AI workflows built around your job, your tasks, your tools.
-      - Automate repetitive work with agents and n8n.
-      - Prompt AI to perform at its best on any task
+      - 24/7 feedback and guidance from Rigobot, our AI tutor.
+      - Book 1:1 mentorship sessions when you need human expertise.
+      - Certificates that stack toward AI Fluency and AI Engineering.
     tutors:
-      - name: Expert Instructor
-        role: Lead Instructor
-        image: https://randomuser.me/api/portraits/men/10.jpg
       - name: Rigo
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: 'Your tutors:'
-    description: >-
-      AI is not the future, it is the foundation. The professionals pulling ahead right now are leveraging AI's
-      capacities with intention. This is how you level up.
+    tutors_label: "Your tutor:"
+    description: AI is not the future, it is the foundation. The professionals moving fastest right now are building real skills, not waiting for the right moment. AI Flex is where you go deeper.
     signup_card:
-      title: Get the Full Program Overview
-      description: >-
-        Fill in your details and our admissions team will send you everything you need: syllabus, program details, and
-        pricing. It takes 2 minutes.
+      title: Get Started Today
+      description: "Fill in your details and we'll send you everything you need: course catalog, path options, and pricing. It takes 2 minutes."
       cta_button:
-        text: Send Me the Details
-        url: '#modal-y2myvq'
+        text: Get Started
+        url: "#modal-y2myvq"
         variant: primary
       login_link:
         text: Already a student? Login here.
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: 4-Week Cohort Program
+          text: Self-Paced, Start Anytime
         - icon: IconUsers
-          text: 1 Live Class Per Week
+          text: 8 AI and Technical Courses
         - icon: IconUserCheck
-          text: 1:1 Mentorship Session Included
+          text: Optional 1:1 Mentorship
         - icon: IconRobot
           text: AI-Powered Learning & Feedback
     paddingY:
       desktop: lg md
     marginY:
       desktop: none
-    section_id: hero-yt9c4j
+    section_id: hero-aiflex
   - type: modal
-    version: '1.0'
+    version: "1.0"
     heading: Get the Program Details
     description: Fill in your contact info and our admissions team will send you everything you need to know.
     show_close: true
@@ -147,7 +135,7 @@ sections:
     marginY:
       desktop: md lg
   - type: features_quad
-    version: '1.0'
+    version: "1.0"
     variant: default
     heading: Is This Program Right for You?
     description: If you are nodding at any of these, you're exactly who this is built for.
@@ -165,13 +153,11 @@ sections:
     marginY:
       desktop: none lg
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-charts
     subtitle: The data is clear.
     title: AI Fluency Is No Longer Optional
-    description: >-
-      Professionals with AI skills earn more, advance faster, and are in higher demand in every industry, not just tech.
-      The shift is already underway. These are the numbers behind it.
+    description: Professionals with AI skills earn more, advance faster, and are in higher demand in every industry, not just tech. The shift is already underway. These are the numbers behind it.
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
     card_gauge_accent: hsl(var(--destructive) / 0.5)
@@ -231,10 +217,7 @@ sections:
   - type: syllabus
     variant: program-modules
     program_title: AI Fluency Program Overview
-    program_description: >-
-      Learn by doing, one week at a time. The program starts with an audit of your own job and tasks, so everything you
-      learn applies directly to your work. Each week combines self-paced modules and a live session with your instructor
-      and cohort to practice, troubleshoot, and get feedback.
+    program_description: Learn by doing, one week at a time. The program starts with an audit of your own job and tasks, so everything you learn applies directly to your work. Each week combines self-paced modules and a live session with your instructor and cohort to practice, troubleshoot, and get feedback.
     tech_logos:
       - name: OpenAI
         icon: openai
@@ -249,15 +232,15 @@ sections:
           - What LLMs are and how they work
           - Why model choice matters for cost and quality
           - The difference between a chatbot, assistant, and agent
-          - 'Prompt fundamentals: role, context, format, constraints'
-          - 'Job audit: identify your top automation candidates'
+          - "Prompt fundamentals: role, context, format, constraints"
+          - "Job audit: identify your top automation candidates"
         projects: Write your first 5 prompts for real tasks you do every week.
         orientation: vertical
         icon: IconBolt
       - title: Prompting as a Skill
         duration: Week 2
         objectives:
-          - 'Prompt patterns: chain of thought, few-shot, persona, structured output'
+          - "Prompt patterns: chain of thought, few-shot, persona, structured output"
           - Prompting for emails, reports, research, and meeting summaries
           - Managing AI context effectively
           - Building a personal prompt library
@@ -277,10 +260,10 @@ sections:
       - title: Automation Pipelines with n8n
         duration: Week 4
         objectives:
-          - 'n8n fundamentals: nodes, triggers, and workflows'
+          - "n8n fundamentals: nodes, triggers, and workflows"
           - Connecting n8n to Gmail, Slack, Google Sheets, and webhooks
           - Linking n8n to an AI agent for smart decision-making steps
-          - 'Final project prep: map and build your automation'
+          - "Final project prep: map and build your automation"
         projects: Build and demo a live automation that handles a real recurring task.
         orientation: vertical
         icon: IconLayoutKanban
@@ -299,20 +282,18 @@ sections:
       desktop: lg
     section_id: syllabus-sdr4er
   - type: human_and_ai_duo
-    version: '1.0'
+    version: "1.0"
     heading: Human and AI Support, So You Never Lose Momentum
-    description: >-
-      Staying motivated is easy when everything clicks. It gets really hard when you hit a wall. AI Fluency pairs a real
-      human mentor with Rigobot, our AI tutor, so you always have somewhere to turn to and no reason to stop.
+    description: Staying motivated is easy when everything clicks. It gets really hard when you hit a wall. AI Fluency pairs a real human mentor with Rigobot, our AI tutor, so you always have somewhere to turn to and no reason to stop.
     bullet_groups:
-      - title: 'Your expert mentor:'
+      - title: "Your expert mentor:"
         image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
         bullets:
           - text: A 1:1 session with a senior instructor, included in your enrollment
           - text: Expert guidance tailored to you.
           - text: Focused on your actual tasks, workflows, and goals
           - text: Additional sessions available to book anytime, at extra cost
-      - title: 'Rigobot, your AI tutor:'
+      - title: "Rigobot, your AI tutor:"
         image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
         bullets:
           - text: Available 24/7 throughout the program
@@ -321,12 +302,12 @@ sections:
           - text: Adapts to your skill level and what you are working on
     section_id: human_and_ai_duo-ukcsrs
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Tuition & Financing Options
     subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
-    discount_text: 'Full Payment Discount: Save 10% with upfront payment.'
-    financing_text: 'Flexible Financing: starting at'
+    discount_text: "Full Payment Discount: Save 10% with upfront payment."
+    financing_text: "Flexible Financing: starting at"
     financing_amount: {{ global.price_ai_fluency_financing | $150 }}
     tech_icons:
       - openai
@@ -343,7 +324,7 @@ sections:
         text: One 1:1 mentorship session included. Add more at any time for $25 each.
     cta:
       text: Get more info
-      url: '#modal-y2myvq'
+      url: "#modal-y2myvq"
       variant: primary
     section_id: pricing-fsmxva
     marginY:
@@ -352,14 +333,12 @@ sections:
       desktop: md lg
     background: hsl(210 100% 50% / 0.05)
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Tuition and Financing Options
     subtitle: Investing in a new career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: 'Full payment discount: Save 10% with early payment.'
-    financing_text: >-
-      Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and subject
-      to lender approval.*
+    discount_text: "Full payment discount: Save 10% with early payment."
+    financing_text: Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and subject to lender approval.*
     financing_amount: 140€
     tech_icons:
       - python
@@ -374,15 +353,11 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: >-
-          Pay upfront to get a better price with an additional discount, or split your payments into 6 interest-free
-          installments through our partners.
+        text: Pay upfront to get a better price with an additional discount, or split your payments into 6 interest-free installments through our partners.
       - icon: IconCheck
         text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
       - icon: IconCheck
-        text: >-
-          We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not
-          your fees.
+        text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
     cta:
       text: Get more information
       url: /es/apply
@@ -408,7 +383,7 @@ sections:
   - type: testimonials
     section_id: testimonials-cbhm8t
     title: The People Behind the Numbers.
-    subtitle: 'Different backgrounds. One outcome: real AI fluency.'
+    subtitle: "Different backgrounds. One outcome: real AI fluency."
     related_features:
       - content-and-syllabus
       - career-support
@@ -451,7 +426,7 @@ sections:
           - rome-italy
           - valencia-spain
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Ready to Build Your AI Fluency?
     subtitle: Join the next cohort and leave with real skills, a live automation, and a certificate. Your next step starts here.
     background: hsl(var(--primary))
@@ -490,7 +465,7 @@ sections:
     section_id: cta_banner-6piiuo
   - type: sticky_cta
     section_id: sticky_cta-tmw0th
-    version: '1.0'
+    version: "1.0"
     heading: Ready to start your tech career?
     button_label: Apply Now
     show_dismiss: false
