@@ -312,8 +312,12 @@ class ContentIndex {
         for (const item of items) {
           const itemSlug = String(item.slug || "");
           if (!itemSlug) continue;
+          // Detect the item's own locale so we don't register it under every language's URL pattern.
+          // If no locale field is found, fall back to registering under all patterns (backward compat).
+          const itemLocale = String(item["language"] || item["lang"] || item["locale"] || "");
           for (const [localeKey, pattern] of Object.entries(config.url_pattern)) {
             const locale = localeKey === "default" ? "en" : localeKey;
+            if (itemLocale && itemLocale !== locale) continue;
             const url = resolveUrlPatternWithMapping(pattern, item, locale, fieldMapping);
             if (!url) continue;
             const params = this.extractUrlParams(pattern, url) || {};

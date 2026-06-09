@@ -18,7 +18,7 @@ import { getApiPath } from "../shared/api-paths";
 import { loadDatabaseSinglePage } from "./database-single-loader";
 import { resolveSingleVars } from "./single-resolver";
 import { databaseManager } from "./database";
-import { applyNonBlockingCss } from "./utils/html-transforms";
+import { applyNonBlockingCss, applyEntryModulePreload } from "./utils/html-transforms";
 
 const DEFAULT_SRCSET_SIZES =
   "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
@@ -753,6 +753,7 @@ export function initialDataMiddleware(
               }
             }
             injected = applyNonBlockingCss(injected);
+            injected = applyEntryModulePreload(injected);
 
             const newLength = Buffer.byteLength(injected, "utf-8");
             res.setHeader("content-length", newLength);
