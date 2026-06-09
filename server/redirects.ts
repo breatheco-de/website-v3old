@@ -1,5 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import { contentIndex, type RedirectEntry } from "./content-index";
+import { databaseManager } from "./database";
+import { getContentTypeConfig, getFullFieldMapping, resolveUrlPatternWithMapping } from "./content-types";
 import { child } from "./logger";
 const log = child({ module: "redirects" });
 
@@ -204,6 +206,38 @@ export function fallbackRedirectMiddleware(req: Request, res: Response, next: Ne
       return;
     }
   } catch {}
+
+  // Blog URL canonical redirect:
+  // - 1-segment /locale/blog/slug       → redirect to canonical if article has cluster_slug
+  // - 2-segment /locale/blog/cat/slug   → redirect to canonical if category is wrong
+  const blogShortMatch = cleanUrl.match(/^\/(en|es)\/blog\/([a-z0-9\-_]+)$/);
+  const blogLongMatch = cleanUrl.match(/^\/(en|es)\/blog\/([a-z0-9\-_]+)\/([a-z0-9\-_]+)$/);
+  const blogMatch = blogShortMatch || blogLongMatch;
+  if (blogMatch) {
+    try {
+      const locale = blogMatch[1];
+      const slug = blogShortMatch ? blogMatch[2] : blogMatch[3];
+      const typeConfig = getContentTypeConfig("blog");
+      const dbName = typeConfig?.database?.slug;
+      if (dbName) {
+        const items = databaseManager.getMappedItems(dbName);
+        const article = items?.find((item) => String(item.slug || "") === slug);
+        if (article) {
+          const fieldMapping = getFullFieldMapping("blog");
+          const urlPattern = typeConfig?.url_pattern?.[locale];
+          if (urlPattern) {
+            const canonicalUrl = resolveUrlPatternWithMapping(urlPattern, article, locale, fieldMapping);
+            if (canonicalUrl && canonicalUrl !== cleanUrl) {
+              const qs = getQueryString(req);
+              log.info(`[Redirects] 301 (blog canonical): ${cleanUrl} -> ${canonicalUrl}${qs}`);
+              res.redirect(301, canonicalUrl + qs);
+              return;
+            }
+          }
+        }
+      }
+    } catch {}
+  }
 
   if (fallbackMap) {
     const entry = fallbackMap.get(normalizedPath);

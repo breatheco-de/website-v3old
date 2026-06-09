@@ -7,6 +7,7 @@ import { escapeTemplateVars, unescapeObjectVars, escapeObjectVars, unescapeYamlD
 import { deepMerge } from "./utils/deepMerge";
 import { regenerateSectionIds } from "./utils/regenerateSectionIds";
 import { normalizeUrlPattern, getAllConfigs, getFieldMapping, resolveUrlPatternWithMapping, getFullFieldMapping } from "./content-types";
+import { databaseManager } from "./database";
 import { child } from "./logger";
 const log = child({ module: "content-index" });
 
@@ -293,16 +294,13 @@ class ContentIndex {
 
     this.autoCreateSingleTemplates(baseDir);
 
-    // Build URL index for DB-backed content types from their mapped cache
-    const cacheDir = path.join(process.cwd(), ".cache");
+    // Build URL index for DB-backed content types from SQLite cache (via databaseManager)
     for (const [contentType, config] of Object.entries(this.contentTypeConfigs)) {
       if (!config?.database?.slug || !config?.url_pattern) continue;
-      const cachePath = path.join(cacheDir, `db-${config.database.slug}.json`);
-      if (!fs.existsSync(cachePath)) continue;
+      const dbName = config.database.slug;
+      const items = databaseManager.getMappedItems(dbName);
+      if (!items || items.length === 0) continue;
       try {
-        const cached = JSON.parse(fs.readFileSync(cachePath, "utf-8")) as { items?: Record<string, unknown>[] };
-        const items = cached.items || [];
-        if (items.length === 0) continue;
         const fieldMapping = getFullFieldMapping(contentType);
         const templateEntry: ContentEntry = {
           slug: contentType,
