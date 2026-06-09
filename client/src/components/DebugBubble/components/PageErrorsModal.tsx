@@ -16,6 +16,7 @@ interface PageErrorsModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   pageDiagnostics: PageDiagnostics | null;
+  pageUrl?: string;
   onRefreshDiagnostics?: () => Promise<void>;
 }
 
@@ -40,6 +41,7 @@ export function PageErrorsModal(props: PageErrorsModalProps) {
     open,
     onOpenChange,
     pageDiagnostics,
+    pageUrl,
     onRefreshDiagnostics,
   } = props;
 
@@ -49,11 +51,17 @@ export function PageErrorsModal(props: PageErrorsModalProps) {
     if (isRunningValidation) return;
     setIsRunningValidation(true);
     try {
-      await fetch("/api/validation/run", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ validators: ["meta", "seo-depth", "seo-intent", "schema-completeness", "content-quality", "images"] }),
-      });
+      const url = pageUrl ?? pageDiagnostics?.url;
+      if (url) {
+        await fetch("/api/validation/run-page", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            url,
+            validators: ["meta", "seo-depth", "seo-intent", "schema-completeness", "content-quality", "images"],
+          }),
+        });
+      }
       if (onRefreshDiagnostics) {
         await onRefreshDiagnostics();
       }

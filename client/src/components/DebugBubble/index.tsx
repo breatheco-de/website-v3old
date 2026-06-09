@@ -2072,6 +2072,7 @@ export function DebugBubble() {
         open={pageErrorsModalOpen}
         onOpenChange={setPageErrorsModalOpen}
         pageDiagnostics={pageDiagnostics}
+        pageUrl={pageDiagnostics?.url}
         onRefreshDiagnostics={refreshPageDiagnostics}
       />
       <SeoModal
