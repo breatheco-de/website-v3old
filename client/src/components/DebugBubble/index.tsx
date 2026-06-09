@@ -391,13 +391,21 @@ export function DebugBubble() {
 
     setPageDiagnosticsLoading(true);
     setPageDiagnostics(null);
+    setPageErrorsModalOpen(false);
     fetch(`/api/diagnostics/page?url=${encodeURIComponent(diagnosticsUrl)}`)
       .then((res) => {
         if (!res.ok) return null;
         return res.json();
       })
       .then((data) => {
-        if (data) setPageDiagnostics(data);
+        if (data) {
+          setPageDiagnostics(data);
+          const cachedErrors = data.cached?.errors?.length ?? 0;
+          const cachedWarnings = data.cached?.warnings?.length ?? 0;
+          if (cachedErrors > 0 || cachedWarnings > 0) {
+            setPageErrorsModalOpen(true);
+          }
+        }
       })
       .catch(() => {})
       .finally(() => setPageDiagnosticsLoading(false));
