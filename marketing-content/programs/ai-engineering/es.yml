@@ -51,7 +51,7 @@ sections:
       description: Accede a la hoja de ruta de 10 hitos y descubre nuestra Metodología de Caso de Empresa.
       cta_button:
         text: Recibir el plan de estudios
-        url: "#apply-modal"
+        url: "#modal-ubwgcj"
         variant: primary
       login_link:
         text: ¿Ya eres estudiante? Inicia sesión.
@@ -232,7 +232,7 @@ sections:
       desktop: md
   - type: syllabus
     variant: program-modules
-    program_title: Ingeniería de IA — Módulos del programa
+    program_title: AI Engineering — Módulos del programa
     program_description: Construye sistemas reales con IA desde el primer día. Este currículo se organiza en dos tracks — IA Central y Agentes, e Infraestructura para IA — más un capstone que integra todo en una empresa completamente transformada y desplegada. Apoyado por fundamentos complementarios en herramientas y prácticas de desarrollo moderno a lo largo del programa.
     tech_logos:
       - name: Python
