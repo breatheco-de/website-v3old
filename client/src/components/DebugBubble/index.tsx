@@ -40,6 +40,7 @@ import {
   type ContentInfo,
   type MenuFileItem,
   type MenuData,
+  type PageDiagnostics,
 } from "./types";
 import { deslugify, detectContentInfo, getPersistedMenuView } from "./utils/debugHelpers";
 const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditorPanel"));
@@ -293,17 +294,7 @@ export function DebugBubble() {
   
   // Page diagnostics state
   const [pageErrorsModalOpen, setPageErrorsModalOpen] = useState(false);
-  const [pageDiagnostics, setPageDiagnostics] = useState<{
-    url: string;
-    contentType: string;
-    slug: string;
-    locale: string;
-    filePath: string;
-    title: string;
-    schemaValidation: { valid: boolean; errors: Array<{ path: string; code: string; message: string; expected?: string; received?: string }> };
-    issues: Array<{ type: "error" | "warning" | "info"; code: string; message: string; category?: string; details?: { path?: string; expected?: string; received?: string } }>;
-    score: { total: number; seo: number; schema: number; content: number };
-  } | null>(null);
+  const [pageDiagnostics, setPageDiagnostics] = useState<PageDiagnostics | null>(null);
   const [pageDiagnosticsLoading, setPageDiagnosticsLoading] = useState(false);
 
   // Detect current content info from URL

@@ -8,12 +8,23 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import type { PageDiagnostics } from "../types";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Clock } from "lucide-react";
 
 interface PageErrorsModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   pageDiagnostics: PageDiagnostics | null;
+}
+
+function formatStaleness(isoDate: string): string {
+  const diffMs = Date.now() - new Date(isoDate).getTime();
+  const mins = Math.floor(diffMs / 60000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins} minute${mins === 1 ? "" : "s"} ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs} hour${hrs === 1 ? "" : "s"} ago`;
+  const days = Math.floor(hrs / 24);
+  return `${days} day${days === 1 ? "" : "s"} ago`;
 }
 
 export function PageErrorsModal(props: PageErrorsModalProps) {
@@ -107,6 +118,51 @@ export function PageErrorsModal(props: PageErrorsModalProps) {
                 </>
               );
             })()}
+
+            {/* Cached validation results */}
+            <div className="border-t border-border pt-4 space-y-2">
+              <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+                <Clock className="h-3.5 w-3.5" />
+                Last validation run
+              </div>
+              {pageDiagnostics.cached ? (
+                <>
+                  <p className="text-xs text-muted-foreground" data-testid="text-cached-staleness">
+                    Validated {formatStaleness(pageDiagnostics.cached.lastRunAt)}
+                  </p>
+                  {pageDiagnostics.cached.errors.length === 0 && pageDiagnostics.cached.warnings.length === 0 ? (
+                    <div className="p-3 rounded-md bg-muted/50 border border-border text-sm text-muted-foreground" data-testid="cached-no-issues">
+                      No issues found in last run.
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      {pageDiagnostics.cached.errors.map((issue, i) => (
+                        <div key={i} className="p-3 rounded-md bg-destructive/10 border border-destructive/30 text-sm" data-testid={`cached-error-${i}`}>
+                          <div className="font-mono font-medium text-destructive text-xs">{issue.code}</div>
+                          <div className="mt-1 text-foreground">{issue.message}</div>
+                          {issue.file && (
+                            <div className="mt-1 text-xs text-muted-foreground font-mono">{issue.file}{issue.line ? `:${issue.line}` : ""}</div>
+                          )}
+                        </div>
+                      ))}
+                      {pageDiagnostics.cached.warnings.map((issue, i) => (
+                        <div key={i} className="p-3 rounded-md bg-amber-500/10 border border-amber-500/30 text-sm" data-testid={`cached-warning-${i}`}>
+                          <div className="font-mono font-medium text-amber-700 dark:text-amber-300 text-xs">{issue.code}</div>
+                          <div className="mt-1 text-foreground">{issue.message}</div>
+                          {issue.file && (
+                            <div className="mt-1 text-xs text-muted-foreground font-mono">{issue.file}{issue.line ? `:${issue.line}` : ""}</div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="p-3 rounded-md bg-muted/50 border border-border text-sm text-muted-foreground" data-testid="cached-not-yet-validated">
+                  Not yet validated — run validation from the Diagnostics dashboard to populate this section.
+                </div>
+              )}
+            </div>
 
             <div className="p-3 rounded-md bg-muted/50 border border-border text-sm">
               <div className="text-muted-foreground mb-1">Health Score</div>

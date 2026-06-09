@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { getValidationService } from "../../scripts/validation/service";
 import { getCanonicalUrl } from "../../scripts/validation/shared/canonicalUrls";
+import { getValidationCacheService } from "../services/validationCacheService";
 import {
   isNonLocalFilesystemSrc,
   buildRegistrySrcToIdMap,
@@ -65,6 +66,54 @@ export function registerValidationRoutes(app: Express): void {
       });
 
       res.json(result);
+
+      // Post-process: group issues by URL and flush to the validation cache.
+      // This runs after the response is sent so it does not block the client.
+      setImmediate(async () => {
+        try {
+          const cache = getValidationCacheService();
+          const context = service.getContext();
+          if (!context) return;
+
+          const nowIso = new Date().toISOString();
+
+          // Build a map of filePath → { errors, warnings }
+          const byFile = new Map<string, { errors: typeof result.validators[0]["errors"]; warnings: typeof result.validators[0]["warnings"] }>();
+
+          for (const v of result.validators) {
+            for (const issue of v.errors) {
+              if (!issue.file) continue;
+              if (!byFile.has(issue.file)) byFile.set(issue.file, { errors: [], warnings: [] });
+              byFile.get(issue.file)!.errors.push(issue);
+            }
+            for (const issue of v.warnings) {
+              if (!issue.file) continue;
+              if (!byFile.has(issue.file)) byFile.set(issue.file, { errors: [], warnings: [] });
+              byFile.get(issue.file)!.warnings.push(issue);
+            }
+          }
+
+          // Resolve each content file to its canonical URL and write cache entries.
+          const seenUrls = new Set<string>();
+          for (const file of context.contentFiles) {
+            const url = getCanonicalUrl(file);
+            if (seenUrls.has(url)) continue;
+            seenUrls.add(url);
+
+            const fileIssues = byFile.get(file.filePath) ?? { errors: [], warnings: [] };
+            cache.setByUrl(url, {
+              lastRunAt: nowIso,
+              errors: fileIssues.errors,
+              warnings: fileIssues.warnings,
+            });
+          }
+
+          cache.markFullRunAt(nowIso);
+          await cache.flush();
+        } catch (err) {
+          log.warn({ err }, "ValidationCache post-process error (non-fatal)");
+        }
+      });
     } catch (error) {
       log.error({ err: error }, "Validation error:");
       res.status(500).json({
@@ -816,6 +865,8 @@ export function registerValidationRoutes(app: Express): void {
         (seoPercent + schemaPercent + contentPercent) / 3,
       );
 
+      const cachedEntry = getValidationCacheService().getByUrl(url) ?? null;
+
       res.json({
         url,
         contentType: file.type,
@@ -823,6 +874,8 @@ export function registerValidationRoutes(app: Express): void {
         locale: file.locale,
         filePath: file.filePath,
         title: file.title,
+
+        cached: cachedEntry,
 
         schemaValidation,
 

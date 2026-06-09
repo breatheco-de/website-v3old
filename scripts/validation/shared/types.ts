@@ -122,3 +122,17 @@ export interface ValidationRunResult {
   };
   validators: ValidatorResult[];
 }
+
+export interface PageCacheEntry {
+  lastRunAt: string;
+  errors: ValidationIssue[];
+  warnings: ValidationIssue[];
+}
+
+export interface ValidationCacheFile {
+  meta: {
+    lastFullRunAt: string | null;
+    version: number;
+  };
+  pages: Record<string, PageCacheEntry>;
+}
