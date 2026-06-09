@@ -214,6 +214,154 @@ function conflictError(opts: {
   };
 }
 
+// ── Validation cache reader ──────────────────────────────────────────────────
+
+const VALIDATION_CACHE_PATH = path.join(
+  process.cwd(), "marketing-content", "validation-cache.json"
+);
+
+// Maps all known validator issue codes to their category.
+// Covers every validator in scripts/validation/validators/. Unknown codes fall back to "other".
+const CODE_CATEGORY_MAP: Record<string, string> = {
+  // ── seo (meta validator) ──────────────────────────────────────────────────
+  MISSING_PAGE_TITLE: "seo", MISSING_DESCRIPTION: "seo",
+  INVALID_PRIORITY: "seo", INVALID_CHANGE_FREQUENCY: "seo",
+  UNKNOWN_ROBOTS_DIRECTIVE: "seo",
+  // ── seo (seo-depth validator) ─────────────────────────────────────────────
+  TITLE_TOO_SHORT: "seo", TITLE_TOO_LONG: "seo",
+  DESCRIPTION_TOO_SHORT: "seo", DESCRIPTION_TOO_LONG: "seo",
+  MISSING_OG_IMAGE: "seo", MISSING_CANONICAL: "seo",
+  DUPLICATE_TITLE: "seo", DUPLICATE_DESCRIPTION: "seo",
+  // ── seo (seo-intent validator) ────────────────────────────────────────────
+  MISSING_INTENT: "seo", INVALID_INTENT: "seo", ORPHAN_PAGE: "seo",
+  INVALID_PILLAR: "seo", INVALID_FOCUS_FEATURE: "seo", CONFIG_MISSING: "seo",
+  // ── seo (schema validator) ────────────────────────────────────────────────
+  INVALID_SCHEMA_REF: "seo", INVALID_SCHEMA_OVERRIDE: "seo",
+  EMPTY_SCHEMA_INCLUDE: "seo",
+  // ── seo (schema-completeness validator) ──────────────────────────────────
+  SCHEMA_RENDER_ERROR: "seo", SCHEMA_INVALID_INCLUDE: "seo",
+  PAGE_NO_SCHEMA: "seo", SCHEMA_MISSING_NAME: "seo",
+  SCHEMA_MISSING_DESCRIPTION: "seo", SCHEMA_PLACEHOLDER_VALUE: "seo",
+  FAQ_SECTION_NO_SCHEMA: "seo",
+  // ── integrity (redirects validator) ──────────────────────────────────────
+  SELF_REDIRECT: "integrity", REDIRECT_CONFLICT: "integrity",
+  REDIRECT_OVERLAP: "integrity", REDIRECT_OVERWRITES_CONTENT: "integrity",
+  CUSTOM_REDIRECT_MISSING_DEST: "integrity", REDIRECT_LOOP: "integrity",
+  REGEX_SHADOWED: "integrity",
+  // ── integrity (sitemap validator) ─────────────────────────────────────────
+  CONTENT_NOT_IN_SITEMAP: "integrity", ORPHAN_SITEMAP_ENTRY: "integrity",
+  DUPLICATE_SITEMAP_ENTRY: "integrity", SITEMAP_MISSING_XHTML_NAMESPACE: "integrity",
+  SITEMAP_MISSING_HREFLANG: "integrity",
+  // ── integrity (field-mappings validator) ──────────────────────────────────
+  FIELD_MAPPING_MISSING: "integrity", FIELD_MAPPING_PARTIAL: "integrity",
+  // ── integrity (orphaned-files validator) ──────────────────────────────────
+  ORPHANED_FILE: "integrity",
+  // ── integrity (database-singles validator) ────────────────────────────────
+  MISSING_SINGLE_TEMPLATE: "integrity", DATABASE_UNREACHABLE: "integrity",
+  MISSING_LOCALE_FIELD: "integrity", DUPLICATE_DATABASE_SLUG: "integrity",
+  DISK_OVERRIDES_DATABASE: "integrity", UNRESOLVED_SINGLE_VARS: "integrity",
+  // ── integrity (slug-conflicts validator) ──────────────────────────────────
+  URL_CONFLICT: "integrity",
+  // ── integrity (broken-anchors validator) ──────────────────────────────────
+  BROKEN_ANCHOR: "integrity",
+  // ── content (images validator) ────────────────────────────────────────────
+  REGISTRY_LOAD_ERROR: "content", IMAGE_REFERENCE_NOT_IN_REGISTRY: "content",
+  IMAGE_SRC_FILE_MISSING: "content", IMAGE_ALT_MISSING: "content",
+  IMAGE_ALT_PLACEHOLDER: "content", ORPHANED_REGISTRY_ENTRY: "content",
+  // ── content (image-optimization validator) ────────────────────────────────
+  IMAGE_NOT_OPTIMIZED: "content", IMAGE_WIDTHS_OUTDATED: "content",
+  // ── content (image-tags validator) ────────────────────────────────────────
+  IMAGE_UNTAGGED: "content", TAG_NOT_IN_DEFINITIONS: "content",
+  IMAGE_MISSING_PRESET_FOR_TAG: "content",
+  // ── content (hero-image-tags validator) ───────────────────────────────────
+  HERO_IMAGE_NOT_IN_REGISTRY: "content", HERO_IMAGE_MISSING_TAG: "content",
+  HERO_IMAGE_MISSING_PRESET: "content",
+  // ── content (backgrounds validator) ──────────────────────────────────────
+  NO_THEME_CONFIG: "content", INVALID_BACKGROUND: "content",
+  // ── content (faqs validator) ──────────────────────────────────────────────
+  FAQ_FILE_NOT_FOUND: "content", INVALID_FAQ_STRUCTURE: "content",
+  MISSING_LAST_UPDATED: "content", INVALID_DATE_FORMAT: "content",
+  STALE_FAQ_ANSWER: "content", TOO_MANY_TAGS: "content", FAQ_PARSE_ERROR: "content",
+  // ── content (content-quality validator) ──────────────────────────────────
+  EMPTY_SECTIONS: "content", SECTION_MISSING_TYPE: "content",
+  EMPTY_FIELD_VALUE: "content", BROKEN_INTERNAL_LINK: "content",
+  MISSING_TRANSLATION: "content",
+  // ── components (components validator) ────────────────────────────────────
+  NO_COMPONENT_REGISTRY: "components", NO_VERSIONS: "components",
+  MISSING_SCHEMA: "components", INVALID_SCHEMA_YAML: "components",
+  MISSING_SCHEMA_NAME: "components", INVALID_SECTION_DEFAULTS: "components",
+  INVALID_SECTION_DEFAULT: "components", NO_EXAMPLES: "components",
+  EMPTY_EXAMPLES: "components", MISSING_EXAMPLE_NAME: "components",
+  INVALID_EXAMPLE_VARIANT: "components", INVALID_EXAMPLE_YAML: "components",
+  // ── forms (forms + consent-legacy-keys validators) ────────────────────────
+  FORM_MISSING_CONVERSION_NAME: "forms", CONSENT_OBSOLETE_KEY: "forms",
+  // ── bindings (binding-integrity validator) ────────────────────────────────
+  BINDING_CHECK_FAILED: "bindings", STALE_BINDING_REFERENCES: "bindings",
+  // ── performance (lighthouse validator) ───────────────────────────────────
+  PSI_NO_BASE_URL: "performance", PSI_NO_PAGES: "performance",
+  PSI_REQUEST_FAILED: "performance",
+};
+
+interface MappedValidationIssue {
+  code: string;
+  message: string;
+  severity: "error" | "warning";
+  category: string;
+  file?: string;
+  suggestion?: string;
+}
+
+/**
+ * Read cached validation issues for a page URL from marketing-content/validation-cache.json.
+ * Optionally filter to specific categories (e.g. ["seo"]).
+ * Returns an empty array if the cache is missing or the URL has no entry.
+ */
+function getCachedValidationIssues(
+  url: string,
+  categoryFilter?: string[]
+): MappedValidationIssue[] {
+  try {
+    if (!fs.existsSync(VALIDATION_CACHE_PATH)) return [];
+    const raw = fs.readFileSync(VALIDATION_CACHE_PATH, "utf-8");
+    const cache = JSON.parse(raw) as {
+      pages: Record<string, {
+        errors: Array<{ type?: string; code: string; message: string; file?: string; suggestion?: string }>;
+        warnings: Array<{ type?: string; code: string; message: string; file?: string; suggestion?: string }>;
+      }>;
+    };
+    const entry = cache.pages?.[url];
+    if (!entry) return [];
+
+    const all: MappedValidationIssue[] = [
+      ...(entry.errors ?? []).map(e => ({
+        code: e.code,
+        message: e.message,
+        severity: "error" as const,
+        category: CODE_CATEGORY_MAP[e.code] ?? "other",
+        ...(e.file ? { file: e.file } : {}),
+        ...(e.suggestion ? { suggestion: e.suggestion } : {}),
+      })),
+      ...(entry.warnings ?? []).map(w => ({
+        code: w.code,
+        message: w.message,
+        severity: "warning" as const,
+        category: CODE_CATEGORY_MAP[w.code] ?? "other",
+        ...(w.file ? { file: w.file } : {}),
+        ...(w.suggestion ? { suggestion: w.suggestion } : {}),
+      })),
+    ];
+
+    if (categoryFilter && categoryFilter.length > 0) {
+      const catSet = new Set(categoryFilter);
+      return all.filter(i => catSet.has(i.category));
+    }
+
+    return all;
+  } catch {
+    return [];
+  }
+}
+
 export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?: string): void {
   // list_pages
   mcp.tool(
@@ -314,7 +462,13 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
   // get_page_content
   mcp.tool(
     "get_page_content",
-    "Get the merged content of a page (sections, title, and all other top-level YAML keys) without the meta/SEO block. Also returns locales (all available locale codes for this page) and urls (per-locale resolved paths). Merges _common.yml with the locale file. contentType is optional — omit it and the server will auto-detect it from the slug. Use get_page_seo to fetch only the SEO/meta fields. Supply 'variant' to read a draft variant file ({variantSlug}.{locale}.yml) instead of the live locale file.",
+    "Get the merged content of a page (sections, title, and all other top-level YAML keys) without the meta/SEO block. " +
+    "Also returns locales (all available locale codes for this page), urls (per-locale resolved paths), and " +
+    "validation_issues (all cached validation issues for this page across all categories — each with code, message, severity, and category). " +
+    "validation_issues is always present (empty array if no issues are cached). " +
+    "Merges _common.yml with the locale file. contentType is optional — omit it and the server will auto-detect it from the slug. " +
+    "Use get_page_seo to fetch only the SEO/meta fields. " +
+    "Supply 'variant' to read a draft variant file ({variantSlug}.{locale}.yml) instead of the live locale file.",
     {
       slug: z.string().describe("Page slug (folder name), e.g. 'home' or 'full-stack-developer'"),
       locale: z.string().default("en").describe("Locale code, e.g. 'en' or 'es'"),
@@ -341,7 +495,7 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
           return { content: [{ type: "text", text: `Variant '${variant}' not found for page '${slug}' locale '${locale}' (file: ${variant}.${locale}.yml)` }], isError: true };
         }
         const { meta: _meta, ...dataWithoutMeta } = result.data;
-        return { content: [{ type: "text", text: JSON.stringify({ contentType: resolved.contentType, slug, locale, variant, ...dataWithoutMeta }, null, 2) }] };
+        return { content: [{ type: "text", text: JSON.stringify({ contentType: resolved.contentType, slug, locale, variant, ...dataWithoutMeta, validation_issues: [] }, null, 2) }] };
       }
 
       const payload = resolvePagePayload(slug, locale, contentType);
@@ -350,14 +504,22 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
       const { meta: _meta, ...dataWithoutMeta } = payload.data;
       const envelope = { contentType: payload.contentType, slug: payload.slug, locale: payload.locale, locales: payload.locales, ...(payload.urls ? { urls: payload.urls } : {}) };
 
-      return { content: [{ type: "text", text: JSON.stringify({ ...envelope, ...dataWithoutMeta }, null, 2) }] };
+      // Inject cached validation issues (all categories) for this page's URL
+      const pageUrl = payload.urls?.[locale];
+      const validation_issues = pageUrl ? getCachedValidationIssues(pageUrl) : [];
+
+      return { content: [{ type: "text", text: JSON.stringify({ ...envelope, ...dataWithoutMeta, validation_issues }, null, 2) }] };
     }
   );
 
   // get_page_seo
   mcp.tool(
     "get_page_seo",
-    "Get only the SEO/meta block of a page plus the identifying envelope (contentType, slug, locale, locales, urls). Use this instead of get_page_content when you only need meta tags, Open Graph data, or other SEO fields. Supply 'variant' to read a draft variant file ({variantSlug}.{locale}.yml) instead of the live locale file.",
+    "Get only the SEO/meta block of a page plus the identifying envelope (contentType, slug, locale, locales, urls). " +
+    "Also returns validation_issues containing only cached SEO-category issues (from the meta, seo-depth, and seo-intent validators). " +
+    "validation_issues is always present (empty array if no SEO issues are cached). " +
+    "Use this instead of get_page_content when you only need meta tags, Open Graph data, or other SEO fields. " +
+    "Supply 'variant' to read a draft variant file ({variantSlug}.{locale}.yml) instead of the live locale file.",
     {
       slug: z.string().describe("Page slug (folder name), e.g. 'home' or 'full-stack-developer'"),
       locale: z.string().default("en").describe("Locale code, e.g. 'en' or 'es'"),
@@ -383,11 +545,15 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
         if (!result) {
           return { content: [{ type: "text", text: `Variant '${variant}' not found for page '${slug}' locale '${locale}' (file: ${variant}.${locale}.yml)` }], isError: true };
         }
-        return { content: [{ type: "text", text: JSON.stringify({ contentType: resolved.contentType, slug, locale, variant, meta: result.data.meta }, null, 2) }] };
+        return { content: [{ type: "text", text: JSON.stringify({ contentType: resolved.contentType, slug, locale, variant, meta: result.data.meta, validation_issues: [] }, null, 2) }] };
       }
 
       const payload = resolvePagePayload(slug, locale, contentType);
       if ("isError" in payload) return payload;
+
+      // Inject cached SEO-only validation issues for this page's URL
+      const pageUrl = payload.urls?.[locale];
+      const validation_issues = pageUrl ? getCachedValidationIssues(pageUrl, ["seo"]) : [];
 
       const seoPayload = {
         contentType: payload.contentType,
@@ -396,9 +562,108 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
         locales: payload.locales,
         ...(payload.urls ? { urls: payload.urls } : {}),
         meta: payload.data.meta,
+        validation_issues,
       };
 
       return { content: [{ type: "text", text: JSON.stringify(seoPayload, null, 2) }] };
+    }
+  );
+
+  // run_page_diagnostics
+  mcp.tool(
+    "run_page_diagnostics",
+    "Trigger a fresh validation run for one or more pages and return a map of slug → validation_issues[]. " +
+    "Each issue has code, message, severity ('error' or 'warning'), and category. " +
+    "Use this after editing a page to confirm it is clean, or to get up-to-date diagnostics for specific pages. " +
+    "Parameters: " +
+    "'slugs' (optional array) — restrict to specific page slugs. If omitted or empty, all known YAML-backed pages are validated. " +
+    "'categories' (optional array, e.g. ['seo']) — filter results to specific categories. If omitted, all categories are returned. " +
+    "Note: running diagnostics on all pages may take some time. Prefer providing 'slugs' when you only need a few pages. " +
+    "This tool updates the validation cache so subsequent get_page_content / get_page_seo calls also reflect the fresh results.",
+    {
+      slugs: z.array(z.string()).optional().describe("Page slugs to validate, e.g. ['home', 'full-stack-developer']. Omit or pass [] to validate all YAML-backed pages."),
+      categories: z.array(z.string()).optional().describe("Filter results to specific categories, e.g. ['seo']. Omit to return all categories."),
+    },
+    async ({ slugs, categories }) => {
+      // Resolve target pages
+      let pages = scanPages();
+      if (slugs && slugs.length > 0) {
+        const slugSet = new Set(slugs);
+        pages = pages.filter(p => slugSet.has(p.slug));
+        if (pages.length === 0) {
+          return {
+            content: [{ type: "text", text: JSON.stringify({ error: `No YAML-backed pages found for slugs: ${slugs.join(", ")}` }, null, 2) }],
+            isError: true,
+          };
+        }
+      }
+
+      const resultMap: Record<string, MappedValidationIssue[]> = {};
+      const catSet = categories && categories.length > 0 ? new Set(categories) : null;
+
+      for (const page of pages) {
+        const slugIssues: MappedValidationIssue[] = [];
+
+        // Run diagnostics for each locale URL of this page
+        for (const locale of page.locales) {
+          const url = page.urls?.[locale];
+          if (!url) continue;
+
+          try {
+            const res = await fetch(
+              `http://localhost:${MAIN_SERVER_PORT}/api/validation/run-page`,
+              {
+                method: "POST",
+                headers: internalHeaders(),
+                body: JSON.stringify({ url }),
+              }
+            );
+            if (!res.ok) continue;
+
+            const data = await res.json() as {
+              validators: Array<{
+                name: string;
+                category?: string;
+                errors: Array<{ code: string; message: string; file?: string; suggestion?: string }>;
+                warnings: Array<{ code: string; message: string; file?: string; suggestion?: string }>;
+              }>;
+            };
+
+            for (const v of data.validators) {
+              const cat = v.category ?? CODE_CATEGORY_MAP[v.name] ?? "other";
+              for (const e of v.errors) {
+                slugIssues.push({
+                  code: e.code,
+                  message: e.message,
+                  severity: "error",
+                  category: cat,
+                  ...(e.file ? { file: e.file } : {}),
+                  ...(e.suggestion ? { suggestion: e.suggestion } : {}),
+                });
+              }
+              for (const w of v.warnings) {
+                slugIssues.push({
+                  code: w.code,
+                  message: w.message,
+                  severity: "warning",
+                  category: cat,
+                  ...(w.file ? { file: w.file } : {}),
+                  ...(w.suggestion ? { suggestion: w.suggestion } : {}),
+                });
+              }
+            }
+          } catch {
+            // Non-fatal: skip this locale if the request fails
+          }
+        }
+
+        // Apply optional category filter
+        resultMap[page.slug] = catSet
+          ? slugIssues.filter(i => catSet.has(i.category))
+          : slugIssues;
+      }
+
+      return { content: [{ type: "text", text: JSON.stringify(resultMap, null, 2) }] };
     }
   );
 
