@@ -15,6 +15,10 @@ export type EditorType = string;
 export const fieldEditors: Record<string, EditorType> = {
   // Global - applies to all variants that have this field
   "signup_card.features[].icon": "icon-picker",
+  "signup_card.cta_button.text": "text-input",
+  "signup_card.cta_button.url": "link-picker",
+  "signup_card.cta_button.variant": "string-picker:primary,secondary,outline",
+  "signup_card.cta_button.icon": "icon-picker",
   "simpleTwoColumn:cta_buttons[]": "cta-picker",
   "orbit:cta_buttons[]": "cta-picker",
   "orbit:title": "rich-text-editor:custom-font-size,custom-letter-spacing,custom-line-height,custom-font-weight",
