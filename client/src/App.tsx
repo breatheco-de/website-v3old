@@ -2,12 +2,11 @@ import { Switch, Route } from "wouter";
 import { queryClient as defaultQueryClient } from "./lib/queryClient";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { lazy, Suspense, useState, useEffect } from "react";
+import { lazy, Suspense, useState, useEffect, type ReactNode } from "react";
 import NotFound from "@/pages/not-found";
 import { SessionProvider } from "@/contexts/SessionContext";
 import { EditModeWrapper } from "@/components/editing/EditModeWrapper";
-import { DebugAuthProvider } from "@/hooks/useDebugAuth";
+import { DebugAuthProvider, isDebugModeActive } from "@/hooks/useDebugAuth";
 import { ImagePickerProvider } from "@/contexts/ImagePickerContext";
 import { usePageTracking } from "@/hooks/usePageTracking";
 import type { ContentTypeApiItem } from "@/hooks/useContentTypes";
@@ -89,6 +88,31 @@ const ChatWidget = lazyWithRetry(() =>
 const VariableModalHost = lazyWithRetry(() =>
   import("@/components/editing/VariableHighlight").then((m) => ({ default: m.VariableModalHost })),
 );
+
+// DebugBubbleGate: gate the lazy import behind a synchronous debug-mode check.
+// isDebugModeActive() reads URL params + sessionStorage + import.meta.env.DEV —
+// all synchronous, no hooks. Regular visitors never trigger the network request
+// for the DebugBubble chunk.
+function DebugBubbleGate() {
+  if (!isDebugModeActive()) return null;
+  return <Suspense fallback={null}><DebugBubble /></Suspense>;
+}
+
+// DeferredTooltipProvider: avoids loading @radix-ui/react-tooltip in the initial
+// bundle. Children render immediately without the provider; the Radix chunk is
+// fetched after mount so tooltips are available long before any user can open one.
+function DeferredTooltipProvider({ children }: { children: ReactNode }) {
+  const [Provider, setProvider] = useState<React.ComponentType<{ children: ReactNode }> | null>(null);
+
+  useEffect(() => {
+    import("@/components/ui/tooltip").then(({ TooltipProvider }) => {
+      setProvider(() => TooltipProvider);
+    });
+  }, []);
+
+  if (!Provider) return <>{children}</>;
+  return <Provider>{children}</Provider>;
+}
 
 function LoadingFallback() {
   return (
@@ -310,7 +334,7 @@ function App({ ssrQueryClient }: AppProps = {}) {
     <QueryClientProvider client={client}>
       <SessionProvider>
         <DebugAuthProvider>
-        <TooltipProvider>
+        <DeferredTooltipProvider>
           <EditModeWrapper>
             <ImagePickerProvider>
             <PageTracker />
@@ -318,12 +342,12 @@ function App({ ssrQueryClient }: AppProps = {}) {
             <ClientOnly>
               <Toaster />
               <Suspense fallback={null}><ChatWidget /></Suspense>
-              <Suspense fallback={null}><DebugBubble /></Suspense>
+              <DebugBubbleGate />
               <Suspense fallback={null}><VariableModalHost /></Suspense>
             </ClientOnly>
             </ImagePickerProvider>
           </EditModeWrapper>
-        </TooltipProvider>
+        </DeferredTooltipProvider>
         </DebugAuthProvider>
       </SessionProvider>
     </QueryClientProvider>
