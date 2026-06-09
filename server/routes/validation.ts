@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { getValidationService } from "../../scripts/validation/service";
 import { getCanonicalUrl } from "../../scripts/validation/shared/canonicalUrls";
+import { getValidationCacheService } from "../services/validationCacheService";
 import {
   isNonLocalFilesystemSrc,
   buildRegistrySrcToIdMap,
@@ -64,9 +65,154 @@ export function registerValidationRoutes(app: Express): void {
         includeArtifacts: includeArtifacts ?? false,
       });
 
+      // Post-process: flush cache before responding so any immediate re-fetch
+      // sees the updated results (no race condition).
+      try {
+        const cache = getValidationCacheService();
+        const context = service.getContext();
+        if (context) {
+          const nowIso = new Date().toISOString();
+
+          const byFile = new Map<string, { errors: typeof result.validators[0]["errors"]; warnings: typeof result.validators[0]["warnings"] }>();
+
+          for (const v of result.validators) {
+            for (const issue of v.errors) {
+              if (!issue.file) continue;
+              if (v.category) issue.category = v.category;
+              if (!byFile.has(issue.file)) byFile.set(issue.file, { errors: [], warnings: [] });
+              byFile.get(issue.file)!.errors.push(issue);
+            }
+            for (const issue of v.warnings) {
+              if (!issue.file) continue;
+              if (v.category) issue.category = v.category;
+              if (!byFile.has(issue.file)) byFile.set(issue.file, { errors: [], warnings: [] });
+              byFile.get(issue.file)!.warnings.push(issue);
+            }
+          }
+
+          const seenUrls = new Set<string>();
+          for (const file of context.contentFiles) {
+            const url = getCanonicalUrl(file);
+            if (seenUrls.has(url)) continue;
+            seenUrls.add(url);
+
+            const fileIssues = byFile.get(file.filePath) ?? { errors: [], warnings: [] };
+            cache.setByUrl(url, {
+              lastRunAt: nowIso,
+              errors: fileIssues.errors,
+              warnings: fileIssues.warnings,
+            });
+          }
+
+          cache.markFullRunAt(nowIso);
+          await cache.flush();
+        }
+      } catch (err) {
+        log.warn({ err }, "ValidationCache post-process error (non-fatal)");
+      }
+
       res.json(result);
     } catch (error) {
       log.error({ err: error }, "Validation error:");
+      res.status(500).json({
+        error: "Validation failed",
+        message: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
+  });
+
+  // Run validators for a single page only — faster than a full site scan
+  app.post("/api/validation/run-page", async (req, res) => {
+    try {
+      const { url, validators: validatorNames } = req.body;
+
+      if (!url || typeof url !== "string") {
+        return res.status(400).json({ error: "Missing or invalid 'url' field" });
+      }
+
+      // These validators are inherently site-wide and cannot run meaningfully
+      // on a single page — skip them for per-page runs.
+      const SKIP_FOR_PER_PAGE = new Set(["lighthouse", "broken-anchors", "slug-conflicts"]);
+
+      const service = getValidationService();
+      service.clearContext();
+      await service.buildContext();
+
+      const context = service.getContext();
+      if (!context) {
+        return res.status(500).json({ error: "Failed to build validation context" });
+      }
+
+      // Filter contentFiles to only those matching the requested URL
+      const normalizedTarget = url.toLowerCase().replace(/\/$/, "") || "/";
+      const allContentFiles = context.contentFiles;
+      const filteredFiles = allContentFiles.filter((file) => {
+        const fileUrl = getCanonicalUrl(file).toLowerCase().replace(/\/$/, "") || "/";
+        return fileUrl === normalizedTarget;
+      });
+
+      // Temporarily narrow the context so validators only see the target page
+      context.contentFiles = filteredFiles;
+
+      let effectiveValidators = validatorNames as string[] | undefined;
+      if (effectiveValidators) {
+        effectiveValidators = effectiveValidators.filter((n) => !SKIP_FOR_PER_PAGE.has(n));
+      }
+
+      let result;
+      try {
+        result = await service.runValidators({
+          validators: effectiveValidators,
+          includeArtifacts: false,
+        });
+      } finally {
+        // Restore original contentFiles regardless of success/failure
+        context.contentFiles = allContentFiles;
+      }
+
+      // Update only this page's cache entry; leave all other entries untouched
+      try {
+        const cache = getValidationCacheService();
+        const nowIso = new Date().toISOString();
+
+        const byFile = new Map<string, { errors: typeof result.validators[0]["errors"]; warnings: typeof result.validators[0]["warnings"] }>();
+        for (const v of result.validators) {
+          for (const issue of v.errors) {
+            if (!issue.file) continue;
+            if (v.category) issue.category = v.category;
+            if (!byFile.has(issue.file)) byFile.set(issue.file, { errors: [], warnings: [] });
+            byFile.get(issue.file)!.errors.push(issue);
+          }
+          for (const issue of v.warnings) {
+            if (!issue.file) continue;
+            if (v.category) issue.category = v.category;
+            if (!byFile.has(issue.file)) byFile.set(issue.file, { errors: [], warnings: [] });
+            byFile.get(issue.file)!.warnings.push(issue);
+          }
+        }
+
+        // Accumulate all issues across files that belong to this URL
+        const combinedErrors: typeof result.validators[0]["errors"] = [];
+        const combinedWarnings: typeof result.validators[0]["warnings"] = [];
+        for (const file of filteredFiles) {
+          const fileIssues = byFile.get(file.filePath) ?? { errors: [], warnings: [] };
+          combinedErrors.push(...fileIssues.errors);
+          combinedWarnings.push(...fileIssues.warnings);
+        }
+
+        cache.setByUrl(url, {
+          lastRunAt: nowIso,
+          errors: combinedErrors,
+          warnings: combinedWarnings,
+        });
+        await cache.flush();
+      } catch (err) {
+        log.warn({ err }, "ValidationCache post-process error (non-fatal)");
+      }
+
+      res.json(result);
+    } catch (error) {
+      log.error({ err: error }, "Validation run-page error:");
       res.status(500).json({
         error: "Validation failed",
         message: error instanceof Error ? error.message : "Unknown error",
@@ -365,6 +511,19 @@ export function registerValidationRoutes(app: Express): void {
     validationRuns.clear();
     validationRunOrder.length = 0;
     res.json({ ok: true, cleared });
+  });
+
+  app.get("/api/validation/cache-summary", (_req, res) => {
+    const cache = getValidationCacheService();
+    const all = cache.getAll();
+    const summary: Record<string, { errorCount: number; warningCount: number }> = {};
+    for (const [url, entry] of all) {
+      summary[url] = {
+        errorCount: entry.errors.length,
+        warningCount: entry.warnings.length,
+      };
+    }
+    res.json(summary);
   });
 
   // ============================================
@@ -816,6 +975,8 @@ export function registerValidationRoutes(app: Express): void {
         (seoPercent + schemaPercent + contentPercent) / 3,
       );
 
+      const cachedEntry = getValidationCacheService().getByUrl(url) ?? null;
+
       res.json({
         url,
         contentType: file.type,
@@ -823,6 +984,8 @@ export function registerValidationRoutes(app: Express): void {
         locale: file.locale,
         filePath: file.filePath,
         title: file.title,
+
+        cached: cachedEntry,
 
         schemaValidation,
 

@@ -539,7 +539,7 @@ class BindingManager {
     return { success: errors.length === 0, updatedFiles, errors };
   }
 
-  cleanupStaleReferences(): number {
+  cleanupStaleReferences(dryRun = false): number {
     this.ensureLoaded();
     let removed = 0;
 
@@ -560,17 +560,27 @@ class BindingManager {
       });
 
       removed += group.members.length - validMembers.length;
-      group.members = validMembers;
+      if (!dryRun) {
+        group.members = validMembers;
+      }
     }
 
-    const beforeCount = this.data.groups.length;
-    this.data.groups = this.data.groups.filter(g => g.members.length >= 2);
-    removed += beforeCount - this.data.groups.length;
+    const emptyGroups = dryRun
+      ? this.data.groups.filter(g => g.members.length < 2).length
+      : 0;
 
-    if (removed > 0) {
-      this.rebuildIndex();
-      this.save();
-      log.info(`[BindingManager] Cleaned up ${removed} stale references`);
+    if (!dryRun) {
+      const beforeCount = this.data.groups.length;
+      this.data.groups = this.data.groups.filter(g => g.members.length >= 2);
+      removed += beforeCount - this.data.groups.length;
+
+      if (removed > 0) {
+        this.rebuildIndex();
+        this.save();
+        log.info(`[BindingManager] Cleaned up ${removed} stale references`);
+      }
+    } else {
+      removed += emptyGroups;
     }
 
     return removed;

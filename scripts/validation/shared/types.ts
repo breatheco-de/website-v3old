@@ -22,6 +22,7 @@ export interface ValidationIssue {
   line?: number;
   suggestion?: string;
   fix?: FixHint;
+  category?: ValidatorMetadata["category"];
 }
 
 export interface ValidatorResult {
@@ -40,7 +41,7 @@ export interface ValidatorMetadata {
   description: string;
   apiExposed: boolean;
   estimatedDuration: "fast" | "medium" | "slow";
-  category: "content" | "seo" | "integrity" | "components" | "performance" | "forms";
+  category: "content" | "seo" | "integrity" | "components" | "performance" | "forms" | "bindings";
 }
 
 export interface Validator extends ValidatorMetadata {
@@ -121,4 +122,18 @@ export interface ValidationRunResult {
     duration: number;
   };
   validators: ValidatorResult[];
+}
+
+export interface PageCacheEntry {
+  lastRunAt: string;
+  errors: ValidationIssue[];
+  warnings: ValidationIssue[];
+}
+
+export interface ValidationCacheFile {
+  meta: {
+    lastFullRunAt: string | null;
+    version: number;
+  };
+  pages: Record<string, PageCacheEntry>;
 }

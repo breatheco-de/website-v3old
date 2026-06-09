@@ -40,6 +40,7 @@ import {
   type ContentInfo,
   type MenuFileItem,
   type MenuData,
+  type PageDiagnostics,
 } from "./types";
 import { deslugify, detectContentInfo, getPersistedMenuView } from "./utils/debugHelpers";
 const RawFileEditorPanel = lazy(() => import("@/components/editing/RawFileEditorPanel"));
@@ -293,18 +294,25 @@ export function DebugBubble() {
   
   // Page diagnostics state
   const [pageErrorsModalOpen, setPageErrorsModalOpen] = useState(false);
-  const [pageDiagnostics, setPageDiagnostics] = useState<{
-    url: string;
-    contentType: string;
-    slug: string;
-    locale: string;
-    filePath: string;
-    title: string;
-    schemaValidation: { valid: boolean; errors: Array<{ path: string; code: string; message: string; expected?: string; received?: string }> };
-    issues: Array<{ type: "error" | "warning" | "info"; code: string; message: string; category?: string; details?: { path?: string; expected?: string; received?: string } }>;
-    score: { total: number; seo: number; schema: number; content: number };
-  } | null>(null);
+  const [pageDiagnostics, setPageDiagnostics] = useState<PageDiagnostics | null>(null);
   const [pageDiagnosticsLoading, setPageDiagnosticsLoading] = useState(false);
+
+  const refreshPageDiagnostics = async () => {
+    const url = pageDiagnostics?.url;
+    if (!url) return;
+    setPageDiagnosticsLoading(true);
+    try {
+      const res = await fetch(`/api/diagnostics/page?url=${encodeURIComponent(url)}`);
+      if (res.ok) {
+        const data = await res.json();
+        setPageDiagnostics(data);
+      }
+    } catch {}
+    setPageDiagnosticsLoading(false);
+  };
+
+  // Validation cache summary for sitemap badges
+  const [validationSummary, setValidationSummary] = useState<Record<string, { errorCount: number; warningCount: number }>>({});
 
   // Detect current content info from URL
   const contentInfo = detectContentInfo(pathname, contentTypesMap, homePageSettings ?? null);
@@ -383,13 +391,21 @@ export function DebugBubble() {
 
     setPageDiagnosticsLoading(true);
     setPageDiagnostics(null);
+    setPageErrorsModalOpen(false);
     fetch(`/api/diagnostics/page?url=${encodeURIComponent(diagnosticsUrl)}`)
       .then((res) => {
         if (!res.ok) return null;
         return res.json();
       })
       .then((data) => {
-        if (data) setPageDiagnostics(data);
+        if (data) {
+          setPageDiagnostics(data);
+          const cachedErrors = data.cached?.errors?.length ?? 0;
+          const cachedWarnings = data.cached?.warnings?.length ?? 0;
+          if (cachedErrors > 0 || cachedWarnings > 0) {
+            setPageErrorsModalOpen(true);
+          }
+        }
       })
       .catch(() => {})
       .finally(() => setPageDiagnosticsLoading(false));
@@ -450,6 +466,12 @@ export function DebugBubble() {
           setSitemapLoading(false);
         })
         .catch(() => setSitemapLoading(false));
+    }
+    if (menuView !== "databases" && menuView !== "content-types") {
+      fetch("/api/validation/cache-summary")
+        .then((res) => res.json())
+        .then((data) => setValidationSummary(data))
+        .catch(() => {});
     }
   }, [menuView]);
 
@@ -1574,6 +1596,21 @@ export function DebugBubble() {
     }
   };
 
+  const handleOpenDiagnosticsForUrl = async (urlPath: string) => {
+    setPageDiagnosticsLoading(true);
+    setPageDiagnostics(null);
+    setPageErrorsModalOpen(true);
+    try {
+      const res = await fetch(`/api/diagnostics/page?url=${encodeURIComponent(urlPath)}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      setPageDiagnostics(data);
+    } catch {
+    } finally {
+      setPageDiagnosticsLoading(false);
+    }
+  };
+
   const confirmDeletePage = async (localesToDelete: string[]) => {
     if (!deletingPage || deleteConfirmInput !== deletingPage.slug) return;
     setIsDeletingPage(true);
@@ -1751,6 +1788,8 @@ export function DebugBubble() {
     handleDownloadYml,
     handleEditYaml,
     handleRefreshCache,
+    validationSummary,
+    onOpenDiagnosticsForUrl: handleOpenDiagnosticsForUrl,
     contentLocale: pageDiagnostics?.locale || null,
     session,
     currentLocationOverride,
@@ -2033,6 +2072,8 @@ export function DebugBubble() {
         open={pageErrorsModalOpen}
         onOpenChange={setPageErrorsModalOpen}
         pageDiagnostics={pageDiagnostics}
+        pageUrl={pageDiagnostics?.url}
+        onRefreshDiagnostics={refreshPageDiagnostics}
       />
       <SeoModal
         open={seoModalOpen}

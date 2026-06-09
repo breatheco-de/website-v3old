@@ -68,16 +68,22 @@ export const schemaCompletenessValidator: Validator = {
         continue;
       }
 
-      const hasSchemaConfig = file.schema?.include && file.schema.include.length > 0;
+      const schemaInclude: unknown[] = Array.isArray(file.schema?.include) ? file.schema.include : [];
+      const hasSchemaConfig = schemaInclude.length > 0;
 
-      if (hasSchemaConfig && !html) {
-        warnings.push({
-          type: "warning",
-          code: "SCHEMA_EMPTY_OUTPUT",
-          message: `Schema is configured but rendered output is empty for ${url}`,
-          file: file.filePath,
-          suggestion: "Check that the schema references in include array are valid",
-        });
+      if (hasSchemaConfig) {
+        const invalidEntries = schemaInclude.filter(
+          (v) => typeof v !== "string" || v.trim().length === 0
+        );
+        if (invalidEntries.length > 0) {
+          errors.push({
+            type: "error",
+            code: "SCHEMA_INVALID_INCLUDE",
+            message: `schema.include contains empty or non-string entries for ${url}`,
+            file: file.filePath,
+            suggestion: "Each schema.include entry must be a non-empty string like 'organization' or 'website'",
+          });
+        }
       }
 
       if (!hasSchemaConfig) {

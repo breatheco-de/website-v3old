@@ -136,7 +136,7 @@ sections:
                 variant: outline
           - cta:
               - text: Learn more
-                url: /en/career-programs/ai-fluent
+                url: /en/career-programs/ai-fluency
                 variant: primary
           - cta:
               - text: Start free — 7 days

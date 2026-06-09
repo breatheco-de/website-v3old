@@ -173,6 +173,12 @@ export interface ExpandableMenuItemProps {
   children: React.ReactNode;
 }
 
+export interface CachedValidationEntry {
+  lastRunAt: string;
+  errors: Array<{ type: "error" | "warning"; code: string; message: string; file?: string; line?: number; suggestion?: string }>;
+  warnings: Array<{ type: "error" | "warning"; code: string; message: string; file?: string; line?: number; suggestion?: string }>;
+}
+
 export interface PageDiagnostics {
   url: string;
   contentType: string;
@@ -192,6 +198,7 @@ export interface PageDiagnostics {
     details?: { path?: string; expected?: string; received?: string };
   }>;
   score: { total: number; seo: number; schema: number; content: number };
+  cached?: CachedValidationEntry | null;
 }
 
 export interface SeoData {

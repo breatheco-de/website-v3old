@@ -134,7 +134,7 @@ interface PageDiagnostics {
 }
 
 type SeverityFilter = "all" | "errors" | "warnings";
-type CategoryFilter = "all" | "seo" | "integrity" | "content" | "components" | "forms";
+type CategoryFilter = "all" | "seo" | "integrity" | "content" | "components" | "forms" | "performance" | "bindings";
 
 function getScoreColorClass(score: number): string {
   if (score >= 80) return "text-chart-3";
@@ -754,6 +754,8 @@ function GlobalHealthTab() {
     { key: "content", label: "Content" },
     { key: "components", label: "Components" },
     { key: "forms", label: "Forms" },
+    { key: "bindings", label: "Bindings" },
+    { key: "performance", label: "Performance" },
   ];
 
   return (

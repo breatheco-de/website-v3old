@@ -961,11 +961,49 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     const { index } = simpleDeleteDialog;
     setSimpleDeleteDialog(prev => ({ ...prev, isDeleting: true }));
 
+    // Best-effort: remove this section from any binding group before deleting it.
+    // handleDelete already checked and found no group (or the check failed), so this
+    // is a retry that catches the "check failed" edge case.
+    let bindingCleanedUp = false;
+    try {
+      const bindRes = await fetch(
+        `/api/bindings/section?contentType=${encodeURIComponent(contentType)}&slug=${encodeURIComponent(slug)}&sectionIndex=${index}&locale=${encodeURIComponent(locale)}`
+      );
+      const bindData = await bindRes.json();
+      if (bindData.group?.id) {
+        const token = getDebugToken();
+        const removeRes = await fetch(`/api/bindings/${bindData.group.id}/members`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { "x-debug-token": token } : {}),
+          },
+          body: JSON.stringify({ contentType, slug, sectionIndex: index }),
+        });
+        // Only mark as cleaned up when the server confirmed the removal.
+        // When no group is found we leave bindingCleanedUp=false so the
+        // post-delete cleanup still runs — the JSON file may have a stale
+        // reference that the per-section lookup didn't surface.
+        bindingCleanedUp = removeRes.ok;
+      }
+    } catch {}
+
     const result = await sendEditOperation(contentType, slug, locale, [
       { action: "remove_item", path: "sections", index }
     ], { variant, version });
 
     if (result.success) {
+      // If the lookup failed entirely OR the member removal returned an error,
+      // ask the server to prune any orphaned references for the now-deleted section.
+      if (!bindingCleanedUp) {
+        try {
+          const token = getDebugToken();
+          await fetch("/api/bindings/cleanup", {
+            method: "POST",
+            headers: token ? { "x-debug-token": token } : {},
+          });
+        } catch {}
+      }
       toast({ title: "Section deleted" });
       emitContentUpdated({ contentType, slug, locale });
     } else {
@@ -979,11 +1017,37 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     const { index } = dbTemplateDeleteDialog;
     setDbTemplateDeleteDialog(prev => ({ ...prev, isDeleting: true }));
 
+    // Best-effort: look up and delete the entire binding group for this shared-template
+    // section. Because this section is shared across all entries, removing just one member
+    // would leave orphaned references — so we delete the whole group.
+    try {
+      const bindRes = await fetch(
+        `/api/bindings/section?contentType=${encodeURIComponent(contentType)}&slug=${encodeURIComponent(slug)}&sectionIndex=${index}&locale=${encodeURIComponent(locale)}`
+      );
+      const bindData = await bindRes.json();
+      if (bindData.group?.id) {
+        const token = getDebugToken();
+        await fetch(`/api/bindings/${bindData.group.id}`, {
+          method: "DELETE",
+          headers: token ? { "x-debug-token": token } : {},
+        });
+      }
+    } catch {}
+
     const result = await sendEditOperation(contentType, slug, locale, [
       { action: "remove_item", path: "sections", index }
     ]);
 
     if (result.success) {
+      // Always run a server-side cleanup after a template section deletion so any
+      // per-entry members that also referenced this sectionId are pruned.
+      try {
+        const token = getDebugToken();
+        await fetch("/api/bindings/cleanup", {
+          method: "POST",
+          headers: token ? { "x-debug-token": token } : {},
+        });
+      } catch {}
       toast({ title: "Section deleted", description: "Removed from shared template." });
       emitContentUpdated({ contentType, slug, locale });
     } else {
@@ -999,10 +1063,26 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     try {
       const group = deleteDialog.bindingGroup;
       const token = getDebugToken();
-      await fetch(`/api/bindings/${group.id}/members?contentType=${contentType}&slug=${slug}&sectionIndex=${deleteDialog.index}`, {
+      const unbindRes = await fetch(`/api/bindings/${group.id}/members`, {
         method: "DELETE",
-        headers: token ? { "x-debug-token": token } : {},
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { "x-debug-token": token } : {}),
+        },
+        body: JSON.stringify({ contentType, slug, sectionIndex: deleteDialog.index }),
       });
+
+      if (!unbindRes.ok) {
+        let description = `Server returned ${unbindRes.status}`;
+        try {
+          const body = await unbindRes.json();
+          if (body?.error) description = body.error;
+        } catch {
+          // ignore parse errors
+        }
+        toast({ title: "Failed to remove binding", description, variant: "destructive" });
+        return;
+      }
 
       const result = await sendEditOperation(contentType, slug, locale, [
         { action: "remove_item", path: "sections", index: deleteDialog.index }

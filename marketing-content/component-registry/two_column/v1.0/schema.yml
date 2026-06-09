@@ -366,3 +366,32 @@ props:
     required: false
     description: Right padding for the section (Tailwind pr-* value, 0-96)
     example: "24"
+  cta_button:
+    type: object
+    required: false
+    description: Optional call-to-action button rendered below the two-column content
+    properties:
+      text:
+        type: string
+        required: true
+        description: Button label text
+      url:
+        type: string
+        required: true
+        description: Button destination URL
+      variant:
+        type: string
+        required: false
+        description: Visual style of the button
+        options:
+          - primary
+          - secondary
+          - outline
+      icon:
+        type: string
+        required: false
+        description: Tabler icon name to display alongside the button text
+    example:
+      text: Explore Financing Options
+      url: /financing
+      variant: primary

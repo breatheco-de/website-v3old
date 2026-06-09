@@ -1,5 +1,6 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ArrowLeft, ChevronDown, ChevronRight, Clipboard, Code, Copy, Download, ExternalLink, Folder, History, MoreVertical, Plus, RefreshCw, Search, Trash2, X } from "lucide-react";
+import { IconAlertCircle, IconAlertTriangle } from "@tabler/icons-react";
 import { useToast } from "@/hooks/use-toast";
 import type { MenuView, SitemapUrl } from "../types";
 
@@ -29,6 +30,48 @@ interface SitemapViewProps {
   handleDownloadYml: (url: SitemapUrl) => void;
   handleEditYaml: (url: SitemapUrl) => void;
   handleRefreshCache: (url: SitemapUrl) => void;
+  validationSummary: Record<string, { errorCount: number; warningCount: number }>;
+  onOpenDiagnosticsForUrl: (urlPath: string) => void;
+}
+
+function ValidationBadge({
+  urlPath,
+  validationSummary,
+  onOpenDiagnosticsForUrl,
+}: {
+  urlPath: string;
+  validationSummary: Record<string, { errorCount: number; warningCount: number }>;
+  onOpenDiagnosticsForUrl: (urlPath: string) => void;
+}) {
+  const entry = validationSummary[urlPath];
+  if (!entry) return null;
+  const { errorCount, warningCount } = entry;
+  if (errorCount === 0 && warningCount === 0) return null;
+
+  const isError = errorCount > 0;
+  const count = isError ? errorCount : warningCount;
+
+  return (
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        onOpenDiagnosticsForUrl(urlPath);
+      }}
+      className={[
+        "flex-shrink-0 flex items-center gap-0.5 px-1 py-0.5 rounded text-[10px] font-medium leading-none cursor-pointer transition-opacity hover:opacity-80",
+        isError
+          ? "bg-destructive text-destructive-foreground"
+          : "bg-amber-500 text-white",
+      ].join(" ")}
+      title={`${errorCount} error${errorCount !== 1 ? "s" : ""}, ${warningCount} warning${warningCount !== 1 ? "s" : ""} — click to view diagnostics`}
+      data-testid={`badge-validation-${urlPath.replace(/\//g, "-")}`}
+    >
+      {isError
+        ? <IconAlertCircle className="h-3 w-3" />
+        : <IconAlertTriangle className="h-3 w-3" />}
+      {count}
+    </button>
+  );
 }
 
 export function SitemapView({
@@ -50,6 +93,8 @@ export function SitemapView({
   handleDownloadYml,
   handleEditYaml,
   handleRefreshCache,
+  validationSummary,
+  onOpenDiagnosticsForUrl,
 }: SitemapViewProps) {
   const { toast } = useToast();
 
@@ -194,6 +239,11 @@ export function SitemapView({
                             >
                               {path.slice(folder.path.length + 1)}
                             </a>
+                            <ValidationBadge
+                              urlPath={path}
+                              validationSummary={validationSummary}
+                              onOpenDiagnosticsForUrl={onOpenDiagnosticsForUrl}
+                            />
                             <DropdownMenu>
                               <DropdownMenuTrigger asChild>
                                 <button
@@ -275,6 +325,11 @@ export function SitemapView({
                     >
                       {path}
                     </a>
+                    <ValidationBadge
+                      urlPath={path}
+                      validationSummary={validationSummary}
+                      onOpenDiagnosticsForUrl={onOpenDiagnosticsForUrl}
+                    />
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <button

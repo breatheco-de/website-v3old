@@ -1288,8 +1288,9 @@ export function registerComponentsRoutes(app: Express): void {
   app.post("/api/bindings/cleanup", (req, res) => {
     try {
       if (!requireEditAuth(req, res)) return;
-      const removed = bindingManager.cleanupStaleReferences();
-      res.json({ removed });
+      const dryRun = Boolean(req.body?.dryRun);
+      const removed = bindingManager.cleanupStaleReferences(dryRun);
+      res.json({ removed, dryRun });
     } catch (error) {
       log.error({ err: error }, "Error cleaning up bindings:");
       res.status(500).json({ error: "Failed to cleanup bindings" });
