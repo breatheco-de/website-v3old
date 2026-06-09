@@ -1063,9 +1063,13 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     try {
       const group = deleteDialog.bindingGroup;
       const token = getDebugToken();
-      await fetch(`/api/bindings/${group.id}/members?contentType=${contentType}&slug=${slug}&sectionIndex=${deleteDialog.index}`, {
+      await fetch(`/api/bindings/${group.id}/members`, {
         method: "DELETE",
-        headers: token ? { "x-debug-token": token } : {},
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { "x-debug-token": token } : {}),
+        },
+        body: JSON.stringify({ contentType, slug, sectionIndex: deleteDialog.index }),
       });
 
       const result = await sendEditOperation(contentType, slug, locale, [
