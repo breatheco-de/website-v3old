@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import { contentIndex, type RedirectEntry } from "./content-index";
 import { databaseManager } from "./database";
-import { getAllConfigs, getFullFieldMapping, resolveUrlPatternWithMapping } from "./content-types";
+import { getAllConfigs, getFullFieldMapping, getLocaleKey, resolveUrlPatternWithMapping } from "./content-types";
 import { child } from "./logger";
 const log = child({ module: "redirects" });
 
@@ -223,10 +223,20 @@ export function fallbackRedirectMiddleware(req: Request, res: Response, next: Ne
         if (!items) continue;
         const record = items.find((item) => String(item.slug || "") === lastSegment);
         if (!record) continue;
-        const urlPattern = typeConfig.url_pattern[locale] ?? typeConfig.url_pattern["en"];
+        // Use the record's own locale if available — handles articles served under the wrong language prefix.
+        // Try the content-type's declared locale field first, then common field names as fallback.
+        const localeField = getLocaleKey(typeName);
+        const rawLocale =
+          (localeField && record[localeField]) ||
+          record["language"] ||
+          record["lang"] ||
+          record["locale"];
+        const recordLocale = rawLocale ? String(rawLocale) : locale;
+        const canonicalLocale = typeConfig.url_pattern[recordLocale] ? recordLocale : locale;
+        const urlPattern = typeConfig.url_pattern[canonicalLocale] ?? typeConfig.url_pattern["en"];
         if (!urlPattern) continue;
         const fieldMapping = getFullFieldMapping(typeName);
-        const canonicalUrl = resolveUrlPatternWithMapping(urlPattern, record, locale, fieldMapping);
+        const canonicalUrl = resolveUrlPatternWithMapping(urlPattern, record, canonicalLocale, fieldMapping);
         if (canonicalUrl && canonicalUrl !== cleanUrl) {
           const qs = getQueryString(req);
           log.info(`[Redirects] 301 (canonical ${typeName}): ${cleanUrl} -> ${canonicalUrl}${qs}`);
