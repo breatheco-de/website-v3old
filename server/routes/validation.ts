@@ -65,19 +65,14 @@ export function registerValidationRoutes(app: Express): void {
         includeArtifacts: includeArtifacts ?? false,
       });
 
-      res.json(result);
-
-      // Post-process: group issues by URL and flush to the validation cache.
-      // This runs after the response is sent so it does not block the client.
-      setImmediate(async () => {
-        try {
-          const cache = getValidationCacheService();
-          const context = service.getContext();
-          if (!context) return;
-
+      // Post-process: flush cache before responding so any immediate re-fetch
+      // sees the updated results (no race condition).
+      try {
+        const cache = getValidationCacheService();
+        const context = service.getContext();
+        if (context) {
           const nowIso = new Date().toISOString();
 
-          // Build a map of filePath → { errors, warnings }
           const byFile = new Map<string, { errors: typeof result.validators[0]["errors"]; warnings: typeof result.validators[0]["warnings"] }>();
 
           for (const v of result.validators) {
@@ -93,7 +88,6 @@ export function registerValidationRoutes(app: Express): void {
             }
           }
 
-          // Resolve each content file to its canonical URL and write cache entries.
           const seenUrls = new Set<string>();
           for (const file of context.contentFiles) {
             const url = getCanonicalUrl(file);
@@ -110,10 +104,12 @@ export function registerValidationRoutes(app: Express): void {
 
           cache.markFullRunAt(nowIso);
           await cache.flush();
-        } catch (err) {
-          log.warn({ err }, "ValidationCache post-process error (non-fatal)");
         }
-      });
+      } catch (err) {
+        log.warn({ err }, "ValidationCache post-process error (non-fatal)");
+      }
+
+      res.json(result);
     } catch (error) {
       log.error({ err: error }, "Validation error:");
       res.status(500).json({
