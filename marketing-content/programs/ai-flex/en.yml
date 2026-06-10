@@ -299,21 +299,21 @@ sections:
   - type: two_column_accordion_card
     version: "1.0"
     variant: image_background
-    title: Transform Your Career
-    description: "Start yobbbbbbbbbbgutfycfjgcjdjtdjtjgf     utfj yjfn  gfcjhfcjhgfncjgfcjgcjgfcur journey into tech with our proven approach:"
+    title: More Than Just Courses
+    description: AI Flex is a complete learning environment. Every plan gives you interactive courses, AI-powered tools, and the support to actually use what you learn — at your own pace, on your own schedule.
     bullets:
-      - heading: No Experience Required
-        text: Our curriculum is designed for complete beginners. We'll teach you everything from the fundamentals up.
-      - heading: Real-World Projects
-        text: Build a professional portfolio with projects that showcase your skills to potential employers.
-      - heading: Lifetime Access
-        text: Keep access to all course materials and community support even after you graduate.
-      - heading: Lifetime Access
-        text: Keep access to all course materials and community support even after you graduate.
+      - heading: Interactive Courses with AI Tutoring Built In
+        text: LearnPack turns every course into a hands-on, auto-graded experience. Rigobot, our AI tutor, is embedded throughout — tracking your progress and giving personalized guidance whenever you need it, 24/7.
+      - heading: A Full Toolkit, Included
+        text: Every plan comes with AI Copilot (300 requests/month), cloud Codespaces so you can code from any browser, $5 in monthly LLM tokens, and access to the 4Geeks community on WhatsApp.
+      - heading: Guided Paths and Stackable Certificates
+        text: Follow one of our pre-built learning paths, or build your own with Rigobot's guidance. Complete each course and earn a certificate that stacks toward AI Fluency and AI Engineering.
+      - heading: Human Mentorship, When You Want It
+        text: Book a 1:1 session with a senior instructor for $25 whenever you need a human perspective. No commitment, no minimum — just expert guidance on demand.
     image: https://storage.googleapis.com/4geeks-academy-website/media/community-support-2_1765406601448.webp
-    image_alt: Student learning with mentor support
+    image_alt: AI Flex learning environment
     reverse: true
-    section_id: two_column_accordion_card-67eqnu
+    section_id: two_column_accordion_card-aiflex
     paddingY:
       desktop: sm
   - type: bento_cards
