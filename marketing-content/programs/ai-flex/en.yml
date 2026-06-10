@@ -33,11 +33,6 @@ sections:
       - 24/7 feedback and guidance from Rigobot, our AI tutor.
       - Book 1:1 mentorship sessions whenever you need human expertise.
       - Certificates that stack toward AI Fluency and AI Engineering.
-    tutors:
-      - name: Rigo
-        role: AI Tutor
-        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: "Your tutor:"
     description: AI is not the future, it is the foundation. Build yours with AI Flex.
     signup_card:
       title: Get Started Today
