@@ -365,7 +365,7 @@ sections:
       - claude
       - n8n
       - openclaw
-    features_title: Choose the plan that fits you.
+    features_title: Choose the timeframe that works for you.
     features:
       - icon: IconCheck
         text: Try AI Flex free for 7 days. No charge until your trial ends.
