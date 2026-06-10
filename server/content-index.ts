@@ -329,7 +329,7 @@ class ContentIndex {
     }
 
     this.initialized = true;
-    log.info(`[ContentIndex] Fast scan: ${this.entries.length} entries indexed (image/variable/redirect/SEO deferred to background)`);
+    log.info(`[ContentIndex] Fast scan: ${this.entries.length} YAML entries, ${this.byUrl.size} DB-backed URLs in lookup (image/variable/redirect/SEO deferred to background)`);
   }
 
   /**
@@ -1119,7 +1119,11 @@ class ContentIndex {
   }
 
   isKnownUrl(url: string): boolean {
-    return this.resolveUrl(url) !== null;
+    const result = this.resolveUrl(url) !== null;
+    if (url.includes("/blog/") && !url.startsWith("/api/")) {
+      log.info(`[ContentIndex] isKnownUrl(${url}) = ${result} (byUrl.size=${this.byUrl.size})`);
+    }
+    return result;
   }
 
   refresh(): void {
