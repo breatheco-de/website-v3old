@@ -320,7 +320,7 @@ sections:
     version: "1.0"
     variant: product
     title: Pick Your Plan. Get Everything.
-    subtitle: Full access to all 8 courses and every tool that comes with them. Start free, cancel anytime.
+    subtitle: Full access to all 8 courses and every tool that comes with them. Start now, cancel anytime.
     discount_text: Save 25% when you pay for the year upfront.
     financing_text: Plans start at
     financing_amount: {{ global.price_aiflex_quarterly | $149.97 }}
