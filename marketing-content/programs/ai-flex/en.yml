@@ -442,7 +442,7 @@ sections:
           - valencia-spain
   - type: cta_banner
     version: "1.0"
-    title: Ready to Build Your AI Fluency?
+    title: Ready to Build Your AI Skills?
     subtitle: Join the next cohort and leave with real skills, a live automation, and a certificate. Your next step starts here.
     background: hsl(var(--primary))
     variant: form
