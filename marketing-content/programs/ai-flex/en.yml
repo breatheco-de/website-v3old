@@ -300,16 +300,16 @@ sections:
     version: "1.0"
     variant: image_background
     title: More Than Just Courses
-    description: AI Flex is a complete learning environment. Every plan gives you interactive courses, AI-powered tools, and the support to actually use what you learn — at your own pace, on your own schedule.
+    description: AI Flex is a complete learning environment. Interactive courses, AI-powered tools, and an active community.
     bullets:
       - heading: Interactive Courses with AI Tutoring Built In
         text: LearnPack turns every course into a hands-on, auto-graded experience. Rigobot, our AI tutor, is embedded throughout — tracking your progress and giving personalized guidance whenever you need it, 24/7.
-      - heading: A Full Toolkit, Included
-        text: Every plan comes with AI Copilot (300 requests/month), cloud Codespaces so you can code from any browser, $5 in monthly LLM tokens, and access to the 4Geeks community on WhatsApp.
+      - heading: A Full AI Toolkit, Included
+        text: Every plan comes with AI Copilot (300 requests/month), cloud Codespaces so you can code from any browser, and $5 in monthly LLM tokens.
       - heading: Guided Paths and Stackable Certificates
         text: Follow one of our pre-built learning paths, or build your own with Rigobot's guidance. Complete each course and earn a certificate that stacks toward AI Fluency and AI Engineering.
-      - heading: Human Mentorship, When You Want It
-        text: Book a 1:1 session with a senior instructor for $25 whenever you need a human perspective. No commitment, no minimum — just expert guidance on demand.
+      - heading: Human Support, When You Want It
+        text: Book a 1:1 session with a senior instructor for $25 whenever you need expert guidance — no commitment, no minimum. You're also part of the 4Geeks community on WhatsApp, where students and alumni learn alongside each other.
     image: https://storage.googleapis.com/4geeks-academy-website/media/community-support-2_1765406601448.webp
     image_alt: AI Flex learning environment
     reverse: true
