@@ -113,7 +113,6 @@ sections:
         phone:
           visible: true
           required: true
-          default_country: VE
           placeholder: Número telefónico
         program:
           visible: false
