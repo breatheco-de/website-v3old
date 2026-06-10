@@ -281,6 +281,28 @@ sections:
           - text: Focused on your actual work, your pace, your questions
           - text: Add as many sessions as you need, whenever you need them
     section_id: human_and_ai_duo-aiflex
+    images:
+      - src: ""
+        alt: Student 1
+        object_fit: cover
+        object_position: center top
+        border_radius: 0.5rem
+        transform_origin: 80% 30%
+      - src: ""
+        alt: Student 2
+        object_fit: cover
+        object_position: center top
+        border_radius: 0.5rem
+      - src: ""
+        alt: Student 3
+        object_fit: cover
+        object_position: center top
+        border_radius: 0.5rem
+      - src: ""
+        alt: Student 4
+        object_fit: cover
+        object_position: center top
+        border_radius: 0.5rem
   - type: bento_cards
     version: "1.0"
     title: More Than Just Courses
