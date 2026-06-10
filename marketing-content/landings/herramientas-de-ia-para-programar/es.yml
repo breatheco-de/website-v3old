@@ -662,7 +662,6 @@ sections:
         phone:
           visible: true
           required: true
-          default_country: VE
           placeholder: Teléfono
         program:
           visible: false
