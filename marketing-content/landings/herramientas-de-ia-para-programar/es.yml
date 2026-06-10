@@ -46,12 +46,12 @@ sections:
         phone:
           visible: true
           required: true
-          default_country: VE
         program:
           visible: false
           default: ai-engineering
       success:
         message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
+      consent: {}
     form_card_title: Obtén la guía completa del programa
     form_card_subtitle: Te enviamos el programa completo con plan de estudios, opciones de financiación y más. Solo toma 2 minutos.
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
@@ -113,7 +113,6 @@ sections:
         phone:
           visible: true
           required: true
-          default_country: VE
           placeholder: Número telefónico
         program:
           visible: false
@@ -663,7 +662,6 @@ sections:
         phone:
           visible: true
           required: true
-          default_country: VE
           placeholder: Teléfono
         program:
           visible: false

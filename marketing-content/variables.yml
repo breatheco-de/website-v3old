@@ -545,3 +545,9 @@ global.ai.fluency.price:
     - query:
         region: "latam"
       value: "$500"
+global.full_tuition_ai_engineering:
+  default: ""
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "Standard tuition is $14,999."
