@@ -394,14 +394,14 @@ sections:
           - valencia-spain
   - type: cta_banner
     version: "1.0"
-    title: Ready to Build Your AI Skills?
-    subtitle: Join the next cohort and leave with real skills, a live automation, and a certificate. Your next step starts here.
+    title: Your AI Skills Start Here.
+    subtitle: 8 courses, curated learning paths, and everything you need to build real AI skills.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Start Your Application
+      submit_label: Get Started
       fields:
         email:
           visible: true
@@ -412,15 +412,15 @@ sections:
           required: true
           placeholder: First name
         phone:
-          visible: true
-          required: true
+          visible: false
+          required: false
           placeholder: Phone number
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | ai-fluency }}
+          default: {{ single.bc_slug | ai-flex }}
       success:
-        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
+        message: Check your inbox. We'll send you everything you need to get started.
       button_className: bg-primary
       terms_className: text-white/80
     form_background: hsl(var(--card))
@@ -429,7 +429,7 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-    section_id: cta_banner-6piiuo
+    section_id: cta_banner-aiflex
   - type: sticky_cta
     section_id: sticky_cta-tmw0th
     version: "1.0"
