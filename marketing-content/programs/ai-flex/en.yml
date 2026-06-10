@@ -355,29 +355,31 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Tuition & Financing Options
-    subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
-    discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Flexible Financing: starting at"
-    financing_amount: {{ global.price_ai_fluency_financing | $150 }}
+    title: Pick Your Plan. Get Everything.
+    subtitle: Full access to all 8 courses and every tool that comes with them. Start free, cancel anytime.
+    discount_text: Save 25% when you pay for the year upfront.
+    financing_text: Plans start at
+    financing_amount: {{ global.price_aiflex_quarterly | $149.97 }}
     tech_icons:
       - openai
       - claude
       - n8n
       - openclaw
-    features_title: Choose the option that fits you best.
+    features_title: Choose the plan that fits you.
     features:
       - icon: IconCheck
-        text: The full tuition is $900. Pay upfront and receive a 10% discount.
+        text: Try AI Flex free for 7 days. No charge until your trial ends.
       - icon: IconCheck
-        text: Spread your payments with flexible financing through Affirm or Klarna. Terms and availability vary by region.
+        text: One price unlocks all 8 courses, LearnPack, Rigobot, AI Copilot, Codespaces, and the community.
       - icon: IconCheck
-        text: One 1:1 mentorship session included. Add more at any time for $25 each.
+        text: Choose 3, 6, or 12 months. No contracts, cancel anytime.
+      - icon: IconCheck
+        text: Want a human in the loop? Add a 1:1 mentorship session anytime for $25.
     cta:
       text: Get more info
       url: "#modal-y2myvq"
       variant: primary
-    section_id: pricing-fsmxva
+    section_id: pricing-aiflex
     marginY:
       desktop: lg md
     paddingY:
