@@ -1010,8 +1010,8 @@ function CaptchaTab() {
           {isLoading ? (
             <IconLoader2 className="h-4 w-4 animate-spin text-muted-foreground" data-testid="spinner-turnstile-status" />
           ) : configured ? (
-            <Badge variant="secondary" className="text-xs gap-1" data-testid="badge-turnstile-configured">
-              <IconCheck className="h-3 w-3" />
+            <Badge variant="outline" className="gap-1.5 text-sm px-3 py-1 text-green-700 dark:text-green-400 border-green-500/40 bg-green-500/10" data-testid="badge-turnstile-configured">
+              <IconCheck className="h-4 w-4" />
               Configured
             </Badge>
           ) : (
