@@ -1,31 +1,11 @@
 slug: ai-fluency
-title: AI fluency
-job_role: Ingeniero de Inteligencia Artificial
-settings:
-  loading:
-    eager_count: 3
-meta:
-  page_title: AI fluency
-  description: >-
-    Conviértete en Ingeniero de IA en 24 semanas con mentoría ilimitada 1:1, orientación profesional y proyectos
-    prácticos. Inicia una carrera con salarios iniciales de $95K-$135K.
-  robots: index, follow
-  og_image: /images/programs/ai-engineering-og.jpg
-  priority: 0.9
-  change_frequency: weekly
-schema:
-  include:
-    - organization
-    - website
-    - courses:ai-engineering
 sections:
   - type: hero
-    version: '1.3'
+    version: "1.0"
     variant: course
-    title: Ingeniería de Inteligencia Artificial
-    subtitle: >-
-      Aprende a diseñar, desarrollar y desplegar sistemas completos de Inteligencia Artificial utilizados en entornos
-      reales de producción.
+    title: AI Fluency. Los profesionales más destacados ya están aquí.
+    title_highlight: Los profesionales más destacados ya están aquí.
+    subtitle: Las habilidades en IA tienen ahora una prima salarial del 56% en todas las industrias. En nuestro programa intensivo de upskilling de 4 semanas, aprenderás a crear flujos de trabajo con IA, automatizar tareas y usar la IA como colaboradora, no solo como herramienta. No se requiere programación.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -34,64 +14,51 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduados
     bullet_points:
-      - Transforma un Caso de Empresa completo en un sistema totalmente nativo de IA, nivel por nivel.
-      - Integra modelos inteligentes en software real, conectando datos, arquitectura y usuarios.
-      - Utiliza herramientas modernas de IA y agentes de código para construir y lanzar software más rápido.
+      - Flujos de trabajo con IA adaptados a tu trabajo, tus tareas y tus herramientas.
+      - Automatiza trabajo repetitivo con agentes y n8n.
+      - Prompts que llevan a la IA al máximo rendimiento en cualquier tarea.
     tutors:
-      - name: Marco Gonzalo
+      - name: Instructor Experto
         role: Instructor Principal
-        image: https://storage.googleapis.com/4geeks-academy-website/media/410890.jpg
+        image: https://randomuser.me/api/portraits/men/10.jpg
       - name: Rigo
         role: Tutor de IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: 'Tus mentores:'
-    description: >-
-      Construye sistemas reales listos para producción en nuestro programa de Ingeniería en IA, con mentoría 1:1
-      ilimitada y orientación profesional enfocada en empleabilidad. Conviértete en el profesional que las empresas
-      están buscando.
+    tutors_label: "Tus tutores:"
+    description: La IA no es el futuro, es la base. Los profesionales que van adelante ahora mismo están aprovechando las capacidades de la IA con intención. Así es como das el salto.
     signup_card:
-      title: Recibe el plan de estudios completo
-      description: Accede a la hoja de ruta de 10 hitos y descubre nuestra Metodología de Caso de Empresa.
+      title: Recibe el resumen completo del programa
+      description: "Completa tus datos y el equipo de admisiones te enviará todo lo que necesitas: plan de estudios, detalles del programa y precios. Tarda 2 minutos."
       cta_button:
-        text: Recibir el plan de estudios
-        url: '#apply-modal'
+        text: Envíame los detalles
+        url: "#modal-aifluency"
         variant: primary
       login_link:
-        text: ¿Ya eres estudiante? Inicia sesión.
+        text: ¿Ya eres estudiante? Inicia sesión aquí.
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Programa de {{ global.ai_engineering_week_duration | 24 }} semanas
-        - icon: briefcase-business
-          text: Contenido orientado a la práctica
+          text: Programa de cohorte de 4 semanas
+        - icon: IconUsers
+          text: 1 clase en vivo por semana
+        - icon: IconUserCheck
+          text: Sesión de mentoría 1:1 incluida
         - icon: IconRobot
           text: Aprendizaje y feedback con IA
-        - icon: IconUsers
-          text: Proporción {{ global.global_teacher_student_ratio | 1:8 }} de estudiante–profesor
-        - icon: IconUserCheck
-          text: Mentoría 1:1 ilimitada
-        - icon: book
-          text: Portafolio listo para producción
-    section_id: hero-zactxv
     paddingY:
-      desktop: md
+      desktop: lg md
     marginY:
       desktop: none
-    video:
-      url: https://www.youtube.com/watch?v=hUgwkBtYtUI
-      preview_image_url: https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-10-120305.png
+    section_id: hero-aifluency
   - type: modal
-    version: '1.0'
-    section_id: modal-qf93fn
-    heading: Recibir el Plan de Estudios
-    description: >-
-      Completa el siguiente formulario y recibirás el temario completo, la estructura del programa, opciones de horario,
-      información sobre matrícula y el marco de apoyo.
+    version: "1.0"
+    heading: Recibe los detalles del programa
+    description: Completa tus datos de contacto y el equipo de admisiones te enviará todo lo que necesitas saber.
     show_close: true
     size: md
     form:
       variant: stacked
-      submit_label: Obtener
+      submit_label: Envíame los detalles
       conversion_name: request_more_info
       automations: soft
       fields:
@@ -106,9 +73,11 @@ sections:
           required: true
         program:
           visible: false
-          default: ai-engineering
+          required: true
+          default: "{{ single.bc_slug | ai-fluency }}"
       success:
-        message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
+        message: Revisa tu bandeja de entrada. El equipo de admisiones se pondrá en contacto pronto.
+    section_id: modal-aifluency
   - type: awards_marquee
     section_id: awards_marquee-tjpzl5
     version: v1.0
@@ -151,291 +120,61 @@ sections:
     paddingY:
       desktop: none
     marginY:
-      desktop: md
-  - type: graduates_stats
-    heading: Resultados reales. Cifras reales.
-    subheading: Más de 6.000 graduados. Resultados sólidos en todos los frentes.
-    stats:
-      - value: 84%
-        label: Tasa media de inserción laboral
-      - value: 55%
-        label: Aumento salarial medio en el nuevo puesto
-      - value: 3-6 meses
-        label: Tiempo medio para conseguir empleo
-    collage_images:
-      - image_id: group-7085-1
-        col_span: 5
-        row_span: 2
-        alt: 'Image: Gemini_Generated_Image_uwpyyruwpyyruwpy'
-        id: gemini-generated-image-uwpyyruwpyyruwpy
-        object_scale: 1.1
-        object_position: 50% 30%
-      - image_id: group-7086-1
-        col_span: 7
-        row_span: 2
-        alt: 'Image: Gemini_Generated_Image_pd2u4upd2u4upd2u'
-        id: gemini-generated-image-pd2u4upd2u4upd2u
-        object_scale: 1
-        transform_origin: 50% 50%
-        object_position: 50% 60%
-      - image_id: group-7084-1
-        col_span: 6
-        row_span: 2
-        alt: 'Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)'
-        id: gemini-generated-image-dhko5mdhko5mdhko-1
-        object_scale: 1.05
-      - image_id: group-7087-1
-        col_span: 6
-        row_span: 2
-        alt: 'Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4'
-        id: gemini-generated-image-wpk4yvwpk4yvwpk4
-        object_scale: 1.05
-        transform_origin: 50% 50%
-        object_position: 50% 45%
-    section_id: graduates_stats-u0s2cq
+      desktop: md lg
+  - type: features_quad
+    version: "1.0"
+    variant: default
+    heading: ¿Es este programa para ti?
+    description: Si te identificas con alguno de estos puntos, este programa está hecho para ti.
+    cards:
+      - icon: IconRocket
+        title: Usas herramientas de IA pero no estás aprovechando todo su potencial.
+      - icon: IconClock
+        title: Las tareas repetitivas consumen tu tiempo y tu atención.
+      - icon: IconTrendingUp
+        title: Sabes que la fluidez en IA se está convirtiendo en un requisito para avanzar en tu carrera.
+      - icon: IconCoin
+        title: Quieres la prima salarial que viene con habilidades reales en IA.
+    background: hsl(var(--muted))
+    section_id: features_quad-aifluency
     marginY:
-      desktop: none md
-    maxWidth:
-      desktop: 6xl
-    paddingY:
-      desktop: md none
+      desktop: none lg
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-charts
-    subtitle: La demanda existe. El talento, no.
-    title: Por qué Ingeniería de IA ahora
-    description: >-
-      En los últimos dos años, la IA ha generado 1,3 millones de nuevos empleos en el mundo, y solo el 3 % de la
-      población activa tiene las habilidades para cubrirlos. LinkedIn sitúa al Ingeniero de IA entre los roles de más
-      rápido crecimiento en 2026. La demanda existe. El talento, no. Ahí está tu oportunidad.
+    subtitle: Los datos son claros.
+    title: La fluidez en IA ya no es opcional
+    description: Los profesionales con habilidades en IA ganan más, avanzan más rápido y tienen mayor demanda en todas las industrias, no solo en tecnología. El cambio ya está en marcha. Estos son los números detrás de ello.
     background: bg-slate-950
-    card_bars_accent: hsl(var(--destructive) / 0.5)
-    card_gauge_accent: hsl(var(--accent))
-    card_trend_accent: hsl(var(--primary))
+    card_bars_accent: hsl(var(--primary))
+    card_gauge_accent: hsl(var(--destructive) / 0.5)
+    card_trend_accent: hsl(var(--accent))
     card_bars:
-      title: Más empleos nuevos en IA que puestos perdidos
-      description: Delta anual · 2021-2025 · indexado
-      stat_value: +340%
-      stat_label: empleos netos nuevos en IA desde 2021
-      displaced_label: Desplazados
-      created_label: Creados por la IA
+      title: Las habilidades en IA generan una prima salarial
+      description: Mismo rol · con y sin habilidades en IA · PwC 2025
+      stat_value: +56%
+      stat_label: prima salarial para trabajadores con habilidades en IA frente a compañeros del mismo rol
+      displaced_label: Sin habilidades en IA
+      created_label: Con habilidades en IA
     card_gauge:
-      title: ¿Quién está cualificado para roles de IA?
-      description: Población activa global · datos 2025
-      gauge_percentage: 3
-      gauge_label: cualificados
-      stat_label: de la población activa no está preparada hoy para roles de IA
-      bar1_label: Talento tradicional
-      bar2_label: Profesionales preparados para IA
+      title: La alfabetización en IA se convierte en requisito laboral
+      description: Roles globales · LinkedIn 2025
+      gauge_percentage: 30
+      gauge_label: requieren alfabetización en IA
+      stat_label: de los roles laborales ya requieren alfabetización en IA a nivel global
+      bar1_label: Roles que requieren IA
+      bar2_label: Roles sin requisito de IA
     card_trend:
-      title: La demanda se acelera
-      description: Ofertas indexadas · 2020 → proyección 2027
-      stat_value: 1,3M
-      stat_label: nuevos empleos en IA creados globalmente en dos años
-      end_label: 1,3M · 2027
-    section_id: features_grid-21s11v
+      title: La demanda de trabajadores con fluidez en IA se acelera
+      description: Crecimiento de demanda indexado · LinkedIn/WEF 2026
+      stat_value: 7x
+      stat_label: crecimiento en la demanda de trabajadores con fluidez en IA desde 2023
+      end_label: 7x · 2026
+    section_id: features_grid-aifluency
     paddingY:
-      desktop: none md
+      desktop: none lg
     marginY:
-      desktop: md
-  - type: syllabus
-    variant: program-modules
-    program_title: AI Native Full Stack — Módulos del programa
-    program_description: >-
-      Construye sistemas reales con IA desde el primer día. Este currículo se organiza en dos tracks — IA Central y
-      Agentes, e Infraestructura para IA — más un capstone que integra todo en una empresa completamente transformada y
-      desplegada. Apoyado por fundamentos complementarios en herramientas y prácticas de desarrollo moderno a lo largo
-      del programa.
-    tech_logos:
-      - name: Python
-        icon: python
-      - name: OpenAI
-        icon: openai
-      - name: n8n
-        icon: n8n
-      - name: Docker
-        icon: docker
-      - name: React
-        icon: react
-    module_cards:
-      - title: Asistentes Personales con OpenClaw
-        duration: IA Central y Agentes
-        objectives:
-          - Configurar un agente de IA de código abierto como asistente personal
-          - Asignar tareas e integrar aplicaciones externas con el agente
-        projects: >-
-          Despliega y configura un asistente de IA autoalojado — tuyo, bajo tu control, sin depender de proveedores
-          externos.
-        orientation: vertical
-        icon: IconRobot
-      - title: Asistentes Personales Avanzados con OpenClaw
-        duration: IA Central y Agentes
-        objectives:
-          - Identificar escenarios donde un agente resuelve problemas reales de negocio
-          - Desarrollar habilidades personalizadas para OpenClaw
-          - Implementar memoria contextual (episódica, semántica, procedimental)
-          - Configuración y extensión avanzada del agente
-        projects: Convierte tu asistente básico en una herramienta productiva con autonomía real en contextos de negocio.
-        orientation: vertical
-        icon: IconRobot
-      - title: Trabajar con Agentes de Código IA
-        duration: IA Central y Agentes
-        objectives:
-          - Construir bancos de memoria y reglas de contexto desde una base de código existente
-          - Escribir especificaciones ejecutables para agentes (agent specs)
-          - Sintetizar habilidades reutilizables para que los agentes actúen con precisión
-        projects: >-
-          Construye bancos de memoria y reglas de contexto que conviertan un agente de código en un colaborador que
-          entiende tu base de código.
-        orientation: vertical
-        icon: IconCode
-      - title: LLMs, Entrenamiento y RAG
-        duration: IA Central y Agentes
-        objectives:
-          - Preparar datos y seleccionar modelos para entrenamiento
-          - Implementar técnicas RAG en bases de conocimiento propietarias
-          - Trabajar con bases de datos vectoriales
-          - Evaluar, depurar e integrar modelos en producción
-        projects: Implementa RAG para que tu agente responda con conocimiento propietario y actualizado.
-        orientation: vertical
-        icon: IconDatabase
-      - title: Ingeniería Agéntica
-        duration: IA Central y Agentes
-        objectives:
-          - Construir agentes con llamadas a herramientas (function calls reales)
-          - Implementar guardrails como mecanismo de seguridad y control
-          - Proveer herramientas al agente mediante CLIs optimizadas para IA
-          - Extender las capacidades del agente con el Protocolo de Contexto de Modelo (MCP)
-          - Dar memoria persistente a un agente
-        projects: >-
-          Construye agentes que llaman herramientas, acceden a sistemas externos vía MCPs y CLIs, y operan con memoria
-          persistente.
-        orientation: vertical
-        icon: IconBolt
-      - title: Flujos de Trabajo Agénticos
-        duration: IA Central y Agentes
-        objectives:
-          - Diseñar sistemas multi-agente con enrutamiento y arbitraje
-          - Implementar memoria compartida entre agentes
-          - Desplegar flujos de trabajo agénticos con funciones serverless y durables
-        projects: Diseña sistemas donde múltiples agentes colaboran, distribuyen tareas y funcionan de forma autónoma a escala.
-        orientation: vertical
-        icon: IconLayoutKanban
-      - title: Desarrollo Backend con Agentes de Código
-        duration: Infraestructura para IA
-        objectives:
-          - Diseñar arquitecturas backend para soluciones potenciadas por IA
-          - Crear bucles de agente integrando LLMs con APIs
-          - Implementar almacenamiento ligero y procesamiento de datos CSV
-          - Construir y exponer APIs REST para frontends y agentes
-        projects: >-
-          Construye APIs robustas con FastAPI, implementa bucles de agente en Python y diseña arquitecturas backend
-          orientadas a casos de uso de IA.
-        orientation: vertical
-        icon: IconServer
-      - title: Automatizaciones de Flujos de Trabajo
-        duration: Infraestructura para IA
-        objectives:
-          - Modelar lógica de negocio con diagramas de flujo
-          - Implementar flujos básicos y avanzados en n8n
-          - Integrar LLMs y aplicaciones externas en automatizaciones
-          - Desplegar flujos mantenibles con manejo de errores
-        projects: Construye automatizaciones de negocio con IA en n8n que se ejecutan de forma autónoma sin intervención manual.
-        orientation: vertical
-        icon: IconCode
-      - title: Pipelines de Datos
-        duration: Infraestructura para IA
-        objectives:
-          - Manipular y preparar conjuntos de datos con Python
-          - Construir pipelines de datos desde la aplicación hasta sistemas de análisis
-        projects: >-
-          Construye pipelines que toman datos crudos, los transforman y los dejan listos para alimentar modelos,
-          reportes o agentes.
-        orientation: vertical
-        icon: IconChartBar
-      - title: Telemetría
-        duration: Infraestructura para IA
-        objectives:
-          - Optimizar el almacenamiento para reportes e integridad de datos
-          - Identificar oportunidades de recolección de datos en escenarios reales
-          - Recopilar telemetría y contexto del usuario desde la aplicación
-          - Construir reportes a partir de datos de telemetría
-        projects: Instrumenta aplicaciones para recopilar datos de comportamiento y tomar decisiones basadas en evidencia real.
-        orientation: vertical
-        icon: IconChartBar
-      - title: Procesamiento Asíncrono y Offloading
-        duration: Infraestructura para IA
-        objectives:
-          - Implementar procesamiento en segundo plano para tareas costosas
-          - Gestionar colas de procesos con workers
-          - Usar colas para delegar trabajo entre agentes y servicios
-        projects: >-
-          Implementa sistemas de procesamiento en segundo plano y colas que permiten a los agentes delegar trabajo
-          pesado sin bloquear a los usuarios.
-        orientation: vertical
-        icon: IconServer
-      - title: Tiempo Real
-        duration: Infraestructura para IA
-        objectives:
-          - Construir chats de soporte con LLMs en tiempo real
-          - Implementar streaming de respuestas con generadores (yield)
-          - Integrar webhooks y pub/sub en aplicaciones de IA
-        projects: >-
-          Implementa comunicación en tiempo real entre usuarios y modelos de lenguaje usando streaming, WebSockets y
-          arquitecturas orientadas a eventos.
-        orientation: vertical
-        icon: IconBolt
-      - title: Autenticación de Aplicaciones Web
-        duration: Infraestructura para IA
-        objectives:
-          - Implementar autenticación y restricciones de rutas en FastAPI
-          - Construir flujos de autenticación completos (login, tokens, sesiones)
-        projects: >-
-          Implementa autenticación segura en FastAPI y construye flujos de login completos que definen lo que cada
-          usuario — y agente — puede hacer.
-        orientation: vertical
-        icon: IconCode
-      - title: Manejo de Errores, Depuración y Testing
-        duration: Infraestructura para IA
-        objectives:
-          - Entender y gestionar errores en tiempo de ejecución con control de flujo
-          - Desarrollar suites de pruebas para aplicaciones robustas
-        projects: >-
-          Verifica el código generado por IA con manejo controlado de errores y suites de pruebas que validan el
-          comportamiento esperado.
-        orientation: vertical
-        icon: IconCode
-      - title: Ciberseguridad en Aplicaciones de IA
-        duration: Infraestructura para IA
-        objectives:
-          - Identificar y corregir las vulnerabilidades OWASP Top 10 en aplicaciones web
-          - Implementar prácticas de seguridad específicas para integraciones de IA
-          - Usar LLMs como herramienta de auditoría de ciberseguridad
-        projects: >-
-          Identifica vulnerabilidades críticas en aplicaciones de IA e implementa prácticas seguras en la integración de
-          modelos.
-        orientation: vertical
-        icon: IconCode
-      - title: Empresa Transformada por IA
-        duration: Capstone
-        objectives:
-          - Frontend generado por IA
-          - API con autenticación completa
-          - Pipeline de telemetría y reportes
-          - Flujos de trabajo automatizados generados por agentes
-          - Capa de conocimiento RAG
-          - Agentes con llamadas a herramientas
-          - Comunicación en tiempo real
-        projects: >-
-          Integra todo lo aprendido en un sistema funcional y desplegado — la transformación completa de una empresa a
-          través de la IA.
-        orientation: horizontal
-        icon: IconCode
-    paddingY:
       desktop: lg
-    marginY:
-      desktop: md xl
-    section_id: syllabus-h8y3ky
   - type: trust_cards
     version: v1.0
     title: Muy bien valorado en las principales plataformas.
@@ -462,157 +201,131 @@ sections:
     background: hsl(var(--secondary))
     maxWidth:
       desktop: 6xl
-  - type: features_grid
-    version: '1.0'
-    variant: stats-cards
-    title: Los roles que puedes conseguir. Y los salarios que los acompañan.
-    subtitle: Mucha demanda. Salarios altos.
-    description: >-
-      Los roles de Ingeniería de IA están entre los de más rápido crecimiento y mejor pagados en tecnología. Las
-      empresas contratan con urgencia y pagan más por quien sabe construir con IA. LinkedIn habla de un crecimiento ×42
-      en Forward-Deployed Engineering solo desde 2023. Estos son algunos de los puestos que consiguen nuestros
-      graduados.
-    card_color: bg-background
-    items:
-      - value: $105K–$155K
-        title: Forward-Deployed Engineer
-      - value: $95K–$135K
-        title: AI Software Engineer
-      - value: $90K–$130K
-        title: AI-Fluent Full Stack Engineer
-    section_id: features_grid-wx7svv
+  - type: syllabus
+    variant: program-modules
+    program_title: Descripción del Programa AI Fluency
+    program_description: Aprende haciendo, semana a semana. El programa comienza con un análisis de tu propio trabajo y tareas, para que todo lo que aprendas se aplique directamente a tu día a día. Cada semana combina módulos a tu ritmo y una sesión en vivo con tu instructor y cohorte para practicar, resolver dudas y recibir feedback.
+    tech_logos:
+      - name: OpenAI
+        icon: openai
+      - name: n8n
+        icon: n8n
+      - name: Git
+        icon: git
+    module_cards:
+      - title: Cómo funciona realmente la IA
+        duration: Semana 1
+        objectives:
+          - Qué son los LLMs y cómo funcionan
+          - Por qué la elección del modelo importa en costo y calidad
+          - La diferencia entre un chatbot, asistente y agente
+          - "Fundamentos del prompting: rol, contexto, formato, restricciones"
+          - "Auditoría laboral: identifica tus principales candidatos a automatización"
+        projects: Escribe tus primeros 5 prompts para tareas reales que haces cada semana.
+        orientation: vertical
+        icon: IconBolt
+      - title: El prompting como habilidad
+        duration: Semana 2
+        objectives:
+          - "Patrones de prompting: cadena de pensamiento, few-shot, persona, output estructurado"
+          - Prompting para emails, informes, investigación y resúmenes de reuniones
+          - Gestión efectiva del contexto en IA
+          - Construcción de una biblioteca personal de prompts
+        projects: Sal con 3–5 prompts funcionales para tareas reales de tu trabajo.
+        orientation: vertical
+        icon: IconCode
+      - title: Tu asistente personal de IA
+        duration: Semana 3
+        objectives:
+          - Qué son los agentes de IA y cómo funcionan las habilidades
+          - Instalación y configuración de OpenClaw
+          - Creación de habilidades personalizadas a partir de plantillas de prompts
+          - Conexión de tu asistente a Google Drive, Gmail o Notion
+        projects: Ejecuta una habilidad personalizada en una tarea personal real.
+        orientation: vertical
+        icon: IconRobot
+      - title: Pipelines de automatización con n8n
+        duration: Semana 4
+        objectives:
+          - "Fundamentos de n8n: nodos, disparadores y flujos de trabajo"
+          - Conexión de n8n con Gmail, Slack, Google Sheets y webhooks
+          - Integración de n8n con un agente de IA para pasos de toma de decisiones inteligentes
+          - "Preparación del proyecto final: mapea y construye tu automatización"
+        projects: Construye y demuestra una automatización en vivo que gestione una tarea recurrente real.
+        orientation: vertical
+        icon: IconLayoutKanban
+      - title: Flujo de trabajo automatizado con IA
+        duration: Proyecto Capstone
+        objectives:
+          - Una automatización en vivo en n8n que resuelve una tarea personal o profesional real
+          - Al menos un paso de toma de decisiones con IA integrado en el flujo de trabajo
+          - Demo en vivo presentada al instructor y a los compañeros
+        projects: Una automatización real que construiste, que es tuya y que puedes seguir mejorando.
+        orientation: horizontal
+        icon: IconChartBar
     marginY:
-      desktop: none xl
+      desktop: md
     paddingY:
-      desktop: md none
-    background: hsl(var(--card))
-  - type: ai_learning
-    variant: feature-tabs
-    badge: ¿Por qué 4Geeks?
-    title: El camino más personalizado hacia una carrera en IA
-    description: Avanza más rápido que nunca, con un sistema de apoyo construido alrededor de tu ritmo, tus objetivos y tu carrera.
-    features:
-      - icon: bot
-        title: Feedback con IA disponible 24/7
-        description: ''
-        show_rigobot_logo: true
+      desktop: lg
+    section_id: syllabus-aifluency
+  - type: human_and_ai_duo
+    version: "1.0"
+    heading: Soporte humano y de IA para que nunca pierdas el ritmo
+    description: Mantenerse motivado es fácil cuando todo encaja. Se vuelve difícil cuando te topas con un muro. AI Fluency combina un mentor humano real con Rigobot, nuestro tutor de IA, para que siempre tengas a alguien a quien acudir y ninguna razón para parar.
+    bullet_groups:
+      - title: "Tu mentor experto:"
+        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
         bullets:
-          - text: Feedback instantáneo de Rigobot, nuestro tutor de IA
-          - text: Orientación adaptada a tu nivel y progreso
-          - text: Ayuda inmediata a cualquier hora, día o noche
-          - text: Cientos de ejercicios prácticos y evaluaciones técnicas
-        video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
-      - icon: Headset
-        title: Mentoría 1:1 ilimitada, de por vida
-        description: ''
-        show_rigobot_logo: true
+          - text: Una sesión 1:1 con un instructor senior, incluida en tu matrícula
+          - text: Orientación experta adaptada a ti.
+          - text: Enfocado en tus tareas, flujos de trabajo y objetivos reales
+          - text: Sesiones adicionales disponibles para reservar cuando quieras, con costo adicional
+      - title: "Rigobot, tu tutor de IA:"
+        image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
         bullets:
-          - text: Acceso de por vida a mentoría técnica 1:1
-          - text: Proporción {{ global.global_teacher_student_ratio | 7:1 }} estudiante–profesor para orientación personalizada
-          - text: Check-ins semanales y colaboración entre pares vía Slack
-          - text: Canales dedicados de Slack para soporte de código, bolsa de trabajo y consejos de carrera
-        video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
-      - icon: TrendingUp
-        title: Acompañamiento profesional para el mercado laboral de IA
-        description: ''
-        show_rigobot_logo: true
-        bullets:
-          - text: Coaching personalizado 1:1 de por vida
-          - text: CVs y portafolios optimizados para filtros de IA
-          - text: Preparación para entrevistas y negociación salarial
-          - text: Referencias directas a nuestra red de más de 400 empleadores
-        video_url: https://youtu.be/-2ZvlgDnltc
-    section_id: ai_learning-p4d93r
-    marginY:
-      desktop: md lg
-    paddingY:
-      desktop: md sm
-    background: hsl(210 100% 50% / 0.05)
-  - type: testimonials
-    section_id: testimonials-ghxelh
-    title: Las personas detrás de los números.
-    subtitle: 'Distintos puntos de partida. Un mismo resultado: una carrera en tech.'
-    related_features:
-      - content-and-syllabus
-      - career-support
-    rating_summary:
-      average: {{ global.global_review_rating | 4.9 }}
-      count: {{ global.global_review_count | 700 }}
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: none md
+          - text: Disponible 24/7 durante todo el programa
+          - text: Pide ayuda, feedback o una explicación cuando lo necesites
+          - text: Tu tutor siempre activo para todos los módulos a tu propio ritmo
+          - text: Se adapta a tu nivel y a lo que estás trabajando
+    section_id: human_and_ai_duo-hz7p4j
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Matrícula y opciones de financiamiento
-    subtitle: Invertir en tu carrera importa. Hacemos que sea más fácil con varias formas de financiar tu inscripción.
-    discount_text: 'Descuento por pago completo: Ahorra 10% pagando de una sola vez.'
-    financing_text: 'Financiamiento basado en crédito: desde'
-    financing_amount: {{ global.price_ai_engineering | $399 }}
+    subtitle: Invertir en tus habilidades de IA es la decisión inteligente. 4Geeks tiene el historial para respaldarlo.
+    discount_text: "Descuento por pago completo: Ahorra 10% con pago anticipado."
+    financing_text: "Financiamiento flexible: desde"
+    financing_amount: "{{ global.price_ai_fluency_financing | $150 }}"
     tech_icons:
       - openai
-      - python
-      - react
-      - nodejs
-      - api
-      - brain
-      - robot
-      - settings
+      - claude
+      - n8n
+      - openclaw
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
+        text: La matrícula completa es $900. Paga por adelantado y recibe un 10% de descuento.
       - icon: IconCheck
-        text: >-
-          Matricúlate con Garantía de Empleo* para mayor tranquilidad. Consigue empleo en los 9 meses posteriores a
-          graduarte o te devolvemos el importe de la matrícula.&nbsp;<div>*No disponible en todas las regiones. <a
-          href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Aplican
-          términos y condiciones</a>.</div>
+        text: Divide tus pagos con financiamiento flexible a través de Affirm o Klarna. Términos y disponibilidad varían según la región.
       - icon: IconCheck
-        text: Financia la matrícula en cuotas mensuales, con plazos de hasta 48 meses según tu región.
+        text: Una sesión de mentoría 1:1 incluida. Agrega más en cualquier momento por $25 cada una.
     cta:
-      text: Recibir más información
-      url: '#modal-qf93fn'
+      text: Obtener más información
+      url: "#modal-aifluency"
       variant: primary
-    section_id: pricing-dy3guv
+    section_id: pricing-aifluency
     marginY:
       desktop: lg md
     paddingY:
-      desktop: md
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - tampa-usa
-      - orlando-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - lapaz-bolivia
-      - lima-peru
-      - montevideo-uruguay
-      - panamacity-panama
-      - quito-ecuador
-      - santiago-chile
-      - mexicocity-mexico
-    background: hsl(var(--secondary))
+      desktop: md lg
+    background: hsl(210 100% 50% / 0.05)
   - type: pricing
-    version: '1.0'
+    version: "1.0"
     variant: product
     title: Matrícula y opciones de financiamiento
-    subtitle: Invertir en tu carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
-    discount_text: 'Descuento por Pago Completo: Ahorra 10% con pago anticipado.'
-    financing_text: >-
-      Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta
-      a aprobación por la entidad financiera.*
+    subtitle: Invertir en una nueva carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
+    discount_text: "Descuento por pago completo: Ahorra 10% con pago anticipado."
+    financing_text: Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
     financing_amount: 140€
     tech_icons:
       - python
@@ -627,15 +340,11 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: >-
-          Paga de contado para obtener un mejor precio con un descuento adicional o distribuye los pagos de 6 cuotas
-          hasta 24 con nuestros partners.
+        text: Paga de contado para obtener un mejor precio con un descuento adicional, o divide los pagos en cuotas sin intereses de hasta 24 meses con nuestros partners.
       - icon: IconCheck
         text: 2–3 becas basadas en mérito disponibles por cohorte para solicitantes altamente calificados.
       - icon: IconCheck
-        text: >-
-          Trabajamos con socios de confianza para ofrecer financiamiento flexible y asequible, para que puedas enfocarte
-          en tu futuro, no en tus tarifas.
+        text: Trabajamos con socios de confianza para ofrecer financiamiento flexible y asequible, para que puedas enfocarte en tu futuro, no en tus tarifas.
     cta:
       text: Obtener más información
       url: /es/apply
@@ -644,7 +353,7 @@ sections:
     marginY:
       desktop: md xl
     paddingY:
-      desktop: lg md
+      desktop: md lg
     showOnLocations:
       - barcelona-spain
       - madrid-spain
@@ -657,135 +366,38 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
-    background: hsl(var(--secondary))
-  - type: numbered_steps
-    version: '1.0'
-    title: Consigue empleo o te devolvemos el dinero.
-    description: >-
-      Consigue empleo en un plazo de 9 meses o te reembolsamos la matrícula completa. Así de seguros estamos de lo que
-      hemos construido.
-    description_link:
-      text: '*No disponible en todas las regiones. Aplican términos y condiciones.'
-      url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
-    background: bg-muted/30
-    steps:
-      - icon: School
-        text: Añade la Garantía de Empleo a tu plan de pago.
-      - icon: briefcase-business
-        text: Completa el programa y sigue el proceso de carrera GeekForce.
-      - icon: banknote
-        text: Consigue empleo en 9 meses o recibe el reembolso íntegro de la matrícula.
-    section_id: numbered_steps-4jxg0o
-    showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - orlando-usa
-      - tampa-usa
-      - toronto-canada
-      - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
-      - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
+    background: hsl(210 100% 50% / 0.05)
+  - type: testimonials
+    section_id: testimonials-ghxelh
+    title: Las personas detrás de los números.
+    subtitle: "Distintos puntos de partida. Un mismo resultado: fluidez real en IA."
+    related_features:
+      - content-and-syllabus
+      - career-support
+    rating_summary:
+      average: "{{ global.global_review_rating | 4.9 }}"
+      count: "{{ global.global_review_count | 700 }}"
     paddingY:
+      desktop: md lg
+    marginY:
       desktop: none md
-    marginY:
-      desktop: none xl
-  - type: whos_hiring
-    section_id: whos_hiring-pli2th
-    variant: carousel
-    title: Empresas que contratan a nuestros graduados
-    subtitle: Nuestros ingenieros de IA trabajan en compañías líderes a nivel global
-    logos:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/microsoft_1764719829995.png
-        alt: Microsoft
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_google_developers-300x68-q70.webp
-        alt: Google Developers
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/boats_1764719939123.jpg
-        alt: Boats Group
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_meta-761x243-q70.webp
-        alt: Meta
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_ebay-400x160-q70.webp
-        alt: eBay
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/natgeo_1764719975443.png
-        alt: National Geographic
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/evernote_1764719981901.png
-        alt: Evernote
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_telefonica-300x73-q70.webp
-        alt: Telefónica
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_twilio-684x200-q70.webp
-        alt: Twilio
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/uber_1764719999685.png
-        alt: Uber
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_neo9-500x200-q70.webp
-        alt: Neo9
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
-        alt: Jooble
-    marginY:
-      desktop: md
-    paddingY:
-      desktop: none
-    background: hsl(var(--background))
   - type: faq
-    section_id: faq-wjn9x0
+    section_id: faq-f4yd0z
     title: Preguntas frecuentes
-    hardcoded_entries:
-      - question: ¿Qué requisitos previos necesito para Ingeniería de IA?
-        answer: >-
-          Se recomienda conocimiento básico de programación, pero no es obligatorio. Nuestro programa comienza con
-          conceptos fundamentales y avanza hasta ingeniería de IA avanzada. Si eres nuevo en programación, tenemos
-          materiales preparatorios para ayudarte a comenzar.
-        locations:
-          - all
-        related_features: []
-        priority: 0
-      - question: ¿Cuánto dura el programa?
-        answer: >-
-          El programa de Ingeniería de IA está diseñado para completarse en 24 semanas. El ritmo es flexible, así que
-          puedes acelerar o dedicar más tiempo según tu horario y ritmo de aprendizaje.
-        locations:
-          - all
-        related_features: []
-        priority: 0
-      - question: ¿Qué tipo de proyectos construiré?
-        answer: >-
-          Construirás aplicaciones de IA listas para producción incluyendo sistemas RAG, orquestadores multi-agente,
-          aplicaciones de IA en tiempo real y un proyecto final completo. Todos los proyectos utilizan tecnologías y
-          patrones del mundo real usados por empresas líderes.
-        locations:
-          - all
-        related_features: []
-        priority: 0
-      - question: ¿Necesito hardware costoso para desarrollo de IA?
-        answer: >-
-          ¡No! Todos los ejercicios y proyectos se ejecutan en la nube. Proporcionamos acceso a entornos de desarrollo
-          en la nube y APIs de IA, así que puedes aprender solo con un portátil y conexión a internet.
-        locations:
-          - all
-        related_features: []
-        priority: 0
-      - question: ¿El certificado es reconocido por los empleadores?
-        answer: >-
-          ¡Sí! Nuestro certificado es reconocido por empleadores en todo el mundo. Estamos licenciados por el
-          Departamento de Educación de Florida y hemos sido destacados por Forbes, Newsweek y Course Report como uno de
-          los mejores bootcamps de código.
-        locations:
-          - all
-        related_features: []
-        priority: 0
+    dynamic_entries:
+      database: frequently_asked_questions
+      limit: 9
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - ai-engineering
+        - item_property_slug: locations
+          value: all
     marginY:
       desktop: none
     paddingY:
       desktop: md
-    background: hsl(var(--card))
+    background: hsl(var(--muted))
     item_overrides:
       how-long-does-the-program-take:
         hideOnLocations:
@@ -801,15 +413,15 @@ sections:
           - rome-italy
           - valencia-spain
   - type: cta_banner
-    version: '1.0'
-    title: ¿Listo para convertirte en {{ single.job_role | Ingeniero de IA }}?
-    subtitle: El empleo de más rápido crecimiento en 2026 está a un clic. Esta es tu ventana. Únete a la próxima cohorte.
+    version: "1.0"
+    title: ¿Listo para desarrollar tu fluidez en IA?
+    subtitle: Únete a la próxima cohorte y sal con habilidades reales, una automatización en vivo y un certificado. Tu siguiente paso empieza aquí.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: {{ global.call_to_action_apply | Aplicar ahora }}
       conversion_name: student_application
+      submit_label: Iniciar solicitud
       fields:
         email:
           visible: true
@@ -826,11 +438,9 @@ sections:
         program:
           visible: false
           required: true
-          default: ai-engineering
+          default: "{{ single.bc_slug | ai-fluency }}"
       success:
-        message: >-
-          Revisa tu bandeja de entrada. El equipo de admisiones se pondrá en contacto pronto con todo lo que necesitas
-          saber.
+        message: Revisa tu bandeja de entrada. El equipo de admisiones se pondrá en contacto pronto con todo lo que necesitas saber.
       button_className: bg-primary
       terms_className: text-white/80
     form_background: hsl(var(--card))
@@ -839,12 +449,12 @@ sections:
       desktop: lg none
     paddingY:
       desktop: md
-    section_id: cta_banner-7h2ckt
+    section_id: cta_banner-aifluency
   - type: sticky_cta
     section_id: sticky_cta-euuky9
-    version: '1.0'
+    version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: {{ global.call_to_action_apply | Aplicar ahora }}
+    button_label: Aplicar ahora
     show_dismiss: false
     form:
       variant: inline
@@ -867,7 +477,10 @@ sections:
         program:
           visible: false
           required: true
-          default: ai-engineering
+          default: ai-fluency
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
     load: eager
+meta:
+  page_title: AI Fluency — Programa de Upskilling en IA | 4Geeks Academy
+  description: Aprende a crear flujos de trabajo con IA, automatizar tareas y usar la IA como colaboradora. Programa intensivo de 4 semanas. No se requiere programación.
