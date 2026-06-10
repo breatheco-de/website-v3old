@@ -3,7 +3,7 @@ redirects:
     to: /en/blog/$1/$2
   - from: /us/(.*)
     to: /en/$1
-  - from: /es/([a-z\-_]+)/([a-z\-_\d]+)
+  - from: /es/(?!blog/)([a-z\-_]+)/([a-z\-_\d]+)
     to: /es/blog/$1/$2
     priority: fallback
   - from: /es/landing/carne-joven
