@@ -3111,47 +3111,6 @@
         }
       ]
     },
-    "reservation_form": {
-      "src": "https://storage.googleapis.com/4geeks-academy-website/media/reservation-es_1764814854635.webp",
-      "alt": "Reservation form illustration",
-      "focal_point": "center",
-      "tags": [
-        "illustration"
-      ],
-      "usage_count": 4,
-      "hash": "b47d41a836bf6406f2b307b7217ac866b2b1bc6b4d5c6b663b32350e4d8d988f",
-      "width": 1200,
-      "height": 1345,
-      "preset": [
-        "full",
-        "card"
-      ],
-      "widths_generated": [
-        320,
-        480,
-        640,
-        960
-      ],
-      "format": "webp",
-      "srcset": [
-        {
-          "w": 320,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/reservation-es_1764814854635-320w.webp"
-        },
-        {
-          "w": 480,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/reservation-es_1764814854635-480w.webp"
-        },
-        {
-          "w": 640,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/reservation-es_1764814854635-640w.webp"
-        },
-        {
-          "w": 960,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/reservation-es_1764814854635-960w.webp"
-        }
-      ]
-    },
     "reviews_badge": {
       "src": "https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png",
       "alt": "Reviews badge",
@@ -3647,103 +3606,6 @@
         {
           "w": 1280,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/comunity-support_1765908983485-1280w.webp"
-        }
-      ]
-    },
-    "graduates_celebration": {
-      "src": "https://storage.googleapis.com/4geeks-academy-website/media/graduation_1766029503175.webp",
-      "alt": "4Geeks Academy graduates celebrating with their certificates",
-      "focal_point": "center",
-      "tags": [
-        "hero",
-        "logo",
-        "card",
-        "photo",
-        "badge",
-        "partner",
-        "press",
-        "illustration",
-        "testimonial",
-        "team",
-        "award"
-      ],
-      "usage_count": 1,
-      "hash": "f35b2c6d808b95725283cf3dc04d09201801471565dc0fd6e7013925617af829",
-      "width": 1080,
-      "height": 805,
-      "preset": [
-        "hero-wide",
-        "hero-tall",
-        "logo",
-        "card",
-        "card-wide",
-        "full",
-        "icon",
-        "avatar"
-      ],
-      "widths_generated": [
-        32,
-        64,
-        120,
-        128,
-        240,
-        256,
-        320,
-        360,
-        480,
-        640,
-        720,
-        960
-      ],
-      "format": "webp",
-      "srcset": [
-        {
-          "w": 32,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduation_1766029503175-32w.webp"
-        },
-        {
-          "w": 64,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduation_1766029503175-64w.webp"
-        },
-        {
-          "w": 120,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduation_1766029503175-120w.webp"
-        },
-        {
-          "w": 128,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduation_1766029503175-128w.webp"
-        },
-        {
-          "w": 240,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduation_1766029503175-240w.webp"
-        },
-        {
-          "w": 256,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduation_1766029503175-256w.webp"
-        },
-        {
-          "w": 320,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduation_1766029503175-320w.webp"
-        },
-        {
-          "w": 360,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduation_1766029503175-360w.webp"
-        },
-        {
-          "w": 480,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduation_1766029503175-480w.webp"
-        },
-        {
-          "w": 640,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduation_1766029503175-640w.webp"
-        },
-        {
-          "w": 720,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduation_1766029503175-720w.webp"
-        },
-        {
-          "w": 960,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/graduation_1766029503175-960w.webp"
         }
       ]
     },
@@ -8235,46 +8097,6 @@
         {
           "w": 960,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Bootcamp-de-Ingenier-a-de-IA-en-Espa-a-4Geeks-Academy-03-17-2026_09_17_AM-960w.webp"
-        }
-      ]
-    },
-    "captura-de-pantalla-2026-03-17-a-la-s-164440": {
-      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40.png",
-      "alt": "Image: Captura de pantalla 2026-03-17 a la(s) 16.44.40",
-      "focal_point": "center",
-      "tags": [
-        "logo"
-      ],
-      "usage_count": 0,
-      "hash": "4826385ee3f782ce64563ffa8c4b45725baabbcd745a98af6712ef5deb8e3790",
-      "width": 2506,
-      "height": 1294,
-      "preset": [
-        "logo"
-      ],
-      "widths_generated": [
-        32,
-        64,
-        120,
-        240
-      ],
-      "format": "webp",
-      "srcset": [
-        {
-          "w": 32,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-32w.webp"
-        },
-        {
-          "w": 64,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-64w.webp"
-        },
-        {
-          "w": 120,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-120w.webp"
-        },
-        {
-          "w": 240,
-          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Captura-de-pantalla-2026-03-17-a-la-s-16.44.40-240w.webp"
         }
       ]
     },
