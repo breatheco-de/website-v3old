@@ -368,8 +368,6 @@ sections:
     features_title: Choose the timeframe that works for you.
     features:
       - icon: IconCheck
-        text: Try AI Flex free for 7 days. No charge until your trial ends.
-      - icon: IconCheck
         text: One price unlocks all 8 courses, LearnPack, Rigobot, AI Copilot, Codespaces, and the community.
       - icon: IconCheck
         text: Choose 3, 6, or 12 months. No contracts, cancel anytime.
