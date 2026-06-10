@@ -91,6 +91,20 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use('/attached_assets', express.static(path.join(process.cwd(), 'attached_assets')));
 app.use('/marketing-content/images', express.static(path.join(process.cwd(), 'marketing-content', 'images')));
 
+// Proxy /__mockup/ to the mockup sandbox dev server (port 23636)
+// Only active in development — not included in production builds.
+// Using pathFilter (not app.use mount) so the full /__mockup/... path is
+// preserved when forwarded to the sandbox (mount strips the prefix).
+if (process.env.NODE_ENV !== 'production') {
+  const { createProxyMiddleware } = await import('http-proxy-middleware');
+  app.use(createProxyMiddleware({
+    pathFilter: '/__mockup',
+    target: 'http://localhost:23636',
+    changeOrigin: true,
+    ws: true,
+  }));
+}
+
 
 app.use(compression({
   filter: (req, res) => {
