@@ -3,7 +3,7 @@ redirects:
     to: /en/blog/$1/$2
   - from: /us/(.*)
     to: /en/$1
-  - from: /es/(?!blog/)([a-z\-_]+)/([a-z\-_\d]+)
+  - from: /es/([a-z\-_]+)/([a-z\-_\d]+)
     to: /es/blog/$1/$2
     priority: fallback
   - from: /es/landing/carne-joven
@@ -12,5 +12,5 @@ redirects:
     to: /en/interactive-exercise/$1
   - from: /how-to/(.*)
     to: /en/how-to/$1
-  - from: /es/downloadable/:slug
-    to: /es/descargable/:slug
+  - from: /es/downloadable/(.*)
+    to: /es/descargable/$1
