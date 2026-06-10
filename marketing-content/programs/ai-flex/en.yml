@@ -316,37 +316,6 @@ sections:
     section_id: two_column_accordion_card-aiflex
     paddingY:
       desktop: sm
-  - type: bento_cards
-    version: "1.0"
-    title: More Than Just Courses
-    subtitle: Everything you need to learn AI, included.
-    description: AI Flex gives you a full learning environment, not just a set of courses. Every subscription comes with the tools, support, and resources to learn AI and actually put it to work.
-    items:
-      - icon: School
-        title: LearnPack
-        description: Interactive, auto-graded courses with instant feedback, no setup required.
-      - icon: Brain
-        title: Rigobot, your AI tutor
-        description: Tracks your progress and gives personalized help, feedback, and explanations, 24/7.
-      - icon: Lightbulb
-        title: AI Copilot & Tokens
-        description: 300 AI requests a month plus $5 in LLM tokens, to write, debug, and learn faster.
-      - icon: Code
-        title: Cloud Codespaces
-        description: A full coding environment in your browser. Nothing to install, start instantly.
-      - icon: TrendingUp
-        title: Curated Learning Paths
-        description: Follow a path built for your goals, or build your own with Rigobot's guidance.
-      - icon: Users
-        title: Community Access
-        description: Join the 4Geeks community on WhatsApp and learn alongside other students.
-      - icon: School
-        title: Stackable Certificates
-        description: Earn a certificate per course that counts toward AI Fluency and AI Engineering.
-    background: bg-background
-    section_id: bento_cards-aiflex
-    paddingY:
-      desktop: sm
   - type: pricing
     version: "1.0"
     variant: product
