@@ -57,34 +57,6 @@ sections:
     marginY:
       desktop: none
     section_id: hero-aiflex
-  - type: modal
-    version: "1.0"
-    heading: Get the Program Details
-    description: Fill in your contact info and our admissions team will send you everything you need to know.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Send Me the Details
-      conversion_name: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        phone:
-          visible: true
-          required: true
-        program:
-          visible: false
-          required: true
-          default: {{ single.bc_slug | ai-fluency }}
-      success:
-        message: Check your inbox. Our admissions team will be in touch shortly.
-    section_id: modal-y2myvq
   - type: awards_marquee
     section_id: awards_marquee-t8ylg2
     version: v1.0
@@ -128,6 +100,34 @@ sections:
       desktop: none
     marginY:
       desktop: md lg
+  - type: modal
+    version: "1.0"
+    heading: Get the Program Details
+    description: Fill in your contact info and our admissions team will send you everything you need to know.
+    show_close: true
+    size: md
+    form:
+      variant: stacked
+      submit_label: Send Me the Details
+      conversion_name: request_more_info
+      automations: soft
+      fields:
+        email:
+          visible: true
+          required: true
+        first_name:
+          visible: true
+          required: true
+        phone:
+          visible: true
+          required: true
+        program:
+          visible: false
+          required: true
+          default: {{ single.bc_slug | ai-fluency }}
+      success:
+        message: Check your inbox. Our admissions team will be in touch shortly.
+    section_id: modal-y2myvq
   - type: features_grid
     version: "1.0"
     variant: stats-charts
