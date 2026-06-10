@@ -132,7 +132,7 @@ sections:
     version: "1.0"
     variant: stats-charts
     subtitle: The data is in.
-    title: What AI Skills Get You
+    title: Why AI Skills Matter Now
     description: Across industries, professionals who build AI skills are working faster, earning more, and taking on more.
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
