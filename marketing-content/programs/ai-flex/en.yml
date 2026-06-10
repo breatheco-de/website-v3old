@@ -334,7 +334,7 @@ sections:
       - icon: IconCheck
         text: One price unlocks all 8 courses, LearnPack, Rigobot, AI Copilot, Codespaces, and the community.
       - icon: IconCheck
-        text: Choose 3, 6, or 12 months. No contracts, cancel anytime.
+        text: Choose a 3, 6, or 12 months plan. No contracts, cancel anytime.
       - icon: IconCheck
         text: Want a human in the loop? Add a 1:1 mentorship session anytime for $25.
     cta:
