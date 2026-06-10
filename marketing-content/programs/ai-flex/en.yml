@@ -283,33 +283,33 @@ sections:
     section_id: human_and_ai_duo-aiflex
   - type: bento_cards
     version: "1.0"
-    title: 7 Ways Rigobot Keeps You Moving
-    subtitle: Never get stuck again
-    description: Rigobot is your AI-powered coding companion that ensures you never lose momentum. Whether you're debugging at 2am or preparing for an exam, Rigobot is there to help you push through challenges and keep learning.
+    title: More Than Just Courses
+    subtitle: Everything you need to learn AI, included.
+    description: AI Flex gives you a full learning environment, not just a set of courses. Every subscription comes with the tools, support, and resources to learn AI and actually put it to work.
     items:
-      - icon: CodeReview
-        title: Code Review
-        description: Get instant feedback on your code quality, best practices, and potential improvements.
-      - icon: Brain
-        title: AI Mentoring
-        description: Personalized guidance that adapts to your learning style and pace.
       - icon: School
-        title: Homework & Exam Prep
-        description: Practice problems and explanations to help you ace your assessments.
-      - icon: TrendingUp
-        title: Skill Building
-        description: Targeted exercises to strengthen weak areas and build new competencies.
-      - icon: Bug
-        title: Debugging Assistant
-        description: Step-by-step help to understand and fix errors in your code.
+        title: LearnPack
+        description: Interactive, auto-graded courses with instant feedback, no setup required.
+      - icon: Brain
+        title: Rigobot, your AI tutor
+        description: Tracks your progress and gives personalized help, feedback, and explanations, 24/7.
       - icon: Lightbulb
-        title: Concept Explanations
-        description: Clear, patient explanations of complex programming concepts.
-      - icon: Clock
-        title: 24/7 Availability
-        description: Get help whenever you need it, no waiting for office hours.
+        title: AI Copilot & Tokens
+        description: 300 AI requests a month plus $5 in LLM tokens, to write, debug, and learn faster.
+      - icon: Code
+        title: Cloud Codespaces
+        description: A full coding environment in your browser. Nothing to install, start instantly.
+      - icon: TrendingUp
+        title: Curated Learning Paths
+        description: Follow a path built for your goals, or build your own with Rigobot's guidance.
+      - icon: Users
+        title: Community Access
+        description: Join the 4Geeks community on WhatsApp and learn alongside other students.
+      - icon: School
+        title: Stackable Certificates
+        description: Earn a certificate per course that counts toward AI Fluency and AI Engineering.
     background: bg-background
-    section_id: bento_cards-gy4g4a
+    section_id: bento_cards-aiflex
     paddingY:
       desktop: sm
   - type: split_cards
