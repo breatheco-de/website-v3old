@@ -314,9 +314,11 @@ app.use((req, res, next) => {
 
     // All deferred background tasks fire here — server is already ready to handle requests.
     contentIndex.startSlowScanAsync();
-    databaseManager.warmup().catch((err) => {
-      logger.error({ err, worker: "DatabaseManager" }, "warmup error");
-    });
+    databaseManager.warmup()
+      .then(() => { contentIndex.scanFast(); })
+      .catch((err) => {
+        logger.error({ err, worker: "DatabaseManager" }, "warmup error");
+      });
     startBackgroundSync().catch((err) => {
       logger.error({ err, worker: "SyncState" }, "failed to start background sync");
     });
