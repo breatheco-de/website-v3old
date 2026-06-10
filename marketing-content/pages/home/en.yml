@@ -613,9 +613,6 @@ sections:
       desktop: none md
     paddingY:
       desktop: md none
-    hardcoded_entries:
-      - question: asdads
-        answer: asdsdsd
   - type: cta_banner
     section_id: cta_banner-y7nw0f
     version: "1.0"
