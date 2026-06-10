@@ -347,54 +347,6 @@ sections:
     paddingY:
       desktop: md lg
     background: hsl(210 100% 50% / 0.05)
-  - type: pricing
-    version: "1.0"
-    variant: product
-    title: Tuition and Financing Options
-    subtitle: Investing in a new career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: "Full payment discount: Save 10% with early payment."
-    financing_text: Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and subject to lender approval.*
-    financing_amount: 140€
-    tech_icons:
-      - python
-      - tensorflow
-      - pandas
-      - numpy
-      - sql
-      - git
-      - jupyter
-      - api
-    static_icons: true
-    features_title: Choose the option that fits you best.
-    features:
-      - icon: IconCheck
-        text: Pay upfront to get a better price with an additional discount, or split your payments into 6 interest-free installments through our partners.
-      - icon: IconCheck
-        text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
-      - icon: IconCheck
-        text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
-    cta:
-      text: Get more information
-      url: /es/apply
-      variant: primary
-    section_id: pricing-2ko5pv
-    marginY:
-      desktop: md xl
-    paddingY:
-      desktop: md lg
-    showOnLocations:
-      - barcelona-spain
-      - madrid-spain
-      - malaga-spain
-      - valencia-spain
-      - berlin-germany
-      - dublin-ireland
-      - hamburg-germany
-      - lisbon-portugal
-      - milan-italy
-      - munich-germany
-      - rome-italy
-    background: hsl(210 100% 50% / 0.05)
   - type: testimonials
     section_id: testimonials-cbhm8t
     title: The People Behind the Numbers.
