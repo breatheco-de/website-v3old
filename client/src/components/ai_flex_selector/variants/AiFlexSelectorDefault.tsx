@@ -104,8 +104,8 @@ function CourseCard({
     <div
       className="rounded-[13px] border-[1.5px] cursor-pointer select-none transition-all duration-200"
       style={{
-        borderColor: isSelected ? "hsl(var(--primary))" : "hsl(var(--border))",
-        background: isSelected ? "hsl(var(--primary) / 0.03)" : "hsl(var(--background))",
+        borderColor: isSelected ? "#0d6efd" : "#e4e4e4",
+        background: isSelected ? "#f8fbff" : "#fafafa",
         opacity: isSelected ? 1 : 0.6,
         boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 3px 10px rgba(0,0,0,0.03)",
         transition: "border-color .2s, box-shadow .2s, transform .18s, opacity .2s",
@@ -113,14 +113,12 @@ function CourseCard({
       onMouseEnter={(e) => {
         const el = e.currentTarget;
         el.style.opacity = "1";
-        el.style.borderColor = "hsl(var(--primary) / 0.4)";
-        el.style.boxShadow = "0 3px 10px hsl(var(--primary) / 0.08), 0 8px 22px hsl(var(--primary) / 0.05)";
+        el.style.boxShadow = "0 3px 10px rgba(13,110,253,0.08), 0 8px 22px rgba(13,110,253,0.05)";
         el.style.transform = "translateY(-2px)";
       }}
       onMouseLeave={(e) => {
         const el = e.currentTarget;
         el.style.opacity = isSelected ? "1" : "0.6";
-        el.style.borderColor = isSelected ? "hsl(var(--primary))" : "hsl(var(--border))";
         el.style.boxShadow = "0 1px 3px rgba(0,0,0,0.04), 0 3px 10px rgba(0,0,0,0.03)";
         el.style.transform = "none";
       }}
@@ -326,13 +324,13 @@ export default function AiFlexSelectorDefault({ data }: { data: AiFlexSelectorDe
       : { opacity: 1, transform: "none", transition: "opacity .2s, transform .2s" };
 
   const toolBadgeStyle: React.CSSProperties = {
-    fontFamily: "inherit",
+    fontFamily: "'SF Mono','Fira Code',monospace",
     fontSize: "15px",
     fontWeight: 600,
     color: "hsl(var(--muted-foreground))",
     background: "hsl(var(--background))",
     borderRadius: "9999px",
-    padding: "9px 20px",
+    padding: "7px 15px",
     whiteSpace: "nowrap",
     flexShrink: 0,
     cursor: "default",
