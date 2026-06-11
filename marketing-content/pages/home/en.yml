@@ -207,32 +207,6 @@ sections:
     section_id: features_grid-xxxxxxx
     marginY:
       desktop: none md
-  - type: trust_cards
-    version: v1.0
-    title: Top rated across all major platforms.
-    items:
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72.webp
-        rating: 4.9
-        review_count: 4.9 on Course Report
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79.webp
-        rating: 4.8
-        review_count: 4.8 on Google
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/CareerKarma_logo.png
-        rating: 4.9
-        review_count: 4.9 on Career Karma
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        rating: 4.9
-        review_count: 4.9 on SwitchUp
-    name: Default Trust Cards
-    description: Four review platform cards with ratings
-    section_id: trust_cards-eslgbu
-    paddingY:
-      desktop: sm md
-    marginY:
-      desktop: md lg
-    background: hsl(var(--secondary))
-    maxWidth:
-      desktop: 6xl
   - type: banner
     version: v1.0
     variant: marqueeBadges
@@ -269,6 +243,32 @@ sections:
     background: hsl(var(--muted))
     marginY:
       desktop: none xl
+  - type: trust_cards
+    version: v1.0
+    title: Top rated across all major platforms.
+    items:
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72.webp
+        rating: 4.9
+        review_count: 4.9 on Course Report
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79.webp
+        rating: 4.8
+        review_count: 4.8 on Google
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/CareerKarma_logo.png
+        rating: 4.9
+        review_count: 4.9 on Career Karma
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 4.9 on SwitchUp
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-eslgbu
+    paddingY:
+      desktop: sm md
+    marginY:
+      desktop: md lg
+    background: hsl(var(--secondary))
+    maxWidth:
+      desktop: 6xl
   - type: course_selector
     version: "1.0"
     variant: spotlight
