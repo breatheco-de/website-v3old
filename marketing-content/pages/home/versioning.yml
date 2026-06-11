@@ -1,2 +1,4 @@
 en:
-  variants: []
+  variants:
+    - slug: home-new-programs
+      allocation: 0

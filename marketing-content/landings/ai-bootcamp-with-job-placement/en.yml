@@ -33,8 +33,8 @@ sections:
     image_object_fit: none
     form:
       variant: stacked
-      conversion_name: student_application
-      submit_label: Start Your Application
+      conversion_name: request_more_info
+      submit_label: Get the Full Program Info
       fields:
         email:
           visible: true
@@ -56,7 +56,7 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
+        message: Your program overview is on the way! Check your inbox in the next few minutes.
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get the AI Engineering Program Overview
