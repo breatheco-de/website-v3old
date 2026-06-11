@@ -243,28 +243,6 @@ sections:
     section_id: features_grid-xxxxxxx
     marginY:
       desktop: none md
-  - type: features_grid
-    version: "1.0"
-    variant: stats-text
-    maxWidth:
-      desktop: 6xl
-    title: AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.
-    subtitle: That's your opportunity.
-    description: Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
-    background: hsl(210 100% 50% / 0.05)
-    items:
-      - id: "1"
-        value: 7x
-        title: Growth in demand for AI-fluent workers since 2023
-      - id: "2"
-        value: 3%
-        title: Of the workforce qualifies for AI roles
-      - id: "3"
-        value: 56%
-        title: Salary premium for workers with AI skills
-    section_id: features_grid-142xko
-    marginY:
-      desktop: none xl
   - type: career_support_explain
     version: v1.0
     heading: How We Get You Hired. From First Day to Signed Offer.
