@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import Marquee from "@/lib/marquee";
+import { CSSMarquee } from "@/components/ui/CSSMarquee";
 import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import type { AiFlexSelectorDefault } from "@shared/schema";
@@ -105,7 +105,7 @@ function CourseCard({
       className="rounded-[13px] border-[1.5px] cursor-pointer select-none transition-all duration-200"
       style={{
         borderColor: isSelected ? "hsl(var(--primary))" : "hsl(var(--border))",
-        background: isSelected ? "hsl(var(--primary) / 0.05)" : "hsl(var(--background))",
+        background: isSelected ? "hsl(var(--primary) / 0.03)" : "hsl(var(--background))",
         opacity: isSelected ? 1 : 0.6,
         boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 3px 10px rgba(0,0,0,0.03)",
         transition: "border-color .2s, box-shadow .2s, transform .18s, opacity .2s",
@@ -326,13 +326,13 @@ export default function AiFlexSelectorDefault({ data }: { data: AiFlexSelectorDe
       : { opacity: 1, transform: "none", transition: "opacity .2s, transform .2s" };
 
   const toolBadgeStyle: React.CSSProperties = {
-    fontFamily: "'SF Mono','Fira Code',monospace",
-    fontSize: "14px",
+    fontFamily: "inherit",
+    fontSize: "15px",
     fontWeight: 600,
     color: "hsl(var(--muted-foreground))",
     background: "hsl(var(--background))",
     borderRadius: "9999px",
-    padding: "7px 16px",
+    padding: "9px 20px",
     whiteSpace: "nowrap",
     flexShrink: 0,
     cursor: "default",
@@ -364,9 +364,9 @@ export default function AiFlexSelectorDefault({ data }: { data: AiFlexSelectorDe
         </div>
 
         {/* Title */}
-        <h1 className="text-[36px] font-extrabold tracking-[-0.025em] leading-[1.1] mb-[0.6rem]" style={{ color: "hsl(var(--foreground))" }}>
-          {data.title}<br />
-          <span style={{ color: "hsl(var(--primary))" }}>{data.title_highlight}</span>
+        <h1 className="text-[36px] font-extrabold tracking-[-0.025em] leading-[1.1] mb-[0.6rem] font-inter" style={{ color: "hsl(var(--foreground))" }}>
+          <span dangerouslySetInnerHTML={{ __html: data.title }} /><br />
+          <span style={{ color: "hsl(var(--primary))" }} dangerouslySetInnerHTML={{ __html: data.title_highlight }} />
         </h1>
         <p className="text-[15px] leading-[1.6] mb-8" style={{ color: "hsl(var(--muted-foreground))" }}>
           {data.subtitle}
@@ -385,7 +385,7 @@ export default function AiFlexSelectorDefault({ data }: { data: AiFlexSelectorDe
                     ? "hsl(var(--primary))"
                     : i === step && !isResults
                     ? "hsl(var(--primary) / 0.35)"
-                    : "hsl(var(--border))",
+                    : "hsl(var(--background))",
               }}
             />
           ))}
@@ -567,21 +567,11 @@ export default function AiFlexSelectorDefault({ data }: { data: AiFlexSelectorDe
                 </div>
               ) : (
                 <div className="flex flex-col gap-[5px]">
-                  <div className="mx-[60px]" style={maskStyle}>
-                    <Marquee speed={40} pauseOnHover gradient={false}>
-                      {row1.map((tool) => (
-                        <span key={tool} style={toolBadgeStyle}>{tool}</span>
-                      ))}
-                    </Marquee>
+                  <div className="mx-[60px]">
+                    <CSSMarquee items={row1} direction="fwd" speed={58} badgeStyle={toolBadgeStyle} maskStyle={maskStyle} />
                   </div>
                   {useTwoRows && (
-                    <div style={maskStyle}>
-                      <Marquee speed={40} pauseOnHover direction="right" gradient={false}>
-                        {row2.map((tool) => (
-                          <span key={tool} style={toolBadgeStyle}>{tool}</span>
-                        ))}
-                      </Marquee>
-                    </div>
+                    <CSSMarquee items={row2} direction="rev" speed={58} badgeStyle={toolBadgeStyle} maskStyle={maskStyle} />
                   )}
                 </div>
               )}
