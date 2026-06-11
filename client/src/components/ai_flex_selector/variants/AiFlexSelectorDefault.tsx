@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import Marquee from "@/lib/marquee";
+import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import type { AiFlexSelectorDefault } from "@shared/schema";
 
@@ -104,7 +105,7 @@ function CourseCard({
       className="rounded-[13px] border-[1.5px] cursor-pointer select-none transition-all duration-200"
       style={{
         borderColor: isSelected ? "hsl(var(--primary))" : "hsl(var(--border))",
-        background: isSelected ? "hsl(var(--primary) / 0.05)" : "hsl(var(--muted) / 0.5)",
+        background: isSelected ? "hsl(var(--primary) / 0.05)" : "hsl(var(--background))",
         opacity: isSelected ? 1 : 0.6,
         boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 3px 10px rgba(0,0,0,0.03)",
         transition: "border-color .2s, box-shadow .2s, transform .18s, opacity .2s",
@@ -348,25 +349,10 @@ export default function AiFlexSelectorDefault({ data }: { data: AiFlexSelectorDe
   const row1 = useTwoRows ? pathTools.slice(0, mid) : pathTools;
   const row2 = useTwoRows ? pathTools.slice(mid) : [];
 
-  // Robot SVG (inline, same as mockup)
-  const RobotSVG = (
-    <svg
-      width="85"
-      height="85"
-      viewBox="0 0 56 57"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ color: "hsl(var(--foreground))" }}
-    >
-      <path
-        d="M16.4 34h1.2v1.4c0 2.6 2 4.6 4.6 4.6H34c2.6 0 4.6-2 4.6-4.6v-1.3h1.9c.6 0 1-.5 1-1v-5.6h.8c.2 0 .5-.3.5-.5v-.6c0-.2-.3-.5-.5-.5h-.8v-1c0-.6-.4-1-1-1h-1.7c-.3-1.5-1.6-2.1-1.6-2.1 4.1-1.2 1.6-5 1.6-5-.8 1.6-1.9 1.8-3.7 1.6-1.9-.1-10.4-4.1-15 0-2.2 2-2.7 4-2.6 5.5h-1a1 1 0 0 0-1 1v1h-.9c-.3 0-.5.3-.5.5v.6c0 .2.2.5.5.5h.8V33c0 .6.5 1 1 1Zm15.3-8c0-.3.3-.5.6-.5h6.9c.3 0 .6.2.6.6v5.8c0 .3-.3.6-.6.6h-6.9a.6.6 0 0 1-.6-.6V26ZM17 26c0-.3.3-.5.7-.5h6.8c.4 0 .6.2.6.6v5.8c0 .3-.2.6-.6.6h-6.8a.6.6 0 0 1-.7-.6V26Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
+  const RobotIcon = data.icon ? getIcon(data.icon) : null;
 
   return (
-    <div className="min-h-screen bg-background py-12 px-4 pb-16" style={{ fontFamily: "'Inter',system-ui,-apple-system,sans-serif" }}>
+    <div className="min-h-screen py-12 px-4 pb-16" style={{ fontFamily: "'Inter',system-ui,-apple-system,sans-serif" }}>
       <div className="max-w-[1120px] mx-auto">
 
         {/* Badge */}
@@ -409,7 +395,7 @@ export default function AiFlexSelectorDefault({ data }: { data: AiFlexSelectorDe
         {!isResults && (
           <div style={slideStyle} className="relative mx-28">
             <div className="absolute" style={{ right: "calc(100% + 9px)", top: "-19px" }}>
-              {RobotSVG}
+              {RobotIcon && <RobotIcon width="85" height="85" style={{ color: "hsl(var(--foreground))" }} />}
             </div>
             <div className="text-[11px] font-bold tracking-[0.09em] uppercase mb-1" style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}>
               {data.questions[step].subtitle}
@@ -493,7 +479,7 @@ export default function AiFlexSelectorDefault({ data }: { data: AiFlexSelectorDe
         {isResults && currentPath && (
           <div style={slideStyle} className="relative mx-28">
             <div className="absolute" style={{ right: "calc(100% + 9px)", top: "-16px" }}>
-              {RobotSVG}
+              {RobotIcon && <RobotIcon width="85" height="85" style={{ color: "hsl(var(--foreground))" }} />}
             </div>
 
             <div className="text-[11px] font-bold tracking-[0.09em] uppercase" style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}>

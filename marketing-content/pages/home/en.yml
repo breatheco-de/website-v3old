@@ -307,6 +307,7 @@ sections:
     section_id: ai_flex_selector-fq5mqo
     paddingY:
       desktop: sm
+    background: hsl(var(--muted))
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thiriving in tech.
