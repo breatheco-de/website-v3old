@@ -162,7 +162,7 @@ sections:
     variant: stats-charts
     subtitle: The data is clear.
     title: AI Fluency Is No Longer Optional
-    description: Professionals with AI skills earn more, advance faster, and are in higher demand in every industry, not just tech. The shift is already underway. These are the numbers behind it.
+    description: Professionals with AI skills earn more, advance faster, and are in higher demand across every industry, not just tech. The opportunity is real, and the numbers prove it.
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
     card_gauge_accent: hsl(var(--destructive) / 0.5)
