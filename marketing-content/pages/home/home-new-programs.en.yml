@@ -134,6 +134,42 @@ sections:
       desktop: 6xl
     paddingY:
       desktop: sm none
+  - type: features_grid
+    version: "1.0"
+    variant: stats-charts
+    subtitle: This is your opportunity.
+    title: <!--StartFragment--><h2 class="text-2xl md:text-h2 mb-2 text-foreground" data-testid="text-stats-text-title">AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.</h2><!--EndFragment-->
+    description: Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
+    card_bars_accent: hsl(var(--primary))
+    card_gauge_accent: hsl(var(--destructive) / 0.5)
+    card_trend_accent: hsl(var(--accent))
+    card_bars:
+      badge: More New AI Roles Than Job Losses
+      stat_value: +340%
+      stat_label: net new AI roles created since 2022
+      years:
+        - "2022"
+        - "2023"
+        - "2024"
+        - "2025"
+        - "2026"
+      displaced_label: Displaced
+      created_label: Created by AI
+    card_gauge:
+      badge: Who's ready for AI roles?
+      gauge_percentage: 3
+      gauge_label: qualified
+      stat_label: of the workforce is not ready for AI roles today
+      bar1_label: Traditional workforce
+      bar2_label: AI-ready professionals
+    card_trend:
+      badge: Demand Is Accelerating
+      stat_value: 1.3M
+      stat_label: new AI roles expected by 2027
+      end_label: 1.3M · 2027
+    section_id: features_grid-xxxxxxx
+    marginY:
+      desktop: none md
   - type: banner
     version: v1.0
     variant: marqueeBadges
@@ -170,40 +206,68 @@ sections:
     background: hsl(var(--muted))
     marginY:
       desktop: none xl
-  - type: features_grid
+  - type: course_selector
     version: "1.0"
-    variant: stats-charts
-    subtitle: This is your opportunity.
-    title: <!--StartFragment--><h2 class="text-2xl md:text-h2 mb-2 text-foreground" data-testid="text-stats-text-title">AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.</h2><!--EndFragment-->
-    description: Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
-    card_bars_accent: hsl(var(--primary))
-    card_gauge_accent: hsl(var(--destructive) / 0.5)
-    card_trend_accent: hsl(var(--accent))
-    card_bars:
-      badge: More New AI Roles Than Job Losses
-      stat_value: +340%
-      stat_label: net new AI roles created since 2022
-      years:
-        - "2022"
-        - "2023"
-        - "2024"
-        - "2025"
-        - "2026"
-      displaced_label: Displaced
-      created_label: Created by AI
-    card_gauge:
-      badge: Who's ready for AI roles?
-      gauge_percentage: 3
-      gauge_label: qualified
-      stat_label: of the workforce is not ready for AI roles today
-      bar1_label: Traditional workforce
-      bar2_label: AI-ready professionals
-    card_trend:
-      badge: Demand Is Accelerating
-      stat_value: 1.3M
-      stat_label: new AI roles expected by 2027
-      end_label: 1.3M · 2027
-    section_id: features_grid-xxxxxxx
+    variant: spotlight
+    heading: Three AI Levels. Three Learning Formats.
+    subheading: Whether you want to work with AI, work better with AI, or build AI systems professionally, there is a program for your goals.
+    courses:
+      - name: AI at 4Geeks
+        icon: Bolt
+        title: Demand for AI Skills Has Grown 7x in Two Years.
+        description: AI is creating opportunity at every level, for professionals who want to work smarter, for teams that want to move faster, and for engineers who want to build what comes next. Across all three, 4Geeks teaches the real AI skills that matter at work, applied to real problems from day one.
+        course_background: accent
+      - name: AI Engineering
+        icon: Bolt
+        duration: 24 weeks, or 15-week accelerated track
+        label: Flagship Program
+        title: AI Engineering
+        badges:
+          - icon: Bolt
+            text: AI Agents
+          - icon: Bolt
+            text: RAG & Vector Search
+          - icon: Bolt
+            text: Python
+        description: Become an AI engineer and build complete AI-native systems, frontend to deployment. Our most intensive program, built around live instruction and a real company case.
+        cta_text: See program details
+        cta_url: /en/career-programs/ai-engineering
+        course_background: hsl(var(--muted-foreground))
+      - name: AI Fluency
+        icon: IconBolt
+        duration: 4 weeks
+        label: Cohort Program
+        title: AI Fluency
+        badges:
+          - icon: Bolt
+            text: n8n
+          - icon: Bolt
+            text: OpenClaw
+          - icon: Bolt
+            text: No Coding Required
+        description: Integrate AI workflows into your work. Four weeks, one live session per week, walk away with working agents and automations.
+        cta_text: See program details
+        cta_url: /en/career-programs/ai-fluency
+        course_background: primary
+      - name: AI Flex
+        icon: IconBolt
+        duration: Self-paced
+        label: Subscription
+        title: AI Flex
+        badges:
+          - icon: Bolt
+            text: 8 Courses
+          - icon: Bolt
+            text: Rigobot AI Tutor
+          - icon: Bolt
+            text: Stackable Certificates
+        description: Access 8 AI courses. Follow a ready-made path like The AI-First Professional or The Builder, or design your own, at your own pace.
+        cta_text: Explore AI Flex
+        cta_url: /en/ai-flex
+        course_background: destructive
+    section_id: course_selector-4m5sh4
+    maxWidth:
+      desktop: 6xl
     marginY:
       desktop: none md
   - type: image_row
@@ -243,28 +307,52 @@ sections:
       desktop: none
     maxWidth:
       desktop: 6xl
-  - type: features_grid
-    version: "1.0"
-    variant: stats-text
+  - type: trust_cards
+    version: v1.0
+    title: Top rated across all major platforms.
+    items:
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72.webp
+        rating: 4.9
+        review_count: 4.9 on Course Report
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79.webp
+        rating: 4.8
+        review_count: 4.8 on Google
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/CareerKarma_logo.png
+        rating: 4.9
+        review_count: 4.9 on Career Karma
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 4.9 on SwitchUp
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-eslgbu
+    paddingY:
+      desktop: sm md
+    marginY:
+      desktop: md lg
+    background: hsl(var(--secondary))
     maxWidth:
       desktop: 6xl
-    title: AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.
-    subtitle: That's your opportunity.
-    description: Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
-    background: hsl(210 100% 50% / 0.05)
-    items:
-      - id: "1"
-        value: 7x
-        title: Growth in demand for AI-fluent workers since 2023
-      - id: "2"
-        value: 3%
-        title: Of the workforce qualifies for AI roles
-      - id: "3"
-        value: 56%
-        title: Salary premium for workers with AI skills
-    section_id: features_grid-142xko
+  - type: list_press_mentions
+    version: v1.0
+    variant: featured_showcase
+    title: The World's Most Accountable Institutions Chose Us. Here's What We've Built.
+    subtitle: From the Inter-American Development Bank to governments across the Americas and universities on three continents, every institution that selected us to run their programs came with KPIs, public accountability, and high expectations. We delivered every time.
+    show_links: false
+    show_logos: true
+    dynamic_entries:
+      database: press_mentions
+      limit: 10
+      sort: priority
+      permanent_filters:
+        - item_property_slug: locale
+          value: en
+    section_id: list_press_mentions-w7r1sh
+    featured_background: hsl(var(--primary))
+    maxWidth:
+      desktop: 6xl
     marginY:
-      desktop: none xl
+      desktop: none md
   - type: career_support_explain
     version: v1.0
     heading: How We Get You Hired. From First Day to Signed Offer.
@@ -385,142 +473,6 @@ sections:
       desktop: 6xl
     marginY:
       desktop: none md
-  - type: trust_cards
-    version: v1.0
-    title: Top rated across all major platforms.
-    items:
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/course-report-537x252-q72.webp
-        rating: 4.9
-        review_count: 4.9 on Course Report
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79.webp
-        rating: 4.8
-        review_count: 4.8 on Google
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/CareerKarma_logo.png
-        rating: 4.9
-        review_count: 4.9 on Career Karma
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        rating: 4.9
-        review_count: 4.9 on SwitchUp
-    name: Default Trust Cards
-    description: Four review platform cards with ratings
-    section_id: trust_cards-eslgbu
-    paddingY:
-      desktop: sm md
-    marginY:
-      desktop: md lg
-    background: hsl(var(--secondary))
-    maxWidth:
-      desktop: 6xl
-  - type: testimonials_slide
-    title: They Were Where You Are. Now They're Thriving in Tech.
-    description: "Different backgrounds, different starting points, one result: a career in tech that changed everything. These are their stories."
-    dynamic_entries:
-      database: testimonials_en
-      limit: 30
-      permanent_filters:
-        - item_property_slug: related_features
-          value:
-            - content-and-syllabus
-    section_id: testimonials_slide-6jlded
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none
-    maxWidth:
-      desktop: none
-  - type: course_selector
-    version: "1.0"
-    variant: spotlight
-    heading: Find Your Path
-    subheading: Four programs. All built around getting you hired, not just trained.
-    courses:
-      - name: AI Engineering
-        icon: Bolt
-        duration: 24 weeks, or 15-week accelerated track
-        label: Updated in 2026
-        title: AI Engineering
-        badges:
-          - icon: Bolt
-            text: RAG & Vector Search
-          - icon: Bolt
-            text: AI Agents
-          - icon: Bolt
-            text: Python
-        description: Transform a real business case into a fully AI-native system, layer by layer. Master the agents, RAG systems, and automation pipelines that companies are hiring for right now.
-        cta_text: See program details
-        cta_url: /en/career-programs/ai-engineering
-        course_background: accent
-      - name: Data Science and Machine Learning
-        icon: IconChartBar
-        duration: 18 weeks
-        label: Updated in 2026
-        title: Data Science and Machine Learning
-        badges:
-          - icon: ChartBar
-            text: Python & Pandas
-          - icon: ChartBar
-            text: TensorFlow
-          - icon: ChartBar
-            text: Data Visualization
-        description: Master the skills behind AI-driven decisions. Build models, analyze data at scale, and deploy solutions that companies in every industry are actively hiring for.
-        cta_text: See program details
-        cta_url: /en/career-programs/data-science-ml
-        course_background: hsl(var(--muted-foreground))
-      - name: Cybersecurity
-        icon: IconShield
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Cybersecurity
-        badges:
-          - icon: Shield
-            text: Ethical Hacking & Pentesting
-          - icon: Shield
-            text: NIST Framework
-        description: Detect threats, protect systems, and secure the data every organization depends on. One of the fastest-growing careers in tech, with a global shortage of skilled professionals that shows no signs of slowing.
-        cta_text: See program details
-        cta_url: /en/career-programs/cybersecurity
-        course_background: destructive
-      - name: Full Stack Development with AI
-        icon: IconCode
-        duration: 20 weeks
-        label: Updated in 2026
-        title: Full Stack Development with AI
-        badges:
-          - icon: Code
-            text: React & Next.js
-          - icon: Code
-            text: Python & APIs
-          - icon: Code
-            text: AI Integration
-        description: Build modern, production-ready web applications from frontend to backend, with AI integrated into your development process from day one.
-        cta_text: See program details
-        cta_url: /en/career-programs/full-stack
-        course_background: primary
-    section_id: course_selector-4m5sh4
-    maxWidth:
-      desktop: 6xl
-    marginY:
-      desktop: none md
-  - type: list_press_mentions
-    version: v1.0
-    variant: featured_showcase
-    title: The World's Most Accountable Institutions Chose Us. Here's What We've Built.
-    subtitle: From the Inter-American Development Bank to governments across the Americas and universities on three continents, every institution that selected us to run their programs came with KPIs, public accountability, and high expectations. We delivered every time.
-    show_links: false
-    show_logos: true
-    dynamic_entries:
-      database: press_mentions
-      limit: 10
-      sort: priority
-      permanent_filters:
-        - item_property_slug: locale
-          value: en
-    section_id: list_press_mentions-w7r1sh
-    featured_background: hsl(var(--primary))
-    maxWidth:
-      desktop: 6xl
-    marginY:
-      desktop: none md
   - type: why_learn_ai
     variant: laptop-edge
     laptop_image:
@@ -595,6 +547,23 @@ sections:
     maxWidth:
       desktop: none
     showOn: mobile
+  - type: testimonials_slide
+    title: They Were Where You Are. Now They're Thriving in Tech.
+    description: "Different backgrounds, different starting points, one result: a career in tech that changed everything. These are their stories."
+    dynamic_entries:
+      database: testimonials_en
+      limit: 30
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - content-and-syllabus
+    section_id: testimonials_slide-6jlded
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none
+    maxWidth:
+      desktop: none
   - type: faq
     section_id: faq-31bv5t
     title: Frequently Asked Questions
