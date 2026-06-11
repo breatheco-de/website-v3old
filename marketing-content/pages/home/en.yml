@@ -431,71 +431,62 @@ sections:
   - type: course_selector
     version: "1.0"
     variant: spotlight
-    heading: Find Your Path
-    subheading: Four programs. All built around getting you hired, not just trained.
+    heading: Three AI Levels. Three Learning Formats.
+    subheading: Whether you want to work with AI, work better with AI, or build AI systems professionally, there is a program for your goals.
     courses:
+      - name: AI at 4Geeks
+        icon: Bolt
+        title: Demand for AI Skills Has Grown 7x in Two Years.
+        description: AI is creating opportunity at every level, for professionals who want to work smarter, for teams that want to move faster, and for engineers who want to build what comes next. Across all three, 4Geeks teaches the real AI skills that matter at work, applied to real problems from day one.
+        course_background: accent
       - name: AI Engineering
         icon: Bolt
         duration: 24 weeks, or 15-week accelerated track
-        label: Updated in 2026
+        label: Flagship Program
         title: AI Engineering
         badges:
           - icon: Bolt
-            text: RAG & Vector Search
-          - icon: Bolt
             text: AI Agents
           - icon: Bolt
+            text: RAG & Vector Search
+          - icon: Bolt
             text: Python
-        description: Transform a real business case into a fully AI-native system, layer by layer. Master the agents, RAG systems, and automation pipelines that companies are hiring for right now.
+        description: Become an AI engineer and build complete AI-native systems, frontend to deployment. Our most intensive program, built around live instruction and a real company case.
         cta_text: See program details
         cta_url: /en/career-programs/ai-engineering
-        course_background: accent
-      - name: Data Science and Machine Learning
-        icon: IconChartBar
-        duration: 18 weeks
-        label: Updated in 2026
-        title: Data Science and Machine Learning
-        badges:
-          - icon: ChartBar
-            text: Python & Pandas
-          - icon: ChartBar
-            text: TensorFlow
-          - icon: ChartBar
-            text: Data Visualization
-        description: Master the skills behind AI-driven decisions. Build models, analyze data at scale, and deploy solutions that companies in every industry are actively hiring for.
-        cta_text: See program details
-        cta_url: /en/career-programs/data-science-ml
         course_background: hsl(var(--muted-foreground))
-      - name: Cybersecurity
-        icon: IconShield
-        duration: 16 weeks
-        label: Updated in 2026
-        title: Cybersecurity
+      - name: AI Fluency
+        icon: IconBolt
+        duration: 4 weeks
+        label: Cohort Program
+        title: AI Fluency
         badges:
-          - icon: Shield
-            text: Ethical Hacking & Pentesting
-          - icon: Shield
-            text: NIST Framework
-        description: Detect threats, protect systems, and secure the data every organization depends on. One of the fastest-growing careers in tech, with a global shortage of skilled professionals that shows no signs of slowing.
+          - icon: Bolt
+            text: n8n
+          - icon: Bolt
+            text: OpenClaw
+          - icon: Bolt
+            text: No Coding Required
+        description: Integrate AI workflows into your work. Four weeks, one live session per week, walk away with working agents and automations.
         cta_text: See program details
-        cta_url: /en/career-programs/cybersecurity
-        course_background: destructive
-      - name: Full Stack Development with AI
-        icon: IconCode
-        duration: 20 weeks
-        label: Updated in 2026
-        title: Full Stack Development with AI
-        badges:
-          - icon: Code
-            text: React & Next.js
-          - icon: Code
-            text: Python & APIs
-          - icon: Code
-            text: AI Integration
-        description: Build modern, production-ready web applications from frontend to backend, with AI integrated into your development process from day one.
-        cta_text: See program details
-        cta_url: /en/career-programs/full-stack
+        cta_url: /en/career-programs/ai-fluency
         course_background: primary
+      - name: AI Flex
+        icon: IconBolt
+        duration: Self-paced
+        label: Subscription
+        title: AI Flex
+        badges:
+          - icon: Bolt
+            text: 8 Courses
+          - icon: Bolt
+            text: Rigobot AI Tutor
+          - icon: Bolt
+            text: Stackable Certificates
+        description: Access 8 AI courses and follow a curated learning path, or build your own. Learn anytime, at your own pace.
+        cta_text: Explore AI Flex
+        cta_url: /en/ai-flex
+        course_background: destructive
     section_id: course_selector-4m5sh4
     maxWidth:
       desktop: 6xl
