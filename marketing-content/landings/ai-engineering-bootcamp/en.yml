@@ -21,7 +21,7 @@ sections:
     image_object_fit: none
     form:
       variant: stacked
-      conversion_name: student_application
+      conversion_name: request_more_info
       submit_label: Get the Full Program Info
       fields:
         email:
