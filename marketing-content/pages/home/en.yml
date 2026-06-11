@@ -298,7 +298,7 @@ sections:
             text: Rigobot AI Tutor
           - icon: Bolt
             text: Stackable Certificates
-        description: Access 8 AI courses and follow a curated learning path, or build your own. Learn anytime, at your own pace.
+        description: Access 8 AI courses. Follow a ready-made path like The AI-First Professional or The Builder, or build your own, at your own pace.
         cta_text: Explore AI Flex
         cta_url: /en/ai-flex
         course_background: destructive
