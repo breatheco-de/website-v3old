@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import Marquee from "react-fast-marquee";
+import Marquee from "@/lib/marquee";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import type { AiFlexSelectorDefault } from "@shared/schema";
 
