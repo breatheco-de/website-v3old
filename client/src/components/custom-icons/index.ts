@@ -3,6 +3,7 @@ import ChecklistVerify from "./ChecklistVerify";
 import CodeWindow from "./CodeWindow";
 import Contract from "./Contract";
 import FolderCheck from "./FolderCheck";
+import FourGeeksAvatar from "./FourGeeksAvatar";
 import Graduation from "./Graduation";
 import GrowthChart from "./GrowthChart";
 import HandsGroup from "./HandsGroup";
@@ -34,6 +35,7 @@ const customIcons: Record<string, React.ComponentType<{
   CodeWindow,
   Contract,
   FolderCheck,
+  "4GeeksAvatar": FourGeeksAvatar,
   Graduation,
   GrowthChart,
   HandsGroup,
@@ -65,6 +67,7 @@ export {
   CodeWindow,
   Contract,
   FolderCheck,
+  FourGeeksAvatar,
   Graduation,
   GrowthChart,
   HandsGroup,
