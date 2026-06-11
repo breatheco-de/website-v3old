@@ -147,19 +147,30 @@ async function callRefreshCacheApi(contentType?: string): Promise<void> {
 }
 
 /**
- * Call the main server's /api/content/mark-modified endpoint to enqueue
- * a file for Git auto-commit tracking after a direct FS write.
+ * Call the main server's /api/github/commit-file endpoint to immediately
+ * commit a file to GitHub after a direct FS write.
+ * Returns the commit SHA on success, or a warning string on failure.
  */
-async function callMarkModifiedApi(relativePath: string): Promise<void> {
+async function callCommitFileApi(
+  relativePath: string,
+  message: string,
+  mcpToken?: string
+): Promise<{ commitSha?: string; warning?: string }> {
   try {
-    const url = `http://localhost:${MAIN_SERVER_PORT}/api/content/mark-modified`;
-    await fetch(url, {
+    const url = `http://localhost:${MAIN_SERVER_PORT}/api/github/commit-file`;
+    const author = mcpToken ? getTokenUsername(mcpToken) : undefined;
+    const res = await fetch(url, {
       method: "POST",
-      headers: internalHeaders(),
-      body: JSON.stringify({ path: relativePath }),
+      headers: internalHeaders(mcpToken),
+      body: JSON.stringify({ filePath: relativePath, message, ...(author ? { author } : {}) }),
     });
-  } catch {
-    // Non-fatal: Git auto-commit tracking is best-effort.
+    const data = await res.json() as Record<string, unknown>;
+    if (res.ok && data.success) {
+      return { commitSha: data.commitSha as string | undefined };
+    }
+    return { warning: `File written to disk but GitHub commit failed: ${(data.error as string) || `HTTP ${res.status}`}` };
+  } catch (e) {
+    return { warning: `File written to disk but GitHub commit failed: ${(e as Error).message}` };
   }
 }
 
@@ -1377,14 +1388,19 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
         createdLocales.push(loc);
       }
 
-      // Mark all files modified and refresh cache
+      // Commit all written files to GitHub and refresh cache
       const commonRelPath = `marketing-content/${ctDir}/${slug}/_common.yml`;
       const localeRelPaths = createdLocales.map(loc => `marketing-content/${ctDir}/${slug}/${loc}.yml`);
-      await Promise.all([
-        callMarkModifiedApi(commonRelPath),
-        ...localeRelPaths.map(p => callMarkModifiedApi(p)),
+      const allPaths = [commonRelPath, ...localeRelPaths];
+      const commitMsg = `Create page ${contentType}/${slug}`;
+      const [commitResults] = await Promise.all([
+        Promise.all(allPaths.map(p => callCommitFileApi(p, commitMsg, mcpToken))),
         callRefreshCacheApi(contentType),
       ]);
+
+      // Collect commit SHAs and warnings
+      const commitShas = commitResults.map(r => r.commitSha).filter(Boolean) as string[];
+      const commitWarnings = commitResults.map(r => r.warning).filter(Boolean) as string[];
 
       // Build URL map across all created locales
       const urlPattern = config.url_pattern;
@@ -1408,6 +1424,8 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
         locales: createdLocales,
         ...(common.title ? { title: common.title } : {}),
         ...(urls ? { urls } : {}),
+        ...(commitShas.length > 0 ? { commitShas } : {}),
+        ...(commitWarnings.length > 0 ? { warnings: commitWarnings } : {}),
       };
       return { content: [{ type: "text", text: JSON.stringify(entry, null, 2) }] };
     }
@@ -2124,8 +2142,9 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
       const isNew = !fs.existsSync(targetFilePath);
       fs.writeFileSync(targetFilePath, intendedContent, "utf-8");
 
-      await Promise.all([
-        callMarkModifiedApi(targetRelPath),
+      const commitMsg = `Translate ${resolved.contentType}/${slug} to ${target_locale}`;
+      const [commitResult] = await Promise.all([
+        callCommitFileApi(targetRelPath, commitMsg, mcpToken),
         callRefreshCacheApi(resolved.contentType),
       ]);
 
@@ -2142,6 +2161,8 @@ export function registerPageTools(mcp: McpServer, _mcpAuthor?: string, mcpToken?
             created: isNew,
             sectionsCount: content.sections.length,
             metaKeys: content.meta ? Object.keys(content.meta) : [],
+            ...(commitResult.commitSha ? { commitSha: commitResult.commitSha } : {}),
+            ...(commitResult.warning ? { warning: commitResult.warning } : {}),
           }, null, 2),
         }],
       };
