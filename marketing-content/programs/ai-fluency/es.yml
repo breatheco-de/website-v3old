@@ -390,7 +390,7 @@ sections:
       permanent_filters:
         - item_property_slug: related_features
           value:
-            - ai-engineering
+            - ai-fluency
         - item_property_slug: locations
           value: all
     marginY:
@@ -398,20 +398,6 @@ sections:
     paddingY:
       desktop: md
     background: hsl(var(--muted))
-    item_overrides:
-      how-long-does-the-program-take:
-        hideOnLocations:
-          - barcelona-spain
-          - berlin-germany
-          - dublin-ireland
-          - hamburg-germany
-          - lisbon-portugal
-          - madrid-spain
-          - malaga-spain
-          - milan-italy
-          - munich-germany
-          - rome-italy
-          - valencia-spain
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para desarrollar tu fluidez en IA?
@@ -453,7 +439,7 @@ sections:
   - type: sticky_cta
     section_id: sticky_cta-euuky9
     version: "1.0"
-    heading: ¿Listo para empezar tu carrera en tech?
+    heading: ¿Listo para empezar?
     button_label: Aplicar ahora
     show_dismiss: false
     form:
