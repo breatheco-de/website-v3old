@@ -179,7 +179,8 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
                     style={{ color: hslColorRaw(gaugeR) }}
                     data-testid="text-stats-charts-gauge-value-mobile"
                   >
-                    {100 - (card_gauge?.gauge_percentage ?? 3)}%
+                    {(card_gauge?.gauge_outer_percentage ??
+                      (100 - (card_gauge?.gauge_percentage ?? 3)))}%
                   </div>
                   {card_gauge?.stat_label && (
                     <p
@@ -191,14 +192,18 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
                   )}
                 </div>
                 <CircleGauge
-                  percentage={card_gauge?.gauge_percentage}
+                  gaugePercentage={card_gauge?.gauge_percentage}
+                  outerPercentage={card_gauge?.gauge_outer_percentage}
                   gaugeLabel={card_gauge?.gauge_label}
+                  highlightBar={card_gauge?.gauge_bar_highlight}
                   accentColor={gaugeAccent}
                   variant="circle-only"
                 />
               </div>
               <CircleGauge
-                percentage={card_gauge?.gauge_percentage}
+                gaugePercentage={card_gauge?.gauge_percentage}
+                outerPercentage={card_gauge?.gauge_outer_percentage}
+                highlightBar={card_gauge?.gauge_bar_highlight}
                 bar1Label={card_gauge?.bar1_label}
                 bar2Label={card_gauge?.bar2_label}
                 accentColor={gaugeAccent}
@@ -209,9 +214,11 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
             {/* Desktop layout: full CircleGauge */}
             <div className="hidden md:block">
               <CircleGauge
-                percentage={card_gauge?.gauge_percentage}
+                gaugePercentage={card_gauge?.gauge_percentage}
+                outerPercentage={card_gauge?.gauge_outer_percentage}
                 gaugeLabel={card_gauge?.gauge_label}
                 gaugeSubLabel={card_gauge?.stat_label}
+                highlightBar={card_gauge?.gauge_bar_highlight}
                 bar1Label={card_gauge?.bar1_label}
                 bar2Label={card_gauge?.bar2_label}
                 accentColor={gaugeAccent}

@@ -181,7 +181,9 @@ export const featuresGridStatsChartsCardGaugeSchema = z.object({
   stat_value: z.string().optional(),
   stat_label: z.string().optional(),
   gauge_percentage: z.number().optional(),
+  gauge_outer_percentage: z.number().optional(),
   gauge_label: z.string().optional(),
+  gauge_bar_highlight: z.boolean().optional(),
   bar1_label: z.string().optional(),
   bar2_label: z.string().optional(),
 });

@@ -104,8 +104,8 @@ function CourseCard({
     <div
       className="rounded-[13px] border-[1.5px] cursor-pointer select-none transition-all duration-200"
       style={{
-        borderColor: isSelected ? "#0d6efd" : "#e4e4e4",
-        background: isSelected ? "#f8fbff" : "#fafafa",
+        borderColor: isSelected ? "#0d6efd" : "hsl(var(--border))",
+        background: isSelected ? "#f8fbff" : "hsl(var(--background))",
         opacity: isSelected ? 1 : 0.6,
         boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 3px 10px rgba(0,0,0,0.03)",
         transition: "border-color .2s, box-shadow .2s, transform .18s, opacity .2s",
@@ -113,7 +113,8 @@ function CourseCard({
       onMouseEnter={(e) => {
         const el = e.currentTarget;
         el.style.opacity = "1";
-        el.style.boxShadow = "0 3px 10px rgba(13,110,253,0.08), 0 8px 22px rgba(13,110,253,0.05)";
+         el.style.boxShadow = "0 3px 10px rgba(13,110,253,0.08), 0 8px 22px rgba(13,110,253,0.05)";
+        el.style.boxShadow = "0 3px 10px hsl(var(--primary) / 0.08), 0 8px 22px hsl(var(--primary) / 0.05)";
         el.style.transform = "translateY(-2px)";
       }}
       onMouseLeave={(e) => {
@@ -351,7 +352,7 @@ export default function AiFlexSelectorDefault({ data }: { data: AiFlexSelectorDe
 
   return (
     <div className="min-h-screen py-12 px-4 pb-16" style={{ fontFamily: "'Inter',system-ui,-apple-system,sans-serif" }}>
-      <div className="max-w-[1120px] mx-auto">
+      <div className="mx-auto">
 
         {/* Badge */}
         <div
@@ -375,7 +376,7 @@ export default function AiFlexSelectorDefault({ data }: { data: AiFlexSelectorDe
           {data.questions.map((_, i) => (
             <div
               key={i}
-              className="h-[2.5px] flex-1 rounded-full"
+              className="h-[2.2px] flex-1 rounded-full"
               style={{
                 transition: "background .4s",
                 background:
@@ -383,7 +384,7 @@ export default function AiFlexSelectorDefault({ data }: { data: AiFlexSelectorDe
                     ? "hsl(var(--primary))"
                     : i === step && !isResults
                     ? "hsl(var(--primary) / 0.35)"
-                    : "hsl(var(--background))",
+                    : "hsl(var(--secondary))",
               }}
             />
           ))}
@@ -392,7 +393,7 @@ export default function AiFlexSelectorDefault({ data }: { data: AiFlexSelectorDe
         {/* ── QUIZ ─────────────────────────────────────────────────────────── */}
         {!isResults && (
           <div style={slideStyle} className="relative mx-28">
-            <div className="absolute" style={{ right: "calc(100% + 9px)", top: "-19px" }}>
+            <div className="absolute" style={{ right: "calc(100% + 15px)", top: "-19px" }}>
               {RobotIcon && <RobotIcon width="85" height="85" style={{ color: "hsl(var(--foreground))" }} />}
             </div>
             <div className="text-[11px] font-bold tracking-[0.09em] uppercase mb-1" style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}>
@@ -407,7 +408,7 @@ export default function AiFlexSelectorDefault({ data }: { data: AiFlexSelectorDe
                 return (
                   <button
                     key={optIdx}
-                    className="flex items-center gap-[14px] px-4 py-[13px] border-[1.5px] rounded-[12px] cursor-pointer text-left w-full transition-all duration-200 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
+                    className="flex items-center gap-[14px] px-4 py-[11px] border-[1.5px] rounded-[12px] cursor-pointer text-left w-full transition-all duration-200 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
                     style={{
                       borderColor: sel ? "hsl(var(--primary))" : "hsl(var(--border))",
                       background: sel ? "hsl(var(--primary) / 0.08)" : "hsl(var(--background))",
@@ -445,7 +446,7 @@ export default function AiFlexSelectorDefault({ data }: { data: AiFlexSelectorDe
                       />
                     </div>
                     <span
-                      className="text-[14px] flex-1 font-medium leading-[1.4]"
+                      className="text-[15px] flex-1 font-medium leading-[1.4]"
                       style={{ color: sel ? "hsl(var(--primary))" : "hsl(var(--foreground) / 0.7)" }}
                     >
                       {opt.label}
@@ -476,14 +477,14 @@ export default function AiFlexSelectorDefault({ data }: { data: AiFlexSelectorDe
         {/* ── RESULTS ──────────────────────────────────────────────────────── */}
         {isResults && currentPath && (
           <div style={slideStyle} className="relative mx-28">
-            <div className="absolute" style={{ right: "calc(100% + 9px)", top: "-16px" }}>
+            <div className="absolute" style={{ right: "calc(100% + 16px)", top: "-16px" }}>
               {RobotIcon && <RobotIcon width="85" height="85" style={{ color: "hsl(var(--foreground))" }} />}
             </div>
 
             <div className="text-[11px] font-bold tracking-[0.09em] uppercase" style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}>
               {data.results.ready_label}
             </div>
-            <div className="text-[30px] font-extrabold tracking-[-0.03em] leading-[1.1] mb-[0.6rem]" style={{ color: "hsl(var(--foreground))" }}>
+            <div className="text-[30px] font-bold tracking-[-0.03em] leading-[1.1] mb-[0.6rem]" style={{ color: "hsl(var(--foreground))" }}>
               {currentPath.name}
             </div>
             <div className="text-[13px] mb-6" style={{ color: "hsl(var(--muted-foreground) / 0.6)" }}>
