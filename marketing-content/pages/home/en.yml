@@ -333,6 +333,26 @@ sections:
     background: hsl(var(--secondary))
     maxWidth:
       desktop: 6xl
+  - type: list_press_mentions
+    version: v1.0
+    variant: featured_showcase
+    title: The World's Most Accountable Institutions Chose Us. Here's What We've Built.
+    subtitle: From the Inter-American Development Bank to governments across the Americas and universities on three continents, every institution that selected us to run their programs came with KPIs, public accountability, and high expectations. We delivered every time.
+    show_links: false
+    show_logos: true
+    dynamic_entries:
+      database: press_mentions
+      limit: 10
+      sort: priority
+      permanent_filters:
+        - item_property_slug: locale
+          value: en
+    section_id: list_press_mentions-w7r1sh
+    featured_background: hsl(var(--primary))
+    maxWidth:
+      desktop: 6xl
+    marginY:
+      desktop: none md
   - type: career_support_explain
     version: v1.0
     heading: How We Get You Hired. From First Day to Signed Offer.
@@ -449,26 +469,6 @@ sections:
             description: Melanie retrained as a software developer and now works remotely for a tech company, from home, in a career she chose.
             achievement: Her salary doubled. And she works remotely, on her own terms.
     section_id: career_support_explain-xpc3k2
-    maxWidth:
-      desktop: 6xl
-    marginY:
-      desktop: none md
-  - type: list_press_mentions
-    version: v1.0
-    variant: featured_showcase
-    title: The World's Most Accountable Institutions Chose Us. Here's What We've Built.
-    subtitle: From the Inter-American Development Bank to governments across the Americas and universities on three continents, every institution that selected us to run their programs came with KPIs, public accountability, and high expectations. We delivered every time.
-    show_links: false
-    show_logos: true
-    dynamic_entries:
-      database: press_mentions
-      limit: 10
-      sort: priority
-      permanent_filters:
-        - item_property_slug: locale
-          value: en
-    section_id: list_press_mentions-w7r1sh
-    featured_background: hsl(var(--primary))
     maxWidth:
       desktop: 6xl
     marginY:
