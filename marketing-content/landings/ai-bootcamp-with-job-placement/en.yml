@@ -56,7 +56,7 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
+        message: Your program overview is on the way! Check your inbox in the next few minutes.
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get the AI Engineering Program Overview
