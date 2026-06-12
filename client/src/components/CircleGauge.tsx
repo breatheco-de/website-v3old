@@ -23,12 +23,12 @@ interface CircleGaugeProps {
 }
 
 const GAUGE_SIZE   = 88;
-const STROKE_WIDTH = 3.6;
+const STROKE_WIDTH = 9;
 
 export function CircleGauge({
   innerStatPct,
   outerStatPct,
-  gaugeLabel     = "qualified",
+  gaugeLabel,
   gaugeSubLabel  = "not ready for AI roles today",
   bar1Label      = "Traditional workforce",
   bar2Label      = "AI-ready professionals",
