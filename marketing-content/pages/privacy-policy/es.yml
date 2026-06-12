@@ -9,6 +9,7 @@ meta:
   description: Conoce nuestra política de privacidad en 4Geeks Academy y aprende a proteger tus datos personales de manera efectiva y segura en línea.
   redirects:
     - /politicas-de-privacidad
+    - /es/privacidad
 schema:
   include:
     - organization
@@ -93,7 +94,7 @@ sections:
     show_toc: true
     max_width: xl
   - type: sticky_cta
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
