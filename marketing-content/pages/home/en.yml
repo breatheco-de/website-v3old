@@ -416,7 +416,7 @@ sections:
       created_label: Created by AI
     card_gauge:
       badge: Who's ready for AI roles?
-      gauge_percentage: 70
+      inner_stat_percentage: 70
       gauge_label: qualified
       stat_label: of the workforce is not ready for AI roles today
       bar1_label: Traditional workforce
