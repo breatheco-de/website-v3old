@@ -1,4 +1,4 @@
-import Marquee from "@/lib/marquee";
+import { CSSMarquee } from "@/components/ui/CSSMarquee";
 import { Flag } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -562,19 +562,14 @@ export default function TestimonialsSlide({ data }: TestimonialsSlideProps) {
             onMouseEnter={handleInteractionStart}
             onMouseLeave={handleInteractionEnd}
           >
-            <Marquee 
-              gradient={false} 
-              speed={25} 
-              play={isPlaying && !prefersReducedMotion}
-              data-testid="marquee-testimonials-slide"
-            >
-            <div className="flex items-start py-4">
-              {/* Duplicate columns 3x to ensure seamless loop on ultra-wide screens */}
-              {[...masonryColumns, ...masonryColumns, ...masonryColumns].map((column, index) => (
-                <MasonryColumnComponent key={index} column={column} />
-              ))}
-            </div>
-          </Marquee>
+            <CSSMarquee gradient={false} speed={25} play={isPlaying && !prefersReducedMotion}>
+              <div className="flex items-start py-4">
+                {/* Duplicate columns 3x to ensure seamless loop on ultra-wide screens */}
+                {[...masonryColumns, ...masonryColumns, ...masonryColumns].map((column, index) => (
+                  <MasonryColumnComponent key={index} column={column} />
+                ))}
+              </div>
+            </CSSMarquee>
         </div>
         </div>
         

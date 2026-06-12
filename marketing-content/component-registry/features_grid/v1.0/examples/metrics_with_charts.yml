@@ -23,7 +23,10 @@ yaml: |
       created_label: Created by AI
     card_gauge:
       badge: Who's ready for AI roles?
-      inner_stat_percentage: 3
+
+      outer_stat_percentage: 97
+      show_gauge: true
+      inner_stat_highlight: true
       gauge_label: qualified
       stat_label: of the workforce is not ready for AI roles today
       bar1_label: Traditional workforce

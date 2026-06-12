@@ -3,7 +3,7 @@ import { useTypewriter } from "@/hooks/useTypewriter";
 import { getIcon } from "@/lib/icons";
 import type { MarqueeMessage } from "@/components/menus";
 import { useInternalNav } from "@/hooks/useInternalNav";
-import Marquee from "@/lib/marquee";
+import { CSSMarquee } from "@/components/ui/CSSMarquee";
 
 export interface TypewriterAnnouncementProps {
   messages: MarqueeMessage[];
@@ -42,9 +42,9 @@ export function TypewriterAnnouncement({
       className="flex-1 flex items-center justify-center gap-2 min-w-0 max-w-full overflow-hidden"
       data-testid="typewriter-announcement"
     >
-      {/* Mobile: sliding ticker using react-fast-marquee */}
+      {/* Mobile: sliding ticker */}
       <div className="lg:hidden flex-1 min-w-0 overflow-hidden">
-        <Marquee speed={50} pauseOnHover={false} pauseOnClick={true} autoFill={true} gradient={false}>
+        <CSSMarquee speed={50} gradient={false}>
           {safeMessages.map((msg, i) => {
             const msgIconName = msg.icon || icon;
             const MsgIcon = msgIconName ? (getIcon(msgIconName) ?? Megaphone) : Megaphone;
@@ -68,13 +68,12 @@ export function TypewriterAnnouncement({
               </span>
             );
           })}
-        </Marquee>
+        </CSSMarquee>
       </div>
 
-      {/* Desktop: typewriter — text scrolls to always show the end; cursor stays visible */}
+      {/* Desktop: typewriter */}
       <div className="hidden lg:inline-flex items-center max-w-full gap-1">
         <div className="relative max-w-full min-w-0 shrink overflow-hidden">
-          {/* Reserve the widest message so typed characters don't grow the navbar. */}
           <div
             aria-hidden="true"
             className="invisible inline-flex items-center gap-1.5 whitespace-nowrap text-muted-foreground leading-[20px]"

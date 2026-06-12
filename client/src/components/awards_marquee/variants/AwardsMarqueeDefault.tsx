@@ -1,5 +1,5 @@
-import Marquee from "@/lib/marquee";
 import { useState, useEffect } from "react";
+import { CSSMarquee } from "@/components/ui/CSSMarquee";
 import { UniversalImage } from "@/components/UniversalImage";
 
 function parseLogoHeight(value?: string): number | undefined {
@@ -19,25 +19,37 @@ export interface AwardsMarqueeItem {
 }
 
 export function AwardsMarquee({ data }: { data: any }) {
-  const { items = [], speed = 40, gradient = true, gradientColor, gradientWidth = 100, bottom_title, className = "", title, title_above_carousel = false } = data;
+  const {
+    items = [],
+    speed = 40,
+    gradient = true,
+    gradientWidth = 100,
+    className = "",
+    title,
+    title_above_carousel = false,
+  } = data;
+
   const [isDesktop, setIsDesktop] = useState(
-    () => typeof window !== "undefined" && window.matchMedia('(min-width: 768px)').matches
+    () => typeof window !== "undefined" && window.matchMedia("(min-width: 768px)").matches
   );
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(min-width: 768px)');
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
     const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-    mediaQuery.addEventListener('change', handler);
-    return () => mediaQuery.removeEventListener('change', handler);
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
   }, []);
-  
+
   const responsiveGradientWidth = isDesktop ? gradientWidth : Math.min(gradientWidth, 30);
-  
+
   if (!items || items.length === 0) return null;
 
   const titleBlock = title ? (
     <div className="max-w-6xl mx-auto px-4 py-4">
-      <p className="text-body text-muted-foreground max-w-3xl mx-auto text-center" dangerouslySetInnerHTML={{ __html: title }} />
+      <p
+        className="text-body text-muted-foreground max-w-3xl mx-auto text-center"
+        dangerouslySetInnerHTML={{ __html: title }}
+      />
     </div>
   ) : null;
 
@@ -45,16 +57,9 @@ export function AwardsMarquee({ data }: { data: any }) {
     <section className="max-w-6xl mx-auto">
       {title_above_carousel && titleBlock}
       <div className={`${className} px-4`} data-testid="awards-marquee">
-        <Marquee
-          speed={speed}
-          pauseOnHover={false}
-          gradient={gradient}
-          gradientColor="hsl(var(--background))"
-          gradientWidth={responsiveGradientWidth}
-          autoFill={true}
-        >
-          {items.map((item, index) => (
-            <div 
+        <CSSMarquee speed={speed} gradient={gradient} gradientWidth={responsiveGradientWidth}>
+          {items.map((item: AwardsMarqueeItem, index: number) => (
+            <div
               key={item.id}
               className="flex items-center justify-center mx-4 transition-opacity duration-brand ease-brand hover:opacity-80"
               data-testid={`marquee-item-${index}`}
@@ -74,14 +79,12 @@ export function AwardsMarquee({ data }: { data: any }) {
                   <span className="text-xs text-muted-foreground uppercase tracking-wide">
                     {item.source} {item.year && `${item.year}`}
                   </span>
-                  <span className="text-sm font-medium text-foreground mt-0.5">
-                    {item.name}
-                  </span>
+                  <span className="text-sm font-medium text-foreground mt-0.5">{item.name}</span>
                 </div>
               )}
             </div>
           ))}
-        </Marquee>
+        </CSSMarquee>
       </div>
       {!title_above_carousel && titleBlock}
     </section>

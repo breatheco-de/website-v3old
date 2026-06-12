@@ -1,6 +1,6 @@
 
 import { createElement, useState, useEffect } from "react";
-import Marquee from "react-fast-marquee";
+import { CSSMarquee } from "@/components/ui/CSSMarquee";
 import { Button } from "@/components/ui/button";
 import UniversalImage from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
@@ -122,28 +122,10 @@ const DEFAULT_MARQUEE_ITEMS = [
 ];
 
 function WatermarkMarquee({ items, isStatic }: { items: { bold_text: string; light_text: string }[]; isStatic?: boolean }) {
-  const [bgColor, setBgColor] = useState<string>("hsl(0 0% 100%)");
-
-  useEffect(() => {
-    const resolve = () => {
-      const raw = getComputedStyle(document.documentElement)
-        .getPropertyValue("--background")
-        .trim();
-      if (raw) setBgColor(`hsl(${raw})`);
-    };
-    resolve();
-    const observer = new MutationObserver(resolve);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-    return () => observer.disconnect();
-  }, []);
-
   const itemNodes = items.map((item, i) => (
     <span
       key={i}
-      className="flex items-center gap-2 mx-4 md:ml-0 md:mr-10 text-xs whitespace-nowrap "
+      className="flex items-center gap-2 mx-4 md:ml-0 md:mr-10 text-xs whitespace-nowrap"
     >
       <span className="font-extrabold text-muted-foreground">{item.bold_text}</span>
       <span className="text-muted-foreground/80">{item.light_text}</span>
@@ -160,9 +142,9 @@ function WatermarkMarquee({ items, isStatic }: { items: { bold_text: string; lig
 
   return (
     <div className="w-full mt-10">
-      <Marquee speed={50} gradient={true} gradientColor={bgColor} gradientWidth={100} pauseOnHover={false}>
+      <CSSMarquee speed={50} gradient={true} gradientWidth={100}>
         {itemNodes}
-      </Marquee>
+      </CSSMarquee>
     </div>
   );
 }

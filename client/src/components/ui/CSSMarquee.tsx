@@ -1,23 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface CSSMarqueeProps {
-  items: string[];
+  children: React.ReactNode;
   direction?: "fwd" | "rev";
   speed?: number;
-  badgeStyle?: React.CSSProperties;
+  gradient?: boolean;
+  gradientWidth?: number;
   maskStyle?: React.CSSProperties;
+  pauseOnHover?: boolean;
+  play?: boolean;
+  className?: string;
 }
 
-export function CSSMarquee({ items, direction = "fwd", speed = 58, badgeStyle, maskStyle }: CSSMarqueeProps) {
-  const repeated = [...items, ...items, ...items, ...items];
+export function CSSMarquee({
+  children,
+  direction = "fwd",
+  speed = 58,
+  gradient = false,
+  gradientWidth = 80,
+  maskStyle,
+  pauseOnHover = false,
+  play = true,
+  className,
+}: CSSMarqueeProps) {
+  const [hovered, setHovered] = useState(false);
+
+  const computedMask: React.CSSProperties = gradient
+    ? {
+        WebkitMaskImage: `linear-gradient(to right, transparent 0%, black ${gradientWidth}px, black calc(100% - ${gradientWidth}px), transparent 100%)`,
+        maskImage: `linear-gradient(to right, transparent 0%, black ${gradientWidth}px, black calc(100% - ${gradientWidth}px), transparent 100%)`,
+      }
+    : {};
+
+  const outerStyle: React.CSSProperties = maskStyle ?? computedMask;
+
+  const isRunning = play && !(pauseOnHover && hovered);
+
+  const trackStyle: React.CSSProperties = {
+    "--marquee-speed": `${speed}s`,
+    animationPlayState: isRunning ? "running" : "paused",
+  } as React.CSSProperties;
+
   return (
-    <div className="overflow-hidden w-full py-[4px]" style={maskStyle}>
-      <div
-        className={`flex w-max gap-[7px] marquee-${direction}`}
-        style={{ "--marquee-speed": `${speed}s` } as React.CSSProperties}
-      >
-        {repeated.map((item, i) => (
-          <span key={i} style={badgeStyle}>{item}</span>
+    <div
+      className={`overflow-hidden w-full${className ? ` ${className}` : ""}`}
+      style={outerStyle}
+      onMouseEnter={() => pauseOnHover && setHovered(true)}
+      onMouseLeave={() => pauseOnHover && setHovered(false)}
+    >
+      <div className={`flex w-max marquee-${direction}`} style={trackStyle}>
+        {[0, 1, 2, 3].map((i) => (
+          <div key={i} className="flex items-center" aria-hidden={i > 0 ? true : undefined}>
+            {children}
+          </div>
         ))}
       </div>
     </div>

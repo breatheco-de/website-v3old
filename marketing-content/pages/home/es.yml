@@ -190,7 +190,10 @@ sections:
       created_label: Creados por la IA
     card_gauge:
       badge: ¿Quién está realmente preparado para roles de IA?
-      inner_stat_percentage: 3
+
+      outer_stat_percentage: 97
+      show_gauge: true
+      inner_stat_highlight: true
       gauge_label: calificados
       stat_label: de la fuerza laboral no está preparada para roles de IA hoy
       bar1_label: Fuerza laboral tradicional
