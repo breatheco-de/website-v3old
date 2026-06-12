@@ -5,10 +5,11 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: "Trabaja con Nosotros | 4Geeks Academy"
+  page_title: Trabaja con Nosotros | 4Geeks Academy
   description: Desarrolla tu carrera con nosotros, oportunidades laborales en programación y más en 4Geeks Academy.
   redirects:
     - /trabaja-con-nosotros
+    - /es/empleo
 schema:
   include:
     - organization
@@ -16,7 +17,7 @@ schema:
 sections:
   - type: hero
     section_id: hero-3iq24c
-    version: "1.0"
+    version: '1.0'
     variant: singleColumn
     title: Carreras en 4Geeks
     subtitle: Únete a una academia global de programación reconocida por su calidad, impacto e innovación. Forma parte de un equipo dinámico y global que ayuda a miles de estudiantes en todo el mundo a lanzar carreras en ingeniería de IA, ciencia de datos y ciberseguridad.
@@ -45,7 +46,7 @@ sections:
       bullet_icon: Check
       font_size: base
     reverse_on_mobile: true
-    gap: "12"
+    gap: '12'
     marginY:
       desktop: none md
     paddingY:
@@ -68,7 +69,7 @@ sections:
       desktop: lg none
   - type: cta_banner
     section_id: cta_banner-a9ipci
-    version: "1.0"
+    version: '1.0'
     title: Contáctanos
     subtitle: Completa el formulario para conocer nuestras posiciones abiertas.
     background: hsl(var(--primary))
@@ -105,7 +106,7 @@ sections:
       desktop: lg
   - type: sticky_cta
     section_id: sticky_cta-opewi9
-    version: "1.0"
+    version: '1.0'
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
