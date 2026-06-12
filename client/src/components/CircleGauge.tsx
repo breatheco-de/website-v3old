@@ -105,7 +105,7 @@ export function CircleGauge({
 
   // ── Bars ─────────────────────────────────────────────────────────────────────
   // When gaugePercentage is absent: single bar for outer relative to 100
-  const barsEl = !showCircle ? (
+  const barsEl = !hasGauge ? (
     <div className="flex flex-col gap-2.5">
       <div className="flex flex-col gap-1">
         <div className="flex justify-between text-xs">
