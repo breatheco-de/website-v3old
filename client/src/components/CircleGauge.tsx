@@ -34,20 +34,23 @@ export function CircleGauge({
   highlightBar  = false,
   variant       = "full",
 }: CircleGaugeProps) {
-  const showCircle = gaugePercentage !== undefined;
+  const hasGauge  = gaugePercentage !== undefined;
+  const showCircle = hasGauge || outerPercentage !== undefined;
 
-  const inner = showCircle
+  const inner = hasGauge
     ? Math.min(100, Math.max(0, gaugePercentage!))
     : 0;
 
   const outer = outerPercentage !== undefined
     ? Math.min(100, Math.max(0, outerPercentage))
-    : showCircle
+    : hasGauge
       ? 100 - inner
       : 100;
 
-  // Which value fills the arc and gets accent in bars
-  const arcPct         = highlightBar ? outer : inner;
+  // When gauge is absent, arc always fills based on outer directly (over 100)
+  const arcPct = !hasGauge
+    ? outer
+    : highlightBar ? outer : inner;
   const accentBarValue = highlightBar ? outer : inner;
   const faintBarValue  = highlightBar ? inner : outer;
 
@@ -85,16 +88,18 @@ export function CircleGauge({
           strokeLinecap="round"
         />
       </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-sm font-black leading-none" style={{ color: accentCss }}>
-          {arcPct}%
-        </span>
-        {gaugeLabel && (
-          <span className="text-[9px] text-slate-500 mt-0.5 leading-none text-center px-1">
-            {gaugeLabel}
+      {hasGauge && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <span className="text-sm font-black leading-none" style={{ color: accentCss }}>
+            {arcPct}%
           </span>
-        )}
-      </div>
+          {gaugeLabel && (
+            <span className="text-[9px] text-slate-500 mt-0.5 leading-none text-center px-1">
+              {gaugeLabel}
+            </span>
+          )}
+        </div>
+      )}
     </div>
   ) : null;
 
