@@ -305,7 +305,7 @@ sections:
     card_gauge:
       title: Who's Qualified for AI Roles?
       description: Global workforce · 2025 data
-
+
       outer_stat_percentage: 97
       show_gauge: true
       inner_stat_highlight: true

@@ -23,7 +23,7 @@ yaml: |
       created_label: Created by AI
     card_gauge:
       badge: Who's ready for AI roles?
-
+
       outer_stat_percentage: 97
       show_gauge: true
       inner_stat_highlight: true

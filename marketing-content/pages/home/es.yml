@@ -190,7 +190,7 @@ sections:
       created_label: Creados por la IA
     card_gauge:
       badge: ¿Quién está realmente preparado para roles de IA?
-
+
       outer_stat_percentage: 97
       show_gauge: true
       inner_stat_highlight: true
