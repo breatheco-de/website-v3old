@@ -11,7 +11,7 @@ timezone: America/Santiago
 phone: +56 2 1234 5678
 address: Av. Apoquindo 3000, Las Condes, Santiago
 available_programs:
-  - "full-stack"
+  - full-stack
 context:
   when_to_use: For this campus visitors and those interested in tech opportunities.
   target_audience: Local professionals and residents seeking a coding bootcamp with job-focused training.
@@ -19,13 +19,12 @@ context:
     - Highlight job outcomes and connections to local employers
 catalog:
   admission_advisors:
-    - name: "Admissions Team"
-      email: "admissions@4geeks.com"
-      calendar_url: "https://calendly.com/4geeks-admissions"
+    - name: Admissions Team
+      email: admissions@4geeks.com
+      calendar_url: https://calendly.com/4geeks-admissions
       languages:
-        - "en"
-        - "es"
-
+        - en
+        - es
 schema:
   include:
     - organization
@@ -33,8 +32,11 @@ schema:
   overrides:
     organization:
       address:
-        "@type": PostalAddress
+        '@type': PostalAddress
         streetAddress: Av. Apoquindo 3000
         addressLocality: Santiago
         addressRegion: Región Metropolitana
         addressCountry: CL
+meta:
+  redirects:
+    - /landing/bootcamp-full-stack-santiago
