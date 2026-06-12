@@ -1,5 +1,7 @@
 import { createElement } from "react";
+import type { CSSProperties } from "react";
 import { Button } from "@/components/ui/button";
+import { CSSMarquee } from "@/components/ui/CSSMarquee";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { getIcon } from "@/lib/icons";
 import type { BannerMarqueeBadges as BannerMarqueeBadgesData } from "@shared/schema";
@@ -20,36 +22,19 @@ function Badge({ label }: { label: string }) {
   );
 }
 
-function Marquee({
-  badges,
-  direction,
-  speed = 20,
-}: {
-  badges: string[];
-  direction: "fwd" | "rev";
-  speed?: number;
-}) {
-  if (!badges.length) return null;
-  const doubled = [...badges, ...badges];
+const bannerMaskStyle: CSSProperties = {
+  WebkitMaskImage:
+    "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
+  maskImage:
+    "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
+};
+
+function BadgeRow({ badges }: { badges: string[] }) {
   return (
-    <div
-      className="overflow-hidden w-full py-[0.6rem] max-md:py-[0.4rem]"
-      style={{
-        WebkitMaskImage:
-          "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
-        maskImage:
-          "linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)",
-      }}
-      data-testid={`marquee-${direction}`}
-    >
-      <div
-        className={`flex w-max marquee-${direction} gap-[1.2rem] max-md:gap-[0.5rem]`}
-        style={{ "--marquee-speed": `${speed}s` } as React.CSSProperties}
-      >
-        {doubled.map((label, i) => (
-          <Badge key={i} label={label} />
-        ))}
-      </div>
+    <div className="flex gap-[1.2rem] max-md:gap-[0.5rem] mr-[1.2rem] max-md:mr-[0.5rem]">
+      {badges.map((label, i) => (
+        <Badge key={i} label={label} />
+      ))}
     </div>
   );
 }
@@ -71,7 +56,11 @@ export default function BannerMarqueeBadges({ data }: Props) {
       className="overflow-hidden"
       data-testid="section-banner-marquee-badges"
     >
-      <Marquee badges={top_badges} direction="fwd" speed={marquee_speed} />
+      {top_badges.length > 0 && (
+        <CSSMarquee direction="fwd" speed={marquee_speed} maskStyle={bannerMaskStyle} className="py-[0.6rem] max-md:py-[0.4rem]">
+          <BadgeRow badges={top_badges} />
+        </CSSMarquee>
+      )}
 
       <div
         className="w-full md:w-fit md:max-w-[70rem] mx-auto px-5 md:px-8 py-6 grid grid-cols-1 md:grid-cols-[auto_auto] gap-4 md:gap-8 lg:gap-12 items-center"
@@ -158,7 +147,11 @@ export default function BannerMarqueeBadges({ data }: Props) {
         </div>
       </div>
 
-      <Marquee badges={bottom_badges} direction="rev" speed={marquee_speed} />
+      {bottom_badges.length > 0 && (
+        <CSSMarquee direction="rev" speed={marquee_speed} maskStyle={bannerMaskStyle} className="py-[0.6rem] max-md:py-[0.4rem]">
+          <BadgeRow badges={bottom_badges} />
+        </CSSMarquee>
+      )}
     </section>
   );
 }
