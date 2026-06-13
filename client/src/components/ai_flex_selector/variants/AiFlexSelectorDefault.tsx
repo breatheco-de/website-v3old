@@ -567,12 +567,12 @@ export default function AiFlexSelectorDefault({ data }: { data: AiFlexSelectorDe
               ) : (
                 <div className="flex flex-col gap-[5px]">
                   <div className="mx-[60px]">
-                    <CSSMarquee direction="fwd" speed={58} maskStyle={maskStyle}>
+                    <CSSMarquee direction="fwd" speed={80} maskStyle={maskStyle}>
                       {row1.map((item, i) => <span key={i} style={toolBadgeStyle}>{item}</span>)}
                     </CSSMarquee>
                   </div>
                   {useTwoRows && (
-                    <CSSMarquee direction="rev" speed={58} maskStyle={maskStyle}>
+                    <CSSMarquee direction="rev" speed={80} maskStyle={maskStyle}>
                       {row2.map((item, i) => <span key={i} style={toolBadgeStyle}>{item}</span>)}
                     </CSSMarquee>
                   )}

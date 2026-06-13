@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useRef } from "react";
+import React, { useState } from "react";
 
 interface CSSMarqueeProps {
   children: React.ReactNode;
@@ -24,19 +24,6 @@ export function CSSMarquee({
   className,
 }: CSSMarqueeProps) {
   const [hovered, setHovered] = useState(false);
-  const copyRef = useRef<HTMLDivElement>(null);
-  const [duration, setDuration] = useState<number | null>(null);
-
-  useLayoutEffect(() => {
-    if (!copyRef.current) return;
-    const w = copyRef.current.offsetWidth;
-    if (w > 0) {
-      // The CSS animation moves -50% of the 4-copy track = 2 content widths per loop.
-      // To match react-fast-marquee semantics where speed = px/s:
-      // duration (s) = (2 * contentWidth) / speed
-      setDuration((2 * w) / speed);
-    }
-  }, [speed]);
 
   const computedMask: React.CSSProperties = gradient
     ? {
@@ -50,7 +37,7 @@ export function CSSMarquee({
   const isRunning = play && !(pauseOnHover && hovered);
 
   const trackStyle: React.CSSProperties = {
-    "--marquee-speed": `${duration ?? speed}s`,
+    "--marquee-speed": `${speed}s`,
     animationPlayState: isRunning ? "running" : "paused",
   } as React.CSSProperties;
 
@@ -65,7 +52,6 @@ export function CSSMarquee({
         {[0, 1, 2, 3].map((i) => (
           <div
             key={i}
-            ref={i === 0 ? copyRef : undefined}
             className="flex items-center"
             aria-hidden={i > 0 ? true : undefined}
           >

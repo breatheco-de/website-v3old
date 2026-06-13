@@ -142,7 +142,7 @@ function WatermarkMarquee({ items, isStatic }: { items: { bold_text: string; lig
 
   return (
     <div className="w-full mt-10">
-      <CSSMarquee speed={50} gradient={true} gradientWidth={100}>
+      <CSSMarquee speed={42} gradient={true} gradientWidth={100}>
         {itemNodes}
       </CSSMarquee>
     </div>

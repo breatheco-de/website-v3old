@@ -54,7 +54,7 @@ export function AwardsMarquee({ data }: { data: any }) {
   ) : null;
 
   return (
-    <section className="m mx-auto">
+    <section className="max-w-6xl mx-auto">
       {title_above_carousel && titleBlock}
       <div className={`${className} px-4`} data-testid="awards-marquee">
         <CSSMarquee speed={speed} gradient={gradient} gradientWidth={responsiveGradientWidth}>

@@ -562,7 +562,7 @@ export default function TestimonialsSlide({ data }: TestimonialsSlideProps) {
             onMouseEnter={handleInteractionStart}
             onMouseLeave={handleInteractionEnd}
           >
-            <CSSMarquee gradient={false} speed={25} play={isPlaying && !prefersReducedMotion}>
+            <CSSMarquee gradient={false} speed={400} play={isPlaying && !prefersReducedMotion}>
               <div className="flex items-start py-4">
                 {/* Duplicate columns 3x to ensure seamless loop on ultra-wide screens */}
                 {[...masonryColumns, ...masonryColumns, ...masonryColumns].map((column, index) => (
