@@ -162,7 +162,7 @@ export function PricingSection({ data }: PricingSectionProps) {
                       })}
                     </div>
                   ) : (
-                    <CSSMarquee speed={100} gradient={true} gradientWidth={50} pauseOnHover={true}>
+                    <CSSMarquee speed={20} gradient={true} gradientWidth={50} pauseOnHover={true}>
                       {data.tech_icons.map((iconName, index) => {
                         const IconComponent = resolveTechIcon(iconName);
                         return IconComponent ? (
@@ -371,7 +371,7 @@ export function PricingSection({ data }: PricingSectionProps) {
                     })}
                   </div>
                 ) : (
-                  <CSSMarquee speed={100} gradient={true} gradientWidth={50} pauseOnHover={true}>
+                  <CSSMarquee speed={20} gradient={true} gradientWidth={50} pauseOnHover={true}>
                     {data.tech_icons.map((iconName, index) => {
                       const IconComponent = resolveTechIcon(iconName);
                       return IconComponent ? (

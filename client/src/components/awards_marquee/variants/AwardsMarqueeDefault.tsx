@@ -21,7 +21,7 @@ export interface AwardsMarqueeItem {
 export function AwardsMarquee({ data }: { data: any }) {
   const {
     items = [],
-    speed = 40,
+    speed = 60,
     gradient = true,
     gradientWidth = 100,
     className = "",

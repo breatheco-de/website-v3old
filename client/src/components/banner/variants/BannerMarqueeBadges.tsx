@@ -48,7 +48,7 @@ export default function BannerMarqueeBadges({ data }: Props) {
     cta_buttons,
     top_badges = [],
     bottom_badges = [],
-    marquee_speed = 30,
+    marquee_speed = 85,
   } = data;
 
   return (

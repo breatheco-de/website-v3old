@@ -44,7 +44,7 @@ export function TypewriterAnnouncement({
     >
       {/* Mobile: sliding ticker */}
       <div className="lg:hidden flex-1 min-w-0 overflow-hidden">
-        <CSSMarquee speed={18} gradient={false}>
+        <CSSMarquee speed={50} gradient={false}>
           {safeMessages.map((msg, i) => {
             const msgIconName = msg.icon || icon;
             const MsgIcon = msgIconName ? (getIcon(msgIconName) ?? Megaphone) : Megaphone;

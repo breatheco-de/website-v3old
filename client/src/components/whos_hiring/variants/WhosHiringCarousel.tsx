@@ -243,7 +243,7 @@ export default function WhosHiringCarousel({ data }: WhosHiringCarouselProps) {
         <div className="absolute inset-y-0 left-0 w-20 md:w-40 bg-gradient-to-r from-primary/5 to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-20 md:w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
-        <CSSMarquee speed={50} gradient={false}>
+        <CSSMarquee speed={130} gradient={false}>
           {mosaicGroups.map((group, index) => (
             <div key={`${group.id}-${index}`} className={isMobile ? "ml-2" : "ml-4"}>
               <MosaicGroupComponent
