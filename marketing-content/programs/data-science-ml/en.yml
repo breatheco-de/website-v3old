@@ -213,6 +213,7 @@ sections:
       title: Demand Is Outpacing Supply
       description: McKinsey Global Institute · 2026 projection
 
+      inner_stat_percentage: 50
       outer_stat_percentage: 50
       show_gauge: true
       inner_stat_highlight: true

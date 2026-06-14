@@ -161,6 +161,7 @@ sections:
        description: Roles globales · LinkedIn 2025
 
       inner_stat_percentage: 30
+      outer_stat_percentage: 70
       show_gauge: true
       inner_stat_highlight: true
       gauge_label: requieren alfabetización en IA

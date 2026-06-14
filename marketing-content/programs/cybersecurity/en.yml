@@ -210,6 +210,7 @@ sections:
       title: Demand far outpaces supply
       description: BLS Occupational Outlook · 2024-2034
 
+      inner_stat_percentage: 29
       outer_stat_percentage: 71
       show_gauge: true
       inner_stat_highlight: true

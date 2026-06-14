@@ -160,7 +160,7 @@ sections:
       - React
       - Node.js
       - Prompt Engineering
-    marquee_speed: 35
+    marquee_speed: 85
     section_id: banner-qrp5dz
     paddingY:
       desktop: sm
@@ -190,7 +190,7 @@ sections:
       created_label: Creados por la IA
     card_gauge:
       badge: ¿Quién está realmente preparado para roles de IA?
-
+      inner_stat_percentage: 3
       outer_stat_percentage: 97
       show_gauge: true
       inner_stat_highlight: true

@@ -216,10 +216,11 @@ sections:
     card_gauge:
       title: ¿Quién está cualificado para roles de IA?
       description: Población activa global · datos 2025
-      gauge_percentage: 3
+      inner_stat_percentage: 3
       gauge_label: cualificados
       stat_label: de la población activa no está preparada hoy para roles de IA
       bar1_label: Talento tradicional
+      outer_stat_percentage: 97
       bar2_label: Profesionales preparados para IA
     card_trend:
       title: La demanda se acelera

@@ -155,6 +155,7 @@ sections:
       title: The Productivity Jump Is Real
       description: Productivity growth · AI-exposed industries · PwC 2025
 
+      inner_stat_percentage: 27
       outer_stat_percentage: 73
       show_gauge: true
       inner_stat_highlight: true

@@ -214,6 +214,7 @@ sections:
       title: ¿Quién está cualificado para roles de IA?
       description: Población activa global · datos 2025
 
+      inner_stat_percentage: 3
       outer_stat_percentage: 97
       show_gauge: true
       inner_stat_highlight: true

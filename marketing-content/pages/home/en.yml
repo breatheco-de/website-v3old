@@ -9,7 +9,7 @@ meta:
   priority: 1
   change_frequency: daily
   page_title: 4Geeks | The AI Reskilling Platform
-  description: '4Geeks: intensive AI Engineering, Data Science and Cybersecurity programs. 84% hiring rate, 55% salary increases. Unlimited mentorship, lifelong career support.'
+  description: "4Geeks: intensive AI Engineering, Data Science and Cybersecurity programs. 84% hiring rate, 55% salary increases. Unlimited mentorship, lifelong career support."
   redirects:
     - /home
     - /us/index
@@ -22,24 +22,24 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: credibility
-    description: '<span style="font-size: 0.75rem; color: hsl(var(--muted-foreground));">Immersive programs built to launch AI careers.&nbsp;Backed by&nbsp;lifelong unlimited&nbsp;<div bis_skin_checked="1"><span><span>mentorship,&nbsp;AI-powered learning,&nbsp;and career support that&nbsp;gets you hired.</span></span></div></span><div bis_skin_checked="1"><span><span></span></span><span></span><div bis_skin_checked="1"><div bis_skin_checked="1"><div bis_skin_checked="1"><div bis_skin_checked="1"></div><div bis_skin_checked="1"><div bis_skin_checked="1"></div></div></div></div></div></div>'
-    title: '<span style="line-height: 1.1;"><span style="font-size: 3.75rem;"><span style="font-weight: 900;"><span style="letter-spacing: -3px;"><span style="line-height: 0.85;"><span style="font-size: 4.375rem;"><span><span style="letter-spacing: -2px;"></span></span></span></span></span></span></span></span><span style="font-size: 4.5rem;"><span style="line-height: 1.1;"><span><span style="font-weight: 900;"><span style="letter-spacing: -3px;"><span style="line-height: 0.85;"><span><span><span style="letter-spacing: -2px;"></span></span></span></span></span></span></span></span><span style="line-height: 0.1;"><span style="font-size: 4.9375rem;"><span><span><span style="font-weight: 900;"><span style="letter-spacing: -3px;"><span><span><span><span style="letter-spacing: -2px;"></span></span></span></span></span></span></span></span><span style="line-height: 0.4;"><span><span><span><span style="font-weight: 900;"><span style="letter-spacing: -3px;"><span><span><span><span style="letter-spacing: -2px;"></span></span></span></span></span></span></span></span><span style="line-height: 0.9;"><span><span><span style="font-weight: 900;"><span style="letter-spacing: -3px;"><span><span><span><span style="letter-spacing: -2px;"></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style="line-height: 0.9;"><span style="font-size: 4.5rem;"><span><span style="font-size: 4.9375rem;"><span><span><span><span><span><span style="font-weight: 900;"><span style="letter-spacing: -3px;"><span><span><span><span style="letter-spacing: -2px;"></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style="line-height: 1;"><span style="font-size: 4.5rem;"><span><span style="font-size: 4.9375rem;"><span><span><span><span><span><span style="font-weight: 900;"><span style="letter-spacing: -3px;"><span><span><span><span style="letter-spacing: -2px;"></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style="line-height: 0.97;"><span><span style="font-size: 4.5rem;"><span><span style="font-size: 4.9375rem;"><span><span><span><span><span><span style="font-weight: 900;"><span style="letter-spacing: -3px;"><span><span><span><span style="letter-spacing: -2px;">1.3 million<br>new <span style="color:#0084FF;font-style:italic">AI Roles.</span><br></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span><span style="font-size: 4.5rem;"><span><span style="font-size: 4.9375rem;"><span><span><span><span><span><span style="font-weight: 900;"><span style="letter-spacing: -3px;"><span><span><span><span style="letter-spacing: -2px;">We''re y</span></span></span></span></span></span></span></span><span style="letter-spacing: -2px; font-weight: 900; color: rgb(0, 7, 26);">our&nbsp;</span></span></span></span></span></span></span><div bis_skin_checked="1"><span style="color: rgb(0, 7, 26); font-size: 4.9375rem; font-weight: 900; letter-spacing: -2px;">path in.</span></div></span></span></span><span><div bis_skin_checked="1"><span style="color: rgb(0, 7, 26); font-size: 4.9375rem; font-weight: 900; letter-spacing: -2px;"></span></div></span></span><span><div bis_skin_checked="1"><span style="color: rgb(0, 7, 26); font-size: 4.9375rem; font-weight: 900; letter-spacing: -2px;"></span></div></span></span><span style="line-height: 0.9;"><div bis_skin_checked="1"><span style="color: rgb(0, 7, 26); font-size: 4.9375rem; font-weight: 900; letter-spacing: -2px;"></span></div></span><div bis_skin_checked="1"><span style="color: rgb(0, 7, 26); font-size: 4.9375rem; font-weight: 900; letter-spacing: -2px;"></span></div><div bis_skin_checked="1"><div bis_skin_checked="1"><span style="letter-spacing: -2px; font-size: 4.375rem; font-weight: 900; color: rgb(0, 7, 26);"></span></div></div>'
+    description: "<span style=\"font-size: 0.75rem; color: hsl(var(--muted-foreground));\">Immersive programs built to launch AI careers.&nbsp;Backed by&nbsp;lifelong unlimited&nbsp;<div bis_skin_checked=\"1\"><span><span>mentorship,&nbsp;AI-powered learning,&nbsp;and career support that&nbsp;gets you hired.</span></span></div></span><div bis_skin_checked=\"1\"><span><span></span></span><span></span><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"></div><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"></div></div></div></div></div></div>"
+    title: "<span style=\"line-height: 1.1;\"><span style=\"font-size: 3.75rem;\"><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span style=\"line-height: 0.85;\"><span style=\"font-size: 4.375rem;\"><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span><span style=\"font-size: 4.5rem;\"><span style=\"line-height: 1.1;\"><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span style=\"line-height: 0.85;\"><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span><span style=\"line-height: 0.1;\"><span style=\"font-size: 4.9375rem;\"><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span><span style=\"line-height: 0.4;\"><span><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span><span style=\"line-height: 0.9;\"><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style=\"line-height: 0.9;\"><span style=\"font-size: 4.5rem;\"><span><span style=\"font-size: 4.9375rem;\"><span><span><span><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style=\"line-height: 1;\"><span style=\"font-size: 4.5rem;\"><span><span style=\"font-size: 4.9375rem;\"><span><span><span><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\"></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style=\"line-height: 0.97;\"><span><span style=\"font-size: 4.5rem;\"><span><span style=\"font-size: 4.9375rem;\"><span><span><span><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\">1.3 million<br>new <span style=\"color:#0084FF;font-style:italic\">AI Roles.</span><br></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span><span style=\"font-size: 4.5rem;\"><span><span style=\"font-size: 4.9375rem;\"><span><span><span><span><span><span style=\"font-weight: 900;\"><span style=\"letter-spacing: -3px;\"><span><span><span><span style=\"letter-spacing: -2px;\">We're y</span></span></span></span></span></span></span></span><span style=\"letter-spacing: -2px; font-weight: 900; color: rgb(0, 7, 26);\">our&nbsp;</span></span></span></span></span></span></span><div bis_skin_checked=\"1\"><span style=\"color: rgb(0, 7, 26); font-size: 4.9375rem; font-weight: 900; letter-spacing: -2px;\">path in.</span></div></span></span></span><span><div bis_skin_checked=\"1\"><span style=\"color: rgb(0, 7, 26); font-size: 4.9375rem; font-weight: 900; letter-spacing: -2px;\"></span></div></span></span><span><div bis_skin_checked=\"1\"><span style=\"color: rgb(0, 7, 26); font-size: 4.9375rem; font-weight: 900; letter-spacing: -2px;\"></span></div></span></span><span style=\"line-height: 0.9;\"><div bis_skin_checked=\"1\"><span style=\"color: rgb(0, 7, 26); font-size: 4.9375rem; font-weight: 900; letter-spacing: -2px;\"></span></div></span><div bis_skin_checked=\"1\"><span style=\"color: rgb(0, 7, 26); font-size: 4.9375rem; font-weight: 900; letter-spacing: -2px;\"></span></div><div bis_skin_checked=\"1\"><div bis_skin_checked=\"1\"><span style=\"letter-spacing: -2px; font-size: 4.375rem; font-weight: 900; color: rgb(0, 7, 26);\"></span></div></div>"
     cta_buttons:
       - text: Start your application
         url: /en/apply
         variant: primary
         icon: ChevronRight
       - text: Explore our programs
-        url: '#course_selector-4m5sh4'
+        url: "#course_selector-4m5sh4"
         variant: outline
     pills:
       - category: Academic Partnership
         logos:
           - image_id: clark_university-500x156-q60
           - image_id: miami-dade-college-logo
-            alt: 'Image: Miami_Dade_College_logo'
+            alt: "Image: Miami_Dade_College_logo"
             id: miami-dade-college-logo
           - image_id: 06-isologotipo-para-fondo-blanco-1
           - image_id: logo-ucab-3
@@ -55,7 +55,7 @@ sections:
             id: bid-logo-616x616
           - image_id: austin-texas-workforce-commission-labor-government-agency-texas-state-library-and-archives-commission-removebg-preview-509x490-q80
           - image_id: upskillbahamas
-            alt: 'Image: UpskillBahamas'
+            alt: "Image: UpskillBahamas"
             id: upskillbahamas
         label: Trusted with $20M+ in Government and NGO Grants
       - category: Industry Recognition
@@ -87,231 +87,8 @@ sections:
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
       desktop: none
-    pills_url: '#list_press_mentions-w7r1sh'
+    pills_url: "#list_press_mentions-w7r1sh"
     marquee_static: true
-  - type: ai_flex_selector
-    version: v1.0
-    variant: default
-    badge_text: Build your path
-    title: Your AI curriculum,
-    title_highlight: built around you.
-    subtitle: 4 questions. No commitment. We map the exact courses you need.
-    icon: 4GeeksAvatar
-    back_label: Back
-    restart_label: Start over and change my answers
-    skills_breakdown_label: Skills breakdown
-    max_selections: 4
-    tools_marquee: true
-    results:
-      ready_label: Your path is ready
-      subtitle: View your courses or build your own path
-      counter_label: selected
-      tools_label: Tools in this path
-    cta:
-      title: Start with a 7-day free trial.
-      subtitle: No commitment. Cancel anytime. Your path stays saved.
-      banner: true
-      buttons:
-        - text: Start free trial
-          url: /en/apply
-          variant: primary
-    questions:
-      - subtitle: Question 1 of 4
-        text: What's your main goal right now?
-        options:
-          - label: Use AI to be more productive at my current job
-          - label: Automate repetitive tasks without writing code
-          - label: Build apps or technical projects with AI
-          - label: Work with data, analytics, or machine learning
-      - subtitle: Question 2 of 4
-        text: How comfortable are you with coding?
-        options:
-          - label: No experience — and I'd like to keep it that way
-          - label: No experience — but I'm open to basics
-          - label: Some basics (scripts, spreadsheets, HTML)
-          - label: I code regularly
-      - subtitle: Question 3 of 4
-        text: What skill would make the biggest difference in your work right now?
-        options:
-          - label: Getting reliable, professional-quality results from AI tools
-          - label: Building automations that run without me
-          - label: Setting up AI assistants for my existing tools
-          - label: Writing code or building software with AI
-          - label: Analyzing data and making smarter decisions
-      - subtitle: Question 4 of 4
-        text: How do you plan to use what you learn?
-        options:
-          - label: Get better at what I already do
-          - label: Add a new capability to my current role
-          - label: Prepare for a career shift into tech
-          - label: Explore — not sure yet
-    courses:
-      - name: Prompt Engineering
-        tagline: Prompting patterns & reusable libraries
-        hrs: ~8 hrs
-        tools:
-          - ChatGPT
-          - Claude
-          - Gemini
-          - Perplexity
-        skills:
-          - name: Prompting patterns
-            skill_percentage: 55
-          - name: Output control
-            skill_percentage: 28
-          - name: Context management
-            skill_percentage: 17
-      - name: Applied AI
-        tagline: AI for real professional work tasks
-        hrs: ~12 hrs
-        tools:
-          - ChatGPT
-          - Notion
-          - Otter.ai
-          - Grammarly
-          - Gamma
-        skills:
-          - name: AI writing & editing
-            skill_percentage: 40
-          - name: Research tools
-            skill_percentage: 35
-          - name: Workflow documentation
-            skill_percentage: 25
-      - name: No-Code & Automations
-        tagline: Visual workflows with n8n, Zapier, Make
-        hrs: ~10 hrs
-        tools:
-          - n8n
-          - Make
-          - Zapier
-          - Airtable
-          - Webhooks
-        skills:
-          - name: Visual workflows
-            skill_percentage: 45
-          - name: App integrations
-            skill_percentage: 35
-          - name: AI steps in pipelines
-            skill_percentage: 20
-      - name: Vibe Coding with AI
-        tagline: Build apps with AI coding assistants
-        hrs: ~12 hrs
-        tools:
-          - Cursor
-          - GitHub Copilot
-          - Replit
-          - Vercel
-        skills:
-          - name: AI-assisted coding
-            skill_percentage: 50
-          - name: Shipping projects
-            skill_percentage: 30
-          - name: Debug & review
-            skill_percentage: 20
-      - name: OpenClaw
-        tagline: Personal AI assistant setup & integration
-        hrs: ~6 hrs
-        tools:
-          - OpenClaw
-          - Slack
-          - Notion
-          - Google Sheets
-        skills:
-          - name: Assistant setup
-            skill_percentage: 50
-          - name: Custom skill design
-            skill_percentage: 30
-          - name: Tool connection
-            skill_percentage: 20
-      - name: Backend Dev with Python
-        tagline: APIs with FastAPI, databases, deployment
-        hrs: ~20 hrs
-        tools:
-          - FastAPI
-          - PostgreSQL
-          - Docker
-          - Railway
-          - Supabase
-        skills:
-          - name: REST API design
-            skill_percentage: 45
-          - name: Database & deploy
-            skill_percentage: 35
-          - name: AI API integration
-            skill_percentage: 20
-      - name: Deep Dive into Python
-        tagline: Python fundamentals to advanced
-        hrs: ~18 hrs
-        tools:
-          - Python
-          - VS Code
-          - Git
-          - GitHub
-        skills:
-          - name: Python foundations
-            skill_percentage: 50
-          - name: OOP & structures
-            skill_percentage: 30
-          - name: Project setup
-            skill_percentage: 20
-      - name: Data Science & ML
-        tagline: Data analysis, ML models, predictions
-        hrs: ~22 hrs
-        tools:
-          - Pandas
-          - NumPy
-          - scikit-learn
-          - Jupyter
-          - Streamlit
-        skills:
-          - name: Data analysis & viz
-            skill_percentage: 45
-          - name: ML model building
-            skill_percentage: 35
-          - name: Model evaluation
-            skill_percentage: 20
-    paths:
-      - name: The Data-Driven Analyst
-        tagline: Python, data science and ML with AI tools
-        courses:
-          - Deep Dive into Python
-          - Data Science & ML
-          - Applied AI
-          - Prompt Engineering
-      - name: The Builder
-        tagline: Build real products with AI, code-optional
-        courses:
-          - Vibe Coding with AI
-          - Backend Dev with Python
-          - No-Code & Automations
-          - OpenClaw
-      - name: The Career Switcher
-        tagline: Code foundations + applied AI for career pivoters
-        courses:
-          - Deep Dive into Python
-          - Backend Dev with Python
-          - Vibe Coding with AI
-          - Applied AI
-      - name: The Automation Specialist
-        tagline: No-code workflows and AI pipelines
-        courses:
-          - No-Code & Automations
-          - Prompt Engineering
-          - OpenClaw
-          - Applied AI
-      - name: The AI-First Professional
-        tagline: AI tools mastery for knowledge workers
-        courses:
-          - Prompt Engineering
-          - Applied AI
-          - No-Code & Automations
-          - OpenClaw
-    section_id: ai_flex_selector-fq5mqo
-    paddingY:
-      desktop: sm
-    maxWidth:
-      desktop: 6xl
-    background: hsl(var(--muted))
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thiriving in tech.
@@ -326,14 +103,14 @@ sections:
       - image_id: group-7085-1-700x380-600x326-q80
         col_span: 5
         row_span: 2
-        alt: 'Image: Gemini_Generated_Image_uwpyyruwpyyruwpy'
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
         id: gemini-generated-image-uwpyyruwpyyruwpy
         object_scale: 1.1
         object_position: 50% 30%
       - image_id: group-7086-1-800x440
         col_span: 7
         row_span: 2
-        alt: 'Image: Gemini_Generated_Image_pd2u4upd2u4upd2u'
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
         id: gemini-generated-image-pd2u4upd2u4upd2u
         object_scale: 1
         transform_origin: 50% 50%
@@ -341,13 +118,13 @@ sections:
       - image_id: group-7084-1-695x382
         col_span: 6
         row_span: 2
-        alt: 'Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)'
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
         id: gemini-generated-image-dhko5mdhko5mdhko-1
         object_scale: 1.05
       - image_id: group-7087-1-680x392
         col_span: 6
         row_span: 2
-        alt: 'Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4'
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
         id: gemini-generated-image-wpk4yvwpk4yvwpk4
         object_scale: 1.05
         transform_origin: 50% 50%
@@ -363,7 +140,7 @@ sections:
     version: v1.0
     variant: marqueeBadges
     subtitle: No matter what you came searching for
-    title: 'AI is <span style="color: hsl(var(--primary));"><i>the way</i></span>.'
+    title: "AI is <span style=\"color: hsl(var(--primary));\"><i>the way</i></span>."
     body: |
       Every one of those paths now runs on AI, and that's where the hiring is. So we rebuilt 4Geeks into three AI tracks built for the new job market: AI Engineering, AI Fluency and AI Flex.
     top_badges:
@@ -388,7 +165,7 @@ sections:
       - React
       - Node.js
       - Prompt Engineering
-    marquee_speed: 35
+    marquee_speed: 85
     section_id: banner-qrp5dz
     paddingY:
       desktop: sm
@@ -396,7 +173,7 @@ sections:
     marginY:
       desktop: none xl
   - type: features_grid
-    version: '1.0'
+    version: "1.0"
     variant: stats-charts
     subtitle: This is your opportunity.
     title: <!--StartFragment--><h2 class="text-2xl md:text-h2 mb-2 text-foreground" data-testid="text-stats-text-title">AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.</h2><!--EndFragment-->
@@ -409,16 +186,17 @@ sections:
       stat_value: +340%
       stat_label: net new AI roles created since 2022
       years:
-        - '2022'
-        - '2023'
-        - '2024'
-        - '2025'
-        - '2026'
+        - "2022"
+        - "2023"
+        - "2024"
+        - "2025"
+        - "2026"
       displaced_label: Displaced
       created_label: Created by AI
     card_gauge:
       badge: Who's ready for AI roles?
-      inner_stat_percentage: 70
+      inner_stat_percentage: 3
+      outer_stat_percentage: 97
       gauge_label: qualified
       stat_label: of the workforce is not ready for AI roles today
       bar1_label: Traditional workforce
@@ -434,18 +212,18 @@ sections:
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-800x1200-q72.webp
-        alt: 'Image: ChatGPT Image Mar 26, 2026, 04_28_27 PM'
+        alt: "Image: ChatGPT Image Mar 26, 2026, 04_28_27 PM"
         id: chatgpt-image-mar-26-2026-04-28-27-pm-800x1200-q72
         object_position: 60%90%
       - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-900x1350-q70.webp
-        alt: 'Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM'
+        alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
         id: chatgpt-image-mar-26-2026-04-26-00-pm-900x1350-q70
         object_position: 40% 80%
       - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina_brightened.png
-        alt: 'Image: valentina_brightened'
+        alt: "Image: valentina_brightened"
         id: valentina-brightened
       - src: https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74.webp
-        alt: 'Image: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74'
+        alt: "Image: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74"
         id: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74
         object_position: 38% 100%
         object_scale: 1.45
@@ -454,8 +232,8 @@ sections:
       text: Mentors and career coaches that are always within reach, an AI tutor, and your personal AI agent. All tailored to you.
       background: primary
       width: 2
-      text_2: '<div><span style="font-size: 1.5rem;"></span></div><span style="font-size: 1.5rem;"><div><span></span></div></span><!--StartFragment--><ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3" style="--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 20px;"><li class="whitespace-normal break-words pl-2" style="--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;">Unlimited 1:1 mentorship with real tech professionals</li><li class="whitespace-normal break-words pl-2" style="--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;">Career coaching built to get you hired</li><li class="whitespace-normal break-words pl-2" style="--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;">An AI tutor that adapts to your learning path</li><li class="whitespace-normal break-words pl-2" style="--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;">Your own AI agent</li></ul><p class="font-claude-response-body break-words whitespace-normal leading-[1.7]" style="--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 20px;"><span style="--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 1.25rem;"><span style="--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;"><span style="--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-weight: bolder;"><span style="--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 1.5rem;">Tailored to you. Included for life.</span></span></span></span></p><!--EndFragment-->'
-      text_1: '<span style="font-size: 1.5rem;"><b><span style="line-height: 1.1;">Committed to breaking into tech? We support you like no one else does.</span></b></span>'
+      text_2: "<div><span style=\"font-size: 1.5rem;\"></span></div><span style=\"font-size: 1.5rem;\"><div><span></span></div></span><!--StartFragment--><ul class=\"[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 20px;\"><li class=\"whitespace-normal break-words pl-2\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\">Unlimited 1:1 mentorship with real tech professionals</li><li class=\"whitespace-normal break-words pl-2\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\">Career coaching built to get you hired</li><li class=\"whitespace-normal break-words pl-2\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\">An AI tutor that adapts to your learning path</li><li class=\"whitespace-normal break-words pl-2\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\">Your own AI agent</li></ul><p class=\"font-claude-response-body break-words whitespace-normal leading-[1.7]\" style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 20px;\"><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 1.25rem;\"><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1;\"><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-weight: bolder;\"><span style=\"--tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; font-size: 1.5rem;\">Tailored to you. Included for life.</span></span></span></span></p><!--EndFragment-->"
+      text_1: "<span style=\"font-size: 1.5rem;\"><b><span style=\"line-height: 1.1;\">Committed to breaking into tech? We support you like no one else does.</span></b></span>"
     height: 31rem
     mobile_height: 24rem
     gap: md
@@ -616,7 +394,7 @@ sections:
       desktop: 6xl
   - type: testimonials_slide
     title: They Were Where You Are. Now They're Thriving in Tech.
-    description: 'Different backgrounds, different starting points, one result: a career in tech that changed everything. These are their stories.'
+    description: "Different backgrounds, different starting points, one result: a career in tech that changed everything. These are their stories."
     dynamic_entries:
       database: testimonials_en
       limit: 30
@@ -632,7 +410,7 @@ sections:
     maxWidth:
       desktop: none
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: spotlight
     heading: Find Your Path
     subheading: Four programs. All built around getting you hired, not just trained.
@@ -729,7 +507,7 @@ sections:
     laptop_image:
       image_id: laptop
     title: Land the Job. Or Your Money Back.
-    description: '<span style="font-size: 1.5rem;"><span><span></span></span></span><span style="font-size: 1.5rem;"><span style="font-size: 1.875rem;"><span style="font-size: 1.5rem;"><span style="color: hsl(var(--foreground));"></span></span></span></span><span style="line-height: 1.625;"><span style="font-size: 1.5rem;"><span style="font-size: 1.875rem;"><span style="font-size: 1.5rem;"><span style="color: hsl(var(--foreground));"></span></span></span></span></span><span style="line-height: 1.625;"><span><span style="font-size: 1.5rem;"><span style="font-size: 1.875rem;"><span style="font-size: 1.5rem;"><span style="color: hsl(var(--foreground));">Every program comes with the option of a Job Guarantee.*</span></span></span></span><div><span style="font-size: 1.5rem;"><span style="font-size: 1.875rem;"><span style="font-size: 1.5rem;"><div style=""><span style="font-size: 1.5rem; color: rgb(0, 7, 26);">Not hired within 9 months?&nbsp;</span><span style="font-size: 1.5rem; color: rgb(0, 7, 26);">Full tuition refund.&nbsp;</span></div><div style=""><span style="font-size: 1.5rem; color: rgb(0, 7, 26);">That''s how confident we are in what we built.</span></div><div style=""><span style="font-size: 1.5rem; color: rgb(0, 7, 26);"></span></div></span></span></span></div></span><span style="line-height: 1.1;"><span><span><span><div><span style="font-size: 1.5rem;"><span style="font-size: 1.875rem;"><span style="font-size: 1.5rem;"><div style=""><span style="font-size: 1.5rem; color: rgb(0, 7, 26);"><br></span></div></span></span></span></div></span><div><span style="font-size: 1.5rem;"><span style="font-size: 1.875rem;"><span style="font-size: 1.5rem;"><div style=""><span style="font-size: 1.5rem; color: rgb(0, 7, 26);"></span></div></span><div style=""><span><span><span></span></span></span></div></span><div style=""><span><span><span></span></span></span></div></span><div><span style="font-size: 1.5rem;"><span><span></span></span></span></div><div><span style="font-size: 0.875rem; color: rgb(0, 7, 26);">*The Job Guarantee is not available in all regions.&nbsp;</span><a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf" style="font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;">Terms and conditions apply.</a></div></div></span></span></span><div><div><a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf" style="font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;"></a></div></div></span><div><div><a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf" style="font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;"></a></div></div>'
+    description: "<span style=\"font-size: 1.5rem;\"><span><span></span></span></span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span><span style=\"line-height: 1.625;\"><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span></span><span style=\"line-height: 1.625;\"><span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\">Every program comes with the option of a Job Guarantee.*</span></span></span></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Not hired within 9 months?&nbsp;</span><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Full tuition refund.&nbsp;</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">That's how confident we are in what we built.</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span></span></span></div></span><span style=\"line-height: 1.1;\"><span><span><span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"><br></span></div></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span><span></span></span></span></div><div><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">*The Job Guarantee is not available in all regions.&nbsp;</span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\">Terms and conditions apply.</a></div></div></span></span></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div>"
     cta:
       text: How It Works
       url: /en/job-guarantee
@@ -818,7 +596,7 @@ sections:
       desktop: md none
   - type: cta_banner
     section_id: cta_banner-y7nw0f
-    version: '1.0'
+    version: "1.0"
     title: Take the Next Step Toward Your Tech Career
     subtitle: Get program details, pricing and personalized guidance.
     background: hsl(var(--primary))
