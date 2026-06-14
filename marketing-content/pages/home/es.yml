@@ -160,7 +160,7 @@ sections:
       - React
       - Node.js
       - Prompt Engineering
-    marquee_speed: 30
+    marquee_speed: 35
     section_id: banner-qrp5dz
     paddingY:
       desktop: sm
@@ -190,7 +190,10 @@ sections:
       created_label: Creados por la IA
     card_gauge:
       badge: ¿Quién está realmente preparado para roles de IA?
-      gauge_percentage: 3
+
+      outer_stat_percentage: 97
+      show_gauge: true
+      inner_stat_highlight: true
       gauge_label: calificados
       stat_label: de la fuerza laboral no está preparada para roles de IA hoy
       bar1_label: Fuerza laboral tradicional

@@ -2,9 +2,20 @@
 import { resolveColorVar, hslColor, hslColorRaw } from "@/components/course_selector/shared";
 
 interface CircleGaugeProps {
-  percentage?: number;
+  /** Value shown inside the circle and fills the arc. Optional — circle hidden when absent. */
+  innerStatPct?: number;
+  /** Short label rendered below the % inside the circle. */
   gaugeLabel?: string;
+  /** Descriptive text shown beside the circle in the full variant. */
   gaugeSubLabel?: string;
+  /** The "other" value. Defaults to (100 - innerStatPct) when inner is set,
+   *  or shown standalone out of 100 when innerStatPct is absent. */
+  outerStatPct?: number;
+  /** When true (default), the inner stat gets the accent colour in the arc and bars.
+   *  When false, the outer stat gets accent. */
+  highlightInner?: boolean;
+  /** When false, the circle SVG is hidden and only bars are shown. Default: true. */
+  showGauge?: boolean;
   bar1Label?: string;
   bar2Label?: string;
   accentColor?: string;
@@ -12,104 +23,182 @@ interface CircleGaugeProps {
 }
 
 const GAUGE_SIZE   = 88;
-const STROKE_WIDTH = 3.6;
+const STROKE_WIDTH = 9;
 
 export function CircleGauge({
-  percentage    = 3,
-  gaugeLabel    = "qualified",
-  gaugeSubLabel = "not ready for AI roles today",
-  bar1Label     = "Traditional workforce",
-  bar2Label     = "AI-ready professionals",
-  accentColor   = "hsl(var(--color-orange))",
-  variant       = "full",
+  innerStatPct,
+  outerStatPct,
+  gaugeLabel,
+  gaugeSubLabel  = "not ready for AI roles today",
+  bar1Label      = "Traditional workforce",
+  bar2Label      = "AI-ready professionals",
+  accentColor    = "hsl(var(--color-orange))",
+  highlightInner = true,
+  showGauge      = true,
+  variant        = "full",
 }: CircleGaugeProps) {
-  const pct     = Math.min(100, Math.max(0, percentage));
-  const inverse = 100 - pct;
+  const hasInner   = innerStatPct !== undefined;
+  const showCircle = showGauge && (hasInner || outerStatPct !== undefined);
 
-  const resolved    = resolveColorVar(accentColor);
-  const accentCss   = hslColorRaw(resolved);
-  const trackColor  = hslColor(resolved, 0.3);
-  const barFaint    = hslColor(resolved, 0.3);
-  const bar1Track   = hslColor(resolved, 0.1);
-  const bar2Track   = hslColor(resolved, 0.2);
+  const inner = hasInner
+    ? Math.min(100, Math.max(0, innerStatPct!))
+    : 0;
 
-  const circleEl = (
-    <div className="relative shrink-0" style={{ width: GAUGE_SIZE, height: GAUGE_SIZE }}>
-      <svg
-        viewBox="0 0 36 36"
-        width={GAUGE_SIZE}
-        height={GAUGE_SIZE}
-        style={{ transform: "rotate(-90deg)" }}
-      >
+  const outer = outerStatPct !== undefined
+    ? Math.min(100, Math.max(0, outerStatPct))
+    : hasInner
+      ? 100 - inner
+      : 100;
+
+  // When inner is absent, arc fills based on outer directly (over 100)
+  const arcPct = !hasInner
+    ? outer
+    : highlightInner ? inner : outer;
+
+  const accentBarValue = highlightInner ? inner : outer;
+  const faintBarValue  = highlightInner ? outer : inner;
+
+  // Scale bar visual widths proportionally
+  const total        = accentBarValue + faintBarValue;
+  const accentVisual = total > 0 ? (accentBarValue / total) * 100 : 0;
+  const faintVisual  = total > 0 ? (faintBarValue  / total) * 100 : 0;
+
+  const resolved  = resolveColorVar(accentColor);
+  const accentCss = hslColorRaw(resolved);
+  const trackColor = hslColor(resolved, 0.3);
+  const barFaint   = hslColor(resolved, 0.25);
+  const bar1Track  = highlightInner ? hslColor(resolved, 0.15) : trackColor;
+  const bar2Track  = highlightInner ? trackColor : hslColor(resolved, 0.15);
+
+  const cx     = GAUGE_SIZE / 2;
+  const r      = (GAUGE_SIZE - STROKE_WIDTH) / 2;
+  const circum = 2 * Math.PI * r;
+  const arcDash = `${(arcPct / 100) * circum} ${circum}`;
+
+  // ── Circle ───────────────────────────────────────────────────────────────────
+  const circleEl = showCircle ? (
+    <div
+      className="relative flex-shrink-0"
+      style={{ width: GAUGE_SIZE, height: GAUGE_SIZE }}
+      data-testid="circle-gauge-svg"
+    >
+      <svg width={GAUGE_SIZE} height={GAUGE_SIZE} viewBox={`0 0 ${GAUGE_SIZE} ${GAUGE_SIZE}`}>
         <circle
-          cx="18" cy="18" r="15.9"
+          cx={cx} cy={cx} r={r}
           fill="none"
-          style={{ stroke: trackColor, strokeWidth: STROKE_WIDTH }}
+          stroke={trackColor}
+          strokeWidth={STROKE_WIDTH}
+          strokeDasharray={`${circum} ${circum}`}
+          strokeLinecap="round"
+          style={{ transform: "rotate(-90deg)", transformOrigin: "center" }}
         />
         <circle
-          cx="18" cy="18" r="15.9"
+          cx={cx} cy={cx} r={r}
           fill="none"
-          style={{ stroke: accentCss, strokeWidth: STROKE_WIDTH }}
-          strokeDasharray={`${pct} ${100 - pct}`}
+          stroke={accentCss}
+          strokeWidth={STROKE_WIDTH}
+          strokeDasharray={arcDash}
           strokeLinecap="round"
+          style={{ transform: "rotate(-90deg)", transformOrigin: "center" }}
         />
       </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-sm font-black leading-none" style={{ color: accentCss }}>
-          {pct}%
-        </span>
-        <span className="text-[9px] text-slate-500 mt-0.5 leading-none text-center px-1">
-          {gaugeLabel}
-        </span>
+      {hasInner && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <span className="text-sm font-black leading-none" style={{ color: accentCss }}>
+            {inner}%
+          </span>
+          {gaugeLabel && (
+            <span className="text-[9px] text-muted-foreground leading-tight mt-0.5 text-center px-1">
+              {gaugeLabel}
+            </span>
+          )}
+        </div>
+      )}
+    </div>
+  ) : null;
+
+  // ── Bars ─────────────────────────────────────────────────────────────────────
+  // When inner is absent: single bar for outer relative to 100
+  const barsEl = !hasInner ? (
+    <div className="flex flex-col gap-1">
+      <div className="flex justify-between text-xs">
+        <span className="text-slate-400">{bar1Label}</span>
+        <span style={{ color: accentCss }}>{outer}%</span>
+      </div>
+      <div className="h-1.5 rounded-full overflow-hidden" style={{ background: trackColor }}>
+        <div
+          className="h-full rounded-full"
+          style={{ width: `${outer}%`, background: accentCss }}
+        />
       </div>
     </div>
-  );
-
-  const barsEl = (
+  ) : (
     <div className="flex flex-col gap-2.5">
+      {/* bar1 = outer */}
       <div className="flex flex-col gap-1">
         <div className="flex justify-between text-xs">
           <span className="text-slate-400">{bar1Label}</span>
-          <span className="text-slate-500">{inverse}%</span>
+          <span style={{ color: highlightInner ? "#94a3b8" : accentCss }}>{outer}%</span>
         </div>
         <div className="h-1.5 rounded-full overflow-hidden" style={{ background: bar1Track }}>
           <div
             className="h-full rounded-full"
-            style={{ width: `${inverse}%`, background: barFaint }}
+            style={{
+              width: `${highlightInner ? faintVisual : accentVisual}%`,
+              background: highlightInner ? barFaint : accentCss,
+            }}
           />
         </div>
       </div>
+      {/* bar2 = inner */}
       <div className="flex flex-col gap-1">
         <div className="flex justify-between text-xs">
           <span className="text-slate-400">{bar2Label}</span>
-          <span style={{ color: accentCss }}>{pct}%</span>
+          <span style={{ color: highlightInner ? accentCss : "#94a3b8" }}>{inner}%</span>
         </div>
         <div className="h-1.5 rounded-full overflow-hidden" style={{ background: bar2Track }}>
           <div
             className="h-full rounded-full"
-            style={{ width: `${pct}%`, background: accentCss }}
+            style={{
+              width: `${highlightInner ? accentVisual : faintVisual}%`,
+              background: highlightInner ? accentCss : barFaint,
+            }}
           />
         </div>
       </div>
     </div>
   );
 
-  if (variant === "circle-only") return circleEl;
+  if (variant === "circle-only") return circleEl ?? <></>;
   if (variant === "bars-only")   return barsEl;
 
+  // ── Full ─────────────────────────────────────────────────────────────────────
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-4">
-        {circleEl}
+      {showCircle ? (
+        <div className="flex items-center gap-4">
+          {circleEl}
+          <div>
+            <div className="text-4xl font-black tracking-tight leading-none" style={{ color: accentCss }}>
+              {outer}%
+            </div>
+            <p className="text-sm text-muted-foreground mt-1.5 leading-snug">
+              {gaugeSubLabel}
+            </p>
+          </div>
+        </div>
+      ) : (
         <div>
           <div className="text-4xl font-black tracking-tight leading-none" style={{ color: accentCss }}>
-            {inverse}%
+            {outer}%
           </div>
-          <p className="text-sm text-muted-foreground mt-1.5 leading-snug">
-            {gaugeSubLabel}
-          </p>
+          {gaugeSubLabel && (
+            <p className="text-sm text-muted-foreground mt-1.5 leading-snug">
+              {gaugeSubLabel}
+            </p>
+          )}
         </div>
-      </div>
+      )}
       {barsEl}
     </div>
   );

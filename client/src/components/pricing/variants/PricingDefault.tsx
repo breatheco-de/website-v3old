@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { RichTextContent } from "@/components/ui/rich-text-content";
 import type { PricingSection as PricingSectionType } from "@shared/schema";
 import { Matplotlib } from "@/components/custom-icons";
-import Marquee from "@/lib/marquee";
+import { CSSMarquee } from "@/components/ui/CSSMarquee";
 import { getIcon } from "@/lib/icons";
 import { getTechBrandIcon } from "@/lib/tech-brand-icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
@@ -162,13 +162,7 @@ export function PricingSection({ data }: PricingSectionProps) {
                       })}
                     </div>
                   ) : (
-                    <Marquee
-                      speed={25}
-                      gradient={true}
-                      gradientWidth={50}
-                      pauseOnHover={true}
-                      gradientColor="hsl(var(--background))"
-                    >
+                    <CSSMarquee speed={20} gradient={true} gradientWidth={50} pauseOnHover={true}>
                       {data.tech_icons.map((iconName, index) => {
                         const IconComponent = resolveTechIcon(iconName);
                         return IconComponent ? (
@@ -181,7 +175,7 @@ export function PricingSection({ data }: PricingSectionProps) {
                           </div>
                         ) : null;
                       })}
-                    </Marquee>
+                    </CSSMarquee>
                   )}
                 </div>
               )}
@@ -377,12 +371,7 @@ export function PricingSection({ data }: PricingSectionProps) {
                     })}
                   </div>
                 ) : (
-                  <Marquee
-                    speed={25}
-                    gradient={true}
-                    gradientWidth={50}
-                    pauseOnHover={true}
-                  >
+                  <CSSMarquee speed={20} gradient={true} gradientWidth={50} pauseOnHover={true}>
                     {data.tech_icons.map((iconName, index) => {
                       const IconComponent = resolveTechIcon(iconName);
                       return IconComponent ? (
@@ -395,7 +384,7 @@ export function PricingSection({ data }: PricingSectionProps) {
                         </div>
                       ) : null;
                     })}
-                  </Marquee>
+                  </CSSMarquee>
                 )}
               </div>
             )}

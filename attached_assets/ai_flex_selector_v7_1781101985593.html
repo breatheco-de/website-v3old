@@ -1,0 +1,397 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+#pfx { background: #f5f5f5; font-family: 'Inter', system-ui, -apple-system, sans-serif; padding: 3rem 1.25rem 4rem; }
+.pfx-inner { max-width: 680px; margin: 0 auto; }
+
+.pfx-badge { display: inline-flex; align-items: center; gap: 6px; background: #0d6efd; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 13px; border-radius: 20px; margin-bottom: 1.25rem; }
+.pfx-title { font-size: 32px; font-weight: 800; color: #0d0d0d; letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 0.6rem; }
+.pfx-title span { color: #0d6efd; }
+.pfx-sub { font-size: 15px; color: #999; line-height: 1.6; margin-bottom: 2rem; }
+.pfx-progress { display: flex; gap: 5px; margin-bottom: 2.25rem; }
+.pfx-prog { height: 3px; flex: 1; border-radius: 3px; background: #e0e0e0; transition: background 0.4s; }
+.pfx-prog.done { background: #0d6efd; }
+.pfx-prog.active { background: #0d6efd; opacity: 0.35; }
+.pfx-q-meta { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: #bbb; margin-bottom: 0.5rem; }
+.pfx-q-text { font-size: 20px; font-weight: 700; color: #0d0d0d; line-height: 1.25; margin-bottom: 1.5rem; letter-spacing: -0.01em; }
+.pfx-opts { display: flex; flex-direction: column; gap: 8px; }
+.pfx-opt { display: flex; align-items: center; gap: 14px; padding: 13px 16px; background: #fff; border: 1.5px solid #ebebeb; border-radius: 12px; cursor: pointer; font-family: inherit; text-align: left; width: 100%; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: border-color .18s, background .18s, transform .15s; }
+.pfx-opt:hover { border-color: #b8d0ff; background: #f5f9ff; transform: translateY(-1px); }
+.pfx-opt.sel { border-color: #0d6efd; background: #eef4ff; }
+.pfx-opt-label { font-size: 14px; color: #333; flex: 1; font-weight: 500; line-height: 1.4; }
+.pfx-opt.sel .pfx-opt-label { color: #0a4ecc; }
+.pfx-opt-check { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid #d8d8d8; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .18s; }
+.pfx-opt.sel .pfx-opt-check { background: #0d6efd; border-color: #0d6efd; }
+.pfx-check-inner { width: 7px; height: 7px; border-radius: 50%; background: #fff; opacity: 0; transform: scale(.4); transition: all .18s; }
+.pfx-opt.sel .pfx-check-inner { opacity: 1; transform: scale(1); }
+.pfx-q-wrap { transition: opacity .2s, transform .2s; }
+.pfx-q-wrap.exit { opacity: 0; transform: translateX(-16px); }
+.pfx-q-wrap.enter { opacity: 0; transform: translateX(16px); }
+
+/* RESULTS */
+.pfx-results-wrap { animation: fadeUp .3s ease both; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+
+.pfx-path-name { font-size: 26px; font-weight: 800; color: #0d0d0d; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+.pfx-path-meta { font-size: 13px; color: #bbb; margin-bottom: 1.5rem; }
+.pfx-path-meta b { color: #555; font-weight: 600; }
+
+.pfx-counter-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.pfx-counter-label { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: #aaa; }
+.pfx-counter-badge { font-size: 11px; font-weight: 700; color: #0d6efd; background: #eef4ff; border: 1px solid #c5d8ff; padding: 3px 10px; border-radius: 20px; }
+
+.pfx-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+
+/* COURSE CARD */
+.pfx-ccard {
+  background: #fff; border: 1.5px solid #e4e4e4; border-radius: 13px; overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 3px 10px rgba(0,0,0,0.03);
+  transition: border-color .2s, box-shadow .2s, transform .18s;
+  cursor: pointer; user-select: none;
+}
+.pfx-ccard:hover { border-color: #b8d0ff; box-shadow: 0 3px 10px rgba(13,110,253,0.08), 0 8px 22px rgba(13,110,253,0.05); transform: translateY(-2px); }
+.pfx-ccard.recommended { border-color: #0d6efd; background: #f8fbff; }
+.pfx-ccard.deselected { border-color: #e4e4e4; background: #fafafa; opacity: 0.6; }
+.pfx-ccard.deselected:hover { opacity: 1; }
+.pfx-ccard.extra-selected { border-color: #0d6efd; background: #f8fbff; }
+
+.pfx-ccard-top { display: flex; align-items: flex-start; gap: 10px; padding: 13px 13px 10px; }
+.pfx-ccard-check { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid #ddd; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all .18s; }
+.pfx-ccard.recommended .pfx-ccard-check,
+.pfx-ccard.extra-selected .pfx-ccard-check { background: #0d6efd; border-color: #0d6efd; }
+.pfx-ccard-check-inner { width: 7px; height: 7px; border-radius: 50%; background: #fff; opacity: 0; transform: scale(.4); transition: all .18s; }
+.pfx-ccard.recommended .pfx-ccard-check-inner,
+.pfx-ccard.extra-selected .pfx-ccard-check-inner { opacity: 1; transform: scale(1); }
+.pfx-ccard-info { flex: 1; min-width: 0; }
+.pfx-ccard-name { font-size: 13px; font-weight: 700; color: #111; line-height: 1.3; margin-bottom: 2px; }
+.pfx-ccard.deselected .pfx-ccard-name { color: #999; }
+.pfx-ccard-tagline { font-size: 11px; color: #bbb; line-height: 1.4; }
+.pfx-ccard.recommended .pfx-ccard-tagline,
+.pfx-ccard.extra-selected .pfx-ccard-tagline { color: #7a9fd4; }
+.pfx-ccard-hrs { font-size: 10px; color: #bbb; background: #f3f3f3; padding: 2px 7px; border-radius: 5px; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+
+/* SKILLS TOGGLE */
+.pfx-skills-toggle { display: flex; align-items: center; justify-content: space-between; padding: 0 13px 10px; cursor: pointer; }
+.pfx-skills-toggle-label { font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #ccc; transition: color .15s; }
+.pfx-ccard:hover .pfx-skills-toggle-label { color: #0d6efd; }
+.pfx-skills-toggle-arrow { font-size: 10px; color: #ccc; transition: transform .2s, color .15s; }
+.pfx-ccard:hover .pfx-skills-toggle-arrow { color: #0d6efd; }
+.pfx-skills-toggle-arrow.open { transform: rotate(180deg); }
+
+/* SKILLS PANEL */
+.pfx-skills-panel { max-height: 0; overflow: hidden; transition: max-height .3s cubic-bezier(.4,0,.2,1); border-top: 1px solid #f0f0f0; }
+.pfx-skills-panel.open { max-height: 160px; }
+.pfx-skills-inner { padding: 10px 13px 13px; display: flex; flex-direction: column; gap: 8px; }
+
+/* HORIZONTAL SKILL ROW */
+.pfx-hskill { display: flex; align-items: center; gap: 8px; }
+.pfx-hskill-name { font-size: 11px; color: #aaa; min-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color .15s; }
+.pfx-hskill-track { flex: 1; height: 4px; background: #f0f0f0; border-radius: 3px; overflow: hidden; transition: height .15s; }
+.pfx-hskill-fill { height: 100%; border-radius: 3px; width: 0; transition: width .65s cubic-bezier(.4,0,.2,1), background .18s; }
+.pfx-hskill-pct { font-size: 10px; color: #ccc; min-width: 26px; text-align: right; font-variant-numeric: tabular-nums; transition: color .15s; }
+
+/* hover on row */
+.pfx-hskill:hover .pfx-hskill-name { color: #333; }
+.pfx-hskill:hover .pfx-hskill-track { height: 6px; }
+.pfx-hskill:hover .pfx-hskill-fill { background: #0a4ecc !important; }
+.pfx-hskill:hover .pfx-hskill-pct { color: #555; }
+
+/* TOOLS */
+.pfx-tools-wrap { background: #fff; border: 1.5px solid #ebebeb; border-radius: 13px; padding: 0.9rem 1.1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); margin-top: 9px; }
+.pfx-section-label { font-size: 11px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: #c0c0c0; margin-bottom: 8px; }
+.pfx-tools-row { display: flex; flex-wrap: wrap; gap: 5px; }
+.pfx-tool { font-size: 11px; color: #666; font-weight: 600; background: #f5f5f5; border: 1px solid #e8e8e8; border-radius: 5px; padding: 3px 8px; font-family: 'SF Mono','Fira Code',monospace; transition: background .15s, border-color .15s, color .15s; }
+.pfx-tool:hover { background: #eef4ff; border-color: #b8d0ff; color: #0a4ecc; }
+
+.pfx-cta-card { background: #0d6efd; border-radius: 13px; padding: 1.2rem 1.4rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; box-shadow: 0 4px 16px rgba(13,110,253,0.25); margin-top: 9px; }
+.pfx-cta-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+.pfx-cta-sub { font-size: 12px; color: rgba(255,255,255,.6); }
+.pfx-cta-btn { background: #fff; border: none; border-radius: 8px; padding: 10px 18px; font-size: 13px; font-weight: 700; color: #0d6efd; cursor: pointer; font-family: inherit; white-space: nowrap; flex-shrink: 0; }
+.pfx-cta-btn:hover { opacity: .9; }
+.pfx-restart { background: none; border: none; font-size: 12px; color: #ccc; cursor: pointer; font-family: inherit; margin-top: 1rem; text-decoration: underline; display: block; width: 100%; text-align: center; }
+.pfx-restart:hover { color: #888; }
+
+@media (max-width: 480px) {
+  .pfx-title { font-size: 25px; }
+  .pfx-q-text { font-size: 17px; }
+  .pfx-grid { grid-template-columns: 1fr; }
+  .pfx-cta-card { flex-direction: column; align-items: flex-start; }
+  .pfx-hskill-name { min-width: 100px; }
+}
+</style>
+
+<div id="pfx"><div class="pfx-inner" id="pfx-app"></div></div>
+
+<script>
+const QQ=[
+  {id:'goal',text:"What's your main goal right now?",options:[
+    {id:'productivity',label:'Use AI to be more productive at my current job'},
+    {id:'automate',label:'Automate repetitive tasks without writing code'},
+    {id:'build',label:'Build apps or technical projects with AI'},
+    {id:'data',label:'Work with data, analytics, or machine learning'}
+  ]},
+  {id:'coding',text:'How comfortable are you with coding?',options:[
+    {id:'none_no',label:"No experience — and I'd like to keep it that way"},
+    {id:'none_open',label:"No experience — but I'm open to basics"},
+    {id:'some',label:'Some basics (scripts, spreadsheets, HTML)'},
+    {id:'regular',label:'I code regularly'}
+  ]},
+  {id:'impact',text:'What skill would make the biggest difference in your work right now?',options:[
+    {id:'reliable_ai',label:'Getting reliable, professional-quality results from AI tools'},
+    {id:'automations',label:'Building automations that run without me'},
+    {id:'assistant',label:'Setting up AI assistants for my existing tools'},
+    {id:'code',label:'Writing code or building software with AI'},
+    {id:'data_skills',label:'Analyzing data and making smarter decisions'}
+  ]},
+  {id:'use',text:'How do you plan to use what you learn?',options:[
+    {id:'better_now',label:'Get better at what I already do'},
+    {id:'add_role',label:'Add a new capability to my current role'},
+    {id:'career_shift',label:'Prepare for a career shift into tech'},
+    {id:'explore',label:'Explore — not sure yet'}
+  ]}
+];
+
+const ALL_COURSES=[
+  {id:'prompt',name:'Prompt Engineering',tagline:'Prompting patterns & reusable libraries',hrs:'~8 hrs',skills:[
+    {name:'Prompting patterns',pct:55,desc:'Chain-of-thought, few-shot, persona framing.'},
+    {name:'Output control',pct:28,desc:'Format AI responses with Markdown and structured templates.'},
+    {name:'Context management',pct:17,desc:'Manage multi-turn conversations to keep AI on track.'}
+  ]},
+  {id:'applied',name:'Applied AI',tagline:'AI for real professional work tasks',hrs:'~12 hrs',skills:[
+    {name:'AI writing & editing',pct:40,desc:'Emails, reports, proposals — faster with AI.'},
+    {name:'Research tools',pct:35,desc:'Perplexity, ChatGPT, Claude for research.'},
+    {name:'Workflow documentation',pct:25,desc:'Document your AI workflow for your team.'}
+  ]},
+  {id:'nocode',name:'No-Code & Automations',tagline:'Visual workflows with n8n, Zapier, Make',hrs:'~10 hrs',skills:[
+    {name:'Visual workflows',pct:45,desc:'Build automated pipelines without writing code.'},
+    {name:'App integrations',pct:35,desc:'Connect Gmail, Slack, Sheets via webhooks.'},
+    {name:'AI steps in pipelines',pct:20,desc:'Add AI generation inside any automation.'}
+  ]},
+  {id:'vibe',name:'Vibe Coding with AI',tagline:'Build apps with AI coding assistants',hrs:'~12 hrs',skills:[
+    {name:'AI-assisted coding',pct:50,desc:'Cursor and Copilot to generate and iterate on code.'},
+    {name:'Shipping projects',pct:30,desc:'Deploy a real web project from scratch.'},
+    {name:'Debug & review',pct:20,desc:'Read AI-generated code and catch errors.'}
+  ]},
+  {id:'openclaw',name:'OpenClaw',tagline:'Personal AI assistant setup & integration',hrs:'~6 hrs',skills:[
+    {name:'Assistant setup',pct:50,desc:'Install and configure a personal AI assistant.'},
+    {name:'Custom skill design',pct:30,desc:'Build commands your assistant runs on demand.'},
+    {name:'Tool connection',pct:20,desc:'Connect to Drive, Gmail and Notion.'}
+  ]},
+  {id:'backend',name:'Backend Dev with Python',tagline:'APIs with FastAPI, databases, deployment',hrs:'~20 hrs',skills:[
+    {name:'REST API design',pct:45,desc:'Real API endpoints with FastAPI.'},
+    {name:'Database & deploy',pct:35,desc:'PostgreSQL, Docker, live deployment.'},
+    {name:'AI API integration',pct:20,desc:'OpenAI or Anthropic as a backend service.'}
+  ]},
+  {id:'python',name:'Deep Dive into Python',tagline:'Python fundamentals to advanced',hrs:'~18 hrs',skills:[
+    {name:'Python foundations',pct:50,desc:'Variables, functions, loops, data structures.'},
+    {name:'OOP & structures',pct:30,desc:'Classes, inheritance, encapsulation.'},
+    {name:'Project setup',pct:20,desc:'Multi-file projects, environments, Git.'}
+  ]},
+  {id:'data',name:'Data Science & ML',tagline:'Data analysis, ML models, predictions',hrs:'~22 hrs',skills:[
+    {name:'Data analysis & viz',pct:45,desc:'NumPy, Pandas, Matplotlib on real datasets.'},
+    {name:'ML model building',pct:35,desc:'Classification and regression with scikit-learn.'},
+    {name:'Model evaluation',pct:20,desc:'Accuracy, precision, recall, RMSE.'}
+  ]}
+];
+
+const PATH_COURSES={
+  'The AI-First Professional':['prompt','applied','nocode','openclaw'],
+  'The Career Switcher':['python','backend','vibe','applied'],
+  'The Automation Specialist':['nocode','prompt','openclaw','applied'],
+  'The Data-Driven Analyst':['python','data','applied','prompt'],
+  'The Builder':['vibe','backend','nocode','openclaw']
+};
+const PATH_TAGLINES={
+  'The AI-First Professional':'AI tools mastery for knowledge workers',
+  'The Career Switcher':'Code foundations + applied AI for career pivoters',
+  'The Automation Specialist':'No-code workflows and AI pipelines',
+  'The Data-Driven Analyst':'Python, data science and ML with AI tools',
+  'The Builder':'Build real products with AI, code-optional'
+};
+const PATH_TOOLS={
+  'The AI-First Professional':['ChatGPT','Claude','n8n','Make','Zapier','Notion','OpenClaw'],
+  'The Career Switcher':['Python','FastAPI','PostgreSQL','Cursor','GitHub Copilot','Docker','Git'],
+  'The Automation Specialist':['n8n','Make','Zapier','ChatGPT','Claude','OpenClaw','Slack'],
+  'The Data-Driven Analyst':['Python','NumPy','Pandas','scikit-learn','Matplotlib','Jupyter','Perplexity'],
+  'The Builder':['Cursor','Copilot','Python','FastAPI','n8n','Make','OpenClaw','Replit']
+};
+
+function getPath(a){
+  if(a.goal==='data'||a.impact==='data_skills') return 'The Data-Driven Analyst';
+  if(a.goal==='build'||(a.coding==='regular'&&a.use==='career_shift')) return 'The Builder';
+  if(a.coding==='regular'||a.use==='career_shift') return 'The Career Switcher';
+  if(a.goal==='automate'||a.impact==='automations') return 'The Automation Specialist';
+  return 'The AI-First Professional';
+}
+
+let step=0, answers={}, busy=false;
+let selectedCourses=new Set();
+let expandedCards=new Set();
+
+function render(){ step<QQ.length ? renderQ() : renderResults(); }
+
+function renderQ(){
+  const app=document.getElementById('pfx-app');
+  const q=QQ[step], sel=answers[q.id];
+  app.innerHTML=`
+    <div class="pfx-badge">Build your path</div>
+    <div class="pfx-title">Your AI curriculum,<br><span>built around you.</span></div>
+    <p class="pfx-sub">4 questions. No commitment. We map the exact courses you need.</p>
+    <div class="pfx-progress">${QQ.map((_,i)=>`<div class="pfx-prog ${i<step?'done':i===step?'active':''}"></div>`).join('')}</div>
+    <div class="pfx-q-wrap" id="pfx-qw">
+      <div class="pfx-q-meta">Question ${step+1} of ${QQ.length}</div>
+      <div class="pfx-q-text">${q.text}</div>
+      <div class="pfx-opts">${q.options.map(o=>`
+        <button class="pfx-opt${sel===o.id?' sel':''}" onclick="pick('${q.id}','${o.id}')">
+          <span class="pfx-opt-label">${o.label}</span>
+          <div class="pfx-opt-check"><div class="pfx-check-inner"></div></div>
+        </button>`).join('')}
+      </div>
+    </div>`;
+}
+
+function renderResults(){
+  const pName=getPath(answers);
+  const recommended=PATH_COURSES[pName];
+  selectedCourses=new Set(recommended);
+  expandedCards=new Set();
+
+  const app=document.getElementById('pfx-app');
+  app.innerHTML=`
+    <div class="pfx-results-wrap">
+      <div class="pfx-badge">Your path is ready</div>
+      <div class="pfx-path-name">${pName}</div>
+      <div class="pfx-path-meta">${PATH_TAGLINES[pName]}</div>
+      <div class="pfx-counter-row">
+        <div class="pfx-counter-label">Select your courses</div>
+        <div class="pfx-counter-badge" id="pfx-counter">4 / 4 selected</div>
+      </div>
+      <div class="pfx-grid" id="pfx-grid"></div>
+      <div class="pfx-tools-wrap" style="margin-top:9px;">
+        <div class="pfx-section-label">Tools in this path</div>
+        <div class="pfx-tools-row">${PATH_TOOLS[pName].map(t=>`<span class="pfx-tool">${t}</span>`).join('')}</div>
+      </div>
+      <div class="pfx-cta-card">
+        <div>
+          <div class="pfx-cta-title">Start with a 7-day free trial.</div>
+          <div class="pfx-cta-sub">No commitment. Cancel anytime. Your path stays saved.</div>
+        </div>
+        <button class="pfx-cta-btn">Start free trial</button>
+      </div>
+      <button class="pfx-restart" onclick="restart()">Start over and change my answers</button>
+    </div>`;
+
+  renderGrid(recommended);
+}
+
+function renderGrid(recommended){
+  const grid=document.getElementById('pfx-grid');
+  if(!grid) return;
+  grid.innerHTML='';
+
+  const sorted=[
+    ...ALL_COURSES.filter(c=>recommended.includes(c.id)),
+    ...ALL_COURSES.filter(c=>!recommended.includes(c.id))
+  ];
+
+  sorted.forEach(course=>{
+    const isRec=recommended.includes(course.id);
+    const isSel=selectedCourses.has(course.id);
+    const isExp=expandedCards.has(course.id);
+
+    let cls='pfx-ccard';
+    if(isSel && isRec) cls+=' recommended';
+    else if(isSel && !isRec) cls+=' extra-selected';
+    else cls+=' deselected';
+
+    // Horizontal skill bars
+    const skillsHtml=course.skills.map(s=>`
+      <div class="pfx-hskill">
+        <span class="pfx-hskill-name">${s.name}</span>
+        <div class="pfx-hskill-track">
+          <div class="pfx-hskill-fill sk-fill" data-pct="${s.pct}" style="background:#0d6efd;"></div>
+        </div>
+        <span class="pfx-hskill-pct">${s.pct}%</span>
+      </div>`).join('');
+
+    grid.insertAdjacentHTML('beforeend',`
+      <div class="${cls}" id="card-${course.id}" onclick="toggleCard(event,'${course.id}')">
+        <div class="pfx-ccard-top">
+          <div class="pfx-ccard-check"><div class="pfx-ccard-check-inner"></div></div>
+          <div class="pfx-ccard-info">
+            <div class="pfx-ccard-name">${course.name}</div>
+            <div class="pfx-ccard-tagline">${course.tagline}</div>
+          </div>
+          <div class="pfx-ccard-hrs">${course.hrs}</div>
+        </div>
+        <div class="pfx-skills-toggle" onclick="toggleExpand(event,'${course.id}')">
+          <span class="pfx-skills-toggle-label">Skills breakdown</span>
+          <span class="pfx-skills-toggle-arrow${isExp?' open':''}" id="sarr-${course.id}">▾</span>
+        </div>
+        <div class="pfx-skills-panel${isExp?' open':''}" id="spanel-${course.id}">
+          <div class="pfx-skills-inner">${skillsHtml}</div>
+        </div>
+      </div>`);
+  });
+
+  // Animate bars after DOM paint
+  setTimeout(()=>{
+    document.querySelectorAll('.sk-fill').forEach(el=>{
+      const pct=el.getAttribute('data-pct');
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{ el.style.width=pct+'%'; }));
+    });
+  }, 60);
+
+  updateCounter();
+}
+
+function toggleCard(e, courseId){
+  if(e.target.closest('.pfx-skills-toggle')) return;
+  const maxReached=selectedCourses.size>=4&&!selectedCourses.has(courseId);
+  if(maxReached){
+    // flash counter
+    const c=document.getElementById('pfx-counter');
+    if(c){ c.style.background='#fee2e2'; c.style.color='#dc2626'; c.style.borderColor='#fca5a5'; setTimeout(()=>{ c.style.background=''; c.style.color=''; c.style.borderColor=''; },800); }
+    return;
+  }
+  if(selectedCourses.has(courseId)) selectedCourses.delete(courseId);
+  else selectedCourses.add(courseId);
+  const recommended=PATH_COURSES[getPath(answers)];
+  renderGrid(recommended);
+}
+
+function toggleExpand(e, courseId){
+  e.stopPropagation();
+  if(expandedCards.has(courseId)) expandedCards.delete(courseId);
+  else expandedCards.add(courseId);
+  const recommended=PATH_COURSES[getPath(answers)];
+  renderGrid(recommended);
+}
+
+function updateCounter(){
+  const el=document.getElementById('pfx-counter');
+  if(!el) return;
+  const n=selectedCourses.size;
+  el.textContent=`${n} / 4 selected`;
+}
+
+function pick(qId,oId){
+  if(busy) return;
+  answers[qId]=oId;
+  const wrap=document.getElementById('pfx-qw');
+  if(!wrap){render();return;}
+  if(step<QQ.length-1){
+    busy=true;
+    wrap.classList.add('exit');
+    setTimeout(()=>{
+      step++; renderQ();
+      const nw=document.getElementById('pfx-qw');
+      if(nw){ nw.classList.add('enter'); requestAnimationFrame(()=>requestAnimationFrame(()=>{ nw.classList.remove('enter'); busy=false; })); }
+      else busy=false;
+    },200);
+  } else { step++; render(); }
+}
+
+function restart(){ step=0; answers={}; selectedCourses=new Set(); expandedCards=new Set(); render(); }
+render();
+</script>

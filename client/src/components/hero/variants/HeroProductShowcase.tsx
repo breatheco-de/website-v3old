@@ -1,7 +1,7 @@
 
 import { useState, useEffect, lazy, Suspense } from "react";
 import { ArrowRight, Check, Star } from "lucide-react";
-import Marquee from "@/lib/marquee";
+import { CSSMarquee } from "@/components/ui/CSSMarquee";
 import type {
   HeroProductShowcase as HeroProductShowcaseType,
   HeroApplyFormProductShowcase,
@@ -304,13 +304,10 @@ export default function HeroProductShowcase({
                   className="w-full max-w-xl mt-6 md:mb-8 overflow-hidden"
                   data-testid="hero-embedded-marquee"
                 >
-                  <Marquee
+                  <CSSMarquee
                     speed={marquee.speed || 40}
-                    pauseOnHover={false}
                     gradient={marquee.gradient ?? true}
-                    gradientColor={marquee.gradientColor}
                     gradientWidth={marquee.gradientWidth || 60}
-                    autoFill={true}
                   >
                     {marquee.items.map((item, index) => (
                       <div
@@ -340,7 +337,7 @@ export default function HeroProductShowcase({
                         )}
                       </div>
                     ))}
-                  </Marquee>
+                  </CSSMarquee>
                 </div>
               )}
 

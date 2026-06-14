@@ -179,7 +179,8 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
                     style={{ color: hslColorRaw(gaugeR) }}
                     data-testid="text-stats-charts-gauge-value-mobile"
                   >
-                    {100 - (card_gauge?.gauge_percentage ?? 3)}%
+                    {(card_gauge?.outer_stat_percentage ??
+                      (100 - (card_gauge?.inner_stat_percentage ?? 3)))}%
                   </div>
                   {card_gauge?.stat_label && (
                     <p
@@ -191,14 +192,20 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
                   )}
                 </div>
                 <CircleGauge
-                  percentage={card_gauge?.gauge_percentage}
+                  innerStatPct={card_gauge?.inner_stat_percentage}
+                  outerStatPct={card_gauge?.outer_stat_percentage}
                   gaugeLabel={card_gauge?.gauge_label}
+                  highlightInner={card_gauge?.inner_stat_highlight ?? true}
+                  showGauge={card_gauge?.show_gauge ?? true}
                   accentColor={gaugeAccent}
                   variant="circle-only"
                 />
               </div>
               <CircleGauge
-                percentage={card_gauge?.gauge_percentage}
+                innerStatPct={card_gauge?.inner_stat_percentage}
+                outerStatPct={card_gauge?.outer_stat_percentage}
+                highlightInner={card_gauge?.inner_stat_highlight ?? true}
+                showGauge={card_gauge?.show_gauge ?? true}
                 bar1Label={card_gauge?.bar1_label}
                 bar2Label={card_gauge?.bar2_label}
                 accentColor={gaugeAccent}
@@ -209,9 +216,12 @@ export default function FeaturesGridStatsCharts({ data }: Props) {
             {/* Desktop layout: full CircleGauge */}
             <div className="hidden md:block">
               <CircleGauge
-                percentage={card_gauge?.gauge_percentage}
+                innerStatPct={card_gauge?.inner_stat_percentage}
+                outerStatPct={card_gauge?.outer_stat_percentage}
                 gaugeLabel={card_gauge?.gauge_label}
                 gaugeSubLabel={card_gauge?.stat_label}
+                highlightInner={card_gauge?.inner_stat_highlight ?? true}
+                showGauge={card_gauge?.show_gauge ?? true}
                 bar1Label={card_gauge?.bar1_label}
                 bar2Label={card_gauge?.bar2_label}
                 accentColor={gaugeAccent}

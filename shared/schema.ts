@@ -101,6 +101,14 @@ export type {
 // HeroCredibility is already exported via the re-export block above
 
 // ============================================
+// Re-export AiFlexSelector Schemas from Component Registry
+// ============================================
+export {
+  aiFlexSelectorDefaultSchema,
+  type AiFlexSelectorDefault,
+} from "../marketing-content/component-registry/ai_flex_selector/v1.0/schema";
+
+// ============================================
 // Re-export AI Learning Schemas from Component Registry
 // ============================================
 export {

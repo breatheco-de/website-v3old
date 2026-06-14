@@ -44,6 +44,7 @@ export const CUSTOM_ICON_NAMES = [
   "BrandSlack",
   "StairsWithFlag",
   "Target",
+  "4GeeksAvatar",
 ];
 
 // Legacy Tabler-style names (Icon-prefixed) in YAML → Lucide export names.

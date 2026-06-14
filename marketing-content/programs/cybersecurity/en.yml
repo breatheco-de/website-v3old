@@ -101,7 +101,7 @@ sections:
   - type: awards_marquee
     section_id: awards_marquee-bx0vuy
     version: v1.0
-    speed: 40
+    speed: 50
     gradient: true
     gradientWidth: 400
     items:
@@ -209,7 +209,10 @@ sections:
     card_gauge:
       title: Demand far outpaces supply
       description: BLS Occupational Outlook · 2024-2034
-      gauge_percentage: 29
+
+      outer_stat_percentage: 71
+      show_gauge: true
+      inner_stat_highlight: true
       gauge_label: projected growth
       stat_label: projected growth in cybersecurity jobs over the next decade, far above the national average
       bar1_label: Current workforce

@@ -60,7 +60,7 @@ sections:
   - type: awards_marquee
     section_id: awards_marquee-t8ylg2
     version: v1.0
-    speed: 40
+    speed: 50
     gradient: true
     gradientWidth: 400
     items:
@@ -154,7 +154,10 @@ sections:
     card_gauge:
       title: The Productivity Jump Is Real
       description: Productivity growth · AI-exposed industries · PwC 2025
-      gauge_percentage: 27
+
+      outer_stat_percentage: 73
+      show_gauge: true
+      inner_stat_highlight: true
       gauge_label: productivity growth rate
       stat_label: productivity growth in companies using AI well, up from 7% in 2022
       bar1_label: AI-adopting companies

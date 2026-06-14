@@ -108,7 +108,7 @@ sections:
     section_id: apply-modal
   - type: awards_marquee
     version: v1.0
-    speed: 40
+    speed: 50
     gradient: true
     gradientWidth: 100
     items:
@@ -212,7 +212,10 @@ sections:
     card_gauge:
       title: Demand Is Outpacing Supply
       description: McKinsey Global Institute · 2026 projection
-      gauge_percentage: 50
+
+      outer_stat_percentage: 50
+      show_gauge: true
+      inner_stat_highlight: true
       gauge_label: supply gap
       stat_label: demand for data scientists will exceed supply by over 50% in 2026
       bar1_label: Available talent
