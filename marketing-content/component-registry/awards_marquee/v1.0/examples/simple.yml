@@ -1,5 +1,5 @@
 - type: awards_marquee
-  speed: 40
+  speed: 60
   gradient: true
   gradientWidth: 100
   items:

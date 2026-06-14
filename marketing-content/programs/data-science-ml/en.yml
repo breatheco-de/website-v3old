@@ -108,7 +108,7 @@ sections:
     section_id: apply-modal
   - type: awards_marquee
     version: v1.0
-    speed: 50
+    speed: 60
     gradient: true
     gradientWidth: 100
     items:

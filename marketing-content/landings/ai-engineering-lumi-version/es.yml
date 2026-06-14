@@ -104,7 +104,7 @@ sections:
   - type: awards_marquee
     section_id: awards_marquee-kug9c3
     version: "1.0"
-    speed: 40
+    speed: 60
     gradient: true
     gradientWidth: 500
     items:

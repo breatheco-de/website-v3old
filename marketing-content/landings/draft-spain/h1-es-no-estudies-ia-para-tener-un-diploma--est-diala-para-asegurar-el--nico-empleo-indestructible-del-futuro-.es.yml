@@ -98,7 +98,7 @@ sections:
       url: https://youtu.be/k_Fhi5aOBKc
   - type: awards_marquee
     version: v1.0
-    speed: 40
+    speed: 60
     gradient: true
     gradientWidth: 400
     items:

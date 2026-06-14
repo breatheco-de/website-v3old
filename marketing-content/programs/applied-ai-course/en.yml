@@ -115,7 +115,7 @@ sections:
   - type: awards_marquee
     section_id: awards_marquee-jnnxte
     version: v1.0
-    speed: 50
+    speed: 60
     gradient: true
     gradientWidth: 400
     items:

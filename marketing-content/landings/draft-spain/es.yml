@@ -107,7 +107,7 @@ sections:
         message: ¡Gracias! Nos pondremos en contacto dentro de 24 horas.
   - type: awards_marquee
     version: v1.0
-    speed: 40
+    speed: 60
     gradient: true
     gradientWidth: 400
     items:

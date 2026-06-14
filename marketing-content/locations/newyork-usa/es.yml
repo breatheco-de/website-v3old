@@ -31,7 +31,7 @@ sections:
   - type: awards_marquee
     section_id: awards_marquee-8rr4f9
     version: v1.0
-    speed: 40
+    speed: 60
     gradient: true
     gradientWidth: 100
     items:
