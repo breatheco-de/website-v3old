@@ -86,11 +86,11 @@ sections:
     section_id: hero-tcvppl
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
-      desktop: none md
+      desktop: none lg
     pills_url: "#list_press_mentions-w7r1sh"
     marquee_static: true
     marginY:
-      desktop: none md
+      desktop: none lg
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thiriving in tech.
@@ -133,11 +133,11 @@ sections:
         object_position: 50% 45%
     section_id: graduates_stats-cnxqbb
     marginY:
-      desktop: md
+      desktop: lg md
     maxWidth:
       desktop: 6xl
     paddingY:
-      desktop: md sm
+      desktop: lg sm
   - type: banner
     version: v1.0
     variant: marqueeBadges
