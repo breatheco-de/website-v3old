@@ -196,8 +196,8 @@ sections:
       description: Productivity growth · AI-exposed industries · PwC 2025
       inner_stat_percentage: 27
       outer_stat_percentage: 73
-      show_gauge: true
-      inner_stat_highlight: true
+      show_gauge: false
+      inner_stat_highlight: false
       gauge_label: productivity growth rate
       stat_label: productivity growth in companies using AI well, up from 7% in 2022
       bar1_label: AI-adopting companies
