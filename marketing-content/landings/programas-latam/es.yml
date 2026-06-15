@@ -13,8 +13,8 @@ sections:
       - text: Paga en 10, 12 o 18 cuotas mensuales sin dejar tu trabajo actual
     form:
       variant: stacked
-      conversion_name: student_application
-      submit_label: Iniciar mi aplicación
+      conversion_name: request_more_info
+      submit_label: Obtén todos los detalles
       fields:
         email:
           visible: true
