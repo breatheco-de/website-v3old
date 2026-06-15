@@ -160,53 +160,6 @@ sections:
     background: hsl(var(--muted))
     marginY:
       desktop: none xl
-  - type: graduates_stats
-    heading: Our Graduates Get Hired. Fast.
-    subheading: 6,000+ graduates worldwide. Now thiriving in tech.
-    stats:
-      - value: {{ global.global_job_placement_rate | 84% }}%
-        label: Average hiring rate
-      - value: {{ global.global_salary_increase | 55% }}%
-        label: Average salary increase at new position
-      - value: 3-6 months
-        label: Average time to get hired
-    collage_images:
-      - image_id: gemini-generated-image-uwpyyruwpyyruwpy
-        col_span: 5
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
-        id: gemini-generated-image-uwpyyruwpyyruwpy
-        object_scale: 1.1
-        object_position: 50% 30%
-      - image_id: group-7086-1-800x440
-        col_span: 7
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
-        id: gemini-generated-image-pd2u4upd2u4upd2u
-        object_scale: 1
-        transform_origin: 50% 50%
-        object_position: 50% 60%
-      - image_id: group-7084-1-695x382
-        col_span: 6
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
-        id: gemini-generated-image-dhko5mdhko5mdhko-1
-        object_scale: 1.05
-      - image_id: group-7087-1-680x392
-        col_span: 6
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
-        id: gemini-generated-image-wpk4yvwpk4yvwpk4
-        object_scale: 1.05
-        transform_origin: 50% 50%
-        object_position: 50% 45%
-    section_id: graduates_stats-cnxqbb
-    marginY:
-      desktop: none
-    maxWidth:
-      desktop: 6xl
-    paddingY:
-      desktop: sm none
   - type: course_selector
     version: "1.0"
     variant: spotlight
@@ -271,6 +224,53 @@ sections:
       desktop: 6xl
     marginY:
       desktop: none md
+  - type: graduates_stats
+    heading: Our Graduates Get Hired. Fast.
+    subheading: 6,000+ graduates worldwide. Now thiriving in tech.
+    stats:
+      - value: {{ global.global_job_placement_rate | 84% }}%
+        label: Average hiring rate
+      - value: {{ global.global_salary_increase | 55% }}%
+        label: Average salary increase at new position
+      - value: 3-6 months
+        label: Average time to get hired
+    collage_images:
+      - image_id: gemini-generated-image-uwpyyruwpyyruwpy
+        col_span: 5
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
+        object_scale: 1.1
+        object_position: 50% 30%
+      - image_id: group-7086-1-800x440
+        col_span: 7
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
+        id: gemini-generated-image-pd2u4upd2u4upd2u
+        object_scale: 1
+        transform_origin: 50% 50%
+        object_position: 50% 60%
+      - image_id: group-7084-1-695x382
+        col_span: 6
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
+        object_scale: 1.05
+      - image_id: group-7087-1-680x392
+        col_span: 6
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
+        object_scale: 1.05
+        transform_origin: 50% 50%
+        object_position: 50% 45%
+    section_id: graduates_stats-cnxqbb
+    marginY:
+      desktop: none
+    maxWidth:
+      desktop: 6xl
+    paddingY:
+      desktop: sm none
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-800x1200-q72.webp
