@@ -116,7 +116,7 @@ sections:
       inner_stat_highlight: true
       gauge_label: more roles YoY
       stat_label: year-over-year increase in roles requiring AI literacy (LinkedIn 2026)
-      bar1_label: Last year
+      bar1_label: null
       bar2_label: This year
     card_trend:
       badge: The Roles Are Already There.
