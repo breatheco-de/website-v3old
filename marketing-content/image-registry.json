@@ -8713,7 +8713,11 @@
       "focal_point": "center",
       "tags": [
         "avatar",
-        "team"
+        "team",
+        "photo",
+        "badge",
+        "illustration",
+        "award"
       ],
       "usage_count": 0,
       "hash": "70f664f0c8bc03393b069033390e7d00f72840c72a42ce47df38d3f811993bf0",
