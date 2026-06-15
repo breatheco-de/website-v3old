@@ -110,8 +110,7 @@ sections:
       created_label: With AI skills
     card_gauge:
       badge: Employers Are Moving Fast.
-      inner_stat_percentage: 70
-      outer_stat_percentage: 30
+      outer_stat_percentage: 70
       show_gauge: false
       inner_stat_highlight: true
       gauge_label: more roles YoY
