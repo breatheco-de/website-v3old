@@ -109,6 +109,22 @@ export {
 } from "../marketing-content/component-registry/ai_flex_selector/v1.0/schema";
 
 // ============================================
+// Re-export Survey Schemas from Component Registry
+// ============================================
+export {
+  surveyDefaultSchema,
+  type SurveyDefault,
+} from "../marketing-content/component-registry/survey/v1.0/schema";
+
+// ============================================
+// Re-export AiFlexPath Schemas from Component Registry
+// ============================================
+export {
+  aiFlexPathDefaultSchema,
+  type AiFlexPathDefault,
+} from "../marketing-content/component-registry/ai_flex_path/v1.0/schema";
+
+// ============================================
 // Re-export AI Learning Schemas from Component Registry
 // ============================================
 export {

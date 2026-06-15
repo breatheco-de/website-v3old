@@ -1,9 +1,10 @@
 import type { CSSProperties } from "react";
 import { AlertTriangle, Link, Loader2, Trash2 } from "lucide-react";
-import { useState, useRef, useEffect, lazy, Suspense } from "react";
+import { useState, useRef, useEffect, lazy, Suspense, useMemo } from "react";
 import { useContentTypesRaw } from "@/hooks/useContentTypes";
 import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn, PageSettings } from "@shared/schema";
 import { useSession } from "@/contexts/SessionContext";
+import { PageSectionsProvider } from "@/contexts/PageSectionsContext";
 import { useMenuVisualContext } from "@/contexts/MenuVisualContext";
 import { VariableHighlightProvider } from "@/components/editing/VariableHighlight";
 import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
@@ -757,6 +758,19 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     return result;
   })();
 
+  // Build sections-by-id map for PageSectionsContext (inline render targets)
+  const pageSectionsMap = useMemo(() => {
+    const map: Record<string, Record<string, unknown>> = {};
+    for (let i = 0; i < sections.length; i++) {
+      const raw = sections[i] as Record<string, unknown>;
+      const sectionId = raw.section_id as string | undefined;
+      if (sectionId) {
+        map[sectionId] = (resolvedSections[i] as Record<string, unknown>) ?? raw;
+      }
+    }
+    return map;
+  }, [sections, resolvedSections]);
+
   // Dialog shown when a template section being moved has per-entry dependants
   const [moveDependantsDialog, setMoveDependantsDialog] = useState<{
     open: boolean;
@@ -1421,6 +1435,43 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           const sectionType = (section as { type: string }).type;
           const loadStrategy = isEditMode ? "eager" : resolveLoadStrategy(rawSection, index, settings);
 
+          // Hidden-until-redirection: suppress in live mode; ghost in edit mode
+          const isHiddenUntilRedirection = (rawSection as SectionLayout).hidden_until_redirection === true;
+          if (isHiddenUntilRedirection) {
+            if (!isEditMode) return null;
+            const sectionId = (rawSection as SectionLayout).section_id;
+            return (
+              <div key={index} className="relative group">
+                <div
+                  className="flex items-center gap-3 px-6 py-4 mx-4 my-2 border-2 border-dashed rounded-lg"
+                  style={{
+                    borderColor: "hsl(var(--primary) / 0.35)",
+                    background: "hsl(var(--primary) / 0.04)",
+                    color: "hsl(var(--primary) / 0.7)",
+                  }}
+                  data-testid={`hidden-until-redirect-section-${index}`}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0 }}>
+                    <path d="M17 8l4 4-4 4M7 8l-4 4 4 4"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                  </svg>
+                  <div>
+                    <p className="text-sm font-medium">
+                      {sectionType}
+                      {sectionId ? ` · #${sectionId}` : ""} — inline render target
+                    </p>
+                    <p className="text-xs" style={{ color: "hsl(var(--muted-foreground) / 0.6)" }}>
+                      Hidden from page; revealed when a survey routes to it via{" "}
+                      <code style={{ background: "hsl(var(--muted))", padding: "1px 4px", borderRadius: 3 }}>
+                        inline#{sectionId ?? "…"}
+                      </code>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
           const pageContext: SectionPageContext = {
             url: typeof window !== "undefined" ? window.location.pathname : undefined,
           };
@@ -1613,9 +1664,10 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
   ) || [];
 
   return (
-    <>
-      {content}
-      {isEditMode && (
+    <PageSectionsProvider value={pageSectionsMap}>
+      <>
+        {content}
+        {isEditMode && (
         <Suspense>
           <DbTemplateWarningDialog
             open={dbTemplateDeleteDialog.open}
@@ -1912,5 +1964,6 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
         </DialogContent>
       </Dialog>
     </>
+  </PageSectionsProvider>
   );
 }

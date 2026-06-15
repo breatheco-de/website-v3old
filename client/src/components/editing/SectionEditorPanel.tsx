@@ -4241,6 +4241,7 @@ export function SectionEditorPanel({
                         locale={locale}
                         allSections={allSections}
                         testId={`props-link-${fieldPath.replace(/\./g, "-")}`}
+                        allowInlineRender={variant === "allow-inline-render"}
                       />
                     </div>
                   );
@@ -4634,6 +4635,7 @@ export function SectionEditorPanel({
                                 locale={locale}
                                 allSections={allSections}
                                 testId={`props-link-nested-${idx}`}
+                                allowInlineRender={variant === "allow-inline-render"}
                               />
                             </div>
                           );

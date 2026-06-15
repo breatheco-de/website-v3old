@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ArrowDown, Check, ExternalLink, Link, PanelBottom, Search } from "lucide-react";
+import { ArrowDown, Check, ExternalLink, Layers, Link, PanelBottom, Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 import type { Section } from "@shared/schema";
 import addSectionImg from "@assets/add-section-explanation_1771275660234.png";
 
-type LinkType = "internal" | "external" | "modal" | "scroll";
+type LinkType = "internal" | "external" | "modal" | "scroll" | "inline";
 
 interface SitemapEntry {
   loc: string;
@@ -43,6 +43,7 @@ function extractPath(url: string): string {
 
 function detectLinkType(value: string, modals: SectionOption[], scrollSections: SectionOption[]): LinkType {
   if (!value) return "internal";
+  if (value.startsWith("inline#")) return "inline";
   if (value.startsWith("http://") || value.startsWith("https://")) return "external";
   if (value.startsWith("#")) {
     const anchor = value.slice(1);
@@ -53,27 +54,28 @@ function detectLinkType(value: string, modals: SectionOption[], scrollSections: 
   return "internal";
 }
 
-function extractSectionsFromYaml(allSections?: Section[]): { modals: SectionOption[]; scrollSections: SectionOption[] } {
+function extractSectionsFromYaml(allSections?: Section[]): {
+  modals: SectionOption[];
+  scrollSections: SectionOption[];
+  inlineSections: SectionOption[];
+} {
   const modals: SectionOption[] = [];
   const scrollSections: SectionOption[] = [
     { id: "top", label: "Top of page", type: "built-in" },
     { id: "bottom", label: "Bottom of page", type: "built-in" },
   ];
-  if (!allSections) return { modals, scrollSections };
+  const inlineSections: SectionOption[] = [];
+  if (!allSections) return { modals, scrollSections, inlineSections };
 
   allSections.forEach((section, index) => {
     const raw = section as Record<string, unknown>;
     const sectionType = (raw.type as string) || "";
     const sectionId = (raw.section_id as string) || "";
-    const title = (raw.title as string) || (raw.heading as string) || "";
+    const title = (raw.title as string) || (raw.heading as string) || (raw.path_name as string) || "";
 
     if (sectionType === "modal") {
       if (sectionId) {
-        modals.push({
-          id: sectionId,
-          label: title || sectionId,
-          type: sectionType,
-        });
+        modals.push({ id: sectionId, label: title || sectionId, type: sectionType });
       }
     } else {
       const id = sectionId || `${sectionType}-${index}`;
@@ -82,18 +84,26 @@ function extractSectionsFromYaml(allSections?: Section[]): { modals: SectionOpti
         label: title || `${sectionType} (section ${index + 1})`,
         type: sectionType,
       });
+      if (sectionId) {
+        inlineSections.push({ id: sectionId, label: title || sectionId, type: sectionType });
+      }
     }
   });
 
-  return { modals, scrollSections };
+  return { modals, scrollSections, inlineSections };
 }
 
-function extractSectionsFromRemote(remoteSections: RemoteSection[]): { modals: SectionOption[]; scrollSections: SectionOption[] } {
+function extractSectionsFromRemote(remoteSections: RemoteSection[]): {
+  modals: SectionOption[];
+  scrollSections: SectionOption[];
+  inlineSections: SectionOption[];
+} {
   const modals: SectionOption[] = [];
   const scrollSections: SectionOption[] = [
     { id: "top", label: "Top of page", type: "built-in" },
     { id: "bottom", label: "Bottom of page", type: "built-in" },
   ];
+  const inlineSections: SectionOption[] = [];
 
   remoteSections.forEach((s, index) => {
     if (s.type === "modal") {
@@ -103,10 +113,13 @@ function extractSectionsFromRemote(remoteSections: RemoteSection[]): { modals: S
     } else {
       const id = s.section_id || `${s.type}-${index}`;
       scrollSections.push({ id, label: s.label, type: s.type });
+      if (s.section_id) {
+        inlineSections.push({ id: s.section_id, label: s.label, type: s.type });
+      }
     }
   });
 
-  return { modals, scrollSections };
+  return { modals, scrollSections, inlineSections };
 }
 
 interface LinkPickerProps {
@@ -119,9 +132,10 @@ interface LinkPickerProps {
   portalContainer?: HTMLElement | null;
   compact?: boolean;
   allowedTypes?: LinkType[];
+  allowInlineRender?: boolean;
 }
 
-export function LinkPicker({ value, onChange, locale = "en", allSections, contextPath, testId = "link-picker", portalContainer, compact = false, allowedTypes }: LinkPickerProps) {
+export function LinkPicker({ value, onChange, locale = "en", allSections, contextPath, testId = "link-picker", portalContainer, compact = false, allowedTypes, allowInlineRender = false }: LinkPickerProps) {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [customUrl, setCustomUrl] = useState(value || "");
@@ -137,7 +151,7 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
     enabled: !!contextPath && open,
   });
 
-  const { modals, scrollSections } = (() => {
+  const { modals, scrollSections, inlineSections } = (() => {
     if (contextPath && remoteSectionsData) {
       return extractSectionsFromRemote(remoteSectionsData.sections);
     }
@@ -211,6 +225,7 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
     { type: "external", icon: ExternalLink, label: "External" },
     { type: "modal", icon: PanelBottom, label: "Modal" },
     { type: "scroll", icon: ArrowDown, label: "Section" },
+    ...(allowInlineRender ? [{ type: "inline" as LinkType, icon: Layers, label: "Inline" }] : []),
   ];
   const typeOptions = allowedTypes
     ? allTypeOptions.filter((o) => allowedTypes.includes(o.type))
@@ -219,12 +234,15 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
   const displayValue = value || "No link set";
   const isExternal = value?.startsWith("http");
   const isHash = value?.startsWith("#");
+  const isInlineLink = value?.startsWith("inline#");
 
-  const displayIcon = isExternal
-    ? ExternalLink
-    : isHash
-      ? (modals.some(m => `#${m.id}` === value) ? PanelBottom : ArrowDown)
-      : Link;
+  const displayIcon = isInlineLink
+    ? Layers
+    : isExternal
+      ? ExternalLink
+      : isHash
+        ? (modals.some(m => `#${m.id}` === value) ? PanelBottom : ArrowDown)
+        : Link;
 
   const DisplayIconComponent = displayIcon;
 
@@ -448,6 +466,48 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
                         </div>
                       </div>
                       {value === hashValue && (
+                        <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </ScrollArea>
+        )}
+        {activeType === "inline" && (
+          <ScrollArea className="h-[200px]">
+            {inlineSections.length === 0 ? (
+              <div className="p-4 space-y-2">
+                <p className="text-sm font-medium text-foreground text-center">No sections with an ID on this page</p>
+                <p className="text-xs text-muted-foreground">
+                  Add a{" "}
+                  <code className="bg-muted px-1 py-0.5 rounded text-xs">section_id</code> field to any section to make it available as an inline render target.
+                </p>
+              </div>
+            ) : (
+              <div className="p-1">
+                {inlineSections.map((section, index) => {
+                  const inlineValue = `inline#${section.id}`;
+                  return (
+                    <button
+                      key={section.id}
+                      onClick={() => handleSelect(inlineValue)}
+                      className={cn(
+                        "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-start gap-2",
+                        value === inlineValue && "bg-primary/10"
+                      )}
+                      data-testid={`${testId}-inline-option-${index}`}
+                    >
+                      <Layers className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium text-foreground truncate text-xs">{section.label}</div>
+                        <div className="text-xs text-muted-foreground truncate">
+                          inline#{section.id}
+                          <span className="ml-1 opacity-60">({section.type})</span>
+                        </div>
+                      </div>
+                      {value === inlineValue && (
                         <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                       )}
                     </button>

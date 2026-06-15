@@ -1,0 +1,89 @@
+type: survey
+variant: default
+aggregation_method: concat
+
+badge_text: "Build your path"
+title: "Your AI curriculum,"
+title_highlight: "built around you."
+subtitle: "4 questions. No commitment. We map the exact courses you need."
+icon: "4GeeksAvatar"
+back_label: "Back"
+restart_label: "Start over and change my answers"
+
+questions:
+  - id: goal
+    subtitle: "Question 1 of 4"
+    text: "What's your main goal right now?"
+    options:
+      - id: productivity
+        label: "Use AI to be more productive at my current job"
+      - id: automate
+        label: "Automate repetitive tasks without writing code"
+      - id: build
+        label: "Build apps or technical projects with AI"
+      - id: data
+        label: "Work with data, analytics, or machine learning"
+
+  - id: coding
+    subtitle: "Question 2 of 4"
+    text: "How comfortable are you with coding?"
+    options:
+      - id: none_no
+        label: "No experience — and I'd like to keep it that way"
+      - id: none_open
+        label: "No experience — but I'm open to basics"
+      - id: some
+        label: "Some basics (scripts, spreadsheets, HTML)"
+      - id: regular
+        label: "I code regularly"
+
+  - id: impact
+    subtitle: "Question 3 of 4"
+    text: "What skill would make the biggest difference in your work right now?"
+    options:
+      - id: reliable
+        label: "Getting reliable, professional-quality results from AI tools"
+      - id: automations
+        label: "Building automations that run without me"
+      - id: assistant
+        label: "Setting up AI assistants for my existing tools"
+      - id: code
+        label: "Writing code or building software with AI"
+      - id: data_skills
+        label: "Analyzing data and making smarter decisions"
+
+  - id: use
+    subtitle: "Question 4 of 4"
+    text: "How do you plan to use what you learn?"
+    options:
+      - id: better
+        label: "Get better at what I already do"
+      - id: add
+        label: "Add a new capability to my current role"
+      - id: career_shift
+        label: "Prepare for a career shift into tech"
+      - id: explore
+        label: "Explore — not sure yet"
+
+routes:
+  # Goal=data OR Impact=data_skills → Data-Driven Analyst
+  qgoalodata-qimpactodata_skills:
+    url: inline#ai-flex-path-analyst
+  qgoalodata:
+    url: inline#ai-flex-path-analyst
+  qimpactodata_skills:
+    url: inline#ai-flex-path-analyst
+  # Goal=build OR (Coding=regular AND Use=career_shift) → Builder
+  qgoalobuild:
+    url: inline#ai-flex-path-builder
+  # Coding=regular OR Use=career_shift → Career Switcher
+  qcoadingregular:
+    url: inline#ai-flex-path-career
+  # Goal=automate OR Impact=automations → Automation Specialist
+  qgoaloautomate:
+    url: inline#ai-flex-path-automation
+  qimnpactoautomations:
+    url: inline#ai-flex-path-automation
+  # Fallback → AI-First Professional
+  default:
+    url: inline#ai-flex-path-professional
