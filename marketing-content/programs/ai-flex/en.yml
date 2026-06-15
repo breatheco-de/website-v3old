@@ -158,8 +158,6 @@ sections:
       inner_stat_highlight: false
       gauge_label: qualified
       stat_label: of the workforce is not ready for AI roles today
-      bar1_label: Traditional workforce
-      bar2_label: AI-ready professionals
     card_trend:
       badge: Demand Is Accelerating
       stat_value: 1.3M
