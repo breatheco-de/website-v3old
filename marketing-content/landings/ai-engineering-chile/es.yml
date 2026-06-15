@@ -687,7 +687,7 @@ sections:
     form:
       variant: stacked
       conversion_name: request_more_info
-      submit_label: Comprueba si cumples los requisitos. Es gratis
+      submit_label: Obtén todos los detalles
       fields:
         email:
           visible: true
