@@ -19976,6 +19976,37 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/valentina-brightened-1365x2048-1280w.webp"
         }
       ]
+    },
+    "course-report-best-coding-bootcamp-2026-badge": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Best-Coding-Bootcamp-2026-Badge.png",
+      "alt": "Image: Course Report Best Coding Bootcamp 2026 Badge",
+      "focal_point": "center",
+      "tags": [
+        "badge",
+        "award"
+      ],
+      "usage_count": 0,
+      "hash": "7cddc47f9d04c31900bd4e030c7c06f882f502530d9ef4ae8a2f4356ef9135ef",
+      "width": 1264,
+      "height": 828,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Best-Coding-Bootcamp-2026-Badge-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Best-Coding-Bootcamp-2026-Badge-960w.webp"
+        }
+      ]
     }
   }
 }
