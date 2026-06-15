@@ -861,6 +861,7 @@ export const sectionLayoutSchema = z.object({
   showOn: showOnSchema.optional(),
   showOnLocations: z.array(z.string()).optional(),
   showOnRegions: z.array(z.string()).optional(),
+  hidden_until_redirection: z.boolean().optional(),
 });
 
 export type SectionLayout = z.infer<typeof sectionLayoutSchema>;
