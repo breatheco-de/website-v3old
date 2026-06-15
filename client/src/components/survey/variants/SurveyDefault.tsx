@@ -11,20 +11,22 @@ type ConcatRoutes = Record<string, SurveyAction>;
 type SumThreshold = { until: number } & SurveyAction;
 type SumRoutes = { thresholds?: SumThreshold[]; fallback?: SurveyAction };
 
+/** Returns the bare ID (no q/o prefix). Explicit id used as-is; implicit fallback is "1", "2", etc. */
 function resolveQId(question: SurveyQuestion, idx: number): string {
-  return question.id ?? `q${idx + 1}`;
+  return question.id ?? String(idx + 1);
 }
 
 function resolveOId(option: SurveyOption, optIdx: number): string {
-  return option.id ?? `o${optIdx + 1}`;
+  return option.id ?? String(optIdx + 1);
 }
 
+/** Builds route key parts always in q{id}o{id} format, e.g. "qgoalodata" or "q1o1". */
 function buildAnswerParts(answers: Record<string, string>, questions: SurveyQuestion[]): string[] {
   return questions
     .map((q, i) => {
       const qId = resolveQId(q, i);
       const oId = answers[qId];
-      return oId ? `${qId}${oId}` : null;
+      return oId ? `q${qId}o${oId}` : null;
     })
     .filter(Boolean) as string[];
 }
@@ -135,12 +137,6 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
   }
 
   function handleAction(action: SurveyAction, fromQIdx: number) {
-    if (action.next_question !== undefined) {
-      const nextIdx = findQuestionIndex(action.next_question, fromQIdx);
-      setHistory((h) => [...h, fromQIdx]);
-      setCurrentQIdx(nextIdx);
-      return;
-    }
     if (action.url) {
       const sectionData = nav.navigate(action.url);
       if (sectionData) {
@@ -152,6 +148,12 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
     if (action.message) {
       setMessage(action.message);
       setPhase("message");
+      return;
+    }
+    if (action.next_question !== undefined) {
+      const nextIdx = findQuestionIndex(action.next_question, fromQIdx);
+      setHistory((h) => [...h, fromQIdx]);
+      setCurrentQIdx(nextIdx);
     }
   }
 
@@ -159,7 +161,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
     if (typeof nextQ === "number") {
       return Math.max(0, Math.min(totalQ - 1, nextQ - 1));
     }
-    const idx = data.questions.findIndex((q, i) => (q.id ?? `q${i + 1}`) === String(nextQ));
+    const idx = data.questions.findIndex((q, i) => resolveQId(q, i) === String(nextQ));
     return idx !== -1 ? idx : currentIdx + 1;
   }
 

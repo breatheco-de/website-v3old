@@ -225,7 +225,7 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
     { type: "external", icon: ExternalLink, label: "External" },
     { type: "modal", icon: PanelBottom, label: "Modal" },
     { type: "scroll", icon: ArrowDown, label: "Section" },
-    ...(allowInlineRender ? [{ type: "inline" as LinkType, icon: Layers, label: "Inline" }] : []),
+    ...(allowInlineRender ? [{ type: "inline" as LinkType, icon: Layers, label: "Render inline" }] : []),
   ];
   const typeOptions = allowedTypes
     ? allTypeOptions.filter((o) => allowedTypes.includes(o.type))
