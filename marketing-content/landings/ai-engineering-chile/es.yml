@@ -686,7 +686,7 @@ sections:
     variant: form
     form:
       variant: stacked
-      conversion_name: student_application
+      conversion_name: request_more_info
       submit_label: Comprueba si cumples los requisitos. Es gratis
       fields:
         email:
