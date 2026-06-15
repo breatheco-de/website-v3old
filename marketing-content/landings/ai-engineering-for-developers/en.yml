@@ -866,6 +866,7 @@ sections:
     paddingY:
       desktop: lg none
     terms_color: hsl(var(--card))
+    form_background: hsl(var(--card))
   - type: footer
     section_id: footer-5zsyar
     version: "1.0"
