@@ -90,42 +90,44 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-charts
-    subtitle: This is your opportunity.
-    title: <!--StartFragment--><h2 class="text-2xl md:text-h2 mb-2 text-foreground" data-testid="text-stats-text-title">AI is replacing jobs. It's also creating new ones faster than the workforce is prepared to fill.</h2><!--EndFragment-->
-    description: Every week, companies post AI roles they cannot fill. They need engineers who build with AI, analysts who work with AI, and security professionals who defend against it. The talent gap is real, and it is widening fast.
+    subtitle: The numbers are in. AI skills are the new baseline.
+    title: AI is reshaping every profession. The professionals who adapt are pulling ahead fast.
+    description: "Across every industry, employers are hiring for AI skills, paying more for them, and finding fewer people who have them. Whether you want to work smarter, advance faster, or build a new career entirely, the opportunity is the same: the gap between where the market is going and where most professionals are today is wide open."
     card_bars_accent: hsl(var(--primary))
     card_gauge_accent: hsl(var(--destructive) / 0.5)
     card_trend_accent: hsl(var(--accent))
     card_bars:
-      badge: More New AI Roles Than Job Losses
-      stat_value: +340%
-      stat_label: net new AI roles created since 2022
+      badge: AI Skills Pay More. Everywhere.
+      stat_value: 56%
+      stat_label: wage premium for workers with AI skills (PwC 2025)
       years:
         - "2022"
         - "2023"
         - "2024"
         - "2025"
         - "2026"
-      displaced_label: Displaced
-      created_label: Created by AI
+      displaced_label: Without AI skills
+      created_label: With AI skills
     card_gauge:
-      badge: Who's ready for AI roles?
-      inner_stat_percentage: 3
-      outer_stat_percentage: 97
-      show_gauge: true
+      badge: Employers Are Moving Fast.
+      inner_stat_percentage: 70
+      outer_stat_percentage: 30
+      show_gauge: false
       inner_stat_highlight: true
-      gauge_label: qualified
-      stat_label: of the workforce is not ready for AI roles today
-      bar1_label: Traditional workforce
-      bar2_label: AI-ready professionals
+      gauge_label: more roles YoY
+      stat_label: year-over-year increase in roles requiring AI literacy (LinkedIn 2026)
+      bar1_label: Last year
+      bar2_label: This year
     card_trend:
-      badge: Demand Is Accelerating
+      badge: The Roles Are Already There.
       stat_value: 1.3M
-      stat_label: new AI roles expected by 2027
-      end_label: 1.3M · 2027
+      stat_label: net new AI roles created since 2023
+      end_label: 1.3M · 2026
     section_id: features_grid-xo8z7q
     paddingY:
       desktop: sm
+    marginY:
+      desktop: none md
   - type: features_grid
     version: "1.0"
     variant: stats-charts
