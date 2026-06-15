@@ -864,7 +864,7 @@ sections:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
     section_id: cta_banner-1klq8h
     paddingY:
-      desktop: lg none
+      desktop: lg md
     terms_color: hsl(var(--card))
     form_background: hsl(var(--card))
   - type: footer
