@@ -50,6 +50,8 @@ sections:
     title: Advance Faster, Never Lose Momentum
     description: "The #1 reason people quit when learning to code? Getting stuck. GeekPal keeps you moving with support that shows up exactly when you need it."
     background: gradient
+    marginY:
+      desktop: xl none
   - type: human_and_ai_duo
     section_id: human_and_ai_duo-zg16oa
     version: "1.0"
