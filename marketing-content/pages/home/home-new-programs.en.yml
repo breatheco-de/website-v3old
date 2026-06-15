@@ -171,11 +171,11 @@ sections:
       - value: 3-6 months
         label: Average time to get hired
     collage_images:
-      - image_id: logo_meta
+      - image_id: gemini-generated-image-uwpyyruwpyyruwpy
         col_span: 5
         row_span: 2
-        alt: Meta logo
-        id: logo-meta
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
         object_scale: 1.1
         object_position: 50% 30%
       - image_id: group-7086-1-800x440
