@@ -13,23 +13,21 @@ schema:
     - website
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: productShowcase
     title: El 84% de nuestros graduados consiguen empleo en tecnología.
     brand_mark:
       prefix: La mayoría de los bootcamps enseñan habilidades.
       highlight: 4Geeks te consigue empleo.
       color: primary
-    description: >-
-      <span style="font-size: 1.125rem;">Aprende las habilidades impulsadas por IA que el mercado necesita, con un sistema
-      de apoyo que te consigue empleo en Ingeniería de IA, Full Stack, Ciencia de Datos y Ciberseguridad.</span>
+    description: "<span style=\"font-size: 1.125rem;\">Aprende las habilidades impulsadas por IA que el mercado necesita, con un sistema de apoyo que te consigue empleo en Ingeniería de IA, Full Stack, Ciencia de Datos y Ciberseguridad.</span>"
     bullets:
       - text: Mentoría 1:1 y coaching de carrera ilimitados, disponibles de por vida
-      - text: 'Garantía de Empleo opcional: consigue empleo en 9 meses o te devolvemos la matrícula'
+      - text: "Garantía de Empleo opcional: consigue empleo en 9 meses o te devolvemos la matrícula"
       - text: Calificación de 4.9/5 en más de 3,000 reseñas en Course Report, Google y SwitchUp
     image_object_fit: none
-    video_id: '-2ZvlgDnltc'
-    video_ratio: '9:12'
+    video_id: "-2ZvlgDnltc"
+    video_ratio: "9:12"
     form:
       variant: stacked
       conversion_name: student_application
@@ -59,9 +57,7 @@ sections:
     form_vertical_align: bottom
     form_card_text_color: hsl(var(--foreground))
     form_card_title: ¿Quieres encontrar el programa adecuado?
-    form_card_subtitle: >-
-      Completa tus datos y nuestro equipo de admisiones te guiará por tus opciones: programas, precios y financiamiento.
-      Solo toma 2 minutos.
+    form_card_subtitle: "Completa tus datos y nuestro equipo de admisiones te guiará por tus opciones: programas, precios y financiamiento. Solo toma 2 minutos."
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
     show_awards_marquee: true
     awards_marquee:
@@ -122,14 +118,14 @@ sections:
       - image_id: group-7085-1
         col_span: 5
         row_span: 2
-        alt: 'Image: Gemini_Generated_Image_uwpyyruwpyyruwpy'
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
         id: gemini-generated-image-uwpyyruwpyyruwpy
         object_scale: 1.1
         object_position: 50% 30%
       - image_id: group-7086-1
         col_span: 7
         row_span: 2
-        alt: 'Image: Gemini_Generated_Image_pd2u4upd2u4upd2u'
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
         id: gemini-generated-image-pd2u4upd2u4upd2u
         object_scale: 1
         transform_origin: 50% 50%
@@ -137,13 +133,13 @@ sections:
       - image_id: group-7084-1
         col_span: 6
         row_span: 2
-        alt: 'Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)'
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
         id: gemini-generated-image-dhko5mdhko5mdhko-1
         object_scale: 1.05
       - image_id: group-7087-1
         col_span: 6
         row_span: 2
-        alt: 'Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4'
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
         id: gemini-generated-image-wpk4yvwpk4yvwpk4
         object_scale: 1.05
         transform_origin: 50% 50%
@@ -181,7 +177,7 @@ sections:
     marginY:
       desktop: none lg
   - type: geeks_vs_others_comparison
-    version: '1.0'
+    version: "1.0"
     title: No todos los programas son iguales. Esto es lo que distingue a 4Geeks.
     subtitle: Desde el plan de estudios hasta el apoyo profesional, así se compara 4Geeks con el promedio de la industria.
     columns:
@@ -196,7 +192,7 @@ sections:
           - Limitado, termina con el primer empleo
       - feature: Proporción estudiante:mentor
         values:
-          - '7:1'
+          - "7:1"
           - 10+:1
       - feature: Tutor de IA
         values:
@@ -235,19 +231,15 @@ sections:
       desktop: 6xl
     version: v1.0
     heading: Apoyo profesional que nunca termina
-    description: >-
-      Perfiles optimizados con IA, acceso directo a una red de más de 400 socios de contratación y apoyo práctico desde la
-      primera solicitud hasta cada movimiento profesional que hagas.
+    description: Perfiles optimizados con IA, acceso directo a una red de más de 400 socios de contratación y apoyo práctico desde la primera solicitud hasta cada movimiento profesional que hagas.
     background: hsl(var(--sidebar-background))
     tabs:
       - tab_label: Listo para trabajar, más rápido
         layout: three_columns
         col1_subtitle: Construye un perfil atractivo para reclutadores, de forma inteligente.
-        col1_description: >-
+        col1_description: |-
           Prepárate para procesos de contratación reales usando una combinación de herramientas de IA y coaching 1:1.
-
-          RigoBot revisa tu currículum y LinkedIn en tiempo real. Los mentores de carrera te ayudan a perfeccionar tu
-          historia, portafolio y desempeño en entrevistas para un impacto óptimo.
+          RigoBot revisa tu currículum y LinkedIn en tiempo real. Los mentores de carrera te ayudan a perfeccionar tu historia, portafolio y desempeño en entrevistas para un impacto óptimo.
         col1_tagline: Te ayudamos a crear materiales de búsqueda de empleo a tu medida
         col1_boxes:
           - icon: linkedin
@@ -272,10 +264,7 @@ sections:
       - tab_label: Acceso real a empleo
         layout: two_column_cards
         title: Accede al mercado laboral oculto.
-        left_text: >-
-          Una vez que tu perfil esté listo, la visibilidad pasa a ser el foco. Te conectamos directamente con socios de
-          contratación y tomadores de decisiones. Tu perfil se comparte con empresas que activamente buscan egresados de
-          4Geeks, respaldado por una estrategia de networking dirigida.
+        left_text: Una vez que tu perfil esté listo, la visibilidad pasa a ser el foco. Te conectamos directamente con socios de contratación y tomadores de decisiones. Tu perfil se comparte con empresas que activamente buscan egresados de 4Geeks, respaldado por una estrategia de networking dirigida.
         left_image_id: career_team_women
         left_image_object_fit: cover
         left_image_object_position: center
@@ -305,11 +294,9 @@ sections:
       - tab_label: Pruebas que convencen
         layout: text_and_image
         title: Proyectos que demuestran habilidad real.
-        left_description: >-
+        left_description: |-
           La visibilidad atrae atención. Tu portafolio cierra la brecha.
-
-          Gradúate con un portafolio que muestre lo que realmente puedes construir. Desde proyectos prácticos hasta un
-          proyecto final que resuelve problemas reales de negocio, tu trabajo se convierte en evidencia clara de tu capacidad.
+          Gradúate con un portafolio que muestre lo que realmente puedes construir. Desde proyectos prácticos hasta un proyecto final que resuelve problemas reales de negocio, tu trabajo se convierte en evidencia clara de tu capacidad.
         left_bullets:
           - icon: briefcase-business
             text: Proyectos alineados con la industria y el mundo real
@@ -323,11 +310,9 @@ sections:
       - tab_label: El rol ideal para ti
         layout: text_with_testimonials_carousel
         title: Convierte tu trayectoria en una ventaja.
-        left_description: >-
+        left_description: |-
           Cuando las ofertas llegan a la mesa, te ayudamos a elegir y negociar con confianza.
-
-          Tu experiencia previa importa. Mapeamos tus habilidades transferibles, enfocamos tu búsqueda en los roles
-          correctos y te acompañamos en la negociación salarial y el crecimiento a largo plazo.
+          Tu experiencia previa importa. Mapeamos tus habilidades transferibles, enfocamos tu búsqueda en los roles correctos y te acompañamos en la negociación salarial y el crecimiento a largo plazo.
         left_bullets:
           - icon: IconTransfer
             text: Mapeo de habilidades transferibles
@@ -343,18 +328,14 @@ sections:
             image_object_position: center
             contributor_logos:
               - image_id: clark_university-500x156-q60
-            description: >-
-              MaiLinh Tran es una emprendedora apasionada por la tecnología que ahora se enfoca en el lado de desarrollo
-              de su proyecto.
+            description: MaiLinh Tran es una emprendedora apasionada por la tecnología que ahora se enfoca en el lado de desarrollo de su proyecto.
             achievement: Lanzó su propia startup, contrata nuevo talento tech y coordina un equipo completo de desarrolladores.
           - image_id: martin_coimbra
             image_object_fit: cover
             image_object_position: center top
             contributor_logos:
               - image_id: logo_utec-545x305-q70
-            description: >-
-              Martín se unió al primer programa que lanzamos junto con UTEC e IDB. Consiguió un empleo mejor remunerado,
-              una carrera que le apasiona y toda una nueva vida profesional.
+            description: Martín se unió al primer programa que lanzamos junto con UTEC e IDB. Consiguió un empleo mejor remunerado, una carrera que le apasiona y toda una nueva vida profesional.
             achievement: Logró un aumento salarial del 100%.
           - image_id: melanie_galaretto
             image_object_fit: cover
@@ -362,9 +343,7 @@ sections:
             contributor_logos:
               - image_id: logo_utec-545x305-q70
               - image_id: bid_logo
-            description: >-
-              Melanie es una joven profesional que soñaba con la vida que ahora tiene. Es una desarrolladora de software
-              creativa y comprometida que trabaja en una empresa de tecnología en su país.
+            description: Melanie es una joven profesional que soñaba con la vida que ahora tiene. Es una desarrolladora de software creativa y comprometida que trabaja en una empresa de tecnología en su país.
             achievement: Logró un aumento salarial del 100%.
     section_id: career_support_explain-39f5ph
     marginY:
@@ -373,22 +352,19 @@ sections:
       desktop: md none
   - type: human_and_ai_duo
     section_id: human_and_ai_duo-xot8ah
-    version: '1.0'
+    version: "1.0"
     heading: Apoyo como en ningún otro lugar. Diseñado para lanzar carreras.
-    description: >-
-      El aprendizaje funciona mejor cuando el apoyo se adapta a tu progreso. En 4Geeks, la mentoría 1:1 ilimitada y la
-      retroalimentación con IA de Rigobot se combinan para que no te quedes bloqueado y avances más rápido de lo que imaginabas.
+    description: El aprendizaje funciona mejor cuando el apoyo se adapta a tu progreso. En 4Geeks, la mentoría 1:1 ilimitada y la retroalimentación con IA de Rigobot se combinan para que no te quedes bloqueado y avances más rápido de lo que imaginabas.
     bullet_groups:
-      - title: 'Mentoría 1:1 ilimitada:'
+      - title: "Mentoría 1:1 ilimitada:"
         image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
         bullets:
           - text: Orientación personalizada de ingenieros senior
           - text: Resolución de problemas y depuración en vivo
           - text: Perspectiva de la industria de personas que trabajan en tecnología
           - text: Número ilimitado de sesiones. Disponible de por vida
-      - title: 'Rigobot, tu tutor de IA:'
-        image: >-
-          data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPcAAADMCAMAAACY78UPAAABR1BMVEUAhP8ABBr///8AAAAAAxzY2tr///0Ahv8AiP/7//8Ag/8SYrYABB5dot33+PgABBkIPv8AABTMzs6MjY8AAAwtLzQRascIH0kaWqX7WQDlZyamQxP9WwAThvoLPP8LXPfn//8FVvoABiP///gIev4HZPsAevEAi/+TxuUAc94Gaf0FQfoAffH0//8DIloAACEACDOWmJ0Lcv0BTvoOdvstjOvO9P9stfSx2/RHm+yHv+xNnOK24vTm+P8WhOoAc+YLY8BLg7mEttwNTJbAwcgAACoEF0wIPHxAQk4AADgQEyMPf+wHQ44IL2oeHioZetVuc3mztrtKTFMQUZYSRIBcXmmAgYotLz4cAAGENxmsWS+bRhxNHQ4POW7nXhYLK15wLRPCTyA3Eg0jDw8uKSsPV6u81d4SFB0yY5ReqvLA6fkghNwDR/hqc2PAAAAM0ElEQVR4nO2d/V/bOBKH/YYlG19cdV2gPcxLAglQIBQoBVrYl9JXb4HClm6vvfa6d729tvz/P9+M5JckOOEttrOJvvspsHFi69GMRiNZVhRFSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKaoBFCLVtShRSdEHylU0VhdpATwYLnFDyY1AldtHlyFtEub8x9aA6WMYG+dVNs7Kzq6CbD5Kr+1tLpqVtL2L7HiTu6mbFtMypxQGyN/Zf9sOliqlVtO0qGrz3ohvpvngPVn1kVSzL1HZ2SdjEQ/WG9aFQvq+IPjbqapNfLa9e6E2Kv2grPtmyTBO50eB+9CbF93sBWhiiy/WPBie1HyGYQ/M2NRMNTimJD/YCN2RVGG2p30URG/zH37I0sDaYvGKiweODveHlkEZCYyS0qyK1Wg2CuWVpYG6A39itocXFMe5dtGh0qtT8YOSn4e4KzvfzEng4YuN/v/CXhEZGRgJaADe/og12pjZUfTDyeHmlzvSua6+C2CZ39Uqp8Yj75OmzsV2qhLEdy5Ir+yIlwfDyE89jhuqqquu6DH51QXAe77mmQSTnQqvf0x04P54efxqe/uJXJOcxNT9qDGNUAf9+xRjzmONwYsMwuoINZ1L1vWbu0ktRsYwBtuM4ZeatPA54mM8rwPPIgn/Ufq17LpjBKBuMc0N5jK6ozJ5jRNNicA0MDq8jOBodLuS4HhsdqeUBHIrXL3SwwSsshFM2VMPl3GhwAHe6IDB3JeFGy5f2GVZq2JCwbsqMvRiDPi83P4ecidDawTJDazNuA8fAVul1LagdceduMbjuoaGjpmCgzztjfm6OjtGTkt1RiGZwYZWBuXl5PH3/8N7eUHfU6Oa8F9dKr0+OdN3hNYyxDds6ePxw3OyyFsGOI3jGGIQx9Gv4B79V/fleSctKohKsoRPdE9xY5Q60d+/FCAb1PHoyrF//OAndUPGG6hivM4OO2NHqQ891FUNbdHnGlndpPvEcUmVysFJ3Ym7wOe/tkGaZ55f9muD480QHajdKFAzXOK7lAw5jQv83z4i5sdL3S5plZs0dkp/ohhNnSNiPj+STtNo2OXjCjDg1g/CmD/GcMgduTNjf6BhRxcUdiG7HhObBDdH8N081WENydY+XKB9uzN14Xhy2MoetBLkEdEKDp0bcwgzotd+GvW3W6Pz8PFnXo1o3GCRuw7nYm5KDuoF9J0ZVXX9zcvg6DDkJNx85X7sSTLPZjcLK1UonJ4cvdW5zwyur3jOf2yMro8fzemOMMzPD0d+k9tnh8PG64PwcppV+8LXHhyisrnpPA34TLVtyyFFfgZvxrEE/uSbZuepQdUMulKIMnajzZF7kqhlhC2NTQpdhiOBCR8ZulcDpupSZXjaR5UM0B5OmsjdCxexyZtw4nUuCFUgWXchS9R80c+ht1wYjl9I9MDhUv1p2VEMfJiTL6WWoVRjnU3/Fw9QUWvdNTftBT5ttKNfrUCbn7IHLyMCm5KrltNkMpkMTuAWXhrCm6j/VcMLRzqw7Cw7mQZC1OBDZ3HrIrZ6ZN8B8wtPZdacfcP4K+snUY4KbD8scdozlOgiyytsOlg3wMM/wWBnn0kJ7p8ypGerv7/7x/gPjufuV7e2yF8fDY5/SJ+10aOC3cBwMbuWJac0XY34m2PSfHtiZxRmLKrjTPNT7fPv2+McPhouecdVZN/fJsE9J8ImlHRTc4am52Y1yfSQTg9dGgSKB6MDN/nUbNP7ZA4f3rszNntUUm5IRL83gTdxwCfQ/Lxtuf9RTWRLFOnG/H/8I4Hd0CLdX5na9MeydqJ/q6C3cOOXo6llyx0G6E/ffx2/H3Fd2c2+M8kFvb3BfxN5OxI1TzM4VIxty85vCF+BW+eRTdtzGhbjd+nvg/jgO9nZwoHhlbp5yX4Rb3LXIiJuMeo0MneI5tzdy49zjNbj5XF4H7vi9Ll4pI2466pXdpAzncmP7dh33Gu2b3+u+oJ/DB3qKm12Lm1yCu7fsLbkl98W5L9O++4m7D+3tGp3Hav3JDSM1x+k4M9Gf3OpLFwbzncD7lFv1jm7e0weOG7LpPU3bP4+7/+I5nyFL/XQjd9/Z29UPgXtoALn38FbXfvvBWv9x41ov1yshN3zccFnqmK0P27dhGN4hv7U5pMPhDtx9ZW/4qKG/Frd03+I9p9S8rd+4+UIsXBHD72fjfabB4HbQwBDNhW7qhpNu8H7kZhjNBfgttxN3H8U1iOWu92dJrLvFiO6kO3qf2dvAlds8aQmXLehOOXWKvc+4Vc59M1mvcYsNBjd6td6wTgUGZYPBDQVsXA80lLpiov/imuugm8cPj2jWUfqtwz6ztwv91n6yrJ4vP+xOPM/2fslF7ocm3OqZu4LADW6ePD2COXrb/Jyc5+fJITdLe6sM7+zicw4u/G7P/Y7fF/ysu47TWmrXcJKkRSzMO2Jp0y6ud+xT3ydBG24T17eIsojHLsoZcddGIafE9SpcDmvPrf5xZ3z89sd3nltWz3CrxtuS2cTdZpqNrQSE2rXj9HUeZgVSvXK08gmuAnbIyN6fPOaUjaiGHactt6t++HznznvwX8dtXdcDndih1szNB6MpZ2GvRnZ3j+tpx8DeFvdzIUh1Vcbq89nc/x6utywabLeOCyr/9z/+7eHKO9bKLcKC1sjdcCO7+a1s5elK2iHsCi1T+09cEPEE17Ns1nERevBlbOwL/BP68vi/yJ2SdBhuue7V62oZuFuPuuxPrZkbI3oqt8M8xtJaN0PuivW/L3FhjqE4WT09SKhCkwe9azVa3bSwE0ozlIurHJgYcLS8AaJ506OAZvvpRVwdU0553YABnVZZ2lKUxqfGs3py0Ce4zob64brkGrUfmJXS0aWX1N40W7gt7dKLe509q7IRkPBpQbH4PLvl5/FeFAp/rIjc38GpoqXS5ZSyqPySZ8CTVKztRdpYNCWvrU4IqX6dMism9Cid1sd3W/gUAuQ91iaYu4jdDtD01a1HU0uWqeXwLFHCbZmWtbSxHRSzexFEON9X7OD7w00t+2cFE2EVT/28tVu1KbGL2NkDwXGLtJk5q5IbNa9ic2reJrZNiuFWfEoxuM3MQQPPz96CO9ytqABs3NGDX7Y6p+XZvk3comsee25bySY/u2gFzOUa1vBiYG8lwweIepUb/bxIYsmdO3fR0Li3wkByk2K4C/dzotjbuXNvzOf0hH972b7/FcqSY8YG3JuLhdvb9snukpljfo7jsbni99CFwUH1Ee6MlyP30vdiMzXODQnrA6uSI7dZ+RbQwrlxg8XgW575ecX6ahe/lygfDj6cyo0bhiWbiz2wpSZubkiq27n5OXRiQY4bKnYSIbQ6Z2l8D49skfHHxncbYkrR5g5FggdTlUq4e0lGgthpVpYefa+SWo9sgW/jJs5b3/hEZ3YbFuFpd7ZxB1m/V7ixjSuLW3M7S1Z2mtp59EtgYy37vbJFMg/r1F6s3n/4t8z0cLeq8E07/J7ZGjqabeNbENqZCE9LxFYlue2YegFhyfjeMRmVSJxfEfeqlOK3hW4UicNN962tiM0jo0v0jL2lpKSkpP7qCu9LRr2NSCvC7ufM97Gc172nvIfw/D96EfPCXunEol47KXS03eEliJvU8IHohi8hNGG3ix+Bh0uJwj/TMcPcI/oejjSFx5o+ENGJ4+EyKsIHQXntkNteuPPg2fwstSLC6kg1VXNVkaSKcP/ApioQv3Ig6yzx9X/U563Oxq+V4WbjRZ0RWl9dXV0AzQpNpik8tiC0vi4+2eDRov2I721pCCbFiWPX0O8QdB0RZyenp6fX1tZO7zbqRltNTEyEf4XvCz9xegonWZvGWllYWF1dx4rArwTC1ZJFW5ygHwIsoK6dnvJSRxT4e2IigboR/m/jCy0HJpI3JG+aiOoE6mF6enIWKsC+XJzspjBQ+Yq9Oju9dvfuRIPZ0sGuoubTRPUBP++ers2uzhTj6riTKllYQ0PE/hmVr8WOHU3bzgOaPpD8Cq8Df5/O2kWEdWhitj17Xqs9F+rMh2602pkrrNeJ+NjExOnkTBELNcXM0gw07NO7WNwmuzVGsZjiAqZtUxkJtzgB+PnkwuoMdCZF+Drxaz70LIo9s4ohfA3jWrMbcwNdnjQyOj9FfC6MaxDgJ2cXVtcxtmDXWWx3JoJr1I3N8jpYa+jHEj9ttnwSqVqaedyP8Z5sGvt36MiwHxPDgfBLVAqL6HZ8v4ZnbXyTcJ62iNxiZp1rVSQjUcIynaYkfcG3rgqJzEUMS6L0Ley/bNHOiliWKy5K4/xMCdcPCuunJ6pprzUcjP5ofTkhDL8dOvkhJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSUlJTUo+j8qSwBPS0mszgAAAABJRU5ErkJggg==
+      - title: "Rigobot, tu tutor de IA:"
+        image: data:image/png;base64,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
         bullets:
           - text: Retroalimentación instantánea en tu código, 24/7
           - text: Se adapta a tu nivel y ritmo de aprendizaje
@@ -424,7 +400,7 @@ sections:
     marginY:
       desktop: none md
   - type: course_selector
-    version: '1.0'
+    version: "1.0"
     variant: spotlight
     heading: Encuentra tu camino
     subheading: Cuatro programas. Todos diseñados para conseguirte empleo, no solo formarte.
@@ -441,9 +417,7 @@ sections:
             text: Agentes de IA
           - icon: Bolt
             text: Python
-        description: >-
-          Transforma un caso de negocio real en un sistema totalmente nativo de IA, capa por capa. Domina los agentes,
-          sistemas RAG y pipelines de automatización que las empresas están contratando ahora mismo.
+        description: Transforma un caso de negocio real en un sistema totalmente nativo de IA, capa por capa. Domina los agentes, sistemas RAG y pipelines de automatización que las empresas están contratando ahora mismo.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ingenieria-ia
         course_background: accent
@@ -459,9 +433,7 @@ sections:
             text: TensorFlow
           - icon: ChartBar
             text: Visualización de Datos
-        description: >-
-          Domina las habilidades detrás de las decisiones impulsadas por IA. Construye modelos, analiza datos a escala y
-          despliega soluciones que las empresas de todos los sectores están contratando activamente.
+        description: Domina las habilidades detrás de las decisiones impulsadas por IA. Construye modelos, analiza datos a escala y despliega soluciones que las empresas de todos los sectores están contratando activamente.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciencia-de-datos-ml
         course_background: hsl(var(--muted-foreground))
@@ -475,10 +447,7 @@ sections:
             text: Hacking Ético y Pentesting
           - icon: Shield
             text: Marco NIST
-        description: >-
-          Detecta amenazas, protege sistemas y asegura los datos de los que dependen todas las organizaciones. Una de las
-          carreras de más rápido crecimiento en tecnología, con una escasez global de profesionales cualificados que no da
-          señales de desacelerarse.
+        description: Detecta amenazas, protege sistemas y asegura los datos de los que dependen todas las organizaciones. Una de las carreras de más rápido crecimiento en tecnología, con una escasez global de profesionales cualificados que no da señales de desacelerarse.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/ciberseguridad
         course_background: destructive
@@ -494,9 +463,7 @@ sections:
             text: Python y APIs
           - icon: Code
             text: Integración de IA
-        description: >-
-          Construye aplicaciones web modernas y listas para producción de frontend a backend, con IA integrada en tu
-          proceso de desarrollo desde el primer día.
+        description: Construye aplicaciones web modernas y listas para producción de frontend a backend, con IA integrada en tu proceso de desarrollo desde el primer día.
         cta_text: Ver Detalles del Programa
         cta_url: /es/programas-de-carrera/desarrollo-full-stack
         course_background: primary
@@ -506,32 +473,32 @@ sections:
       desktop: none md
     section_id: course_selector-w5tquk
   - type: cards_deck
-    version: '1.0'
+    version: "1.0"
     heading: Historias reales de cambio de carrera
     subtitle: Más de 6,000 graduados han usado 4Geeks para entrar en tecnología. Estas son solo algunas de sus historias.
     cards:
       - video:
           url: https://youtu.be/ln3bQsV1BaQ
-        image: ''
+        image: ""
         brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
         author_name: Hernán García
-        title: '"Recibí ofertas de empresas que no esperaba"'
+        title: "\"Recibí ofertas de empresas que no esperaba\""
         description: Hernán consiguió un trabajo en tecnología dentro de un mes de comenzar su búsqueda laboral.
         alt: Geekforce
       - video:
           url: https://youtu.be/MBXqEnhodx0
-        image: ''
+        image: ""
         brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
         author_name: Joao Henrique
-        title: '"Siempre tendrás el apoyo de la academia"'
+        title: "\"Siempre tendrás el apoyo de la academia\""
         description: Joao comparte su experiencia recibiendo mentoría de programación como estudiante, después de graduarse y en su trabajo actual.
         alt: Geekpal
       - video:
           url: https://youtu.be/oeX_ocy6zv4
-        image: ''
+        image: ""
         brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
         author_name: Jonathan Ferragut
-        title: '"Tomar un curso como este nos beneficia de muchas maneras"'
+        title: "\"Tomar un curso como este nos beneficia de muchas maneras\""
         description: Jonathan comparte cómo el programa le ayudó a ganar confianza y crear proyectos desde cero.
         alt: Geekpal
     section_id: cards_deck-53um6c
@@ -544,10 +511,7 @@ sections:
     version: v1.0
     variant: featured_showcase
     title: Las instituciones más reconocidas del mundo nos eligieron. Esto es lo que hemos construido.
-    subtitle: >-
-      Desde el Banco Interamericano de Desarrollo hasta gobiernos de toda América y universidades en tres continentes,
-      cada institución que nos seleccionó para ejecutar sus programas llegó con KPIs, responsabilidad pública y altas
-      expectativas. Cumplimos siempre.
+    subtitle: Desde el Banco Interamericano de Desarrollo hasta gobiernos de toda América y universidades en tres continentes, cada institución que nos seleccionó para ejecutar sus programas llegó con KPIs, responsabilidad pública y altas expectativas. Cumplimos siempre.
     show_links: false
     show_logos: true
     dynamic_entries:
@@ -568,65 +532,7 @@ sections:
     laptop_image:
       image_id: laptop
     title: Consigue el empleo. O te devolvemos el dinero.
-    description: >-
-      <span style="font-size: 1.5rem;"><span><span></span></span></span><span style="font-size: 1.5rem;"><span
-      style="font-size: 1.875rem;"><span style="font-size: 1.5rem;"><span style="color:
-      hsl(var(--foreground));"></span></span></span></span><span style="line-height: 1.625;"><span style="font-size:
-      1.5rem;"><span style="font-size: 1.875rem;"><span style="font-size: 1.5rem;"><span style="color:
-      hsl(var(--foreground));"></span></span></span></span></span><span style="line-height: 1.625;"><span><span
-      style="font-size: 1.5rem;"><span style="font-size: 1.875rem;"><span style="font-size: 1.5rem;"><span style="color:
-      hsl(var(--foreground));">Cada programa viene con la opción de una Garantía de
-      Empleo.*</span></span></span></span><div><span style="font-size: 1.5rem;"><span style="font-size:
-      1.875rem;"><span style="font-size: 1.5rem;"><div style=""><span style="font-size: 1.5rem; color: rgb(0, 7,
-      26);">¿No consigues empleo en 9 meses?&nbsp;</span><span style="font-size: 1.5rem; color: rgb(0, 7, 26);">Reembolso total de la
-      matrícula.&nbsp;</span></div><div style=""><span style="font-size: 1.5rem; color: rgb(0, 7, 26);">Así de seguros estamos de lo que construimos.</span></div><div style=""><span style="font-size: 1.5rem; color: rgb(0, 7,
-      26);"></span></div></span></span></span></div></span><span style="line-height: 1.1;"><span><span><span><div><span
-      style="font-size: 1.5rem;"><span style="font-size: 1.875rem;"><span style="font-size: 1.5rem;"><div style=""><span
-      style="font-size: 1.5rem; color: rgb(0, 7, 26);"><br></span></div></span></span></span></div></span><div><span
-      style="font-size: 1.5rem;"><span style="font-size: 1.875rem;"><span style="font-size: 1.5rem;"><div style=""><span
-      style="font-size: 1.5rem; color: rgb(0, 7, 26);"></span></div></span><div
-      style=""><span><span><span></span></span></span></div></span><div
-      style=""><span><span><span></span></span></span></div></span><div><span style="font-size:
-      1.5rem;"><span><span></span></span></span></div><div><span style="font-size: 0.875rem; color: rgb(0, 7, 26);">*La
-      Garantía de Empleo no está disponible en todas las regiones.&nbsp;</span><a
-      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"
-      style="font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ;
-      --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ;
-      --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ;
-      --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff;
-      --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000;
-      --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ;
-      --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ;
-      --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ;
-      --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ;
-      --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ;
-      border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;">Aplican términos y
-      condiciones.</a></div></div></span></span></span><div><div><a
-      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"
-      style="font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ;
-      --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ;
-      --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ;
-      --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff;
-      --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000;
-      --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ;
-      --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ;
-      --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ;
-      --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ;
-      --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ;
-      border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity:
-      1;"></a></div></div></span><div><div><a
-      href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf"
-      style="font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ;
-      --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ;
-      --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ;
-      --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff;
-      --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000;
-      --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ;
-      --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ;
-      --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ;
-      --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ;
-      --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ;
-      border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;"></a></div></div>
+    description: "<span style=\"font-size: 1.5rem;\"><span><span></span></span></span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span><span style=\"line-height: 1.625;\"><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span></span><span style=\"line-height: 1.625;\"><span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\">Cada programa viene con la opción de una Garantía de Empleo.*</span></span></span></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">¿No consigues empleo en 9 meses?&nbsp;</span><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Reembolso total de la matrícula.&nbsp;</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Así de seguros estamos de lo que construimos.</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span></span></span></div></span><span style=\"line-height: 1.1;\"><span><span><span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"><br></span></div></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span><span></span></span></span></div><div><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">*La Garantía de Empleo no está disponible en todas las regiones.&nbsp;</span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\">Aplican términos y condiciones.</a></div></div></span></span></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div>"
     cta:
       text: Cómo Funciona
       url: /es/garantia-de-empleo
@@ -660,9 +566,7 @@ sections:
     showOn: desktop
   - type: testimonials_slide
     title: Hicieron el cambio. Esto es lo que pasó.
-    description: >-
-      Un técnico de mantenimiento, un músico, un especialista de soporte en Microsoft, un filósofo y personas sin experiencia previa.
-      Todos trabajan hoy en tecnología.
+    description: Un técnico de mantenimiento, un músico, un especialista de soporte en Microsoft, un filósofo y personas sin experiencia previa. Todos trabajan hoy en tecnología.
     dynamic_entries:
       database: testimonials_en
       limit: 30
@@ -679,8 +583,7 @@ sections:
           name: Estados Unidos
           iso: us
         contributor: United Way Miami
-        description: >-
-          Loretta se unió en 2022 y se graduó en 2023. En los meses siguientes ya consiguió empleo y completó el ciclo de habilidades + trabajo que todos buscamos.
+        description: Loretta se unió en 2022 y se graduó en 2023. En los meses siguientes ya consiguió empleo y completó el ciclo de habilidades + trabajo que todos buscamos.
         achievement: Logró un aumento salarial del 45%
       - name: Rich Akers
         img: https://storage.googleapis.com/4geeks-academy-website/media/Akers_1764725327796.jpeg
@@ -689,8 +592,7 @@ sections:
           name: Estados Unidos
           iso: us
         contributor: Clark University
-        description: >-
-          Richard es un gran desarrollador que acaba de hacer la transición desde otro sector y ahora trabaja como desarrollador web en tecnología.
+        description: Richard es un gran desarrollador que acaba de hacer la transición desde otro sector y ahora trabaja como desarrollador web en tecnología.
         achievement: Logró un aumento salarial del 30%
       - name: MaiLinh Tran
         img: https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh_1764725334980.png
@@ -708,8 +610,7 @@ sections:
           name: Uruguay
           iso: uy
         contributor: UTEC-BID
-        description: >-
-          Martín se unió al primer programa que lanzamos junto con UTEC e IDB. Consiguió un empleo mejor remunerado, una carrera que le apasiona y una nueva vida profesional.
+        description: Martín se unió al primer programa que lanzamos junto con UTEC e IDB. Consiguió un empleo mejor remunerado, una carrera que le apasiona y una nueva vida profesional.
         achievement: Logró un aumento salarial del 100%
       - name: Jean St. Cloud
         img: https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
@@ -718,8 +619,7 @@ sections:
           name: Estados Unidos
           iso: us
         contributor: Clark
-        description: >-
-          Jean está haciendo la transición desde otras industrias (música) hacia la tecnología. Lo logró con el apoyo de Clark University y ya trabaja como desarrollador y mentor.
+        description: Jean está haciendo la transición desde otras industrias (música) hacia la tecnología. Lo logró con el apoyo de Clark University y ya trabaja como desarrollador y mentor.
         achievement: Logró un aumento salarial del 100%
       - name: Alexandra Espinoza
         img: https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
@@ -728,8 +628,7 @@ sections:
           name: Costa Rica
           iso: cr
         contributor: CINDE-BID
-        description: >-
-          Alexandra venía de un sector totalmente distinto y ha sido una gran revelación para ella y quienes la rodean. Hoy es una desarrolladora de software exitosa y talentosa en Costa Rica.
+        description: Alexandra venía de un sector totalmente distinto y ha sido una gran revelación para ella y quienes la rodean. Hoy es una desarrolladora de software exitosa y talentosa en Costa Rica.
         achievement: Logró un aumento salarial del 100%
       - name: Gabriel Salazar
         img: https://storage.googleapis.com/4geeks-academy-website/media/GabrielSalazar_1764725392872.jpeg
@@ -738,8 +637,7 @@ sections:
           name: Costa Rica
           iso: cr
         contributor: CINDE-BID
-        description: >-
-          Gabriel ya era especialista de soporte en Microsoft y, tras completar el programa, consiguió un nuevo puesto en la misma empresa como ingeniero de software.
+        description: Gabriel ya era especialista de soporte en Microsoft y, tras completar el programa, consiguió un nuevo puesto en la misma empresa como ingeniero de software.
         achievement: Logró un aumento salarial del 50%
       - name: Laura Magallanes
         img: https://storage.googleapis.com/4geeks-academy-website/media/Laura_1764725397398.jpeg
@@ -748,8 +646,7 @@ sections:
           name: Uruguay
           iso: uy
         contributor: UTEC-BID
-        description: >-
-          Laura es extraordinaria. De un pueblo pequeño en Uruguay sin experiencia en programación, hoy es sostén de hogar, instructora y coordinadora de programas.
+        description: Laura es extraordinaria. De un pueblo pequeño en Uruguay sin experiencia en programación, hoy es sostén de hogar, instructora y coordinadora de programas.
         achievement: Logró un aumento salarial del 120%
       - name: Melanie Galaretto
         img: https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto_1764725408397.jpeg
@@ -758,8 +655,7 @@ sections:
           name: Uruguay
           iso: uy
         contributor: UTEC-BID
-        description: >-
-          Melanie es una joven profesional que soñaba con la vida que ahora tiene. Es una desarrolladora de software creativa y comprometida que trabaja en una empresa de tecnología en su país.
+        description: Melanie es una joven profesional que soñaba con la vida que ahora tiene. Es una desarrolladora de software creativa y comprometida que trabaja en una empresa de tecnología en su país.
         achievement: Logró un aumento salarial de más del 100%
       - name: Natia Lombardo
         img: https://storage.googleapis.com/4geeks-academy-website/media/NatiaLombardo_1764725413363.jpeg
@@ -768,8 +664,7 @@ sections:
           name: Uruguay
           iso: uy
         contributor: UTEC-BID
-        description: >-
-          Natia es filósofa y desarrolladora de software. Actualmente trabaja como ingeniera de QA en una gran y exitosa empresa internacional.
+        description: Natia es filósofa y desarrolladora de software. Actualmente trabaja como ingeniera de QA en una gran y exitosa empresa internacional.
       - name: Luis Larraburo
         img: https://storage.googleapis.com/4geeks-academy-website/media/LuisLarraburo_1764725418057.jpeg
         status: Graduado
@@ -777,8 +672,7 @@ sections:
           name: Costa Rica
           iso: cr
         contributor: CINDE-BID
-        description: >-
-          Luis llegó al programa sin experiencia previa. Hoy es desarrollador de software en una empresa de tecnología en Costa Rica.
+        description: Luis llegó al programa sin experiencia previa. Hoy es desarrollador de software en una empresa de tecnología en Costa Rica.
         achievement: Logró un aumento salarial del 50%
       - name: Leandro Matonte
         img: https://storage.googleapis.com/4geeks-academy-website/media/Leandro_1764725403142.jpeg
@@ -787,8 +681,7 @@ sections:
           name: Uruguay
           iso: uy
         contributor: UTEC-BID
-        description: >-
-          Leandro entró al programa buscando comprender mejor la programación y adquirir habilidades que le ayudaran a decidir si estudiar ciencias de la computación. Hoy es desarrollador de software en una empresa de tecnología en Uruguay.
+        description: Leandro entró al programa buscando comprender mejor la programación y adquirir habilidades que le ayudaran a decidir si estudiar ciencias de la computación. Hoy es desarrollador de software en una empresa de tecnología en Uruguay.
         achievement: Logró un aumento salarial del 60%
     section_id: testimonials_slide-vw3x6q
     paddingY:
@@ -814,7 +707,7 @@ sections:
     marginY:
       desktop: none lg
   - type: cta_banner
-    version: '1.0'
+    version: "1.0"
     title: Ya hiciste la investigación. 4Geeks es la respuesta.
     subtitle: El 84% de nuestros graduados consigue empleo. Completa tus datos y nuestro equipo de admisiones se pondrá en contacto contigo en breve.
     background: hsl(var(--primary))
@@ -822,7 +715,7 @@ sections:
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Iniciar tu solicitud
+      submit_label: Obtén más información
       fields:
         email:
           visible: true
@@ -856,7 +749,7 @@ sections:
       mobile: lg
       desktop: lg
   - type: sticky_cta
-    version: '1.0'
+    version: "1.0"
     heading: ¿Listo para empezar tu carrera en tecnología?
     button_label: Descubre si calificas. Es gratis
     show_dismiss: false

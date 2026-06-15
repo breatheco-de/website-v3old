@@ -29,7 +29,7 @@ sections:
     form:
       variant: stacked
       conversion_name: request_more_info
-      submit_label: Iniciar mi aplicación
+      submit_label: Obtén mas información
       fields:
         email:
           visible: true
@@ -686,8 +686,8 @@ sections:
     variant: form
     form:
       variant: stacked
-      conversion_name: student_application
-      submit_label: Comprueba si cumples los requisitos. Es gratis
+      conversion_name: request_more_info
+      submit_label: Obtén todos los detalles
       fields:
         email:
           visible: true

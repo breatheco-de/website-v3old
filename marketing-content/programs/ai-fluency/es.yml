@@ -1,11 +1,29 @@
 slug: ai-fluency
+title: AI fluency
+settings:
+  loading:
+    eager_count: 3
+meta:
+  page_title: AI fluency
+  description: "Ingeniero de IA: el trabajo de más rápido crecimiento en 2026. Prepárate para el mercado laboral en 24 semanas. 84% de contratación, salarios de $95K–$135K. Mentoría de por vida y apoyo profesional. 4Geeks."
+  robots: index, follow
+  og_image: /images/programs/ai-engineering-og.jpg
+  priority: 0.9
+  change_frequency: weekly
+  redirects:
+    - /es/programas-de-carrera/ai-fluent
+schema:
+  include:
+    - organization
+    - website
+    - courses:ai-engineering
 sections:
   - type: hero
     version: "1.0"
     variant: course
     title: AI Fluency. Los profesionales más destacados ya están aquí.
     title_highlight: Los profesionales más destacados ya están aquí.
-    subtitle: Las habilidades en IA tienen ahora una prima salarial del 56% en todas las industrias. En nuestro programa intensivo de upskilling de 4 semanas, aprenderás a crear flujos de trabajo con IA, automatizar tareas y usar la IA como colaboradora, no solo como herramienta. No se requiere programación.
+    subtitle: Las habilidades en IA tienen ahora una prima salarial del 56% en todas las industrias. En cuatro semanas, construirás flujos de trabajo con IA alrededor de tu trabajo real, automatizarás tus tareas más repetitivas y convertirás la IA en tu colaboradora más capaz. No se requiere programación.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -14,9 +32,9 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduados
     bullet_points:
-      - Flujos de trabajo con IA adaptados a tu trabajo, tus tareas y tus herramientas.
-      - Automatiza trabajo repetitivo con agentes y n8n.
-      - Prompts que llevan a la IA al máximo rendimiento en cualquier tarea.
+      - Automatiza trabajo repetitivo con agentes de IA y n8n.
+      - Escribe prompts que dan resultados profesionales cada vez.
+      - Construye flujos de trabajo reales con IA que usarás en tu trabajo.
     tutors:
       - name: Instructor Experto
         role: Instructor Principal
@@ -25,13 +43,13 @@ sections:
         role: Tutor de IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Tus tutores:"
-    description: La IA no es el futuro, es la base. Los profesionales que van adelante ahora mismo están aprovechando las capacidades de la IA con intención. Así es como das el salto.
+    description: La IA no es el futuro, es la base. Los profesionales que van adelante no están esperando. Con AI Fluency, desarrollarás las habilidades para dar el salto.
     signup_card:
       title: Recibe el resumen completo del programa
       description: "Completa tus datos y el equipo de admisiones te enviará todo lo que necesitas: plan de estudios, detalles del programa y precios. Tarda 2 minutos."
       cta_button:
         text: Envíame los detalles
-        url: "#modal-aifluency"
+        url: "#modal-y2myvq"
         variant: primary
       login_link:
         text: ¿Ya eres estudiante? Inicia sesión aquí.
@@ -49,7 +67,7 @@ sections:
       desktop: lg md
     marginY:
       desktop: none
-    section_id: hero-aifluency
+    section_id: hero-yt9c4j
   - type: modal
     version: "1.0"
     heading: Recibe los detalles del programa
@@ -74,7 +92,7 @@ sections:
         program:
           visible: false
           required: true
-          default: "{{ single.bc_slug | ai-fluency }}"
+          default: {{ single.bc_slug | ai-fluency }}
       success:
         message: Revisa tu bandeja de entrada. El equipo de admisiones se pondrá en contacto pronto.
     section_id: modal-aifluency
@@ -143,8 +161,8 @@ sections:
     version: "1.0"
     variant: stats-charts
     subtitle: Los datos son claros.
-    title: La fluidez en IA ya no es opcional
-    description: Los profesionales con habilidades en IA ganan más, avanzan más rápido y tienen mayor demanda en todas las industrias, no solo en tecnología. El cambio ya está en marcha. Estos son los números detrás de ello.
+    title: La fluidez en IA es cómo aceleran las carreras
+    description: Los profesionales con habilidades en IA ganan más, avanzan más rápido y tienen mayor demanda en todas las industrias, no solo en tecnología. La oportunidad es real, y los números lo demuestran.
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
     card_gauge_accent: hsl(var(--destructive) / 0.5)
@@ -158,7 +176,7 @@ sections:
       created_label: Con habilidades en IA
     card_gauge:
       title: La alfabetización en IA se convierte en requisito laboral
-       description: Roles globales · LinkedIn 2025
+      description: Roles laborales globales · LinkedIn 2025
 
       inner_stat_percentage: 30
       outer_stat_percentage: 70
@@ -166,7 +184,7 @@ sections:
       inner_stat_highlight: true
       gauge_label: requieren alfabetización en IA
       stat_label: de los roles laborales ya requieren alfabetización en IA a nivel global
-      bar1_label: Roles que requieren IA
+      bar1_label: Roles que requieren alfabetización en IA
       bar2_label: Roles sin requisito de IA
     card_trend:
       title: La demanda de trabajadores con fluidez en IA se acelera
@@ -235,7 +253,7 @@ sections:
           - Prompting para emails, informes, investigación y resúmenes de reuniones
           - Gestión efectiva del contexto en IA
           - Construcción de una biblioteca personal de prompts
-        projects: Sal con 3–5 prompts funcionales para tareas reales de tu trabajo.
+        projects: Sal con 3-5 prompts funcionales para tareas reales de tu trabajo.
         orientation: vertical
         icon: IconCode
       - title: Tu asistente personal de IA
@@ -299,7 +317,7 @@ sections:
     subtitle: Invertir en tus habilidades de IA es la decisión inteligente. 4Geeks tiene el historial para respaldarlo.
     discount_text: "Descuento por pago completo: Ahorra 10% con pago anticipado."
     financing_text: "Financiamiento flexible: desde"
-    financing_amount: "{{ global.price_ai_fluency_financing | $150 }}"
+    financing_amount: {{ global.price_ai_fluency_financing | $150 }}
     tech_icons:
       - openai
       - claude
@@ -344,7 +362,7 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: Paga de contado para obtener un mejor precio con un descuento adicional, o divide los pagos en cuotas sin intereses de hasta 24 meses con nuestros partners.
+        text: Paga de contado para obtener un mejor precio con un descuento adicional, o divide tus pagos en 6 cuotas sin intereses con nuestros partners.
       - icon: IconCheck
         text: 2–3 becas basadas en mérito disponibles por cohorte para solicitantes altamente calificados.
       - icon: IconCheck
@@ -379,8 +397,8 @@ sections:
       - content-and-syllabus
       - career-support
     rating_summary:
-      average: "{{ global.global_review_rating | 4.9 }}"
-      count: "{{ global.global_review_count | 700 }}"
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 700 }}
     paddingY:
       desktop: md lg
     marginY:
@@ -394,7 +412,7 @@ sections:
       permanent_filters:
         - item_property_slug: related_features
           value:
-            - ai-fluency
+            - ai-engineering
         - item_property_slug: locations
           value: all
     marginY:
@@ -402,6 +420,20 @@ sections:
     paddingY:
       desktop: md
     background: hsl(var(--muted))
+    item_overrides:
+      how-long-does-the-program-take:
+        hideOnLocations:
+          - barcelona-spain
+          - berlin-germany
+          - dublin-ireland
+          - hamburg-germany
+          - lisbon-portugal
+          - madrid-spain
+          - malaga-spain
+          - milan-italy
+          - munich-germany
+          - rome-italy
+          - valencia-spain
   - type: cta_banner
     version: "1.0"
     title: ¿Listo para desarrollar tu fluidez en IA?
@@ -428,7 +460,7 @@ sections:
         program:
           visible: false
           required: true
-          default: "{{ single.bc_slug | ai-fluency }}"
+          default: {{ single.bc_slug | ai-fluency }}
       success:
         message: Revisa tu bandeja de entrada. El equipo de admisiones se pondrá en contacto pronto con todo lo que necesitas saber.
       button_className: bg-primary
@@ -443,7 +475,7 @@ sections:
   - type: sticky_cta
     section_id: sticky_cta-euuky9
     version: "1.0"
-    heading: ¿Listo para empezar?
+    heading: ¿Listo para empezar tu carrera en tech?
     button_label: Aplicar ahora
     show_dismiss: false
     form:
@@ -467,10 +499,7 @@ sections:
         program:
           visible: false
           required: true
-          default: ai-fluency
+          default: ai-engineering
       success:
-        message: ¡Gracias! Nos pondremos en contacto pronto.
+        message: ¡Gracias! Nos pondremos en contacto en 24 horas.
     load: eager
-meta:
-  page_title: AI Fluency — Programa de Upskilling en IA | 4Geeks Academy
-  description: Aprende a crear flujos de trabajo con IA, automatizar tareas y usar la IA como colaboradora. Programa intensivo de 4 semanas. No se requiere programación.
