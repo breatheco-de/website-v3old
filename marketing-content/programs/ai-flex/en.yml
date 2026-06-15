@@ -57,7 +57,7 @@ sections:
     marginY:
       desktop: none
     section_id: hero-aiflex
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+    background: linear-gradient(to bottom left, hsl(var(--primary) / 0.14), transparent 60%)
   - type: awards_marquee
     section_id: awards_marquee-t8ylg2
     version: v1.0
