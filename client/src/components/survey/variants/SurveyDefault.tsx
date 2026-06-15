@@ -24,7 +24,7 @@ function buildAnswerParts(answers: Record<string, string>, questions: SurveyQues
     .map((q, i) => {
       const qId = resolveQId(q, i);
       const oId = answers[qId];
-      return oId ? `q${qId}o${oId}` : null;
+      return oId ? `${qId}${oId}` : null;
     })
     .filter(Boolean) as string[];
 }
@@ -67,7 +67,7 @@ function resolveFromSumRoutes(
   const thresholds = routes.thresholds ?? [];
   for (const t of thresholds) {
     if (total <= t.until) {
-      return { url: t.url, message: t.message };
+      return { url: t.url, message: t.message, next_question: t.next_question };
     }
   }
 
@@ -134,7 +134,13 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
     }, 200);
   }
 
-  function handleAction(action: SurveyAction) {
+  function handleAction(action: SurveyAction, fromQIdx: number) {
+    if (action.next_question !== undefined) {
+      const nextIdx = findQuestionIndex(action.next_question, fromQIdx);
+      setHistory((h) => [...h, fromQIdx]);
+      setCurrentQIdx(nextIdx);
+      return;
+    }
     if (action.url) {
       const sectionData = nav.navigate(action.url);
       if (sectionData) {
@@ -198,7 +204,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
     if (qIdx >= totalQ - 1) {
       const resolved = resolveRoutes(newAnswers, data.questions, data.routes, aggregationMethod);
       if (resolved) {
-        animateTransition("fwd", () => handleAction(resolved));
+        animateTransition("fwd", () => handleAction(resolved, qIdx));
       }
       return;
     }

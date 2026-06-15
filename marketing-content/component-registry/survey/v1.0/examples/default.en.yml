@@ -77,12 +77,12 @@ routes:
   qgoalobuild:
     url: inline#ai-flex-path-builder
   # Coding=regular OR Use=career_shift → Career Switcher
-  qcoadingregular:
+  qcodingoregular:
     url: inline#ai-flex-path-career
   # Goal=automate OR Impact=automations → Automation Specialist
   qgoaloautomate:
     url: inline#ai-flex-path-automation
-  qimnpactoautomations:
+  qimpactoautomations:
     url: inline#ai-flex-path-automation
   # Fallback → AI-First Professional
   default:
