@@ -137,7 +137,7 @@ sections:
     maxWidth:
       desktop: 6xl
     paddingY:
-      desktop: sm none
+      desktop: md sm
   - type: banner
     version: v1.0
     variant: marqueeBadges
