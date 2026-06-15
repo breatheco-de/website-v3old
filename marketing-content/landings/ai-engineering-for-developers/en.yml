@@ -865,6 +865,7 @@ sections:
     section_id: cta_banner-1klq8h
     paddingY:
       desktop: lg none
+    terms_color: hsl(var(--card))
   - type: footer
     section_id: footer-5zsyar
     version: "1.0"
