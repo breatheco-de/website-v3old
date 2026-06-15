@@ -154,7 +154,6 @@ sections:
     card_gauge:
       title: The Productivity Jump Is Real
       description: Productivity growth · AI-exposed industries · PwC 2025
-
       inner_stat_percentage: 27
       outer_stat_percentage: 73
       show_gauge: true
@@ -315,7 +314,7 @@ sections:
       - heading: Human Support, When You Want It
         text: Book a 1:1 session with a senior instructor for $25 whenever you need expert guidance — no commitment, no minimum. You're also part of the 4Geeks community on WhatsApp, where students and alumni learn alongside each other.
     image: https://storage.googleapis.com/4geeks-academy-website/media/community-support-2_1765406601448.webp
-    image_alt: AI Flex learning environment
+    image_alt: "Image: valentina_brightened"
     reverse: true
     section_id: two_column_accordion_card-aiflex
     paddingY:
