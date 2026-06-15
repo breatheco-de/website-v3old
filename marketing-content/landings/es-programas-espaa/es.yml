@@ -88,6 +88,7 @@ sections:
     marginX:
       desktop: none
     section_id: hero-l4c46u
+    image_alt: "Image: Course Report Best Coding Bootcamp 2026 Badge"
   - type: trust_cards
     maxWidth:
       desktop: 6xl
