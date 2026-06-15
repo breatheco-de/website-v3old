@@ -154,7 +154,7 @@ sections:
       badge: Who's ready for AI roles?
       inner_stat_percentage: 3
       outer_stat_percentage: 97
-      show_gauge: true
+      show_gauge: false
       inner_stat_highlight: false
       gauge_label: qualified
       stat_label: of the workforce is not ready for AI roles today
