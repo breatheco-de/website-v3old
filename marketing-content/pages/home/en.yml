@@ -211,6 +211,8 @@ sections:
     section_id: features_grid-xxxxxxx
     marginY:
       desktop: none md
+    paddingY:
+      desktop: none sm
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-800x1200-q72.webp
