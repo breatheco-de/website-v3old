@@ -243,9 +243,9 @@ sections:
     background: hsl(var(--background))
     section_id: image_row-z97kqt
     marginY:
-      desktop: xl
+      desktop: xl none
     paddingY:
-      desktop: none
+      desktop: xl none
     maxWidth:
       desktop: 6xl
   - type: career_support_explain
