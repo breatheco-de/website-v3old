@@ -130,7 +130,7 @@ sections:
   - type: banner
     version: v1.0
     variant: marqueeBadges
-    subtitle: Which one fits where you are right now?
+    subtitle: From upskilling to career change
     title: "AI is <span style=\"color: hsl(var(--primary));\"><i>the way</i></span>."
     body: "Data Science, Full Stack, Cybersecurity. It all runs on AI now. So does 4Geeks: three tracks, three entry points, one field worth entering."
     top_badges:
