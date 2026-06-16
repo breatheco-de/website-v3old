@@ -250,7 +250,7 @@ export default function AiFlexPathDefault({ data }: { data: AiFlexPathDefault })
   const RobotIcon = data.icon ? getIcon(data.icon) : null;
 
   return (
-    <div className="py-12 px-4 pb-16" style={{ fontFamily: "'Inter',system-ui,-apple-system,sans-serif" }}>
+    <div className="pb-16" style={{ fontFamily: "'Inter',system-ui,-apple-system,sans-serif" }}>
       <div className="mx-auto">
         <div className="relative mx-28">
           <div className="absolute" style={{ right: "calc(100% + 16px)", top: "-16px" }}>

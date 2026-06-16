@@ -376,8 +376,6 @@ sections:
             skill_percentage: 35
           - name: Model evaluation
             skill_percentage: 20
-    paddingY:
-      desktop: sm
     maxWidth:
       desktop: xl
   - type: graduates_stats

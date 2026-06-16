@@ -305,7 +305,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
   return (
     <div
       className="min-h-screen py-12 px-4 pb-16"
-      style={{ fontFamily: "'Inter',system-ui,-apple-system,sans-serif" }}
+      style={{ fontFamily: "'Inter Variable',system-ui,-apple-system,sans-serif" }}
     >
       <div className="mx-auto">
         {data.badge_text && (
@@ -320,7 +320,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
         {data.title && (
           <h1
             className="text-[36px] font-extrabold tracking-[-0.025em] leading-[1.1] mb-[0.6rem]"
-            style={{ color: "hsl(var(--foreground))" }}
+            style={{ color: "hsl(var(--foreground))", fontFamily: "'Inter Variable'" }}
           >
             <span dangerouslySetInnerHTML={{ __html: data.title }} />
             {data.title_highlight && (
@@ -343,9 +343,8 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
           </p>
         )}
 
-        {/* Restart button — own row, above progress bar, only when done */}
-        {isDone && (
-          <div className="flex justify-end mb-3">
+        {/* Restart button — own row, above progress bar; always rendered to avoid layout shift */}
+        <div className="flex justify-end mb-3" style={{ visibility: isDone ? "visible" : "hidden" }}>
             <button
               className="text-[11px] font-medium bg-transparent border-none cursor-pointer flex items-center gap-1 transition-colors duration-150"
               style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}
@@ -376,9 +375,8 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
               {data.restart_label ?? "Start over"}
             </button>
           </div>
-        )}
 
-        {/* Progress bar */}
+          {/* Progress bar */}
         <div className="flex gap-[8px] mb-9">
           {Array.from({ length: progressTotal }, (_, i) => (
             <div
@@ -545,9 +543,8 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
         {/* INLINE — renders within survey container, respects section's own YAML styles */}
         {phase === "inline" && inlineSectionData && (
           <div style={slideStyle}>
-            <div style={{ width: "100%", ...getSectionWrapperStyles(inlineSectionData as Section) }}>
+
               {renderSection(inlineSectionData as Parameters<typeof renderSection>[0], 0)}
-            </div>
           </div>
         )}
       </div>
