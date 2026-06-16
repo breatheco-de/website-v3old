@@ -286,12 +286,15 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
             ? { opacity: 0, transform: "translateX(-16px)" }
             : { opacity: 1, transform: "none", transition: "opacity .2s, transform .2s" };
 
-  // Progress: number of completed steps (bars filled)
+  // Progress
+  const isInfinite = knownTotal === null;
   const progressTotal = knownTotal ?? totalQ;
   const progressFilled =
     phase === "inline" || phase === "message"
       ? progressTotal
       : Math.min(history.length, progressTotal);
+  // For infinite mode, completed = answers given so far
+  const infiniteCompleted = history.length;
 
   // Per-question subtitle: explicit subtitle > auto-computed step label
   const stepNum = history.length + 1;
@@ -336,7 +339,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
         )}
         {data.subtitle && (
           <p
-            className="text-[15px] leading-[1.6] mb-8"
+            className="text-[15px] leading-[1.6] mb-[0.5]"
             style={{ color: "hsl(var(--muted-foreground))" }}
           >
             {data.subtitle}
@@ -377,22 +380,45 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
           </div>
 
           {/* Progress bar */}
-        <div className="flex gap-[8px] mb-9">
-          {Array.from({ length: progressTotal }, (_, i) => (
-            <div
-              key={i}
-              className="h-[2.2px] flex-1 rounded-full"
-              style={{
-                transition: "background .4s",
-                background:
-                  i < progressFilled
-                    ? "hsl(var(--primary))"
-                    : i === progressFilled && phase === "questions"
-                      ? "hsl(var(--primary) / 0.35)"
-                      : "hsl(var(--secondary))",
-              }}
-            />
-          ))}
+        <div className="flex gap-[8px] mb-9 items-center">
+          {isInfinite
+            ? Array.from(
+                { length: isDone ? infiniteCompleted + 1 : infiniteCompleted + 2 },
+                (_, i) => {
+                  const isCompleted = i < infiniteCompleted;
+                  const isActive = i === infiniteCompleted;
+                  const width = isCompleted ? 20 : isActive ? (isDone ? 20 : 56) : 12;
+                  return (
+                    <div
+                      key={i}
+                      className="h-[2.2px] rounded-full flex-none"
+                      style={{
+                        width: `${width}px`,
+                        transition: "width .35s ease, background .4s",
+                        background:
+                          isCompleted || isActive
+                            ? "hsl(var(--primary))"
+                            : "hsl(var(--secondary))",
+                      }}
+                    />
+                  );
+                },
+              )
+            : Array.from({ length: progressTotal }, (_, i) => (
+                <div
+                  key={i}
+                  className="h-[2.2px] flex-1 rounded-full"
+                  style={{
+                    transition: "background .4s",
+                    background:
+                      i < progressFilled
+                        ? "hsl(var(--primary))"
+                        : i === progressFilled && phase === "questions"
+                          ? "hsl(var(--primary) / 0.35)"
+                          : "hsl(var(--secondary))",
+                  }}
+                />
+              ))}
         </div>
 
         {/* QUIZ */}

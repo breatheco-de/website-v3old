@@ -131,23 +131,17 @@ sections:
           - label: Prepare for a career shift into tech
           - label: Explore — not sure yet
     routes:
-      q1o4:
+      q1o4-q2o3:
         url: inline#ai-flex-path-analyst
-      q3o5:
+      q3o5-q2o1:
         url: inline#ai-flex-path-analyst
-      q1o2:
-        url: inline#ai-flex-path-automation
-      q3o2:
-        url: inline#ai-flex-path-automation
-      q1o3:
-        url: inline#ai-flex-path-builder
-      q2o4:
-        url: inline#ai-flex-path-career
       default:
         url: inline#ai-flex-path-professional
     section_id: survey-1cof7y
     paddingY:
       desktop: sm
+    maxWidth:
+      desktop: xl
   - type: survey
     version: v1.0
     variant: default
