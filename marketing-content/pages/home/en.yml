@@ -137,7 +137,7 @@ sections:
     maxWidth:
       desktop: 6xl
     paddingY:
-      desktop: md sm
+      desktop: sm md
   - type: banner
     version: v1.0
     variant: marqueeBadges
@@ -170,7 +170,7 @@ sections:
     marquee_speed: 85
     section_id: banner-qrp5dz
     paddingY:
-      desktop: sm
+      desktop: md sm
     background: hsl(var(--muted))
     marginY:
       desktop: none xl
