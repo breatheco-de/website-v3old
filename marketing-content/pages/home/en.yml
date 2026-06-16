@@ -98,6 +98,53 @@ sections:
     badge_text: Build your path
     title: Your AI curriculum,
     title_highlight: built around you.
+    subtitle: A few questions. No commitment. We map the exact courses you need.
+    icon: 4GeeksAvatar
+    back_label: Back
+    restart_label: Start over
+    step_label: Question
+    step_of_label: of
+    questions:
+      - text: What's your main goal right now?
+        options:
+          - label: Use AI to be more productive at my current job
+          - label: Automate repetitive tasks without writing code
+          - label: Build apps or technical projects with AI
+          - label: Work with data, analytics, or machine learning
+      - text: How comfortable are you with coding?
+        options:
+          - label: No experience — and I'd like to keep it that way
+          - label: I know some basics (scripts, spreadsheets)
+          - label: I code regularly
+    routes:
+      q1o3:
+        url: inline#ai-flex-path-builder
+      q1o4:
+        url: inline#ai-flex-path-analyst
+      q1o1-q2o1:
+        message: You're a great fit for the AI Professional Skills path — a practical course to get more done every day without writing code.
+      q1o1-q2o2:
+        url: inline#ai-flex-path-professional
+      q1o1-q2o3:
+        url: inline#ai-flex-path-career
+      q1o2-q2o1:
+        url: inline#ai-flex-path-automation
+      q1o2-q2o2:
+        url: inline#ai-flex-path-automation
+      q1o2-q2o3:
+        url: inline#ai-flex-path-career
+      default:
+        url: inline#ai-flex-path-professional
+    section_id: survey-3s1zzc
+    paddingY:
+      desktop: sm
+  - type: survey
+    version: v1.0
+    variant: default
+    aggregation_method: concat
+    badge_text: Build your path
+    title: Your AI curriculum,
+    title_highlight: built around you.
     subtitle: 4 questions. No commitment. We map the exact courses you need.
     icon: 4GeeksAvatar
     back_label: Back
@@ -133,7 +180,7 @@ sections:
     routes:
       q1o4-q2o3:
         url: inline#ai-flex-path-analyst
-      q3o5-q2o1:
+      q3o5-q2o1-q3o1:
         url: inline#ai-flex-path-analyst
       default:
         url: inline#ai-flex-path-professional
