@@ -2,3 +2,5 @@ en:
   variants:
     - slug: home-new-programs
       allocation: 0
+    - slug: ai-flex-selector-prueba
+      allocation: 0

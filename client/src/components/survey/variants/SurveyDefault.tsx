@@ -339,7 +339,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
         )}
         {data.subtitle && (
           <p
-            className="text-[15px] leading-[1.6] mb-[0.5]"
+            className="text-[15px] leading-[1.6] mb-1.5"
             style={{ color: "hsl(var(--muted-foreground))" }}
           >
             {data.subtitle}
@@ -347,9 +347,9 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
         )}
 
         {/* Restart button — own row, above progress bar; always rendered to avoid layout shift */}
-        <div className="flex justify-end mb-3" style={{ visibility: isDone ? "visible" : "hidden" }}>
+        <div className="flex justify-end mb-2" style={{ visibility: isDone ? "visible" : "hidden" }}>
             <button
-              className="text-[11px] font-medium bg-transparent border-none cursor-pointer flex items-center gap-1 transition-colors duration-150"
+              className="text-[12px] font-medium bg-transparent border-none cursor-pointer flex items-center gap-1 transition-colors duration-150"
               style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.color = "hsl(var(--muted-foreground))";
