@@ -387,14 +387,18 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
                 (_, i) => {
                   const isCompleted = i < infiniteCompleted;
                   const isActive = i === infiniteCompleted;
-                  const width = isCompleted ? 20 : isActive ? (isDone ? 20 : 56) : 12;
+                  const isPeek = !isDone && i === infiniteCompleted + 1;
+                  // flex-grow: completed=1, active=2.5, peek=0.4, done-active=1
+                  const grow = isCompleted ? 1 : isPeek ? 0.4 : isDone ? 1 : 2.5;
                   return (
                     <div
                       key={i}
-                      className="h-[2.2px] rounded-full flex-none"
+                      className="h-[2.2px] rounded-full"
                       style={{
-                        width: `${width}px`,
-                        transition: "width .35s ease, background .4s",
+                        flexGrow: grow,
+                        flexShrink: 1,
+                        flexBasis: 0,
+                        transition: "flex-grow .35s ease, background .4s",
                         background:
                           isCompleted || isActive
                             ? "hsl(var(--primary))"
