@@ -263,14 +263,6 @@ sections:
       desktop: xl none
     maxWidth:
       desktop: 6xl
-  - highlight:
-      heading: Every program comes with support. The most ambitious comes with all of it.
-      text: Mentors and career coaches that are always within reach, an AI tutor, and your personal AI agent. All tailored to you.
-      background: primary
-      width: 2
-      text_2: "<ul style=\"font-size: 20px;\"><li>Unlimited 1:1 mentorship with real tech professionals</li><li>Career coaching built to get you hired</li><li>An AI tutor that adapts to your learning path</li><li>Your own AI agent</li></ul><p style=\"font-size: 1.5rem;\"><strong>We support you like no one else does.</strong></p>"
-    text_1: "<span style=\"font-size: 1.5rem;\"><b><span style=\"line-height: 1.1;\">Every program comes with support. The most ambitious comes with all of it.</span></b></span>"
-    section_id: image_row-z97kqt
   - type: trust_cards
     version: v1.0
     title: Top rated across all major platforms.
@@ -297,6 +289,14 @@ sections:
     background: hsl(var(--secondary))
     maxWidth:
       desktop: 6xl
+  - highlight:
+      heading: Every program comes with support. The most ambitious comes with all of it.
+      text: Mentors and career coaches that are always within reach, an AI tutor, and your personal AI agent. All tailored to you.
+      background: primary
+      width: 2
+      text_2: "<ul style=\"font-size: 20px;\"><li>Unlimited 1:1 mentorship with real tech professionals</li><li>Career coaching built to get you hired</li><li>An AI tutor that adapts to your learning path</li><li>Your own AI agent</li></ul><p style=\"font-size: 1.5rem;\"><strong>We support you like no one else does.</strong></p>"
+    text_1: "<span style=\"font-size: 1.5rem;\"><b><span style=\"line-height: 1.1;\">Every program comes with support. The most ambitious comes with all of it.</span></b></span>"
+    section_id: image_row-z97kqt
   - type: career_support_explain
     version: v1.0
     heading: How We Get You Hired. From First Day to Signed Offer.
