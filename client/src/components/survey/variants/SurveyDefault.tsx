@@ -305,7 +305,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
   return (
     <div
       className="min-h-screen py-12 px-4 pb-16"
-      style={{ fontFamily: "'Inter',system-ui,-apple-system,sans-serif", overflowX: "clip" }}
+      style={{ fontFamily: "'Inter',system-ui,-apple-system,sans-serif" }}
     >
       <div className="mx-auto">
         {data.badge_text && (
@@ -542,10 +542,10 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
           </div>
         )}
 
-        {/* INLINE — full-bleed, breaks out of survey container; respects section's own YAML styles */}
+        {/* INLINE — renders within survey container, respects section's own YAML styles */}
         {phase === "inline" && inlineSectionData && (
           <div style={slideStyle}>
-            <div style={{ width: "100vw", marginLeft: "calc(50% - 50vw)", position: "relative", ...getSectionWrapperStyles(inlineSectionData as Section) }}>
+            <div style={{ width: "100%", ...getSectionWrapperStyles(inlineSectionData as Section) }}>
               {renderSection(inlineSectionData as Parameters<typeof renderSection>[0], 0)}
             </div>
           </div>

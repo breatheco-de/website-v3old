@@ -1440,23 +1440,10 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           const isHiddenUntilRedirection = (rawSection as SectionLayout).hidden_until_redirection === true;
           if (isHiddenUntilRedirection && !skipHiddenCheck) {
             if (!isEditMode) return null;
-            const hiddenSectionId = (rawSection as SectionLayout).section_id;
             const fullContent = renderLiveSection(section, index, { skipHiddenCheck: true });
             return (
               <div key={index} className="relative" data-testid={`hidden-until-redirect-section-${index}`}>
                 {fullContent}
-                <div className="absolute inset-x-0 top-0 z-50 flex justify-center pt-3 pointer-events-none">
-                  <div
-                    className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide"
-                    style={{ background: "hsl(var(--primary))", color: "hsl(var(--primary-foreground))" }}
-                  >
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0 }}>
-                      <path d="M17 8l4 4-4 4M7 8l-4 4 4 4"/>
-                      <line x1="3" y1="12" x2="21" y2="12"/>
-                    </svg>
-                    inline#{hiddenSectionId ?? "…"} — hidden until redirected
-                  </div>
-                </div>
               </div>
             );
           }

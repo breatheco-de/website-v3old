@@ -1637,7 +1637,7 @@ export function EditableSection({ children, section, index, sectionType, content
           data-testid={`badge-hidden-redirect-${index}`}
         >
           <ArrowLeftRight className="h-3.5 w-3.5 shrink-0" />
-          <span className="hidden md:inline">inline#{(section as SectionLayout).section_id ?? "…"}</span>
+          <span className="hidden md:inline">Hidden until redirect</span>
         </div>
       )}
 
