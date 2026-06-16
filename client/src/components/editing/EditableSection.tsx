@@ -1629,6 +1629,18 @@ export function EditableSection({ children, section, index, sectionType, content
       })()}
 
       
+      {/* Hidden-until-redirection badge — same style as other edit-mode badges */}
+      {(section as SectionLayout).hidden_until_redirection && (
+        <div
+          className="absolute top-2 right-2 z-30 flex items-center gap-1 px-2 py-1 bg-amber-500/90 text-amber-950 text-xs font-medium rounded"
+          title={`Hidden from page — revealed via inline#${(section as SectionLayout).section_id ?? "…"}`}
+          data-testid={`badge-hidden-redirect-${index}`}
+        >
+          <ArrowLeftRight className="h-3.5 w-3.5 shrink-0" />
+          <span className="hidden md:inline">inline#{(section as SectionLayout).section_id ?? "…"}</span>
+        </div>
+      )}
+
       {/* Per-entry origin badge (always visible when section is from per-entry override) */}
       {(section as any)._perEntrySource && (
         <div

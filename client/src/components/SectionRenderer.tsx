@@ -185,7 +185,7 @@ function parseBackground(value: string | undefined): string | undefined {
 // background: Applied to wrapper (semantic token or custom CSS)
 // maxWidth: stored as CSS vars (--section-mw-*) and applied on inner container
 // Inner gutter is auto-applied only when maxWidth constrains the content
-function getSectionWrapperStyles(section: Section): CSSProperties & Record<string, string> {
+export function getSectionWrapperStyles(section: Section): CSSProperties & Record<string, string> {
   const layoutSection = section as SectionLayout;
 
   const padding = parseResponsiveSpacing(layoutSection.paddingY);

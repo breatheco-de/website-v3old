@@ -251,7 +251,7 @@ export default function AiFlexPathDefault({ data }: { data: AiFlexPathDefault })
 
   return (
     <div className="py-12 px-4 pb-16" style={{ fontFamily: "'Inter',system-ui,-apple-system,sans-serif" }}>
-      <div className="mx-auto max-w-2xl">
+      <div className="mx-auto">
         <div className="relative mx-28">
           <div className="absolute" style={{ right: "calc(100% + 16px)", top: "-16px" }}>
             {RobotIcon && <RobotIcon width="85" height="85" style={{ color: "hsl(var(--foreground))" }} />}

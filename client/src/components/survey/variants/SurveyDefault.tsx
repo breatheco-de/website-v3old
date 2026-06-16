@@ -3,8 +3,8 @@ import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { usePageSections } from "@/contexts/PageSectionsContext";
 import { loadSectionComponent } from "@/components/sectionRegistry";
-import { renderSection } from "@/components/SectionRenderer";
-import type { SurveyDefault } from "@shared/schema";
+import { renderSection, getSectionWrapperStyles } from "@/components/SectionRenderer";
+import type { SurveyDefault, Section } from "@shared/schema";
 
 type SurveyOption = SurveyDefault["questions"][0]["options"][0];
 type SurveyQuestion = SurveyDefault["questions"][0];
@@ -305,7 +305,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
   return (
     <div
       className="min-h-screen py-12 px-4 pb-16"
-      style={{ fontFamily: "'Inter',system-ui,-apple-system,sans-serif" }}
+      style={{ fontFamily: "'Inter',system-ui,-apple-system,sans-serif", overflowX: "clip" }}
     >
       <div className="mx-auto">
         {data.badge_text && (
@@ -542,10 +542,10 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
           </div>
         )}
 
-        {/* INLINE — full-bleed, breaks out of survey container max-width */}
+        {/* INLINE — full-bleed, breaks out of survey container; respects section's own YAML styles */}
         {phase === "inline" && inlineSectionData && (
           <div style={slideStyle}>
-            <div style={{ width: "100vw", marginLeft: "calc(50% - 50vw)", position: "relative" }}>
+            <div style={{ width: "100vw", marginLeft: "calc(50% - 50vw)", position: "relative", ...getSectionWrapperStyles(inlineSectionData as Section) }}>
               {renderSection(inlineSectionData as Parameters<typeof renderSection>[0], 0)}
             </div>
           </div>
