@@ -300,7 +300,7 @@ sections:
   - type: career_support_explain
     version: v1.0
     heading: How We Get You Hired. From First Day to Signed Offer.
-    description: The career support system behind our AI Engineering Program. AI-optimized profiles, direct access to our employer network, and 1:1 support that stays with you beyond landing your first role.
+    description: The career support system behind our AI Engineering Program. AI-optimized profiles, direct access to our employer network, and 1:1 support that stays with you beyond landing your first role. Want a guarantee to go with it? The optional Job Guarantee gives you 9 months to get hired, or full tuition back. (US and Canada only.)
     background: hsl(var(--sidebar-background))
     tabs:
       - tab_label: Job-Ready, Faster
