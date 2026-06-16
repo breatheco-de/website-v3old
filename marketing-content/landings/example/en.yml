@@ -220,5 +220,7 @@ sections:
     section_id: ai_flex_selector-78ovp3
     paddingY:
       desktop: sm
+    maxWidth:
+      desktop: xl
 meta:
   page_title: example
