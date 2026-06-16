@@ -1,8 +1,9 @@
-import { useState, useEffect, ComponentType, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { usePageSections } from "@/contexts/PageSectionsContext";
-import { getCachedSectionComponent, loadSectionComponent } from "@/components/sectionRegistry";
+import { loadSectionComponent } from "@/components/sectionRegistry";
+import { renderSection } from "@/components/SectionRenderer";
 import type { SurveyDefault } from "@shared/schema";
 
 type SurveyOption = SurveyDefault["questions"][0]["options"][0];
@@ -132,7 +133,6 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
   const [phase, setPhase] = useState<"questions" | "inline" | "message">("questions");
   const [inlineSectionData, setInlineSectionData] = useState<Record<string, unknown> | null>(null);
   const [message, setMessage] = useState<string | null>(null);
-  const [InlineComp, setInlineComp] = useState<ComponentType<{ data: unknown }> | null>(null);
   const nav = useInternalNav();
   const pageSections = usePageSections();
 
@@ -156,22 +156,6 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
       loadSectionComponent(type, variant);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Load inline component when section data is set
-  useEffect(() => {
-    if (!inlineSectionData) return;
-    const type = inlineSectionData.type as string | undefined;
-    const variant = (inlineSectionData.variant as string | undefined) ?? "default";
-    if (!type) return;
-    const cached = getCachedSectionComponent(type, variant);
-    if (cached) {
-      setInlineComp(() => cached);
-      return;
-    }
-    loadSectionComponent(type, variant).then((c) => {
-      if (c) setInlineComp(() => c);
-    });
-  }, [inlineSectionData]);
 
   function animateTransition(direction: "fwd" | "back", onSwitch: () => void) {
     if (animating) return;
@@ -287,7 +271,6 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
       setAnswers({});
       setPhase("questions");
       setInlineSectionData(null);
-      setInlineComp(null);
       setMessage(null);
     });
   }
@@ -559,27 +542,12 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
           </div>
         )}
 
-        {/* INLINE */}
-        {phase === "inline" && (
+        {/* INLINE — full-bleed, breaks out of survey container max-width */}
+        {phase === "inline" && inlineSectionData && (
           <div style={slideStyle}>
-            {InlineComp && inlineSectionData ? (
-              <Suspense
-                fallback={
-                  <div className="h-48 flex items-center justify-center text-sm" style={{ color: "hsl(var(--muted-foreground))" }}>
-                    Loading…
-                  </div>
-                }
-              >
-                <InlineComp data={inlineSectionData} />
-              </Suspense>
-            ) : (
-              <div
-                className="h-48 flex items-center justify-center text-sm"
-                style={{ color: "hsl(var(--muted-foreground))" }}
-              >
-                Loading…
-              </div>
-            )}
+            <div style={{ width: "100vw", marginLeft: "calc(50% - 50vw)", position: "relative" }}>
+              {renderSection(inlineSectionData as Parameters<typeof renderSection>[0], 0)}
+            </div>
           </div>
         )}
       </div>

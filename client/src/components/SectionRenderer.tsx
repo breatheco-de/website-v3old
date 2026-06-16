@@ -1430,42 +1430,31 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           );
         };
 
-        const renderLiveSection = (section: Section, index: number) => {
+        const renderLiveSection = (section: Section, index: number, opts?: { skipHiddenCheck?: boolean }) => {
+          const skipHiddenCheck = opts?.skipHiddenCheck ?? false;
           const rawSection = sections[index];
           const sectionType = (section as { type: string }).type;
           const loadStrategy = isEditMode ? "eager" : resolveLoadStrategy(rawSection, index, settings);
 
-          // Hidden-until-redirection: suppress in live mode; ghost in edit mode
+          // Hidden-until-redirection: suppress in live mode; full render + badge in edit mode
           const isHiddenUntilRedirection = (rawSection as SectionLayout).hidden_until_redirection === true;
-          if (isHiddenUntilRedirection) {
+          if (isHiddenUntilRedirection && !skipHiddenCheck) {
             if (!isEditMode) return null;
             const hiddenSectionId = (rawSection as SectionLayout).section_id;
+            const fullContent = renderLiveSection(section, index, { skipHiddenCheck: true });
             return (
-              <div key={index} className="relative group">
-                <div
-                  className="flex items-center gap-3 px-6 py-4 mx-4 my-2 border-2 border-dashed rounded-lg"
-                  style={{
-                    borderColor: "hsl(var(--primary) / 0.35)",
-                    background: "hsl(var(--primary) / 0.04)",
-                    color: "hsl(var(--primary) / 0.7)",
-                  }}
-                  data-testid={`hidden-until-redirect-section-${index}`}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0 }}>
-                    <path d="M17 8l4 4-4 4M7 8l-4 4 4 4"/>
-                    <line x1="3" y1="12" x2="21" y2="12"/>
-                  </svg>
-                  <div>
-                    <p className="text-sm font-medium">
-                      {sectionType}
-                      {hiddenSectionId ? ` · #${hiddenSectionId}` : ""} — inline render target
-                    </p>
-                    <p className="text-xs" style={{ color: "hsl(var(--muted-foreground) / 0.6)" }}>
-                      Hidden from page; revealed when a survey routes to it via{" "}
-                      <code style={{ background: "hsl(var(--muted))", padding: "1px 4px", borderRadius: 3 }}>
-                        inline#{hiddenSectionId ?? "…"}
-                      </code>
-                    </p>
+              <div key={index} className="relative" data-testid={`hidden-until-redirect-section-${index}`}>
+                {fullContent}
+                <div className="absolute inset-x-0 top-0 z-50 flex justify-center pt-3 pointer-events-none">
+                  <div
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide"
+                    style={{ background: "hsl(var(--primary))", color: "hsl(var(--primary-foreground))" }}
+                  >
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0 }}>
+                      <path d="M17 8l4 4-4 4M7 8l-4 4 4 4"/>
+                      <line x1="3" y1="12" x2="21" y2="12"/>
+                    </svg>
+                    inline#{hiddenSectionId ?? "…"} — hidden until redirected
                   </div>
                 </div>
               </div>

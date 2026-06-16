@@ -4215,7 +4215,40 @@ export function SectionEditorPanel({
                   if (parentExists === undefined || parentExists === null) return null;
                 }
 
-                if (isSimpleField && editorType === "link-picker") {
+                // Handle map-key paths like "routes.*.url" — iterate over all object keys
+                if (!fieldPath.includes("[]") && fieldPath.includes(".*.") && editorType === "link-picker") {
+                  const dotStarIdx = fieldPath.indexOf(".*.");
+                  const mapPath = fieldPath.substring(0, dotStarIdx);
+                  const subPath = fieldPath.substring(dotStarIdx + 3);
+                  const mapValue = parsedSection ? (parsedSection as Record<string, unknown>)[mapPath] : null;
+                  if (!mapValue || typeof mapValue !== "object") return null;
+                  const entries = Object.entries(mapValue as Record<string, unknown>);
+                  if (entries.length === 0) return null;
+                  return (
+                    <div key={fieldPath} className="space-y-3">
+                      <Label className="text-sm font-medium">{getFieldLabel(mapPath)}</Label>
+                      {entries.map(([key, val]) => {
+                        const entryObj = (typeof val === "object" && val) ? val as Record<string, unknown> : {};
+                        const currentUrl = (subPath ? (entryObj[subPath] as string) : (val as string)) || "";
+                        return (
+                          <div key={key} className="space-y-1">
+                            <p className="text-xs font-mono" style={{ color: "hsl(var(--muted-foreground))" }}>{key}</p>
+                            <LinkPicker
+                              value={currentUrl}
+                              onChange={(url) => updateProperty(`${mapPath}.${key}.${subPath}`, url)}
+                              locale={locale}
+                              allSections={allSections}
+                              testId={`props-link-${mapPath}-${key}`}
+                              allowInlineRender={variant === "allow-inline-render"}
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                }
+
+                if (isSimpleField && !fieldPath.includes(".*") && editorType === "link-picker") {
                   const getSimpleLinkValue = () => {
                     if (!parsedSection) return "";
                     const pathParts = fieldPath.split(".");
