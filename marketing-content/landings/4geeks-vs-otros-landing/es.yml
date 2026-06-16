@@ -104,6 +104,7 @@ sections:
       desktop: none
     section_id: hero-q7f1fu
     awards_marquee_at_left_column: true
+    image_alt: "Image: Course Report Best Coding Bootcamp 2026 Badge"
   - title: ""
     description: Aprende las habilidades que el mercado necesita, con un sistema de apoyo que te coloca en Ingeniería de IA, Full Stack, Ciencia de Datos y Ciberseguridad.
     bullets:
