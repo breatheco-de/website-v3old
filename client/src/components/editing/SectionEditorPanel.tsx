@@ -3973,10 +3973,22 @@ export function SectionEditorPanel({
                                           </Button>
                                         </div>
                                         {fieldOrder.map((fieldKey) => {
-                                          const currentValue = String(
-                                            nestedItem[fieldKey] ?? "",
-                                          );
-                                          const label = fieldKey
+                                          const getLeafValue = (path: string): unknown => {
+                                            const parts = path.split(".");
+                                            let cur: unknown = nestedItem;
+                                            for (const p of parts) {
+                                              if (!cur || typeof cur !== "object") return undefined;
+                                              cur = (cur as Record<string, unknown>)[p];
+                                            }
+                                            return cur;
+                                          };
+                                          const currentValue = String(getLeafValue(fieldKey) ?? "");
+                                          const nestedFieldLabelMap: Record<string, string> = {
+                                            "action.url": "URL de acción",
+                                            "action.message": "Mensaje de acción",
+                                            "action.next_question": "Siguiente pregunta",
+                                          };
+                                          const label = nestedFieldLabelMap[fieldKey] ?? fieldKey
                                             .replace(/_/g, " ")
                                             .replace(/\b\w/g, (c) =>
                                               c.toUpperCase(),
@@ -4088,7 +4100,38 @@ export function SectionEditorPanel({
                                           }
 
                                           if (
-                                            typeof nestedItem[fieldKey] ===
+                                            configuredField?.editorType ===
+                                            "link-picker"
+                                          ) {
+                                            return (
+                                              <div
+                                                key={fieldKey}
+                                                className="space-y-1"
+                                              >
+                                                <Label className="text-xs text-muted-foreground">
+                                                  {label}
+                                                </Label>
+                                                <LinkPicker
+                                                  value={currentValue}
+                                                  onChange={(url) =>
+                                                    updateArrayItemField(
+                                                      resolvedArrPath,
+                                                      nestedIdx,
+                                                      fieldKey,
+                                                      url,
+                                                    )
+                                                  }
+                                                  locale={locale}
+                                                  allSections={allSections}
+                                                  testId={`props-nested-link-${fieldKey.replace(/\./g, "-")}-${nestedIdx}`}
+                                                  allowInlineRender={configuredField.variant === "allow-inline-render"}
+                                                />
+                                              </div>
+                                            );
+                                          }
+
+                                          if (
+                                            typeof getLeafValue(fieldKey) ===
                                             "number"
                                           ) {
                                             return (

@@ -41,6 +41,7 @@ export const surveyDefaultSchema = z.object({
   step_of_label: z.string().optional(),
   questions: z.array(surveyQuestionSchema),
   routes: z.unknown().optional(),
+  infinite_progress_bar: z.boolean().optional().default(false),
 });
 
 export type SurveyDefault = z.infer<typeof surveyDefaultSchema>;

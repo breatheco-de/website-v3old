@@ -107,6 +107,58 @@ sections:
     questions:
       - text: What's your main goal right now?
         options:
+          - label: Build apps or technical projects with AI
+          - label: Work with data, analytics, or machine learning
+          - label: Use AI to be more productive at my current job
+            action:
+              next_question: 2
+          - label: Automate repetitive tasks without writing code
+            action:
+              next_question: 2
+      - text: How comfortable are you with coding?
+        options:
+          - label: No experience — and I'd like to keep it that way
+            action:
+              next_question: 3
+          - label: I know some basics (scripts, spreadsheets)
+          - label: I code regularly
+      - text: How csdadsasddsomfortable are you with coding?
+        options:
+          - label: No experience — and I'd like to keep it that way
+            action:
+              message: You're a great fit for the AI Professional Skills path — practical, no code required.
+          - label: I know some basics (scripts, spreadsheets)
+            action:
+              url: inline#ai-flex-path-professional
+          - label: I code regularly
+    routes:
+      q1o3-q2o3:
+        url: inline#ai-flex-path-analyst
+      q1o4-q2o3:
+        url: inline#ai-flex-path-career
+      default:
+        url: inline#ai-flex-path-professional
+    section_id: survey-0lftf8
+    paddingY:
+      desktop: sm
+    maxWidth:
+      desktop: xl
+  - type: survey
+    version: v1.0
+    variant: default
+    aggregation_method: concat
+    badge_text: Build your path
+    title: Your AI curriculum,
+    title_highlight: built around you.
+    subtitle: A few questions. No commitment. We map the exact courses you need.
+    icon: 4GeeksAvatar
+    back_label: Back
+    restart_label: Start over
+    step_label: Question
+    step_of_label: of
+    questions:
+      - text: What's your main goal right now?
+        options:
           - label: Use AI to be more productive at my current job
           - label: Automate repetitive tasks without writing code
           - label: Build apps or technical projects with AI
@@ -138,6 +190,8 @@ sections:
     section_id: survey-3s1zzc
     paddingY:
       desktop: sm
+    maxWidth:
+      desktop: xl
   - type: survey
     version: v1.0
     variant: default

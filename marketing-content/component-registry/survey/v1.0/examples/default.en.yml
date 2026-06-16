@@ -1,6 +1,7 @@
 type: survey
 variant: default
 aggregation_method: concat
+infinite_progress_bar: false
 
 badge_text: "Build your path"
 title: "Your AI curriculum,"

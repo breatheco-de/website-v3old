@@ -287,7 +287,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
             : { opacity: 1, transform: "none", transition: "opacity .2s, transform .2s" };
 
   // Progress
-  const isInfinite = knownTotal === null;
+  const isInfinite = data.infinite_progress_bar === true || knownTotal === null;
   const progressTotal = knownTotal ?? totalQ;
   const progressFilled =
     phase === "inline" || phase === "message"
