@@ -68,6 +68,8 @@ sections:
     marginY:
       desktop: none
     section_id: hero-yt9c4j
+    video:
+      url: https://www.youtube.com/watch?v=a6aYSobiuBc
   - type: modal
     version: "1.0"
     heading: Get the Program Details
