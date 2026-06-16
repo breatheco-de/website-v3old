@@ -174,14 +174,14 @@ sections:
           - id: explore
             label: Explore — not sure yet
     routes:
-      qgoalodata:
-        url: inline#ai-flex-path-analyst
       qgoalodata-qimpactodata_skills:
         url: inline#ai-flex-path-analyst
       qimpactodata_skills:
         url: inline#ai-flex-path-analyst
+      qgoalodata:
+        url: inline#ai-flex-path-analyst
       qgoalobuild:
-        url: inline#ai-flex-path-builder
+        url: inline#ai-flex-path-analyst
       qcodingoregular:
         url: inline#ai-flex-path-career
       qgoaloautomate:
@@ -190,9 +190,11 @@ sections:
         url: inline#ai-flex-path-automation
       default:
         url: inline#ai-flex-path-professional
-    section_id: survey-ykgxwa
+    section_id: survey-v4goyi
     paddingY:
       desktop: sm
+    maxWidth:
+      desktop: xl
   - type: ai_flex_path
     version: v1.0
     variant: default

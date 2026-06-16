@@ -221,9 +221,15 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
     const newAnswers = { ...answers, [qId]: oId };
     setAnswers(newAnswers);
 
-    const action = option.action;
+    // Routes have highest priority — evaluated on every pick (enables early exit)
+    const resolved = resolveRoutes(newAnswers, data.questions, data.routes, aggregationMethod);
+    if (resolved) {
+      animateTransition("fwd", () => handleAction(resolved, qIdx));
+      return;
+    }
 
-    // Explicit action: url > message > next_question (highest priority)
+    // No route match: fall back to the option's explicit action
+    const action = option.action;
     if (action?.url) {
       const sectionData = nav.navigate(action.url);
       if (sectionData) {
@@ -250,14 +256,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
       return;
     }
 
-    // No explicit action: evaluate routes after every pick (enables early exit)
-    const resolved = resolveRoutes(newAnswers, data.questions, data.routes, aggregationMethod);
-    if (resolved) {
-      animateTransition("fwd", () => handleAction(resolved, qIdx));
-      return;
-    }
-
-    // No route match: advance sequentially, do nothing on last question
+    // No route, no action: advance sequentially, do nothing on last question
     if (qIdx < totalQ - 1) {
       animateTransition("fwd", () => {
         setHistory((h) => [...h, qIdx]);

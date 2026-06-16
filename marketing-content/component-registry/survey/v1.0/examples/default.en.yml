@@ -9,120 +9,52 @@ subtitle: "4 questions. No commitment. We map the exact courses you need."
 icon: "4GeeksAvatar"
 back_label: "Back"
 restart_label: "Start over"
-
-# Auto-computed step subtitle: "Question N of M"
-# Override per-question by adding subtitle: directly on the question.
 step_label: "Question"
 step_of_label: "of"
 
 questions:
-  - id: goal
-    # subtitle auto-computes to "Question 1 of 4" — no need to set it manually
-    text: "What's your main goal right now?"
+  - text: "What's your main goal right now?"
     options:
-      - id: productivity
-        label: "Use AI to be more productive at my current job"
-        action:
-          next_question: coding
-      - id: automate
-        label: "Automate repetitive tasks without writing code"
-        action:
-          next_question: coding
-      - id: build
-        label: "Build apps or technical projects with AI"
-        action:
-          next_question: coding
-      - id: data
-        label: "Work with data, analytics, or machine learning"
-        # No action — routes fires immediately on this pick (early exit)
+      - label: "Use AI to be more productive at my current job"
+      - label: "Automate repetitive tasks without writing code"
+      - label: "Build apps or technical projects with AI"
+      - label: "Work with data, analytics, or machine learning"
 
-  - id: coding
-    text: "How comfortable are you with coding?"
+  - text: "How comfortable are you with coding?"
     options:
-      - id: none_no
-        label: "No experience — and I'd like to keep it that way"
-        action:
-          next_question: impact
-      - id: none_open
-        label: "No experience — but I'm open to basics"
-        action:
-          next_question: impact
-      - id: some
-        label: "Some basics (scripts, spreadsheets, HTML)"
-        action:
-          next_question: impact
-      - id: regular
-        label: "I code regularly"
-        action:
-          next_question: impact
+      - label: "No experience — and I'd like to keep it that way"
+      - label: "No experience — but I'm open to basics"
+      - label: "Some basics (scripts, spreadsheets, HTML)"
+      - label: "I code regularly"
 
-  - id: impact
-    text: "What skill would make the biggest difference in your work right now?"
+  - text: "What skill would make the biggest difference in your work right now?"
     options:
-      - id: reliable
-        label: "Getting reliable, professional-quality results from AI tools"
-        action:
-          next_question: use
-      - id: automations
-        label: "Building automations that run without me"
-        action:
-          next_question: use
-      - id: assistant
-        label: "Setting up AI assistants for my existing tools"
-        action:
-          next_question: use
-      - id: code
-        label: "Writing code or building software with AI"
-        action:
-          next_question: use
-      - id: data_skills
-        label: "Analyzing data and making smarter decisions"
-        # No action — routes fires immediately on this pick (early exit)
+      - label: "Getting reliable, professional-quality results from AI tools"
+      - label: "Building automations that run without me"
+      - label: "Setting up AI assistants for my existing tools"
+      - label: "Writing code or building software with AI"
+      - label: "Analyzing data and making smarter decisions"
 
-  - id: use
-    text: "How do you plan to use what you learn?"
+  - text: "How do you plan to use what you learn?"
     options:
-      - id: better
-        label: "Get better at what I already do"
-        # No action — routes resolves after this final answer
-      - id: add
-        label: "Add a new capability to my current role"
-      - id: career_shift
-        label: "Prepare for a career shift into tech"
-      - id: explore
-        label: "Explore — not sure yet"
+      - label: "Get better at what I already do"
+      - label: "Add a new capability to my current role"
+      - label: "Prepare for a career shift into tech"
+      - label: "Explore — not sure yet"
 
 routes:
-  # ── Early exits (fire on partial answer match) ────────────────────────────
-  # Goal=data → Data-Driven Analyst (routes fires after Q1, before Q2)
-  qgoalodata:
+  # Early exits — fire as soon as the matching answer is picked
+  q1o4:
     url: inline#ai-flex-path-analyst
-
-  # Goal=data + Impact=data_skills (belt-and-suspenders)
-  qgoalodata-qimpactodata_skills:
+  q3o5:
     url: inline#ai-flex-path-analyst
-
-  # Impact=data_skills alone → also Analyst
-  qimpactodata_skills:
-    url: inline#ai-flex-path-analyst
-
-  # ── Full-path routes (fire after all 4 questions answered) ─────────────────
-  # Goal=build → Builder
-  qgoalobuild:
+  q1o2:
+    url: inline#ai-flex-path-automation
+  q3o2:
+    url: inline#ai-flex-path-automation
+  q1o3:
     url: inline#ai-flex-path-builder
-
-  # Coding=regular → Career Switcher
-  qcodingoregular:
+  q2o4:
     url: inline#ai-flex-path-career
-
-  # Goal=automate → Automation Specialist
-  qgoaloautomate:
-    url: inline#ai-flex-path-automation
-
-  # Impact=automations → Automation Specialist
-  qimpactoautomations:
-    url: inline#ai-flex-path-automation
-
-  # Catch-all → AI-First Professional
   default:
     url: inline#ai-flex-path-professional
