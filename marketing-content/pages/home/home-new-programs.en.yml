@@ -130,10 +130,9 @@ sections:
   - type: banner
     version: v1.0
     variant: marqueeBadges
-    subtitle: No matter what you came searching for
+    subtitle: Which one fits where you are right now?
     title: "AI is <span style=\"color: hsl(var(--primary));\"><i>the way</i></span>."
-    body: |
-      Every one of those paths now runs on AI, and that's where the hiring is. So we rebuilt 4Geeks into three AI tracks built for the new job market: AI Engineering, AI Fluency and AI Flex.
+    body: "Data Science, Full Stack, Cybersecurity. It all runs on AI now. So does 4Geeks: three tracks, three entry points, one field worth entering."
     top_badges:
       - Full Stack
       - Data Science
