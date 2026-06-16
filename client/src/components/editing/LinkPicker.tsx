@@ -163,7 +163,8 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
   useEffect(() => {
     setCustomUrl(value || "");
     setActiveType(detectLinkType(value, modals, scrollSections));
-  }, [value, modals, scrollSections]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
   const { data: sitemapUrls = [], isLoading: sitemapLoading } = useQuery<SitemapEntry[]>({
     queryKey: ["/api/sitemap-urls", locale],

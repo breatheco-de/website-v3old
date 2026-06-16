@@ -4245,7 +4245,7 @@ export function SectionEditorPanel({
                 // Exception: self-initializing editors (e.g. related-features-picker) always show — they create the structure on save.
                 const selfInitializingEditors = new Set(["related-features-picker", "faq-visibility-editor"]);
                 const isSelfInitializing = selfInitializingEditors.has(editorType) || editorType.startsWith("db-field-values-picker");
-                if (isSimpleField && fieldPath.includes(".") && !isSelfInitializing) {
+                if (isSimpleField && fieldPath.includes(".") && !isSelfInitializing && !fieldPath.includes(".*")) {
                   const parentParts = fieldPath.split(".");
                   let parentExists: unknown = parsedSection;
                   for (let i = 0; i < parentParts.length - 1; i++) {
