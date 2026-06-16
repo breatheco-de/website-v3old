@@ -37,6 +37,8 @@ export const surveyDefaultSchema = z.object({
   icon: z.string().optional(),
   back_label: z.string().optional().default("Back"),
   restart_label: z.string().optional().default("Start over"),
+  step_label: z.string().optional(),
+  step_of_label: z.string().optional(),
   questions: z.array(surveyQuestionSchema),
   routes: z.unknown().optional(),
 });

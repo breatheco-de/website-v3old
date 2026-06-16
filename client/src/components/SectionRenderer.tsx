@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import { AlertTriangle, Link, Loader2, Trash2 } from "lucide-react";
-import { useState, useRef, useEffect, lazy, Suspense, useMemo } from "react";
+import { useState, useRef, useEffect, lazy, Suspense, useMemo, Fragment } from "react";
 import { useContentTypesRaw } from "@/hooks/useContentTypes";
 import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn, PageSettings } from "@shared/schema";
 import { useSession } from "@/contexts/SessionContext";
@@ -652,6 +652,70 @@ function toSingularLabel(ct: string | undefined, rawTypes: { name: string; label
   if (lower.endsWith("ses") || lower.endsWith("xes") || lower.endsWith("zes")) return lower.slice(0, -2);
   if (lower.endsWith("s") && lower.length > 2) return lower.slice(0, -1);
   return lower;
+}
+
+function HiddenSectionAccordion({
+  sectionType,
+  sectionId,
+  children,
+}: {
+  sectionType: string;
+  sectionId?: string;
+  children: React.ReactNode;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <div className="my-2">
+      <button
+        type="button"
+        onClick={() => setExpanded((e) => !e)}
+        className="flex items-center gap-3 px-6 py-3 mx-4 border-2 border-dashed rounded-lg text-left transition-colors duration-150"
+        style={{
+          width: "calc(100% - 2rem)",
+          borderColor: "hsl(var(--primary) / 0.35)",
+          background: "hsl(var(--primary) / 0.04)",
+          color: "hsl(var(--primary) / 0.7)",
+        }}
+        data-testid={`hidden-section-accordion-${sectionId ?? sectionType}`}
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0 }}>
+          <path d="M17 8l4 4-4 4M7 8l-4 4 4 4" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+        </svg>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium">
+            {sectionType}{sectionId ? ` · #${sectionId}` : ""} — inline render target
+          </p>
+          <p className="text-xs" style={{ color: "hsl(var(--muted-foreground) / 0.6)" }}>
+            Hidden from page; revealed when a survey routes to it via{" "}
+            <code style={{ background: "hsl(var(--muted))", padding: "1px 4px", borderRadius: 3 }}>
+              inline#{sectionId ?? "…"}
+            </code>
+          </p>
+        </div>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          style={{
+            flexShrink: 0,
+            transform: expanded ? "rotate(180deg)" : "none",
+            transition: "transform 0.2s",
+          }}
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+      {expanded && (
+        <div style={{ borderLeft: "2px dashed hsl(var(--primary) / 0.2)", marginLeft: "1rem" }}>
+          {children}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export function SectionRenderer({ sections, settings, contentType, slug, locale, variant, version, programSlug, landingLocations, isSharedTemplate, singleEntry, perEntryRemovedSections }: SectionRendererProps) {
@@ -1435,42 +1499,9 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           const sectionType = (section as { type: string }).type;
           const loadStrategy = isEditMode ? "eager" : resolveLoadStrategy(rawSection, index, settings);
 
-          // Hidden-until-redirection: suppress in live mode; ghost in edit mode
+          // Hidden-until-redirection: suppress in live mode; accordion editor in edit mode
           const isHiddenUntilRedirection = (rawSection as SectionLayout).hidden_until_redirection === true;
-          if (isHiddenUntilRedirection) {
-            if (!isEditMode) return null;
-            const sectionId = (rawSection as SectionLayout).section_id;
-            return (
-              <div key={index} className="relative group">
-                <div
-                  className="flex items-center gap-3 px-6 py-4 mx-4 my-2 border-2 border-dashed rounded-lg"
-                  style={{
-                    borderColor: "hsl(var(--primary) / 0.35)",
-                    background: "hsl(var(--primary) / 0.04)",
-                    color: "hsl(var(--primary) / 0.7)",
-                  }}
-                  data-testid={`hidden-until-redirect-section-${index}`}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0 }}>
-                    <path d="M17 8l4 4-4 4M7 8l-4 4 4 4"/>
-                    <line x1="3" y1="12" x2="21" y2="12"/>
-                  </svg>
-                  <div>
-                    <p className="text-sm font-medium">
-                      {sectionType}
-                      {sectionId ? ` · #${sectionId}` : ""} — inline render target
-                    </p>
-                    <p className="text-xs" style={{ color: "hsl(var(--muted-foreground) / 0.6)" }}>
-                      Hidden from page; revealed when a survey routes to it via{" "}
-                      <code style={{ background: "hsl(var(--muted))", padding: "1px 4px", borderRadius: 3 }}>
-                        inline#{sectionId ?? "…"}
-                      </code>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-          }
+          if (isHiddenUntilRedirection && !isEditMode) return null;
 
           const pageContext: SectionPageContext = {
             url: typeof window !== "undefined" ? window.location.pathname : undefined,
@@ -1561,9 +1592,8 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
             ? <DeferredSection>{priorityWrapped}</DeferredSection>
             : priorityWrapped;
 
-          return (
+          const sectionNode = (
             <div
-              key={index}
               id={sectionId}
               data-section-type={sectionType}
               className={`section-wrapper${sectionType !== "modal" ? " scroll-mt-20" : ""}${hasTopCover ? " relative" : ""}${visibilityClasses ? " " + visibilityClasses : ""}`.trim()}
@@ -1635,6 +1665,20 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
               </div>
             </div>
           );
+
+          if (isHiddenUntilRedirection && isEditMode) {
+            return (
+              <HiddenSectionAccordion
+                key={index}
+                sectionType={sectionType}
+                sectionId={(rawSection as SectionLayout).section_id}
+              >
+                {sectionNode}
+              </HiddenSectionAccordion>
+            );
+          }
+
+          return <Fragment key={index}>{sectionNode}</Fragment>;
         };
 
         if (interleavedItems) {

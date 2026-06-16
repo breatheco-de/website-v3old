@@ -1,6 +1,7 @@
 import { useState, useEffect, ComponentType, Suspense } from "react";
 import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import { usePageSections } from "@/contexts/PageSectionsContext";
 import { getCachedSectionComponent, loadSectionComponent } from "@/components/sectionRegistry";
 import type { SurveyDefault } from "@shared/schema";
 
@@ -89,6 +90,34 @@ function resolveRoutes(
   return resolveFromConcatRoutes(answers, questions, routes as ConcatRoutes);
 }
 
+/**
+ * For concat method: if all non-default route keys have the same number of
+ * dash-separated parts, that number is the "known total" of steps.
+ * For sum method or mixed part-counts: returns null (no known total).
+ */
+function computeKnownTotal(routes: unknown, method: string): number | null {
+  if (method !== "concat" || !routes || typeof routes !== "object") return null;
+  const nonDefault = Object.keys(routes as object).filter((k) => k !== "default");
+  if (nonDefault.length === 0) return null;
+  const lengths = nonDefault.map((k) => k.split("-").length);
+  const allSame = lengths.every((l) => l === lengths[0]);
+  return allSame ? lengths[0] : null;
+}
+
+/** Recursively extract all `inline#...` URL strings from a route object. */
+function extractInlineUrls(obj: unknown): string[] {
+  if (!obj || typeof obj !== "object") return [];
+  const urls: string[] = [];
+  for (const val of Object.values(obj as Record<string, unknown>)) {
+    if (typeof val === "string" && val.startsWith("inline#")) {
+      urls.push(val);
+    } else if (val && typeof val === "object") {
+      urls.push(...extractInlineUrls(val));
+    }
+  }
+  return urls;
+}
+
 export default function SurveyDefault({ data }: { data: SurveyDefault }) {
   const [currentQIdx, setCurrentQIdx] = useState(0);
   const [history, setHistory] = useState<number[]>([]);
@@ -100,11 +129,30 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
   const [message, setMessage] = useState<string | null>(null);
   const [InlineComp, setInlineComp] = useState<ComponentType<{ data: unknown }> | null>(null);
   const nav = useInternalNav();
+  const pageSections = usePageSections();
 
   const totalQ = data.questions.length;
   const aggregationMethod = data.aggregation_method ?? "concat";
   const RobotIcon = data.icon ? getIcon(data.icon) : null;
+  const stepLabel = data.step_label ?? "Question";
+  const stepOfLabel = data.step_of_label ?? "of";
+  const knownTotal = computeKnownTotal(data.routes, aggregationMethod);
 
+  // Preload all inline section components referenced in routes on mount
+  useEffect(() => {
+    const inlineUrls = new Set(extractInlineUrls(data.routes));
+    for (const url of inlineUrls) {
+      const sectionId = url.slice("inline#".length);
+      const sectionData = pageSections[sectionId];
+      if (!sectionData) continue;
+      const type = sectionData.type as string | undefined;
+      const variant = (sectionData.variant as string | undefined) ?? "default";
+      if (!type) continue;
+      loadSectionComponent(type, variant);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Load inline component when section data is set
   useEffect(() => {
     if (!inlineSectionData) return;
     const type = inlineSectionData.type as string | undefined;
@@ -175,6 +223,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
 
     const action = option.action;
 
+    // Explicit action: url > message > next_question (highest priority)
     if (action?.url) {
       const sectionData = nav.navigate(action.url);
       if (sectionData) {
@@ -185,7 +234,6 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
       }
       return;
     }
-
     if (action?.message) {
       animateTransition("fwd", () => {
         setMessage(action.message!);
@@ -193,7 +241,6 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
       });
       return;
     }
-
     if (action?.next_question !== undefined) {
       const nextIdx = findQuestionIndex(action.next_question, qIdx);
       animateTransition("fwd", () => {
@@ -203,18 +250,20 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
       return;
     }
 
-    if (qIdx >= totalQ - 1) {
-      const resolved = resolveRoutes(newAnswers, data.questions, data.routes, aggregationMethod);
-      if (resolved) {
-        animateTransition("fwd", () => handleAction(resolved, qIdx));
-      }
+    // No explicit action: evaluate routes after every pick (enables early exit)
+    const resolved = resolveRoutes(newAnswers, data.questions, data.routes, aggregationMethod);
+    if (resolved) {
+      animateTransition("fwd", () => handleAction(resolved, qIdx));
       return;
     }
 
-    animateTransition("fwd", () => {
-      setHistory((h) => [...h, qIdx]);
-      setCurrentQIdx(qIdx + 1);
-    });
+    // No route match: advance sequentially, do nothing on last question
+    if (qIdx < totalQ - 1) {
+      animateTransition("fwd", () => {
+        setHistory((h) => [...h, qIdx]);
+        setCurrentQIdx(qIdx + 1);
+      });
+    }
   }
 
   function goBack() {
@@ -250,8 +299,21 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
             ? { opacity: 0, transform: "translateX(-16px)" }
             : { opacity: 1, transform: "none", transition: "opacity .2s, transform .2s" };
 
-  const progress =
-    phase === "inline" || phase === "message" ? totalQ : Math.min(currentQIdx, totalQ);
+  // Progress: number of completed steps (bars filled)
+  const progressTotal = knownTotal ?? totalQ;
+  const progressFilled =
+    phase === "inline" || phase === "message"
+      ? progressTotal
+      : Math.min(history.length, progressTotal);
+
+  // Per-question subtitle: explicit subtitle > auto-computed step label
+  const stepNum = history.length + 1;
+  const autoStepSubtitle = knownTotal
+    ? `${stepLabel} ${stepNum} ${stepOfLabel} ${knownTotal}`
+    : `${stepLabel} ${stepNum}`;
+  const currentSubtitle = data.questions[currentQIdx]?.subtitle ?? autoStepSubtitle;
+
+  const isDone = phase === "inline" || phase === "message";
 
   return (
     <div
@@ -294,28 +356,11 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
           </p>
         )}
 
-        {/* Progress bar */}
-        <div className="flex items-center gap-3 mb-9">
-          <div className="flex gap-[8px] flex-1">
-            {data.questions.map((_, i) => (
-              <div
-                key={i}
-                className="h-[2.2px] flex-1 rounded-full"
-                style={{
-                  transition: "background .4s",
-                  background:
-                    i < progress
-                      ? "hsl(var(--primary))"
-                      : i === progress && phase === "questions"
-                        ? "hsl(var(--primary) / 0.35)"
-                        : "hsl(var(--secondary))",
-                }}
-              />
-            ))}
-          </div>
-          {(phase === "inline" || phase === "message") && (
+        {/* Restart button — own row, above progress bar, only when done */}
+        {isDone && (
+          <div className="flex justify-end mb-3">
             <button
-              className="text-[11px] font-medium bg-transparent border-none cursor-pointer flex items-center gap-1 transition-colors duration-150 flex-shrink-0"
+              className="text-[11px] font-medium bg-transparent border-none cursor-pointer flex items-center gap-1 transition-colors duration-150"
               style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.color = "hsl(var(--muted-foreground))";
@@ -343,7 +388,26 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
               </svg>
               {data.restart_label ?? "Start over"}
             </button>
-          )}
+          </div>
+        )}
+
+        {/* Progress bar */}
+        <div className="flex gap-[8px] mb-9">
+          {Array.from({ length: progressTotal }, (_, i) => (
+            <div
+              key={i}
+              className="h-[2.2px] flex-1 rounded-full"
+              style={{
+                transition: "background .4s",
+                background:
+                  i < progressFilled
+                    ? "hsl(var(--primary))"
+                    : i === progressFilled && phase === "questions"
+                      ? "hsl(var(--primary) / 0.35)"
+                      : "hsl(var(--secondary))",
+              }}
+            />
+          ))}
         </div>
 
         {/* QUIZ */}
@@ -361,12 +425,12 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
                 />
               )}
             </div>
-            {data.questions[currentQIdx]?.subtitle && (
+            {currentSubtitle && (
               <div
                 className="text-[11px] font-bold tracking-[0.09em] uppercase mb-1"
                 style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}
               >
-                {data.questions[currentQIdx].subtitle}
+                {currentSubtitle}
               </div>
             )}
             <div
