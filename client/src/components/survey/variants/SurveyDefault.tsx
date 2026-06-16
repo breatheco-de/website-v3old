@@ -50,7 +50,12 @@ function resolveFromConcatRoutes(
     }
   }
 
-  return routes.default ?? null;
+  // default only fires when every question has been answered
+  if (routes.default && Object.keys(answers).length >= questions.length) {
+    return routes.default;
+  }
+
+  return null;
 }
 
 function resolveFromSumRoutes(
