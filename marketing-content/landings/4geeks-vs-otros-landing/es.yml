@@ -12,26 +12,16 @@ schema:
     - organization
     - website
 sections:
-  - type: hero
-    version: "1.0"
-    variant: productShowcase
-    title: El 84% de nuestros graduados consiguen empleo en tecnología.
-    brand_mark:
-      prefix: La mayoría de los bootcamps enseñan habilidades.
-      highlight: 4Geeks te consigue empleo.
-      color: primary
-    description: "<span style=\"font-size: 1.125rem;\">Aprende las habilidades impulsadas por IA que el mercado necesita, con un sistema de apoyo que te consigue empleo en Ingeniería de IA, Full Stack, Ciencia de Datos y Ciberseguridad.</span>"
+  - title: ""
+    description: Aprende las habilidades que el mercado necesita, con un sistema de apoyo que te coloca en Ingeniería de IA, Full Stack, Ciencia de Datos y Ciberseguridad.
     bullets:
-      - text: Mentoría 1:1 y coaching de carrera ilimitados, disponibles de por vida
-      - text: "Garantía de Empleo opcional: consigue empleo en 9 meses o te devolvemos la matrícula"
-      - text: Calificación de 4.9/5 en más de 3,000 reseñas en Course Report, Google y SwitchUp
-    image_object_fit: none
-    video_id: "-2ZvlgDnltc"
-    video_ratio: "9:12"
+      - text: Mentoría 1:1 y coaching de carrera ilimitados, de por vida
+      - text: "Garantía de Empleo: consigue trabajo en 9 meses o te devolvemos la matrícula"
+      - text: 4.9/5 en más de 3,000 reseñas en Course Report, Google y SwitchUp
     form:
       variant: stacked
-      conversion_name: student_application
-      submit_label: Hablar con Admisiones
+      conversion_name: request_more_info
+      submit_label: Ver programas y precios
       fields:
         email:
           visible: true
@@ -53,57 +43,10 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Revisa tu bandeja de entrada. Nuestro equipo de admisiones se pondrá en contacto contigo en breve con todo lo que necesitas saber.
-    form_vertical_align: bottom
-    form_card_text_color: hsl(var(--foreground))
-    form_card_title: ¿Quieres encontrar el programa adecuado?
-    form_card_subtitle: "Completa tus datos y nuestro equipo de admisiones te guiará por tus opciones: programas, precios y financiamiento. Solo toma 2 minutos."
-    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
-    show_awards_marquee: true
-    awards_marquee:
-      items:
-        - id: switchup-2025
-          alt: SwitchUp - Mejores Bootcamps de Código 2025
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-          logoHeight: 55px
-        - id: course-report-2024
-          alt: Course Report - Mejor Bootcamp de Código 2024
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-          logoHeight: 55px
-        - id: tech-hub
-          alt: South Florida Tech Hub
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/south-florida-tech-hub_1765548979070.jpeg
-          logoHeight: 55px
-        - id: ebootcamp
-          alt: eBootcamp Top
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp-top_1765549056325.png
-          logoHeight: 55px
-        - id: premios-tecnologia
-          alt: Premios Tecnología Siglo XXI
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
-          logoHeight: 55px
-        - id: newsweek
-          alt: Newsweek
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_1764709608255.webp
-          logoHeight: 55px
-        - id: reviews-coursereport
-          alt: 4.9 estrellas en reseñas de Course Report
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
-          logoHeight: 55px
-        - id: excelencia-educativa
-          alt: Excelencia Educativa - Calidad Institucional
-          logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia-educativa-es_1765549347699.png
-          logoHeight: 55px
-    video_title: GeekForce Career Support
-    marginY:
-      desktop: none
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-    paddingY:
-      desktop: md none
-    marginX:
-      desktop: none
+        message: Revisa tu bandeja de entrada. Nuestro equipo se pondrá en contacto contigo en breve.
+    form_card_title: ¿Quieres saber qué programa es para ti?
+    form_card_subtitle: Completa tus datos y te orientamos sobre programas, precios y financiamiento. Solo toma 2 minutos.
     section_id: hero-q7f1fu
-    awards_marquee_at_left_column: true
   - type: graduates_stats
     heading: Nuestros Graduados Consiguen Empleo. Rápido.
     subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
