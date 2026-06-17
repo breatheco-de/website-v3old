@@ -13,4 +13,11 @@ export const fieldEditors: Record<string, EditorType> = {
   "drag_and_drop:cta.buttons[]": "cta-picker",
   "drag_and_drop:courses[].color": "color-picker:courses",
   "drag_and_drop:courses[].icon": "icon-picker",
+
+  "course_color_selector:icon": "icon-picker",
+  "course_color_selector:image_id": "image-picker",
+  "course_color_selector:tools_marquee": "boolean-toggle",
+  "course_color_selector:cta.banner": "boolean-toggle",
+  "course_color_selector:cta.buttons[]": "cta-picker",
+  "course_color_selector:courses[].icon": "icon-picker",
 };

@@ -347,6 +347,8 @@ sections:
             skill_percentage: 20
     paddingY:
       desktop: sm
+    maxWidth:
+      desktop: xl
   - type: survey
     version: v1.0
     variant: default
