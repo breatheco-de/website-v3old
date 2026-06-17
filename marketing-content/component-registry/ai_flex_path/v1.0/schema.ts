@@ -16,6 +16,7 @@ export const aiFlexPathCourseSchema = z.object({
 
 const aiFlexPathDragAndDropCourseSchema = aiFlexPathCourseSchema.extend({
   color: z.string().optional(),
+  icon: z.string().optional(),
 });
 
 const ctaBlockSchema = z.object({

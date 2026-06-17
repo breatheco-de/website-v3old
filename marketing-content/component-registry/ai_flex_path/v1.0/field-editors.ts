@@ -11,4 +11,5 @@ export const fieldEditors: Record<string, EditorType> = {
   "drag_and_drop:cta.banner": "boolean-toggle",
   "drag_and_drop:cta.buttons[]": "cta-picker",
   "drag_and_drop:courses[].color": "color-picker:courses",
+  "drag_and_drop:courses[].icon": "icon-picker",
 };

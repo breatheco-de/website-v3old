@@ -7,9 +7,10 @@ import {
   useSensors,
   useDroppable,
   useDraggable,
-  rectIntersection,
+  closestCenter,
   type DragEndEvent,
   type DragStartEvent,
+  type DragMoveEvent,
 } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { IconBookFilled, IconGripVertical } from "@tabler/icons-react";
@@ -188,6 +189,7 @@ function PathItem({
 
   const resolved = getCourseColorResolved(course, allCourses);
   const acResolved = activeCourse ? getCourseColorResolved(activeCourse, allCourses) : resolved;
+  const CourseIcon = course.icon ? getIcon(course.icon) : null;
 
   useEffect(() => {
     if (dropKey === 0) return;
@@ -272,7 +274,7 @@ function PathItem({
               <div className="flex items-start gap-[10px] px-[15px] pt-[14px] pb-[12px]">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-[6px] mb-[4px]">
-                    <IconBookFilled size={17} style={{ color: hslColor(resolved, 1), flexShrink: 0 }} />
+                    {CourseIcon ? <CourseIcon size={17} style={{ color: hslColor(resolved, 1), flexShrink: 0 }} /> : <IconBookFilled size={17} style={{ color: hslColor(resolved, 1), flexShrink: 0 }} />}
                     <div className="text-[16px] font-extrabold leading-[1.3]" style={{ color: "hsl(var(--foreground))" }}>{course.name}</div>
                   </div>
                   <div className="text-[13px] leading-[1.4] pl-[23px] mb-[8px]" style={{ color: "hsl(var(--muted-foreground))" }}>{course.tagline}</div>
@@ -297,7 +299,7 @@ function PathItem({
           <div className="flex items-start gap-[10px] px-[15px] pt-[14px] pb-[12px]">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-[6px] mb-[4px]">
-                <IconBookFilled size={17} style={{ color: hslColor(resolved, 1), flexShrink: 0 }} />
+                {CourseIcon ? <CourseIcon size={17} style={{ color: hslColor(resolved, 1), flexShrink: 0 }} /> : <IconBookFilled size={17} style={{ color: hslColor(resolved, 1), flexShrink: 0 }} />}
                 <div className="text-[16px] font-extrabold leading-[1.3]" style={{ color: "hsl(var(--foreground))" }}>
                   {course.name}
                 </div>
@@ -433,10 +435,7 @@ function DraggableCourseCard({
               <IconGripVertical size={34} style={{ color: "hsl(var(--muted-foreground) / 0.6)", flexShrink: 0 }} />
               <div className="flex flex-col gap-[2px] flex-1 min-w-0">
                 <div className="flex items-start gap-[7px]">
-                  <IconBookFilled
-                    size={14}
-                    style={{ color: hovered ? hslColor(resolved, 1) : "hsl(var(--foreground) / 0.45)", transition: "color .2s", flexShrink: 0, marginTop: 2 }}
-                  />
+                  {(() => { const CI = course.icon ? getIcon(course.icon) : null; return CI ? <CI size={14} style={{ color: hovered ? hslColor(resolved, 1) : "hsl(var(--foreground) / 0.45)", transition: "color .2s", flexShrink: 0, marginTop: 2 }} /> : <IconBookFilled size={14} style={{ color: hovered ? hslColor(resolved, 1) : "hsl(var(--foreground) / 0.45)", transition: "color .2s", flexShrink: 0, marginTop: 2 }} />; })()}
                   <div
                     className="text-[15px] font-bold leading-[1.3]"
                     style={{ color: hovered ? hslColor(resolved, 1) : "hsl(var(--foreground) / 0.75)", transition: "color .2s" }}
@@ -458,14 +457,14 @@ function DraggableCourseCard({
             >
               <span
                 className="text-[11px] font-bold tracking-[0.07em] uppercase"
-                style={{ color: hovered ? hslColor(resolved, 1) : "hsl(var(--primary))", transition: "color .2s" }}
+                style={{ color: hovered ? hslColor(resolved, 1) : hslColor(resolved, 0.65), transition: "color .2s" }}
               >
                 {viewDetailsLabel}
               </span>
               <span
                 className="text-[18px] leading-none"
                 style={{
-                  color: hovered ? hslColor(resolved, 1) : "hsl(var(--primary))",
+                  color: hovered ? hslColor(resolved, 1) : hslColor(resolved, 0.65),
                   transform: expanded ? "rotate(180deg)" : "none",
                   display: "inline-block",
                   transition: "color .2s, transform .2s",
@@ -537,7 +536,7 @@ function DragOverlayCard({
             <IconGripVertical size={34} style={{ color: "hsl(var(--muted-foreground) / 0.6)", flexShrink: 0 }} />
             <div className="flex flex-col gap-[2px] flex-1 min-w-0">
               <div className="flex items-start gap-[7px]">
-                <IconBookFilled size={14} style={{ color: hslColor(resolved, 1), flexShrink: 0, marginTop: 2 }} />
+                {(() => { const CI = course.icon ? getIcon(course.icon) : null; return CI ? <CI size={14} style={{ color: hslColor(resolved, 1), flexShrink: 0, marginTop: 2 }} /> : <IconBookFilled size={14} style={{ color: hslColor(resolved, 1), flexShrink: 0, marginTop: 2 }} />; })()}
                 <div className="text-[15px] font-bold leading-[1.3]" style={{ color: hslColor(resolved, 1) }}>
                   {course.name}
                 </div>
@@ -548,10 +547,10 @@ function DragOverlayCard({
             </div>
           </div>
           <div className="flex items-center gap-[4px] px-[13px] pb-[10px] pt-[10px] mt-auto">
-            <span className="text-[11px] font-bold tracking-[0.07em] uppercase" style={{ color: "hsl(var(--primary))" }}>
+            <span className="text-[11px] font-bold tracking-[0.07em] uppercase" style={{ color: hslColor(resolved, 1) }}>
               {viewDetailsLabel}
             </span>
-            <span className="text-[18px] leading-none" style={{ color: "hsl(var(--primary))" }}>▾</span>
+            <span className="text-[18px] leading-none" style={{ color: hslColor(resolved, 1) }}>▾</span>
           </div>
         </div>
         <div className="flex items-start flex-shrink-0 p-[13px]">
@@ -642,6 +641,7 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
   const [counterFlash, setCounterFlash] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [dropCounts, setDropCounts] = useState<number[]>([0, 0, 0, 0, 0]);
+  const [activeDeltaY, setActiveDeltaY] = useState(0);
   const nav = useInternalNav();
 
   const maxSelections = data.max_selections ?? 4;
@@ -677,6 +677,11 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
 
   function handleDragStart(event: DragStartEvent) {
     setActiveCourseName(event.active.data.current?.courseName ?? null);
+    setActiveDeltaY(0);
+  }
+
+  function handleDragMove(event: DragMoveEvent) {
+    setActiveDeltaY(event.delta.y);
   }
 
   function handleDragOver(event: { over?: { id: string } | null }) {
@@ -692,6 +697,7 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
     const { over, active } = event;
     setActiveCourseName(null);
     setOverSlot(null);
+    setActiveDeltaY(0);
     if (!over) return;
     const overId = over.id as string;
     if (!overId.startsWith("path-slot-")) return;
@@ -788,8 +794,9 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
 
           <DndContext
             sensors={sensors}
-            collisionDetection={rectIntersection}
+            collisionDetection={closestCenter}
             onDragStart={handleDragStart}
+            onDragMove={handleDragMove}
             onDragOver={handleDragOver}
             onDragEnd={handleDragEnd}
           >
@@ -802,7 +809,7 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
                       course={course}
                       index={i}
                       total={pathCourses.length}
-                      isOver={overSlot === i && !!activeCourseName}
+                      isOver={overSlot === i && !!activeCourseName && activeDeltaY < -40}
                       isDragActive={!!activeCourseName}
                       revealed={revealed}
                       dropKey={dropCounts[i] ?? 0}
@@ -825,7 +832,7 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
                   <div className="grid grid-cols-2 gap-[9px]">
                     {availableCourses.map((course) => {
                       const isBeingDragged = course.name === activeCourseName;
-                      const displacedCourse = overSlot !== null ? pathCourses[overSlot] ?? null : null;
+                      const displacedCourse = overSlot !== null && activeDeltaY < -40 ? pathCourses[overSlot] ?? null : null;
                       if (isBeingDragged && displacedCourse) {
                         return <GhostPreviewCard key={course.name} course={displacedCourse} allCourses={data.courses} />;
                       }
