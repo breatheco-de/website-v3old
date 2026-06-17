@@ -281,7 +281,7 @@ sections:
     replace_label: Replace with
     tools_label: Tools in this path
     tools_marquee: false
-    icon: 4GeeksAvatar
+    icon: Rigobot
     default_courses:
       - Deep Dive into Python
       - Data Science & ML
@@ -379,7 +379,41 @@ sections:
             skill_percentage: 30
           - name: Project setup
             skill_percentage: 20
+      - name: Data Science s& ML
+        tagline: Data analysis, ML models, predictions
+        hrs: ~22 hrs
+        color: hsl(var(--primary) / 0.4)
+        tools:
+          - Pandas
+          - NumPy
+          - scikit-learn
+          - Jupyter
+          - Streamlit
+        skills:
+          - name: Data analysis & viz
+            skill_percentage: 45
+          - name: ML model building
+            skill_percentage: 35
+          - name: Model evaluation
+            skill_percentage: 20
       - name: Data Science & ML
+        tagline: Data analysis, ML models, predictions
+        hrs: ~22 hrs
+        color: hsl(var(--primary) / 0.4)
+        tools:
+          - Pandas
+          - NumPy
+          - scikit-learn
+          - Jupyter
+          - Streamlit
+        skills:
+          - name: Data analysis & viz
+            skill_percentage: 45
+          - name: ML model building
+            skill_percentage: 35
+          - name: Model evaluation
+            skill_percentage: 20
+      - name: Data Sciencse & ML
         tagline: Data analysis, ML models, predictions
         hrs: ~22 hrs
         color: hsl(var(--primary) / 0.4)

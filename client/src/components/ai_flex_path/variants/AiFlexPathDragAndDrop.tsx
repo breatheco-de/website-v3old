@@ -431,7 +431,7 @@ function DraggableCourseCard({
       >
         <div className="flex items-stretch">
           <div className="flex-1 min-w-0 flex flex-col">
-            <div className="flex items-center gap-[10px] p-[13px] pb-[6px]">
+            <div className="flex items-center gap-[5px] p-[13px] pb-[6px]">
               <IconGripVertical size={34} style={{ color: "hsl(var(--muted-foreground) / 0.6)", flexShrink: 0 }} />
               <div className="flex flex-col gap-[2px] flex-1 min-w-0">
                 <div className="flex items-start gap-[7px]">
@@ -443,7 +443,7 @@ function DraggableCourseCard({
                     {course.name}
                   </div>
                 </div>
-                <div className="text-[12px] leading-[1.4]" style={{ color: "hsl(var(--muted-foreground) / 0.4)" }}>
+                <div className="text-[12px] leading-[1.4]" style={{ color: "hsl(var(--muted-foreground))" }}>
                   {course.tagline}
                 </div>
               </div>
@@ -765,8 +765,8 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
     <div className="pb-16" style={{ fontFamily: "'Inter Variable',system-ui,-apple-system,sans-serif" }}>
       <div className="mx-auto">
         <div className="relative mx-28">
-          <div className="absolute" style={{ right: "calc(100% + 16px)", top: "-16px" }}>
-            {RobotIcon && <RobotIcon width="85" height="85" style={{ color: "hsl(var(--foreground))" }} />}
+          <div className="absolute" style={{ right: "calc(100% + 30px)", top: "-2px" }}>
+            {RobotIcon && <RobotIcon width="55" height="55" style={{ color: "hsl(var(--foreground))" }} />}
           </div>
 
           <div className="text-[11px] font-bold tracking-[0.09em] uppercase" style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}>

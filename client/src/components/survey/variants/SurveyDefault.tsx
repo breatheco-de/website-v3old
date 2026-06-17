@@ -148,12 +148,14 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
   useEffect(() => {
     if (phase === "inline" && inlineRef.current) {
       const el = inlineRef.current;
+      const delay = data.scroll_delay ?? 250;
+      const extraOffset = data.scroll_offset ?? 0;
       setTimeout(() => {
         const navEl = document.querySelector('nav[data-testid="navbar"]') ?? document.querySelector("header");
         const navHeight = navEl ? navEl.getBoundingClientRect().height : 80;
-        const y = el.getBoundingClientRect().top + window.scrollY - navHeight - 16;
+        const y = el.getBoundingClientRect().top + window.scrollY - navHeight - 45 + extraOffset;
         window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
-      }, 250);
+      }, delay);
     }
   }, [phase]);
 

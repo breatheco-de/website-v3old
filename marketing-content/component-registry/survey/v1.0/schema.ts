@@ -42,6 +42,8 @@ export const surveyDefaultSchema = z.object({
   questions: z.array(surveyQuestionSchema),
   routes: z.unknown().optional(),
   infinite_progress_bar: z.boolean().optional().default(false),
+  scroll_offset: z.number().optional().default(0),
+  scroll_delay: z.number().optional().default(250),
 });
 
 export type SurveyDefault = z.infer<typeof surveyDefaultSchema>;
