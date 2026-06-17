@@ -767,8 +767,8 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
       <div className="mx-auto">
         <div className="relative mx-28">
           <div className="absolute" style={{ right: "calc(100% + 30px)", top: "-2px" }}>
-            {data.icon_image_id ? (
-              <UniversalImage image_id={data.icon_image_id} width={55} height={55} style={{ objectFit: "contain" }} />
+            {data.image_id ? (
+              <UniversalImage image_id={data.image_id} width={55} height={55} style={{ objectFit: "contain" }} />
             ) : SectionIcon ? (
               <SectionIcon width="55" height="55" style={{ color: "hsl(var(--foreground))" }} />
             ) : null}

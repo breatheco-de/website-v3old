@@ -7,6 +7,7 @@ export const fieldEditors: Record<string, EditorType> = {
   "default:cta.buttons[]": "cta-picker",
 
   "drag_and_drop:icon": "icon-picker",
+  "drag_and_drop:image_id": "image-picker",
   "drag_and_drop:tools_marquee": "boolean-toggle",
   "drag_and_drop:cta.banner": "boolean-toggle",
   "drag_and_drop:cta.buttons[]": "cta-picker",

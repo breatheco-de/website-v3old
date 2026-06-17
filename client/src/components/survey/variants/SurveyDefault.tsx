@@ -220,8 +220,16 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
     const newAnswers = { ...answers, [qId]: oId };
     setAnswers(newAnswers);
 
-    // Priority: option.url > option.message > option.next_question > routes > sequential
+    // Priority: routes > option.url > option.message > option.next_question > sequential
     const action = option.action;
+
+    // Routes take priority over individual option actions
+    const resolved = resolveRoutes(newAnswers, data.questions, data.routes, aggregationMethod);
+    if (resolved) {
+      animateTransition("fwd", () => handleAction(resolved, qIdx));
+      return;
+    }
+
     if (action?.url) {
       const sectionData = nav.navigate(action.url);
       if (sectionData) {
@@ -245,13 +253,6 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
         setHistory((h) => [...h, qIdx]);
         setCurrentQIdx(nextIdx);
       });
-      return;
-    }
-
-    // No option action: try route resolution
-    const resolved = resolveRoutes(newAnswers, data.questions, data.routes, aggregationMethod);
-    if (resolved) {
-      animateTransition("fwd", () => handleAction(resolved, qIdx));
       return;
     }
 
@@ -442,8 +443,8 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
               className="absolute"
               style={{ right: "calc(100% + 15px)", top: "-19px" }}
             >
-              {data.icon_image_id ? (
-                <UniversalImage image_id={data.icon_image_id} width={85} height={85} style={{ objectFit: "contain" }} />
+              {data.image_id ? (
+                <UniversalImage image_id={data.image_id} width={85} height={85} style={{ objectFit: "contain" }} />
               ) : SectionIcon ? (
                 <SectionIcon width="85" height="85" style={{ color: "hsl(var(--foreground))" }} />
               ) : null}

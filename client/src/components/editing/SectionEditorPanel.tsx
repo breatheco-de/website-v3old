@@ -583,6 +583,7 @@ export function SectionEditorPanel({
     field: string;
     label: string;
     currentIcon: string;
+    simpleFieldPath?: string;
   } | null>(null);
   const [nestedUpdateFn, setNestedUpdateFn] = useState<
     ((value: string) => void) | null
@@ -1805,6 +1806,9 @@ export function SectionEditorPanel({
       nestedUpdateFn(iconName);
       setNestedUpdateFn(null);
       setIconPickerTarget(null);
+    } else if (iconPickerTarget?.simpleFieldPath) {
+      updateProperty(iconPickerTarget.simpleFieldPath, iconName);
+      setIconPickerTarget(null);
     } else if (iconPickerTarget) {
       updateArrayItemField(
         iconPickerTarget.arrayField,
@@ -2745,6 +2749,55 @@ export function SectionEditorPanel({
                       label={label}
                       testIdPrefix={`props-${fieldPath}`}
                     />
+                  </div>
+                );
+              })}
+            {/* Render top-level (non-array) icon-picker field editors */}
+            {Object.entries(configuredFields)
+              .filter(([fieldPath, editorTypeRaw]) => {
+                if (fieldPath.includes("[]")) return false;
+                const { type: edType } = parseEditorType(editorTypeRaw);
+                return edType === "icon-picker";
+              })
+              .map(([fieldPath]) => {
+                const currentValue = parsedSection
+                  ? String((parsedSection as Record<string, unknown>)[fieldPath] || "")
+                  : "";
+                const fieldLabel = getFieldLabel(fieldPath);
+                const IconComponent = currentValue ? getIcon(currentValue) : null;
+                return (
+                  <div key={fieldPath} className="space-y-2 mt-3">
+                    <Label className="text-sm font-medium">{fieldLabel}</Label>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIconPickerTarget({
+                            arrayField: "",
+                            index: 0,
+                            field: fieldPath,
+                            label: fieldLabel,
+                            currentIcon: currentValue,
+                            simpleFieldPath: fieldPath,
+                          });
+                          setIconPickerOpen(true);
+                        }}
+                        className="flex items-center justify-center w-10 h-10 rounded border bg-muted/30 hover:bg-muted transition-colors"
+                        data-testid={`props-icon-${fieldPath}`}
+                        title={`Change ${fieldLabel}`}
+                      >
+                        {IconComponent ? (
+                          <IconComponent className="h-6 w-6 text-foreground" />
+                        ) : (
+                          <span className="text-xs text-muted-foreground">—</span>
+                        )}
+                      </button>
+                      {currentValue && (
+                        <span className="text-xs text-muted-foreground truncate max-w-[150px]">
+                          {currentValue}
+                        </span>
+                      )}
+                    </div>
                   </div>
                 );
               })}

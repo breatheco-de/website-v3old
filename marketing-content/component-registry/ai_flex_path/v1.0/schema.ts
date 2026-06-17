@@ -54,7 +54,7 @@ export const aiFlexPathDragAndDropSchema = z.object({
   tools_label: z.string().optional(),
   tools_marquee: z.boolean().optional(),
   icon: z.string().optional(),
-  icon_image_id: z.string().optional(),
+  image_id: z.string().optional(),
   default_courses: z.array(z.string()),
   courses: z.array(aiFlexPathDragAndDropCourseSchema),
   cta: ctaBlockSchema,

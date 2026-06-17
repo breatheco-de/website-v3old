@@ -2,6 +2,7 @@ export type EditorType = string;
 
 export const fieldEditors: Record<string, EditorType> = {
   "default:icon": "icon-picker",
+  "default:image_id": "image-picker",
   "default:title": "rich-text-editor:custom-font-size,custom-letter-spacing,custom-line-height,custom-font-weight",
   "default:title_highlight": "rich-text-editor:custom-font-size,custom-letter-spacing,custom-line-height,custom-font-weight",
   "default:aggregation_method": "string-picker:concat,sum",
