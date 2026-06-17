@@ -374,11 +374,17 @@ sections:
       database: frequently_asked_questions
       limit: 9
       permanent_filters:
-        - item_property_slug: related_features
-          value:
-            - ai-engineering
         - item_property_slug: locations
           value: all
+      ignored_entries:
+        - do-i-get-a-job-after-completing-the-program
+        - does-the-job-guarantee-refund-the-full-tuition-if-i-dont-get-hired
+        - how-does-the-4geeks-academy-job-guarantee-work
+        - geekforce-or-geekpal-which-one-to-choose
+        - do-i-need-prior-cybersecurity-experience
+        - do-i-need-to-have-work-authorization-to-qualify-for-the-job-guarantee
+        - do-i-need-to-have-previous-experience-in-programming-to-join-the-bootcamp
+        - do-i-need-expensive-hardware-for-ai-development
     marginY:
       desktop: none
     paddingY:
@@ -398,6 +404,19 @@ sections:
           - munich-germany
           - rome-italy
           - valencia-spain
+    hardcoded_entries:
+      - question: What is included in an AI Flex subscription?
+        answer: "Every AI Flex plan includes access to the full course catalogue via LearnPack, Rigobot as your built-in AI tutor available throughout every module, 300 premium Copilot requests per month, 300 AI compilations, Codespaces ($10/month value included), $5/month in LLM tokens (DeepSeek 3.1, Claude Sonnet, Llama 3, Codex), a school account with the GitHub Developer Program, a VPS, access to exclusive 4Geeks events, and a certificate for every course you complete. Each plan also includes at least one mentorship session per month with an expert instructor. "
+      - question: Which courses are included in AI Flex and how do I choose?
+        answer: |
+          The catalog includes +8 courses: Prompt Engineering, Applied AI, No-Code and Automations, Vibe Coding with AI, OpenClaw, Backend Dev with Python, Deep Dive into Python, and Data Science and ML. If you are not sure where to start, 4Geeks offers four ready-made paths based on your goals: The AI-First Professional, The Career Switcher, The Data-Driven Analyst, and The Builder. Each path combines 4 courses chosen for a specific professional outcome.
+      - question: What is AI Flex and how does it work?
+        answer: AI Flex gives you access to 4Geeks' catalog of +8 AI and technical courses on a subscription basis. You choose up to 4 courses, learn entirely at your own pace through interactive LearnPack modules, and earn a certificate for each course you complete. Every plan includes mentorship sessions with senior instructors, your own AI tutor built into every module, and a full set of tools to support your learning. There are no cohorts, no live classes, and no fixed schedule. You start anytime and progress as fast or as slowly as you want.
+      - question: Do the certificates from AI Flex count toward the full AI Engineering program?
+        answer: |
+          Yes. Certificates earned in AI Flex are the same certificates awarded in AI Fluency and the AI Engineering program. They are stackable: if you complete courses in AI Flex and later enroll in AI Engineering, you receive credit for what you have already completed. AI Flex is a genuine entry point into the full 4Geeks learning path, not a separate track.
+      - question: Who is AI Flex designed for?
+        answer: " AI Flex works for professionals at any technical level — from non-technical knowledge workers who want to automate their work, to developers who want to add AI engineering skills to their existing stack. The course catalog spans from no-code automations and prompt engineering to backend development with Python and data science. You choose the courses that match where you are and where you want to go."
   - type: cta_banner
     version: "1.0"
     title: Your AI Skills Start Here.
