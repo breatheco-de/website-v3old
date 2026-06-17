@@ -91,56 +91,6 @@ sections:
     marquee_static: true
     marginY:
       desktop: none md
-  - type: survey
-    version: v1.0
-    variant: default
-    aggregation_method: concat
-    infinite_progress_bar: false
-    badge_text: Build your path
-    title: Your AI curriculum,
-    title_highlight: built around you.
-    subtitle: A few questions. No commitment. We map the exact courses you need.
-    icon: 4GeeksAvatar
-    back_label: Back
-    restart_label: Start over
-    step_label: Question
-    step_of_label: of
-    questions:
-      - text: What's your main goal right now?
-        options:
-          - label: Build apps or technical projects with AI
-          - label: Work with data, analytics, or machine learning
-          - label: Use AI to be more productive at my current job
-            action:
-              next_question: 2
-          - label: Automate repetitive tasks without writing code
-            action:
-              next_question: 2
-      - text: How comfortable are you with coding?
-        options:
-          - label: No experience — and I'd like to keep it that way
-            action:
-              message: You're a great fit for the AI Professional Skills path — practical, no code required.
-          - label: I know some basics (scripts, spreadsheets)
-            action:
-              url: inline#ai-flex-path-professional
-          - label: I code regularly
-    routes:
-      q1o1:
-        url: inline#ai-flex-path-builder
-      q1o2:
-        url: inline#ai-flex-path-analyst
-      q1o3-q2o3:
-        url: inline#ai-flex-path-career
-      q1o4-q2o3:
-        url: inline#ai-flex-path-career
-      default:
-        url: inline#ai-flex-path-professional
-    section_id: survey-ks4yog
-    paddingY:
-      desktop: sm
-    maxWidth:
-      desktop: xl
   - type: ai_flex_path
     version: v1.0
     variant: default
@@ -250,6 +200,188 @@ sections:
       - name: Data Science & ML
         tagline: Data analysis, ML models, predictions
         hrs: ~22 hrs
+        tools:
+          - Pandas
+          - NumPy
+          - scikit-learn
+          - Jupyter
+          - Streamlit
+        skills:
+          - name: Data analysis & viz
+            skill_percentage: 45
+          - name: ML model building
+            skill_percentage: 35
+          - name: Model evaluation
+            skill_percentage: 20
+    paddingY:
+      desktop: sm
+    maxWidth:
+      desktop: xl
+  - type: survey
+    version: v1.0
+    variant: default
+    aggregation_method: concat
+    infinite_progress_bar: false
+    badge_text: Build your path
+    title: Your AI curriculum,
+    title_highlight: built around you.
+    subtitle: A few questions. No commitment. We map the exact courses you need.
+    icon: 4GeeksAvatar
+    back_label: Back
+    restart_label: Start over
+    step_label: Question
+    step_of_label: of
+    questions:
+      - text: What's your main goal right now?
+        options:
+          - label: Build apps or technical projects with AI
+          - label: Work with data, analytics, or machine learning
+          - label: Use AI to be more productive at my current job
+            action:
+              next_question: 2
+          - label: Automate repetitive tasks without writing code
+            action:
+              next_question: 2
+      - text: How comfortable are you with coding?
+        options:
+          - label: No experience — and I'd like to keep it that way
+            action:
+              message: You're a great fit for the AI Professional Skills path — practical, no code required.
+          - label: I know some basics (scripts, spreadsheets)
+            action:
+              url: inline#ai-flex-path-professional
+          - label: I code regularly
+    routes:
+      q1o1:
+        url: inline#ai-flex-path-drag-example
+      q1o2:
+        url: inline#ai-flex-path-analyst
+      q1o3-q2o3:
+        url: inline#ai-flex-path-career
+      q1o4-q2o3:
+        url: inline#ai-flex-path-career
+      default:
+        url: inline#ai-flex-path-professional
+    section_id: survey-ks4yog
+    paddingY:
+      desktop: sm
+    maxWidth:
+      desktop: xl
+  - type: ai_flex_path
+    version: v1.0
+    variant: drag_and_drop
+    section_id: ai-flex-path-drag-example
+    ready_label: Your path is ready
+    path_name: The Data-Driven Analyst
+    tagline: Python, data science and ML with AI tools
+    results_subtitle: View your courses or build your own path
+    max_selections: 4
+    view_details_label: View details
+    drag_instruction_label: Also available — drag any card to swap it into your path
+    replace_label: Replace with
+    tools_label: Tools in this path
+    tools_marquee: false
+    icon: 4GeeksAvatar
+    default_courses:
+      - Deep Dive into Python
+      - Data Science & ML
+      - Applied AI
+      - Prompt Engineering
+    cta:
+      title: Start with a 7-day free trial.
+      subtitle: No commitment. Cancel anytime. Your path stays saved.
+      banner: true
+      buttons:
+        - text: Start free trial
+          url: /en/apply
+          variant: primary
+    courses:
+      - name: Prompt Engineering
+        tagline: Prompting patterns & reusable libraries
+        hrs: ~8 hrs
+        color: hsl(var(--destructive) / 0.5)
+        tools:
+          - ChatGPT
+          - Claude
+          - Gemini
+          - Perplexity
+        skills:
+          - name: Prompting patterns
+            skill_percentage: 55
+          - name: Output control
+            skill_percentage: 28
+          - name: Context management
+            skill_percentage: 17
+      - name: Applied AI
+        tagline: AI for real professional work tasks
+        hrs: ~12 hrs
+        color: hsl(var(--primary) / 0.4)
+        tools:
+          - ChatGPT
+          - Notion
+          - Otter.ai
+          - Grammarly
+          - Gamma
+        skills:
+          - name: AI writing & editing
+            skill_percentage: 40
+          - name: Research tools
+            skill_percentage: 35
+          - name: Workflow documentation
+            skill_percentage: 25
+      - name: No-Code & Automations
+        tagline: Visual workflows with n8n, Zapier, Make
+        hrs: ~10 hrs
+        color: hsl(var(--color-pink))
+        tools:
+          - n8n
+          - Make
+          - Zapier
+          - Airtable
+          - Webhooks
+        skills:
+          - name: Visual workflows
+            skill_percentage: 45
+          - name: App integrations
+            skill_percentage: 35
+          - name: AI steps in pipelines
+            skill_percentage: 20
+      - name: Vibe Coding with AI
+        tagline: Build apps with AI coding assistants
+        hrs: ~12 hrs
+        color: hsl(var(--accent))
+        tools:
+          - Cursor
+          - GitHub Copilot
+          - Replit
+          - Vercel
+        skills:
+          - name: AI-assisted coding
+            skill_percentage: 50
+          - name: Shipping projects
+            skill_percentage: 30
+          - name: Debug & review
+            skill_percentage: 20
+      - name: Deep Dive into Python
+        tagline: Python fundamentals to advanced
+        hrs: ~18 hrs
+        color: hsl(var(--color-green))
+        tools:
+          - Python
+          - VS Code
+          - Git
+          - GitHub
+        skills:
+          - name: Python foundations
+            skill_percentage: 50
+          - name: OOP & structures
+            skill_percentage: 30
+          - name: Project setup
+            skill_percentage: 20
+      - name: Data Science & ML
+        tagline: Data analysis, ML models, predictions
+        hrs: ~22 hrs
+        color: hsl(var(--color-orange))
         tools:
           - Pandas
           - NumPy

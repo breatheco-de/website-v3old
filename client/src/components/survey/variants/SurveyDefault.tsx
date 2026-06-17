@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { usePageSections } from "@/contexts/PageSectionsContext";
@@ -133,6 +133,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
   const [phase, setPhase] = useState<"questions" | "inline" | "message">("questions");
   const [inlineSectionData, setInlineSectionData] = useState<Record<string, unknown> | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const inlineRef = useRef<HTMLDivElement>(null);
   const nav = useInternalNav();
   const pageSections = usePageSections();
 
@@ -142,6 +143,16 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
   const stepLabel = data.step_label ?? "Question";
   const stepOfLabel = data.step_of_label ?? "of";
   const knownTotal = computeKnownTotal(data.routes, aggregationMethod);
+
+  // Scroll to inline section after transition animation completes
+  useEffect(() => {
+    if (phase === "inline" && inlineRef.current) {
+      const el = inlineRef.current;
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 250);
+    }
+  }, [phase]);
 
   // Preload all inline section components referenced in routes on mount
   useEffect(() => {
@@ -572,9 +583,8 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
 
         {/* INLINE — renders within survey container, respects section's own YAML styles */}
         {phase === "inline" && inlineSectionData && (
-          <div style={slideStyle}>
-
-              {renderSection(inlineSectionData as Parameters<typeof renderSection>[0], 0)}
+          <div ref={inlineRef} style={slideStyle}>
+            {renderSection(inlineSectionData as Parameters<typeof renderSection>[0], 0)}
           </div>
         )}
       </div>

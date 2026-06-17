@@ -229,12 +229,13 @@ function PathItem({
         </div>
       )}
 
-      <div className="flex-shrink-0 z-10 flex items-center justify-center" style={{ width: 32 }}>
+      <div className="flex-shrink-0 z-10 flex items-center justify-center" style={{ width: 32, borderRadius: "50%", background: "hsl(var(--background))" }}>
         <div
           className="w-8 h-8 rounded-full flex items-center justify-center text-[13px] font-bold"
           style={{
-            background: isOver ? "hsl(var(--primary) / 0.75)" : "hsl(var(--primary))",
-            color: "white",
+            background: isOver ? "hsl(var(--primary) / 0.12)" : "hsl(var(--primary) / 0.05)",
+            color: "hsl(var(--primary))",
+            border: `1.5px solid hsl(var(--primary) / ${isOver ? "0.4" : "0.2"})`,
             transform: revealed ? "scale(1)" : "scale(0)",
             transition: `transform 300ms cubic-bezier(.34,1.56,.64,1) ${nodeDelay}ms`,
           }}
@@ -248,7 +249,6 @@ function PathItem({
         className="flex-1 my-[6px] rounded-[13px]"
         style={{
           background: isOver ? hslColor(acResolved, 0.05) : "hsl(var(--background))",
-          border: isOver ? `2px dashed ${hslColor(acResolved, 0.55)}` : "2px solid transparent",
           boxShadow: isOver
             ? "none"
             : hovered
@@ -302,7 +302,7 @@ function PathItem({
                   {course.name}
                 </div>
               </div>
-              <div className="text-[13px] leading-[1.4] pl-[23px] mb-[8px]" style={{ color: "hsl(var(--muted-foreground) / 0.6)" }}>
+              <div className="text-[14px] leading-[1.4] pl-[23px] mb-[8px]" style={{ color: "hsl(var(--muted-foreground) / 0.6)" }}>
                 {course.tagline}
               </div>
               <div className="flex flex-wrap items-center gap-[5px] pl-[23px]">
@@ -415,7 +415,7 @@ function DraggableCourseCard({
     >
       <div
         style={{
-          borderColor: hovered ? hslColor(resolved, 0.55) : "transparent",
+          borderColor: hovered ? hslColor(resolved, 0.55) : "hsl(var(--border))",
           background: "hsl(var(--background))",
           opacity: isDragging ? 0 : hovered ? 1 : 0.6,
           boxShadow: hovered && !isDragging
@@ -678,7 +678,7 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
   const RobotIcon = data.icon ? getIcon(data.icon) : null;
 
   return (
-    <div className="pb-16" style={{ fontFamily: "'Inter',system-ui,-apple-system,sans-serif" }}>
+    <div className="pb-16" style={{ fontFamily: "'Inter Variable',system-ui,-apple-system,sans-serif" }}>
       <div className="mx-auto">
         <div className="relative mx-28">
           <div className="absolute" style={{ right: "calc(100% + 16px)", top: "-16px" }}>
@@ -692,7 +692,7 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
             {data.path_name}
           </div>
           {data.tagline && (
-            <div className="text-[13px] mb-6" style={{ color: "hsl(var(--muted-foreground) / 0.6)" }}>
+            <div className="text-[13px] mb-3" style={{ color: "hsl(var(--muted-foreground) / 0.6)" }}>
               {data.tagline}
             </div>
           )}
