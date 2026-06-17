@@ -25,9 +25,9 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: AI Engineering
-    title_highlight: Artificial Intelligence Engineering
-    subtitle: AI Engineer is the fastest-growing job of 2026. Our intensive program is built to get you hired, backed by an AI-first methodology, unlimited 1:1 mentorship, and lifelong career support.
+    title: "AI Engineering. The #1 Fastest-Growing Job of 2026."
+    title_highlight: "The #1 Fastest-Growing Job of 2026."
+    subtitle: Build the skills companies are hiring for. Our intensive program gets you job-ready building production-grade AI systems, coding agents, and automation pipelines. With unlimited 1:1 mentorship and career support for life.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -38,7 +38,7 @@ sections:
     bullet_points:
       - Build a complete AI-native company end to end, with agents, pipelines, and real-time data.
       - Work with AI coding agents to build and deliver production-ready software faster.
-      - Leave with a portfolio that gets you in the door at top tech companies.
+      - Get hired through our proven career support system. 84% placement rate. Optional Job Guarantee available.
     tutors:
       - name: Marco Gonzalo
         role: Main Instructor
@@ -47,7 +47,7 @@ sections:
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
-    description: "Graduate job-ready for one of tech's fastest-growing roles, with the skills and support to land positions paying $95K–$135K+.<div><br></div><div><span style=\"font-size: 12px; text-align: center;\">Florida residents: Only our full-stack development program is authorized by the Commission for Independent Education in Florida. Our job guarantee bundle is not offered in Florida where our only physical location is in Miami.</span></div>"
+    description: "Launch your career in one of tech's fastest-growing fields, with the skills to land positions paying $95K–$135K+.<div><br></div><div><span style=\"font-size: 12px; text-align: center;\"> Our job guarantee bundle is not offered in Florida where our only physical location is in Miami.</span></div>"
     media:
       type: video
       src: https://www.youtube.com/shorts/sSxJnelPJT8
@@ -55,7 +55,7 @@ sections:
       alt: AI Engineering program introduction
     signup_card:
       title: Get the Full Program Overview
-      description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, financing options and more. It takes 2 minutes."
+      description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, financing options, and more. It takes 2 minutes."
       cta_button:
         text: Send Me the Details
         url: "#modal-ubwgcj"

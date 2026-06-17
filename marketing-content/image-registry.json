@@ -20018,6 +20018,29 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Best-Coding-Bootcamp-2026-Badge-960w.webp"
         }
       ]
+    },
+    "abo1kfiqrldab6vp-imagen-2025-05-06-121513432": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/aBo1kfIqRLdaB6vp_imagen_2025-05-06_121513432.avif",
+      "alt": "Image: aBo1kfIqRLdaB6vp_imagen_2025-05-06_121513432",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0,
+      "hash": "c044973122a69228bd36485b5583a9660ad9a0a7649ff35db9b8e3ed21331792",
+      "width": 182,
+      "height": 114,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        182
+      ],
+      "format": "avif",
+      "srcset": [
+        {
+          "w": 182,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/aBo1kfIqRLdaB6vp_imagen_2025-05-06_121513432-182w.avif"
+        }
+      ]
     }
   }
 }

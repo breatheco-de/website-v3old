@@ -5,7 +5,7 @@ settings:
     eager_count: 3
 meta:
   page_title: AI fluency
-  description: "AI Engineer: fastest-growing job of 2026. Get job-ready in 24 weeks. 84% hiring rate, $95K–$135K salaries. Lifelong mentorship and career support. 4Geeks."
+  description: Automate your work with AI in 4 weeks. No coding required. 1:1 mentorship and 24/7 AI tutor included. AI Fluency for Professionals Certificate. $900. 4Geeks, rated 4.9.
   robots: index, follow
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
@@ -68,6 +68,8 @@ sections:
     marginY:
       desktop: none
     section_id: hero-yt9c4j
+    video:
+      url: https://www.youtube.com/watch?v=a6aYSobiuBc
   - type: modal
     version: "1.0"
     heading: Get the Program Details
@@ -408,11 +410,17 @@ sections:
       database: frequently_asked_questions
       limit: 9
       permanent_filters:
-        - item_property_slug: related_features
-          value:
-            - ai-engineering
         - item_property_slug: locations
           value: all
+      ignored_entries:
+        - does-the-job-guarantee-refund-the-full-tuition-if-i-dont-get-hired
+        - do-i-get-a-job-after-completing-the-program
+        - do-i-need-prior-cybersecurity-experience
+        - geekforce-or-geekpal-which-one-to-choose
+        - how-does-the-4geeks-academy-job-guarantee-work
+        - do-i-need-expensive-hardware-for-ai-development
+        - do-i-need-to-have-previous-experience-in-programming-to-join-the-bootcamp
+        - do-i-need-to-have-work-authorization-to-qualify-for-the-job-guarantee
     marginY:
       desktop: none
     paddingY:
@@ -432,6 +440,21 @@ sections:
           - munich-germany
           - rome-italy
           - valencia-spain
+    hardcoded_entries:
+      - question: Do I need to know how to code to take AI Fluency?
+        answer: |2-
+
+           No. AI Fluency is designed for working professionals with no coding background. Every tool you use in the program — from prompt engineering to n8n automations — works without writing a single line of code. The focus is on applying AI to real work tasks, not on programming.
+      - question: How does the AI Fluency program work?
+        answer: AI Fluency runs over 4 weeks. Each week has a self-paced module you complete on your own schedule, followed by one live class where you apply what you learned with instructor guidance and peer feedback. If you miss a live class, the recording is available so you can catch up before the next session.
+      - question: What do I build during the AI Fluency program?
+        answer: |2-
+
+           By the end of AI Fluency you have three tangible deliverables: a personal prompt library you can use immediately at work, a configured AI assistant connected to the tools you already use daily, and a working n8n automation that handles a real recurring task in your professional life. These are not exercises — they are tools you keep and use from day one after the program ends.
+      - question: How do I enroll in AI Fluency and when can I start?
+        answer: |2-
+
+           AI Fluency runs on fixed cohort start dates with limited spots per cohort to keep live sessions small and interactive. Upcoming start dates are listed on the AI Fluency program page.
   - type: cta_banner
     version: "1.0"
     title: Ready to Build Your AI Fluency?

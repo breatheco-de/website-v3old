@@ -61,7 +61,7 @@ sections:
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Get the Full Program Details
     form_card_subtitle: "Fill in your details and our admissions team will send you everything you need: program description, requirements, financing options and more. It only takes 2 minutes."
-    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Best-Coding-Bootcamp-2026-Badge.png
     show_awards_marquee: true
     awards_marquee:
       items:
