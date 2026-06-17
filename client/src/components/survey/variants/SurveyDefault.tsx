@@ -4,7 +4,7 @@ import UniversalImage from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { usePageSections } from "@/contexts/PageSectionsContext";
 import { loadSectionComponent } from "@/components/sectionRegistry";
-import { renderSection, getSectionWrapperStyles } from "@/components/SectionRenderer";
+import { renderSection } from "@/components/SectionRenderer";
 import type { SurveyDefault, Section } from "@shared/schema";
 
 type SurveyOption = SurveyDefault["questions"][0]["options"][0];
@@ -227,14 +227,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
     const newAnswers = { ...answers, [qId]: oId };
     setAnswers(newAnswers);
 
-    // Routes have highest priority — evaluated on every pick (enables early exit)
-    const resolved = resolveRoutes(newAnswers, data.questions, data.routes, aggregationMethod);
-    if (resolved) {
-      animateTransition("fwd", () => handleAction(resolved, qIdx));
-      return;
-    }
-
-    // No route match: fall back to the option's explicit action
+    // Priority: option.url > option.message > option.next_question > routes > sequential
     const action = option.action;
     if (action?.url) {
       const sectionData = nav.navigate(action.url);
@@ -262,7 +255,14 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
       return;
     }
 
-    // No route, no action: advance sequentially, do nothing on last question
+    // No option action: try route resolution
+    const resolved = resolveRoutes(newAnswers, data.questions, data.routes, aggregationMethod);
+    if (resolved) {
+      animateTransition("fwd", () => handleAction(resolved, qIdx));
+      return;
+    }
+
+    // Fallback: advance sequentially, do nothing on last question
     if (qIdx < totalQ - 1) {
       animateTransition("fwd", () => {
         setHistory((h) => [...h, qIdx]);
