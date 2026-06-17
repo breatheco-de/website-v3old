@@ -41,18 +41,11 @@ function resolveFromConcatRoutes(
 ): SurveyAction | null {
   const answerParts = buildAnswerParts(answers, questions);
   const fullKey = answerParts.join("-");
+
+  // Strict exact key lookup only
   if (routes[fullKey]) return routes[fullKey];
 
-  const answerSet = new Set(answerParts);
-  for (const [key, action] of Object.entries(routes)) {
-    if (key === "default") continue;
-    const parts = key.split("-");
-    if (parts.length > 0 && parts.every((p) => answerSet.has(p))) {
-      return action;
-    }
-  }
-
-  // default only fires when every question has been answered
+  // Default fires only when every question has been answered
   if (routes.default && Object.keys(answers).length >= questions.length) {
     return routes.default;
   }
