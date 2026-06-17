@@ -7,7 +7,7 @@ import {
   useSensors,
   useDroppable,
   useDraggable,
-  pointerWithin,
+  rectIntersection,
   type DragEndEvent,
   type DragStartEvent,
 } from "@dnd-kit/core";
@@ -788,7 +788,7 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
 
           <DndContext
             sensors={sensors}
-            collisionDetection={pointerWithin}
+            collisionDetection={rectIntersection}
             onDragStart={handleDragStart}
             onDragOver={handleDragOver}
             onDragEnd={handleDragEnd}
