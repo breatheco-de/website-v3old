@@ -236,8 +236,8 @@ function PathItem({
         <div
           className="w-8 h-8 rounded-full flex items-center justify-center text-[13px] font-bold"
           style={{
-            background: isOver ? hslColor(resolved, 0.75) : hslColor(resolved, 1),
-            color: "white",
+            background: "hsl(var(--primary))",
+            color: "hsl(var(--primary-foreground))",
             transform: revealed ? "scale(1)" : "scale(0)",
             transition: `transform 300ms cubic-bezier(.34,1.56,.64,1) ${nodeDelay}ms`,
           }}
