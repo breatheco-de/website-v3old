@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import {
   DndContext,
   DragOverlay,
@@ -675,12 +675,15 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
   }, [pathCourseNames, data.courses]);
 
   function handleDragStart(event: DragStartEvent) {
-    setActiveCourseName(event.active.data.current?.courseName ?? null);
+    const courseName = (event.active.id as string).replace("draggable-", "");
+    setActiveCourseName(courseName || null);
+
     lastOverSlotRef.current = null;
   }
 
   function handleDragOver(event: { over?: { id: string } | null }) {
     const overId = event.over?.id as string | undefined;
+    console.log("[DragOver]", overId ?? "null");
     if (overId?.startsWith("path-slot-")) {
       const slot = parseInt(overId.replace("path-slot-", ""));
       setOverSlot(slot);
@@ -692,8 +695,8 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
 
   function handleDragEnd(event: DragEndEvent) {
     const { over, active } = event;
-    const draggedName = active.data.current?.courseName as string;
-
+    const draggedName = (active.id as string).replace("draggable-", "");
+    console.log("[DragEnd] event.over:", over?.id ?? "null", "| lastRef:", lastOverSlotRef.current, "| dragged:", draggedName);
     // Determine target slot: prefer event.over, fall back to last slot from onDragOver
     let slotIndex: number | null = null;
     const overId = over?.id ? String(over.id) : null;
