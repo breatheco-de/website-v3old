@@ -229,7 +229,7 @@ faqs:
     last_updated: '2026-02-12'
     priority: 2
   - locale: en
-    question: Do I need to have work authorization to qualify?
+    question: Do I need to have work authorization to qualify for the Job Guarantee?
     answer: Yes, you must have valid U.S. work authorization to be eligible for the Job Guarantee.
     locations:
       - all
