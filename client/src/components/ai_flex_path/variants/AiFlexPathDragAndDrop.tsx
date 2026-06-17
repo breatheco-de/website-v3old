@@ -7,7 +7,7 @@ import {
   useSensors,
   useDroppable,
   useDraggable,
-  closestCenter,
+  pointerWithin,
   type DragEndEvent,
   type DragStartEvent,
   type DragMoveEvent,
@@ -695,6 +695,7 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
       lastOverSlotRef.current = slot;
     } else {
       setOverSlot(null);
+      lastOverSlotRef.current = null;
     }
   }
 
@@ -803,7 +804,7 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
 
           <DndContext
             sensors={sensors}
-            collisionDetection={closestCenter}
+            collisionDetection={pointerWithin}
             onDragStart={handleDragStart}
             onDragMove={handleDragMove}
             onDragOver={handleDragOver}
