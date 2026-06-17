@@ -35,6 +35,7 @@ export const surveyDefaultSchema = z.object({
   title_highlight: z.string().optional(),
   subtitle: z.string().optional(),
   icon: z.string().optional(),
+  icon_image_id: z.string().optional(),
   back_label: z.string().optional().default("Back"),
   restart_label: z.string().optional().default("Start over"),
   step_label: z.string().optional(),

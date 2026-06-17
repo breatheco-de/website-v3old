@@ -16,6 +16,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { IconBookFilled, IconGripVertical } from "@tabler/icons-react";
 import { CSSMarquee } from "@/components/ui/CSSMarquee";
 import { getIcon } from "@/lib/icons";
+import UniversalImage from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { resolveColorVar, hslColor, type ResolvedColor } from "@/components/course_selector/shared";
 import type { AiFlexPathDragAndDrop } from "@shared/schema";
@@ -759,14 +760,18 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
     return sum + (isNaN(n) ? 0 : n);
   }, 0);
 
-  const RobotIcon = getIcon(data.icon ?? "Rigobot");
+  const SectionIcon = data.icon ? getIcon(data.icon) : null;
 
   return (
     <div className="pb-16" style={{ fontFamily: "'Inter Variable',system-ui,-apple-system,sans-serif" }}>
       <div className="mx-auto">
         <div className="relative mx-28">
           <div className="absolute" style={{ right: "calc(100% + 30px)", top: "-2px" }}>
-            {RobotIcon && <RobotIcon width="55" height="55" style={{ color: "hsl(var(--foreground))" }} />}
+            {data.icon_image_id ? (
+              <UniversalImage image_id={data.icon_image_id} width={55} height={55} style={{ objectFit: "contain" }} />
+            ) : SectionIcon ? (
+              <SectionIcon width="55" height="55" style={{ color: "hsl(var(--foreground))" }} />
+            ) : null}
           </div>
 
           <div className="text-[11px] font-bold tracking-[0.09em] uppercase" style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}>

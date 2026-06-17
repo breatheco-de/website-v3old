@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { getIcon } from "@/lib/icons";
+import UniversalImage from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { usePageSections } from "@/contexts/PageSectionsContext";
 import { loadSectionComponent } from "@/components/sectionRegistry";
@@ -139,7 +140,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
 
   const totalQ = data.questions.length;
   const aggregationMethod = data.aggregation_method ?? "concat";
-  const RobotIcon = data.icon ? getIcon(data.icon) : null;
+  const SectionIcon = data.icon ? getIcon(data.icon) : null;
   const stepLabel = data.step_label ?? "Question";
   const stepOfLabel = data.step_of_label ?? "of";
   const knownTotal = computeKnownTotal(data.routes, aggregationMethod);
@@ -448,13 +449,11 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
               className="absolute"
               style={{ right: "calc(100% + 15px)", top: "-19px" }}
             >
-              {RobotIcon && (
-                <RobotIcon
-                  width="85"
-                  height="85"
-                  style={{ color: "hsl(var(--foreground))" }}
-                />
-              )}
+              {data.icon_image_id ? (
+                <UniversalImage image_id={data.icon_image_id} width={85} height={85} style={{ objectFit: "contain" }} />
+              ) : SectionIcon ? (
+                <SectionIcon width="85" height="85" style={{ color: "hsl(var(--foreground))" }} />
+              ) : null}
             </div>
             {currentSubtitle && (
               <div
