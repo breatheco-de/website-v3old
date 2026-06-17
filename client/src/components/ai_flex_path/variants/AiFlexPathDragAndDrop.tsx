@@ -767,15 +767,15 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
       <div className="mx-auto">
         <div className="flex">
           <div className="w-28 flex-shrink-0 flex items-start justify-center pt-[2px]">
-            <div className="mt-3">
+            <div style={{ width: 55, height: 55, flexShrink: 0 }}>
               {data.image_id ? (
-                <UniversalImage id={data.image_id} width={40} height={40} style={{ objectFit: "contain", width: "40px", height: "40px" }} />
+                <UniversalImage id={data.image_id} width={55} height={55} style={{ objectFit: "contain", width: "40px", height: "40px" }} />
               ) : SectionIcon ? (
                 <SectionIcon width="55" height="55" style={{ color: "hsl(var(--foreground))" }} />
               ) : null}
             </div>
           </div>
-          <div className="flex-1 min-w-0 mr-28">
+          <div className="flex-1 min-w-0  mr-28">
 
           <div className="text-[11px] font-bold tracking-[0.09em] uppercase" style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}>
             {data.ready_label}
