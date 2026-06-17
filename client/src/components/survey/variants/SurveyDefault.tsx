@@ -144,12 +144,15 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
   const stepOfLabel = data.step_of_label ?? "of";
   const knownTotal = computeKnownTotal(data.routes, aggregationMethod);
 
-  // Scroll to inline section after transition animation completes
+  // Scroll to inline section after transition animation completes (offset for sticky navbar)
   useEffect(() => {
     if (phase === "inline" && inlineRef.current) {
       const el = inlineRef.current;
       setTimeout(() => {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        const navEl = document.querySelector('nav[data-testid="navbar"]') ?? document.querySelector("header");
+        const navHeight = navEl ? navEl.getBoundingClientRect().height : 80;
+        const y = el.getBoundingClientRect().top + window.scrollY - navHeight - 16;
+        window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
       }, 250);
     }
   }, [phase]);

@@ -299,7 +299,7 @@ sections:
       - name: Prompt Engineering
         tagline: Prompting patterns & reusable libraries
         hrs: ~8 hrs
-        color: hsl(var(--destructive) / 0.5)
+        color: hsl(var(--color-pink))
         tools:
           - ChatGPT
           - Claude
@@ -315,7 +315,7 @@ sections:
       - name: Applied AI
         tagline: AI for real professional work tasks
         hrs: ~12 hrs
-        color: hsl(var(--primary) / 0.4)
+        color: hsl(var(--color-orange))
         tools:
           - ChatGPT
           - Notion
@@ -332,7 +332,7 @@ sections:
       - name: No-Code & Automations
         tagline: Visual workflows with n8n, Zapier, Make
         hrs: ~10 hrs
-        color: hsl(var(--color-pink))
+        color: hsl(var(--color-purple))
         tools:
           - n8n
           - Make
@@ -381,7 +381,7 @@ sections:
       - name: Data Science & ML
         tagline: Data analysis, ML models, predictions
         hrs: ~22 hrs
-        color: hsl(var(--color-orange))
+        color: hsl(var(--primary) / 0.4)
         tools:
           - Pandas
           - NumPy

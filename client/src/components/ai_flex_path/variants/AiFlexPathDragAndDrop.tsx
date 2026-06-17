@@ -229,13 +229,12 @@ function PathItem({
         </div>
       )}
 
-      <div className="flex-shrink-0 z-10 flex items-center justify-center" style={{ width: 32, borderRadius: "50%", background: "hsl(var(--background))" }}>
+      <div className="flex-shrink-0 z-10 flex items-center justify-center" style={{ width: 32 }}>
         <div
           className="w-8 h-8 rounded-full flex items-center justify-center text-[13px] font-bold"
           style={{
-            background: isOver ? "hsl(var(--primary) / 0.12)" : "hsl(var(--primary) / 0.05)",
-            color: "hsl(var(--primary))",
-            border: `1.5px solid hsl(var(--primary) / ${isOver ? "0.4" : "0.2"})`,
+            background: isOver ? "hsl(var(--primary) / 0.75)" : "hsl(var(--primary))",
+            color: "white",
             transform: revealed ? "scale(1)" : "scale(0)",
             transition: `transform 300ms cubic-bezier(.34,1.56,.64,1) ${nodeDelay}ms`,
           }}
@@ -567,6 +566,75 @@ function DragOverlayCard({
   );
 }
 
+function GhostPreviewCard({ course, allCourses }: { course: Course; allCourses: Course[] }) {
+  const resolved = getCourseColorResolved(course, allCourses);
+  return (
+    <div
+      className="rounded-[13px] border-[1.5px]"
+      style={{
+        borderColor: hslColor(resolved, 0.35),
+        borderStyle: "dashed",
+        background: hslColor(resolved, 0.04),
+        opacity: 0.75,
+      }}
+    >
+      <div className="flex items-stretch">
+        <div className="flex-1 min-w-0 flex flex-col">
+          <div className="flex items-center gap-[10px] p-[13px] pb-[6px]">
+            <IconGripVertical size={34} style={{ color: "hsl(var(--muted-foreground) / 0.25)", flexShrink: 0 }} />
+            <div className="flex flex-col gap-[2px] flex-1 min-w-0">
+              <div className="flex items-start gap-[7px]">
+                <IconBookFilled size={14} style={{ color: hslColor(resolved, 0.7), flexShrink: 0, marginTop: 2 }} />
+                <div className="text-[15px] font-bold leading-[1.3]" style={{ color: hslColor(resolved, 0.8) }}>
+                  {course.name}
+                </div>
+              </div>
+              <div className="text-[12px] leading-[1.4]" style={{ color: "hsl(var(--muted-foreground) / 0.35)" }}>
+                {course.tagline}
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-[4px] px-[13px] pb-[10px] pt-[10px] mt-auto">
+            <span className="text-[11px] font-bold tracking-[0.07em] uppercase" style={{ color: hslColor(resolved, 0.55) }}>
+              ↑ goes here
+            </span>
+          </div>
+        </div>
+        <div className="flex items-start flex-shrink-0 p-[13px]">
+          <div
+            className="text-[10px] px-[7px] py-[2px] rounded-full font-semibold whitespace-nowrap"
+            style={{ color: hslColor(resolved, 0.7), background: hslColor(resolved, 0.08) }}
+          >
+            {course.hrs}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AvailableDropZone({ children, isDragActive }: { children: React.ReactNode; isDragActive: boolean }) {
+  const { setNodeRef, isOver } = useDroppable({ id: "available-zone" });
+  return (
+    <div ref={setNodeRef}>
+      {children}
+      {isDragActive && (
+        <div
+          className="mt-2 rounded-[13px] border-[1.5px] flex items-center justify-center py-[10px] text-[11px] font-bold tracking-[0.07em] uppercase transition-all duration-200"
+          style={{
+            borderStyle: "dashed",
+            borderColor: isOver ? "hsl(var(--primary) / 0.5)" : "hsl(var(--border))",
+            color: isOver ? "hsl(var(--primary))" : "hsl(var(--muted-foreground) / 0.35)",
+            background: isOver ? "hsl(var(--primary) / 0.04)" : "transparent",
+          }}
+        >
+          Drop here to cancel
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAndDrop }) {
   const [pathCourseNames, setPathCourseNames] = useState<string[]>(data.default_courses);
   const [activeCourseName, setActiveCourseName] = useState<string | null>(null);
@@ -753,16 +821,25 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
                 <div className="text-[11px] font-bold tracking-[0.09em] uppercase mb-4" style={{ color: "hsl(var(--muted-foreground) / 0.45)" }}>
                   {dragInstructionLabel}
                 </div>
-                <div className="grid grid-cols-2 gap-[9px]">
-                  {availableCourses.map((course) => (
-                    <DraggableCourseCard
-                      key={course.name}
-                      course={course}
-                      allCourses={data.courses}
-                      viewDetailsLabel={viewDetailsLabel}
-                    />
-                  ))}
-                </div>
+                <AvailableDropZone isDragActive={!!activeCourseName}>
+                  <div className="grid grid-cols-2 gap-[9px]">
+                    {availableCourses.map((course) => {
+                      const isBeingDragged = course.name === activeCourseName;
+                      const displacedCourse = overSlot !== null ? pathCourses[overSlot] ?? null : null;
+                      if (isBeingDragged && displacedCourse) {
+                        return <GhostPreviewCard key={course.name} course={displacedCourse} allCourses={data.courses} />;
+                      }
+                      return (
+                        <DraggableCourseCard
+                          key={course.name}
+                          course={course}
+                          allCourses={data.courses}
+                          viewDetailsLabel={viewDetailsLabel}
+                        />
+                      );
+                    })}
+                  </div>
+                </AvailableDropZone>
               </div>
             )}
 
