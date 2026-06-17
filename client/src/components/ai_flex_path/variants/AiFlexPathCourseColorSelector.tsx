@@ -647,7 +647,9 @@ export default function AiFlexPathCourseColorSelector({ data }: { data: AiFlexPa
   const [activeDeltaY, setActiveDeltaY] = useState(0);
   const nav = useInternalNav();
 
-  const slotColors = data.slot_colors?.length ? data.slot_colors : DEFAULT_COURSE_COLORS;
+  const slotColors = data.slot_colors?.length
+    ? data.slot_colors.map((s) => s.color)
+    : DEFAULT_COURSE_COLORS;
   const viewDetailsLabel = data.view_details_label ?? "View details";
   const replaceLabel = data.replace_label ?? "Replace with";
   const dragInstructionLabel = data.drag_instruction_label ?? "Also available — drag any card to swap it into your path";
