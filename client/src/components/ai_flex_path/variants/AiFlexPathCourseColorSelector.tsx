@@ -19,9 +19,9 @@ import { getIcon } from "@/lib/icons";
 import UniversalImage from "@/components/UniversalImage";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { resolveColorVar, hslColor, type ResolvedColor } from "@/components/course_selector/shared";
-import type { AiFlexPathDragAndDrop } from "@shared/schema";
+import type { AiFlexPathCourseColorSelector } from "@shared/schema";
 
-type Course = AiFlexPathDragAndDrop["courses"][0];
+type Course = AiFlexPathCourseColorSelector["courses"][0];
 
 const DEFAULT_COURSE_COLORS = [
   "hsl(0 84% 60%)",
@@ -31,8 +31,8 @@ const DEFAULT_COURSE_COLORS = [
 ];
 
 // Color by slot position (not by course)
-function getSlotColor(slotIndex: number): ResolvedColor {
-  return resolveColorVar(DEFAULT_COURSE_COLORS[slotIndex % DEFAULT_COURSE_COLORS.length]);
+function getSlotColor(slotIndex: number, colors: string[] = DEFAULT_COURSE_COLORS): ResolvedColor {
+  return resolveColorVar(colors[slotIndex % colors.length]);
 }
 
 // Primary color for available (non-path) course cards
@@ -169,6 +169,7 @@ function PathItem({
   activeCourse,
   viewDetailsLabel,
   replaceLabel,
+  slotColors,
 }: {
   course: Course;
   index: number;
@@ -180,6 +181,7 @@ function PathItem({
   activeCourse: Course | null;
   viewDetailsLabel: string;
   replaceLabel: string;
+  slotColors: string[];
 }) {
   const isFirst = index === 0;
   const isLast = index === total - 1;
@@ -189,7 +191,7 @@ function PathItem({
   const [hovered, setHovered] = useState(false);
 
   // Color by slot position, not by course identity
-  const resolved = getSlotColor(index);
+  const resolved = getSlotColor(index, slotColors);
   const CourseIcon = course.icon ? getIcon(course.icon) : null;
 
   useEffect(() => {
@@ -566,8 +568,8 @@ function DragOverlayCard({
 }
 
 // Ghost shown in available grid when dragging a course over a path slot
-function GhostPreviewCard({ course, slotIndex }: { course: Course; slotIndex: number }) {
-  const resolved = getSlotColor(slotIndex);
+function GhostPreviewCard({ course, slotIndex, slotColors }: { course: Course; slotIndex: number; slotColors: string[] }) {
+  const resolved = getSlotColor(slotIndex, slotColors);
   return (
     <div
       className="rounded-[13px] border-[1.5px]"
@@ -634,7 +636,7 @@ function AvailableDropZone({ children, isDragActive }: { children: React.ReactNo
   );
 }
 
-export default function AiFlexPathCourseColorSelector({ data }: { data: AiFlexPathDragAndDrop }) {
+export default function AiFlexPathCourseColorSelector({ data }: { data: AiFlexPathCourseColorSelector }) {
   const [pathCourseNames, setPathCourseNames] = useState<string[]>(data.default_courses);
   const [activeCourseName, setActiveCourseName] = useState<string | null>(null);
   const [overSlot, setOverSlot] = useState<number | null>(null);
@@ -645,6 +647,7 @@ export default function AiFlexPathCourseColorSelector({ data }: { data: AiFlexPa
   const [activeDeltaY, setActiveDeltaY] = useState(0);
   const nav = useInternalNav();
 
+  const slotColors = data.slot_colors?.length ? data.slot_colors : DEFAULT_COURSE_COLORS;
   const viewDetailsLabel = data.view_details_label ?? "View details";
   const replaceLabel = data.replace_label ?? "Replace with";
   const dragInstructionLabel = data.drag_instruction_label ?? "Also available — drag any card to swap it into your path";
@@ -760,7 +763,7 @@ export default function AiFlexPathCourseColorSelector({ data }: { data: AiFlexPa
   const SectionIcon = data.icon ? getIcon(data.icon) : null;
 
   // Overlay color: slot color when hovering a slot, else null (uses primary)
-  const overlaySlotColor = overSlot !== null ? getSlotColor(overSlot) : null;
+  const overlaySlotColor = overSlot !== null ? getSlotColor(overSlot, slotColors) : null;
 
   return (
     <div className="pb-16" style={{ fontFamily: "'Inter Variable',system-ui,-apple-system,sans-serif" }}>
@@ -834,6 +837,7 @@ export default function AiFlexPathCourseColorSelector({ data }: { data: AiFlexPa
                       activeCourse={activeCourse}
                       viewDetailsLabel={viewDetailsLabel}
                       replaceLabel={replaceLabel}
+                      slotColors={slotColors}
                     />
                   ))}
                 </div>
@@ -851,7 +855,7 @@ export default function AiFlexPathCourseColorSelector({ data }: { data: AiFlexPa
                       const isBeingDragged = course.name === activeCourseName;
                       const displacedCourse = overSlot !== null && activeDeltaY < -40 ? pathCourses[overSlot] ?? null : null;
                       if (isBeingDragged && displacedCourse) {
-                        return <GhostPreviewCard key={course.name} course={displacedCourse} slotIndex={overSlot!} />;
+                        return <GhostPreviewCard key={course.name} course={displacedCourse} slotIndex={overSlot!} slotColors={slotColors} />;
                       }
                       return (
                         <DraggableCourseCard

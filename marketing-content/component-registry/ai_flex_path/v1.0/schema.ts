@@ -60,5 +60,10 @@ export const aiFlexPathDragAndDropSchema = z.object({
   cta: ctaBlockSchema,
 });
 
+export const aiFlexPathCourseColorSelectorSchema = aiFlexPathDragAndDropSchema.extend({
+  slot_colors: z.array(z.string()).optional(),
+});
+
 export type AiFlexPathDefault = z.infer<typeof aiFlexPathDefaultSchema>;
 export type AiFlexPathDragAndDrop = z.infer<typeof aiFlexPathDragAndDropSchema>;
+export type AiFlexPathCourseColorSelector = z.infer<typeof aiFlexPathCourseColorSelectorSchema>;

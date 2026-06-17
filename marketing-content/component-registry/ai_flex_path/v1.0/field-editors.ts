@@ -19,5 +19,6 @@ export const fieldEditors: Record<string, EditorType> = {
   "course_color_selector:tools_marquee": "boolean-toggle",
   "course_color_selector:cta.banner": "boolean-toggle",
   "course_color_selector:cta.buttons[]": "cta-picker",
+  "course_color_selector:slot_colors[]": "color-picker:courses",
   "course_color_selector:courses[].icon": "icon-picker",
 };
