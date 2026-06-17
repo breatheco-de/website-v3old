@@ -5912,7 +5912,17 @@
       "focal_point": "center",
       "tags": [
         "logo",
-        "photo"
+        "photo",
+        "avatar",
+        "card",
+        "icon",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
       ],
       "usage_count": 0,
       "hash": "cab7f9ec8b10a58a99434a48805065108f0664992d9abacf0a52602ed1bd7be9",

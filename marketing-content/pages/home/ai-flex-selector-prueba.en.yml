@@ -267,6 +267,7 @@ sections:
       desktop: sm
     maxWidth:
       desktop: xl
+    image_id: logo_beacon_council
   - type: ai_flex_path
     version: v1.0
     variant: drag_and_drop
@@ -281,7 +282,6 @@ sections:
     replace_label: Replace with
     tools_label: Tools in this path
     tools_marquee: false
-    icon: Rigobot
     default_courses:
       - Deep Dive into Python
       - Data Science & ML
@@ -434,6 +434,7 @@ sections:
       desktop: sm
     maxWidth:
       desktop: xl
+    image_id: rigobot-logo-1764707022198
   - type: ai_flex_path
     version: v1.0
     variant: default

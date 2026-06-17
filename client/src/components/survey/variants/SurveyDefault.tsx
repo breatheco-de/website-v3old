@@ -438,17 +438,15 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
 
         {/* QUIZ */}
         {phase === "questions" && (
-          <div style={slideStyle} className="relative mx-28">
-            <div
-              className="absolute"
-              style={{ right: "calc(100% + 15px)", top: "-19px" }}
-            >
+          <div style={slideStyle} className="flex mr-28">
+            <div className="w-28 flex-shrink-0 flex items-start justify-center" style={{ marginTop: "-19px" }}>
               {data.image_id ? (
-                <UniversalImage image_id={data.image_id} width={85} height={85} style={{ objectFit: "contain" }} />
+                <UniversalImage id={data.image_id} width={85} height={85} style={{ objectFit: "contain" }} />
               ) : SectionIcon ? (
                 <SectionIcon width="85" height="85" style={{ color: "hsl(var(--foreground))" }} />
               ) : null}
             </div>
+            <div className="flex-1">
             {currentSubtitle && (
               <div
                 className="text-[11px] font-bold tracking-[0.09em] uppercase mb-1"
@@ -564,6 +562,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
                 </button>
               </div>
             )}
+            </div>
           </div>
         )}
 
