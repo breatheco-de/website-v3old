@@ -410,9 +410,6 @@ sections:
       database: frequently_asked_questions
       limit: 9
       permanent_filters:
-        - item_property_slug: related_features
-          value:
-            - ai-engineering
         - item_property_slug: locations
           value: all
     marginY:
@@ -434,6 +431,11 @@ sections:
           - munich-germany
           - rome-italy
           - valencia-spain
+    hardcoded_entries:
+      - question: Do I need to know how to code to take AI Fluency?
+        answer: |2-
+
+           No. AI Fluency is designed for working professionals with no coding background. Every tool you use in the program — from prompt engineering to n8n automations — works without writing a single line of code. The focus is on applying AI to real work tasks, not on programming.
   - type: cta_banner
     version: "1.0"
     title: Ready to Build Your AI Fluency?
