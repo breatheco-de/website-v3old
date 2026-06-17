@@ -451,6 +451,10 @@ sections:
         answer: |2-
 
            By the end of AI Fluency you have three tangible deliverables: a personal prompt library you can use immediately at work, a configured AI assistant connected to the tools you already use daily, and a working n8n automation that handles a real recurring task in your professional life. These are not exercises — they are tools you keep and use from day one after the program ends.
+      - question: How do I enroll in AI Fluency and when can I start?
+        answer: |2-
+
+           AI Fluency runs on fixed cohort start dates with limited spots per cohort to keep live sessions small and interactive. Upcoming start dates are listed on the AI Fluency program page.
   - type: cta_banner
     version: "1.0"
     title: Ready to Build Your AI Fluency?
