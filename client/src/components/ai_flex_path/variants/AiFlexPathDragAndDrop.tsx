@@ -10,7 +10,6 @@ import {
   closestCenter,
   type DragEndEvent,
   type DragStartEvent,
-  type DragMoveEvent,
 } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { IconBookFilled, IconGripVertical } from "@tabler/icons-react";
@@ -409,7 +408,7 @@ function DraggableCourseCard({
         transform: outerTransform,
         touchAction: "none",
         cursor: isDragging ? "grabbing" : "grab",
-        transition: "transform .18s",
+        transition: isDragging ? "none" : "transform .18s",
       }}
       {...listeners}
       {...attributes}
@@ -457,14 +456,14 @@ function DraggableCourseCard({
             >
               <span
                 className="text-[11px] font-bold tracking-[0.07em] uppercase"
-                style={{ color: hovered ? hslColor(resolved, 1) : hslColor(resolved, 0.65), transition: "color .2s" }}
+                style={{ color: hovered ? hslColor(resolved, 1) : "hsl(var(--primary))", transition: "color .2s" }}
               >
                 {viewDetailsLabel}
               </span>
               <span
                 className="text-[18px] leading-none"
                 style={{
-                  color: hovered ? hslColor(resolved, 1) : hslColor(resolved, 0.65),
+                  color: hovered ? hslColor(resolved, 1) : "hsl(var(--primary))",
                   transform: expanded ? "rotate(180deg)" : "none",
                   display: "inline-block",
                   transition: "color .2s, transform .2s",
@@ -641,7 +640,7 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
   const [counterFlash, setCounterFlash] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [dropCounts, setDropCounts] = useState<number[]>([0, 0, 0, 0, 0]);
-  const [activeDeltaY, setActiveDeltaY] = useState(0);
+  const lastOverSlotRef = useRef<number | null>(null);
   const nav = useInternalNav();
 
   const maxSelections = data.max_selections ?? 4;
@@ -677,17 +676,15 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
 
   function handleDragStart(event: DragStartEvent) {
     setActiveCourseName(event.active.data.current?.courseName ?? null);
-    setActiveDeltaY(0);
-  }
-
-  function handleDragMove(event: DragMoveEvent) {
-    setActiveDeltaY(event.delta.y);
+    lastOverSlotRef.current = null;
   }
 
   function handleDragOver(event: { over?: { id: string } | null }) {
     const overId = event.over?.id as string | undefined;
     if (overId?.startsWith("path-slot-")) {
-      setOverSlot(parseInt(overId.replace("path-slot-", "")));
+      const slot = parseInt(overId.replace("path-slot-", ""));
+      setOverSlot(slot);
+      lastOverSlotRef.current = slot;
     } else {
       setOverSlot(null);
     }
@@ -695,27 +692,31 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
 
   function handleDragEnd(event: DragEndEvent) {
     const { over, active } = event;
+    const draggedName = active.data.current?.courseName as string;
+
+    // Determine target slot: prefer event.over, fall back to last slot from onDragOver
+    let slotIndex: number | null = null;
+    const overId = over?.id ? String(over.id) : null;
+    if (overId?.startsWith("path-slot-")) {
+      slotIndex = parseInt(overId.replace("path-slot-", ""));
+    } else if (lastOverSlotRef.current !== null) {
+      slotIndex = lastOverSlotRef.current;
+    }
+
     setActiveCourseName(null);
     setOverSlot(null);
-    setActiveDeltaY(0);
-    if (!over) return;
-    const overId = over.id as string;
-    if (!overId.startsWith("path-slot-")) return;
-    const slotIndex = parseInt(overId.replace("path-slot-", ""));
-    const draggedName = active.data.current?.courseName as string;
-    if (!draggedName) return;
-    if (pathCourseNames.length >= maxSelections) {
-      setCounterFlash(true);
-      setTimeout(() => setCounterFlash(false), 800);
-    }
+    lastOverSlotRef.current = null;
+
+    if (slotIndex === null || !draggedName) return;
+
     setPathCourseNames((prev) => {
       const next = [...prev];
-      next[slotIndex] = draggedName;
+      next[slotIndex!] = draggedName;
       return next;
     });
     setDropCounts((prev) => {
       const next = [...prev];
-      next[slotIndex] = (next[slotIndex] || 0) + 1;
+      next[slotIndex!] = (next[slotIndex!] || 0) + 1;
       return next;
     });
   }
@@ -749,7 +750,7 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
     return sum + (isNaN(n) ? 0 : n);
   }, 0);
 
-  const RobotIcon = data.icon ? getIcon(data.icon) : null;
+  const RobotIcon = getIcon(data.icon ?? "Rigobot");
 
   return (
     <div className="pb-16" style={{ fontFamily: "'Inter Variable',system-ui,-apple-system,sans-serif" }}>
@@ -796,7 +797,6 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
             sensors={sensors}
             collisionDetection={closestCenter}
             onDragStart={handleDragStart}
-            onDragMove={handleDragMove}
             onDragOver={handleDragOver}
             onDragEnd={handleDragEnd}
           >
@@ -809,7 +809,7 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
                       course={course}
                       index={i}
                       total={pathCourses.length}
-                      isOver={overSlot === i && !!activeCourseName && activeDeltaY < -40}
+                      isOver={overSlot === i && !!activeCourseName}
                       isDragActive={!!activeCourseName}
                       revealed={revealed}
                       dropKey={dropCounts[i] ?? 0}
@@ -832,7 +832,7 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
                   <div className="grid grid-cols-2 gap-[9px]">
                     {availableCourses.map((course) => {
                       const isBeingDragged = course.name === activeCourseName;
-                      const displacedCourse = overSlot !== null && activeDeltaY < -40 ? pathCourses[overSlot] ?? null : null;
+                      const displacedCourse = overSlot !== null ? pathCourses[overSlot] ?? null : null;
                       if (isBeingDragged && displacedCourse) {
                         return <GhostPreviewCard key={course.name} course={displacedCourse} allCourses={data.courses} />;
                       }

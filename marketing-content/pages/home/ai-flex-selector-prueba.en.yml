@@ -312,6 +312,7 @@ sections:
             skill_percentage: 28
           - name: Context management
             skill_percentage: 17
+        icon: server-crash
       - name: Applied AI
         tagline: AI for real professional work tasks
         hrs: ~12 hrs
