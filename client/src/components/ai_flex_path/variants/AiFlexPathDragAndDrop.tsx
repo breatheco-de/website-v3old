@@ -248,6 +248,7 @@ function PathItem({
         className="flex-1 my-[6px] rounded-[13px]"
         style={{
           background: isOver ? hslColor(acResolved, 0.05) : "hsl(var(--background))",
+          border: isOver ? `2px dashed ${hslColor(acResolved, 0.55)}` : "2px solid transparent",
           boxShadow: isOver
             ? "none"
             : hovered
@@ -614,18 +615,17 @@ function GhostPreviewCard({ course, allCourses }: { course: Course; allCourses: 
 }
 
 function AvailableDropZone({ children, isDragActive }: { children: React.ReactNode; isDragActive: boolean }) {
-  const { setNodeRef, isOver } = useDroppable({ id: "available-zone" });
   return (
-    <div ref={setNodeRef}>
+    <div>
       {children}
       {isDragActive && (
         <div
-          className="mt-2 rounded-[13px] border-[1.5px] flex items-center justify-center py-[10px] text-[11px] font-bold tracking-[0.07em] uppercase transition-all duration-200"
+          className="mt-2 rounded-[13px] border-[1.5px] flex items-center justify-center py-[10px] text-[11px] font-bold tracking-[0.07em] uppercase"
           style={{
             borderStyle: "dashed",
-            borderColor: isOver ? "hsl(var(--primary) / 0.5)" : "hsl(var(--border))",
-            color: isOver ? "hsl(var(--primary))" : "hsl(var(--muted-foreground) / 0.35)",
-            background: isOver ? "hsl(var(--primary) / 0.04)" : "transparent",
+            borderColor: "hsl(var(--border))",
+            color: "hsl(var(--muted-foreground) / 0.35)",
+            background: "transparent",
           }}
         >
           Drop here to cancel
@@ -843,7 +843,7 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
               </div>
             )}
 
-            <DragOverlay dropAnimation={{ duration: 180, easing: "ease" }}>
+            <DragOverlay dropAnimation={null}>
               {activeCourse ? (
                 <DragOverlayCard
                   course={activeCourse}
