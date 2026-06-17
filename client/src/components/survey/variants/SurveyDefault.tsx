@@ -440,9 +440,9 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
         {phase === "questions" && (
           <div style={slideStyle} className="flex mr-28">
             <div className="w-28 flex-shrink-0 flex items-start justify-center" style={{ marginTop: "-19px" }}>
-              <div style={{ width: 85, height: 85, flexShrink: 0 }}>
+              <div className="mt-5">
                 {data.image_id ? (
-                  <UniversalImage id={data.image_id} width={85} height={85} style={{ objectFit: "contain", width: "100%", height: "100%" }} />
+                  <UniversalImage id={data.image_id} width={30} height={30} style={{ objectFit: "contain", width: "40px", height: "40px" }} />
                 ) : SectionIcon ? (
                   <SectionIcon width="85" height="85" style={{ color: "hsl(var(--foreground))" }} />
                 ) : null}

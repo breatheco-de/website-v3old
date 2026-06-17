@@ -105,7 +105,7 @@ sections:
     skills_breakdown_label: Skills breakdown
     tools_label: Tools in this path
     tools_marquee: true
-    icon: 4GeeksAvatar
+    icon: RigobotIconTiny
     default_courses:
       - Deep Dive into Python
       - Data Science & ML
