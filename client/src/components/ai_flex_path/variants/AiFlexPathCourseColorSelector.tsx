@@ -30,11 +30,13 @@ const DEFAULT_COURSE_COLORS = [
   "hsl(330 80% 62%)",
 ];
 
-function getCourseColorResolved(course: Course, allCourses: Course[]): ResolvedColor {
-  if (course.color) return resolveColorVar(course.color);
-  const idx = allCourses.findIndex((c) => c.name === course.name);
-  return resolveColorVar(DEFAULT_COURSE_COLORS[idx % DEFAULT_COURSE_COLORS.length]);
+// Color by slot position (not by course)
+function getSlotColor(slotIndex: number): ResolvedColor {
+  return resolveColorVar(DEFAULT_COURSE_COLORS[slotIndex % DEFAULT_COURSE_COLORS.length]);
 }
+
+// Primary color for available (non-path) course cards
+const PRIMARY_RESOLVED: ResolvedColor = resolveColorVar("hsl(var(--primary))");
 
 function SkillBar({
   name,
@@ -165,7 +167,6 @@ function PathItem({
   revealed,
   dropKey,
   activeCourse,
-  allCourses,
   viewDetailsLabel,
   replaceLabel,
 }: {
@@ -177,7 +178,6 @@ function PathItem({
   revealed: boolean;
   dropKey: number;
   activeCourse: Course | null;
-  allCourses: Course[];
   viewDetailsLabel: string;
   replaceLabel: string;
 }) {
@@ -188,8 +188,8 @@ function PathItem({
   const [popping, setPopping] = useState(false);
   const [hovered, setHovered] = useState(false);
 
-  const resolved = getCourseColorResolved(course, allCourses);
-  const acResolved = activeCourse ? getCourseColorResolved(activeCourse, allCourses) : resolved;
+  // Color by slot position, not by course identity
+  const resolved = getSlotColor(index);
   const CourseIcon = course.icon ? getIcon(course.icon) : null;
 
   useEffect(() => {
@@ -236,7 +236,7 @@ function PathItem({
         <div
           className="w-8 h-8 rounded-full flex items-center justify-center text-[13px] font-bold"
           style={{
-            background: isOver ? "hsl(var(--primary) / 0.75)" : "hsl(var(--primary))",
+            background: isOver ? hslColor(resolved, 0.75) : hslColor(resolved, 1),
             color: "white",
             transform: revealed ? "scale(1)" : "scale(0)",
             transition: `transform 300ms cubic-bezier(.34,1.56,.64,1) ${nodeDelay}ms`,
@@ -250,8 +250,8 @@ function PathItem({
       <div
         className="flex-1 my-[6px] rounded-[13px]"
         style={{
-          background: isOver ? hslColor(acResolved, 0.05) : "hsl(var(--background))",
-          border: isOver ? `2px dashed ${hslColor(acResolved, 0.55)}` : "2px solid transparent",
+          background: isOver ? hslColor(resolved, 0.05) : "hsl(var(--background))",
+          border: isOver ? `2px dashed ${hslColor(resolved, 0.55)}` : "2px solid transparent",
           boxShadow: isOver
             ? "none"
             : hovered
@@ -291,7 +291,7 @@ function PathItem({
               </div>
             </div>
             <div className="absolute inset-0 flex items-start" style={{ paddingLeft: 38, paddingTop: 14 }}>
-              <div className="text-[16px] font-extrabold leading-[1.3]" style={{ color: hslColor(acResolved, 1) }}>
+              <div className="text-[16px] font-extrabold leading-[1.3]" style={{ color: hslColor(resolved, 1) }}>
                 {replaceLabel} {activeCourse.name}
               </div>
             </div>
@@ -379,20 +379,17 @@ function PathItem({
   );
 }
 
+// Available course card — neutral by default, primary blue on hover
 function DraggableCourseCard({
   course,
-  allCourses,
   viewDetailsLabel,
 }: {
   course: Course;
-  allCourses: Course[];
   viewDetailsLabel: string;
 }) {
   const [expanded, setExpanded] = useState(false);
   const [btnHovered, setBtnHovered] = useState(false);
   const [hovered, setHovered] = useState(false);
-
-  const resolved = getCourseColorResolved(course, allCourses);
 
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: `draggable-${course.name}`,
@@ -418,11 +415,11 @@ function DraggableCourseCard({
     >
       <div
         style={{
-          borderColor: hovered ? hslColor(resolved, 0.55) : "hsl(var(--border))",
+          borderColor: hovered ? "hsl(var(--primary) / 0.55)" : "hsl(var(--border))",
           background: "hsl(var(--background))",
           opacity: isDragging ? 0 : hovered ? 1 : 0.6,
           boxShadow: hovered && !isDragging
-            ? `0 3px 10px ${hslColor(resolved, 0.1)}, 0 8px 22px ${hslColor(resolved, 0.07)}`
+            ? "0 3px 10px hsl(var(--primary) / 0.1), 0 8px 22px hsl(var(--primary) / 0.07)"
             : "0 1px 3px rgba(0,0,0,0.04), 0 3px 10px rgba(0,0,0,0.03)",
           transition: "border-color .2s, box-shadow .2s, opacity .2s",
         }}
@@ -436,10 +433,10 @@ function DraggableCourseCard({
               <IconGripVertical size={34} style={{ color: "hsl(var(--muted-foreground) / 0.6)", flexShrink: 0 }} />
               <div className="flex flex-col gap-[2px] flex-1 min-w-0">
                 <div className="flex items-start gap-[7px]">
-                  {(() => { const CI = course.icon ? getIcon(course.icon) : null; return CI ? <CI size={14} style={{ color: hovered ? hslColor(resolved, 1) : "hsl(var(--foreground) / 0.45)", transition: "color .2s", flexShrink: 0, marginTop: 2 }} /> : <IconBookFilled size={14} style={{ color: hovered ? hslColor(resolved, 1) : "hsl(var(--foreground) / 0.45)", transition: "color .2s", flexShrink: 0, marginTop: 2 }} />; })()}
+                  {(() => { const CI = course.icon ? getIcon(course.icon) : null; return CI ? <CI size={14} style={{ color: hovered ? "hsl(var(--primary))" : "hsl(var(--foreground) / 0.45)", transition: "color .2s", flexShrink: 0, marginTop: 2 }} /> : <IconBookFilled size={14} style={{ color: hovered ? "hsl(var(--primary))" : "hsl(var(--foreground) / 0.45)", transition: "color .2s", flexShrink: 0, marginTop: 2 }} />; })()}
                   <div
                     className="text-[15px] font-bold leading-[1.3]"
-                    style={{ color: hovered ? hslColor(resolved, 1) : "hsl(var(--foreground) / 0.75)", transition: "color .2s" }}
+                    style={{ color: hovered ? "hsl(var(--primary))" : "hsl(var(--foreground) / 0.75)", transition: "color .2s" }}
                   >
                     {course.name}
                   </div>
@@ -458,14 +455,14 @@ function DraggableCourseCard({
             >
               <span
                 className="text-[11px] font-bold tracking-[0.07em] uppercase"
-                style={{ color: hovered ? hslColor(resolved, 1) : "hsl(var(--primary))", transition: "color .2s" }}
+                style={{ color: "hsl(var(--primary))", transition: "color .2s" }}
               >
                 {viewDetailsLabel}
               </span>
               <span
                 className="text-[18px] leading-none"
                 style={{
-                  color: hovered ? hslColor(resolved, 1) : "hsl(var(--primary))",
+                  color: "hsl(var(--primary))",
                   transform: expanded ? "rotate(180deg)" : "none",
                   display: "inline-block",
                   transition: "color .2s, transform .2s",
@@ -479,8 +476,8 @@ function DraggableCourseCard({
             <div
               className="text-[10px] px-[7px] py-[2px] rounded-full font-semibold whitespace-nowrap"
               style={{
-                color: hovered ? hslColor(resolved, 1) : "hsl(var(--muted-foreground) / 0.5)",
-                background: hovered ? hslColor(resolved, 0.1) : "hsl(var(--muted-foreground) / 0.07)",
+                color: hovered ? "hsl(var(--primary))" : "hsl(var(--muted-foreground) / 0.5)",
+                background: hovered ? "hsl(var(--primary) / 0.1)" : "hsl(var(--muted-foreground) / 0.07)",
                 transition: "color .2s, background .2s",
               }}
             >
@@ -493,17 +490,17 @@ function DraggableCourseCard({
           className="overflow-hidden transition-all duration-300"
           style={{
             maxHeight: expanded ? 260 : 0,
-            borderTop: expanded ? `1px solid ${hslColor(resolved, 0.15)}` : "none",
+            borderTop: expanded ? "1px solid hsl(var(--primary) / 0.15)" : "none",
           }}
           onClick={(e) => { e.stopPropagation(); setExpanded(false); }}
         >
           <div className="px-[13px] pt-[10px] pb-[10px] flex flex-col gap-2">
             {course.skills.map((s) => (
-              <SkillBar key={s.name} name={s.name} skill_percentage={s.skill_percentage} animate={expanded} resolved={resolved} />
+              <SkillBar key={s.name} name={s.name} skill_percentage={s.skill_percentage} animate={expanded} resolved={PRIMARY_RESOLVED} />
             ))}
           </div>
           {course.tools.length > 0 && (
-            <CourseToolsMarquee tools={course.tools} resolved={resolved} />
+            <CourseToolsMarquee tools={course.tools} resolved={PRIMARY_RESOLVED} />
           )}
         </div>
       </div>
@@ -511,16 +508,17 @@ function DraggableCourseCard({
   );
 }
 
+// DragOverlay — primary by default, switches to target slot color when hovering a slot
 function DragOverlayCard({
   course,
-  allCourses,
+  overSlotColor,
   viewDetailsLabel,
 }: {
   course: Course;
-  allCourses: Course[];
+  overSlotColor: ResolvedColor | null;
   viewDetailsLabel: string;
 }) {
-  const resolved = getCourseColorResolved(course, allCourses);
+  const resolved = overSlotColor ?? PRIMARY_RESOLVED;
   return (
     <div
       style={{
@@ -567,8 +565,9 @@ function DragOverlayCard({
   );
 }
 
-function GhostPreviewCard({ course, allCourses }: { course: Course; allCourses: Course[] }) {
-  const resolved = getCourseColorResolved(course, allCourses);
+// Ghost shown in available grid when dragging a course over a path slot
+function GhostPreviewCard({ course, slotIndex }: { course: Course; slotIndex: number }) {
+  const resolved = getSlotColor(slotIndex);
   return (
     <div
       className="rounded-[13px] border-[1.5px]"
@@ -635,7 +634,7 @@ function AvailableDropZone({ children, isDragActive }: { children: React.ReactNo
   );
 }
 
-export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAndDrop }) {
+export default function AiFlexPathCourseColorSelector({ data }: { data: AiFlexPathDragAndDrop }) {
   const [pathCourseNames, setPathCourseNames] = useState<string[]>(data.default_courses);
   const [activeCourseName, setActiveCourseName] = useState<string | null>(null);
   const [overSlot, setOverSlot] = useState<number | null>(null);
@@ -646,7 +645,6 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
   const [activeDeltaY, setActiveDeltaY] = useState(0);
   const nav = useInternalNav();
 
-  const maxSelections = data.max_selections ?? 4;
   const viewDetailsLabel = data.view_details_label ?? "View details";
   const replaceLabel = data.replace_label ?? "Replace with";
   const dragInstructionLabel = data.drag_instruction_label ?? "Also available — drag any card to swap it into your path";
@@ -703,7 +701,6 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
   function handleDragEnd(event: DragEndEvent) {
     const { over, active } = event;
     const draggedName = (active.id as string).replace("draggable-", "");
-    // Determine target slot: prefer event.over, fall back to last slot from onDragOver
     let slotIndex: number | null = null;
     const overId = over?.id ? String(over.id) : null;
     if (overId?.startsWith("path-slot-")) {
@@ -762,14 +759,17 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
 
   const SectionIcon = data.icon ? getIcon(data.icon) : null;
 
+  // Overlay color: slot color when hovering a slot, else null (uses primary)
+  const overlaySlotColor = overSlot !== null ? getSlotColor(overSlot) : null;
+
   return (
     <div className="pb-16" style={{ fontFamily: "'Inter Variable',system-ui,-apple-system,sans-serif" }}>
       <div className="mx-auto">
         <div className="flex">
           <div className="w-28 flex-shrink-0 flex items-start justify-center pt-[2px]">
-            <div className="mb-1">
+            <div className="mt-3">
               {data.image_id ? (
-                <UniversalImage id={data.image_id} width={55} height={55} style={{ objectFit: "contain", width: "50px", height: "50px" }} />
+                <UniversalImage id={data.image_id} width={40} height={40} style={{ objectFit: "contain", width: "40px", height: "40px" }} />
               ) : SectionIcon ? (
                 <SectionIcon width="55" height="55" style={{ color: "hsl(var(--foreground))" }} />
               ) : null}
@@ -832,7 +832,6 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
                       revealed={revealed}
                       dropKey={dropCounts[i] ?? 0}
                       activeCourse={activeCourse}
-                      allCourses={data.courses}
                       viewDetailsLabel={viewDetailsLabel}
                       replaceLabel={replaceLabel}
                     />
@@ -852,13 +851,12 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
                       const isBeingDragged = course.name === activeCourseName;
                       const displacedCourse = overSlot !== null && activeDeltaY < -40 ? pathCourses[overSlot] ?? null : null;
                       if (isBeingDragged && displacedCourse) {
-                        return <GhostPreviewCard key={course.name} course={displacedCourse} allCourses={data.courses} />;
+                        return <GhostPreviewCard key={course.name} course={displacedCourse} slotIndex={overSlot!} />;
                       }
                       return (
                         <DraggableCourseCard
                           key={course.name}
                           course={course}
-                          allCourses={data.courses}
                           viewDetailsLabel={viewDetailsLabel}
                         />
                       );
@@ -872,7 +870,7 @@ export default function AiFlexPathDragAndDrop({ data }: { data: AiFlexPathDragAn
               {activeCourse ? (
                 <DragOverlayCard
                   course={activeCourse}
-                  allCourses={data.courses}
+                  overSlotColor={overlaySlotColor}
                   viewDetailsLabel={viewDetailsLabel}
                 />
               ) : null}

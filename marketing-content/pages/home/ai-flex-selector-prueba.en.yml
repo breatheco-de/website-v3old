@@ -253,7 +253,7 @@ sections:
           - label: I code regularly
     routes:
       q1o1:
-        url: inline#trust_cards-eslgbu
+        url: inline#ai-flex-path-drag-example
       q1o2:
         url: inline#ai-flex-path-analyst
       q1o3-q2o3:

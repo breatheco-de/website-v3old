@@ -442,7 +442,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
             <div className="w-28 flex-shrink-0 flex items-start justify-center" style={{ marginTop: "-19px" }}>
               <div className="mt-5">
                 {data.image_id ? (
-                  <UniversalImage id={data.image_id} width={30} height={30} style={{ objectFit: "contain", width: "40px", height: "40px" }} />
+                  <UniversalImage id={data.image_id} width={30} height={30} style={{ objectFit: "contain", width: "50px", height: "50px" }} />
                 ) : SectionIcon ? (
                   <SectionIcon width="85" height="85" style={{ color: "hsl(var(--foreground))" }} />
                 ) : null}
