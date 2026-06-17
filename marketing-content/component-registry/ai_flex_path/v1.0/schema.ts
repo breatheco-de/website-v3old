@@ -14,6 +14,10 @@ export const aiFlexPathCourseSchema = z.object({
   skills: z.array(skillSchema),
 });
 
+const aiFlexPathDragAndDropCourseSchema = aiFlexPathCourseSchema.extend({
+  color: z.string().optional(),
+});
+
 const ctaBlockSchema = z.object({
   title: z.string(),
   subtitle: z.string().optional(),
@@ -37,4 +41,22 @@ export const aiFlexPathDefaultSchema = z.object({
   cta: ctaBlockSchema,
 });
 
+export const aiFlexPathDragAndDropSchema = z.object({
+  ready_label: z.string().optional(),
+  path_name: z.string(),
+  tagline: z.string().optional(),
+  results_subtitle: z.string().optional(),
+  max_selections: z.number().optional(),
+  view_details_label: z.string().optional(),
+  drag_instruction_label: z.string().optional(),
+  replace_label: z.string().optional(),
+  tools_label: z.string().optional(),
+  tools_marquee: z.boolean().optional(),
+  icon: z.string().optional(),
+  default_courses: z.array(z.string()),
+  courses: z.array(aiFlexPathDragAndDropCourseSchema),
+  cta: ctaBlockSchema,
+});
+
 export type AiFlexPathDefault = z.infer<typeof aiFlexPathDefaultSchema>;
+export type AiFlexPathDragAndDrop = z.infer<typeof aiFlexPathDragAndDropSchema>;

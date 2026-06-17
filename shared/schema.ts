@@ -121,7 +121,9 @@ export {
 // ============================================
 export {
   aiFlexPathDefaultSchema,
+  aiFlexPathDragAndDropSchema,
   type AiFlexPathDefault,
+  type AiFlexPathDragAndDrop,
 } from "../marketing-content/component-registry/ai_flex_path/v1.0/schema";
 
 // ============================================
