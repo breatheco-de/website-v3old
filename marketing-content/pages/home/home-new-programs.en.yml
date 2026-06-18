@@ -522,7 +522,7 @@ sections:
       desktop: none
     showOn: desktop
   - type: testimonials_slide
-    title: They Were Where You Are. Now They're Thriving in Tech.
+    title: 4Geeks changed their careers. These are their stories.
     description: "Different backgrounds, different starting points, one result: a career in tech that changed everything. These are their stories."
     dynamic_entries:
       database: testimonials_en
