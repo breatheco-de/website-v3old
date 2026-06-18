@@ -303,7 +303,7 @@ sections:
     max_selections: 4
     slot_colors:
       - color: hsl(var(--destructive) / 0.5)
-      - color: hsl(45 96% 53%)
+      - color: hsl(var(--accent))
       - color: hsl(var(--primary))
       - color: hsl(var(--muted-foreground) / 0.7)
     view_details_label: View details
