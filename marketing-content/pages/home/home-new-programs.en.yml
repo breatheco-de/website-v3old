@@ -126,7 +126,7 @@ sections:
       end_label: 1.3M · 2026
     section_id: features_grid-xo8z7q
     paddingY:
-      desktop: lg sm
+      desktop: md sm
     marginY:
       desktop: md
   - type: banner
