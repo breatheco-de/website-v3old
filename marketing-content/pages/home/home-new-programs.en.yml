@@ -126,9 +126,9 @@ sections:
       end_label: 1.3M · 2026
     section_id: features_grid-xo8z7q
     paddingY:
-      desktop: md sm
+      desktop: md lg
     marginY:
-      desktop: md
+      desktop: md lg
   - type: banner
     version: v1.0
     variant: marqueeBadges
