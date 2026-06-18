@@ -12,24 +12,14 @@ function CheckIcon({ variant }: { variant: "primary" | "green" | "off" }) {
   if (variant === "off") {
     return (
       <span className="w-5 h-5 rounded-full bg-muted flex-shrink-0 inline-flex items-center justify-center">
-        <svg viewBox="0 0 10 10" fill="none" className="w-[9px] h-[9px]">
-          <path
-            d="M2 2l6 6M8 2l-6 6"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            className="text-muted-foreground/50"
-          />
-        </svg>
+        <IconX size={10} className="text-muted-foreground/50" stroke={2.5} />
       </span>
     );
   }
   const bg = variant === "green" ? "bg-green-500" : "bg-primary";
   return (
-    <span className={`w-4.5 h-4.5 rounded-full ${bg} flex-shrink-0 inline-flex items-center justify-center`}>
-      <svg viewBox="0 0 10 8" fill="none" className="w-[9px] h-[9px]">
-        <path d="M1 4l3 3 5-6" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
+    <span className={`w-5 h-5 rounded-full ${bg} flex-shrink-0 inline-flex items-center justify-center`}>
+      <IconCheck size={10} className="text-white" stroke={2.5} />
     </span>
   );
 }
