@@ -115,6 +115,7 @@ sections:
     section_id: survey-g6wkjo
     paddingY:
       desktop: sm
+    image_id: rigobot-png
   - type: ai_flex_path
     version: v1.0
     variant: course_color_selector
