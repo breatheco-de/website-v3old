@@ -13,7 +13,7 @@ sections:
     version: v1.0
     variant: default
     aggregation_method: sum
-    infinite_progress_bar: true
+    infinite_progress_bar: false
     badge_text: Build your path
     title: Your AI curriculum,
     title_highlight: built around you.
@@ -125,10 +125,10 @@ sections:
     results_subtitle: View your courses or build your own path
     max_selections: 4
     slot_colors:
-      - color: hsl(0 84% 60%)
-      - color: hsl(45 96% 53%)
-      - color: hsl(142 71% 45%)
-      - color: hsl(330 80% 62%)
+      - color: hsl(var(--destructive) / 0.5)
+      - color: hsl(var(--accent))
+      - color: hsl(var(--primary))
+      - color: hsl(var(--muted-foreground) / 0.7)
     view_details_label: View details
     drag_instruction_label: Also available — drag any card to swap it into your path
     replace_label: Replace with
@@ -290,6 +290,7 @@ sections:
     hidden_until_redirection: true
     paddingY:
       desktop: md
+    image_id: rigobot-png
   - type: ai_flex_path
     version: v1.0
     variant: course_color_selector
@@ -300,10 +301,10 @@ sections:
     results_subtitle: View your courses or build your own path
     max_selections: 4
     slot_colors:
-      - color: hsl(0 84% 60%)
-      - color: hsl(45 96% 53%)
-      - color: hsl(142 71% 45%)
-      - color: hsl(330 80% 62%)
+      - color: hsl(var(--destructive) / 0.5)
+      - color: hsl(var(--accent))
+      - color: hsl(var(--primary))
+      - color: hsl(var(--muted-foreground) / 0.7)
     view_details_label: View details
     drag_instruction_label: Also available — drag any card to swap it into your path
     replace_label: Replace with
@@ -465,6 +466,7 @@ sections:
     hidden_until_redirection: true
     paddingY:
       desktop: md
+    image_id: rigobot-png
   - type: ai_flex_path
     version: v1.0
     variant: course_color_selector
@@ -475,10 +477,10 @@ sections:
     results_subtitle: View your courses or build your own path
     max_selections: 4
     slot_colors:
-      - color: hsl(0 84% 60%)
-      - color: hsl(45 96% 53%)
-      - color: hsl(142 71% 45%)
-      - color: hsl(330 80% 62%)
+      - color: hsl(var(--destructive) / 0.5)
+      - color: hsl(var(--accent))
+      - color: hsl(var(--primary))
+      - color: hsl(var(--muted-foreground) / 0.7)
     view_details_label: View details
     drag_instruction_label: Also available — drag any card to swap it into your path
     replace_label: Replace with
@@ -640,6 +642,7 @@ sections:
     hidden_until_redirection: true
     paddingY:
       desktop: md
+    image_id: rigobot-png
   - type: ai_flex_path
     version: v1.0
     variant: course_color_selector
@@ -650,10 +653,10 @@ sections:
     results_subtitle: View your courses or build your own path
     max_selections: 4
     slot_colors:
-      - color: hsl(0 84% 60%)
-      - color: hsl(45 96% 53%)
-      - color: hsl(142 71% 45%)
-      - color: hsl(330 80% 62%)
+      - color: hsl(var(--destructive) / 0.5)
+      - color: hsl(var(--accent))
+      - color: hsl(var(--primary))
+      - color: hsl(var(--muted-foreground) / 0.7)
     view_details_label: View details
     drag_instruction_label: Also available — drag any card to swap it into your path
     replace_label: Replace with
@@ -815,6 +818,7 @@ sections:
     hidden_until_redirection: true
     paddingY:
       desktop: md
+    image_id: rigobot-png
   - type: ai_flex_path
     version: v1.0
     variant: course_color_selector
@@ -825,10 +829,10 @@ sections:
     results_subtitle: View your courses or build your own path
     max_selections: 4
     slot_colors:
-      - color: hsl(0 84% 60%)
-      - color: hsl(45 96% 53%)
-      - color: hsl(142 71% 45%)
-      - color: hsl(330 80% 62%)
+      - color: hsl(var(--destructive) / 0.5)
+      - color: hsl(var(--accent))
+      - color: hsl(var(--primary))
+      - color: hsl(var(--muted-foreground) / 0.7)
     view_details_label: View details
     drag_instruction_label: Also available — drag any card to swap it into your path
     replace_label: Replace with
@@ -990,6 +994,62 @@ sections:
     hidden_until_redirection: true
     paddingY:
       desktop: md
+    image_id: rigobot-png
+  - type: pricing
+    version: "1.0"
+    variant: plan_cards
+    title: An investment that pays for itself.
+    subtitle: No contracts. Cancel anytime. All plans include the full course catalog.
+    plans:
+      - name: Basic Plan
+        tag: Monthly
+        for_label: For 1 student
+        currency: $
+        amount: "65"
+        period: /month
+        billing_note: Recurring monthly charge
+        cta:
+          label: Subscribe to Basic Plan
+          url: /en/signup
+      - name: Pro Plan
+        tag: Annual
+        for_label: For up to 2 students
+        currency: $
+        amount: "449"
+        cents: ".99"
+        period: /year
+        billing_note: Annual billing
+        featured: true
+        top_badge: Save 10 months
+        bottom_label: Financing with
+        bottom_badges:
+          - Klarna
+          - Affirm
+        cta:
+          label: Subscribe to Pro Plan
+          url: /en/signup-pro
+    features:
+      - text: Mentorship sessions / month
+      - text: Access to exclusive events
+        exclude_from_plans:
+          - Basic Plan
+      - text: AI compilations
+      - text: 300 premium Copilot requests
+      - text: $5 LLM tokens (DeepSeek 3.1, Claude Sonnet, Llama 3, Codex)
+      - text: Codespaces ($10/mo included)
+      - text: School account with GitHub Developer Program
+      - text: VPS included
+      - text: Course certificates
+    addon:
+      label: Optional add-on
+      title: Extra mentorship sessions
+      description: Book as many as you need. Senior instructors, on demand.
+      currency: $
+      amount: "25"
+      period: per session
+    section_id: pricing-a06ku9
+    paddingY:
+      desktop: sm
   - type: ai_learning
     version: v1.0
     variant: feature-tabs
