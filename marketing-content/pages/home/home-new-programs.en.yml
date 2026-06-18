@@ -419,7 +419,7 @@ sections:
       desktop: none md
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
-    subheading: 6,000+ graduates worldwide. Now thriving in tech.
+    subheading: 6,000+ graduates worldwide. Real results.
     stats:
       - value: {{ global.global_job_placement_rate | 84% }}%
         label: Average hiring rate
@@ -522,8 +522,8 @@ sections:
       desktop: none
     showOn: desktop
   - type: testimonials_slide
-    title: They Were Where You Are. Now They're Thriving in Tech.
-    description: "Different backgrounds, different starting points, one result: a career in tech that changed everything. These are their stories."
+    title: 4Geeks changed their careers. These are their stories.
+    description: Career changers, professionals leveling up, developers who wanted more. Different starting points, different programs. One decision that moved them ahead.
     dynamic_entries:
       database: testimonials_en
       limit: 30

@@ -56,7 +56,7 @@ sections:
         - icon: calendar
           text: Self-Paced, Start Anytime
         - icon: IconUsers
-          text: 8 AI and Technical Courses
+          text: 8 AI and Tech Courses
         - icon: IconUserCheck
           text: Optional 1:1 Mentorship
         - icon: IconRobot
@@ -140,6 +140,28 @@ sections:
       success:
         message: Check your inbox. Our admissions team will be in touch shortly.
     section_id: modal-y2myvq
+  - type: features_quad
+    version: "1.0"
+    variant: default
+    heading: Is AI Flex Right for You?
+    description: If you are nodding at any of these, you are exactly who this is built for.
+    cards:
+      - icon: IconRocket
+        title: You want to build real AI skills, at your own pace.
+        description: No cohort, no fixed schedule, no pressure to keep up with anyone but yourself.
+      - icon: IconBulb
+        title: You are a self-directed learner and AI is the most interesting space to be in right now.
+        description: Eight courses, pick what pulls you in, go as deep as you want.
+      - icon: IconUserCheck
+        title: When you get stuck, a human expert is one message away.
+        description: Optional 1:1 mentorship, available whenever you need it.
+      - icon: IconDeviceLaptop
+        title: Learn directly on our interactive platform from your browser. No setup, no installs.
+        description: Interactive auto-graded exercises with an AI tutor that works with you 24/7. Just open and start.
+    background: hsl(var(--muted))
+    section_id: features_quad-aiflex
+    marginY:
+      desktop: none lg
   - type: features_grid
     version: "1.0"
     variant: stats-charts
@@ -318,19 +340,16 @@ sections:
     description: AI Flex is a complete learning environment. Interactive courses, AI-powered tools, and an active community.
     bullets:
       - heading: Interactive Courses with AI Tutoring Built In
-        text: LearnPack turns every course into a hands-on, auto-graded experience. Rigobot, our AI tutor, is embedded throughout — tracking your progress and giving personalized guidance whenever you need it, 24/7.
+        text: LearnPack turns every course into a hands-on, auto-graded experience. Rigobot, our AI tutor, is embedded throughout, tracking your progress and giving personalized guidance whenever you need it, 24/7.
       - heading: A Full AI Toolkit, Included
-        text: Every plan comes with AI Copilot (300 requests/month), cloud Codespaces so you can code from any browser, and $5 in monthly LLM tokens.
+        text: Every plan comes with AI compilations, premium Copilot requests, cloud Codespaces so you can code from any browser, a GitHub Developer Program school account, a VPS, and monthly LLM tokens giving you access to DeepSeek, Claude Sonnet, Llama 3, and Codex. The quantities scale with your plan.
       - heading: Guided Paths and Stackable Certificates
         text: Follow one of our pre-built learning paths, or build your own with Rigobot's guidance. Complete each course and earn a certificate that stacks toward AI Fluency and AI Engineering.
-      - heading: Human Support, When You Want It
-        text: Book a 1:1 session with a senior instructor for $25 whenever you need expert guidance — no commitment, no minimum. You're also part of the 4Geeks community on WhatsApp, where students and alumni learn alongside each other.
+      - heading: Human Support, Built In
+        text: Every plan includes monthly 1:1 mentorship sessions with a senior instructor. Need more? Book additional sessions at $25 each. You are also part of the 4Geeks community on WhatsApp, where students and alumni learn alongside each other.
     image: https://storage.googleapis.com/4geeks-academy-website/media/community-support-2_1765406601448.webp
     image_alt: "Image: valentina_brightened"
-    reverse: true
     section_id: two_column_accordion_card-aiflex
-    paddingY:
-      desktop: sm
   - type: pricing
     version: "1.0"
     variant: product

@@ -10,4 +10,5 @@ export const fieldEditors: Record<string, EditorType> = {
   "default:routes.*.url": "link-picker:allow-inline-render",
   "default:routes.thresholds[].url": "link-picker:allow-inline-render",
   "default:routes.fallback.url": "link-picker:allow-inline-render",
+  "default:alternate_link.url": "link-picker:allow-inline-render",
 };
