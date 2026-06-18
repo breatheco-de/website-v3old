@@ -228,6 +228,8 @@ sections:
       desktop: 6xl
     marginY:
       desktop: none md
+    paddingY:
+      desktop: sm none
   - type: trust_cards
     version: v1.0
     title: Top rated across all major platforms.
