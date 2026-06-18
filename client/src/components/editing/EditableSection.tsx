@@ -159,7 +159,9 @@ async function updateSectionXField(
   locale: string,
   sectionIndex: number,
   field: string,
-  value: ResponsiveSpacing
+  value: ResponsiveSpacing,
+  variant?: string,
+  version?: number
 ): Promise<{ success: boolean; error?: string }> {
   const token = getDebugToken();
   const author = await resolveAuthorName();
@@ -174,6 +176,8 @@ async function updateSectionXField(
       slug,
       locale,
       author,
+      ...(variant ? { variant } : {}),
+      ...(version !== undefined ? { version } : {}),
       operations: [{ action: "update_field", path: `sections.${sectionIndex}.${field}`, value }],
     }),
   });
@@ -894,9 +898,9 @@ export function EditableSection({ children, section, index, sectionType, content
         origMargin.mobile.right !== xMargin.mobile.right;
       const mwChanged = origMaxWidth.desktop !== xMaxWidth.desktop ||
         origMaxWidth.mobile !== xMaxWidth.mobile;
-      if (padChanged) ops.push(updateSectionXField(contentType, slug, locale, index, "paddingX", toXResponsiveSpacing(xPadding)));
-      if (marChanged) ops.push(updateSectionXField(contentType, slug, locale, index, "marginX", toXResponsiveSpacing(xMargin)));
-      if (mwChanged) ops.push(updateSectionXField(contentType, slug, locale, index, "maxWidth", toMaxWidthResponsiveSpacing(xMaxWidth)));
+      if (padChanged) ops.push(updateSectionXField(contentType, slug, locale, index, "paddingX", toXResponsiveSpacing(xPadding), variant, version));
+      if (marChanged) ops.push(updateSectionXField(contentType, slug, locale, index, "marginX", toXResponsiveSpacing(xMargin), variant, version));
+      if (mwChanged) ops.push(updateSectionXField(contentType, slug, locale, index, "maxWidth", toMaxWidthResponsiveSpacing(xMaxWidth), variant, version));
       const results = await Promise.all(ops);
       const failed = results.filter(r => !r.success);
       if (failed.length > 0) {
