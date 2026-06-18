@@ -170,10 +170,10 @@ sections:
     marquee_speed: 85
     section_id: banner-qrp5dz
     paddingY:
-      desktop: md sm
+      desktop: lg sm
     background: hsl(var(--muted))
     marginY:
-      desktop: none xl
+      desktop: lg xl
     maxWidth:
       desktop: xl
   - type: features_grid
