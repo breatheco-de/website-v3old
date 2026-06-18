@@ -92,7 +92,7 @@ function PricingCard({
           {plan.name}
         </span>
         <span
-          className={`text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-[7px] ${
+          className={`text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full ${
             isFeatured ? "bg-primary/10 text-primary" : "bg-secondary text-muted-foreground"
           }`}
         >
@@ -145,7 +145,7 @@ function PricingCard({
           {plan.bottom_badges.map((badge) => (
             <span
               key={badge}
-              className="text-[11px] font-extrabold text-primary bg-primary/10 border border-primary/20 px-2.5 py-0.5 rounded-[6px]"
+              className="text-[11px] font-extrabold text-primary bg-primary/10 border border-primary/20 px-2.5 py-0.5 rounded-full"
             >
               {badge}
             </span>
@@ -198,7 +198,7 @@ function MiniPricingCard({
             {plan.name}
           </span>
           <span
-            className={`text-[8px] font-bold tracking-wider uppercase px-1.5 py-0.5 rounded-[5px] ml-2 shrink-0 ${
+            className={`text-[8px] font-bold tracking-wider uppercase px-1.5 py-0.5 rounded-full ml-2 shrink-0 ${
               isFeatured ? "bg-primary/10 text-primary" : "bg-secondary text-muted-foreground"
             }`}
           >
@@ -229,7 +229,7 @@ function MiniPricingCard({
             {plan.bottom_badges.map((badge) => (
               <span
                 key={badge}
-                className="text-[10px] font-extrabold text-primary bg-primary/10 border border-primary/20 px-1.5 py-0.5 rounded-[5px]"
+                className="text-[10px] font-extrabold text-primary bg-primary/10 border border-primary/20 px-1.5 py-0.5 rounded-full"
               >
                 {badge}
               </span>
