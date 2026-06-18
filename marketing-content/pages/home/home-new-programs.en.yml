@@ -304,7 +304,7 @@ sections:
     paddingY:
       desktop: md none
     marginY:
-      desktop: md none
+      desktop: lg none
   - type: career_support_explain
     version: v1.0
     heading: How We Get You Hired. From First Day to Signed Offer.
