@@ -128,7 +128,7 @@ sections:
     paddingY:
       desktop: lg sm
     marginY:
-      desktop: lg md
+      desktop: md
   - type: banner
     version: v1.0
     variant: marqueeBadges
