@@ -395,5 +395,7 @@ sections:
     paddingY:
       desktop: md
     section_id: syllabus-yfaek6
+    showOnLocations:
+      - chicago-usa
 meta:
   page_title: example
