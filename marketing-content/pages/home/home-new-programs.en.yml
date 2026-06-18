@@ -160,7 +160,7 @@ sections:
     marquee_speed: 30
     section_id: banner-qrp5dz
     paddingY:
-      desktop: sm
+      desktop: sm md
     background: hsl(var(--muted))
     marginY:
       desktop: none sm
