@@ -167,7 +167,7 @@ sections:
         url: inline#ai-flex-path-career
     section_id: survey-3uvluz
     paddingY:
-      desktop: lg sm
+      desktop: sm
     maxWidth:
       desktop: xl
   - type: survey
