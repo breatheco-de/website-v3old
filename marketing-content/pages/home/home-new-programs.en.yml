@@ -424,7 +424,7 @@ sections:
     maxWidth:
       desktop: 6xl
     marginY:
-      desktop: none md
+      desktop: none sm
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Real results.
