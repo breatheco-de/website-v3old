@@ -87,6 +87,8 @@ sections:
       desktop: none
     pills_url: "#list_press_mentions-w7r1sh"
     marquee_static: true
+    marginY:
+      desktop: none md
   - type: features_grid
     version: "1.0"
     variant: stats-charts
@@ -124,9 +126,9 @@ sections:
       end_label: 1.3M · 2026
     section_id: features_grid-xo8z7q
     paddingY:
-      desktop: sm
+      desktop: md sm
     marginY:
-      desktop: none md
+      desktop: md
   - type: banner
     version: v1.0
     variant: marqueeBadges
