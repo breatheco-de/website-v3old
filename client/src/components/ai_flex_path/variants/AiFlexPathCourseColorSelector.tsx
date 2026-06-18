@@ -356,7 +356,7 @@ function PathItem({
       {!isLast && (
         <div
           className="md:hidden absolute z-0 right-6 w-[2px] -translate-x-1/2 overflow-hidden"
-          style={{ top: mobileStepOffset, height: "100%" }}
+          style={{ top: mobileStepOffset, bottom: 0 }}
         >
           <div
             style={{
@@ -392,7 +392,7 @@ function PathItem({
         </div>
       )}
       {!isLast && (
-        <div className="hidden md:block absolute z-0" style={{ left: 15, top: "50%", height: "100%", width: 2, overflow: "hidden", background: "hsl(var(--background))" }}>
+        <div className="hidden md:block absolute z-0" style={{ left: 15, top: "50%", bottom: 0, width: 2, overflow: "hidden", background: "hsl(var(--background))" }}>
           <div style={{
             width: "100%", height: "100%",
             background: "hsl(var(--primary))", opacity: 0.25,
