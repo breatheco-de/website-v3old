@@ -38,6 +38,7 @@ function resolveFromConcatRoutes(
   answers: Record<string, string>,
   questions: SurveyQuestion[],
   routes: ConcatRoutes,
+  maxQuestions?: number,
 ): SurveyAction | null {
   const answerParts = buildAnswerParts(answers, questions);
   const fullKey = answerParts.join("-");
@@ -45,8 +46,8 @@ function resolveFromConcatRoutes(
   // Strict exact key lookup only
   if (routes[fullKey]) return routes[fullKey];
 
-  // Default fires only when every question has been answered
-  if (routes.default && Object.keys(answers).length >= questions.length) {
+  const stepsRequired = maxQuestions ?? questions.length;
+  if (routes.default && Object.keys(answers).length >= stepsRequired) {
     return routes.default;
   }
 
@@ -57,7 +58,10 @@ function resolveFromSumRoutes(
   answers: Record<string, string>,
   questions: SurveyQuestion[],
   routes: SumRoutes,
+  maxQuestions: number,
 ): SurveyAction | null {
+  if (Object.keys(answers).length < maxQuestions) return null;
+
   let total = 0;
   for (const [qId, oId] of Object.entries(answers)) {
     const qIdx = questions.findIndex((q, i) => resolveQId(q, i) === qId);
@@ -82,26 +86,14 @@ function resolveRoutes(
   questions: SurveyQuestion[],
   routes: unknown,
   method: "concat" | "sum",
+  maxQuestions?: number,
 ): SurveyAction | null {
   if (!routes || typeof routes !== "object") return null;
   if (method === "sum") {
-    return resolveFromSumRoutes(answers, questions, routes as SumRoutes);
+    const stepsRequired = maxQuestions ?? questions.length;
+    return resolveFromSumRoutes(answers, questions, routes as SumRoutes, stepsRequired);
   }
-  return resolveFromConcatRoutes(answers, questions, routes as ConcatRoutes);
-}
-
-/**
- * For concat method: if all non-default route keys have the same number of
- * dash-separated parts, that number is the "known total" of steps.
- * For sum method or mixed part-counts: returns null (no known total).
- */
-function computeKnownTotal(routes: unknown, method: string): number | null {
-  if (method !== "concat" || !routes || typeof routes !== "object") return null;
-  const nonDefault = Object.keys(routes as object).filter((k) => k !== "default");
-  if (nonDefault.length === 0) return null;
-  const lengths = nonDefault.map((k) => k.split("-").length);
-  const allSame = lengths.every((l) => l === lengths[0]);
-  return allSame ? lengths[0] : null;
+  return resolveFromConcatRoutes(answers, questions, routes as ConcatRoutes, maxQuestions);
 }
 
 /** Recursively extract all `inline#...` URL strings from a route object. */
@@ -131,12 +123,12 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
   const nav = useInternalNav();
   const pageSections = usePageSections();
 
-  const totalQ = data.questions.length;
+  const questionCount = data.questions.length;
+  const displayTotal = data.max_questions ?? questionCount;
   const aggregationMethod = data.aggregation_method ?? "concat";
   const SectionIcon = data.icon ? getIcon(data.icon) : null;
   const stepLabel = data.step_label ?? "Question";
   const stepOfLabel = data.step_of_label ?? "of";
-  const knownTotal = computeKnownTotal(data.routes, aggregationMethod);
 
   function renderSectionMedia(size: "sm" | "lg") {
     if (data.image_id) {
@@ -231,7 +223,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
 
   function findQuestionIndex(nextQ: string | number, currentIdx: number): number {
     if (typeof nextQ === "number") {
-      return Math.max(0, Math.min(totalQ - 1, nextQ - 1));
+      return Math.max(0, Math.min(questionCount - 1, nextQ - 1));
     }
     const idx = data.questions.findIndex((q, i) => resolveQId(q, i) === String(nextQ));
     return idx !== -1 ? idx : currentIdx + 1;
@@ -249,7 +241,13 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
     const action = option.action;
 
     // Routes take priority over individual option actions
-    const resolved = resolveRoutes(newAnswers, data.questions, data.routes, aggregationMethod);
+    const resolved = resolveRoutes(
+      newAnswers,
+      data.questions,
+      data.routes,
+      aggregationMethod,
+      data.max_questions,
+    );
     if (resolved) {
       animateTransition("fwd", () => handleAction(resolved, qIdx));
       return;
@@ -282,7 +280,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
     }
 
     // Fallback: advance sequentially, do nothing on last question
-    if (qIdx < totalQ - 1) {
+    if (qIdx < questionCount - 1) {
       animateTransition("fwd", () => {
         setHistory((h) => [...h, qIdx]);
         setCurrentQIdx(qIdx + 1);
@@ -339,8 +337,8 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
             : { opacity: 1, transform: "none", transition: "opacity .2s, transform .2s" };
 
   // Progress
-  const isInfinite = data.infinite_progress_bar === true || knownTotal === null;
-  const progressTotal = knownTotal ?? totalQ;
+  const isInfinite = data.infinite_progress_bar === true;
+  const progressTotal = displayTotal;
   const progressFilled =
     phase === "inline" || phase === "message"
       ? progressTotal
@@ -350,9 +348,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
 
   // Per-question subtitle: explicit subtitle > auto-computed step label
   const stepNum = history.length + 1;
-  const autoStepSubtitle = knownTotal
-    ? `${stepLabel} ${stepNum} ${stepOfLabel} ${knownTotal}`
-    : `${stepLabel} ${stepNum}`;
+  const autoStepSubtitle = `${stepLabel} ${stepNum} ${stepOfLabel} ${displayTotal}`;
   const currentSubtitle = data.questions[currentQIdx]?.subtitle ?? autoStepSubtitle;
 
   const isDone = phase === "inline" || phase === "message";

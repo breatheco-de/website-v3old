@@ -90,7 +90,7 @@ sections:
     pills_url: "#list_press_mentions-w7r1sh"
     marquee_static: true
     marginY:
-      desktop: none md
+      desktop: none lg
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thriving in tech.
@@ -133,7 +133,7 @@ sections:
         object_position: 50% 45%
     section_id: graduates_stats-cnxqbb
     marginY:
-      desktop: md
+      desktop: lg md
     maxWidth:
       desktop: xl
     paddingY:
@@ -170,10 +170,10 @@ sections:
     marquee_speed: 85
     section_id: banner-qrp5dz
     paddingY:
-      desktop: md sm
+      desktop: lg sm
     background: hsl(var(--muted))
     marginY:
-      desktop: none xl
+      desktop: lg xl
     maxWidth:
       desktop: xl
   - type: features_grid

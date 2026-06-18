@@ -102,7 +102,7 @@ sections:
         program:
           visible: false
           required: true
-          default: {{ single.bc_slug | datascience-ml }}
+          default: datascience-ml
       success:
         message: Thank you. A program advisor will reach out with the details within 24 hours.
     section_id: apply-modal
@@ -212,7 +212,6 @@ sections:
     card_gauge:
       title: Demand Is Outpacing Supply
       description: McKinsey Global Institute · 2026 projection
-
       inner_stat_percentage: 50
       outer_stat_percentage: 50
       show_gauge: true
