@@ -138,6 +138,27 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
   const stepOfLabel = data.step_of_label ?? "of";
   const knownTotal = computeKnownTotal(data.routes, aggregationMethod);
 
+  function renderSectionMedia(size: "sm" | "lg") {
+    if (data.image_id) {
+      const px = size === "sm" ? 40 : 40;
+      return (
+        <UniversalImage
+          id={data.image_id}
+          style={{ objectFit: "contain", width: `${px}px`, height: `${px}px` }}
+        />
+      );
+    }
+    if (SectionIcon) {
+      const px = size === "sm" ? "28" : "85";
+      return (
+        <SectionIcon width={px} height={px} style={{ color: "hsl(var(--foreground))" }} />
+      );
+    }
+    return null;
+  }
+
+  const hasSectionMedia = Boolean(data.image_id || SectionIcon);
+
   // Scroll to inline section after transition animation completes (offset for sticky navbar)
   useEffect(() => {
     if (phase === "inline" && inlineRef.current) {
@@ -156,6 +177,10 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
   // Preload all inline section components referenced in routes on mount
   useEffect(() => {
     const inlineUrls = new Set(extractInlineUrls(data.routes));
+    const alternateUrl = data.alternate_link?.url;
+    if (alternateUrl?.startsWith("inline#")) {
+      inlineUrls.add(alternateUrl);
+    }
     for (const url of inlineUrls) {
       const sectionId = url.slice("inline#".length);
       const sectionData = pageSections[sectionId];
@@ -265,6 +290,22 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
     }
   }
 
+  function followAlternateLink(e: React.MouseEvent<HTMLAnchorElement>) {
+    if (animating) return;
+    const url = data.alternate_link?.url;
+    if (!url) return;
+
+    e.preventDefault();
+
+    const sectionData = nav.navigate(url);
+    if (sectionData) {
+      animateTransition("fwd", () => {
+        setInlineSectionData(sectionData);
+        setPhase("inline");
+      });
+    }
+  }
+
   function goBack() {
     if (animating || history.length === 0) return;
     animateTransition("back", () => {
@@ -318,22 +359,24 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
 
   return (
     <div
-      className="min-h-screen py-12 px-4 pb-16"
+      className="py-4 md:px-4"
       style={{ fontFamily: "'Inter Variable',system-ui,-apple-system,sans-serif" }}
     >
       <div className="mx-auto">
         {data.badge_text && (
+          <div className="flex justify-center md:justify-start mb-5">
           <div
-            className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.08em] uppercase px-[13px] py-[5px] rounded-full mb-5"
+            className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.08em] uppercase px-[13px] py-[5px] rounded-full"
             style={{ background: "hsl(var(--primary))", color: "hsl(var(--primary-foreground))" }}
           >
             {data.badge_text}
+          </div>
           </div>
         )}
 
         {data.title && (
           <h1
-            className="text-[36px] font-extrabold tracking-[-0.025em] leading-[1.1] mb-[0.6rem]"
+            className="text-[26px] md:text-[36px] font-extrabold tracking-[-0.025em] leading-[1.1] mb-[0.6rem] text-center md:text-left"
             style={{ color: "hsl(var(--foreground))", fontFamily: "'Inter Variable'" }}
           >
             <span dangerouslySetInnerHTML={{ __html: data.title }} />
@@ -350,7 +393,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
         )}
         {data.subtitle && (
           <p
-            className="text-[15px] leading-[1.6] mb-1.5"
+            className="text-[13px] md:text-[15px] leading-[1.6] mb-1.5 text-center md:text-left"
             style={{ color: "hsl(var(--muted-foreground))" }}
           >
             {data.subtitle}
@@ -438,30 +481,34 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
 
         {/* QUIZ */}
         {phase === "questions" && (
-          <div style={slideStyle} className="flex mr-28">
-            <div className="w-28 flex-shrink-0 flex items-start justify-center" style={{ marginTop: "-19px" }}>
-              <div className="mt-5">
-                {data.image_id ? (
-                  <UniversalImage id={data.image_id} width={30} height={30} style={{ objectFit: "contain", width: "50px", height: "50px" }} />
-                ) : SectionIcon ? (
-                  <SectionIcon width="85" height="85" style={{ color: "hsl(var(--foreground))" }} />
-                ) : null}
+          <div style={slideStyle} className="md:mr-28">
+            <div className="flex">
+              <div className="hidden md:flex w-28 flex-shrink-0 items-start justify-center -mt-[19px]">
+                <div className="mt-5">{renderSectionMedia("lg")}</div>
               </div>
-            </div>
-            <div className="flex-1 min-w-0">
-            {currentSubtitle && (
+              <div className="flex-1 min-w-0">
+            <div className="mb-4 md:mb-0">
+              {hasSectionMedia && (
+                <div className="flex justify-center mb-1 md:hidden">
+                  {renderSectionMedia("sm")}
+                </div>
+              )}
+              <div className="text-center md:text-left">
+              {currentSubtitle && (
+                <div
+                  className="text-[11px] md:text-[11px] font-bold tracking-[0.09em] uppercase mb-1"
+                  style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}
+                >
+                  {currentSubtitle}
+                </div>
+              )}
               <div
-                className="text-[11px] font-bold tracking-[0.09em] uppercase mb-1"
-                style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}
+                className="text-[18px] md:text-[20px] font-bold leading-[1.25] tracking-[-0.01em] md:mb-6"
+                style={{ color: "hsl(var(--foreground))" }}
               >
-                {currentSubtitle}
+                {data.questions[currentQIdx]?.text}
               </div>
-            )}
-            <div
-              className="text-[20px] font-bold leading-[1.25] mb-6 tracking-[-0.01em]"
-              style={{ color: "hsl(var(--foreground))" }}
-            >
-              {data.questions[currentQIdx]?.text}
+              </div>
             </div>
             <div className="flex flex-col gap-2" key={currentQIdx}>
               {data.questions[currentQIdx]?.options.map((opt, optIdx) => {
@@ -471,7 +518,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
                 return (
                   <button
                     key={optIdx}
-                    className="flex items-center gap-[14px] px-4 py-[11px] border-[1.5px] rounded-[12px] cursor-pointer text-left w-full transition-all duration-200 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
+                    className="flex items-start gap-[9px] md:gap-[14px] px-2.5 md:px-4 py-[10px] md:py-[11px] border-[1.5px] rounded-[12px] cursor-pointer text-left w-full transition-all duration-200 shadow-[0_1px_3px_rgba(0,0,0,0.04)]"
                     style={{
                       borderColor: sel ? "hsl(var(--primary))" : "hsl(var(--border))",
                       background: sel
@@ -499,7 +546,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
                     data-testid={`survey-option-${currentQIdx}-${optIdx}`}
                   >
                     <div
-                      className="w-5 h-5 rounded-full border-[1.5px] flex-shrink-0 flex items-center justify-center transition-all duration-200"
+                      className="w-4 h-4 md:w-5 md:h-5 mt-0.5 md:mt-0 rounded-full border-[1.5px] flex-shrink-0 flex items-center justify-center transition-all duration-200"
                       style={{
                         background: sel ? "hsl(var(--primary))" : "transparent",
                         borderColor: sel
@@ -517,7 +564,7 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
                       />
                     </div>
                     <span
-                      className="text-[15px] flex-1 font-medium leading-[1.4]"
+                      className="text-[13px] md:text-[15px] flex-1 font-medium leading-[1.4]"
                       style={{
                         color: sel
                           ? "hsl(var(--primary))"
@@ -530,10 +577,11 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
                 );
               })}
             </div>
-            {history.length > 0 && (
-              <div className="w-full mt-4 flex justify-start">
+            {(history.length > 0 || (currentQIdx === 0 && data.alternate_link?.label)) && (
+              <div className="w-full mt-3 md:mt-4 flex items-center justify-between gap-3">
+                {history.length > 0 ? (
                 <button
-                  className="text-[13px] font-medium bg-transparent border-none cursor-pointer flex items-center gap-1.5 transition-colors duration-150 px-0"
+                  className="text-[12px] md:text-[13px] font-medium bg-transparent border-none cursor-pointer flex items-center gap-1.5 transition-colors duration-150 px-0"
                   style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.color = "hsl(var(--muted-foreground))";
@@ -562,15 +610,76 @@ export default function SurveyDefault({ data }: { data: SurveyDefault }) {
                   </svg>
                   {data.back_label ?? "Back"}
                 </button>
+                ) : (
+                  <span aria-hidden className="shrink-0" />
+                )}
+                {currentQIdx === 0 && data.alternate_link?.label && (
+                  data.alternate_link.url ? (
+                    <a
+                      href={data.alternate_link.url}
+                      onClick={followAlternateLink}
+                      className="text-[12px] md:text-[13px] font-medium transition-colors duration-150 shrink-0 flex items-center gap-1.5"
+                      style={{ color: "hsl(var(--muted-foreground) / 0.5)", textDecoration: "none" }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = "hsl(var(--muted-foreground))";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = "hsl(var(--muted-foreground) / 0.5)";
+                      }}
+                      data-testid="survey-alternate-link"
+                    >
+                      {data.alternate_link.label}
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 14 14"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M5 11L9 7L5 3"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </a>
+                  ) : (
+                    <span
+                      className="text-[13px] font-medium shrink-0 flex items-center gap-1.5"
+                      style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}
+                      data-testid="survey-alternate-link"
+                    >
+                      {data.alternate_link.label}
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 14 14"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M5 11L9 7L5 3"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  )
+                )}
               </div>
             )}
+            </div>
             </div>
           </div>
         )}
 
         {/* MESSAGE */}
         {phase === "message" && (
-          <div style={slideStyle} className="relative mx-28">
+          <div style={slideStyle} className="relative mx-0 md:mx-28">
             <div
               className="text-[18px] leading-[1.5] font-medium"
               style={{ color: "hsl(var(--foreground))" }}

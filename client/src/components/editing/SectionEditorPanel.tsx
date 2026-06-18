@@ -1010,6 +1010,9 @@ export function SectionEditorPanel({
   const currentShowOn = (parsedSection?.showOn as string) || "";
   const currentShowOnLocations =
     (parsedSection?.showOnLocations as string[]) || [];
+  const currentHiddenUntilRedirection =
+    parsedSection?.hidden_until_redirection === true ||
+    parsedSection?.hidden_until_redirection === "true";
 
   // Initialize YAML content from section. Also re-initializes when slug changes so
   // navigating between DB-backed single pages (e.g. blog posts) resets stale state.
@@ -2308,6 +2311,20 @@ export function SectionEditorPanel({
               value={currentShowOn}
               onChange={(value) => updateProperty("showOn", value)}
             />
+
+            <div className="flex items-center justify-between gap-3">
+              <Label className="text-sm font-medium">Hidden until redirect</Label>
+              <Switch
+                checked={currentHiddenUntilRedirection}
+                onCheckedChange={(checked) =>
+                  updatePropertyWithValue(
+                    "hidden_until_redirection",
+                    checked ? true : undefined,
+                  )
+                }
+                data-testid="props-toggle-hidden-until-redirection"
+              />
+            </div>
 
             {/* CTA Banner variant picker */}
             {sectionType === "cta_banner" && (

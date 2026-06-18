@@ -45,6 +45,12 @@ export const surveyDefaultSchema = z.object({
   infinite_progress_bar: z.boolean().optional().default(false),
   scroll_offset: z.number().optional().default(0),
   scroll_delay: z.number().optional().default(250),
+  alternate_link: z
+    .object({
+      label: z.string().optional(),
+      url: z.string().optional(),
+    })
+    .optional(),
 });
 
 export type SurveyDefault = z.infer<typeof surveyDefaultSchema>;
