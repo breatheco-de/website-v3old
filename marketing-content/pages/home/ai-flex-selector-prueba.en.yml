@@ -13,7 +13,7 @@ sections:
     version: v1.0
     variant: default
     aggregation_method: sum
-    infinite_progress_bar: false
+    infinite_progress_bar: true
     badge_text: Build your path
     title: Your AI curriculum,
     title_highlight: built around you.
@@ -115,7 +115,6 @@ sections:
     section_id: survey-g6wkjo
     paddingY:
       desktop: sm
-    image_id: rigobot-png
   - type: ai_flex_path
     version: v1.0
     variant: course_color_selector
