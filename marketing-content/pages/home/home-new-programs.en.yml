@@ -419,7 +419,7 @@ sections:
       desktop: none md
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
-    subheading: 6,000+ graduates worldwide. Now thriving in tech.
+    subheading: 6,000+ graduates worldwide. Real results.
     stats:
       - value: {{ global.global_job_placement_rate | 84% }}%
         label: Average hiring rate
