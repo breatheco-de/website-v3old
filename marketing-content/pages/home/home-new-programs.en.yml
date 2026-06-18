@@ -84,9 +84,11 @@ sections:
     section_id: hero-tcvppl
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
-      desktop: none
+      desktop: none md
     pills_url: "#list_press_mentions-w7r1sh"
     marquee_static: true
+    marginY:
+      desktop: none md
   - type: features_grid
     version: "1.0"
     variant: stats-charts
@@ -124,9 +126,9 @@ sections:
       end_label: 1.3M · 2026
     section_id: features_grid-xo8z7q
     paddingY:
-      desktop: sm
+      desktop: md lg
     marginY:
-      desktop: none md
+      desktop: md lg
   - type: banner
     version: v1.0
     variant: marqueeBadges
@@ -158,10 +160,10 @@ sections:
     marquee_speed: 30
     section_id: banner-qrp5dz
     paddingY:
-      desktop: sm
+      desktop: sm md
     background: hsl(var(--muted))
     marginY:
-      desktop: none xl
+      desktop: none sm
   - type: course_selector
     version: "1.0"
     variant: spotlight
@@ -225,7 +227,9 @@ sections:
     maxWidth:
       desktop: 6xl
     marginY:
-      desktop: none md
+      desktop: sm md
+    paddingY:
+      desktop: md
   - type: trust_cards
     version: v1.0
     title: Top rated across all major platforms.
@@ -284,9 +288,9 @@ sections:
     background: hsl(var(--background))
     section_id: image_row-z97kqt
     marginY:
-      desktop: xl none
+      desktop: xl lg
     paddingY:
-      desktop: xl none
+      desktop: lg md
     maxWidth:
       desktop: 6xl
   - highlight:
@@ -297,10 +301,14 @@ sections:
       text_2: "<ul style=\"font-size: 20px;\"><li>Unlimited 1:1 mentorship with real tech professionals</li><li>Career coaching built to get you hired</li><li>An AI tutor that adapts to your learning path</li><li>Your own AI agent</li></ul><p style=\"font-size: 1.5rem;\"><strong>We support you like no one else does.</strong></p>"
     text_1: "<span style=\"font-size: 1.5rem;\"><b><span style=\"line-height: 1.1;\">Every program comes with support. The most ambitious comes with all of it.</span></b></span>"
     section_id: image_row-z97kqt
+    paddingY:
+      desktop: lg none
+    marginY:
+      desktop: lg none
   - type: career_support_explain
     version: v1.0
     heading: How We Get You Hired. From First Day to Signed Offer.
-    description: The career support system behind our AI Engineering Program. AI-optimized profiles, direct access to our employer network, and 1:1 support that stays with you beyond landing your first role. Want a guarantee to go with it? The optional Job Guarantee gives you 9 months to get hired, or full tuition back. (US and Canada only.)
+    description: The career support system behind our AI Engineering Program. AI-optimized profiles, direct access to our employer network, and 1:1 support that stays with you beyond landing your first role.
     background: hsl(var(--sidebar-background))
     tabs:
       - tab_label: Job-Ready, Faster
@@ -416,10 +424,10 @@ sections:
     maxWidth:
       desktop: 6xl
     marginY:
-      desktop: none md
+      desktop: none sm
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
-    subheading: 6,000+ graduates worldwide. Now thriving in tech.
+    subheading: 6,000+ graduates worldwide. Real results.
     stats:
       - value: {{ global.global_job_placement_rate | 84% }}%
         label: Average hiring rate
@@ -463,11 +471,11 @@ sections:
     maxWidth:
       desktop: 6xl
     paddingY:
-      desktop: sm none
+      desktop: none md
   - type: list_press_mentions
     version: v1.0
     variant: featured_showcase
-    title: The World's Most Accountable Institutions Chose Us. Here's What We've Built.
+    title: The World's Most Respected Institutions Chose Us. Here's What We Built Together.
     subtitle: From the Inter-American Development Bank to governments across the Americas and universities on three continents, every institution that selected us to run their programs came with KPIs, public accountability, and high expectations. We delivered every time.
     show_links: false
     show_logos: true
@@ -484,12 +492,29 @@ sections:
       desktop: 6xl
     marginY:
       desktop: none md
+  - type: testimonials_slide
+    title: 4Geeks Changed Their Careers. These Are Their Stories.
+    description: Career changers, professionals leveling up, developers who wanted more. Different starting points, different programs. One decision that moved them ahead.
+    dynamic_entries:
+      database: testimonials_en
+      limit: 30
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - content-and-syllabus
+    section_id: testimonials_slide-6jlded
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none
+    maxWidth:
+      desktop: none
   - type: why_learn_ai
     variant: laptop-edge
     laptop_image:
       image_id: laptop
     title: Land the Job. Or Your Money Back.
-    description: "<span style=\"font-size: 1.5rem;\"><span><span></span></span></span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span><span style=\"line-height: 1.625;\"><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\"></span></span></span></span></span><span style=\"line-height: 1.625;\"><span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><span style=\"color: hsl(var(--foreground));\">Every program comes with the option of a Job Guarantee.*</span></span></span></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Not hired within 9 months?&nbsp;</span><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">Full tuition refund.&nbsp;</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\">That's how confident we are in what we built.</span></div><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span></span></span></div></span><span style=\"line-height: 1.1;\"><span><span><span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"><br></span></div></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span><span></span></span></span></div><div><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">*The Job Guarantee is not available in all regions.&nbsp;</span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\">Terms and conditions apply.</a></div></div></span></span></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div>"
+    description: "<span style=\"line-height: 1.625;\"><span style=\"font-size: 1.5rem;\"><span><span></span></span></span></span><span style=\"color: hsl(var(--foreground));\"><span style=\"line-height: 1.625;\"><span style=\"font-size: 1.5rem;\"><span><span>AI Engineering comes with the option of a Job Guarantee.*&nbsp;</span></span></span></span><div><span style=\"line-height: 1.625;\"><span style=\"font-size: 1.5rem;\"><span><span>Not hired within 9 months? Full tuition refund.&nbsp;</span></span></span></span></div></span><div><span style=\"line-height: 1.625;\"><span style=\"font-size: 1.5rem;\"><span><span></span></span></span></span></div><div><span style=\"line-height: 1.625;\"><span style=\"font-size: 1.5rem;\"><span><span><b></b></span></span></span><span style=\"color: hsl(var(--foreground));\"><span style=\"font-size: 1.5rem;\"><span><span><b>That's how confident we are in what we built.</b></span></span></span><span><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"></div></span></span></span></span><span style=\"line-height: 1.1;\"><span><span><span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"></div></span></span></span></div></span></span></span></span></span><span style=\"line-height: 1.1;\"><span><span><span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"><br></span></div></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span style=\"font-size: 1.875rem;\"><span style=\"font-size: 1.5rem;\"><div style=\"\"><span style=\"font-size: 1.5rem; color: rgb(0, 7, 26);\"></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div style=\"\"><span><span><span></span></span></span></div></span><div><span style=\"font-size: 1.5rem;\"><span><span></span></span></span></div><div><span style=\"font-size: 0.875rem; color: rgb(0, 7, 26);\">*The Job Guarantee is not available in all regions.&nbsp;</span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\">Terms and conditions apply.</a></div></div></span></span></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div></span><div><div><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem; --tw-scale-x: 1; --tw-scale-y: 1; --tw-pan-x: ; --tw-pan-y: ; --tw-pinch-zoom: ; --tw-scroll-snap-strictness: proximity; --tw-gradient-from-position: ; --tw-gradient-via-position: ; --tw-gradient-to-position: ; --tw-ordinal: ; --tw-slashed-zero: ; --tw-numeric-figure: ; --tw-numeric-spacing: ; --tw-numeric-fraction: ; --tw-ring-inset: ; --tw-ring-offset-width: 0px; --tw-ring-offset-color: #fff; --tw-ring-color: rgb(59 130 246 / .5); --tw-ring-offset-shadow: 0 0 #0000; --tw-ring-shadow: 0 0 #0000; --tw-shadow: 0 0 #0000; --tw-shadow-colored: 0 0 #0000; --tw-blur: ; --tw-brightness: ; --tw-contrast: ; --tw-grayscale: ; --tw-hue-rotate: ; --tw-invert: ; --tw-saturate: ; --tw-sepia: ; --tw-drop-shadow: ; --tw-backdrop-blur: ; --tw-backdrop-brightness: ; --tw-backdrop-contrast: ; --tw-backdrop-grayscale: ; --tw-backdrop-hue-rotate: ; --tw-backdrop-invert: ; --tw-backdrop-opacity: ; --tw-backdrop-saturate: ; --tw-backdrop-sepia: ; --tw-contain-size: ; --tw-contain-layout: ; --tw-contain-paint: ; --tw-contain-style: ; border-color: rgb(230, 230, 230); --tw-border-opacity: 1; --tw-text-opacity: 1;\"></a></div></div></div>"
     cta:
       text: How It Works
       url: /en/job-guarantee
@@ -521,23 +546,6 @@ sections:
     maxWidth:
       desktop: none
     showOn: desktop
-  - type: testimonials_slide
-    title: They Were Where You Are. Now They're Thriving in Tech.
-    description: "Different backgrounds, different starting points, one result: a career in tech that changed everything. These are their stories."
-    dynamic_entries:
-      database: testimonials_en
-      limit: 30
-      permanent_filters:
-        - item_property_slug: related_features
-          value:
-            - content-and-syllabus
-    section_id: testimonials_slide-6jlded
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none
-    maxWidth:
-      desktop: none
   - type: faq
     section_id: faq-31bv5t
     title: Frequently Asked Questions
@@ -559,13 +567,13 @@ sections:
   - type: cta_banner
     section_id: cta_banner-y7nw0f
     version: "1.0"
-    title: Take the Next Step Toward Your Tech Career
-    subtitle: Get program details, pricing and personalized guidance.
+    title: Take the Next Step. AI Skills Are Waiting.
+    subtitle: "Fill in your details and our team will send you everything you need: program descriptions, requirements, and financing options. It only takes 2 minutes."
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Get the details
+      submit_label: Send Me the Details
       fields:
         email:
           visible: true
@@ -584,7 +592,7 @@ sections:
           required: true
           default: auto
       success:
-        message: Thank you! We'll be in touch soon.
+        message: Check your inbox. Our team will be in touch shortly with everything you need to know.
       button_className: bg-primary
       terms_className: text-white/80
       conversion_name: request_more_info

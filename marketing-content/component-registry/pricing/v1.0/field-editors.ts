@@ -16,8 +16,10 @@ export type EditorType =
   | "boolean-toggle"
 
 export const fieldEditors: Record<string, EditorType> = {
-  "features[].text": "rich-text-editor",
   "features[].icon": "icon-picker",
   "static_icons": "boolean-toggle",
   "cta.url": "link-picker",
+  "plan_cards:title": "rich-text-editor",
+  "plan_cards:plans[].cta.url": "link-picker",
+  "plan_cards:plans[].featured": "boolean-toggle",
 };
