@@ -1,5 +1,6 @@
 import { IconCheck, IconX } from "@tabler/icons-react";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import { RichTextContent } from "@/components/ui/rich-text-content";
 import type { PricingPlanCardsSection, PricingPlanCardsPlan, PricingPlanCardsFeature } from "@shared/schema";
 
 interface PricingPlanCardsSectionProps {
@@ -256,15 +257,14 @@ export function PricingPlanCardsSection({ data }: PricingPlanCardsSectionProps) 
           Pricing
         </div>
 
-        <h2
-          className="text-[24px] sm:text-[30px] font-extrabold text-foreground tracking-tight leading-tight mb-1.5"
+        <RichTextContent
+          html={data.title}
+          className="text-[24px] sm:text-[30px] font-black text-foreground tracking-tight leading-tight mb-1.5 prose-p:m-0 prose-p:leading-tight [&>*]:font-black"
           data-testid="text-pricing-plan-cards-title"
-        >
-          {data.title}
-        </h2>
+        />
 
         {data.subtitle && (
-          <p className="text-sm text-muted-foreground mb-8 sm:mb-10 leading-relaxed" data-testid="text-pricing-plan-cards-subtitle">
+          <p className="text-sm text-muted-foreground mb-8 sm:mb-4 leading-relaxed" data-testid="text-pricing-plan-cards-subtitle">
             {data.subtitle}
           </p>
         )}
@@ -334,13 +334,10 @@ export function PricingPlanCardsSection({ data }: PricingPlanCardsSectionProps) 
           ))}
         </div>
 
-        {/* Separator — desktop only */}
-        {data.addon && <div className="hidden sm:block h-px bg-border my-7" />}
-
         {/* ── OPTIONAL ADD-ON ──────────────────────────────────── */}
         {data.addon && (
           <div
-            className="mt-6 sm:mt-0 bg-card border border-border rounded-2xl px-4 sm:px-5 py-3 sm:py-4 shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.05)]"
+            className="mt-6 bg-card border border-border rounded-2xl px-4 sm:px-5 py-3 sm:py-4 shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.05)]"
             data-testid="container-pricing-addon"
           >
             {data.addon.label && (

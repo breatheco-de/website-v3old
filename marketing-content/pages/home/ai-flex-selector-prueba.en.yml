@@ -91,6 +91,54 @@ sections:
     marquee_static: true
     marginY:
       desktop: none md
+  - type: survey
+    version: v1.0
+    variant: default
+    aggregation_method: concat
+    infinite_progress_bar: false
+    badge_text: Build your path
+    title: Your AI curriculum,
+    title_highlight: built around you.
+    subtitle: A few questions. No commitment. We map the exact courses you need.
+    icon: 4GeeksAvatar
+    back_label: Back
+    restart_label: Start over
+    step_label: Question
+    step_of_label: of
+    questions:
+      - text: What's your main goal right now?
+        options:
+          - label: Build apps or technical projects with AI
+          - label: Work with data, analytics, or machine learning
+          - label: Use AI to be more productive at my current job
+            action:
+              next_question: 2
+          - label: Automate repetitive tasks without writing code
+            action:
+              next_question: 2
+      - text: How comfortable are you with coding?
+        options:
+          - label: No experience — and I'd like to keep it that way
+            action:
+              message: You're a great fit for the AI Professional Skills path — practical, no code required.
+          - label: I know some basics (scripts, spreadsheets)
+            action:
+              url: inline#ai-flex-path-professional
+          - label: I code regularly
+    routes:
+      q1o1:
+        url: inline#ai-flex-path-builder
+      q1o2:
+        url: inline#ai-flex-path-analyst
+      q1o3-q2o3:
+        url: inline#ai-flex-path-career
+      q1o4-q2o3:
+        url: inline#ai-flex-path-career
+      default:
+        url: inline#ai-flex-path-professional
+    section_id: survey-ylte6n
+    paddingY:
+      desktop: sm
   - type: ai_flex_path
     version: v1.0
     variant: course_color_selector
