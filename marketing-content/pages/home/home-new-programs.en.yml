@@ -485,7 +485,7 @@ sections:
     marginY:
       desktop: none md
   - type: testimonials_slide
-    title: 4Geeks changed their careers. These are their stories.
+    title: 4Geeks Changed Their Careers. These Are Their Stories.
     description: Career changers, professionals leveling up, developers who wanted more. Different starting points, different programs. One decision that moved them ahead.
     dynamic_entries:
       database: testimonials_en
