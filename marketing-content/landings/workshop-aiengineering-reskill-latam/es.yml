@@ -59,7 +59,7 @@ sections:
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Reserva tu plaza gratuita
     form_card_subtitle: Jueves 21 de mayo · México 18:00h | Colombia 19:00h | Venezuela / Chile 20:00h | Argentina / Uruguay 21:00h · Directo por YouTube
-    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Best-Coding-Bootcamp-2026-Badge.png
     show_awards_marquee: false
     awards_marquee:
       items:

@@ -2491,7 +2491,8 @@
       "focal_point": "center",
       "tags": [
         "logo",
-        "partner"
+        "partner",
+        "press"
       ],
       "usage_count": 14,
       "hash": "cb67d7348c438f311ca868035f70f8ddf17495477db86835043facf241b25350",
@@ -5911,7 +5912,17 @@
       "focal_point": "center",
       "tags": [
         "logo",
-        "photo"
+        "photo",
+        "avatar",
+        "card",
+        "icon",
+        "badge",
+        "partner",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
       ],
       "usage_count": 0,
       "hash": "cab7f9ec8b10a58a99434a48805065108f0664992d9abacf0a52602ed1bd7be9",
@@ -19974,6 +19985,60 @@
         {
           "w": 1280,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/valentina-brightened-1365x2048-1280w.webp"
+        }
+      ]
+    },
+    "course-report-best-coding-bootcamp-2026-badge": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Best-Coding-Bootcamp-2026-Badge.png",
+      "alt": "Image: Course Report Best Coding Bootcamp 2026 Badge",
+      "focal_point": "center",
+      "tags": [
+        "badge",
+        "award"
+      ],
+      "usage_count": 0,
+      "hash": "7cddc47f9d04c31900bd4e030c7c06f882f502530d9ef4ae8a2f4356ef9135ef",
+      "width": 1264,
+      "height": 828,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640,
+        960
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Best-Coding-Bootcamp-2026-Badge-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Best-Coding-Bootcamp-2026-Badge-960w.webp"
+        }
+      ]
+    },
+    "rigobot-png": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/aBo1kfIqRLdaB6vp_imagen_2025-05-06_121513432.avif",
+      "alt": "Image: aBo1kfIqRLdaB6vp_imagen_2025-05-06_121513432",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0,
+      "hash": "c044973122a69228bd36485b5583a9660ad9a0a7649ff35db9b8e3ed21331792",
+      "width": 182,
+      "height": 114,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        182
+      ],
+      "format": "avif",
+      "srcset": [
+        {
+          "w": 182,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/aBo1kfIqRLdaB6vp_imagen_2025-05-06_121513432-182w.avif"
         }
       ]
     }

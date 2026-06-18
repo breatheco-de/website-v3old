@@ -5,7 +5,7 @@ settings:
     eager_count: 3
 meta:
   page_title: AI Flex
-  description: "AI Engineer: fastest-growing job of 2026. Get job-ready in 24 weeks. 84% hiring rate, $95K–$135K salaries. Lifelong mentorship and career support. 4Geeks."
+  description: 8 AI courses, at your pace. Ready-made learning paths available. Stackable certificates, AI tutor, and mentorship. $65/month. Cancel anytime. 4Geeks, 4.9-rated.
   robots: index, follow
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
@@ -33,12 +33,21 @@ sections:
       - 24/7 feedback and guidance from Rigobot, our AI tutor.
       - Book 1:1 mentorship sessions whenever you need human expertise.
       - Certificates that stack toward AI Fluency and AI Engineering.
+    tutors:
+      - name: Expert Instructor
+        role: Lead Instructor
+        image: https://randomuser.me/api/portraits/men/10.jpg
+      - name: Rigo
+        role: AI Tutor
+        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
+    tutors_label: "Your tutors:"
+    description: AI is not the future, it's the foundation. AI Flex gives you the skills to stay ahead, at the pace that fits your life.
     signup_card:
-      title: Get Started Today
-      description: "Fill in your details and we'll send you everything you need: course catalog, path options, and pricing. It takes 2 minutes."
+      title: Start Learning Today
+      description: Choose your plan and get instant access to 8 AI courses, Rigobot, and your first mentorship session.
       cta_button:
-        text: Get Started
-        url: "#modal-y2myvq"
+        text: See Plans and Pricing
+        url: "#pricing-aiflex"
         variant: primary
       login_link:
         text: Already a student? Login here.
@@ -58,6 +67,8 @@ sections:
       desktop: none
     section_id: hero-aiflex
     background: hsl(var(--card))
+    video:
+      url: https://youtu.be/sGADk75qvNI
   - type: awards_marquee
     section_id: awards_marquee-t8ylg2
     version: v1.0
@@ -157,8 +168,8 @@ sections:
       description: Productivity growth · AI-exposed industries · PwC 2025
       inner_stat_percentage: 27
       outer_stat_percentage: 73
-      show_gauge: true
-      inner_stat_highlight: true
+      show_gauge: false
+      inner_stat_highlight: false
       gauge_label: productivity growth rate
       stat_label: productivity growth in companies using AI well, up from 7% in 2022
       bar1_label: AI-adopting companies
@@ -372,11 +383,17 @@ sections:
       database: frequently_asked_questions
       limit: 9
       permanent_filters:
-        - item_property_slug: related_features
-          value:
-            - ai-engineering
         - item_property_slug: locations
           value: all
+      ignored_entries:
+        - do-i-get-a-job-after-completing-the-program
+        - does-the-job-guarantee-refund-the-full-tuition-if-i-dont-get-hired
+        - how-does-the-4geeks-academy-job-guarantee-work
+        - geekforce-or-geekpal-which-one-to-choose
+        - do-i-need-prior-cybersecurity-experience
+        - do-i-need-to-have-work-authorization-to-qualify-for-the-job-guarantee
+        - do-i-need-to-have-previous-experience-in-programming-to-join-the-bootcamp
+        - do-i-need-expensive-hardware-for-ai-development
     marginY:
       desktop: none
     paddingY:
@@ -396,6 +413,21 @@ sections:
           - munich-germany
           - rome-italy
           - valencia-spain
+    hardcoded_entries:
+      - question: What is included in an AI Flex subscription?
+        answer: "Every AI Flex plan includes access to the full course catalogue via LearnPack, Rigobot as your built-in AI tutor available throughout every module, 300 premium Copilot requests per month, 300 AI compilations, Codespaces ($10/month value included), $5/month in LLM tokens (DeepSeek 3.1, Claude Sonnet, Llama 3, Codex), a school account with the GitHub Developer Program, a VPS, access to exclusive 4Geeks events, and a certificate for every course you complete. Each plan also includes at least one mentorship session per month with an expert instructor. "
+      - question: Which courses are included in AI Flex and how do I choose?
+        answer: |
+          The catalog includes +8 courses: Prompt Engineering, Applied AI, No-Code and Automations, Vibe Coding with AI, OpenClaw, Backend Dev with Python, Deep Dive into Python, and Data Science and ML. If you are not sure where to start, 4Geeks offers four ready-made paths based on your goals: The AI-First Professional, The Career Switcher, The Data-Driven Analyst, and The Builder. Each path combines 4 courses chosen for a specific professional outcome.
+      - question: Is there a start date or schedule for AI Flex?
+        answer: |
+
+          There are no cohorts, no live classes, and no fixed schedule. You start anytime and learn entirely at your own pace. You can also  cancel your subscription anytime.
+      - question: Do the certificates from AI Flex count toward the full AI Engineering program?
+        answer: |
+          Yes. Certificates earned in AI Flex are the same certificates awarded in AI Fluency and the AI Engineering program. They are stackable: if you complete courses in AI Flex and later enroll in AI Engineering, you receive credit for what you have already completed. AI Flex is a genuine entry point into the full 4Geeks learning path, not a separate track.
+      - question: Who is AI Flex designed for?
+        answer: " AI Flex works for professionals at any technical level — from non-technical knowledge workers who want to automate their work, to developers who want to add AI engineering skills to their existing stack. The course catalog spans from no-code automations and prompt engineering to backend development with Python and data science. You choose the courses that match where you are and where you want to go."
   - type: cta_banner
     version: "1.0"
     title: Your AI Skills Start Here.

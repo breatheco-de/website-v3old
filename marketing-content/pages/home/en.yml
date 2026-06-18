@@ -86,12 +86,14 @@ sections:
     section_id: hero-tcvppl
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
-      desktop: none
+      desktop: none md
     pills_url: "#list_press_mentions-w7r1sh"
     marquee_static: true
+    marginY:
+      desktop: none md
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
-    subheading: 6,000+ graduates worldwide. Now thiriving in tech.
+    subheading: 6,000+ graduates worldwide. Now thriving in tech.
     stats:
       - value: {{ global.global_job_placement_rate | 84% }}%
         label: Average hiring rate
@@ -131,11 +133,11 @@ sections:
         object_position: 50% 45%
     section_id: graduates_stats-cnxqbb
     marginY:
-      desktop: none
+      desktop: md
     maxWidth:
-      desktop: 6xl
+      desktop: xl
     paddingY:
-      desktop: sm none
+      desktop: sm md
   - type: banner
     version: v1.0
     variant: marqueeBadges
@@ -168,10 +170,12 @@ sections:
     marquee_speed: 85
     section_id: banner-qrp5dz
     paddingY:
-      desktop: sm
+      desktop: md sm
     background: hsl(var(--muted))
     marginY:
       desktop: none xl
+    maxWidth:
+      desktop: xl
   - type: features_grid
     version: "1.0"
     variant: stats-charts
@@ -209,6 +213,8 @@ sections:
     section_id: features_grid-xxxxxxx
     marginY:
       desktop: none md
+    paddingY:
+      desktop: none
   - type: image_row
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-800x1200-q72.webp
@@ -241,9 +247,9 @@ sections:
     background: hsl(var(--background))
     section_id: image_row-z97kqt
     marginY:
-      desktop: xl
+      desktop: xl none
     paddingY:
-      desktop: none
+      desktop: xl none
     maxWidth:
       desktop: 6xl
   - type: career_support_explain

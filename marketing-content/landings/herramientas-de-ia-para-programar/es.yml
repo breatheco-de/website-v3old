@@ -28,8 +28,8 @@ sections:
       - text: Paga en 10, 12 o 18 cuotas mensuales sin dejar tu trabajo actual
     form:
       variant: stacked
-      conversion_name: student_application
-      submit_label: Iniciar mi aplicación
+      conversion_name: request_more_info
+      submit_label: Obtén toda la info
       fields:
         email:
           visible: true
@@ -54,7 +54,7 @@ sections:
       consent: {}
     form_card_title: Obtén la guía completa del programa
     form_card_subtitle: Te enviamos el programa completo con plan de estudios, opciones de financiación y más. Solo toma 2 minutos.
-    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Badge-2025_1764709632231.webp
+    form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Best-Coding-Bootcamp-2026-Badge.png
     show_awards_marquee: true
     awards_marquee:
       items:
@@ -644,8 +644,8 @@ sections:
     variant: form
     form:
       variant: stacked
-      conversion_name: student_application
-      submit_label: Iniciar mi aplicación
+      conversion_name: request_more_info
+      submit_label: Obtén mas info
       fields:
         email:
           visible: true

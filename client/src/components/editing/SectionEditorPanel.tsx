@@ -583,6 +583,7 @@ export function SectionEditorPanel({
     field: string;
     label: string;
     currentIcon: string;
+    simpleFieldPath?: string;
   } | null>(null);
   const [nestedUpdateFn, setNestedUpdateFn] = useState<
     ((value: string) => void) | null
@@ -1009,6 +1010,9 @@ export function SectionEditorPanel({
   const currentShowOn = (parsedSection?.showOn as string) || "";
   const currentShowOnLocations =
     (parsedSection?.showOnLocations as string[]) || [];
+  const currentHiddenUntilRedirection =
+    parsedSection?.hidden_until_redirection === true ||
+    parsedSection?.hidden_until_redirection === "true";
 
   // Initialize YAML content from section. Also re-initializes when slug changes so
   // navigating between DB-backed single pages (e.g. blog posts) resets stale state.
@@ -1805,6 +1809,9 @@ export function SectionEditorPanel({
       nestedUpdateFn(iconName);
       setNestedUpdateFn(null);
       setIconPickerTarget(null);
+    } else if (iconPickerTarget?.simpleFieldPath) {
+      updateProperty(iconPickerTarget.simpleFieldPath, iconName);
+      setIconPickerTarget(null);
     } else if (iconPickerTarget) {
       updateArrayItemField(
         iconPickerTarget.arrayField,
@@ -2305,6 +2312,20 @@ export function SectionEditorPanel({
               onChange={(value) => updateProperty("showOn", value)}
             />
 
+            <div className="flex items-center justify-between gap-3">
+              <Label className="text-sm font-medium">Hidden until redirect</Label>
+              <Switch
+                checked={currentHiddenUntilRedirection}
+                onCheckedChange={(checked) =>
+                  updatePropertyWithValue(
+                    "hidden_until_redirection",
+                    checked ? true : undefined,
+                  )
+                }
+                data-testid="props-toggle-hidden-until-redirection"
+              />
+            </div>
+
             {/* CTA Banner variant picker */}
             {sectionType === "cta_banner" && (
               <VariantPicker
@@ -2745,6 +2766,55 @@ export function SectionEditorPanel({
                       label={label}
                       testIdPrefix={`props-${fieldPath}`}
                     />
+                  </div>
+                );
+              })}
+            {/* Render top-level (non-array) icon-picker field editors */}
+            {Object.entries(configuredFields)
+              .filter(([fieldPath, editorTypeRaw]) => {
+                if (fieldPath.includes("[]")) return false;
+                const { type: edType } = parseEditorType(editorTypeRaw);
+                return edType === "icon-picker";
+              })
+              .map(([fieldPath]) => {
+                const currentValue = parsedSection
+                  ? String((parsedSection as Record<string, unknown>)[fieldPath] || "")
+                  : "";
+                const fieldLabel = getFieldLabel(fieldPath);
+                const IconComponent = currentValue ? getIcon(currentValue) : null;
+                return (
+                  <div key={fieldPath} className="space-y-2 mt-3">
+                    <Label className="text-sm font-medium">{fieldLabel}</Label>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIconPickerTarget({
+                            arrayField: "",
+                            index: 0,
+                            field: fieldPath,
+                            label: fieldLabel,
+                            currentIcon: currentValue,
+                            simpleFieldPath: fieldPath,
+                          });
+                          setIconPickerOpen(true);
+                        }}
+                        className="flex items-center justify-center w-10 h-10 rounded border bg-muted/30 hover:bg-muted transition-colors"
+                        data-testid={`props-icon-${fieldPath}`}
+                        title={`Change ${fieldLabel}`}
+                      >
+                        {IconComponent ? (
+                          <IconComponent className="h-6 w-6 text-foreground" />
+                        ) : (
+                          <span className="text-xs text-muted-foreground">—</span>
+                        )}
+                      </button>
+                      {currentValue && (
+                        <span className="text-xs text-muted-foreground truncate max-w-[150px]">
+                          {currentValue}
+                        </span>
+                      )}
+                    </div>
                   </div>
                 );
               })}
@@ -3973,10 +4043,22 @@ export function SectionEditorPanel({
                                           </Button>
                                         </div>
                                         {fieldOrder.map((fieldKey) => {
-                                          const currentValue = String(
-                                            nestedItem[fieldKey] ?? "",
-                                          );
-                                          const label = fieldKey
+                                          const getLeafValue = (path: string): unknown => {
+                                            const parts = path.split(".");
+                                            let cur: unknown = nestedItem;
+                                            for (const p of parts) {
+                                              if (!cur || typeof cur !== "object") return undefined;
+                                              cur = (cur as Record<string, unknown>)[p];
+                                            }
+                                            return cur;
+                                          };
+                                          const currentValue = String(getLeafValue(fieldKey) ?? "");
+                                          const nestedFieldLabelMap: Record<string, string> = {
+                                            "action.url": "URL de acción",
+                                            "action.message": "Mensaje de acción",
+                                            "action.next_question": "Siguiente pregunta",
+                                          };
+                                          const label = nestedFieldLabelMap[fieldKey] ?? fieldKey
                                             .replace(/_/g, " ")
                                             .replace(/\b\w/g, (c) =>
                                               c.toUpperCase(),
@@ -4088,7 +4170,38 @@ export function SectionEditorPanel({
                                           }
 
                                           if (
-                                            typeof nestedItem[fieldKey] ===
+                                            configuredField?.editorType ===
+                                            "link-picker"
+                                          ) {
+                                            return (
+                                              <div
+                                                key={fieldKey}
+                                                className="space-y-1"
+                                              >
+                                                <Label className="text-xs text-muted-foreground">
+                                                  {label}
+                                                </Label>
+                                                <LinkPicker
+                                                  value={currentValue}
+                                                  onChange={(url) =>
+                                                    updateArrayItemField(
+                                                      resolvedArrPath,
+                                                      nestedIdx,
+                                                      fieldKey,
+                                                      url,
+                                                    )
+                                                  }
+                                                  locale={locale}
+                                                  allSections={allSections}
+                                                  testId={`props-nested-link-${fieldKey.replace(/\./g, "-")}-${nestedIdx}`}
+                                                  allowInlineRender={configuredField.variant === "allow-inline-render"}
+                                                />
+                                              </div>
+                                            );
+                                          }
+
+                                          if (
+                                            typeof getLeafValue(fieldKey) ===
                                             "number"
                                           ) {
                                             return (
@@ -4202,7 +4315,7 @@ export function SectionEditorPanel({
                 // Exception: self-initializing editors (e.g. related-features-picker) always show — they create the structure on save.
                 const selfInitializingEditors = new Set(["related-features-picker", "faq-visibility-editor"]);
                 const isSelfInitializing = selfInitializingEditors.has(editorType) || editorType.startsWith("db-field-values-picker");
-                if (isSimpleField && fieldPath.includes(".") && !isSelfInitializing) {
+                if (isSimpleField && fieldPath.includes(".") && !isSelfInitializing && !fieldPath.includes(".*")) {
                   const parentParts = fieldPath.split(".");
                   let parentExists: unknown = parsedSection;
                   for (let i = 0; i < parentParts.length - 1; i++) {
@@ -4215,7 +4328,40 @@ export function SectionEditorPanel({
                   if (parentExists === undefined || parentExists === null) return null;
                 }
 
-                if (isSimpleField && editorType === "link-picker") {
+                // Handle map-key paths like "routes.*.url" — iterate over all object keys
+                if (!fieldPath.includes("[]") && fieldPath.includes(".*.") && editorType === "link-picker") {
+                  const dotStarIdx = fieldPath.indexOf(".*.");
+                  const mapPath = fieldPath.substring(0, dotStarIdx);
+                  const subPath = fieldPath.substring(dotStarIdx + 3);
+                  const mapValue = parsedSection ? (parsedSection as Record<string, unknown>)[mapPath] : null;
+                  if (!mapValue || typeof mapValue !== "object") return null;
+                  const entries = Object.entries(mapValue as Record<string, unknown>);
+                  if (entries.length === 0) return null;
+                  return (
+                    <div key={fieldPath} className="space-y-3">
+                      <Label className="text-sm font-medium">{getFieldLabel(mapPath)}</Label>
+                      {entries.map(([key, val]) => {
+                        const entryObj = (typeof val === "object" && val) ? val as Record<string, unknown> : {};
+                        const currentUrl = (subPath ? (entryObj[subPath] as string) : (val as string)) || "";
+                        return (
+                          <div key={key} className="space-y-1">
+                            <p className="text-xs font-mono" style={{ color: "hsl(var(--muted-foreground))" }}>{key}</p>
+                            <LinkPicker
+                              value={currentUrl}
+                              onChange={(url) => updateProperty(`${mapPath}.${key}.${subPath}`, url)}
+                              locale={locale}
+                              allSections={allSections}
+                              testId={`props-link-${mapPath}-${key}`}
+                              allowInlineRender={variant === "allow-inline-render"}
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                }
+
+                if (isSimpleField && !fieldPath.includes(".*") && editorType === "link-picker") {
                   const getSimpleLinkValue = () => {
                     if (!parsedSection) return "";
                     const pathParts = fieldPath.split(".");
@@ -4241,6 +4387,7 @@ export function SectionEditorPanel({
                         locale={locale}
                         allSections={allSections}
                         testId={`props-link-${fieldPath.replace(/\./g, "-")}`}
+                        allowInlineRender={variant === "allow-inline-render"}
                       />
                     </div>
                   );
@@ -4634,6 +4781,7 @@ export function SectionEditorPanel({
                                 locale={locale}
                                 allSections={allSections}
                                 testId={`props-link-nested-${idx}`}
+                                allowInlineRender={variant === "allow-inline-render"}
                               />
                             </div>
                           );

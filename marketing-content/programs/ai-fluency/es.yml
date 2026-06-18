@@ -68,6 +68,8 @@ sections:
     marginY:
       desktop: none
     section_id: hero-yt9c4j
+    video:
+      url: https://youtu.be/NkmjzrAZ4x8
   - type: modal
     version: "1.0"
     heading: Recibe los detalles del programa
@@ -177,7 +179,6 @@ sections:
     card_gauge:
       title: La alfabetización en IA se convierte en requisito laboral
       description: Roles laborales globales · LinkedIn 2025
-
       inner_stat_percentage: 30
       outer_stat_percentage: 70
       show_gauge: true

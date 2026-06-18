@@ -1,9 +1,10 @@
 import type { CSSProperties } from "react";
 import { AlertTriangle, Link, Loader2, Trash2 } from "lucide-react";
-import { useState, useRef, useEffect, lazy, Suspense } from "react";
+import { useState, useRef, useEffect, lazy, Suspense, useMemo } from "react";
 import { useContentTypesRaw } from "@/hooks/useContentTypes";
 import type { Section, EditOperation, SectionLayout, ResponsiveSpacing, ShowOn, PageSettings } from "@shared/schema";
 import { useSession } from "@/contexts/SessionContext";
+import { PageSectionsProvider } from "@/contexts/PageSectionsContext";
 import { useMenuVisualContext } from "@/contexts/MenuVisualContext";
 import { VariableHighlightProvider } from "@/components/editing/VariableHighlight";
 import { useVariableDefinitions, useVariableContext } from "@/hooks/useVariables";
@@ -184,7 +185,7 @@ function parseBackground(value: string | undefined): string | undefined {
 // background: Applied to wrapper (semantic token or custom CSS)
 // maxWidth: stored as CSS vars (--section-mw-*) and applied on inner container
 // Inner gutter is auto-applied only when maxWidth constrains the content
-function getSectionWrapperStyles(section: Section): CSSProperties & Record<string, string> {
+export function getSectionWrapperStyles(section: Section): CSSProperties & Record<string, string> {
   const layoutSection = section as SectionLayout;
 
   const padding = parseResponsiveSpacing(layoutSection.paddingY);
@@ -756,6 +757,19 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
     }
     return result;
   })();
+
+  // Build sections-by-id map for PageSectionsContext (inline render targets)
+  const pageSectionsMap = useMemo(() => {
+    const map: Record<string, Record<string, unknown>> = {};
+    for (let i = 0; i < sections.length; i++) {
+      const raw = sections[i] as Record<string, unknown>;
+      const sectionId = raw.section_id as string | undefined;
+      if (sectionId) {
+        map[sectionId] = (resolvedSections[i] as Record<string, unknown>) ?? raw;
+      }
+    }
+    return map;
+  }, [sections, resolvedSections]);
 
   // Dialog shown when a template section being moved has per-entry dependants
   const [moveDependantsDialog, setMoveDependantsDialog] = useState<{
@@ -1416,10 +1430,23 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
           );
         };
 
-        const renderLiveSection = (section: Section, index: number) => {
+        const renderLiveSection = (section: Section, index: number, opts?: { skipHiddenCheck?: boolean }) => {
+          const skipHiddenCheck = opts?.skipHiddenCheck ?? false;
           const rawSection = sections[index];
           const sectionType = (section as { type: string }).type;
           const loadStrategy = isEditMode ? "eager" : resolveLoadStrategy(rawSection, index, settings);
+
+          // Hidden-until-redirection: suppress in live mode; full render + badge in edit mode
+          const isHiddenUntilRedirection = (rawSection as SectionLayout).hidden_until_redirection === true;
+          if (isHiddenUntilRedirection && !skipHiddenCheck) {
+            if (!isEditMode) return null;
+            const fullContent = renderLiveSection(section, index, { skipHiddenCheck: true });
+            return (
+              <div key={index} className="relative" data-testid={`hidden-until-redirect-section-${index}`}>
+                {fullContent}
+              </div>
+            );
+          }
 
           const pageContext: SectionPageContext = {
             url: typeof window !== "undefined" ? window.location.pathname : undefined,
@@ -1613,9 +1640,10 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
   ) || [];
 
   return (
-    <>
-      {content}
-      {isEditMode && (
+    <PageSectionsProvider value={pageSectionsMap}>
+      <>
+        {content}
+        {isEditMode && (
         <Suspense>
           <DbTemplateWarningDialog
             open={dbTemplateDeleteDialog.open}
@@ -1912,5 +1940,6 @@ export function SectionRenderer({ sections, settings, contentType, slug, locale,
         </DialogContent>
       </Dialog>
     </>
+  </PageSectionsProvider>
   );
 }
