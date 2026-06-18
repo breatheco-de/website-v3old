@@ -302,7 +302,7 @@ sections:
     text_1: "<span style=\"font-size: 1.5rem;\"><b><span style=\"line-height: 1.1;\">Every program comes with support. The most ambitious comes with all of it.</span></b></span>"
     section_id: image_row-z97kqt
     paddingY:
-      desktop: md none
+      desktop: lg none
     marginY:
       desktop: lg none
   - type: career_support_explain
