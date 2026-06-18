@@ -84,7 +84,7 @@ sections:
     section_id: hero-tcvppl
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
-      desktop: none
+      desktop: none lg
     pills_url: "#list_press_mentions-w7r1sh"
     marquee_static: true
     marginY:
@@ -126,9 +126,9 @@ sections:
       end_label: 1.3M · 2026
     section_id: features_grid-xo8z7q
     paddingY:
-      desktop: md sm
+      desktop: lg sm
     marginY:
-      desktop: md
+      desktop: lg md
   - type: banner
     version: v1.0
     variant: marqueeBadges
