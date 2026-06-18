@@ -78,3 +78,5 @@ routes:
     url: inline#ai-flex-path-career
   q1o4-q2o3-q3o5-q4o2:
     url: inline#ai-flex-path-career
+maxWidth:
+  desktop: xl

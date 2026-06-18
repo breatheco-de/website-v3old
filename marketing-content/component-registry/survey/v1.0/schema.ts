@@ -40,6 +40,8 @@ export const surveyDefaultSchema = z.object({
   restart_label: z.string().optional().default("Start over"),
   step_label: z.string().optional(),
   step_of_label: z.string().optional(),
+  /** Max steps before routes fire; optional for concat (falls back to questions.length). */
+  max_questions: z.number().int().positive().optional(),
   questions: z.array(surveyQuestionSchema),
   routes: z.unknown().optional(),
   infinite_progress_bar: z.boolean().optional().default(false),
