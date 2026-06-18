@@ -342,17 +342,15 @@ sections:
       - heading: Interactive Courses with AI Tutoring Built In
         text: LearnPack turns every course into a hands-on, auto-graded experience. Rigobot, our AI tutor, is embedded throughout — tracking your progress and giving personalized guidance whenever you need it, 24/7.
       - heading: A Full AI Toolkit, Included
-        text: Every plan comes with AI Copilot (300 requests/month), cloud Codespaces so you can code from any browser, and $5 in monthly LLM tokens.
+        text: Every plan comes with AI compilations, premium Copilot requests, cloud Codespaces so you can code from any browser, a GitHub Developer Program school account, a VPS, and monthly LLM tokens giving you access to DeepSeek, Claude Sonnet, Llama 3, and Codex. The quantities scale with your plan.
       - heading: Guided Paths and Stackable Certificates
         text: Follow one of our pre-built learning paths, or build your own with Rigobot's guidance. Complete each course and earn a certificate that stacks toward AI Fluency and AI Engineering.
-      - heading: Human Support, When You Want It
-        text: Book a 1:1 session with a senior instructor for $25 whenever you need expert guidance — no commitment, no minimum. You're also part of the 4Geeks community on WhatsApp, where students and alumni learn alongside each other.
+      - heading: Human Support, Built In
+        text: Every plan includes monthly 1:1 mentorship sessions with a senior instructor. Need more? Book additional sessions at $25 each. You are also part of the 4Geeks community on WhatsApp, where students and alumni learn alongside each other.
     image: https://storage.googleapis.com/4geeks-academy-website/media/community-support-2_1765406601448.webp
     image_alt: "Image: valentina_brightened"
-    reverse: true
+    reverse: null
     section_id: two_column_accordion_card-aiflex
-    paddingY:
-      desktop: sm
   - type: pricing
     version: "1.0"
     variant: product
