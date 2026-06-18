@@ -567,13 +567,13 @@ sections:
   - type: cta_banner
     section_id: cta_banner-y7nw0f
     version: "1.0"
-    title: Take the Next Step Toward Your Tech Career
-    subtitle: Get program details, pricing and personalized guidance.
+    title: Take the Next Step. AI Skills Are Waiting.
+    subtitle: "Fill in your details and our team will send you everything you need: program descriptions, requirements, and financing options. It only takes 2 minutes."
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
-      submit_label: Get the details
+      submit_label: Send Me the Details
       fields:
         email:
           visible: true
@@ -592,7 +592,7 @@ sections:
           required: true
           default: auto
       success:
-        message: Thank you! We'll be in touch soon.
+        message: Check your inbox. Our team will be in touch shortly with everything you need to know.
       button_className: bg-primary
       terms_className: text-white/80
       conversion_name: request_more_info
