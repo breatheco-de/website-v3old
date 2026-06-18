@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import type { SyllabusSection as SyllabusSectionType, SyllabusDefault, SyllabusLanding, SyllabusProgramModules } from "@shared/schema";
+import type { SyllabusDefault, SyllabusLanding, SyllabusProgramModules } from "@shared/schema";
 import { Box, Check, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
@@ -13,11 +13,6 @@ import { getTechBrandIcon } from "@/lib/tech-brand-icons";
 import { Matplotlib } from "@/components/custom-icons";
 import { RichTextContent } from "@/components/ui/rich-text-content";
 import { useInternalNav } from "@/hooks/useInternalNav";
-
-interface SyllabusSectionProps {
-  data: SyllabusSectionType;
-}
-
 interface ModuleAccordionProps {
   title: string;
   description: string;
@@ -109,7 +104,7 @@ function FocusAreaCard({ title, icon, testId }: FocusAreaCardProps) {
   );
 }
 
-function SyllabusDefault({ data }: { data: SyllabusDefault }) {
+export function SyllabusDefaultAccordion({ data }: { data: SyllabusDefault }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const modules = data.modules || [];
 
@@ -168,7 +163,7 @@ function SyllabusDefault({ data }: { data: SyllabusDefault }) {
   );
 }
 
-function SyllabusLandingVariant({ data }: { data: SyllabusLanding }) {
+export function SyllabusLandingContent({ data }: { data: SyllabusLanding }) {
   const focusAreas = data.focus_areas || [];
 
   if (focusAreas.length === 0) {
@@ -588,79 +583,65 @@ function SyllabusProgramModulesVariant({ data }: { data: SyllabusProgramModules 
   );
 }
 
-export function SyllabusSection({ data }: SyllabusSectionProps) {
+export default function SyllabusProgramModules({ data }: { data: SyllabusProgramModules }) {
   const handleLinkClick = useInternalNav();
-  // Check for program-modules variant
-  if ("variant" in data && data.variant === "program-modules") {
-    const pmData = data as SyllabusProgramModules;
-    const hasHeader =
-      pmData.header ||
-      pmData.subheader ||
-      pmData.description ||
-      pmData.cta_button;
+  const hasHeader =
+    data.header ||
+    data.subheader ||
+    data.description ||
+    data.cta_button;
 
-    return (
-      <section data-testid="section-syllabus-program-modules">
-        {hasHeader && (
-          <div className="max-w-6xl mx-auto px-4 pt-12 pb-6 text-center">
-            {pmData.header && (
-              <h2
-                className="text-3xl md:text-4xl font-bold mb-3 text-foreground"
-                data-testid="text-syllabus-pm-header"
+  return (
+    <section data-testid="section-syllabus-program-modules">
+      {hasHeader && (
+        <div className="max-w-6xl mx-auto px-4 pt-12 pb-6 text-center">
+          {data.header && (
+            <h2
+              className="text-3xl md:text-4xl font-bold mb-3 text-foreground"
+              data-testid="text-syllabus-pm-header"
+            >
+              {data.header}
+            </h2>
+          )}
+          {data.subheader && (
+            <p
+              className="text-lg font-semibold text-primary mb-3"
+              data-testid="text-syllabus-pm-subheader"
+            >
+              {data.subheader}
+            </p>
+          )}
+          {data.description && (
+            <div className="mb-5">
+              <RichTextContent
+                html={data.description}
+                className="text-base text-muted-foreground leading-relaxed max-w-3xl mx-auto"
+                data-testid="text-syllabus-pm-description"
+              />
+            </div>
+          )}
+          {data.cta_button && (
+            <div className="flex justify-center">
+              <Button
+                variant={
+                  data.cta_button.variant === "primary"
+                    ? "default"
+                    : data.cta_button.variant
+                }
+                size="lg"
+                asChild
+                data-testid="button-syllabus-pm-cta"
               >
-                {pmData.header}
-              </h2>
-            )}
-            {pmData.subheader && (
-              <p
-                className="text-lg font-semibold text-primary mb-3"
-                data-testid="text-syllabus-pm-subheader"
-              >
-                {pmData.subheader}
-              </p>
-            )}
-            {pmData.description && (
-              <div className="mb-5">
-                <RichTextContent
-                  html={pmData.description}
-                  className="text-base text-muted-foreground leading-relaxed max-w-3xl mx-auto"
-                  data-testid="text-syllabus-pm-description"
-                />
-              </div>
-            )}
-            {pmData.cta_button && (
-              <div className="flex justify-center">
-                <Button
-                  variant={
-                    pmData.cta_button.variant === "primary"
-                      ? "default"
-                      : pmData.cta_button.variant
-                  }
-                  size="lg"
-                  asChild
-                  data-testid="button-syllabus-pm-cta"
-                >
-                  <a href={pmData.cta_button.url} onClick={handleLinkClick} className="flex items-center gap-2">
-                    {pmData.cta_button.icon && renderSectionIcon(pmData.cta_button.icon, "w-5 h-5")}
-                    {pmData.cta_button.text}
-                  </a>
-                </Button>
-              </div>
-            )}
-          </div>
-        )}
-        <SyllabusProgramModulesVariant data={pmData} />
-      </section>
-    );
-  }
-
-  // Check for landing-syllabus variant
-  if ("variant" in data && data.variant === "landing-syllabus") {
-    return <SyllabusLandingVariant data={data as SyllabusLanding} />;
-  }
-
-  // Default accordion variant
-  return <SyllabusDefault data={data as SyllabusDefault} />;
+                <a href={data.cta_button.url} onClick={handleLinkClick} className="flex items-center gap-2">
+                  {data.cta_button.icon && renderSectionIcon(data.cta_button.icon, "w-5 h-5")}
+                  {data.cta_button.text}
+                </a>
+              </Button>
+            </div>
+          )}
+        </div>
+      )}
+      <SyllabusProgramModulesVariant data={data} />
+    </section>
+  );
 }
-
-export default SyllabusSection;
