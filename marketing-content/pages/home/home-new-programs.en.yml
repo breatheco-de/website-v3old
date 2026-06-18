@@ -471,7 +471,7 @@ sections:
     maxWidth:
       desktop: 6xl
     paddingY:
-      desktop: sm none
+      desktop: none
   - type: list_press_mentions
     version: v1.0
     variant: featured_showcase
