@@ -995,6 +995,7 @@ sections:
     hidden_until_redirection: true
     paddingY:
       desktop: md
+    image_id: rigobot-png
   - type: ai_learning
     version: v1.0
     variant: feature-tabs
