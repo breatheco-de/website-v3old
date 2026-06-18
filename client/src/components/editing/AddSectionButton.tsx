@@ -95,6 +95,8 @@ export function AddSectionButton({
               contentType={contentType}
               slug={slug}
               locale={locale}
+              variant={variant}
+              version={version}
             />
           </div>
           <div className="flex-1 h-px bg-primary/40" />
