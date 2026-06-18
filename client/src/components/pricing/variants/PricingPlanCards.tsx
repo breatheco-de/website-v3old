@@ -13,14 +13,14 @@ function CheckIcon({ variant }: { variant: "primary" | "green" | "off" }) {
   if (variant === "off") {
     return (
       <span className="w-5 h-5 rounded-full bg-muted flex-shrink-0 inline-flex items-center justify-center">
-        <IconX size={10} className="text-muted-foreground/50" stroke={2.5} />
+        <IconX size={13} className="text-muted-foreground/50" stroke={2.5} />
       </span>
     );
   }
   const bg = variant === "green" ? "bg-green-500" : "bg-primary";
   return (
     <span className={`w-5 h-5 rounded-full ${bg} flex-shrink-0 inline-flex items-center justify-center`}>
-      <IconCheck size={10} className="text-white" stroke={2.5} />
+      <IconCheck size={13} className="text-white" stroke={2.5} />
     </span>
   );
 }
@@ -64,7 +64,7 @@ function PricingCard({
 
   return (
     <div
-      className={`relative flex flex-col rounded-[18px] p-4 h-full transition-transform duration-200 hover:-translate-y-0.5 ${
+      className={`relative flex flex-col rounded-[18px] p-4 h-full ${
         isFeatured
           ? "bg-card border border-border shadow-[0_0_50px_10px_rgba(0,132,255,0.09),0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.05)]"
           : "bg-muted/50 border border-border shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
@@ -325,7 +325,7 @@ export function PricingPlanCardsSection({ data }: PricingPlanCardsSectionProps) 
           {data.plans.map((plan) => (
             <div
               key={plan.name}
-              className={`flex w-full max-w-[370px] flex-1 min-w-[260px] ${
+              className={`flex w-full max-w-[370px] flex-1 min-w-[260px] transition-transform duration-200 hover:-translate-y-1 ${
                 !plan.featured ? "bg-card rounded-[20px]" : ""
               }`}
             >
