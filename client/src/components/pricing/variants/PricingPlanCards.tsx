@@ -249,7 +249,7 @@ export function PricingPlanCardsSection({ data }: PricingPlanCardsSectionProps) 
   const nav = useInternalNav();
 
   return (
-    <section className="bg-background py-8 sm:py-14 px-4 sm:px-5" data-testid="section-pricing-plan-cards">
+    <section className="bg-background py-8 sm:py-14 px-4 sm:px-5 font-inter" data-testid="section-pricing-plan-cards">
       <div className="max-w-5xl mx-auto">
 
         <div className="inline-flex items-center gap-1.5 bg-primary text-primary-foreground text-[11px] font-bold tracking-widest uppercase px-3.5 py-1 rounded-full mb-5">
