@@ -290,7 +290,7 @@ sections:
     marginY:
       desktop: xl lg
     paddingY:
-      desktop: lg
+      desktop: lg md
     maxWidth:
       desktop: 6xl
   - highlight:
