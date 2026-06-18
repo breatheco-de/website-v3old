@@ -52,10 +52,62 @@ export const pricingProductSchema = z.object({
   cta: ctaButtonSchema,
 });
 
-// Union of all pricing variants
+// ─── plan_cards variant ───────────────────────────────────────────────────────
+
+export const pricingPlanCardsPlanSchema = z.object({
+  name: z.string(),
+  tag: z.string(),
+  for_label: z.string(),
+  currency: z.string(),
+  amount: z.string(),
+  cents: z.string().optional(),
+  period: z.string(),
+  billing_note: z.string(),
+  featured: z.boolean().optional(),
+  top_badge: z.string().optional(),
+  bottom_label: z.string().optional(),
+  bottom_badges: z.array(z.string()).optional(),
+  cta: z.object({
+    label: z.string(),
+    url: z.string(),
+  }),
+});
+
+export const pricingPlanCardsFeatureSchema = z.object({
+  text: z.string(),
+  exclude_from_plans: z.array(z.string()).optional(),
+});
+
+export const pricingPlanCardsAddonSchema = z.object({
+  label: z.string().optional(),
+  title: z.string(),
+  description: z.string().optional(),
+  currency: z.string(),
+  amount: z.string(),
+  period: z.string().optional(),
+});
+
+export const pricingPlanCardsSchema = z.object({
+  type: z.literal("pricing"),
+  version: z.string().optional(),
+  variant: z.literal("plan_cards"),
+  title: z.string(),
+  subtitle: z.string().optional(),
+  plans: z.array(pricingPlanCardsPlanSchema),
+  features: z.array(pricingPlanCardsFeatureSchema),
+  addon: pricingPlanCardsAddonSchema.optional(),
+});
+
+export type PricingPlanCardsPlan = z.infer<typeof pricingPlanCardsPlanSchema>;
+export type PricingPlanCardsFeature = z.infer<typeof pricingPlanCardsFeatureSchema>;
+export type PricingPlanCardsSection = z.infer<typeof pricingPlanCardsSchema>;
+
+// ─── Union of all pricing variants ───────────────────────────────────────────
+
 export const pricingSectionSchema = z.union([
   pricingDefaultSchema,
   pricingProductSchema,
+  pricingPlanCardsSchema,
 ]);
 
 export type PricingFeature = z.infer<typeof pricingFeatureSchema>;
