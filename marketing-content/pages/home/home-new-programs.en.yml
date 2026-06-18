@@ -229,7 +229,7 @@ sections:
     marginY:
       desktop: sm md
     paddingY:
-      desktop: sm md
+      desktop: md
   - type: trust_cards
     version: v1.0
     title: Top rated across all major platforms.
