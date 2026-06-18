@@ -13,7 +13,7 @@ sections:
     version: v1.0
     variant: default
     aggregation_method: sum
-    infinite_progress_bar: true
+    infinite_progress_bar: false
     badge_text: Build your path
     title: Your AI curriculum,
     title_highlight: built around you.
