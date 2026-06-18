@@ -523,7 +523,7 @@ sections:
     showOn: desktop
   - type: testimonials_slide
     title: 4Geeks changed their careers. These are their stories.
-    description: "Different backgrounds, different starting points, one result: a career in tech that changed everything. These are their stories."
+    description: Career changers, professionals leveling up, developers who wanted more. Different starting points, different programs. One decision that moved them ahead.
     dynamic_entries:
       database: testimonials_en
       limit: 30
