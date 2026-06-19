@@ -137,7 +137,7 @@ sections:
     swap_prompt_label: Tap a course in your path to replace it
     swap_cancel_label: Cancel
     tools_label: Tools in this path
-    tools_marquee: false
+    tools_marquee: true
     icon: 4GeeksAvatar
     default_courses:
       - Prompt Engineering
