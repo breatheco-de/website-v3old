@@ -472,6 +472,23 @@ sections:
       desktop: 6xl
     marginY:
       desktop: none sm
+  - type: testimonials_slide
+    title: 4Geeks Changed Their Careers. These Are Their Stories.
+    description: Career changers, professionals leveling up, developers who wanted more. Different starting points, different programs. One decision that moved them ahead.
+    dynamic_entries:
+      database: testimonials_en
+      limit: 30
+      permanent_filters:
+        - item_property_slug: related_features
+          value:
+            - content-and-syllabus
+    section_id: testimonials_slide-6jlded
+    marginY:
+      desktop: none
+    paddingY:
+      desktop: none
+    maxWidth:
+      desktop: none
   - type: list_press_mentions
     version: v1.0
     variant: featured_showcase
@@ -492,23 +509,6 @@ sections:
       desktop: 6xl
     marginY:
       desktop: none md
-  - type: testimonials_slide
-    title: 4Geeks Changed Their Careers. These Are Their Stories.
-    description: Career changers, professionals leveling up, developers who wanted more. Different starting points, different programs. One decision that moved them ahead.
-    dynamic_entries:
-      database: testimonials_en
-      limit: 30
-      permanent_filters:
-        - item_property_slug: related_features
-          value:
-            - content-and-syllabus
-    section_id: testimonials_slide-6jlded
-    marginY:
-      desktop: none
-    paddingY:
-      desktop: none
-    maxWidth:
-      desktop: none
   - type: why_learn_ai
     variant: laptop-edge
     laptop_image:
