@@ -90,16 +90,15 @@ sections:
     marginY:
       desktop: none md
   - type: graduates_stats
-    version: v1.0
-    heading: Our Graduates Get Hired. Fast.
-    subheading: 6,000+ graduates worldwide. Now thiriving in tech.
+    heading: "6,000+ Graduates. One Standard: Proven Outcomes."
+    subheading: Career changers, professionals leveling up, and self-starters building AI skills. Here's what the numbers show.
     stats:
-      - value: {{ global.number_of_hiring_partners_aprox | 250 }}%
-        label: Average hiring rate
+      - value: 4.9/5
+        label: Rated by 3,000+ students
       - value: {{ global.global_job_placement_rate | 84% }}%
+        label: Average hiring rate
+      - value: {{ global.global_salary_increase | 55% }}%
         label: Average salary increase at new position
-      - value: 3-6 months
-        label: Average time to get hired
     collage_images:
       - image_id: group-7085-1-700x380-600x326-q80
         col_span: 5
@@ -130,13 +129,13 @@ sections:
         object_scale: 1.05
         transform_origin: 50% 50%
         object_position: 50% 45%
+    section_id: graduates_stats-cnxqbb
     marginY:
-      desktop: none
+      desktop: lg md
     maxWidth:
-      desktop: 6xl
+      desktop: xl
     paddingY:
-      desktop: md none
-    section_id: graduates_stats-j26io2
+      desktop: md sm
   - type: features_grid
     version: "1.0"
     variant: stats-charts
