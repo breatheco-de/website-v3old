@@ -133,7 +133,7 @@ sections:
         object_position: 50% 45%
     section_id: graduates_stats-cnxqbb
     marginY:
-      desktop: md
+      desktop: lg sm
     maxWidth:
       desktop: xl
     paddingY:
