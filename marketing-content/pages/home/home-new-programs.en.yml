@@ -88,7 +88,7 @@ sections:
     pills_url: "#list_press_mentions-w7r1sh"
     marquee_static: true
     marginY:
-      desktop: none md
+      desktop: none sm
   - type: graduates_stats
     heading: "6,000+ Graduates. One Standard: Student Success."
     subheading: "Across programs, backgrounds, and goals: the numbers backing the academy."
