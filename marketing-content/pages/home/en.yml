@@ -90,7 +90,7 @@ sections:
     pills_url: "#list_press_mentions-w7r1sh"
     marquee_static: true
     marginY:
-      desktop: none lg
+      desktop: none sm
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thriving in tech.
