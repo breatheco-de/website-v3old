@@ -993,8 +993,10 @@ sections:
       desktop: xl
     hidden_until_redirection: true
     paddingY:
-      desktop: md
+      desktop: md xl
     image_id: rigobot-png
+    marginY:
+      desktop: none xl
   - type: pricing
     version: "1.0"
     variant: plan_cards
@@ -1049,7 +1051,9 @@ sections:
       period: per session
     section_id: pricing-a06ku9
     paddingY:
-      desktop: sm
+      desktop: xl sm
+    marginY:
+      desktop: xl none
   - type: ai_learning
     version: v1.0
     variant: feature-tabs
