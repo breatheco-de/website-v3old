@@ -229,7 +229,7 @@ sections:
       desktop: 6xl
   - type: ai_flex_selector
     version: v1.0
-    variant: default
+    variant: course_color_selector
     badge_text: Build your path
     title: Your AI curriculum,
     title_highlight: built around you.
@@ -240,11 +240,23 @@ sections:
     skills_breakdown_label: Skills breakdown
     max_selections: 4
     tools_marquee: true
+    slot_colors:
+      - color: hsl(0 84% 60%)
+      - color: hsl(45 96% 53%)
+      - color: hsl(142 71% 45%)
+      - color: hsl(330 80% 62%)
+    view_details_label: View details
+    drag_instruction_label: Also available — drag any card to swap it into your path
+    replace_label: Replace with
+    swap_label: Swap into path
+    swap_icon: arrow-left-right
+    swap_prompt_label: Tap a course in your path to replace it
+    swap_cancel_label: Cancel
+    tools_label: Tools in this path
     results:
       ready_label: Your path is ready
       subtitle: View your courses or build your own path
       counter_label: selected
-      tools_label: Tools in this path
     cta:
       title: Start with a 7-day free trial.
       subtitle: No commitment. Cancel anytime. Your path stays saved.
@@ -368,10 +380,40 @@ sections:
               - 2
               - 1
               - 1
+    paths:
+      - name: The Data-Driven Analyst
+        tagline: Python, data science and ML with AI tools
+        default_courses:
+          - Deep Dive into Python
+          - Data Science & ML
+          - Applied AI
+          - Prompt Engineering
+      - name: The Builder
+        tagline: Build real products with AI, code-optional
+        default_courses:
+          - Vibe Coding with AI
+          - Backend Dev with Python
+          - No-Code & Automations
+          - OpenClaw
+      - name: The Career Switcher
+        tagline: Code foundations + applied AI for career pivoters
+        default_courses:
+          - Deep Dive into Python
+          - Backend Dev with Python
+          - Vibe Coding with AI
+          - Applied AI
+      - name: The AI-First Professional
+        tagline: AI tools mastery for knowledge workers
+        default_courses:
+          - Prompt Engineering
+          - Applied AI
+          - No-Code & Automations
+          - OpenClaw
     courses:
       - name: Prompt Engineering
         tagline: Prompting patterns & reusable libraries
         hrs: ~8 hrs
+        color: hsl(0 84% 60%)
         tools:
           - ChatGPT
           - Claude
@@ -387,6 +429,7 @@ sections:
       - name: Applied AI
         tagline: AI for real professional work tasks
         hrs: ~12 hrs
+        color: hsl(45 96% 53%)
         tools:
           - ChatGPT
           - Notion
@@ -403,6 +446,7 @@ sections:
       - name: No-Code & Automations
         tagline: Visual workflows with n8n, Zapier, Make
         hrs: ~10 hrs
+        color: hsl(142 71% 45%)
         tools:
           - n8n
           - Make
@@ -419,6 +463,7 @@ sections:
       - name: Vibe Coding with AI
         tagline: Build apps with AI coding assistants
         hrs: ~12 hrs
+        color: hsl(330 80% 62%)
         tools:
           - Cursor
           - GitHub Copilot
@@ -434,6 +479,7 @@ sections:
       - name: OpenClaw
         tagline: Personal AI assistant setup & integration
         hrs: ~6 hrs
+        color: hsl(262 83% 58%)
         tools:
           - OpenClaw
           - Slack
@@ -449,6 +495,7 @@ sections:
       - name: Backend Dev with Python
         tagline: APIs with FastAPI, databases, deployment
         hrs: ~20 hrs
+        color: hsl(200 98% 39%)
         tools:
           - FastAPI
           - PostgreSQL
@@ -465,6 +512,7 @@ sections:
       - name: Deep Dive into Python
         tagline: Python fundamentals to advanced
         hrs: ~18 hrs
+        color: hsl(221 83% 53%)
         tools:
           - Python
           - VS Code
@@ -480,6 +528,7 @@ sections:
       - name: Data Science & ML
         tagline: Data analysis, ML models, predictions
         hrs: ~22 hrs
+        color: hsl(25 95% 53%)
         tools:
           - Pandas
           - NumPy
@@ -493,35 +542,7 @@ sections:
             skill_percentage: 35
           - name: Model evaluation
             skill_percentage: 20
-    paths:
-      - name: The Data-Driven Analyst
-        tagline: Python, data science and ML with AI tools
-        courses:
-          - Deep Dive into Python
-          - Data Science & ML
-          - Applied AI
-          - Prompt Engineering
-      - name: The Builder
-        tagline: Build real products with AI, code-optional
-        courses:
-          - Vibe Coding with AI
-          - Backend Dev with Python
-          - No-Code & Automations
-          - OpenClaw
-      - name: The Career Switcher
-        tagline: Code foundations + applied AI for career pivoters
-        courses:
-          - Deep Dive into Python
-          - Backend Dev with Python
-          - Vibe Coding with AI
-          - Applied AI
-      - name: The AI-First Professional
-        tagline: AI tools mastery for knowledge workers
-        courses:
-          - Prompt Engineering
-          - Applied AI
-          - No-Code & Automations
-          - OpenClaw
+    tiebreaker: 1
     section_id: ai_flex_selector-rg0229
     paddingY:
       desktop: sm
