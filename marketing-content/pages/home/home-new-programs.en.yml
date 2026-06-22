@@ -131,11 +131,11 @@ sections:
         object_position: 50% 45%
     section_id: graduates_stats-cnxqbb
     marginY:
-      desktop: md
+      desktop: sm md
     maxWidth:
       desktop: xl
     paddingY:
-      desktop: md sm
+      desktop: sm
   - type: features_grid
     version: "1.0"
     variant: stats-charts
