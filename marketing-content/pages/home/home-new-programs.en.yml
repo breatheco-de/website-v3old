@@ -91,7 +91,7 @@ sections:
       desktop: none md
   - type: graduates_stats
     heading: "6,000+ Graduates. One Standard: Student Success."
-    subheading: Across programs, backgrounds, and goals. The numbers backing the academy.
+    subheading: "Across programs, backgrounds, and goals: the numbers backing the academy."
     stats:
       - value: {{ global.global_job_placement_rate | 84% }}%
         label: Average hiring rate
