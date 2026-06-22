@@ -677,6 +677,7 @@ sections:
             skill_percentage: 20
     paddingY:
       desktop: sm
+    hidden_until_redirection: true
   - type: ai_flex_path
     version: v1.0
     variant: course_color_selector
