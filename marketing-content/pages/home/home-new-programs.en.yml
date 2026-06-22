@@ -90,7 +90,7 @@ sections:
     marginY:
       desktop: none md
   - type: graduates_stats
-    heading: "6,000+ Graduates. One Standard: Proven Outcomes."
+    heading: "6,000+ Graduates. One Standard: Student Success."
     subheading: Career changers, professionals leveling up, and self-starters building AI skills. Here's what the numbers show.
     stats:
       - value: {{ global.global_job_placement_rate | 84% }}%
