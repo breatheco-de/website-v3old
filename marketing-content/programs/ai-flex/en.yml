@@ -368,7 +368,7 @@ sections:
   - type: ai_flex_path
     version: v1.0
     variant: course_color_selector
-    section_id: ai-flex-path-color-selector-example
+    section_id: ai-flex-path-data-analyst
     ready_label: Your path is ready
     path_name: The Data-Driven Analyst
     tagline: Python, data science and ML with AI tools
@@ -469,10 +469,43 @@ sections:
             skill_percentage: 30
           - name: Debug & review
             skill_percentage: 20
+      - name: OpenClaw
+        tagline: Personal AI assistant setup & integration
+        hrs: ~6 hrs
+        color: hsl(262 83% 58%)
+        tools:
+          - OpenClaw
+          - Slack
+          - Notion
+          - Google Sheets
+        skills:
+          - name: Assistant setup
+            skill_percentage: 50
+          - name: Custom skill design
+            skill_percentage: 30
+          - name: Tool connection
+            skill_percentage: 20
+      - name: Backend Dev with Python
+        tagline: APIs with FastAPI, databases, deployment
+        hrs: ~20 hrs
+        color: hsl(200 98% 39%)
+        tools:
+          - FastAPI
+          - PostgreSQL
+          - Docker
+          - Railway
+          - Supabase
+        skills:
+          - name: REST API design
+            skill_percentage: 45
+          - name: Database & deploy
+            skill_percentage: 35
+          - name: AI API integration
+            skill_percentage: 20
       - name: Deep Dive into Python
         tagline: Python fundamentals to advanced
         hrs: ~18 hrs
-        color: hsl(0 84% 60%)
+        color: hsl(221 83% 53%)
         tools:
           - Python
           - VS Code
@@ -488,7 +521,7 @@ sections:
       - name: Data Science & ML
         tagline: Data analysis, ML models, predictions
         hrs: ~22 hrs
-        color: hsl(45 96% 53%)
+        color: hsl(25 95% 53%)
         tools:
           - Pandas
           - NumPy
