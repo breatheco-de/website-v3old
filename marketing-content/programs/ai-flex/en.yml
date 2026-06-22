@@ -258,31 +258,116 @@ sections:
         text: What's your main goal right now?
         options:
           - label: Use AI to be more productive at my current job
+            scores:
+              - 0
+              - 1
+              - 0
+              - 3
           - label: Automate repetitive tasks without writing code
+            scores:
+              - 0
+              - 2
+              - 0
+              - 3
           - label: Build apps or technical projects with AI
+            scores:
+              - 0
+              - 3
+              - 2
+              - 0
           - label: Work with data, analytics, or machine learning
+            scores:
+              - 3
+              - 0
+              - 0
+              - 0
       - subtitle: Question 2 of 4
         text: How comfortable are you with coding?
         options:
           - label: No experience — and I'd like to keep it that way
+            scores:
+              - 0
+              - 1
+              - 0
+              - 3
           - label: No experience — but I'm open to basics
+            scores:
+              - 0
+              - 2
+              - 1
+              - 2
           - label: Some basics (scripts, spreadsheets, HTML)
+            scores:
+              - 2
+              - 2
+              - 2
+              - 0
           - label: I code regularly
+            scores:
+              - 3
+              - 1
+              - 3
+              - 0
       - subtitle: Question 3 of 4
         text: What skill would make the biggest difference in your work right now?
         options:
           - label: Getting reliable, professional-quality results from AI tools
+            scores:
+              - 1
+              - 0
+              - 0
+              - 3
           - label: Building automations that run without me
+            scores:
+              - 0
+              - 3
+              - 0
+              - 2
           - label: Setting up AI assistants for my existing tools
+            scores:
+              - 0
+              - 2
+              - 0
+              - 3
           - label: Writing code or building software with AI
+            scores:
+              - 0
+              - 2
+              - 3
+              - 0
           - label: Analyzing data and making smarter decisions
+            scores:
+              - 3
+              - 0
+              - 0
+              - 0
       - subtitle: Question 4 of 4
         text: How do you plan to use what you learn?
         options:
           - label: Get better at what I already do
+            scores:
+              - 1
+              - 1
+              - 0
+              - 3
           - label: Add a new capability to my current role
+            scores:
+              - 2
+              - 2
+              - 1
+              - 1
           - label: Prepare for a career shift into tech
+            scores:
+              - 1
+              - 1
+              - 3
+              - 0
           - label: Explore — not sure yet
+            scores:
+              - 1
+              - 2
+              - 1
+              - 1
     courses:
       - name: Prompt Engineering
         tagline: Prompting patterns & reusable libraries
@@ -429,13 +514,6 @@ sections:
           - Deep Dive into Python
           - Backend Dev with Python
           - Vibe Coding with AI
-          - Applied AI
-      - name: The Automation Specialist
-        tagline: No-code workflows and AI pipelines
-        courses:
-          - No-Code & Automations
-          - Prompt Engineering
-          - OpenClaw
           - Applied AI
       - name: The AI-First Professional
         tagline: AI tools mastery for knowledge workers
