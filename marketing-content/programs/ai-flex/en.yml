@@ -368,36 +368,6 @@ sections:
               - 2
               - 1
               - 1
-    paths:
-      - name: The Data-Driven Analyst
-        tagline: Python, data science and ML with AI tools
-        default_courses:
-          - Deep Dive into Python
-          - Data Science & ML
-          - Applied AI
-          - Prompt Engineering
-      - name: The Builder
-        tagline: Build real products with AI, code-optional
-        default_courses:
-          - Vibe Coding with AI
-          - Backend Dev with Python
-          - No-Code & Automations
-          - OpenClaw
-      - name: The Career Switcher
-        tagline: Code foundations + applied AI for career pivoters
-        default_courses:
-          - Deep Dive into Python
-          - Backend Dev with Python
-          - Vibe Coding with AI
-          - Applied AI
-      - name: The AI-First Professional
-        tagline: AI tools mastery for knowledge workers
-        default_courses:
-          - Prompt Engineering
-          - Applied AI
-          - No-Code & Automations
-          - OpenClaw
-    tiebreaker: 1
     courses:
       - name: Prompt Engineering
         tagline: Prompting patterns & reusable libraries
@@ -523,6 +493,35 @@ sections:
             skill_percentage: 35
           - name: Model evaluation
             skill_percentage: 20
+    paths:
+      - name: The Data-Driven Analyst
+        tagline: Python, data science and ML with AI tools
+        courses:
+          - Deep Dive into Python
+          - Data Science & ML
+          - Applied AI
+          - Prompt Engineering
+      - name: The Builder
+        tagline: Build real products with AI, code-optional
+        courses:
+          - Vibe Coding with AI
+          - Backend Dev with Python
+          - No-Code & Automations
+          - OpenClaw
+      - name: The Career Switcher
+        tagline: Code foundations + applied AI for career pivoters
+        courses:
+          - Deep Dive into Python
+          - Backend Dev with Python
+          - Vibe Coding with AI
+          - Applied AI
+      - name: The AI-First Professional
+        tagline: AI tools mastery for knowledge workers
+        courses:
+          - Prompt Engineering
+          - Applied AI
+          - No-Code & Automations
+          - OpenClaw
     section_id: ai_flex_selector-rg0229
     paddingY:
       desktop: sm
