@@ -586,6 +586,7 @@ sections:
             skill_percentage: 20
     paddingY:
       desktop: sm
+    hidden_until_redirection: true
   - type: human_and_ai_duo
     version: "1.0"
     heading: 24/7 AI Tutoring. Human Expertise on Demand.
