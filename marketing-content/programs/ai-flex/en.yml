@@ -1167,6 +1167,18 @@ sections:
     paddingY:
       desktop: sm
     background: hsl(var(--card))
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: testimonials
     section_id: testimonials-cbhm8t
     title: The People Behind the Numbers.
