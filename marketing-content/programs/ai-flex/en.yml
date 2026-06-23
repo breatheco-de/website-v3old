@@ -1158,37 +1158,6 @@ sections:
     section_id: pricing-6svo9e
     paddingY:
       desktop: sm
-  - type: pricing
-    version: "1.0"
-    variant: product
-    title: Pick Your Plan. Get Everything.
-    subtitle: Full access to all 8 courses and every tool that comes with them. Start now, cancel anytime.
-    discount_text: Save 25% when you pay for the year upfront.
-    financing_text: Plans start at
-    financing_amount: {{ global.price_aiflex_quarterly | $149.97 }}
-    tech_icons:
-      - openai
-      - claude
-      - n8n
-      - openclaw
-    features_title: Choose the timeframe that works for you.
-    features:
-      - icon: IconCheck
-        text: One price unlocks all 8 courses, LearnPack, Rigobot, AI Copilot, Codespaces, and the community.
-      - icon: IconCheck
-        text: Choose a 3, 6, or 12 months plan. Cancel anytime.
-      - icon: IconCheck
-        text: Want a human in the loop? Add a 1:1 mentorship session anytime for $25.
-    cta:
-      text: Get more info
-      url: "#modal-y2myvq"
-      variant: primary
-    section_id: pricing-aiflex
-    marginY:
-      desktop: lg md
-    paddingY:
-      desktop: md lg
-    background: hsl(210 100% 50% / 0.05)
   - type: testimonials
     section_id: testimonials-cbhm8t
     title: The People Behind the Numbers.
