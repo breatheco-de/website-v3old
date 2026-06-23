@@ -1086,6 +1086,8 @@ sections:
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
+    paddingY:
+      desktop: none lg
   - type: two_column_accordion_card
     version: "1.0"
     variant: image_background
