@@ -143,15 +143,18 @@ sections:
       - Prompt Engineering
       - Applied AI
       - No-Code & Automations
-      - OpenClaw
+      - Building Personal Assistants with AI
     cta:
       title: Start with a 7-day free trial.
       subtitle: No commitment. Cancel anytime. Your path stays saved.
       banner: true
       buttons:
-        - text: Start free trial
-          url: /en/apply
+        - text: Enroll now
+          url: /en/checkout-placeholder
           variant: primary
+        - text: View plans
+          url: "#pricing-section-id-placeholder"
+          variant: outline
     courses:
       - name: Prompt Engineering
         tagline: Prompting patterns & reusable libraries
@@ -219,7 +222,7 @@ sections:
             skill_percentage: 30
           - name: Debug & review
             skill_percentage: 20
-      - name: OpenClaw
+      - name: Building Personal Assistants with AI
         tagline: Personal AI assistant setup & integration
         hrs: ~6 hrs
         color: hsl(262 83% 58%)
