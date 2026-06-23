@@ -1127,7 +1127,7 @@ sections:
         cta:
           label: Subscribe to Basic Plan
           url: https://academy.4geeks.com/plans/201
-        featured: true
+        featured: false
       - name: Pro Plan
         tag: Annual
         for_label: For up to 2 students
