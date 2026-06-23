@@ -1143,7 +1143,7 @@ sections:
           - Affirm
         cta:
           label: Subscribe to Pro Plan
-          url: /en/signup-pro
+          url: https://4geeks.com/es/checkout?plan=ai-flex-pro&cohort=1719
     features:
       - text: Mentorship sessions / month
       - text: Access to exclusive events
