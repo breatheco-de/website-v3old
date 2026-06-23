@@ -310,6 +310,28 @@ sections:
           - text: Your always-on tutor for all self-paced modules
           - text: Adapts to your skill level and what you are working on
     section_id: human_and_ai_duo-hz7p4j
+    images:
+      - src: ""
+        alt: Student 1
+        object_fit: cover
+        object_position: center top
+        border_radius: 0.5rem
+        transform_origin: 70% 30%
+      - src: ""
+        alt: Student 2
+        object_fit: cover
+        object_position: center top
+        border_radius: 0.5rem
+      - src: ""
+        alt: Student 3
+        object_fit: cover
+        object_position: center top
+        border_radius: 0.5rem
+      - src: ""
+        alt: Student 4
+        object_fit: cover
+        object_position: center top
+        border_radius: 0.5rem
   - type: pricing
     version: "1.0"
     variant: product
