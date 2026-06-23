@@ -125,9 +125,9 @@ sections:
     results_subtitle: View your courses or build your own path
     max_selections: 4
     slot_colors:
+      - color: hsl(var(--primary))
       - color: hsl(var(--destructive) / 0.5)
       - color: hsl(var(--accent))
-      - color: hsl(var(--primary))
       - color: hsl(var(--muted-foreground) / 0.7)
     view_details_label: View details
     drag_instruction_label: Also available — drag any card to swap it into your path
