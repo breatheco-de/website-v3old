@@ -1103,16 +1103,6 @@ sections:
     image: https://storage.googleapis.com/4geeks-academy-website/media/community-support-2_1765406601448.webp
     image_alt: "Image: valentina_brightened"
     section_id: two_column_accordion_card-aiflex
-  - type: pricing_plans
-    version: v1.0
-    id: pricing-plans-section
-    title: Choose Your Plan
-    subtitle: Flexible options to match your learning goals. Cancel anytime.
-    cta_label: Get Started
-    cta_url: /en/apply
-    section_id: pricing_plans-cm8paf
-    paddingY:
-      desktop: sm
   - type: pricing
     version: "1.0"
     variant: product
