@@ -198,7 +198,7 @@ sections:
     paddingY:
       desktop: none md
     marginY:
-      desktop: lg md
+      desktop: lg
     section_id: features_grid-aiflex-whynow
   - type: survey
     version: v1.0
