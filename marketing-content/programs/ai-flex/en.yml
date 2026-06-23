@@ -1103,6 +1103,7 @@ sections:
     image: https://storage.googleapis.com/4geeks-academy-website/media/community-support-2_1765406601448.webp
     image_alt: Valentina Ancieta
     section_id: two_column_accordion_card-aiflex
+    background: hsl(var(--secondary))
   - type: pricing
     version: "1.0"
     variant: plan_cards
