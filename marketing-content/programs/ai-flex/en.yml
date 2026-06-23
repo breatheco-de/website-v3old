@@ -1106,6 +1106,8 @@ sections:
     image_alt: Valentina Ancieta
     section_id: two_column_accordion_card-aiflex
     background: hsl(var(--secondary))
+    paddingY:
+      desktop: none md
   - type: pricing
     version: "1.0"
     variant: plan_cards
