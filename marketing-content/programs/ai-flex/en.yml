@@ -66,7 +66,6 @@ sections:
     marginY:
       desktop: none
     section_id: hero-aiflex
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     video:
       url: https://youtu.be/sGADk75qvNI
   - type: awards_marquee
