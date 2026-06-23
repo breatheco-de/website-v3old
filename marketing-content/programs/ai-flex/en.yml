@@ -306,6 +306,7 @@ sections:
     paddingY:
       desktop: sm
     image_id: rigobot-png
+    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
   - type: ai_flex_path
     version: v1.0
     variant: course_color_selector
