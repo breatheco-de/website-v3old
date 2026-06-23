@@ -154,7 +154,7 @@ sections:
       - icon: IconUserCheck
         title: When you get stuck, a human expert is one message away.
         description: Optional 1:1 mentorship, available whenever you need it.
-      - icon: IconDeviceLaptop
+      - icon: book-open-check
         title: Learn directly on our interactive platform from your browser. No setup, no installs.
         description: Interactive auto-graded exercises with an AI tutor that works with you 24/7. Just open and start.
     background: hsl(var(--muted))
