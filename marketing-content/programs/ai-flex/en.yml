@@ -1087,7 +1087,7 @@ sections:
         object_position: 50%30%
         border_radius: 0.5rem
     paddingY:
-      desktop: none lg
+      desktop: none
   - type: two_column_accordion_card
     version: "1.0"
     variant: image_background
@@ -1107,7 +1107,7 @@ sections:
     section_id: two_column_accordion_card-aiflex
     background: hsl(var(--secondary))
     paddingY:
-      desktop: none lg
+      desktop: md lg
   - type: pricing
     version: "1.0"
     variant: plan_cards
