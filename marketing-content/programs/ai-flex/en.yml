@@ -806,17 +806,17 @@ sections:
   - type: ai_flex_path
     version: v1.0
     variant: course_color_selector
-    section_id: ai-flex-path-color-selector-example
+    section_id: ai-flex-path-data-driven-analyst
     ready_label: Your path is ready
     path_name: The Data-Driven Analyst
     tagline: Python, data science and ML with AI tools
     results_subtitle: View your courses or build your own path
     max_selections: 4
     slot_colors:
-      - color: hsl(0 84% 60%)
-      - color: hsl(45 96% 53%)
-      - color: hsl(142 71% 45%)
-      - color: hsl(330 80% 62%)
+      - color: hsl(var(--primary))
+      - color: hsl(var(--destructive) / 0.5)
+      - color: hsl(var(--accent))
+      - color: hsl(var(--muted-foreground) / 0.7)
     view_details_label: View details
     drag_instruction_label: Also available — drag any card to swap it into your path
     replace_label: Replace with
@@ -833,13 +833,16 @@ sections:
       - Applied AI
       - Prompt Engineering
     cta:
-      title: Start with a 7-day free trial.
-      subtitle: No commitment. Cancel anytime. Your path stays saved.
+      title: Ready to start learning?
+      subtitle: Choose a plan and get instant access to your path.
       banner: true
       buttons:
-        - text: Start free trial
-          url: /en/apply
+        - text: Enroll now
+          url: /en/checkout-placeholder
           variant: primary
+        - text: View plans
+          url: "#pricing-section-id-placeholder"
+          variant: outline
     courses:
       - name: Prompt Engineering
         tagline: Prompting patterns & reusable libraries
@@ -907,6 +910,39 @@ sections:
             skill_percentage: 30
           - name: Debug & review
             skill_percentage: 20
+      - name: Building Personal Assistants with AI
+        tagline: Personal AI assistant setup & integration
+        hrs: ~6 hrs
+        color: hsl(262 83% 58%)
+        tools:
+          - OpenClaw
+          - Slack
+          - Notion
+          - Google Sheets
+        skills:
+          - name: Assistant setup
+            skill_percentage: 50
+          - name: Custom skill design
+            skill_percentage: 30
+          - name: Tool connection
+            skill_percentage: 20
+      - name: Backend Dev with Python
+        tagline: APIs with FastAPI, databases, deployment
+        hrs: ~20 hrs
+        color: hsl(217 91% 60%)
+        tools:
+          - FastAPI
+          - PostgreSQL
+          - Docker
+          - Railway
+          - Supabase
+        skills:
+          - name: REST API design
+            skill_percentage: 45
+          - name: Database & deploy
+            skill_percentage: 35
+          - name: AI API integration
+            skill_percentage: 20
       - name: Deep Dive into Python
         tagline: Python fundamentals to advanced
         hrs: ~18 hrs
@@ -940,8 +976,12 @@ sections:
             skill_percentage: 35
           - name: Model evaluation
             skill_percentage: 20
+    maxWidth:
+      desktop: xl
+    hidden_until_redirection: true
     paddingY:
-      desktop: sm
+      desktop: md
+    image_id: rigobot-png
   - type: features_grid
     version: "1.0"
     variant: stats-charts
