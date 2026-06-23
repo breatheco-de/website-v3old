@@ -1158,7 +1158,6 @@ sections:
     section_id: pricing-6svo9e
     paddingY:
       desktop: sm
-    background: hsl(var(--secondary))
   - type: testimonials
     section_id: testimonials-cbhm8t
     title: The People Behind the Numbers.
