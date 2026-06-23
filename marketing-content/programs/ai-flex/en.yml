@@ -197,9 +197,9 @@ sections:
       bar1_label: AI-adopting companies
       bar2_label: Industry average
     paddingY:
-      desktop: none lg
+      desktop: none md
     marginY:
-      desktop: lg sm
+      desktop: lg none
     section_id: features_grid-aiflex-whynow
   - type: survey
     version: v1.0
