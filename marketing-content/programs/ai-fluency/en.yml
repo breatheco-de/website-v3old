@@ -295,20 +295,20 @@ sections:
     heading: Human and AI Support, So You Never Lose Momentum
     description: Staying motivated is easy when everything clicks. It gets really hard when you hit a wall. AI Fluency pairs a real human mentor with Rigobot, our AI tutor, so you always have somewhere to turn to and no reason to stop.
     bullet_groups:
-      - title: "Our team of expert mentors:"
+      - title: "Your expert mentor:"
         image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
         bullets:
-          - text: Personalized guidance
-          - text: Live troubleshooting
-          - text: Expert bug fixing assistance
-          - text: Industry insights and career advice
-      - title: "Rigobot + Learnpack:"
+          - text: A 1:1 session with a senior instructor, included in your enrollment
+          - text: Expert guidance tailored to you.
+          - text: Focused on your actual tasks, workflows, and goals
+          - text: Additional sessions available to book anytime, at extra cost
+      - title: "Rigobot, your AI tutor:"
         image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
         bullets:
-          - text: Instant feedback and tutoring 24/7
-          - text: Adjusts advice to your skills and progress
-          - text: Debugging and problem-solving support
-          - text: Hundreds of hands-on coding exercises and tests
+          - text: Available 24/7 throughout the program
+          - text: Ask for help, feedback, or an explanation whenever you need it
+          - text: Your always-on tutor for all self-paced modules
+          - text: Adapts to your skill level and what you are working on
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
         alt: Asian student learning to code
