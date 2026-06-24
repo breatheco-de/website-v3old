@@ -109,7 +109,7 @@ global.price_ai_engineering:
       value: "140€"
     - query:
         region: "latam"
-      value: "380 USD"
+      value: "459 USD"
 global.price_full_ai_engineering:
   default: "$14,999"
   conditions:
