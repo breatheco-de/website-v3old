@@ -248,7 +248,7 @@ sections:
         description: Integrate AI workflows into your work. Four weeks, one live session per week, walk away with working agents and automations.
         cta_text: See program details
         cta_url: /en/career-programs/ai-fluency
-        course_background: hsl(var(--muted-foreground))
+        course_background: hsl(var(--accent))
       - name: AI Flex
         icon: IconBolt
         duration: Self-paced
