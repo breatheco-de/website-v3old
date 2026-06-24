@@ -315,7 +315,7 @@ export function PricingPlanCardsComparisonSection({ data }: PricingPlanCardsComp
           {data.plans.map((plan) => (
             <div
               key={plan.name}
-              className={`flex w-full max-w-[370px] flex-1 min-w-[260px] hover:-translate-y-1 will-change-transform transition-transform duration-200 ${
+              className={`flex w-full max-w-[370px] flex-1 min-w-[260px] [transform:translate3d(0,0,0)] hover:[transform:translate3d(0,-4px,0)] transition-[transform] duration-200 ${
                 !plan.featured ? "bg-card rounded-[20px]" : ""
               }`}
             >
