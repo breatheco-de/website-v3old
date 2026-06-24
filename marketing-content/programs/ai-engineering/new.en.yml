@@ -641,7 +641,7 @@ sections:
     description_link:
       text: "*Not available in all regions. Terms and conditions apply."
       url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
-    background: bg-muted/30
+    background: hsl(210 100% 50% / 0.05)
     steps:
       - icon: School
         text: Add the Job Guarantee to your payment plan.
