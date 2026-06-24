@@ -552,6 +552,7 @@ sections:
           - barcelona-spain
           - berlin-germany
           - dublin-ireland
+          - santiago-chile
     marginY:
       desktop: lg none
     paddingY:
