@@ -472,7 +472,7 @@ sections:
         video_url: https://youtu.be/-2ZvlgDnltc
     section_id: ai_learning-xiuj75
     marginY:
-      desktop: md xl
+      desktop: md sm
     paddingY:
       desktop: md sm
   - type: features_grid
