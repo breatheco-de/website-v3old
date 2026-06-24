@@ -496,7 +496,7 @@ sections:
       variant: primary
     section_id: why_learn_ai-9pbrek
     marginY:
-      desktop: md lg
+      desktop: none lg
     paddingY:
       desktop: none
     background: hsl(210 100% 50% / 0.05)
