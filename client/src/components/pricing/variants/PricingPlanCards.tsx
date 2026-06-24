@@ -155,7 +155,7 @@ function MiniPricingCard({ plan }: { plan: PricingPlanCardsNewPlan }) {
   return (
     <div className="relative flex flex-col">
       {plan.top_badge && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-500 text-white text-[9px] font-extrabold tracking-widest uppercase px-3 py-0.5 rounded-full whitespace-nowrap shadow-[0_2px_8px_rgba(34,197,94,0.4)] z-10">
+        <div className="absolute -top-1 left-1/2 -translate-x-1/2 bg-green-500 text-white text-[9px] font-extrabold tracking-widest uppercase px-3 py-0.5 rounded-full whitespace-nowrap shadow-[0_2px_8px_rgba(34,197,94,0.4)] z-10">
           {plan.top_badge}
         </div>
       )}
