@@ -66,7 +66,7 @@ function PricingCard({
 
   return (
     <div
-      className={`relative flex flex-col rounded-[18px] p-4 h-full w-full transition-transform duration-200 group-hover:-translate-y-1 ${
+      className={`relative flex flex-col rounded-[18px] p-4 h-full w-full transition-transform duration-200 group-hover:-translate-y-1 transform-gpu ${
         isFeatured
           ? "bg-card border border-border shadow-[0_0_50px_10px_rgba(0,132,255,0.09),0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.05)]"
           : "bg-muted/50 border border-border shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
@@ -227,7 +227,7 @@ function MiniPricingCard({
           href={plan.cta.url}
           onClick={handleLinkClick}
           data-testid={`button-cta-mini-plan-${plan.name.toLowerCase().replace(/\s+/g, "-")}`}
-          className={`mt-auto w-full py-2.5 rounded-xl text-[13px] font-extrabold cursor-pointer transition-all duration-150 flex items-center justify-center ${
+          className={`mt-auto w-full py-2.5 rounded-xl text-[13px] font-extrabold cursor-pointer flex items-center justify-center ${
             isFeatured
               ? "bg-green-500 hover:bg-green-600 text-white border-0 shadow-[0_2px_8px_rgba(34,197,94,0.35)]"
               : "bg-primary text-primary-foreground hover:shadow-[inset_0_0_0_9999px_rgba(0,0,0,0.12)]"
