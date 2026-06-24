@@ -86,7 +86,7 @@ sections:
     paddingY:
       desktop: none md
     pills_url: "#list_press_mentions-w7r1sh"
-    marquee_static: true
+    marquee_static: false
     marginY:
       desktop: none sm
   - type: graduates_stats
