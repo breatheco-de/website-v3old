@@ -204,7 +204,7 @@ sections:
       - React
       - Node.js
       - Prompt Engineering
-    marquee_speed: 60
+    marquee_speed: 70
     section_id: banner-qrp5dz
     paddingY:
       desktop: sm md
