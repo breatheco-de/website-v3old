@@ -149,7 +149,7 @@ function PricingCard({
         className={`mt-auto w-full py-3 rounded-xl text-[15px] font-extrabold cursor-pointer transition-all duration-150 flex items-center justify-center ${
           isFeatured
             ? "bg-green-500 hover:bg-green-600 text-white border-0 shadow-[0_3px_12px_rgba(34,197,94,0.35)]"
-            : "bg-primary text-primary-foreground hover:brightness-90"
+            : "bg-primary text-primary-foreground hover:shadow-[inset_0_0_0_9999px_rgba(0,0,0,0.12)]"
         }`}
       >
         {plan.cta.label}
@@ -230,7 +230,7 @@ function MiniPricingCard({
           className={`mt-auto w-full py-2.5 rounded-xl text-[13px] font-extrabold cursor-pointer transition-all duration-150 flex items-center justify-center ${
             isFeatured
               ? "bg-green-500 hover:bg-green-600 text-white border-0 shadow-[0_2px_8px_rgba(34,197,94,0.35)]"
-              : "bg-primary text-primary-foreground hover:brightness-90"
+              : "bg-primary text-primary-foreground hover:shadow-[inset_0_0_0_9999px_rgba(0,0,0,0.12)]"
           }`}
         >
           {plan.cta.label}
