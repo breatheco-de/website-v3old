@@ -66,7 +66,7 @@ function PricingCard({
 
   return (
     <div
-      className={`relative flex flex-col rounded-[18px] p-4 h-full w-full transition-transform duration-200 group-hover:-translate-y-1 transform-gpu ${
+      className={`relative flex flex-col rounded-[18px] p-4 h-full w-full ${
         isFeatured
           ? "bg-card border border-border shadow-[0_0_50px_10px_rgba(0,132,255,0.09),0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.05)]"
           : "bg-muted/50 border border-border shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
@@ -315,7 +315,7 @@ export function PricingPlanCardsComparisonSection({ data }: PricingPlanCardsComp
           {data.plans.map((plan) => (
             <div
               key={plan.name}
-              className={`group flex w-full max-w-[370px] flex-1 min-w-[260px] ${
+              className={`flex w-full max-w-[370px] flex-1 min-w-[260px] hover:-translate-y-1 transform-gpu transition-transform duration-200 ${
                 !plan.featured ? "bg-card rounded-[20px]" : ""
               }`}
             >
