@@ -21,7 +21,7 @@ interface PricingPlanCardsSectionProps {
 function CheckIcon({ variant }: { variant: "primary" | "green" | "off" }) {
   if (variant === "off") {
     return (
-      <span className="w-5 h-5 rounded-full bg-muted shrink-0 flex items-center justify-center select-none transform-gpu">
+      <span className="w-5 h-5 rounded-full bg-muted shrink-0 flex items-center justify-center select-none">
         <IconX size={14} className="text-muted-foreground/50" stroke={2.5} />
       </span>
     );
@@ -51,7 +51,7 @@ function PricingCard({ plan }: { plan: PricingPlanCardsNewPlan }) {
 
   return (
     <div
-      className={`relative flex flex-col rounded-[18px] p-4 h-full w-full transition-transform duration-200 group-hover:-translate-y-1 transform-gpu ${
+      className={`relative flex flex-col rounded-[18px] p-4 h-full w-full ${
         isFeatured
           ? "bg-card border border-border shadow-[0_0_50px_10px_rgba(0,132,255,0.09),0_2px_8px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.05)]"
           : "bg-muted/50 border border-border shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
@@ -292,9 +292,7 @@ export function PricingPlanCardsSection({ data }: PricingPlanCardsSectionProps) 
           {data.plans.map((plan) => (
             <div
               key={plan.name}
-              className={`group flex w-full max-w-[370px] flex-1 min-w-[260px] ${
-                !plan.featured ? "bg-card rounded-[20px]" : ""
-              }`}
+              className="flex w-full max-w-[370px] flex-1 min-w-[260px] hover:-translate-y-1 transition-transform duration-200 transform-gpu"
             >
               <PricingCard plan={plan} />
             </div>
