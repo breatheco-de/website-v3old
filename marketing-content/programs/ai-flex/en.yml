@@ -166,7 +166,7 @@ sections:
     variant: stats-charts
     subtitle: The data is in.
     title: How AI Skills Can Boost Your Career
-    description: Across industries, professionals who build AI skills are working faster, earning more, and taking on more.
+    description: Across every industry, professionals with AI skills are working faster, earning more, and moving into higher-value roles. The data is consistent — and the gap between AI-skilled professionals and everyone else keeps growing.
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
     card_gauge_accent: hsl(var(--destructive) / 0.5)
