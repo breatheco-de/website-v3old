@@ -149,7 +149,7 @@ sections:
     paddingY:
       desktop: none
     marginY:
-      desktop: md
+      desktop: md none
   - type: graduates_stats
     heading: Real Outcomes. Real Numbers.
     subheading: 6,000+ graduates. Strong outcomes across the board.
