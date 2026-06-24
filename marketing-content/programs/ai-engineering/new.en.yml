@@ -670,7 +670,7 @@ sections:
       - montevideo-uruguay
       - panamacity-panama
     paddingY:
-      desktop: none md
+      desktop: md
     marginY:
       desktop: none md
   - type: testimonials
