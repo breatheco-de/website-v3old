@@ -181,7 +181,7 @@ global.price_datascience:
       value: "200€"
     - query:
         region: "latam"
-      value: "170 USD"
+      value: "388 USD"
 global.global_total_alumni:
   default: "4,000"
   conditions:
