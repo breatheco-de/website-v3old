@@ -1275,7 +1275,7 @@ sections:
         tag: Monthly
         for_label: For 1 student
         currency: $
-        amount: "65"
+        amount: "129"
         period: /month
         billing_note: Recurring monthly charge
         cta:
@@ -1283,11 +1283,11 @@ sections:
           url: https://academy.4geeks.com/plans/201
         featured: false
         features:
-          - text: Mentorship sessions / month
+          - text: 1 Mentorship sessions / month
           - text: Access to exclusive events
             not_included: true
-          - text: AI compilations
-          - text: 300 premium Copilot requests
+          - text: 300 AI compilations
+          - text: $15 premium Copilot requests
           - text: $5 LLM tokens (DeepSeek 3.1, Claude Sonnet, Llama 3, Codex)
           - text: Codespaces ($10/mo included)
           - text: School account with GitHub Developer Program
@@ -1297,8 +1297,7 @@ sections:
         tag: Annual
         for_label: For up to 2 students
         currency: $
-        amount: "449"
-        cents: ".99"
+        amount: "900"
         period: /year
         billing_note: Annual billing
         featured: true
@@ -1311,15 +1310,16 @@ sections:
           label: Subscribe to Pro Plan
           url: https://4geeks.com/es/checkout?plan=ai-flex-pro&cohort=1719
         features:
-          - text: Mentorship sessions / month
+          - text: 2 Mentorship sessions / month
           - text: Access to exclusive events
-          - text: AI compilations
-          - text: 300 premium Copilot requests
+          - text: 600 AI compilations
+          - text: $15 premium Copilot requests
           - text: $5 LLM tokens (DeepSeek 3.1, Claude Sonnet, Llama 3, Codex)
           - text: Codespaces ($10/mo included)
           - text: School account with GitHub Developer Program
           - text: VPS included
           - text: Course certificates
+          - text: New courses every month
     addon:
       label: Optional add-on
       title: Extra mentorship sessions
