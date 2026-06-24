@@ -21,14 +21,14 @@ interface PricingPlanCardsComparisonSectionProps {
 function CheckIcon({ variant }: { variant: "primary" | "green" | "off" }) {
   if (variant === "off") {
     return (
-      <span className="w-5 h-5 rounded-full bg-muted shrink-0 flex items-center justify-center select-none">
+      <span className="w-5 h-5 rounded-full bg-muted shrink-0 flex items-center justify-center select-none transform-gpu">
         <IconX size={14} className="text-muted-foreground/50" stroke={2.5} />
       </span>
     );
   }
   const bg = variant === "green" ? "bg-green-500" : "bg-primary";
   return (
-    <span className={`w-5 h-5 rounded-full ${bg} shrink-0 flex items-center justify-center select-none`}>
+    <span className={`w-5 h-5 rounded-full ${bg} shrink-0 flex items-center justify-center select-none transform-gpu`}>
       <IconCheck size={13} className="text-white" stroke={2.5} />
     </span>
   );
@@ -146,10 +146,10 @@ function PricingCard({
         href={plan.cta.url}
         onClick={handleLinkClick}
         data-testid={`button-cta-plan-${plan.name.toLowerCase().replace(/\s+/g, "-")}`}
-        className={`mt-auto w-full py-3 rounded-xl text-[15px] font-extrabold cursor-pointer transition-all duration-150 flex items-center justify-center ${
+        className={`mt-auto w-full py-3 rounded-xl text-[15px] font-extrabold cursor-pointer flex items-center justify-center ${
           isFeatured
-            ? "bg-green-500 hover:bg-green-600 text-white border-0 shadow-[0_3px_12px_rgba(34,197,94,0.35)]"
-            : "bg-primary text-primary-foreground hover:shadow-[inset_0_0_0_9999px_rgba(0,0,0,0.12)]"
+            ? "bg-green-500 hover:bg-green-600 text-white border-0 shadow-[0_3px_12px_rgba(34,197,94,0.35)] transition-colors duration-150"
+            : "bg-primary text-primary-foreground hover:shadow-[inset_0_0_0_9999px_rgba(0,0,0,0.12)] transition-[box-shadow] duration-150"
         }`}
       >
         {plan.cta.label}
