@@ -528,11 +528,11 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
+        text: Paga de una sola vez y recibe un 10% de descuento.
       - icon: IconCheck
         text: Matricúlate con Garantía de Empleo* para mayor tranquilidad. Consigue empleo en los 9 meses posteriores a graduarte o te devolvemos el importe de la matrícula.&nbsp;<div>*No disponible en todas las regiones. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Aplican términos y condiciones</a>.</div>
       - icon: IconCheck
-        text: Financia la matrícula en cuotas mensuales.
+        text: Financia la matrícula en hasta 6 cuotas mensuales.
     cta:
       text: Recibir más información
       url: "#modal-ubwgcj"
