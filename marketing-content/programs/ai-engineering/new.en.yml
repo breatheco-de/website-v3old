@@ -502,7 +502,7 @@ sections:
     subtitle: Investing in a new career matters. We make it easier with multiple ways to fund your enrollment.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
     financing_text: "Credit-Based Financing: starting at"
-    financing_amount: 227 USD
+    financing_amount: $227
     tech_icons:
       - openai
       - python
