@@ -143,8 +143,8 @@ sections:
     title: The gap between AI-skilled and everyone else is showing up in salaries, hiring, and career growth.
     description: "Across every industry, employers are hiring for AI skills, paying more for them, and finding fewer people who have them. Whether you want to work smarter, advance faster, or build a new career entirely, the opportunity is the same: the gap between where the market is going and where most professionals are today is wide open."
     card_bars_accent: hsl(var(--primary))
-    card_gauge_accent: hsl(var(--primary))
-    card_trend_accent: hsl(var(--primary))
+    card_gauge_accent: hsl(var(--primary) / 0.3)
+    card_trend_accent: hsl(var(--primary) / 0.2)
     card_bars:
       badge: AI Skills Pay More. Everywhere.
       stat_value: 56%
