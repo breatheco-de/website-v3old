@@ -599,7 +599,6 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
-    background: hsl(var(--secondary))
   - type: numbered_steps
     version: "1.0"
     title: Get Hired. Or Your Money Back.
