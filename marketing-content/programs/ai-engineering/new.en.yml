@@ -494,7 +494,7 @@ sections:
       desktop: none xl
     paddingY:
       desktop: md none
-    background: hsl(var(--card))
+    background: hsl(var(--secondary))
   - type: pricing
     version: "1.0"
     variant: product
