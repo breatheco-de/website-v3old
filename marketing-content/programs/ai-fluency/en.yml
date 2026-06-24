@@ -165,7 +165,7 @@ sections:
     version: "1.0"
     variant: stats-charts
     subtitle: The data is clear.
-    title: AI Fluency Is How Careers Accelerate
+    title: The data is clear. Professionals with AI skills earn more and advance faster.
     description: Professionals with AI skills earn more, advance faster, and are in higher demand across every industry, not just tech. The opportunity is real, and the numbers prove it.
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
