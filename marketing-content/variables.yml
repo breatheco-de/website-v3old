@@ -157,7 +157,7 @@ global.price_fullstack:
       value: "200€"
     - query:
         region: "latam"
-      value: "150 USD"
+      value: "388 USD"
 global.price_full_fullstack:
   default: "$10,999"
   conditions:
