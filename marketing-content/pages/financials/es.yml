@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: "Opciones de Financiación | 4Geeks"
-  description: "Conoce las opciones de financiación y pago en 4Geeks Academy. Becas, cuotas y planes accesibles para que empieces a estudiar hoy."
+  page_title: Opciones de Financiación | 4Geeks
+  description: Conoce las opciones de financiación y pago en 4Geeks Academy. Becas, cuotas y planes accesibles para que empieces a estudiar hoy.
   redirects:
     - /es/financiacion
 schema:
@@ -115,7 +115,7 @@ sections:
       - title: Pagos basados en ingresos
         description: Los planes de pagos basados en Acuerdo de Ingresos Compartidos (ISA) no están disponibles en todos los países, y aplican ciertas condiciones. Contáctanos para saber más.
       - title: Préstamos y planes de Pago Extendidos
-        description: Ofrecemos opciones de financiación de hasta 24 meses, según tu perfil crediticio. La aprobación y condiciones finales dependen de la entidad financiera.
+        description: Ofrecemos opciones de financiación de hasta 24 meses, según tu perfil crediticio. La aprobación y condiciones finales dependen de la entidad financiera. No disponible para todos los cursos ni todos los mercados.
       - title: Becas
         description: Hay becas parciales disponibles para postulantes calificados a través de programas seleccionados y organizaciones aliadas. La disponibilidad y el monto de la beca pueden variar.
     expand_label: Más información
