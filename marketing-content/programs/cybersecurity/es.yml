@@ -26,7 +26,7 @@ sections:
         url: /
       - label: Programas de Carrera
         url: /es/programas-de-carrera
-      - label: "Ciberseguridad"
+      - label: Ciberseguridad
   - type: hero
     version: "1.0"
     variant: course
@@ -477,11 +477,11 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
+        text: Paga de una sola vez y recibe un 10% de descuento.
       - icon: IconCheck
         text: Trabajamos con socios de confianza para ofrecer financiamiento flexible y asequible, para que puedas enfocarte en tu futuro, no en tus tarifas.
       - icon: IconCheck
-        text: Financia tu matrícula con planes de 12, 18 o 24 meses.
+        text: Financia tu matrícula en 6 cuotas.
     cta:
       text: Recibir más información
       url: "#apply-modal"
