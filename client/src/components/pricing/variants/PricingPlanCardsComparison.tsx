@@ -5,7 +5,7 @@
  * Mobile: feature COMPARISON TABLE (rows = features, columns = plans) followed by mini-cards.
  *
  * Features are defined at the section level and use `exclude_from_plans` to mark
- * which plans get a strikethrough for a given feature.
+ * which plans mark a feature as not_included.
  *
  * For independent per-plan feature lists (no comparison table on mobile), use variant: plan_cards.
  */
@@ -21,14 +21,14 @@ interface PricingPlanCardsComparisonSectionProps {
 function CheckIcon({ variant }: { variant: "primary" | "green" | "off" }) {
   if (variant === "off") {
     return (
-      <span className="w-5 h-5 rounded-full bg-muted flex-shrink-0 inline-flex items-center justify-center">
-        <IconX size={13} className="text-muted-foreground/50" stroke={2.5} />
+      <span className="w-5 h-5 rounded-full bg-muted shrink-0 flex items-center justify-center select-none">
+        <IconX size={14} className="text-muted-foreground/50" stroke={2.5} />
       </span>
     );
   }
   const bg = variant === "green" ? "bg-green-500" : "bg-primary";
   return (
-    <span className={`w-5 h-5 rounded-full ${bg} flex-shrink-0 inline-flex items-center justify-center`}>
+    <span className={`w-5 h-5 rounded-full ${bg} shrink-0 flex items-center justify-center select-none`}>
       <IconCheck size={13} className="text-white" stroke={2.5} />
     </span>
   );

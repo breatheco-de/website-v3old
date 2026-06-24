@@ -1,5 +1,5 @@
 name: "Plan Cards"
-description: "Side-by-side pricing plan cards with independent per-plan feature lists. Mobile shows mini-cards with features inline (no comparison table). Use strikethrough: true on a feature to render it with an ✗ icon. For a shared feature list with a mobile comparison table, use variant: plan_cards_comparison."
+description: "Side-by-side pricing plan cards with independent per-plan feature lists. Mobile shows mini-cards with features inline (no comparison table). Use not_included: true on a feature to render it with an ✗ icon. For a shared feature list with a mobile comparison table, use variant: plan_cards_comparison."
 variant: plan_cards
 yaml: |
   - type: pricing
@@ -22,7 +22,7 @@ yaml: |
         features:
           - text: "Mentorship sessions / month"
           - text: "Access to exclusive events"
-            strikethrough: true
+            not_included: true
           - text: "AI compilations"
           - text: "300 premium Copilot requests"
           - text: "$5 LLM tokens (DeepSeek 3.1, Claude Sonnet, Llama 3, Codex)"

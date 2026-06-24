@@ -108,7 +108,7 @@ export type PricingPlanCardsSection = z.infer<typeof pricingPlanCardsSchema>;
 
 export const pricingPlanCardsPlanFeatureSchema = z.object({
   text: z.string(),
-  strikethrough: z.boolean().optional(),
+  not_included: z.boolean().optional(),
 });
 
 export const pricingPlanCardsNewPlanSchema = pricingPlanCardsPlanSchema.extend({

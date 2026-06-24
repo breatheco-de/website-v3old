@@ -4,8 +4,8 @@
  * Desktop: side-by-side cards, each showing its own independent feature list with ✓/✗ per feature.
  * Mobile: mini-cards stacked vertically, each with their own features inline (no comparison table).
  *
- * Features are defined per-plan using `features: [{text, strikethrough?}]`.
- * Use `strikethrough: true` on a feature to render it with an ✗ icon and line-through text.
+ * Features are defined per-plan using `features: [{text, not_included?}]`.
+ * Use `not_included: true` on a feature to render it with an ✗ icon and line-through text.
  *
  * For a shared feature list with a mobile comparison table, use variant: plan_cards_comparison.
  */
@@ -21,14 +21,14 @@ interface PricingPlanCardsSectionProps {
 function CheckIcon({ variant }: { variant: "primary" | "green" | "off" }) {
   if (variant === "off") {
     return (
-      <span className="w-5 h-5 rounded-full bg-muted flex-shrink-0 inline-flex items-center justify-center">
-        <IconX size={13} className="text-muted-foreground/50" stroke={2.5} />
+      <span className="w-5 h-5 rounded-full bg-muted shrink-0 flex items-center justify-center select-none">
+        <IconX size={14} className="text-muted-foreground/50" stroke={2.5} />
       </span>
     );
   }
   const bg = variant === "green" ? "bg-green-500" : "bg-primary";
   return (
-    <span className={`w-5 h-5 rounded-full ${bg} flex-shrink-0 inline-flex items-center justify-center`}>
+    <span className={`w-5 h-5 rounded-full ${bg} shrink-0 flex items-center justify-center select-none`}>
       <IconCheck size={13} className="text-white" stroke={2.5} />
     </span>
   );
@@ -38,7 +38,7 @@ function getCheckVariant(
   plan: PricingPlanCardsNewPlan,
   feature: PricingPlanCardsPlanFeature
 ): "primary" | "green" | "off" {
-  if (feature.strikethrough) return "off";
+  if (feature.not_included) return "off";
   return plan.featured ? "green" : "primary";
 }
 
@@ -101,7 +101,7 @@ function PricingCard({ plan }: { plan: PricingPlanCardsNewPlan }) {
               <CheckIcon variant={getCheckVariant(plan, f)} />
               <span
                 className={`text-xs leading-snug font-medium ${
-                  f.strikethrough
+                  f.not_included
                     ? "text-muted-foreground/50 line-through decoration-muted-foreground/30"
                     : "text-foreground/80"
                 }`}
@@ -199,19 +199,19 @@ function MiniPricingCard({ plan }: { plan: PricingPlanCardsNewPlan }) {
             {features.map((f, i) => (
               <div key={i} className="flex items-center gap-2 py-0.5">
                 <span
-                  className={`w-4 h-4 rounded-full flex-shrink-0 inline-flex items-center justify-center ${
-                    f.strikethrough ? "bg-muted" : isFeatured ? "bg-green-500" : "bg-primary"
+                  className={`w-4 h-4 rounded-full shrink-0 flex items-center justify-center select-none ${
+                    f.not_included ? "bg-muted" : isFeatured ? "bg-green-500" : "bg-primary"
                   }`}
                 >
-                  {f.strikethrough ? (
-                    <IconX size={9} className="text-muted-foreground/50" stroke={2.5} />
+                  {f.not_included ? (
+                    <IconX size={10} className="text-muted-foreground/50" stroke={2.5} />
                   ) : (
                     <IconCheck size={9} className="text-white" stroke={2.5} />
                   )}
                 </span>
                 <span
                   className={`text-[10px] leading-snug font-medium ${
-                    f.strikethrough
+                    f.not_included
                       ? "text-muted-foreground/50 line-through decoration-muted-foreground/30"
                       : "text-foreground/80"
                   }`}
