@@ -530,28 +530,17 @@ sections:
     paddingY:
       desktop: md
     showOnLocations:
-      - atlanta-usa
-      - austin-usa
-      - chicago-usa
-      - dallas-usa
-      - miami-usa
-      - houston-usa
-      - losangeles-usa
-      - newyork-usa
-      - tampa-usa
-      - orlando-usa
-      - toronto-canada
       - bogota-colombia
       - buenosaires-argentina
       - caracas-venezuela
       - costa-rica
       - lapaz-bolivia
       - lima-peru
+      - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
-      - mexicocity-mexico
   - type: pricing
     version: "1.0"
     variant: product
