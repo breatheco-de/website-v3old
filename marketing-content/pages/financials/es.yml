@@ -323,9 +323,9 @@ sections:
           - icon: DollarSign
             text: 3500 USD inversión total
           - icon: CheckCircle
-            text: Elegible para 10% de descuento por pago anticipado, y hasta 6 cuotas sin interés.
+            text: Elegible para 10% de descuento por pago anticipado.
         description: Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo listos para producción.
-        price: 227 USD
+        price: 538 USD
         price_info: cuota sujeta a la aprobación de la financiera.
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-engineering
