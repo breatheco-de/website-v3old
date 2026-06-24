@@ -7,7 +7,7 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: Programa de Ciencia de Datos y Machine Learning | 4Geeks
-  description: "Aprende ciencia de datos y machine learning con herramientas de IA, mentoría ilimitada y una comunidad global. Domina Python, TensorFlow y modelado predictivo."
+  description: Aprende ciencia de datos y machine learning con herramientas de IA, mentoría ilimitada y una comunidad global. Domina Python, TensorFlow y modelado predictivo.
   redirects:
     - /bootcamp/ciencia-de-datos
     - /programas/datascience-machine-learning
@@ -25,7 +25,7 @@ sections:
         url: /
       - label: Programas de Carrera
         url: /es/programas-de-carrera
-      - label: "Ciencia de Datos y Machine Learning"
+      - label: Ciencia de Datos y Machine Learning
   - type: hero
     version: "1.0"
     variant: course
@@ -449,11 +449,11 @@ sections:
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
-        text: Paga de una sola vez y recibe un 10% de descuento, o divide los pagos sin intereses en 6 meses.
+        text: Paga de una sola vez y recibe un 10% de descuento.
       - icon: IconCheck
         text: Trabajamos con socios de confianza para ofrecer financiamiento flexible y asequible, para que puedas enfocarte en tu futuro, no en tus tarifas.
       - icon: IconCheck
-        text: Financia tu matrícula con planes de pago de 12, 18 o 24 meses
+        text: Financia tu matrícula en 6 cuotas.
     cta:
       text: Recibir más información
       url: "#apply-modal"
