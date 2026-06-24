@@ -217,11 +217,6 @@ sections:
     heading: Three AI Levels. Three Learning Formats.
     subheading: Whether you want to work with AI, work better with AI, or build AI systems professionally, there is a program for your goals.
     courses:
-      - name: AI at 4Geeks
-        icon: Bolt
-        title: Demand for AI Skills Has Grown 7x in Two Years.
-        description: AI is creating opportunity at every level, for professionals who want to work smarter, for teams that want to move faster, and for engineers who want to build what comes next. Across all three, 4Geeks teaches the real AI skills that matter at work, applied to real problems from day one.
-        course_background: accent
       - name: AI Engineering
         icon: Bolt
         duration: 24 weeks, or 15-week accelerated track
