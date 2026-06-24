@@ -232,7 +232,7 @@ sections:
         description: Become an AI engineer and build complete AI-native systems, frontend to deployment. Our most intensive program, built around live instruction and a real company case. Optional Job Guarantee available (US and Canada only)
         cta_text: See program details
         cta_url: /en/career-programs/ai-engineering
-        course_background: hsl(var(--muted-foreground))
+        course_background: hsl(var(--accent))
       - name: AI Fluency
         icon: IconBolt
         duration: 4 weeks
