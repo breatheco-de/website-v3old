@@ -22,7 +22,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: credibility
-    title: "<span style=\"font-size: 4.9375rem; font-weight: 900; letter-spacing: -2px; line-height: 0.97;\">170 million&nbsp; &nbsp; &nbsp;new jobs <span style=\"color: rgb(0, 132, 255);\"><span style=\"color: hsl(var(--foreground));\">by 2030.&nbsp;</span></span></span><i><span style=\"font-size: 4.9375rem; letter-spacing: -2px; color: rgb(0, 7, 26);\"><span style=\"color: hsl(var(--primary));\">AI&nbsp; <span style=\"color: hsl(var(--foreground));\">is</span>&nbsp;</span></span><span style=\"font-size: 4.9375rem; letter-spacing: -2px; color: rgb(0, 7, 26);\">your path in.</span></i>"
+    title: "<span style=\"font-size: 4.9375rem; font-weight: 900; letter-spacing: -2px; line-height: 0.97;\">170 million&nbsp; &nbsp; &nbsp;new jobs <span style=\"color: rgb(0, 132, 255);\"><span style=\"color: hsl(var(--foreground));\">by 2030.&nbsp;</span></span></span><i><span style=\"font-size: 4.9375rem; letter-spacing: -2px; color: rgb(0, 7, 26);\"><span style=\"color: hsl(var(--primary));\">AI&nbsp; <span style=\"color: hsl(var(--foreground));\">is</span></span></span><span style=\"font-size: 4.9375rem; letter-spacing: -2px; color: rgb(0, 7, 26);\">your path in.</span></i>"
     description: "Three paths into AI: from an immersive career program designed to get you hired, to professional upskilling, or self-paced learning. Human mentorship and AI-powered learning included."
     cta_buttons:
       - text: Start your application
