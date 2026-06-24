@@ -208,7 +208,7 @@ sections:
     section_id: banner-qrp5dz
     paddingY:
       desktop: sm md
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--secondary))
     marginY:
       desktop: none sm
   - type: course_selector
