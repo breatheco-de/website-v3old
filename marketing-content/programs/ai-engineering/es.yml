@@ -213,7 +213,6 @@ sections:
     card_gauge:
       title: ¿Quién está cualificado para roles de IA?
       description: Población activa global · datos 2025
-
       inner_stat_percentage: 3
       outer_stat_percentage: 97
       show_gauge: true
@@ -533,7 +532,7 @@ sections:
       - icon: IconCheck
         text: Matricúlate con Garantía de Empleo* para mayor tranquilidad. Consigue empleo en los 9 meses posteriores a graduarte o te devolvemos el importe de la matrícula.&nbsp;<div>*No disponible en todas las regiones. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Aplican términos y condiciones</a>.</div>
       - icon: IconCheck
-        text: Financia la matrícula en cuotas mensuales, con plazos de hasta 48 meses según tu región.
+        text: Financia la matrícula en cuotas mensuales.
     cta:
       text: Recibir más información
       url: "#modal-ubwgcj"
