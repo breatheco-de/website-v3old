@@ -339,13 +339,13 @@ sections:
           - icon: DollarSign
             text: 2500 USD inversión total
           - icon: CheckCircle
-            text: Elegible para 10% de descuento por pago anticipado, y hasta 6 cuotas sin interés.
+            text: Elegible para 10% de descuento por pago anticipado.
         tags:
           - icon: ""
             text: ""
         description: Domina el desarrollo web moderno de frontend a backend y crea aplicaciones listas para producción con herramientas estándar de la industria.
-        price: 150 USD
-        price_info: o menos según tu plan de pago
+        price: 388 USD
+        price_info: cuota sujeta a la aprobación de la financiera
         cta_text: Ver detalles del programa
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
@@ -358,10 +358,10 @@ sections:
           - icon: DollarSign
             text: 3250 USD inversión total
           - icon: CheckCircle
-            text: Elegible para 10% de descuento por pago anticipado, y hasta 6 cuotas sin interés.
+            text: Elegible para 10% de descuento por pago anticipado.
         description: Domina el análisis de datos impulsado por IA y desarrolla modelos inteligentes para resolver problemas reales.
-        price: 170 USD
-        price_info: o menos según tu plan de pago
+        price: 507 USD
+        price_info: cuota sujeta a la aprobación de la financiera
         cta_text: Ver programa
         cta_url: /en/career-programs/data-science-ml
         course_background: primary
@@ -376,8 +376,8 @@ sections:
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, y hasta 6 cuotas sin interés.
         description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
-        price: 150 USD
-        price_info: o menos según tu plan de pago
+        price: 388 USD
+        price_info: cuota sujeta a la aprobación de la financiera
         cta_text: Ver programa
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
