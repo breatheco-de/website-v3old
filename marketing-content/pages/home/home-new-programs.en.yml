@@ -84,11 +84,11 @@ sections:
     section_id: hero-tcvppl
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
-      desktop: none md
+      desktop: none sm
     pills_url: "#list_press_mentions-w7r1sh"
     marquee_static: false
     marginY:
-      desktop: none sm
+      desktop: none
   - type: graduates_stats
     heading: "6,000+ Graduates. One Standard: Student Success."
     subheading: "Across programs, backgrounds, and goals: the numbers backing the academy."
