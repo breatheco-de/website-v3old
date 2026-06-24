@@ -552,7 +552,6 @@ sections:
       - quito-ecuador
       - santiago-chile
       - mexicocity-mexico
-    background: hsl(var(--secondary))
   - type: pricing
     version: "1.0"
     variant: product
