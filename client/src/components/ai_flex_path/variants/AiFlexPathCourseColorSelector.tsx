@@ -522,7 +522,7 @@ function PathItem({
           className="overflow-hidden transition-all duration-300"
           style={{
             maxHeight: expanded ? 300 : 0,
-            borderTop: expanded ? `1px solid ${hslColor(resolved, 0.15)}` : "none",
+            borderTop: `1px solid ${hslColor(resolved, expanded ? 0.15 : 0)}`,
           }}
         >
           <div className="px-[13px] pt-[10px] pb-[10px] flex flex-col gap-2">
@@ -629,11 +629,7 @@ function DraggableCourseCard({
       }
       style={{
         maxHeight: expanded && !isSwapSource ? 260 : 0,
-        borderTop: expanded && !isSwapSource
-          ? absolute
-            ? "none"
-            : "1px solid hsl(var(--primary) / 0.15)"
-          : "none",
+        borderTop: absolute ? "none" : `1px solid hsl(var(--primary) / ${expanded && !isSwapSource ? 0.15 : 0})`,
         ...(absolute && expanded && !isSwapSource
           ? {
               borderWidth: "0 1.5px 1.5px",
