@@ -376,18 +376,15 @@ function PathItem({
       {!isFirst && (
         <div className="hidden md:block absolute z-0 overflow-hidden" style={{
           left: 15, top: 0, bottom: "50%", width: 2,
-          background: expanded ? "hsl(var(--background))" : "transparent",
-          transition: expanded ? "background 0ms" : "background 0ms 300ms",
+          background: "transparent",
         }}>
           <div style={{
             width: "100%", height: "100%",
             background: "hsl(var(--primary))",
-            opacity: expanded ? 0 : 0.25,
+            opacity: 0.25,
             transformOrigin: "bottom",
             transform: revealed ? "scaleY(1)" : "scaleY(0)",
-            transition: expanded
-              ? `opacity 0ms 300ms, transform ${LINE_MS}ms cubic-bezier(.4,0,.2,1) ${incomingLineDelay}ms`
-              : `transform ${LINE_MS}ms cubic-bezier(.4,0,.2,1) ${incomingLineDelay}ms`,
+            transition: `transform ${LINE_MS}ms cubic-bezier(.4,0,.2,1) ${incomingLineDelay}ms`,
           }} />
         </div>
       )}
@@ -768,7 +765,7 @@ function DraggableCourseCard({
               : "0 1px 3px rgba(0,0,0,0.04), 0 3px 10px rgba(0,0,0,0.03)",
             transition: "border-color .2s, box-shadow .2s, opacity .2s",
           }}
-          className={`rounded-[13px] border-[1.5px] flex flex-col h-full relative ${expanded && viewDetailsLabel ? "z-20" : ""} ${expanded && viewDetailsLabel ? "rounded-b-none" : ""}`}
+          className="rounded-[13px] border-[1.5px] flex flex-col relative"
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
@@ -822,7 +819,7 @@ function DraggableCourseCard({
             </div>
             )}
           </div>
-          {viewDetailsLabel && expandedSection(true)}
+          {viewDetailsLabel && expandedSection()}
         </div>
       </div>
 
@@ -1277,7 +1274,8 @@ export default function AiFlexPathCourseColorSelector({ data }: { data: AiFlexPa
                 </div>
                 )}
                 <AvailableDropZone isDragActive={!!activeCourseName}>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-[9px] md:items-stretch">
+                  {/* Mobile: single column */}
+                  <div className="md:hidden flex flex-col gap-[9px]">
                     {availableCourses.map((course) => {
                       const isBeingDragged = course.name === activeCourseName;
                       const displacedCourse = overSlot !== null && activeDeltaY < -40 ? pathCourses[overSlot] ?? null : null;
@@ -1285,19 +1283,26 @@ export default function AiFlexPathCourseColorSelector({ data }: { data: AiFlexPa
                         return <GhostPreviewCard key={course.name} course={displacedCourse} slotIndex={overSlot!} slotColors={slotColors} />;
                       }
                       return (
-                        <DraggableCourseCard
-                          key={course.name}
-                          course={course}
-                          viewDetailsLabel={viewDetailsLabel}
-                          swapLabel={swapLabel}
-                          swapIcon={swapIcon}
-                          swapPromptLabel={swapPromptLabel}
-                          swapCancelLabel={swapCancelLabel}
-                          isSwapSource={swapCandidate === course.name}
-                          onSwapClick={() => handleSwapClick(course.name)}
-                        />
+                        <DraggableCourseCard key={course.name} course={course} viewDetailsLabel={viewDetailsLabel} swapLabel={swapLabel} swapIcon={swapIcon} swapPromptLabel={swapPromptLabel} swapCancelLabel={swapCancelLabel} isSwapSource={swapCandidate === course.name} onSwapClick={() => handleSwapClick(course.name)} />
                       );
                     })}
+                  </div>
+                  {/* Desktop: two independent flex columns so expansion only pushes its own column */}
+                  <div className="hidden md:flex gap-[9px]">
+                    {[0, 1].map((colIdx) => (
+                      <div key={colIdx} className="flex flex-col gap-[9px] flex-1 min-w-0">
+                        {availableCourses.filter((_, i) => i % 2 === colIdx).map((course) => {
+                          const isBeingDragged = course.name === activeCourseName;
+                          const displacedCourse = overSlot !== null && activeDeltaY < -40 ? pathCourses[overSlot] ?? null : null;
+                          if (isBeingDragged && displacedCourse) {
+                            return <GhostPreviewCard key={course.name} course={displacedCourse} slotIndex={overSlot!} slotColors={slotColors} />;
+                          }
+                          return (
+                            <DraggableCourseCard key={course.name} course={course} viewDetailsLabel={viewDetailsLabel} swapLabel={swapLabel} swapIcon={swapIcon} swapPromptLabel={swapPromptLabel} swapCancelLabel={swapCancelLabel} isSwapSource={swapCandidate === course.name} onSwapClick={() => handleSwapClick(course.name)} />
+                          );
+                        })}
+                      </div>
+                    ))}
                   </div>
                 </AvailableDropZone>
               </div>
