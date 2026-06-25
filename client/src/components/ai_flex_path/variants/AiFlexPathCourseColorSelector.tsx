@@ -1288,7 +1288,7 @@ export default function AiFlexPathCourseColorSelector({ data }: { data: AiFlexPa
                     })}
                   </div>
                   {/* Desktop: two independent flex columns so expansion only pushes its own column */}
-                  <div className="hidden md:flex gap-[9px]">
+                  <div className="hidden md:flex gap-[9px] items-start">
                     {[0, 1].map((colIdx) => (
                       <div key={colIdx} className="flex flex-col gap-[9px] flex-1 min-w-0">
                         {availableCourses.filter((_, i) => i % 2 === colIdx).map((course) => {
