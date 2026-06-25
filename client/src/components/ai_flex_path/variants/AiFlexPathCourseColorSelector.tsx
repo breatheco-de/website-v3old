@@ -215,7 +215,8 @@ function PathItem({
   const stepDelay = index * SEGMENT_MS;
   const cardRevealDelay = index * SEGMENT_MS + 80;
   const outgoingLineDelay = index * SEGMENT_MS + 60;
-  const incomingLineDelay = index * SEGMENT_MS - LINE_MS + 60;
+  // Start incoming right when the previous card's outgoing finishes, so line flows top→bottom
+  const incomingLineDelay = (index - 1) * SEGMENT_MS + 60 + LINE_MS;
 
   const [cardEntered, setCardEntered] = useState(false);
   useEffect(() => {
@@ -344,7 +345,7 @@ function PathItem({
               height: "100%",
               background: "hsl(var(--primary))",
               opacity: expanded ? 0 : 0.25,
-              transformOrigin: "bottom",
+              transformOrigin: "top",
               transform: revealed ? "scaleY(1)" : "scaleY(0)",
               transition: expanded
                 ? `opacity 0ms 300ms, transform ${LINE_MS}ms cubic-bezier(.4,0,.2,1) ${incomingLineDelay}ms`
@@ -382,7 +383,7 @@ function PathItem({
             width: "100%", height: "100%",
             background: "hsl(var(--primary))",
             opacity: 0.25,
-            transformOrigin: "bottom",
+            transformOrigin: "top",
             transform: revealed ? "scaleY(1)" : "scaleY(0)",
             transition: `transform ${LINE_MS}ms cubic-bezier(.4,0,.2,1) ${incomingLineDelay}ms`,
           }} />

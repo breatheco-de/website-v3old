@@ -484,6 +484,7 @@ sections:
     paddingY:
       desktop: md
     image_id: rigobot-png
+    draggable: false
   - type: ai_flex_path
     version: v1.0
     variant: course_color_selector
