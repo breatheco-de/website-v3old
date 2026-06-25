@@ -516,7 +516,7 @@ global.who_is_eligible_work_authorization:
 global.address_miami:
   default: "1111 Brickell Ave, Miami, FL 33129"
 reserved.legal_terms_url:
-  default: ""
+  default: "/en/terms-conditions"
 reserved.legal_privacy_url:
   default: ""
 reserved.consent_whatsapp:
