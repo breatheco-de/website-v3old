@@ -1125,7 +1125,7 @@ sections:
         billing_note: Recurring monthly charge
         cta:
           label: Subscribe to Basic Plan
-          url: https://academy.4geeks.com/plans/201
+          url: https://4geeks.com/es/checkout?plan=ai-flex-basic&cohort=1713
         featured: false
         features:
           - text: 1 mentorship sessions / month
