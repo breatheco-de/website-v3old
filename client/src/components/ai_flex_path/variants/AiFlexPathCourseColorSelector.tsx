@@ -390,7 +390,7 @@ function PathItem({
         </div>
       )}
       {!isLast && (
-        <div className="hidden md:block absolute z-0" style={{ left: 15, top: "50%", bottom: 0, width: 2, overflow: "hidden", background: "hsl(var(--background))" }}>
+        <div className="hidden md:block absolute z-0" style={{ left: 15, top: "50%", bottom: 0, width: 2, overflow: "hidden" }}>
           <div style={{
             width: "100%", height: "100%",
             background: "hsl(var(--primary))", opacity: 0.25,
