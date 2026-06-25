@@ -518,7 +518,7 @@ global.address_miami:
 reserved.legal_terms_url:
   default: "/en/terms-conditions"
 reserved.legal_privacy_url:
-  default: ""
+  default: "/en/privacy-policy"
 reserved.consent_whatsapp:
   default: ""
 reserved.consent_sms:
