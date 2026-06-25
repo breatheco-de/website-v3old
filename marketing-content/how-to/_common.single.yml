@@ -1,1 +1,3 @@
-# Common data shared across all single (database-backed) entries
+section_defaults:
+  maxWidth:
+    desktop: xl
