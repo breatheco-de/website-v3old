@@ -5,8 +5,8 @@ meta:
   robots: index, follow
   priority: 0.8
   change_frequency: weekly
-  page_title: "Opciones de Financiación | 4Geeks"
-  description: "Conoce las opciones de financiación y pago en 4Geeks Academy. Becas, cuotas y planes accesibles para que empieces a estudiar hoy."
+  page_title: Opciones de Financiación | 4Geeks
+  description: Conoce las opciones de financiación y pago en 4Geeks Academy. Becas, cuotas y planes accesibles para que empieces a estudiar hoy.
   redirects:
     - /es/financiacion
 schema:
@@ -115,7 +115,7 @@ sections:
       - title: Pagos basados en ingresos
         description: Los planes de pagos basados en Acuerdo de Ingresos Compartidos (ISA) no están disponibles en todos los países, y aplican ciertas condiciones. Contáctanos para saber más.
       - title: Préstamos y planes de Pago Extendidos
-        description: Ofrecemos opciones de financiación de hasta 24 meses, según tu perfil crediticio. La aprobación y condiciones finales dependen de la entidad financiera.
+        description: Ofrecemos opciones de financiación de hasta 24 meses, según tu perfil crediticio. La aprobación y condiciones finales dependen de la entidad financiera. No disponible para todos los cursos ni todos los mercados.
       - title: Becas
         description: Hay becas parciales disponibles para postulantes calificados a través de programas seleccionados y organizaciones aliadas. La disponibilidad y el monto de la beca pueden variar.
     expand_label: Más información
@@ -323,9 +323,9 @@ sections:
           - icon: DollarSign
             text: 3500 USD inversión total
           - icon: CheckCircle
-            text: Elegible para 10% de descuento por pago anticipado, y hasta 6 cuotas sin interés.
+            text: Elegible para 10% de descuento por pago anticipado.
         description: Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo listos para producción.
-        price: 227 USD
+        price: 538 USD
         price_info: cuota sujeta a la aprobación de la financiera.
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-engineering
@@ -339,13 +339,13 @@ sections:
           - icon: DollarSign
             text: 2500 USD inversión total
           - icon: CheckCircle
-            text: Elegible para 10% de descuento por pago anticipado, y hasta 6 cuotas sin interés.
+            text: Elegible para 10% de descuento por pago anticipado.
         tags:
           - icon: ""
             text: ""
         description: Domina el desarrollo web moderno de frontend a backend y crea aplicaciones listas para producción con herramientas estándar de la industria.
-        price: 150 USD
-        price_info: o menos según tu plan de pago
+        price: 388 USD
+        price_info: cuota sujeta a la aprobación de la financiera
         cta_text: Ver detalles del programa
         cta_url: /en/career-programs/full-stack
         course_background: hsl(var(--destructive))
@@ -358,10 +358,10 @@ sections:
           - icon: DollarSign
             text: 3250 USD inversión total
           - icon: CheckCircle
-            text: Elegible para 10% de descuento por pago anticipado, y hasta 6 cuotas sin interés.
+            text: Elegible para 10% de descuento por pago anticipado.
         description: Domina el análisis de datos impulsado por IA y desarrolla modelos inteligentes para resolver problemas reales.
-        price: 170 USD
-        price_info: o menos según tu plan de pago
+        price: 507 USD
+        price_info: cuota sujeta a la aprobación de la financiera
         cta_text: Ver programa
         cta_url: /en/career-programs/data-science-ml
         course_background: primary
@@ -376,8 +376,8 @@ sections:
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado, y hasta 6 cuotas sin interés.
         description: Aprende a proteger sistemas y datos con herramientas modernas de ciberseguridad, laboratorios prácticos y ejercicios aplicados.
-        price: 150 USD
-        price_info: o menos según tu plan de pago
+        price: 388 USD
+        price_info: cuota sujeta a la aprobación de la financiera
         cta_text: Ver programa
         cta_url: /en/career-programs/cybersecurity
         course_background: hsl(var(--secondary-foreground))
@@ -552,6 +552,7 @@ sections:
           - barcelona-spain
           - berlin-germany
           - dublin-ireland
+          - santiago-chile
     marginY:
       desktop: lg none
     paddingY:
