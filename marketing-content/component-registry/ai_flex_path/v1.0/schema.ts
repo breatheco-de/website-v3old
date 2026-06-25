@@ -66,6 +66,7 @@ export const aiFlexPathDragAndDropSchema = z.object({
 
 export const aiFlexPathCourseColorSelectorSchema = aiFlexPathDragAndDropSchema.extend({
   slot_colors: z.array(z.object({ color: z.string() })).optional(),
+  draggable: z.boolean().optional(),
 });
 
 export type AiFlexPathDefault = z.infer<typeof aiFlexPathDefaultSchema>;

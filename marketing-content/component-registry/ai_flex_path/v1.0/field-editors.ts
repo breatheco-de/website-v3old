@@ -22,4 +22,5 @@ export const fieldEditors: Record<string, EditorType> = {
   "course_color_selector:slot_colors[].color": "color-picker:courses",
   "course_color_selector:courses[].icon": "icon-picker",
   "course_color_selector:swap_icon": "icon-picker",
+  "course_color_selector:draggable": "boolean-toggle",
 };

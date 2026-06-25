@@ -548,6 +548,7 @@ function DraggableCardTextContent({
   taglineStyle,
   hrsStyle,
   titleClassName = "text-[15px] font-bold leading-[1.3]",
+  alignTaglineWithTitle = false,
 }: {
   course: Course;
   courseIcon: ReactNode;
@@ -555,6 +556,7 @@ function DraggableCardTextContent({
   taglineStyle?: React.CSSProperties;
   hrsStyle?: React.CSSProperties;
   titleClassName?: string;
+  alignTaglineWithTitle?: boolean;
 }) {
   return (
     <div className="flex flex-col gap-[2px] flex-1 min-w-0">
@@ -576,7 +578,10 @@ function DraggableCardTextContent({
           </div>
         </div>
       </div>
-      <div className="text-[12px] leading-[1.4] w-full" style={taglineStyle}>
+      <div
+        className="text-[12px] leading-[1.4] w-full"
+        style={{ ...taglineStyle, paddingLeft: alignTaglineWithTitle ? "21px" : undefined }}
+      >
         {course.tagline}
       </div>
     </div>
@@ -593,6 +598,7 @@ function DraggableCourseCard({
   swapCancelLabel,
   isSwapSource,
   onSwapClick,
+  isDraggable = true,
 }: {
   course: Course;
   viewDetailsLabel?: string;
@@ -602,6 +608,7 @@ function DraggableCourseCard({
   swapCancelLabel?: string;
   isSwapSource: boolean;
   onSwapClick: () => void;
+  isDraggable?: boolean;
 }) {
   const [expanded, setExpanded] = useState(false);
   const [btnHovered, setBtnHovered] = useState(false);
@@ -745,11 +752,11 @@ function DraggableCourseCard({
       <div
         className="hidden md:block h-full"
         style={{
-          touchAction: "none",
-          cursor: isDragging ? "grabbing" : "grab",
+          touchAction: isDraggable ? "none" : undefined,
+          cursor: isDraggable ? (isDragging ? "grabbing" : "grab") : "default",
         }}
-        {...listeners}
-        {...attributes}
+        {...(isDraggable ? listeners : {})}
+        {...(isDraggable ? attributes : {})}
       >
         <div
           style={{
@@ -767,7 +774,7 @@ function DraggableCourseCard({
         >
           <div className="flex flex-col flex-1 min-h-0">
             <div className="flex items-start gap-[3px] p-[13px] pb-[6px]">
-              <GripVertical size={31} className="mt-1 shrink-0" style={{ color: "hsl(var(--muted-foreground) / 0.6)" }} />
+              {isDraggable && <GripVertical size={31} className="mt-1 shrink-0" style={{ color: "hsl(var(--muted-foreground) / 0.6)" }} />}
               <DraggableCardTextContent
                 course={course}
                 courseIcon={
@@ -784,6 +791,7 @@ function DraggableCourseCard({
                   background: hovered ? "hsl(var(--primary) / 0.1)" : "hsl(var(--muted-foreground) / 0.07)",
                   transition: "color .2s, background .2s",
                 }}
+                alignTaglineWithTitle={!isDraggable}
               />
             </div>
             <div className="flex-1 min-h-0" aria-hidden />
@@ -994,6 +1002,7 @@ export default function AiFlexPathCourseColorSelector({ data }: { data: AiFlexPa
   const slotColors = data.slot_colors?.length
     ? data.slot_colors.map((s) => s.color)
     : DEFAULT_COURSE_COLORS;
+  const isDraggable = data.draggable !== false;
   const viewDetailsLabel = data.view_details_label;
   const replaceLabel = data.replace_label;
   const dragInstructionLabel = data.drag_instruction_label;
@@ -1279,7 +1288,7 @@ export default function AiFlexPathCourseColorSelector({ data }: { data: AiFlexPa
                         return <GhostPreviewCard key={course.name} course={displacedCourse} slotIndex={overSlot!} slotColors={slotColors} />;
                       }
                       return (
-                        <DraggableCourseCard key={course.name} course={course} viewDetailsLabel={viewDetailsLabel} swapLabel={swapLabel} swapIcon={swapIcon} swapPromptLabel={swapPromptLabel} swapCancelLabel={swapCancelLabel} isSwapSource={swapCandidate === course.name} onSwapClick={() => handleSwapClick(course.name)} />
+                        <DraggableCourseCard key={course.name} course={course} viewDetailsLabel={viewDetailsLabel} swapLabel={swapLabel} swapIcon={swapIcon} swapPromptLabel={swapPromptLabel} swapCancelLabel={swapCancelLabel} isSwapSource={swapCandidate === course.name} onSwapClick={() => handleSwapClick(course.name)} isDraggable={isDraggable} />
                       );
                     })}
                   </div>
@@ -1294,7 +1303,7 @@ export default function AiFlexPathCourseColorSelector({ data }: { data: AiFlexPa
                             return <GhostPreviewCard key={course.name} course={displacedCourse} slotIndex={overSlot!} slotColors={slotColors} />;
                           }
                           return (
-                            <DraggableCourseCard key={course.name} course={course} viewDetailsLabel={viewDetailsLabel} swapLabel={swapLabel} swapIcon={swapIcon} swapPromptLabel={swapPromptLabel} swapCancelLabel={swapCancelLabel} isSwapSource={swapCandidate === course.name} onSwapClick={() => handleSwapClick(course.name)} />
+                            <DraggableCourseCard key={course.name} course={course} viewDetailsLabel={viewDetailsLabel} swapLabel={swapLabel} swapIcon={swapIcon} swapPromptLabel={swapPromptLabel} swapCancelLabel={swapCancelLabel} isSwapSource={swapCandidate === course.name} onSwapClick={() => handleSwapClick(course.name)} isDraggable={isDraggable} />
                           );
                         })}
                       </div>
