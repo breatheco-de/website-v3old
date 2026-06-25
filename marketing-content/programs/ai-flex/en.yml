@@ -1304,7 +1304,7 @@ sections:
           - 4Geeks Academy
         cta:
           label: Subscribe to Pro Plan
-          url: https://4geeks.com/es/checkout?plan=ai-flex-pro&cohort=1719
+          url: https://4geeks.com/es/checkout?plan=ai-flex-plan-pro&cohort=1719
         features:
           - text: 2 Mentorship sessions / month
           - text: Access to exclusive events
