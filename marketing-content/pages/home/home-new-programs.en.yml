@@ -215,7 +215,7 @@ sections:
     version: "1.0"
     variant: spotlight
     heading: Three AI Levels. Three Learning Formats.
-    subheading: Whether you want to work with AI, work better with AI, or build AI systems professionally, there is a program for your goals.
+    subheading: Whether you want to work with AI, upskill with AI, or build AI systems professionally, there is a program for your goals.
     courses:
       - name: AI Engineering
         icon: Bolt
