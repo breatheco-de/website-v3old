@@ -20114,6 +20114,31 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/affirm-banner-601w.webp"
         }
       ]
+    },
+    "affirm-banner-2": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/affirm-banner.png",
+      "alt": "Image: affirm-banner",
+      "focal_point": "center",
+      "tags": [
+        "hero"
+      ],
+      "usage_count": 0,
+      "hash": "4734ca991d525e5e959323691a656a3a3d9fc3520d1a0c4c2bf250d9241eefa5",
+      "width": 587,
+      "height": 255,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        587
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 587,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/affirm-banner-587w.webp"
+        }
+      ]
     }
   }
 }
