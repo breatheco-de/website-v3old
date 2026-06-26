@@ -1294,6 +1294,7 @@ sections:
           - text: School account with GitHub Developer Program
           - text: VPS included
           - text: Course certificates
+          - text: New courses every month
       - name: Pro Plan
         tag: Annual
         for_label: For up to 2 students
