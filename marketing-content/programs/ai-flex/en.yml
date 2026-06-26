@@ -1191,8 +1191,8 @@ sections:
   - type: pricing
     version: "1.0"
     variant: plan_cards
-    title: An investment that pays for itself.
-    subtitle: No contracts. Cancel anytime. All plans include the full course catalog.
+    title: Full Course Catalog. Choose Your Plan. Cancel Anytime.
+    subtitle: All plans include the full toolkit. No contracts, no commitment.
     plans:
       - name: Basic Plan
         tag: Monthly
