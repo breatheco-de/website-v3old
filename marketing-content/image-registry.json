@@ -20041,6 +20041,29 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/aBo1kfIqRLdaB6vp_imagen_2025-05-06_121513432-182w.avif"
         }
       ]
+    },
+    "affirm": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/affirm.png",
+      "alt": "Image: affirm",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0,
+      "hash": "46b9820791fc99232cdc1c3a700d6fa1cb0a5722081075f86705aa8a3f49f8b9",
+      "width": 705,
+      "height": 253,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/affirm-640w.webp"
+        }
+      ]
     }
   }
 }
