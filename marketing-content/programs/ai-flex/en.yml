@@ -1114,7 +1114,7 @@ sections:
   - type: pricing
     version: "1.0"
     variant: plan_cards
-    title: Full Course Catalog. Flexible Plans. Cancel Anytime.
+    title: Full Course Catalog. Choose Your Plan. Cancel Anytime.
     subtitle: All plans include the full toolkit. No contracts, no commitment.
     plans:
       - name: Basic Plan
