@@ -84,7 +84,7 @@ sections:
     section_id: hero-tcvppl
     background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
     paddingY:
-      desktop: none sm
+      desktop: none
     pills_url: "#list_press_mentions-w7r1sh"
     marquee_static: false
     marginY:
