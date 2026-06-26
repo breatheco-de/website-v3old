@@ -1115,7 +1115,7 @@ sections:
     version: "1.0"
     variant: plan_cards
     title: Full Course Catalog. Choose Your Plan. Cancel Anytime.
-    subtitle: All plans include the full toolkit. No contracts, no commitment.
+    subtitle: All plans include the full toolkit. No longterm commitment.
     plans:
       - name: Basic Plan
         tag: Monthly
