@@ -23,7 +23,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import type { Section } from "@shared/schema";
 import addSectionImg from "@assets/add-section-explanation_1771275660234.png";
@@ -558,7 +557,7 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
                   />
                 </div>
               </div>
-              <ScrollArea className="h-[200px]">
+              <div className="h-[200px] overflow-y-auto">
                 {sitemapLoading ? (
                   <div className="p-4 text-sm text-muted-foreground text-center">Loading pages...</div>
                 ) : filteredSitemapUrls.length === 0 ? (
@@ -574,7 +573,7 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
                           key={entry.loc}
                           onClick={() => handleSelect(path)}
                           className={cn(
-                            "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-start gap-2",
+                            "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-center gap-2",
                             parseUrlParts(value || "").base === path && "bg-primary/10"
                           )}
                           data-testid={`${testId}-internal-option-${index}`}
@@ -585,14 +584,14 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
                           </div>
                           {renderParamsBtn(path, index)}
                           {parseUrlParts(value || "").base === path && (
-                            <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                            <Check className="h-4 w-4 text-primary flex-shrink-0" />
                           )}
                         </button>
                       );
                     })}
                   </div>
                 )}
-              </ScrollArea>
+              </div>
               <div className="p-2 border-t space-y-2">
                 <div className="flex gap-2">
                   <Input
@@ -665,7 +664,7 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
           )}
 
           {activeType === "modal" && (
-            <ScrollArea className="h-[200px]">
+            <div className="h-[200px] overflow-y-auto">
               {sectionsLoading ? (
                 <div className="p-4 text-sm text-muted-foreground text-center">Loading sections...</div>
               ) : modals.length === 0 ? (
@@ -685,30 +684,30 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
                         key={modal.id}
                         onClick={() => handleSelect(hashValue)}
                         className={cn(
-                          "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-start gap-2",
+                          "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-center gap-2",
                           parseUrlParts(value || "").base === hashValue && "bg-primary/10"
                         )}
                         data-testid={`${testId}-modal-option-${index}`}
                       >
-                        <PanelBottom className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                        <PanelBottom className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                         <div className="flex-1 min-w-0">
                           <div className="font-medium text-foreground truncate text-xs">{modal.label}</div>
                           <div className="text-xs text-muted-foreground truncate">{hashValue}</div>
                         </div>
                         {renderParamsBtn(hashValue, index)}
                         {parseUrlParts(value || "").base === hashValue && (
-                          <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                          <Check className="h-4 w-4 text-primary flex-shrink-0" />
                         )}
                       </button>
                     );
                   })}
                 </div>
               )}
-            </ScrollArea>
+            </div>
           )}
 
           {activeType === "scroll" && (
-            <ScrollArea className="h-[200px]">
+            <div className="h-[200px] overflow-y-auto">
               {sectionsLoading ? (
                 <div className="p-4 text-sm text-muted-foreground text-center">Loading sections...</div>
               ) : scrollSections.length === 0 ? (
@@ -727,12 +726,12 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
                         key={section.id}
                         onClick={() => handleSelect(hashValue)}
                         className={cn(
-                          "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-start gap-2",
+                          "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-center gap-2",
                           parseUrlParts(value || "").base === hashValue && "bg-primary/10"
                         )}
                         data-testid={`${testId}-scroll-option-${index}`}
                       >
-                        <ArrowDown className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                        <ArrowDown className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                         <div className="flex-1 min-w-0">
                           <div className="font-medium text-foreground truncate text-xs">{section.label}</div>
                           <div className="text-xs text-muted-foreground truncate">
@@ -742,18 +741,18 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
                         </div>
                         {renderParamsBtn(hashValue, index)}
                         {parseUrlParts(value || "").base === hashValue && (
-                          <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                          <Check className="h-4 w-4 text-primary flex-shrink-0" />
                         )}
                       </button>
                     );
                   })}
                 </div>
               )}
-            </ScrollArea>
+            </div>
           )}
 
           {activeType === "inline" && (
-            <ScrollArea className="h-[200px]">
+            <div className="h-[200px] overflow-y-auto">
               {inlineSections.length === 0 ? (
                 <div className="p-4 space-y-2">
                   <p className="text-sm font-medium text-foreground text-center">No sections with an ID on this page</p>
@@ -771,12 +770,12 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
                         key={section.id}
                         onClick={() => handleSelect(inlineValue)}
                         className={cn(
-                          "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-start gap-2",
+                          "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-center gap-2",
                           parseUrlParts(value || "").base === inlineValue && "bg-primary/10"
                         )}
                         data-testid={`${testId}-inline-option-${index}`}
                       >
-                        <Layers className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                        <Layers className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                         <div className="flex-1 min-w-0">
                           <div className="font-medium text-foreground truncate text-xs">{section.label}</div>
                           <div className="text-xs text-muted-foreground truncate">
@@ -786,14 +785,14 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
                         </div>
                         {renderParamsBtn(inlineValue, index)}
                         {parseUrlParts(value || "").base === inlineValue && (
-                          <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                          <Check className="h-4 w-4 text-primary flex-shrink-0" />
                         )}
                       </button>
                     );
                   })}
                 </div>
               )}
-            </ScrollArea>
+            </div>
           )}
         </PopoverContent>
       </Popover>

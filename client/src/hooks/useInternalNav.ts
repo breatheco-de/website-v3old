@@ -5,10 +5,34 @@ function isInternalHref(href: string): boolean {
   return href.startsWith("/") && !href.startsWith("//");
 }
 
-/** Replace {qs:paramName} tokens with values from the current URL's querystring */
+/** Replace {qs:paramName} tokens with values from the current URL's querystring.
+ *  If the named param is absent from the visitor URL, the entire key=value pair
+ *  is stripped from the output URL (not left as key= empty). */
 function resolveQsTokens(str: string): string {
-  const params = new URLSearchParams(window.location.search);
-  return str.replace(/\{qs:([^}]+)\}/g, (_, key) => params.get(key) ?? "");
+  const qIdx = str.indexOf("?");
+  if (qIdx === -1) return str;
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const base = str.slice(0, qIdx);
+  const pairs = str.slice(qIdx + 1).split("&").filter(Boolean);
+
+  const resolved = pairs
+    .map((pair) => {
+      const eqIdx = pair.indexOf("=");
+      if (eqIdx === -1) return pair;
+      const k = pair.slice(0, eqIdx);
+      const v = pair.slice(eqIdx + 1);
+      const match = v.match(/^\{qs:([^}]+)\}$/);
+      if (match) {
+        const val = urlParams.get(match[1]);
+        if (val === null) return null;
+        return `${k}=${encodeURIComponent(val)}`;
+      }
+      return pair;
+    })
+    .filter((p): p is string => p !== null);
+
+  return resolved.length > 0 ? `${base}?${resolved.join("&")}` : base;
 }
 
 /** For a hash URL like "#pricing?cohort=x", separate the element id from the extra querystring */
