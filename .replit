@@ -7,7 +7,7 @@ channel = "stable-25_05"
 packages = ["imagemagick", "libwebp", "unzip"]
 
 [deployment]
-deploymentTarget = "autoscale"
+deploymentTarget = "gce"
 build = ["npm", "run", "build"]
 run = ["node", "./dist/index.cjs"]
 
