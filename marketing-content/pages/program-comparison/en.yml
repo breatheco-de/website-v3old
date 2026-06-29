@@ -107,8 +107,8 @@ sections:
           - "Basic: $129/month for 1 student. Pro: $900/year for up to 2 students."
       - feature: Payment Plans
         values:
-          - Upfront payment discount, monthly plans, and financing via Klarna and Affirm.
-          - Upfront payment discount, monthly plans, and financing via Klarna and Affirm.
+          - 10% discount for upfront payment, monthly plans, and financing via Klarna and Affirm.
+          - 10% discount for upfront payment, monthly plans, and financing via Klarna and Affirm.
           - Basic is month-to-month, cancel anytime. Pro is billed annually. Financing available via Klarna and Affirm on Pro.
       - feature: Job Guarantee
         values:
