@@ -108,7 +108,7 @@ sections:
       - feature: Payment Plans
         values:
           - Upfront payment discount, monthly plans, and financing via Klarna and Affirm.
-          - Upfront payment discount and financing available.
+          - Upfront payment discount, monthly plans, and financing via Klarna and Affirm.
           - Basic is month-to-month, cancel anytime. Pro is billed annually. Financing available via Klarna and Affirm on Pro.
       - feature: Job Guarantee
         values:
