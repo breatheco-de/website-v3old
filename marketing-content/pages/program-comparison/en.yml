@@ -93,8 +93,8 @@ sections:
       - feature: Average U.S. Salary
         values:
           - $100K to $160K
-          - Productivity gain in your current role. PwC 2025 reports a salary premium of +56% for AI-skilled workers over same-role peers.
-          - Productivity gain in your current role. PwC 2025 reports a salary premium of +56% for AI-skilled workers over same-role peers.
+          - Productivity gain in your current role. The PwC 2025 reports a salary premium of +56% for AI-skilled workers over same-role peers.
+          - Productivity gain in your current role. The PwC 2025 reports a salary premium of +56% for AI-skilled workers over same-role peers.
       - feature: Duration
         values:
           - Part-Time 24 weeks or 15-week intensive
