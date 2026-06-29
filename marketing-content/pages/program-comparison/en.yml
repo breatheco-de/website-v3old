@@ -104,7 +104,7 @@ sections:
         values:
           - $14,999 (discounts and scholarships available)
           - {{ global.ai.fluency.price | $900 }} (Discounts and installment payments available)
-          - Financed plans starting as low as $49.99/month. 3, 6, or 12-month plans.
+          - $129/month. or $900 for the annual plan, for two.
       - feature: Payment Plans
         values:
           - Monthly plans, upfront payment discount.
