@@ -160,7 +160,7 @@ sections:
         - name: Cybersecurity
           url: /en/career-programs/cybersecurity
   - type: comparison_table
-    section_id: comparison_table-9ssv52
+    section_id: comparison_table-9ssv52-latam
     version: "2.0"
     columns:
       - name: Category
@@ -201,14 +201,14 @@ sections:
           - No fixed end date. Progress at your own pace. Each course has its own estimated hours.
       - feature: Cost
         values:
-          - $14,999. Discounts, scholarships, and financing available.
-          - $900. Discounts and financing available.
-          - "Basic: $129/month for 1 student. Pro: $900/year for up to 2 students."
+          - $3,000. Upfront payment discount and financing available.
+          - $500. Upfront payment discount and financing available.
+          - "Basic: [PLACEHOLDER]/month for 1 student. Pro: $500/year for up to 2 students."
       - feature: Payment Plans
         values:
-          - Upfront payment discount, monthly plans, and financing via Klarna and Affirm.
-          - Upfront payment discount and financing available.
-          - Basic is month-to-month, cancel anytime. Pro is billed annually. Financing available via Klarna and Affirm on Pro.
+          - "10% off with upfront payment. Financing available: 6 monthly installments of $459."
+          - 10% off with upfront payment. Or split into 2 interest-free installments.
+          - Basic is month-to-month, cancel anytime. Pro is billed annually and can be split into 2 installments.
       - feature: Job Guarantee
         values:
           - Available as an optional add-on for $2,000. US and Canada only.
@@ -234,9 +234,12 @@ sections:
                 url: /en/career-programs/ai-engineering
                 variant: outline
           - cta:
-              - text: Learn more
-                url: /en/career-programs/ai-fluency
+              - text: Enroll Now
+                url: /en/checkout?plan=ai-fluency&cohort=1706
                 variant: primary
+              - text: View full program
+                url: /en/career-programs/ai-fluency
+                variant: outline
           - cta:
               - text: Choose Your Plan
                 url: /en/ai-flex
