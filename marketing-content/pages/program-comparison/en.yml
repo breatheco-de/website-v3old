@@ -135,9 +135,12 @@ sections:
                 url: /en/career-programs/ai-engineering
                 variant: outline
           - cta:
-              - text: Learn more
-                url: /en/career-programs/ai-fluency
+              - text: Enroll Now
+                url: /en/checkout?plan=ai-fluency&cohort=1706
                 variant: primary
+              - text: View full program
+                url: /en/career-programs/ai-fluency
+                variant: outline
           - cta:
               - text: Choose Your Plan
                 url: /en/ai-flex
