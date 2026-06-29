@@ -16,13 +16,6 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import type { Section } from "@shared/schema";
 import addSectionImg from "@assets/add-section-explanation_1771275660234.png";
@@ -264,15 +257,28 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
               className="h-8 text-xs w-24 shrink-0"
               onKeyDown={e => { if (e.key === "Enter") addParam(); }}
             />
-            <Select value={newValueType} onValueChange={v => { setNewValueType(v as "static" | "fromUrl"); setAddError(""); }}>
-              <SelectTrigger className="h-8 text-xs w-36 shrink-0">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent className="z-[10003]">
-                <SelectItem value="fromUrl">From URL param</SelectItem>
-                <SelectItem value="static">Static value</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="flex shrink-0 h-8 rounded-md border overflow-hidden text-xs">
+              <button
+                type="button"
+                onClick={() => { setNewValueType("fromUrl"); setAddError(""); }}
+                className={cn(
+                  "px-2 font-medium transition-colors",
+                  newValueType === "fromUrl"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover-elevate"
+                )}
+              >From URL</button>
+              <button
+                type="button"
+                onClick={() => { setNewValueType("static"); setAddError(""); }}
+                className={cn(
+                  "px-2 font-medium border-l transition-colors",
+                  newValueType === "static"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover-elevate"
+                )}
+              >Static</button>
+            </div>
             <Input
               placeholder={newValueType === "fromUrl" ? "param name" : "value"}
               value={newValue}
