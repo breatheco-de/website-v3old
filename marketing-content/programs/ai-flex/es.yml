@@ -1294,6 +1294,7 @@ sections:
           - text: Cuenta escolar con GitHub Developer Program
           - text: VPS incluido
           - text: Certificados de curso
+          - text: Nuevos cursos cada mes
       - name: Plan Pro
         tag: Anual
         for_label: Para hasta 2 estudiantes
@@ -1319,7 +1320,6 @@ sections:
           - text: Cuenta escolar con GitHub Developer Program
           - text: VPS incluido
           - text: Certificados de curso
-          - text: Nuevos cursos cada mes
           - text: Nuevos cursos cada mes
     addon:
       label: Complemento opcional
