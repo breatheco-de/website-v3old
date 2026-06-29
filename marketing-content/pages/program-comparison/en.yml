@@ -371,6 +371,18 @@ sections:
           url: /en/career-programs/data-science-ml
         - name: Cybersecurity
           url: /en/career-programs/cybersecurity
+    showOnLocations:
+      - valencia-spain
+      - rome-italy
+      - munich-germany
+      - milan-italy
+      - malaga-spain
+      - madrid-spain
+      - lisbon-portugal
+      - hamburg-germany
+      - dublin-ireland
+      - berlin-germany
+      - barcelona-spain
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?
