@@ -263,7 +263,7 @@ sections:
             text: Stackable Certificates
         description: Access 8 AI courses. Follow a ready-made path like The AI-First Professional or The Builder, or design your own, at your own pace.
         cta_text: Explore AI Flex
-        cta_url: /en/ai-flex
+        cta_url: /en/career-programs/ai-flex
         course_background: hsl(var(--primary))
     section_id: course_selector-4m5sh4
     maxWidth:
