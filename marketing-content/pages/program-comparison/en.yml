@@ -104,7 +104,7 @@ sections:
         values:
           - $14,999 (discounts and scholarships available)
           - {{ global.ai.fluency.price | $900 }} (Discounts and installment payments available)
-          - $129/month. or $900 for the annual plan, for two.
+          - $129/month. Or $900 for the annual plan, for two students.
       - feature: Payment Plans
         values:
           - Monthly plans, upfront payment discount.
