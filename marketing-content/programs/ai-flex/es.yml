@@ -1320,6 +1320,7 @@ sections:
           - text: VPS incluido
           - text: Certificados de curso
           - text: Nuevos cursos cada mes
+          - text: Nuevos cursos cada mes
     addon:
       label: Complemento opcional
       title: Sesiones de mentoría adicionales
