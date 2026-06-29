@@ -5,6 +5,33 @@ function isInternalHref(href: string): boolean {
   return href.startsWith("/") && !href.startsWith("//");
 }
 
+/** Replace {qs:paramName} tokens with values from the current URL's querystring */
+function resolveQsTokens(str: string): string {
+  const params = new URLSearchParams(window.location.search);
+  return str.replace(/\{qs:([^}]+)\}/g, (_, key) => params.get(key) ?? "");
+}
+
+/** For a hash URL like "#pricing?cohort=x", separate the element id from the extra querystring */
+function parseHashHref(href: string): { id: string; extraSearch: string } {
+  const withoutHash = href.slice(1);
+  const qIdx = withoutHash.indexOf("?");
+  if (qIdx === -1) return { id: withoutHash, extraSearch: "" };
+  return {
+    id: withoutHash.slice(0, qIdx),
+    extraSearch: withoutHash.slice(qIdx + 1),
+  };
+}
+
+/** Merge two querystrings — extra params are set on top of existing ones */
+function mergeSearch(existing: string, extra: string): string {
+  if (!extra) return existing;
+  const base = new URLSearchParams(existing.startsWith("?") ? existing.slice(1) : existing);
+  const added = new URLSearchParams(extra);
+  added.forEach((v, k) => base.set(k, v));
+  const str = base.toString();
+  return str ? `?${str}` : "";
+}
+
 export function useInternalNav(onNavigate?: () => void) {
   const [, setLocation] = useLocation();
   const pageSections = usePageSections();
@@ -15,8 +42,10 @@ export function useInternalNav(onNavigate?: () => void) {
     }
 
     const anchor = e.currentTarget;
-    const href = anchor.getAttribute("href");
-    if (!href) return;
+    const rawHref = anchor.getAttribute("href");
+    if (!rawHref) return;
+
+    const href = resolveQsTokens(rawHref);
 
     if (href === "#top") {
       e.preventDefault();
@@ -34,7 +63,7 @@ export function useInternalNav(onNavigate?: () => void) {
 
     if (href.startsWith("#")) {
       e.preventDefault();
-      const id = href.slice(1);
+      const { id, extraSearch } = parseHashHref(href);
       const el = document.getElementById(id);
       if (el) {
         if (el.dataset.sectionType === "modal") {
@@ -44,7 +73,8 @@ export function useInternalNav(onNavigate?: () => void) {
           requestAnimationFrame(() => {
             requestAnimationFrame(() => {
               el.scrollIntoView({ behavior: "smooth", block: "start" });
-              history.replaceState(null, "", `${window.location.pathname}${window.location.search}#${id}`);
+              const mergedSearch = mergeSearch(window.location.search, extraSearch);
+              history.replaceState(null, "", `${window.location.pathname}${mergedSearch}#${id}`);
             });
           });
         }
@@ -69,25 +99,27 @@ export function useInternalNav(onNavigate?: () => void) {
   const navigate = (url: string): Record<string, unknown> | null => {
     if (!url) return null;
 
-    if (url.startsWith("inline#")) {
-      const sectionId = url.slice(7);
+    const resolved = resolveQsTokens(url);
+
+    if (resolved.startsWith("inline#")) {
+      const sectionId = resolved.slice(7);
       return pageSections[sectionId] ?? null;
     }
 
-    if (url === "#top") {
+    if (resolved === "#top") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       onNavigate?.();
       return null;
     }
 
-    if (url === "#bottom") {
+    if (resolved === "#bottom") {
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
       onNavigate?.();
       return null;
     }
 
-    if (url.startsWith("#")) {
-      const id = url.slice(1);
+    if (resolved.startsWith("#")) {
+      const { id, extraSearch } = parseHashHref(resolved);
       const el = document.getElementById(id);
       if (el) {
         if (el.dataset.sectionType === "modal") {
@@ -97,7 +129,8 @@ export function useInternalNav(onNavigate?: () => void) {
           requestAnimationFrame(() => {
             requestAnimationFrame(() => {
               el.scrollIntoView({ behavior: "smooth", block: "start" });
-              history.replaceState(null, "", `${window.location.pathname}${window.location.search}#${id}`);
+              const mergedSearch = mergeSearch(window.location.search, extraSearch);
+              history.replaceState(null, "", `${window.location.pathname}${mergedSearch}#${id}`);
             });
           });
         }
@@ -106,14 +139,14 @@ export function useInternalNav(onNavigate?: () => void) {
       return null;
     }
 
-    if (isInternalHref(url)) {
-      setLocation(url);
+    if (isInternalHref(resolved)) {
+      setLocation(resolved);
       window.scrollTo(0, 0);
       onNavigate?.();
       return null;
     }
 
-    window.open(url, "_blank", "noopener,noreferrer");
+    window.open(resolved, "_blank", "noopener,noreferrer");
     return null;
   };
 

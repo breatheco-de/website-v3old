@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { ArrowDown, Check, ExternalLink, Layers, Link, PanelBottom, Search } from "lucide-react";
+import { IconPlus, IconX } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,20 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import type { Section } from "@shared/schema";
@@ -32,6 +47,13 @@ interface RemoteSection {
   label: string;
 }
 
+interface QsParam {
+  id: string;
+  key: string;
+  valueType: "static" | "fromUrl";
+  value: string;
+}
+
 function extractPath(url: string): string {
   try {
     const parsed = new URL(url);
@@ -46,12 +68,44 @@ function detectLinkType(value: string, modals: SectionOption[], scrollSections: 
   if (value.startsWith("inline#")) return "inline";
   if (value.startsWith("http://") || value.startsWith("https://")) return "external";
   if (value.startsWith("#")) {
-    const anchor = value.slice(1);
+    const anchor = value.slice(1).split("?")[0];
     if (modals.some((m) => m.id === anchor)) return "modal";
     if (scrollSections.some((s) => s.id === anchor)) return "scroll";
     return "scroll";
   }
   return "internal";
+}
+
+/** Parse a URL into its base and query params (handles {qs:...} tokens) */
+function parseUrlParts(url: string): { base: string; params: QsParam[] } {
+  const qIdx = url.indexOf("?");
+  if (qIdx === -1) return { base: url, params: [] };
+  const base = url.slice(0, qIdx);
+  const qs = url.slice(qIdx + 1);
+  const pairs = qs.split("&").filter(Boolean);
+  const params: QsParam[] = pairs.map((pair, i) => {
+    const eqIdx = pair.indexOf("=");
+    const k = eqIdx === -1 ? pair : pair.slice(0, eqIdx);
+    const v = eqIdx === -1 ? "" : pair.slice(eqIdx + 1);
+    const qsTokenMatch = v.match(/^\{qs:([^}]+)\}$/);
+    return {
+      id: `${k}-${i}-${Date.now()}`,
+      key: k,
+      valueType: qsTokenMatch ? "fromUrl" : "static",
+      value: qsTokenMatch ? qsTokenMatch[1] : v,
+    };
+  });
+  return { base, params };
+}
+
+/** Rebuild URL from base + params list */
+function buildUrlWithQs(base: string, params: QsParam[]): string {
+  if (params.length === 0) return base;
+  const parts = params.map(p => {
+    const val = p.valueType === "fromUrl" ? `{qs:${p.value}}` : p.value;
+    return `${p.key}=${val}`;
+  });
+  return `${base}?${parts.join("&")}`;
 }
 
 function extractSectionsFromYaml(allSections?: Section[]): {
@@ -122,6 +176,146 @@ function extractSectionsFromRemote(remoteSections: RemoteSection[]): {
   return { modals, scrollSections, inlineSections };
 }
 
+// ─── QsParamDialog ───────────────────────────────────────────────────────────
+
+interface QsParamDialogProps {
+  open: boolean;
+  baseUrl: string;
+  initialParams: QsParam[];
+  onSave: (params: QsParam[]) => void;
+  onClose: () => void;
+}
+
+function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsParamDialogProps) {
+  const [params, setParams] = useState<QsParam[]>([]);
+  const [newKey, setNewKey] = useState("");
+  const [newValueType, setNewValueType] = useState<"static" | "fromUrl">("fromUrl");
+  const [newValue, setNewValue] = useState("");
+  const [addError, setAddError] = useState("");
+
+  useEffect(() => {
+    if (open) {
+      setParams(initialParams);
+      setNewKey("");
+      setNewValue("");
+      setNewValueType("fromUrl");
+      setAddError("");
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+
+  const addParam = () => {
+    const k = newKey.trim();
+    const v = newValue.trim();
+    if (!k) { setAddError("Key is required"); return; }
+    if (!v) { setAddError(newValueType === "fromUrl" ? "Param name is required" : "Value is required"); return; }
+    if (params.some(p => p.key === k)) { setAddError("Key already exists — remove it first to change its value"); return; }
+    setParams(prev => [...prev, { id: `${k}-${Date.now()}`, key: k, valueType: newValueType, value: v }]);
+    setNewKey("");
+    setNewValue("");
+    setAddError("");
+  };
+
+  const removeParam = (id: string) => setParams(prev => prev.filter(p => p.id !== id));
+
+  const preview = buildUrlWithQs(baseUrl, params);
+
+  return (
+    <Dialog open={open} onOpenChange={o => !o && onClose()}>
+      <DialogContent className="z-[10002] max-w-lg">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2 text-sm font-semibold">
+            Query params
+            <code className="text-xs font-normal bg-muted px-1.5 py-0.5 rounded text-muted-foreground">{baseUrl}</code>
+          </DialogTitle>
+        </DialogHeader>
+
+        <div className="space-y-1.5 min-h-[48px]">
+          {params.length === 0 ? (
+            <p className="text-xs text-muted-foreground text-center py-3">No params yet — add one below</p>
+          ) : (
+            params.map(p => (
+              <div key={p.id} className="flex items-center gap-2 text-xs bg-muted/50 rounded px-2 py-1.5">
+                <code className="font-medium text-foreground shrink-0">{p.key}</code>
+                <span className="text-muted-foreground shrink-0">=</span>
+                <code className="text-foreground flex-1 min-w-0 truncate">
+                  {p.valueType === "fromUrl" ? `{qs:${p.value}}` : p.value}
+                </code>
+                <span className="text-muted-foreground/60 text-[10px] shrink-0">
+                  {p.valueType === "fromUrl" ? "from URL" : "static"}
+                </span>
+                <button
+                  onClick={() => removeParam(p.id)}
+                  className="text-muted-foreground hover-elevate rounded p-0.5 shrink-0"
+                >
+                  <IconX size={12} />
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+
+        <div className="border-t pt-3 space-y-2">
+          <p className="text-xs font-medium text-foreground">Add param</p>
+          <div className="flex gap-2">
+            <Input
+              placeholder="key"
+              value={newKey}
+              onChange={e => { setNewKey(e.target.value); setAddError(""); }}
+              className="h-8 text-xs w-24 shrink-0"
+              onKeyDown={e => { if (e.key === "Enter") addParam(); }}
+            />
+            <Select value={newValueType} onValueChange={v => { setNewValueType(v as "static" | "fromUrl"); setAddError(""); }}>
+              <SelectTrigger className="h-8 text-xs w-36 shrink-0">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent className="z-[10003]">
+                <SelectItem value="fromUrl">From URL param</SelectItem>
+                <SelectItem value="static">Static value</SelectItem>
+              </SelectContent>
+            </Select>
+            <Input
+              placeholder={newValueType === "fromUrl" ? "param name" : "value"}
+              value={newValue}
+              onChange={e => { setNewValue(e.target.value); setAddError(""); }}
+              className="h-8 text-xs flex-1"
+              onKeyDown={e => { if (e.key === "Enter") addParam(); }}
+            />
+            <Button size="sm" variant="outline" onClick={addParam} className="shrink-0">
+              <IconPlus size={14} />
+            </Button>
+          </div>
+          {addError && <p className="text-xs text-destructive">{addError}</p>}
+          {!addError && newValueType === "fromUrl" && (
+            <p className="text-xs text-muted-foreground">
+              Reads <code className="bg-muted px-1 rounded">?{newValue || "param"}=…</code> from the visitor's current URL and forwards it to this link automatically.
+            </p>
+          )}
+          {!addError && newValueType === "static" && (
+            <p className="text-xs text-muted-foreground">
+              Always appends <code className="bg-muted px-1 rounded">{newKey || "key"}={newValue || "value"}</code> to this link.
+            </p>
+          )}
+        </div>
+
+        {params.length > 0 && (
+          <div className="border-t pt-2">
+            <p className="text-[10px] text-muted-foreground font-medium mb-1">Result</p>
+            <code className="text-[10px] text-muted-foreground break-all">{preview}</code>
+          </div>
+        )}
+
+        <DialogFooter>
+          <Button variant="outline" size="sm" onClick={onClose}>Cancel</Button>
+          <Button size="sm" onClick={() => onSave(params)}>Apply</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+// ─── LinkPickerProps ──────────────────────────────────────────────────────────
+
 interface LinkPickerProps {
   value: string;
   onChange: (value: string) => void;
@@ -140,6 +334,11 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
   const [searchQuery, setSearchQuery] = useState("");
   const [customUrl, setCustomUrl] = useState(value || "");
   const [customError, setCustomError] = useState("");
+
+  // QsParamDialog state
+  const [qsOpen, setQsOpen] = useState(false);
+  const [qsBaseUrl, setQsBaseUrl] = useState("");
+  const [qsInitialParams, setQsInitialParams] = useState<QsParam[]>([]);
 
   const { data: remoteSectionsData, isLoading: remoteSectionsLoading } = useQuery<{ sections: RemoteSection[] }>({
     queryKey: ["/api/page-sections", contextPath, locale],
@@ -221,6 +420,52 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
     setOpen(false);
   };
 
+  // Open QsParamDialog for a given row URL
+  const openQsForRow = (rowUrl: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const { base: rowBase } = parseUrlParts(rowUrl);
+    const { base: valBase, params: valParams } = parseUrlParts(value || "");
+    const isCurrentRow = valBase === rowBase;
+    setQsBaseUrl(rowBase);
+    setQsInitialParams(isCurrentRow ? valParams : []);
+    setQsOpen(true);
+  };
+
+  const handleQsSave = (params: QsParam[]) => {
+    const finalUrl = buildUrlWithQs(qsBaseUrl, params);
+    onChange(finalUrl);
+    setQsOpen(false);
+    setOpen(false);
+  };
+
+  // Render the ?params button for a list row
+  const renderParamsBtn = (rowUrl: string, rowIndex: number) => {
+    const { base: rowBase } = parseUrlParts(rowUrl);
+    const { base: valBase, params: valParams } = parseUrlParts(value || "");
+    const isThisRow = valBase === rowBase;
+    const hasParams = isThisRow && valParams.length > 0;
+    const label = hasParams
+      ? `?${valParams.map(p => p.key).join(", ")}`
+      : "?params";
+
+    return (
+      <button
+        key={`qs-${rowIndex}`}
+        onClick={e => openQsForRow(rowUrl, e)}
+        data-testid={`${testId}-qs-btn-${rowIndex}`}
+        className={cn(
+          "shrink-0 text-[10px] px-1.5 py-0.5 rounded border hover-elevate leading-none whitespace-nowrap",
+          hasParams
+            ? "border-primary/40 text-primary bg-primary/5"
+            : "border-border text-muted-foreground"
+        )}
+      >
+        {label}
+      </button>
+    );
+  };
+
   const allTypeOptions: { type: LinkType; icon: typeof Link; label: string }[] = [
     { type: "internal", icon: Link, label: "Page" },
     { type: "external", icon: ExternalLink, label: "External" },
@@ -242,99 +487,216 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
     : isExternal
       ? ExternalLink
       : isHash
-        ? (modals.some(m => `#${m.id}` === value) ? PanelBottom : ArrowDown)
+        ? (modals.some(m => `#${m.id}` === parseUrlParts(value || "").base) ? PanelBottom : ArrowDown)
         : Link;
 
   const DisplayIconComponent = displayIcon;
 
   const sectionsLoading = !!contextPath && remoteSectionsLoading;
 
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <button
-          className={cn(
-            "group inline-flex items-center gap-1.5 text-xs rounded-md transition-colors hover-elevate",
-            compact ? "p-1" : "px-2 py-1 max-w-full",
-            value
-              ? "text-primary/80 bg-primary/5"
-              : "text-muted-foreground"
-          )}
-          data-testid={testId}
-        >
-          <DisplayIconComponent className="h-3.5 w-3.5 flex-shrink-0" />
-          {!compact && <span className="truncate">{displayValue}</span>}
-        </button>
-      </PopoverTrigger>
-      <PopoverContent className="w-80 p-0 z-[10001]" align="start" container={portalContainer}>
-        <div className="flex border-b">
-          {typeOptions.map((opt) => {
-            const Icon = opt.icon;
-            return (
-              <button
-                key={opt.type}
-                onClick={() => {
-                  setActiveType(opt.type);
-                  setSearchQuery("");
-                  setCustomError("");
-                  setCustomUrl(value || "");
-                }}
-                className={cn(
-                  "flex-1 flex items-center justify-center gap-1 py-2 text-xs font-medium transition-colors border-b-2",
-                  activeType === opt.type
-                    ? "border-primary text-primary"
-                    : "border-transparent text-muted-foreground hover:text-foreground"
-                )}
-                data-testid={`${testId}-tab-${opt.type}`}
-              >
-                <Icon className="h-3.5 w-3.5" />
-                <span>{opt.label}</span>
-              </button>
-            );
-          })}
-        </div>
+  // Check if external customUrl is valid enough to show params button
+  const externalUrlValid = customUrl.startsWith("http://") || customUrl.startsWith("https://");
 
-        {activeType === "internal" && (
-          <>
-            <div className="p-2 border-b">
-              <div className="relative">
-                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search pages..."
-                  className="h-8 pl-8 text-sm"
-                  autoFocus
-                  data-testid={`${testId}-internal-search`}
-                />
+  return (
+    <>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <button
+            className={cn(
+              "group inline-flex items-center gap-1.5 text-xs rounded-md transition-colors hover-elevate",
+              compact ? "p-1" : "px-2 py-1 max-w-full",
+              value
+                ? "text-primary/80 bg-primary/5"
+                : "text-muted-foreground"
+            )}
+            data-testid={testId}
+          >
+            <DisplayIconComponent className="h-3.5 w-3.5 flex-shrink-0" />
+            {!compact && <span className="truncate">{displayValue}</span>}
+          </button>
+        </PopoverTrigger>
+        <PopoverContent className="w-96 p-0 z-[10001]" align="start" container={portalContainer}>
+          <div className="flex border-b">
+            {typeOptions.map((opt) => {
+              const Icon = opt.icon;
+              return (
+                <button
+                  key={opt.type}
+                  onClick={() => {
+                    setActiveType(opt.type);
+                    setSearchQuery("");
+                    setCustomError("");
+                    setCustomUrl(value || "");
+                  }}
+                  className={cn(
+                    "flex-1 flex items-center justify-center gap-1 py-2 text-xs font-medium transition-colors border-b-2",
+                    activeType === opt.type
+                      ? "border-primary text-primary"
+                      : "border-transparent text-muted-foreground hover:text-foreground"
+                  )}
+                  data-testid={`${testId}-tab-${opt.type}`}
+                >
+                  <Icon className="h-3.5 w-3.5" />
+                  <span>{opt.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {activeType === "internal" && (
+            <>
+              <div className="p-2 border-b">
+                <div className="relative">
+                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search pages..."
+                    className="h-8 pl-8 text-sm"
+                    autoFocus
+                    data-testid={`${testId}-internal-search`}
+                  />
+                </div>
               </div>
+              <ScrollArea className="h-[200px]">
+                {sitemapLoading ? (
+                  <div className="p-4 text-sm text-muted-foreground text-center">Loading pages...</div>
+                ) : filteredSitemapUrls.length === 0 ? (
+                  <div className="p-4 text-sm text-muted-foreground text-center">
+                    {searchQuery ? "No pages found" : "No pages available"}
+                  </div>
+                ) : (
+                  <div className="p-1">
+                    {filteredSitemapUrls.map((entry, index) => {
+                      const path = extractPath(entry.loc);
+                      return (
+                        <button
+                          key={entry.loc}
+                          onClick={() => handleSelect(path)}
+                          className={cn(
+                            "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-start gap-2",
+                            parseUrlParts(value || "").base === path && "bg-primary/10"
+                          )}
+                          data-testid={`${testId}-internal-option-${index}`}
+                        >
+                          <div className="flex-1 min-w-0">
+                            <div className="font-medium text-foreground truncate text-xs">{entry.label}</div>
+                            <div className="text-xs text-muted-foreground truncate">{path}</div>
+                          </div>
+                          {renderParamsBtn(path, index)}
+                          {parseUrlParts(value || "").base === path && (
+                            <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </ScrollArea>
+              <div className="p-2 border-t space-y-2">
+                <div className="flex gap-2">
+                  <Input
+                    value={customUrl}
+                    onChange={(e) => { setCustomUrl(e.target.value.replace(/\s+/g, "-")); setCustomError(""); }}
+                    placeholder="/custom-path"
+                    className="h-8 text-sm flex-1"
+                    onKeyDown={(e) => { if (e.key === "Enter") handleInternalCustomSubmit(); }}
+                    data-testid={`${testId}-internal-custom-input`}
+                  />
+                  <Button
+                    size="sm"
+                    onClick={handleInternalCustomSubmit}
+                    data-testid={`${testId}-internal-custom-save`}
+                  >
+                    Save
+                  </Button>
+                </div>
+                {customError && <p className="text-xs text-destructive">{customError}</p>}
+              </div>
+            </>
+          )}
+
+          {activeType === "external" && (
+            <div className="p-3 space-y-3">
+              <p className="text-xs text-muted-foreground">Enter an external URL:</p>
+              <div className="flex gap-2">
+                <Input
+                  value={customUrl}
+                  onChange={(e) => { setCustomUrl(e.target.value); setCustomError(""); }}
+                  placeholder="https://example.com"
+                  className="h-8 text-sm flex-1"
+                  autoFocus
+                  onKeyDown={(e) => { if (e.key === "Enter") handleExternalSubmit(); }}
+                  data-testid={`${testId}-external-input`}
+                />
+                <Button
+                  size="sm"
+                  onClick={handleExternalSubmit}
+                  data-testid={`${testId}-external-save`}
+                >
+                  Save
+                </Button>
+              </div>
+              {customError && <p className="text-xs text-destructive">{customError}</p>}
+              {externalUrlValid && (
+                <button
+                  onClick={e => {
+                    e.stopPropagation();
+                    const { base, params } = parseUrlParts(customUrl);
+                    setQsBaseUrl(base);
+                    setQsInitialParams(params);
+                    setQsOpen(true);
+                  }}
+                  className={cn(
+                    "w-full flex items-center gap-1.5 text-xs px-2 py-1.5 rounded border hover-elevate",
+                    parseUrlParts(customUrl).params.length > 0
+                      ? "border-primary/40 text-primary bg-primary/5"
+                      : "border-border text-muted-foreground"
+                  )}
+                  data-testid={`${testId}-external-qs-btn`}
+                >
+                  <IconPlus size={12} className="shrink-0" />
+                  {parseUrlParts(customUrl).params.length > 0
+                    ? `Query params: ${parseUrlParts(customUrl).params.map(p => p.key).join(", ")}`
+                    : "Add query params"}
+                </button>
+              )}
             </div>
+          )}
+
+          {activeType === "modal" && (
             <ScrollArea className="h-[200px]">
-              {sitemapLoading ? (
-                <div className="p-4 text-sm text-muted-foreground text-center">Loading pages...</div>
-              ) : filteredSitemapUrls.length === 0 ? (
-                <div className="p-4 text-sm text-muted-foreground text-center">
-                  {searchQuery ? "No pages found" : "No pages available"}
+              {sectionsLoading ? (
+                <div className="p-4 text-sm text-muted-foreground text-center">Loading sections...</div>
+              ) : modals.length === 0 ? (
+                <div className="p-4 space-y-3">
+                  <p className="text-sm font-medium text-foreground text-center">No modals on this page</p>
+                  <p className="text-xs text-muted-foreground">
+                    Modal links open a popup overlay when clicked. To add a modal, add a section with <code className="bg-muted px-1 py-0.5 rounded text-xs">type: modal</code> in your page YAML or using the manual editor with "Edit Mode". It will then appear here for selection.
+                  </p>
+                  {!contextPath && <img src={addSectionImg} alt="Use the Add button between sections to insert a new modal section" className="w-full rounded border" />}
                 </div>
               ) : (
                 <div className="p-1">
-                  {filteredSitemapUrls.map((entry, index) => {
-                    const path = extractPath(entry.loc);
+                  {modals.map((modal, index) => {
+                    const hashValue = `#${modal.id}`;
                     return (
                       <button
-                        key={entry.loc}
-                        onClick={() => handleSelect(path)}
+                        key={modal.id}
+                        onClick={() => handleSelect(hashValue)}
                         className={cn(
                           "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-start gap-2",
-                          value === path && "bg-primary/10"
+                          parseUrlParts(value || "").base === hashValue && "bg-primary/10"
                         )}
-                        data-testid={`${testId}-internal-option-${index}`}
+                        data-testid={`${testId}-modal-option-${index}`}
                       >
+                        <PanelBottom className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
                         <div className="flex-1 min-w-0">
-                          <div className="font-medium text-foreground truncate text-xs">{entry.label}</div>
-                          <div className="text-xs text-muted-foreground truncate">{path}</div>
+                          <div className="font-medium text-foreground truncate text-xs">{modal.label}</div>
+                          <div className="text-xs text-muted-foreground truncate">{hashValue}</div>
                         </div>
-                        {value === path && (
+                        {renderParamsBtn(hashValue, index)}
+                        {parseUrlParts(value || "").base === hashValue && (
                           <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                         )}
                       </button>
@@ -343,182 +705,106 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
                 </div>
               )}
             </ScrollArea>
-            <div className="p-2 border-t space-y-2">
-              <div className="flex gap-2">
-                <Input
-                  value={customUrl}
-                  onChange={(e) => { setCustomUrl(e.target.value.replace(/\s+/g, "-")); setCustomError(""); }}
-                  placeholder="/custom-path"
-                  className="h-8 text-sm flex-1"
-                  onKeyDown={(e) => { if (e.key === "Enter") handleInternalCustomSubmit(); }}
-                  data-testid={`${testId}-internal-custom-input`}
-                />
-                <Button
-                  size="sm"
-                  onClick={handleInternalCustomSubmit}
-                  data-testid={`${testId}-internal-custom-save`}
-                >
-                  Save
-                </Button>
-              </div>
-              {customError && <p className="text-xs text-destructive">{customError}</p>}
-            </div>
-          </>
-        )}
+          )}
 
-        {activeType === "external" && (
-          <div className="p-3 space-y-3">
-            <p className="text-xs text-muted-foreground">Enter an external URL:</p>
-            <div className="flex gap-2">
-              <Input
-                value={customUrl}
-                onChange={(e) => { setCustomUrl(e.target.value); setCustomError(""); }}
-                placeholder="https://example.com"
-                className="h-8 text-sm flex-1"
-                autoFocus
-                onKeyDown={(e) => { if (e.key === "Enter") handleExternalSubmit(); }}
-                data-testid={`${testId}-external-input`}
-              />
-              <Button
-                size="sm"
-                onClick={handleExternalSubmit}
-                data-testid={`${testId}-external-save`}
-              >
-                Save
-              </Button>
-            </div>
-            {customError && <p className="text-xs text-destructive">{customError}</p>}
-          </div>
-        )}
-
-        {activeType === "modal" && (
-          <ScrollArea className="h-[200px]">
-            {sectionsLoading ? (
-              <div className="p-4 text-sm text-muted-foreground text-center">Loading sections...</div>
-            ) : modals.length === 0 ? (
-              <div className="p-4 space-y-3">
-                <p className="text-sm font-medium text-foreground text-center">No modals on this page</p>
-                <p className="text-xs text-muted-foreground">
-                  Modal links open a popup overlay when clicked. To add a modal, add a section with <code className="bg-muted px-1 py-0.5 rounded text-xs">type: modal</code> in your page YAML or using the manual editor with "Edit Mode". It will then appear here for selection.
-                </p>
-                {!contextPath && <img src={addSectionImg} alt="Use the Add button between sections to insert a new modal section" className="w-full rounded border" />}
-              </div>
-            ) : (
-              <div className="p-1">
-                {modals.map((modal, index) => {
-                  const hashValue = `#${modal.id}`;
-                  return (
-                    <button
-                      key={modal.id}
-                      onClick={() => handleSelect(hashValue)}
-                      className={cn(
-                        "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-start gap-2",
-                        value === hashValue && "bg-primary/10"
-                      )}
-                      data-testid={`${testId}-modal-option-${index}`}
-                    >
-                      <PanelBottom className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium text-foreground truncate text-xs">{modal.label}</div>
-                        <div className="text-xs text-muted-foreground truncate">{hashValue}</div>
-                      </div>
-                      {value === hashValue && (
-                        <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </ScrollArea>
-        )}
-
-        {activeType === "scroll" && (
-          <ScrollArea className="h-[200px]">
-            {sectionsLoading ? (
-              <div className="p-4 text-sm text-muted-foreground text-center">Loading sections...</div>
-            ) : scrollSections.length === 0 ? (
-              <div className="p-4 space-y-2">
-                <p className="text-sm font-medium text-foreground text-center">No sections available</p>
-                <p className="text-xs text-muted-foreground">
-                  Section links scroll the visitor to a specific part of the page. Sections are listed here automatically. To give a section a custom anchor, add a <code className="bg-muted px-1 py-0.5 rounded text-xs">section_id</code> field in your page YAML. The link will use <code className="bg-muted px-1 py-0.5 rounded text-xs">#your-section-id</code>.
-                </p>
-              </div>
-            ) : (
-              <div className="p-1">
-                {scrollSections.map((section, index) => {
-                  const hashValue = `#${section.id}`;
-                  return (
-                    <button
-                      key={section.id}
-                      onClick={() => handleSelect(hashValue)}
-                      className={cn(
-                        "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-start gap-2",
-                        value === hashValue && "bg-primary/10"
-                      )}
-                      data-testid={`${testId}-scroll-option-${index}`}
-                    >
-                      <ArrowDown className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium text-foreground truncate text-xs">{section.label}</div>
-                        <div className="text-xs text-muted-foreground truncate">
-                          {hashValue}
-                          <span className="ml-1 opacity-60">({section.type})</span>
+          {activeType === "scroll" && (
+            <ScrollArea className="h-[200px]">
+              {sectionsLoading ? (
+                <div className="p-4 text-sm text-muted-foreground text-center">Loading sections...</div>
+              ) : scrollSections.length === 0 ? (
+                <div className="p-4 space-y-2">
+                  <p className="text-sm font-medium text-foreground text-center">No sections available</p>
+                  <p className="text-xs text-muted-foreground">
+                    Section links scroll the visitor to a specific part of the page. Sections are listed here automatically. To give a section a custom anchor, add a <code className="bg-muted px-1 py-0.5 rounded text-xs">section_id</code> field in your page YAML. The link will use <code className="bg-muted px-1 py-0.5 rounded text-xs">#your-section-id</code>.
+                  </p>
+                </div>
+              ) : (
+                <div className="p-1">
+                  {scrollSections.map((section, index) => {
+                    const hashValue = `#${section.id}`;
+                    return (
+                      <button
+                        key={section.id}
+                        onClick={() => handleSelect(hashValue)}
+                        className={cn(
+                          "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-start gap-2",
+                          parseUrlParts(value || "").base === hashValue && "bg-primary/10"
+                        )}
+                        data-testid={`${testId}-scroll-option-${index}`}
+                      >
+                        <ArrowDown className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                        <div className="flex-1 min-w-0">
+                          <div className="font-medium text-foreground truncate text-xs">{section.label}</div>
+                          <div className="text-xs text-muted-foreground truncate">
+                            {hashValue}
+                            <span className="ml-1 opacity-60">({section.type})</span>
+                          </div>
                         </div>
-                      </div>
-                      {value === hashValue && (
-                        <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </ScrollArea>
-        )}
-        {activeType === "inline" && (
-          <ScrollArea className="h-[200px]">
-            {inlineSections.length === 0 ? (
-              <div className="p-4 space-y-2">
-                <p className="text-sm font-medium text-foreground text-center">No sections with an ID on this page</p>
-                <p className="text-xs text-muted-foreground">
-                  Add a{" "}
-                  <code className="bg-muted px-1 py-0.5 rounded text-xs">section_id</code> field to any section to make it available as an inline render target.
-                </p>
-              </div>
-            ) : (
-              <div className="p-1">
-                {inlineSections.map((section, index) => {
-                  const inlineValue = `inline#${section.id}`;
-                  return (
-                    <button
-                      key={section.id}
-                      onClick={() => handleSelect(inlineValue)}
-                      className={cn(
-                        "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-start gap-2",
-                        value === inlineValue && "bg-primary/10"
-                      )}
-                      data-testid={`${testId}-inline-option-${index}`}
-                    >
-                      <Layers className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium text-foreground truncate text-xs">{section.label}</div>
-                        <div className="text-xs text-muted-foreground truncate">
-                          inline#{section.id}
-                          <span className="ml-1 opacity-60">({section.type})</span>
+                        {renderParamsBtn(hashValue, index)}
+                        {parseUrlParts(value || "").base === hashValue && (
+                          <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </ScrollArea>
+          )}
+
+          {activeType === "inline" && (
+            <ScrollArea className="h-[200px]">
+              {inlineSections.length === 0 ? (
+                <div className="p-4 space-y-2">
+                  <p className="text-sm font-medium text-foreground text-center">No sections with an ID on this page</p>
+                  <p className="text-xs text-muted-foreground">
+                    Add a{" "}
+                    <code className="bg-muted px-1 py-0.5 rounded text-xs">section_id</code> field to any section to make it available as an inline render target.
+                  </p>
+                </div>
+              ) : (
+                <div className="p-1">
+                  {inlineSections.map((section, index) => {
+                    const inlineValue = `inline#${section.id}`;
+                    return (
+                      <button
+                        key={section.id}
+                        onClick={() => handleSelect(inlineValue)}
+                        className={cn(
+                          "w-full text-left px-2 py-1.5 rounded-md text-sm hover-elevate flex items-start gap-2",
+                          parseUrlParts(value || "").base === inlineValue && "bg-primary/10"
+                        )}
+                        data-testid={`${testId}-inline-option-${index}`}
+                      >
+                        <Layers className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+                        <div className="flex-1 min-w-0">
+                          <div className="font-medium text-foreground truncate text-xs">{section.label}</div>
+                          <div className="text-xs text-muted-foreground truncate">
+                            inline#{section.id}
+                            <span className="ml-1 opacity-60">({section.type})</span>
+                          </div>
                         </div>
-                      </div>
-                      {value === inlineValue && (
-                        <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </ScrollArea>
-        )}
-      </PopoverContent>
-    </Popover>
+                        {renderParamsBtn(inlineValue, index)}
+                        {parseUrlParts(value || "").base === inlineValue && (
+                          <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </ScrollArea>
+          )}
+        </PopoverContent>
+      </Popover>
+
+      <QsParamDialog
+        open={qsOpen}
+        baseUrl={qsBaseUrl}
+        initialParams={qsInitialParams}
+        onSave={handleQsSave}
+        onClose={() => setQsOpen(false)}
+      />
+    </>
   );
 }
