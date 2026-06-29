@@ -104,10 +104,10 @@ sections:
         values:
           - $14,999 (discounts and scholarships available)
           - {{ global.ai.fluency.price | $900 }} (Discounts and installment payments available)
-          - $49.99/month. 3, 6, or 12-month plans. 25% off the annual plan. 7-day free trial.
+          - Financed plans starting as low as $49.99/month. 3, 6, or 12-month plans.
       - feature: Payment Plans
         values:
-          - Monthly plans, upfront payment discount, loans and ISA available.
+          - Monthly plans, upfront payment discount.
           - Pay in full with 10% off or in 4 interest-free installments.
           - Quarterly, semi-annual, or annual. Annual plan includes 25% off. No contracts — cancel anytime.
       - feature: Job Guarantee
