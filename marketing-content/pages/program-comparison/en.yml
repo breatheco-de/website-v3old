@@ -282,6 +282,34 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
+  - type: comparison_table
+    version: "1.0"
+    title: How We Compare
+    subtitle: See how our approach stacks up against typical alternatives
+    columns:
+      - name: Feature
+        highlight: true
+      - name: Our Brand
+      - name: Others
+    rows:
+      - feature: 1:1 Support
+        values:
+          - Unlimited
+          - Limited
+        feature_description: Get personalized guidance whenever you need it
+      - feature: Guarantee
+        values:
+          - "Yes"
+          - "No"
+        feature_description: Money back if not satisfied
+      - feature: Pricing
+        values:
+          - Flexible
+          - Fixed
+    footer_note: "* Based on industry research"
+    section_id: comparison_table-6ha5dl
+    paddingY:
+      desktop: sm
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?
