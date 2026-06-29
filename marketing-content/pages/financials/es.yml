@@ -321,11 +321,11 @@ sections:
         title: Ingeniería en Inteligencia Artificial
         badges:
           - icon: DollarSign
-            text: 3500 USD inversión total
+            text: 3000 USD inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado.
         description: Diseña, construye y escala negocios nativos en IA mientras aprendes a implementar sistemas y flujos de trabajo listos para producción.
-        price: 538 USD
+        price: 459 USD
         price_info: cuota sujeta a la aprobación de la financiera.
         cta_text: Ver programa
         cta_url: /en/career-programs/ai-engineering
@@ -356,11 +356,11 @@ sections:
         title: Ciencia de Datos y Machine Learning con IA
         badges:
           - icon: DollarSign
-            text: 3250 USD inversión total
+            text: 2500 USD inversión total
           - icon: CheckCircle
             text: Elegible para 10% de descuento por pago anticipado.
         description: Domina el análisis de datos impulsado por IA y desarrolla modelos inteligentes para resolver problemas reales.
-        price: 507 USD
+        price: 388 USD
         price_info: cuota sujeta a la aprobación de la financiera
         cta_text: Ver programa
         cta_url: /en/career-programs/data-science-ml
