@@ -159,6 +159,18 @@ sections:
           url: /en/career-programs/data-science-ml
         - name: Cybersecurity
           url: /en/career-programs/cybersecurity
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - tampa-usa
+      - orlando-usa
+      - newyork-usa
+      - losangeles-usa
+      - toronto-canada
   - type: comparison_table
     section_id: comparison_table-9ssv52-latam
     version: "2.0"
