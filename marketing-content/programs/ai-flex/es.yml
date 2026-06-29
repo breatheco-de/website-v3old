@@ -1217,6 +1217,7 @@ sections:
           - text: Codespaces ($10/mes incluidos)
           - text: Cuenta escolar con GitHub Developer Program
           - text: Certificados de curso
+          - text: Nuevos cursos cada mes
       - name: Plan Pro
         tag: Anual
         for_label: Para hasta 2 estudiantes
