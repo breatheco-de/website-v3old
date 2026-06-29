@@ -258,6 +258,18 @@ sections:
           url: /en/career-programs/data-science-ml
         - name: Cybersecurity
           url: /en/career-programs/cybersecurity
+    showOnLocations:
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
   - type: sticky_cta
     version: "1.0"
     heading: Ready to start your tech career?
