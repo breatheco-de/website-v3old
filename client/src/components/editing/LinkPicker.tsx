@@ -444,23 +444,22 @@ export function LinkPicker({ value, onChange, locale = "en", allSections, contex
     const { base: valBase, params: valParams } = parseUrlParts(value || "");
     const isThisRow = valBase === rowBase;
     const hasParams = isThisRow && valParams.length > 0;
-    const label = hasParams
-      ? `?${valParams.map(p => p.key).join(", ")}`
-      : "?params";
-
     return (
       <button
         key={`qs-${rowIndex}`}
         onClick={e => openQsForRow(rowUrl, e)}
         data-testid={`${testId}-qs-btn-${rowIndex}`}
         className={cn(
-          "shrink-0 text-[10px] px-1.5 py-0.5 rounded border hover-elevate leading-none whitespace-nowrap",
+          "shrink-0 inline-flex items-center gap-0.5 text-[11px] font-medium px-1.5 py-0.5 rounded-md hover-elevate whitespace-nowrap",
           hasParams
-            ? "border-primary/40 text-primary bg-primary/5"
-            : "border-border text-muted-foreground"
+            ? "bg-primary/10 text-primary"
+            : "bg-muted text-muted-foreground"
         )}
       >
-        {label}
+        <IconPlus size={10} className="shrink-0" />
+        {hasParams
+          ? valParams.map(p => p.key).join(", ")
+          : "params"}
       </button>
     );
   };
