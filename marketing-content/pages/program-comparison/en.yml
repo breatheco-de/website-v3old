@@ -163,64 +163,64 @@ sections:
       - name: Category
         highlight: true
       - name: AI Engineering
-      - name: AI Fluent for Professionals
+      - name: AI Fluency
       - name: AI Flex
     rows:
       - feature: Who It's For
         values:
-          - For anyone who wants to change careers and build AI systems. No prior technical experience required. Ideal for developers, career switchers, and technical professionals.
-          - For marketers, lawyers, consultants, executives, and any professional with cognitive work who still does manually what AI can do better. No coding required.
-          - For anyone who wants to explore before committing. Choose up to 4 courses from the catalog, at your own pace, with the option to credit what you've learned if you later decide on the full bootcamp.
+          - For anyone who wants to change careers and build AI systems. No prior technical experience required. Ideal for career switchers and professionals ready to move into a new field.
+          - For marketers, lawyers, consultants, executives, and any professional with cognitive work who wants to do more in less time using AI. No coding required.
+          - For anyone who wants to build AI skills at their own pace, choosing what they learn and when. No fixed schedule, no pressure to commit to a full program.
       - feature: Why Now
         values:
-          - 73% of Fortune 500 companies are hiring AI Engineers today. Salaries grew 40% in two years. This isn't a trend — it's the new backbone of software, and Cybersecurity, Full Stack, and Data Science roles today are all built on this foundation.
-          - Professionals who use AI productively complete tasks 40–60% faster (MIT, BCG). A productivity gap between colleagues already exists. Those who don't adapt aren't competing on equal footing.
-          - The catalog runs from Prompt Engineering to Data Science and ML. Each course comes with its own certificate — and they all count if you later decide to do the full AI Engineering Bootcamp.
+          - AI Engineer is the fastest-growing job of 2026. Demand for qualified professionals is outpacing supply, and salaries reflect it.
+          - Demand for AI fluency has grown 7x in two years, faster than any other skill (McKinsey, 2025). Every professional role is affected. The ones who move first gain the most.
+          - "Workers with AI skills earn a 56% wage premium over those without (PwC, 2025). That gap exists across every field and every role. The catalog covers the skills that drive it: AI, data science, engineering, automation, and beyond."
       - feature: What You'll Build
         values:
           - Agents with tool calling, RAG pipelines, multi-agent systems with LangGraph, APIs with FastAPI, automated workflows with n8n, and a full capstone that transforms a real company with AI.
-          - A personal prompt library for your actual work, a working automation in n8n, and elimination of your 3 most repetitive tasks. All in 4 weeks, no code.
-          - Something real in an area you care about. Choose Vibe Coding and you build an app. Choose Prompt Engineering and you leave with a library ready to use tomorrow. Choose No-Code and you have an active workflow. Each course has its own project. We recommend 4 courses based on your profile, but you have access to the full catalog.
+          - A personal prompt library built around your actual work, the skills to identify and automate your most repetitive tasks, and a working n8n pipeline that runs without you. All in 4 weeks, no code.
+          - Something real in an area you care about. Each course has its own project. The catalog covers Prompt Engineering, Vibe Coding, No-Code, Data Science, and more.
       - feature: Target Roles
         values:
           - AI Engineer, Forward-Deployed Engineer, AI Systems Engineer, Automation Engineer, AI Software Engineer
           - N/A. Designed to enhance the role you already have, not to change it.
-          - Varies based on courses chosen. Can be a path toward AI Engineering or a complement to any technical career.
+          - A complement to any professional career. Can also serve as a starting point toward AI Engineering for those who want to go deeper.
       - feature: Average U.S. Salary
         values:
-          - $100K to $160K
-          - Productivity gain in your current role — not an immediate change in base salary.
-          - As you complete more courses, you strengthen your current field. If you later decide to pursue AI Engineering, you'll already have a solid foundation and an average salary backed by market demand of $100K to $160K in the U.S.
+          - $95K–$155K (entry-level, US market)
+          - Productivity and effectiveness gains in your current role, with real impact on your output and earning potential over time.
+          - Strengthens your position in your current field. Each course adds a concrete, demonstrable skill with its own certificate.
       - feature: Duration
         values:
-          - Part-Time 24 weeks or 15-week intensive
+          - Part-time 24 weeks or 15-week intensive
           - 4 weeks, 1 live class per week plus self-paced modules
-          - No fixed end date — progress at your own pace. Each course has its own estimated hours (6 to 22 hrs).
+          - No fixed end date. Progress at your own pace. Each course has its own estimated hours.
       - feature: Cost
         values:
-          - $14,999 (discounts and scholarships available)
-          - {{ global.ai.fluency.price | $900 }} (Discounts and installment payments available)
-          - $49.99/month. 3, 6, or 12-month plans. 25% off the annual plan. 7-day free trial.
+          - $14,999. Discounts, scholarships, and financing available.
+          - $900. Discounts and financing available.
+          - "Basic: $129/month for 1 student. Pro: $900/year for up to 2 students."
       - feature: Payment Plans
         values:
-          - Monthly plans, upfront payment discount, loans and ISA available.
-          - Pay in full with 10% off or in 4 interest-free installments.
-          - Quarterly, semi-annual, or annual. Annual plan includes 25% off. No contracts — cancel anytime.
+          - Upfront payment discount, monthly plans, and financing via Klarna and Affirm.
+          - Upfront payment discount and financing available.
+          - Basic is month-to-month, cancel anytime. Pro is billed annually. Financing available via Klarna and Affirm on Pro.
       - feature: Job Guarantee
         values:
-          - Available for an additional $2,000.
+          - Available as an optional add-on for $2,000. US and Canada only.
           - N/A.
-          - N/A — not a career-change program.
+          - N/A.
       - feature: Best For You If
         values:
           - You want a new job in tech, with engineering-level pay, building the systems others simply use. Works even if you don't know how to code today.
-          - You already have a job and want to be the most productive person on your team using AI. You don't want to learn code — you want results this week.
-          - You're not sure what you want to learn. You prefer to try before committing, or you need a specific skill without doing a full bootcamp.
+          - You want to work faster, deliver more, and strengthen your position, without switching careers or learning to code.
+          - "You know what direction you want to grow in, but you want to learn on your own terms: choosing the subjects, setting the pace, committing when it makes sense for you."
       - feature: Were You Looking for Another Program?
         values:
-          - Cybersecurity, Data Science, and Full Stack modules live inside AI Engineering. The market absorbed them — today they're built on the same foundation of agents, LLMs, and automation.
-          - If you were looking for Cybersecurity or Data Science for your current job, AI Fluent gives you the tools to use AI in your professional context without changing careers.
-          - Fullstack Dev, Data Science and ML, and No-Code are available as individual courses in the AI Flex catalog. Explore them before committing to a bootcamp.
+          - Cybersecurity, Data Science, and Full Stack modules live inside AI Engineering. The market absorbed them, and today they are built on the same foundation of agents, LLMs, and automation.
+          - If you were looking for Cybersecurity or Data Science for your current job, AI Fluency gives you the tools to use AI in your professional context without changing careers.
+          - Full Stack Dev, Data Science and ML, and No-Code are available as individual courses in the AI Flex catalog. Explore them before committing to a full program.
       - feature: Ready to Get Started?
         values:
           - cta:
@@ -235,16 +235,16 @@ sections:
                 url: /en/career-programs/ai-fluency
                 variant: primary
           - cta:
-              - text: Start free — 7 days
+              - text: Choose Your Plan
                 url: /en/ai-flex
                 variant: primary
               - text: View catalog
                 url: /en/ai-flex/catalog
                 variant: outline
-    footer_note: "* Some programs are subject to regional availability. Discounts and scholarships available for all career programs."
+    footer_note: "* Some programs are subject to regional availability. Discounts and scholarships are available for AI Engineering."
     other_programs_note:
       title: Were You Looking for Cybersecurity, Full Stack, or Data Science?
-      message: These programs are still available. The market is absorbing them into AI. A Cybersecurity expert today uses LLMs for auditing. A Data Scientist today works with AI pipelines. A Full Stack Developer today builds with agents. If you're interested in any of them, let us know and we'll help you find the path that makes the most sense for you.
+      message: These programs are still available. The market is absorbing them into AI. A Cybersecurity expert today uses LLMs for auditing. A Data Scientist today works with AI pipelines. A Full Stack Developer today builds with agents. If you are interested in any of them, let us know and we will help you find the path that makes the most sense for you.
       programs:
         - name: Full Stack Development with AI
           url: /en/career-programs/full-stack
