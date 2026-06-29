@@ -1,17 +1,2300 @@
 {
   "meta": {
-    "lastFullRunAt": null,
+    "lastFullRunAt": "2026-06-29T16:12:32.631Z",
     "version": 2
   },
   "pages": {
     "/en/career-programs/ai-engineering-devs": {
-      "lastRunAt": "2026-06-19T15:28:08.248Z",
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "REDIRECT_CONFLICT",
+          "message": "Redirect conflict: \"/bootcamp/ai-engineering\" is claimed by both \"/home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml\" and \"/home/runner/workspace/marketing-content/programs/ai-engineering/en.yml\"",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml",
+          "suggestion": "Remove one of the conflicting redirects",
+          "category": "integrity"
+        },
+        {
+          "type": "error",
+          "code": "REDIRECT_CONFLICT",
+          "message": "Redirect conflict: \"/programs/ai-engineer\" is claimed by both \"/home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml\" and \"/home/runner/workspace/marketing-content/programs/ai-engineering/en.yml\"",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml",
+          "suggestion": "Remove one of the conflicting redirects",
+          "category": "integrity"
+        },
+        {
+          "type": "error",
+          "code": "REDIRECT_CONFLICT",
+          "message": "Redirect conflict: \"/coding-bootcamp/ai-engineering\" is claimed by both \"/home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml\" and \"/home/runner/workspace/marketing-content/programs/ai-engineering/en.yml\"",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml",
+          "suggestion": "Remove one of the conflicting redirects",
+          "category": "integrity"
+        },
+        {
+          "type": "error",
+          "code": "REDIRECT_CONFLICT",
+          "message": "Redirect conflict: \"/en/coding-bootcamps/software-engineer-bootcamp\" is claimed by both \"/home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml\" and \"/home/runner/workspace/marketing-content/programs/ai-engineering/en.yml\"",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml",
+          "suggestion": "Remove one of the conflicting redirects",
+          "category": "integrity"
+        },
+        {
+          "type": "error",
+          "code": "REDIRECT_CONFLICT",
+          "message": "Redirect conflict: \"/en/online-coding-bootcamp/best-online-coding-bootcamp\" is claimed by both \"/home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml\" and \"/home/runner/workspace/marketing-content/programs/ai-engineering/en.yml\"",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml",
+          "suggestion": "Remove one of the conflicting redirects",
+          "category": "integrity"
+        }
+      ],
+      "warnings": []
+    },
+    "/en/career-programs/ai-engineering": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "DUPLICATE_TITLE",
+          "message": "Duplicate page_title \"AI Engineer Career Program | 4Geeks\" used by 3 files",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering/en.yml",
+          "suggestion": "Also used in: /home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml, /home/runner/workspace/marketing-content/programs/ai-engineering-new/en.yml",
+          "category": "seo"
+        },
+        {
+          "type": "error",
+          "code": "DUPLICATE_DESCRIPTION",
+          "message": "Duplicate description used by 3 files: \"AI Engineer: fastest-growing job of 2026. Get job-ready in 2...\"",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering/en.yml",
+          "suggestion": "Also used in: /home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml, /home/runner/workspace/marketing-content/programs/ai-engineering-new/en.yml",
+          "category": "seo"
+        }
+      ],
+      "warnings": []
+    },
+    "/es/programas-de-carrera/ai-engineering": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
       "errors": [
         {
           "type": "error",
           "code": "INVALID_BACKGROUND",
           "message": "Invalid background value: \"bg-slate-950\" at sections[4].background",
-          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-muted/30\" at sections[12].background",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "DUPLICATE_TITLE",
+          "message": "Duplicate page_title \"Programa de Carrera Ingeniero de IA | 4Geeks\" used by 4 files",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering/es.yml",
+          "suggestion": "Also used in: /home/runner/workspace/marketing-content/programs/ai-engineering-devs/es.yml, /home/runner/workspace/marketing-content/programs/ai-engineering-new/es.yml, /home/runner/workspace/marketing-content/landings/draft-spain/es.yml",
+          "category": "seo"
+        },
+        {
+          "type": "error",
+          "code": "DUPLICATE_DESCRIPTION",
+          "message": "Duplicate description used by 4 files: \"Conviértete en Ingeniero de IA en 24 semanas con mentoría il...\"",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering/es.yml",
+          "suggestion": "Also used in: /home/runner/workspace/marketing-content/programs/ai-engineering-devs/es.yml, /home/runner/workspace/marketing-content/programs/ai-engineering-new/es.yml, /home/runner/workspace/marketing-content/landings/draft-spain/es.yml",
+          "category": "seo"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "DESCRIPTION_TOO_LONG",
+          "message": "Description is too long (176 chars)",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering/es.yml",
+          "suggestion": "Keep meta description under 160 characters to avoid truncation",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /es/programas-de-carrera/ai-engineering",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[8].features[0].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[8].features[1].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[8].features[2].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        }
+      ]
+    },
+    "/es/programas-de-carrera/ai-engineering-devs": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "REDIRECT_CONFLICT",
+          "message": "Redirect conflict: \"/bootcamp/ai-engineering-es\" is claimed by both \"/home/runner/workspace/marketing-content/programs/ai-engineering-devs/es.yml\" and \"/home/runner/workspace/marketing-content/programs/ai-engineering/es.yml\"",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/es.yml",
+          "suggestion": "Remove one of the conflicting redirects",
+          "category": "integrity"
+        },
+        {
+          "type": "error",
+          "code": "REDIRECT_CONFLICT",
+          "message": "Redirect conflict: \"/programas/ingeniero-ia\" is claimed by both \"/home/runner/workspace/marketing-content/programs/ai-engineering-devs/es.yml\" and \"/home/runner/workspace/marketing-content/programs/ai-engineering/es.yml\"",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/es.yml",
+          "suggestion": "Remove one of the conflicting redirects",
+          "category": "integrity"
+        },
+        {
+          "type": "error",
+          "code": "REDIRECT_CONFLICT",
+          "message": "Redirect conflict: \"/cursos/ingenieria-ia\" is claimed by both \"/home/runner/workspace/marketing-content/programs/ai-engineering-devs/es.yml\" and \"/home/runner/workspace/marketing-content/programs/ai-engineering/es.yml\"",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/es.yml",
+          "suggestion": "Remove one of the conflicting redirects",
+          "category": "integrity"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-slate-950\" at sections[4].background",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-muted/30\" at sections[12].background",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "DESCRIPTION_TOO_LONG",
+          "message": "Description is too long (176 chars)",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/es.yml",
+          "suggestion": "Keep meta description under 160 characters to avoid truncation",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /es/programas-de-carrera/ai-engineering-devs",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[8].features[0].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[8].features[1].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[8].features[2].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        }
+      ]
+    },
+    "/en/career-programs/ai-engineering-new": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/programas-de-carrera/ai-engineering-new": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-slate-950\" at sections[5].background",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-new/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-muted/30\" at sections[13].background",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-new/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "DESCRIPTION_TOO_LONG",
+          "message": "Description is too long (176 chars)",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-new/es.yml",
+          "suggestion": "Keep meta description under 160 characters to avoid truncation",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /es/programas-de-carrera/ai-engineering-new",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-new/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[9].features[0].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-new/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[9].features[1].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-new/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[9].features[2].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-new/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#apply-modal\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-new/es.yml",
+          "suggestion": "Add `section_id: apply-modal` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#apply-modal\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-new/es.yml",
+          "suggestion": "Add `section_id: apply-modal` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        }
+      ]
+    },
+    "/en/career-programs/ai-flex": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "DUPLICATE_TITLE",
+          "message": "Duplicate page_title \"AI Flex\" used by 2 files",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-flex/en.yml",
+          "suggestion": "Also used in: /home/runner/workspace/marketing-content/programs/ai-flex/es.yml",
+          "category": "seo"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (7 chars): \"AI Flex\"",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-flex/en.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /en/career-programs/ai-flex",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-flex/en.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#pricing-aiflex\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-flex/en.yml",
+          "suggestion": "Add `section_id: pricing-aiflex` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        }
+      ]
+    },
+    "/es/programas-de-carrera/ai-flex": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (7 chars): \"AI Flex\"",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-flex/es.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "DESCRIPTION_TOO_LONG",
+          "message": "Description is too long (175 chars)",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-flex/es.yml",
+          "suggestion": "Keep meta description under 160 characters to avoid truncation",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /es/programas-de-carrera/ai-flex",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-flex/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#pricing-aiflex\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-flex/es.yml",
+          "suggestion": "Add `section_id: pricing-aiflex` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        }
+      ]
+    },
+    "/en/career-programs/ai-fluency": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[7].background",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/en.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "DUPLICATE_TITLE",
+          "message": "Duplicate page_title \"AI fluency\" used by 2 files",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/en.yml",
+          "suggestion": "Also used in: /home/runner/workspace/marketing-content/programs/ai-fluency/es.yml",
+          "category": "seo"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/en/career-programs/ai-fluent\"",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/en.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (10 chars): \"AI fluency\"",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/en.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "DESCRIPTION_TOO_LONG",
+          "message": "Description is too long (168 chars)",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/en.yml",
+          "suggestion": "Keep meta description under 160 characters to avoid truncation",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /en/career-programs/ai-fluency",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/en.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#modal-y2myvq\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/en.yml",
+          "suggestion": "Add `section_id: modal-y2myvq` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        }
+      ]
+    },
+    "/es/programas-de-carrera/ai-fluency": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-slate-950\" at sections[4].background",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[7].background",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/programas-de-carrera/ai-fluent\"",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (10 chars): \"AI fluency\"",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/es.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "DESCRIPTION_TOO_LONG",
+          "message": "Description is too long (177 chars)",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/es.yml",
+          "suggestion": "Keep meta description under 160 characters to avoid truncation",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /es/programas-de-carrera/ai-fluency",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#modal-y2myvq\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/es.yml",
+          "suggestion": "Add `section_id: modal-y2myvq` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        }
+      ]
+    },
+    "/en/career-programs/applied-ai-course": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/programas-de-carrera/applied-ai-course": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/career-programs/cybersecurity": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "DESCRIPTION_TOO_LONG",
+          "message": "Description is too long (192 chars)",
+          "file": "/home/runner/workspace/marketing-content/programs/cybersecurity/en.yml",
+          "suggestion": "Keep meta description under 160 characters to avoid truncation",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/programas-de-carrera/cybersecurity": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/career-programs/data-science-ml": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/programas-de-carrera/data-science-ml": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/career-programs/full-stack": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "DESCRIPTION_TOO_LONG",
+          "message": "Description is too long (183 chars)",
+          "file": "/home/runner/workspace/marketing-content/programs/full-stack/en.yml",
+          "suggestion": "Keep meta description under 160 characters to avoid truncation",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/programas-de-carrera/full-stack": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/atlanta-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/atlanta-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/austin-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/austin-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/barcelona-spain": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/barcelona-spain": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/berlin-germany": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/berlin-germany": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/bogota-colombia": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/bogota-colombia": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/buenosaires-argentina": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/buenosaires-argentina": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/caracas-venezuela": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/caracas-venezuela": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/chicago-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/chicago-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/costa-rica": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/costa-rica": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/dallas-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/dallas-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/dublin-ireland": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/dublin-ireland": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/hamburg-germany": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/hamburg-germany": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/houston-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/houston-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/lapaz-bolivia": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/lapaz-bolivia": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/lima-peru": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/lima-peru": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/lisbon-portugal": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/lisbon-portugal": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/losangeles-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/losangeles-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/madrid-spain": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/madrid-spain": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/malaga-spain": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/malaga-spain": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/mexicocity-mexico": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/mexicocity-mexico": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/miami-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/miami-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/milan-italy": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/milan-italy": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/montevideo-uruguay": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/montevideo-uruguay": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/munich-germany": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/munich-germany": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/newyork-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/newyork-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/orlando-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/orlando-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/panamacity-panama": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/panamacity-panama": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/quito-ecuador": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/quito-ecuador": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/remote": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/remote": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/rest-of-america": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/locations/rest-of-america/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/ubicacion/rest-of-america": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/locations/rest-of-america/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/location/rest-of-europe": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/rest-of-europe": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"gradient\" at sections[3].background",
+          "file": "/home/runner/workspace/marketing-content/locations/rest-of-europe/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-sidebar\" at sections[7].background",
+          "file": "/home/runner/workspace/marketing-content/locations/rest-of-europe/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/coding-campus/bootcamp-programacion-europa-online\"",
+          "file": "/home/runner/workspace/marketing-content/locations/rest-of-europe/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/full-stack\"",
+          "file": "/home/runner/workspace/marketing-content/locations/rest-of-europe/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/ai-machine-learning\"",
+          "file": "/home/runner/workspace/marketing-content/locations/rest-of-europe/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/cybersecurity\"",
+          "file": "/home/runner/workspace/marketing-content/locations/rest-of-europe/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /es/ubicacion/rest-of-europe",
+          "file": "/home/runner/workspace/marketing-content/locations/rest-of-europe/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#bottom\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/locations/rest-of-europe/es.yml",
+          "suggestion": "Add `section_id: bottom` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        }
+      ]
+    },
+    "/en/location/rome-italy": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/rome-italy": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/santiago-chile": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/santiago-chile": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/tampa-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/tampa-usa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/toronto-canada": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/toronto-canada": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/location/valencia-spain": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/es/ubicacion/valencia-spain": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/landing/4geeks-pricing": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "DESCRIPTION_TOO_LONG",
+          "message": "Description is too long (184 chars)",
+          "file": "/home/runner/workspace/marketing-content/landings/4geeks-pricing/en.yml",
+          "suggestion": "Keep meta description under 160 characters to avoid truncation",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"4geeks-pricing\" (en) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/4geeks-pricing/en.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/4geeks-vs-others-landing": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /landing/4geeks-vs-others-landing",
+          "file": "/home/runner/workspace/marketing-content/landings/4geeks-vs-others-landing/en.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"4geeks-vs-others-landing\" (en) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/4geeks-vs-others-landing/en.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/4geeks-vs-otros-landing": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "SECTION_MISSING_TYPE",
+          "message": "Section at index 1 is missing a type field",
+          "file": "/home/runner/workspace/marketing-content/landings/4geeks-vs-otros-landing/es.yml",
+          "suggestion": "Add a type field to every section (e.g., hero, faq, features_grid)",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/programas-de-carrera/ingenieria-ia\"",
+          "file": "/home/runner/workspace/marketing-content/landings/4geeks-vs-otros-landing/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/programas-de-carrera/ciencia-de-datos-ml\"",
+          "file": "/home/runner/workspace/marketing-content/landings/4geeks-vs-otros-landing/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/programas-de-carrera/ciberseguridad\"",
+          "file": "/home/runner/workspace/marketing-content/landings/4geeks-vs-otros-landing/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/programas-de-carrera/desarrollo-full-stack\"",
+          "file": "/home/runner/workspace/marketing-content/landings/4geeks-vs-otros-landing/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/garantia-de-empleo\"",
+          "file": "/home/runner/workspace/marketing-content/landings/4geeks-vs-otros-landing/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /landing/4geeks-vs-otros-landing",
+          "file": "/home/runner/workspace/marketing-content/landings/4geeks-vs-otros-landing/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[0].title\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/landings/4geeks-vs-otros-landing/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[1].title\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/landings/4geeks-vs-otros-landing/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"4geeks-vs-otros-landing\" (es) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/4geeks-vs-otros-landing/es.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/ai-bootcamp-with-job-placement": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"ai-bootcamp-with-job-placement\" (en) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-bootcamp-with-job-placement/en.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/ai-engineering-bootcamp": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"ai-engineering-bootcamp\" (en) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-bootcamp/en.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/ai-engineering-chile": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"ai-engineering-chile\" (es) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-chile/es.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/ai-engineering-coding-florida": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "DESCRIPTION_TOO_LONG",
+          "message": "Description is too long (168 chars)",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-coding-florida/en.yml",
+          "suggestion": "Keep meta description under 160 characters to avoid truncation",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"ai-engineering-coding-florida\" (en) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-coding-florida/en.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/ai-engineering-en": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"ai-engineering-en\" (en) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-en/en.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/ai-engineering-es": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "DUPLICATE_DESCRIPTION",
+          "message": "Duplicate description used by 4 files: \"Desarrolla soluciones de IA con mentoría y comunidad profesi...\"",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-es/es.yml",
+          "suggestion": "Also used in: /home/runner/workspace/marketing-content/landings/latam-video-ingeniera-de-ia/es.yml, /home/runner/workspace/marketing-content/landings/workshop-aiengineering-reskill/es.yml, /home/runner/workspace/marketing-content/landings/workshop-aiengineering-reskill-latam/es.yml",
+          "category": "seo"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"ai-engineering-es\" (es) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-es/es.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/ai-engineering-for-developers": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_LONG",
+          "message": "Page title is too long (87 chars): \"AI Engineering for Developers | Turn Your Programming Skills...\"",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-for-developers/en.yml",
+          "suggestion": "Keep page title under 60 characters to avoid truncation in search results",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "DESCRIPTION_TOO_LONG",
+          "message": "Description is too long (210 chars)",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-for-developers/en.yml",
+          "suggestion": "Keep meta description under 160 characters to avoid truncation",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"ai-engineering-for-developers\" (en) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-for-developers/en.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/ai-engineering-lumi-version": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)\" at sections[0].background",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-lumi-version/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-muted/30\" at sections[12].background",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-lumi-version/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[7].features[0].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-lumi-version/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[7].features[1].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-lumi-version/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[7].features[2].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-lumi-version/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"ai-engineering-lumi-version\" (es) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-lumi-version/es.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#hero-form\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-lumi-version/es.yml",
+          "suggestion": "Add `section_id: hero-form` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#hero-form\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-lumi-version/es.yml",
+          "suggestion": "Add `section_id: hero-form` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        }
+      ]
+    },
+    "/landing/ai-engineering-spain": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"ai-engineering-spain\" (es) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-spain/es.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/anik-delemete": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-muted/30\" at sections[6].background",
+          "file": "/home/runner/workspace/marketing-content/landings/anik-delemete/en.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_LONG",
+          "message": "Page title is too long (62 chars): \"Agentic AI Engineering Program for Ages 17–22 | 4Geeks Acade...\"",
+          "file": "/home/runner/workspace/marketing-content/landings/anik-delemete/en.yml",
+          "suggestion": "Keep page title under 60 characters to avoid truncation in search results",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "DESCRIPTION_TOO_LONG",
+          "message": "Description is too long (185 chars)",
+          "file": "/home/runner/workspace/marketing-content/landings/anik-delemete/en.yml",
+          "suggestion": "Keep meta description under 160 characters to avoid truncation",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /landing/anik-delemete",
+          "file": "/home/runner/workspace/marketing-content/landings/anik-delemete/en.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"anik-delemete\" (en) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/anik-delemete/en.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/carne-joven": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"carne-joven\" (es) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/carne-joven/es.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#bottom\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/landings/carne-joven/es.yml",
+          "suggestion": "Add `section_id: bottom` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        }
+      ]
+    },
+    "/landing/de-aprender-programacion-a-ser-ai-engineer-mexico": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"de-aprender-programacion-a-ser-ai-engineer-mexico\" (es) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/de-aprender-programacion-a-ser-ai-engineer-mexico/es.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/draft-spain": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-slate-950\" at sections[4].background",
+          "file": "/home/runner/workspace/marketing-content/landings/draft-spain/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-muted/30\" at sections[12].background",
+          "file": "/home/runner/workspace/marketing-content/landings/draft-spain/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "DESCRIPTION_TOO_LONG",
+          "message": "Description is too long (176 chars)",
+          "file": "/home/runner/workspace/marketing-content/landings/draft-spain/es.yml",
+          "suggestion": "Keep meta description under 160 characters to avoid truncation",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /landing/draft-spain",
+          "file": "/home/runner/workspace/marketing-content/landings/draft-spain/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[8].features[0].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/landings/draft-spain/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[8].features[1].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/landings/draft-spain/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[8].features[2].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/landings/draft-spain/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"draft-spain\" (es) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/draft-spain/es.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#modal-ubwgcj\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/landings/draft-spain/es.yml",
+          "suggestion": "Add `section_id: modal-ubwgcj` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#modal-ubwgcj\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/landings/draft-spain/es.yml",
+          "suggestion": "Add `section_id: modal-ubwgcj` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        }
+      ]
+    },
+    "/landing/es-programa-de-desarrollo-full-stack-con-ia": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[7].features[0].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/landings/es-programa-de-desarrollo-full-stack-con-ia/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[7].features[1].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/landings/es-programa-de-desarrollo-full-stack-con-ia/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[7].features[2].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/landings/es-programa-de-desarrollo-full-stack-con-ia/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"es-programa-de-desarrollo-full-stack-con-ia\" (es) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/es-programa-de-desarrollo-full-stack-con-ia/es.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/es-programas-espaa": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"es-programas-espaa\" (es) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/es-programas-espaa/es.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/example": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/en/signup\"",
+          "file": "/home/runner/workspace/marketing-content/landings/example/en.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/en/signup-pro\"",
+          "file": "/home/runner/workspace/marketing-content/landings/example/en.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_DESCRIPTION",
+          "message": "Missing description in meta",
+          "file": "/home/runner/workspace/marketing-content/landings/example/en.yml",
+          "suggestion": "Add a meta description (150-160 characters) for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (7 chars): \"example\"",
+          "file": "/home/runner/workspace/marketing-content/landings/example/en.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/landings/example/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"example\" (en) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/example/en.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/from-developer-to-certified-ai-engineer-with-job-guarantee": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"from-developer-to-certified-ai-engineer-with-job-guarantee\" (en) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/from-developer-to-certified-ai-engineer-with-job-guarantee/en.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/herramientas-de-ia-para-programar": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"herramientas-de-ia-para-programar\" (es) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/herramientas-de-ia-para-programar/es.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/job-guarantee": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"linear-gradient(to bottom, hsl(210 100% 50% / 0.1), transparent)\" at sections[0].background",
+          "file": "/home/runner/workspace/marketing-content/landings/job-guarantee/en.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"job-guarantee\" (en) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/job-guarantee/en.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/latam-video-ingeniera-de-ia": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-muted/30\" at sections[1].background",
+          "file": "/home/runner/workspace/marketing-content/landings/latam-video-ingeniera-de-ia/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "DUPLICATE_TITLE",
+          "message": "Duplicate page_title \"Ingeniería AI con 4Geeks\" used by 2 files",
+          "file": "/home/runner/workspace/marketing-content/landings/latam-video-ingeniera-de-ia/es.yml",
+          "suggestion": "Also used in: /home/runner/workspace/marketing-content/landings/workshop-aiengineering-reskill-latam/es.yml",
+          "category": "seo"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (24 chars): \"Ingeniería AI con 4Geeks\"",
+          "file": "/home/runner/workspace/marketing-content/landings/latam-video-ingeniera-de-ia/es.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"latam-video-ingeniera-de-ia\" (es) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/latam-video-ingeniera-de-ia/es.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/programas-latam": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (27 chars): \"Programas en LATAM | 4Geeks\"",
+          "file": "/home/runner/workspace/marketing-content/landings/programas-latam/es.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "DESCRIPTION_TOO_LONG",
+          "message": "Description is too long (161 chars)",
+          "file": "/home/runner/workspace/marketing-content/landings/programas-latam/es.yml",
+          "suggestion": "Keep meta description under 160 characters to avoid truncation",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"programas-latam\" (es) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/programas-latam/es.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/workshop-aiengineering-reskill": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[1].background",
+          "file": "/home/runner/workspace/marketing-content/landings/workshop-aiengineering-reskill/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"gradient\" at sections[4].background",
+          "file": "/home/runner/workspace/marketing-content/landings/workshop-aiengineering-reskill/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /landing/workshop-aiengineering-reskill",
+          "file": "/home/runner/workspace/marketing-content/landings/workshop-aiengineering-reskill/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"workshop-aiengineering-reskill\" (es) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/workshop-aiengineering-reskill/es.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/landing/workshop-aiengineering-reskill-latam": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[1].background",
+          "file": "/home/runner/workspace/marketing-content/landings/workshop-aiengineering-reskill-latam/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"gradient\" at sections[4].background",
+          "file": "/home/runner/workspace/marketing-content/landings/workshop-aiengineering-reskill-latam/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (24 chars): \"Ingeniería AI con 4Geeks\"",
+          "file": "/home/runner/workspace/marketing-content/landings/workshop-aiengineering-reskill-latam/es.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /landing/workshop-aiengineering-reskill-latam",
+          "file": "/home/runner/workspace/marketing-content/landings/workshop-aiengineering-reskill-latam/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"workshop-aiengineering-reskill-latam\" (es) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/workshop-aiengineering-reskill-latam/es.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/apply": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/apply/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/apply": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/proceso-de-aplicacion\"",
+          "file": "/home/runner/workspace/marketing-content/pages/apply/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/apply/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/awards": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/awards/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/awards": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/awards/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/blog": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/blog/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/blog": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/blog/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/coding-bootcamp": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/coding-bootcamp/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/coding-bootcamp": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/coding-bootcamp/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/coding-bootcamp-in-spanish": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "EMPTY_SECTIONS",
+          "message": "Content file has no sections defined",
+          "file": "/home/runner/workspace/marketing-content/pages/coding-bootcamp-in-spanish/en.yml",
+          "suggestion": "Add a sections array with at least one section",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/coding-bootcamp-in-spanish/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/coding-bootcamp-in-spanish": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "EMPTY_SECTIONS",
+          "message": "Content file has no sections defined",
+          "file": "/home/runner/workspace/marketing-content/pages/coding-bootcamp-in-spanish/es.yml",
+          "suggestion": "Add a sections array with at least one section",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/coding-bootcamp-in-spanish/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/comparar-new": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "EMPTY_SECTIONS",
+          "message": "Content file has no sections defined",
+          "file": "/home/runner/workspace/marketing-content/pages/comparar-new/es.yml",
+          "suggestion": "Add a sections array with at least one section",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/en/career-programs/ai-fluent\"",
+          "file": "/home/runner/workspace/marketing-content/pages/comparar-new/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/en/ai-flex\"",
+          "file": "/home/runner/workspace/marketing-content/pages/comparar-new/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/en/ai-flex/catalog\"",
+          "file": "/home/runner/workspace/marketing-content/pages/comparar-new/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_PAGE_TITLE",
+          "message": "Missing page_title in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/comparar-new/es.yml",
+          "suggestion": "Add a descriptive page_title for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_DESCRIPTION",
+          "message": "Missing description in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/comparar-new/es.yml",
+          "suggestion": "Add a meta description (150-160 characters) for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/comparar-new/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/component-test": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/en/costa-rica\"",
+          "file": "/home/runner/workspace/marketing-content/pages/component-test/en.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/en/united-way\"",
+          "file": "/home/runner/workspace/marketing-content/pages/component-test/en.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/en/uruguay\"",
+          "file": "/home/runner/workspace/marketing-content/pages/component-test/en.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/component-test/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/contact-us": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/contact-us/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/contact-us": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/contact-us/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/cookies": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/cookies/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/cookies": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/cookie\"",
+          "file": "/home/runner/workspace/marketing-content/pages/cookies/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/cookies/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/ejemplo": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "EMPTY_SECTIONS",
+          "message": "Content file has no sections defined",
+          "file": "/home/runner/workspace/marketing-content/pages/ejemplo/es.yml",
+          "suggestion": "Add a sections array with at least one section",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/ejemplo/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/faq": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/faq/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/faq": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/faqs\"",
+          "file": "/home/runner/workspace/marketing-content/pages/faq/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/preguntas-frecuentes\"",
+          "file": "/home/runner/workspace/marketing-content/pages/faq/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/faq/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/financials": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/financials/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/financials": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/financials/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/geekforce-career-support": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[3].background",
+          "file": "/home/runner/workspace/marketing-content/pages/geekforce-career-support/en.yml",
           "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
           "category": "content"
         }
@@ -21,41 +2304,2067 @@
           "type": "warning",
           "code": "MISSING_OG_IMAGE",
           "message": "Missing og_image in meta",
-          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml",
+          "file": "/home/runner/workspace/marketing-content/pages/geekforce-career-support/en.yml",
           "suggestion": "Add an og_image for better social media sharing appearance",
           "category": "seo"
         },
         {
           "type": "warning",
           "code": "FAQ_SECTION_NO_SCHEMA",
-          "message": "Page has FAQ section but no FAQPage schema rendered for /en/career-programs/ai-engineering-devs",
-          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /en/geekforce-career-support",
+          "file": "/home/runner/workspace/marketing-content/pages/geekforce-career-support/en.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/geekforce-career-support": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/geekforce-career-support/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/geekpal-new": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"gradient\" at sections[1].background",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-new/en.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[2].background",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-new/en.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-primary/5\" at sections[3].background",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-new/en.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[4].background",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-new/en.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "DUPLICATE_TITLE",
+          "message": "Duplicate page_title \"GeekPAL-new\" used by 2 files",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-new/en.yml",
+          "suggestion": "Also used in: /home/runner/workspace/marketing-content/pages/geekpal-new/es.yml",
+          "category": "seo"
+        },
+        {
+          "type": "error",
+          "code": "DUPLICATE_DESCRIPTION",
+          "message": "Duplicate description used by 3 files: \"At 4Geeks, you never learn alone. Unlimited 1:1 mentorship, ...\"",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-new/en.yml",
+          "suggestion": "Also used in: /home/runner/workspace/marketing-content/pages/geekpal-support/en.yml, /home/runner/workspace/marketing-content/pages/test-dup/en.yml",
+          "category": "seo"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (11 chars): \"GeekPAL-new\"",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-new/en.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-new/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /en/geekpal-new",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-new/en.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/geekpal-new": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"gradient\" at sections[1].background",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-new/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[2].background",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-new/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-primary/5\" at sections[3].background",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-new/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[4].background",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-new/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "DUPLICATE_DESCRIPTION",
+          "message": "Duplicate description used by 3 files: \"Recibe ayuda en programación con mentoría y acompañamiento p...\"",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-new/es.yml",
+          "suggestion": "Also used in: /home/runner/workspace/marketing-content/pages/geekpal-support/es.yml, /home/runner/workspace/marketing-content/pages/test-dup/es.yml",
+          "category": "seo"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (11 chars): \"GeekPAL-new\"",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-new/es.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-new/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /es/geekpal-new",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-new/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/geekpal-support": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"gradient\" at sections[1].background",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-support/en.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[2].background",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-support/en.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-primary/5\" at sections[3].background",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-support/en.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[4].background",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-support/en.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-support/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /en/geekpal-support",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-support/en.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/geekpal-support": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"gradient\" at sections[1].background",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-support/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[2].background",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-support/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-primary/5\" at sections[3].background",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-support/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[4].background",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-support/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/geekpal\"",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-support/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-support/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /es/geekpal-support",
+          "file": "/home/runner/workspace/marketing-content/pages/geekpal-support/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/geeks-vs-others": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/geeks-vs-others/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/geeks-vs-others": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/geeks-vs-others/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/graduates-and-projects": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/graduates-and-projects/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/graduates-and-projects": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/graduates-and-projects/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/home": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "REDIRECT_OVERWRITES_CONTENT",
+          "message": "Redirect \"/us\" conflicts with an existing content URL",
+          "file": "/home/runner/workspace/marketing-content/pages/home/en.yml",
+          "suggestion": "Choose a different redirect source URL",
+          "category": "integrity"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/home/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/home": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/home/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/home-copia-prueba": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[7].background",
+          "file": "/home/runner/workspace/marketing-content/pages/home-copia-prueba/en.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/home-copia-prueba/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /en/home-copia-prueba",
+          "file": "/home/runner/workspace/marketing-content/pages/home-copia-prueba/en.yml",
           "suggestion": "Ensure FAQ sections generate FAQPage structured data",
           "category": "seo"
         },
         {
           "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#hero-nzpyph\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/pages/home-copia-prueba/en.yml",
+          "suggestion": "Add `section_id: hero-nzpyph` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#hero-nzpyph\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/pages/home-copia-prueba/en.yml",
+          "suggestion": "Add `section_id: hero-nzpyph` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#hero-nzpyph\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/pages/home-copia-prueba/en.yml",
+          "suggestion": "Add `section_id: hero-nzpyph` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#hero-nzpyph\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/pages/home-copia-prueba/en.yml",
+          "suggestion": "Add `section_id: hero-nzpyph` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        }
+      ]
+    },
+    "/es/home-copia-prueba": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[7].background",
+          "file": "/home/runner/workspace/marketing-content/pages/home-copia-prueba/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/home-copia-prueba/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /es/home-copia-prueba",
+          "file": "/home/runner/workspace/marketing-content/pages/home-copia-prueba/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#hero-nzpyph\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/pages/home-copia-prueba/es.yml",
+          "suggestion": "Add `section_id: hero-nzpyph` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#hero-nzpyph\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/pages/home-copia-prueba/es.yml",
+          "suggestion": "Add `section_id: hero-nzpyph` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#hero-nzpyph\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/pages/home-copia-prueba/es.yml",
+          "suggestion": "Add `section_id: hero-nzpyph` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#hero-nzpyph\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/pages/home-copia-prueba/es.yml",
+          "suggestion": "Add `section_id: hero-nzpyph` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        }
+      ]
+    },
+    "/es/home-new": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/home-new/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/home-prueba-lorena": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/home-prueba-lorena/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/home-prueba-lorena": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/home-prueba-lorena/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/job-guarantee": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/job-guarantee/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/job-guarantee": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/job-guarantee/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/learnpack": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/learnpack/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /en/learnpack",
+          "file": "/home/runner/workspace/marketing-content/pages/learnpack/en.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/learnpack": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/learnpack/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /es/learnpack",
+          "file": "/home/runner/workspace/marketing-content/pages/learnpack/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/limpieza-componentes-final": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"gradient\" at sections[4].background",
+          "file": "/home/runner/workspace/marketing-content/pages/limpieza-componentes-final/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[5].background",
+          "file": "/home/runner/workspace/marketing-content/pages/limpieza-componentes-final/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-primary/5\" at sections[10].background",
+          "file": "/home/runner/workspace/marketing-content/pages/limpieza-componentes-final/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-muted/30\" at sections[13].background",
+          "file": "/home/runner/workspace/marketing-content/pages/limpieza-componentes-final/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_DESCRIPTION",
+          "message": "Missing description in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/limpieza-componentes-final/es.yml",
+          "suggestion": "Add a meta description (150-160 characters) for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (26 chars): \"limpieza componentes-final\"",
+          "file": "/home/runner/workspace/marketing-content/pages/limpieza-componentes-final/es.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/limpieza-componentes-final/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "PAGE_NO_SCHEMA",
+          "message": "No schema configured for /es/limpieza-componentes-final",
+          "file": "/home/runner/workspace/marketing-content/pages/limpieza-componentes-final/es.yml",
+          "suggestion": "Add a schema.include array to improve structured data coverage",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
           "code": "EMPTY_FIELD_VALUE",
-          "message": "Critical field \"sections[7].features[0].description\" has an empty value",
-          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml",
+          "message": "Critical field \"sections[0].features[0].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/pages/limpieza-componentes-final/es.yml",
           "suggestion": "Fill in the empty field or remove it if not needed",
           "category": "content"
         },
         {
           "type": "warning",
           "code": "EMPTY_FIELD_VALUE",
-          "message": "Critical field \"sections[7].features[1].description\" has an empty value",
-          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml",
+          "message": "Critical field \"sections[0].features[1].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/pages/limpieza-componentes-final/es.yml",
           "suggestion": "Fill in the empty field or remove it if not needed",
           "category": "content"
         },
         {
           "type": "warning",
           "code": "EMPTY_FIELD_VALUE",
-          "message": "Critical field \"sections[7].features[2].description\" has an empty value",
-          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering-devs/en.yml",
+          "message": "Critical field \"sections[0].features[2].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/pages/limpieza-componentes-final/es.yml",
           "suggestion": "Fill in the empty field or remove it if not needed",
           "category": "content"
+        }
+      ]
+    },
+    "/en/lumi-home": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/lumi-home/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/lumi-home": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/lumi-home/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/online-platform": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/online-platform/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /en/online-platform",
+          "file": "/home/runner/workspace/marketing-content/pages/online-platform/en.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/online-platform": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/online-platform/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /es/online-platform",
+          "file": "/home/runner/workspace/marketing-content/pages/online-platform/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/outcomes": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/outcomes/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /en/outcomes",
+          "file": "/home/runner/workspace/marketing-content/pages/outcomes/en.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/outcomes": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/outcomes/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /es/outcomes",
+          "file": "/home/runner/workspace/marketing-content/pages/outcomes/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/partners": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/partners/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/partners": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/partners/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/press": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/press/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/press": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/press/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/privacy-policy": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/privacy-policy/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/privacy-policy": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/privacidad\"",
+          "file": "/home/runner/workspace/marketing-content/pages/privacy-policy/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/privacy-policy/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/program-comparison": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (27 chars): \"Program Comparison | 4Geeks\"",
+          "file": "/home/runner/workspace/marketing-content/pages/program-comparison/en.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/program-comparison/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/program-comparison": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/program-comparison/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/propuesta-univermilenium": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-muted/30\" at sections[2].background",
+          "file": "/home/runner/workspace/marketing-content/pages/propuesta-univermilenium/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-muted/30\" at sections[4].background",
+          "file": "/home/runner/workspace/marketing-content/pages/propuesta-univermilenium/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-muted/30\" at sections[5].background",
+          "file": "/home/runner/workspace/marketing-content/pages/propuesta-univermilenium/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/propuesta-univermilenium/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/prueba": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[6].features[0].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/pages/prueba/en.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[6].features[1].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/pages/prueba/en.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[6].features[2].description\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/pages/prueba/en.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#hero-form\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/pages/prueba/en.yml",
+          "suggestion": "Add `section_id: hero-form` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        }
+      ]
+    },
+    "/en/rigobot-ai-coding-mentor": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/rigobot-ai-coding-mentor/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /en/rigobot-ai-coding-mentor",
+          "file": "/home/runner/workspace/marketing-content/pages/rigobot-ai-coding-mentor/en.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/rigobot-ai-coding-mentor": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/rigobot-ai-coding-mentor/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /es/rigobot-ai-coding-mentor",
+          "file": "/home/runner/workspace/marketing-content/pages/rigobot-ai-coding-mentor/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/sample-page": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/sample-page/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/scholarships": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/scholarships/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/scholarships": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/scholarships/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/terms-conditions": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (29 chars): \"Terms and Conditions | 4Geeks\"",
+          "file": "/home/runner/workspace/marketing-content/pages/terms-conditions/en.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/terms-conditions/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/terms-conditions": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/terminos\"",
+          "file": "/home/runner/workspace/marketing-content/pages/terms-conditions/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/terms-conditions/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/test-dup": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"gradient\" at sections[1].background",
+          "file": "/home/runner/workspace/marketing-content/pages/test-dup/en.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[2].background",
+          "file": "/home/runner/workspace/marketing-content/pages/test-dup/en.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-primary/5\" at sections[3].background",
+          "file": "/home/runner/workspace/marketing-content/pages/test-dup/en.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[4].background",
+          "file": "/home/runner/workspace/marketing-content/pages/test-dup/en.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "DUPLICATE_TITLE",
+          "message": "Duplicate page_title \"test-dup\" used by 2 files",
+          "file": "/home/runner/workspace/marketing-content/pages/test-dup/en.yml",
+          "suggestion": "Also used in: /home/runner/workspace/marketing-content/pages/test-dup/es.yml",
+          "category": "seo"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (8 chars): \"test-dup\"",
+          "file": "/home/runner/workspace/marketing-content/pages/test-dup/en.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/test-dup/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /en/test-dup",
+          "file": "/home/runner/workspace/marketing-content/pages/test-dup/en.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/test-dup": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"gradient\" at sections[1].background",
+          "file": "/home/runner/workspace/marketing-content/pages/test-dup/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[2].background",
+          "file": "/home/runner/workspace/marketing-content/pages/test-dup/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-primary/5\" at sections[3].background",
+          "file": "/home/runner/workspace/marketing-content/pages/test-dup/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        },
+        {
+          "type": "error",
+          "code": "INVALID_BACKGROUND",
+          "message": "Invalid background value: \"bg-background\" at sections[4].background",
+          "file": "/home/runner/workspace/marketing-content/pages/test-dup/es.yml",
+          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (8 chars): \"test-dup\"",
+          "file": "/home/runner/workspace/marketing-content/pages/test-dup/es.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/test-dup/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /es/test-dup",
+          "file": "/home/runner/workspace/marketing-content/pages/test-dup/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/test-mcp-page": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "DUPLICATE_TITLE",
+          "message": "Duplicate page_title \"Test MCP Page\" used by 2 files",
+          "file": "/home/runner/workspace/marketing-content/pages/test-mcp-page/en.yml",
+          "suggestion": "Also used in: /home/runner/workspace/marketing-content/pages/test-mcp-page/es.yml",
+          "category": "seo"
+        },
+        {
+          "type": "error",
+          "code": "EMPTY_SECTIONS",
+          "message": "Content file has no sections defined",
+          "file": "/home/runner/workspace/marketing-content/pages/test-mcp-page/en.yml",
+          "suggestion": "Add a sections array with at least one section",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_DESCRIPTION",
+          "message": "Missing description in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/test-mcp-page/en.yml",
+          "suggestion": "Add a meta description (150-160 characters) for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (13 chars): \"Test MCP Page\"",
+          "file": "/home/runner/workspace/marketing-content/pages/test-mcp-page/en.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/test-mcp-page/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/test-mcp-page": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "EMPTY_SECTIONS",
+          "message": "Content file has no sections defined",
+          "file": "/home/runner/workspace/marketing-content/pages/test-mcp-page/es.yml",
+          "suggestion": "Add a sections array with at least one section",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_DESCRIPTION",
+          "message": "Missing description in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/test-mcp-page/es.yml",
+          "suggestion": "Add a meta description (150-160 characters) for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (13 chars): \"Test MCP Page\"",
+          "file": "/home/runner/workspace/marketing-content/pages/test-mcp-page/es.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/test-mcp-page/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/testimonials": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/testimonials/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/testimonials": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/testimonials/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/the-academy": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/the-academy/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/the-academy": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/the-academy/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/upcoming-dates": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/upcoming-dates/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/upcoming-dates": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/upcoming-dates/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/work-with-us": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/work-with-us/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /en/work-with-us",
+          "file": "/home/runner/workspace/marketing-content/pages/work-with-us/en.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/work-with-us": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "BROKEN_INTERNAL_LINK",
+          "message": "Broken internal link: \"/es/empleo\"",
+          "file": "/home/runner/workspace/marketing-content/pages/work-with-us/es.yml",
+          "suggestion": "Fix the URL or remove the broken link",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/work-with-us/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /es/work-with-us",
+          "file": "/home/runner/workspace/marketing-content/pages/work-with-us/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/blog//4geeks-in-the-ai-era": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": []
+    },
+    "/en/blog//best-online-coding-bootcamp": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_PAGE_TITLE",
+          "message": "Missing page_title in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/best-online-coding-bootcamp/en.yml",
+          "suggestion": "Add a descriptive page_title for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_DESCRIPTION",
+          "message": "Missing description in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/best-online-coding-bootcamp/en.yml",
+          "suggestion": "Add a meta description (150-160 characters) for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/best-online-coding-bootcamp/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /en/blog//best-online-coding-bootcamp",
+          "file": "/home/runner/workspace/marketing-content/blog/best-online-coding-bootcamp/en.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/blog//full-stack-developer-portfolio": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_PAGE_TITLE",
+          "message": "Missing page_title in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/full-stack-developer-portfolio/en.yml",
+          "suggestion": "Add a descriptive page_title for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_DESCRIPTION",
+          "message": "Missing description in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/full-stack-developer-portfolio/en.yml",
+          "suggestion": "Add a meta description (150-160 characters) for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/full-stack-developer-portfolio/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/blog//full-stack-developer-salary-2024": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "EMPTY_SECTIONS",
+          "message": "Content file has no sections defined",
+          "file": "/home/runner/workspace/marketing-content/blog/full-stack-developer-salary-2024/en.yml",
+          "suggestion": "Add a sections array with at least one section",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_LONG",
+          "message": "Page title is too long (61 chars): \"Full Stack Devek; k;jimoloper Salary Trends for 2024 | 4Geek...\"",
+          "file": "/home/runner/workspace/marketing-content/blog/full-stack-developer-salary-2024/en.yml",
+          "suggestion": "Keep page title under 60 characters to avoid truncation in search results",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "DESCRIPTION_TOO_LONG",
+          "message": "Description is too long (200 chars)",
+          "file": "/home/runner/workspace/marketing-content/blog/full-stack-developer-salary-2024/en.yml",
+          "suggestion": "Keep meta description under 160 characters to avoid truncation",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/blog//geekforce-the-career-launch-engine": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_PAGE_TITLE",
+          "message": "Missing page_title in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/geekforce-the-career-launch-engine/en.yml",
+          "suggestion": "Add a descriptive page_title for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_DESCRIPTION",
+          "message": "Missing description in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/geekforce-the-career-launch-engine/en.yml",
+          "suggestion": "Add a meta description (150-160 characters) for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/geekforce-the-career-launch-engine/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /en/blog//geekforce-the-career-launch-engine",
+          "file": "/home/runner/workspace/marketing-content/blog/geekforce-the-career-launch-engine/en.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/blog//juegos-gratis-para-practicar-tus-habilidades-de-programacion": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_PAGE_TITLE",
+          "message": "Missing page_title in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/juegos-gratis-para-practicar-tus-habilidades-de-programacion/es.yml",
+          "suggestion": "Add a descriptive page_title for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_DESCRIPTION",
+          "message": "Missing description in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/juegos-gratis-para-practicar-tus-habilidades-de-programacion/es.yml",
+          "suggestion": "Add a meta description (150-160 characters) for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/juegos-gratis-para-practicar-tus-habilidades-de-programacion/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/blog//lambda-school-alternative": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "SECTION_MISSING_TYPE",
+          "message": "Section at index 0 is missing a type field",
+          "file": "/home/runner/workspace/marketing-content/blog/lambda-school-alternative/en.yml",
+          "suggestion": "Add a type field to every section (e.g., hero, faq, features_grid)",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_PAGE_TITLE",
+          "message": "Missing page_title in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/lambda-school-alternative/en.yml",
+          "suggestion": "Add a descriptive page_title for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_DESCRIPTION",
+          "message": "Missing description in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/lambda-school-alternative/en.yml",
+          "suggestion": "Add a meta description (150-160 characters) for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/lambda-school-alternative/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/blog//learnpack-build-teach-learn": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "EMPTY_SECTIONS",
+          "message": "Content file has no sections defined",
+          "file": "/home/runner/workspace/marketing-content/blog/learnpack-build-teach-learn/en.yml",
+          "suggestion": "Add a sections array with at least one section",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_PAGE_TITLE",
+          "message": "Missing page_title in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/learnpack-build-teach-learn/en.yml",
+          "suggestion": "Add a descriptive page_title for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_DESCRIPTION",
+          "message": "Missing description in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/learnpack-build-teach-learn/en.yml",
+          "suggestion": "Add a meta description (150-160 characters) for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/learnpack-build-teach-learn/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/blog//machine-learning-course-syllabus": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_PAGE_TITLE",
+          "message": "Missing page_title in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/machine-learning-course-syllabus/en.yml",
+          "suggestion": "Add a descriptive page_title for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_DESCRIPTION",
+          "message": "Missing description in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/machine-learning-course-syllabus/en.yml",
+          "suggestion": "Add a meta description (150-160 characters) for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/machine-learning-course-syllabus/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /en/blog//machine-learning-course-syllabus",
+          "file": "/home/runner/workspace/marketing-content/blog/machine-learning-course-syllabus/en.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/blog//outcomes-report-2024": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_SHORT",
+          "message": "Page title is too short (2 chars): \"dd\"",
+          "file": "/home/runner/workspace/marketing-content/blog/outcomes-report-2024/en.yml",
+          "suggestion": "Aim for a page title between 30-60 characters for optimal SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "DESCRIPTION_TOO_SHORT",
+          "message": "Description is too short (3 chars)",
+          "file": "/home/runner/workspace/marketing-content/blog/outcomes-report-2024/en.yml",
+          "suggestion": "Aim for a meta description between 70-160 characters",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /en/blog//outcomes-report-2024",
+          "file": "/home/runner/workspace/marketing-content/blog/outcomes-report-2024/en.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/blog//que-es-data-science": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_PAGE_TITLE",
+          "message": "Missing page_title in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/que-es-data-science/es.yml",
+          "suggestion": "Add a descriptive page_title for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_DESCRIPTION",
+          "message": "Missing description in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/que-es-data-science/es.yml",
+          "suggestion": "Add a meta description (150-160 characters) for better SEO",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/blog/que-es-data-science/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "FAQ_SECTION_NO_SCHEMA",
+          "message": "Page has FAQ section but no FAQPage schema rendered for /es/blog//que-es-data-science",
+          "file": "/home/runner/workspace/marketing-content/blog/que-es-data-science/es.yml",
+          "suggestion": "Ensure FAQ sections generate FAQPage structured data",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/descargable/guia-de-html-css": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/downloadable/guia-de-html-css/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "EMPTY_FIELD_VALUE",
+          "message": "Critical field \"sections[0].subtitle\" has an empty value",
+          "file": "/home/runner/workspace/marketing-content/downloadable/guia-de-html-css/es.yml",
+          "suggestion": "Fill in the empty field or remove it if not needed",
+          "category": "content"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#cta_banner-6\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/downloadable/guia-de-html-css/es.yml",
+          "suggestion": "Add `section_id: cta_banner-6` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#cta_banner\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/downloadable/guia-de-html-css/es.yml",
+          "suggestion": "Add `section_id: cta_banner` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        }
+      ]
+    },
+    "/es/descargable/guia-de-js": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/downloadable/guia-de-js/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#cta_banner\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/downloadable/guia-de-js/es.yml",
+          "suggestion": "Add `section_id: cta_banner` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        },
+        {
+          "type": "warning",
+          "code": "BROKEN_ANCHOR",
+          "message": "Anchor \"#cta_banner\" has no matching section_id in this file",
+          "file": "/home/runner/workspace/marketing-content/downloadable/guia-de-js/es.yml",
+          "suggestion": "Add `section_id: cta_banner` to a section, or update the URL to point to an existing section_id",
+          "category": "integrity"
+        }
+      ]
+    },
+    "/en/downloadable/sample-downloadable": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "EMPTY_SECTIONS",
+          "message": "Content file has no sections defined",
+          "file": "/home/runner/workspace/marketing-content/downloadable/sample-downloadable/en.yml",
+          "suggestion": "Add a sections array with at least one section",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/downloadable/sample-downloadable/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/descargable/sample-downloadable": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "EMPTY_SECTIONS",
+          "message": "Content file has no sections defined",
+          "file": "/home/runner/workspace/marketing-content/downloadable/sample-downloadable/es.yml",
+          "suggestion": "Add a sections array with at least one section",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/downloadable/sample-downloadable/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/downloadable/testing": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/downloadable/testing/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/en/outcomes-report/sample-outcome-report": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "EMPTY_SECTIONS",
+          "message": "Content file has no sections defined",
+          "file": "/home/runner/workspace/marketing-content/outcome-report/sample-outcome-report/en.yml",
+          "suggestion": "Add a sections array with at least one section",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/outcome-report/sample-outcome-report/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/informe-de-resultados/sample-outcome-report": {
+      "lastRunAt": "2026-06-29T16:12:32.631Z",
+      "errors": [
+        {
+          "type": "error",
+          "code": "EMPTY_SECTIONS",
+          "message": "Content file has no sections defined",
+          "file": "/home/runner/workspace/marketing-content/outcome-report/sample-outcome-report/es.yml",
+          "suggestion": "Add a sections array with at least one section",
+          "category": "content"
+        }
+      ],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/outcome-report/sample-outcome-report/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
         }
       ]
     }
