@@ -276,14 +276,14 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
         </DialogHeader>
 
         {/* Params list */}
-        <div className="space-y-1">
+        <div className="space-y-2">
           {params.map(p => {
             const isEditing = p.id === editingId;
 
             if (isEditing) {
               // ── EDIT ROW ─────────────────────────────────────────────
               return (
-                <div key={p.id} className="space-y-1.5">
+                <div key={p.id} className="space-y-1.5 bg-muted rounded-md px-2 py-2">
                   <div className="flex items-center gap-1.5">
                     <Input
                       placeholder="key"
@@ -356,7 +356,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
             return (
               <div
                 key={p.id}
-                className="flex items-center gap-2 text-xs bg-muted/50 rounded px-2 py-1.5"
+                className="flex items-center gap-2 text-xs bg-muted rounded-md px-2 py-2"
               >
                 <code className="font-medium text-foreground shrink-0">{p.key}</code>
                 <span className="text-muted-foreground shrink-0">=</span>
