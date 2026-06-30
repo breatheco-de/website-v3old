@@ -4,3 +4,7 @@ en:
       allocation: 0
     - slug: ai-flex-selector-prueba
       allocation: 0
+es:
+  variants:
+    - slug: home-nuevos-programas
+      allocation: 0

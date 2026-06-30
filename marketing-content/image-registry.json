@@ -20041,6 +20041,104 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/aBo1kfIqRLdaB6vp_imagen_2025-05-06_121513432-182w.avif"
         }
       ]
+    },
+    "affirm": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/affirm.png",
+      "alt": "Image: affirm",
+      "focal_point": "center",
+      "tags": [],
+      "usage_count": 0,
+      "hash": "46b9820791fc99232cdc1c3a700d6fa1cb0a5722081075f86705aa8a3f49f8b9",
+      "width": 705,
+      "height": 253,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/affirm-640w.webp"
+        }
+      ]
+    },
+    "affirm-banner": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/affirm-banner.webp",
+      "alt": "Image: affirm-banner",
+      "focal_point": "center",
+      "tags": [
+        "hero"
+      ],
+      "usage_count": 0,
+      "hash": "2aa555e7a2d7119d27ad3e035f3a05eebb2b534096e7121457de76a08ae91360",
+      "width": 705,
+      "height": 397,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        640
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/affirm-banner-640w.webp"
+        }
+      ]
+    },
+    "affirm-banner-1": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/affirm-banner.png",
+      "alt": "Image: affirm-banner",
+      "focal_point": "center",
+      "tags": [
+        "hero"
+      ],
+      "usage_count": 0,
+      "hash": "2d2bda0043e24064f234c25c440472e0622128f2c8d851c993cd64a971df6b90",
+      "width": 601,
+      "height": 246,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        601
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 601,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/affirm-banner-601w.webp"
+        }
+      ]
+    },
+    "affirm-banner-2": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/affirm-banner.png",
+      "alt": "Image: affirm-banner",
+      "focal_point": "center",
+      "tags": [
+        "hero"
+      ],
+      "usage_count": 0,
+      "hash": "4734ca991d525e5e959323691a656a3a3d9fc3520d1a0c4c2bf250d9241eefa5",
+      "width": 587,
+      "height": 255,
+      "preset": [
+        "full"
+      ],
+      "widths_generated": [
+        587
+      ],
+      "format": "webp",
+      "srcset": [
+        {
+          "w": 587,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/affirm-banner-587w.webp"
+        }
+      ]
     }
   }
 }

@@ -2,3 +2,7 @@ en:
   variants:
     - slug: new
       allocation: 0
+es:
+  variants:
+    - slug: nuevo
+      allocation: 0

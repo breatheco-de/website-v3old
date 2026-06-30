@@ -1114,8 +1114,8 @@ sections:
   - type: pricing
     version: "1.0"
     variant: plan_cards
-    title: An investment that pays for itself.
-    subtitle: No contracts. Cancel anytime. All plans include the full course catalog.
+    title: Full Course Catalog. Choose Your Plan. Cancel Anytime.
+    subtitle: All plans include the full toolkit. No longterm commitment.
     plans:
       - name: Basic Plan
         tag: Monthly
@@ -1139,6 +1139,7 @@ sections:
           - text: School account with GitHub Developer Program
           - text: VPS included
           - text: Course certificates
+          - text: New courses every month
       - name: Pro Plan
         tag: Annual
         for_label: For up to 2 students
@@ -1150,7 +1151,8 @@ sections:
         top_badge: Save 10 months
         bottom_label: Financing with
         bottom_badges:
-          - 4Geeks Academy
+          - Klarna
+          - Affirm
         cta:
           label: Subscribe to Pro Plan
           url: https://4geeks.com/es/checkout?plan=ai-flex-pro&cohort=1719
@@ -1191,8 +1193,8 @@ sections:
   - type: pricing
     version: "1.0"
     variant: plan_cards
-    title: An investment that pays for itself.
-    subtitle: No contracts. Cancel anytime. All plans include the full course catalog.
+    title: Full Course Catalog. Choose Your Plan. Cancel Anytime.
+    subtitle: All plans include the full toolkit. No longterm commitment.
     plans:
       - name: Basic Plan
         tag: Monthly
@@ -1215,6 +1217,7 @@ sections:
           - text: Codespaces ($10/mo included)
           - text: School account with GitHub Developer Program
           - text: Course certificates
+          - text: New courses every month
       - name: Pro Plan
         tag: Annual
         for_label: For up to 2 students
@@ -1266,8 +1269,8 @@ sections:
   - type: pricing
     version: "1.0"
     variant: plan_cards
-    title: An investment that pays for itself.
-    subtitle: No contracts. Cancel anytime. All plans include the full course catalog.
+    title: Full Course Catalog. Choose Your Plan. Cancel Anytime.
+    subtitle: All plans include the full toolkit. No longterm commitment.
     plans:
       - name: Basic Plan
         tag: Monthly
@@ -1291,6 +1294,7 @@ sections:
           - text: School account with GitHub Developer Program
           - text: VPS included
           - text: Course certificates
+          - text: New courses every month
       - name: Pro Plan
         tag: Annual
         for_label: For up to 2 students
