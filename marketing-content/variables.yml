@@ -652,6 +652,18 @@ global.ai_fluency_url:
   conditions:
     - query:
         region: "usa-canada"
+        locale: "es"
+      value: "https://4geeks.com/es/checkout?plan=ai-fluency&cohort=1706"
+    - query:
+        region: "latam"
+        locale: "es"
+      value: "https://4geeks.com/es/checkout?plan=ai-fluency-latam&cohort=1706"
+    - query:
+        region: "europe"
+        locale: "es"
+      value: "https://4geeks.com/es/checkout?plan=ai-fluency-ue&cohort=1706"
+    - query:
+        region: "usa-canada"
       value: "https://4geeks.com/checkout?plan=ai-fluency&cohort=1706"
     - query:
         region: "latam"
