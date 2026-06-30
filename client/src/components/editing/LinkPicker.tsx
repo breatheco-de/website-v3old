@@ -222,9 +222,54 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
           </DialogTitle>
         </DialogHeader>
 
+        <div className="border-b pb-3 space-y-2">
+          <p className="text-xs font-medium text-foreground">Add param</p>
+          <div className="flex gap-2">
+            <Input
+              placeholder="key name"
+              value={newKey}
+              onChange={e => { setNewKey(e.target.value); setAddError(""); }}
+              className="h-8 text-xs w-28 shrink-0"
+              onKeyDown={e => { if (e.key === "Enter") addParam(); }}
+            />
+            <Input
+              placeholder="value"
+              value={newValue}
+              onChange={e => { setNewValue(e.target.value); setAddError(""); }}
+              className="h-8 text-xs flex-1"
+              onKeyDown={e => { if (e.key === "Enter") addParam(); }}
+            />
+            <Button size="sm" variant="outline" onClick={addParam} className="shrink-0">
+              <IconPlus size={14} />
+            </Button>
+          </div>
+          <div className="space-y-1">
+            <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">Where to get the value of this param</p>
+            <select
+              value={newValueType}
+              onChange={e => { setNewValueType(e.target.value as "static" | "fromUrl"); setAddError(""); }}
+              className="h-8 w-full text-xs border rounded-md px-2 bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+            >
+              <option value="fromUrl">From URL — read from visitor's current URL query string</option>
+              <option value="static">Static — always use the same fixed value</option>
+            </select>
+          </div>
+          {addError && <p className="text-xs text-destructive">{addError}</p>}
+          {!addError && newValueType === "fromUrl" && (
+            <p className="text-xs text-muted-foreground">
+              Reads <code className="bg-muted px-1 rounded">?{newValue || "param"}=…</code> from the visitor's current URL and forwards it to this link automatically.
+            </p>
+          )}
+          {!addError && newValueType === "static" && (
+            <p className="text-xs text-muted-foreground">
+              Always appends <code className="bg-muted px-1 rounded">{newKey || "key"}={newValue || "value"}</code> to this link.
+            </p>
+          )}
+        </div>
+
         <div className="space-y-1.5 min-h-[48px]">
           {params.length === 0 ? (
-            <p className="text-xs text-muted-foreground text-center py-3">No params yet — add one below</p>
+            <p className="text-xs text-muted-foreground text-center py-3">No params yet — add one above</p>
           ) : (
             params.map(p => (
               <div key={p.id} className="flex items-center gap-2 text-xs bg-muted/50 rounded px-2 py-1.5">
@@ -244,62 +289,6 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
                 </button>
               </div>
             ))
-          )}
-        </div>
-
-        <div className="border-t pt-3 space-y-2">
-          <p className="text-xs font-medium text-foreground">Add param</p>
-          <div className="flex gap-2">
-            <Input
-              placeholder="key"
-              value={newKey}
-              onChange={e => { setNewKey(e.target.value); setAddError(""); }}
-              className="h-8 text-xs w-24 shrink-0"
-              onKeyDown={e => { if (e.key === "Enter") addParam(); }}
-            />
-            <div className="flex shrink-0 h-8 rounded-md border overflow-hidden text-xs">
-              <button
-                type="button"
-                onClick={() => { setNewValueType("fromUrl"); setAddError(""); }}
-                className={cn(
-                  "px-2 font-medium transition-colors",
-                  newValueType === "fromUrl"
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover-elevate"
-                )}
-              >From URL</button>
-              <button
-                type="button"
-                onClick={() => { setNewValueType("static"); setAddError(""); }}
-                className={cn(
-                  "px-2 font-medium border-l transition-colors",
-                  newValueType === "static"
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover-elevate"
-                )}
-              >Static</button>
-            </div>
-            <Input
-              placeholder={newValueType === "fromUrl" ? "param name" : "value"}
-              value={newValue}
-              onChange={e => { setNewValue(e.target.value); setAddError(""); }}
-              className="h-8 text-xs flex-1"
-              onKeyDown={e => { if (e.key === "Enter") addParam(); }}
-            />
-            <Button size="sm" variant="outline" onClick={addParam} className="shrink-0">
-              <IconPlus size={14} />
-            </Button>
-          </div>
-          {addError && <p className="text-xs text-destructive">{addError}</p>}
-          {!addError && newValueType === "fromUrl" && (
-            <p className="text-xs text-muted-foreground">
-              Reads <code className="bg-muted px-1 rounded">?{newValue || "param"}=…</code> from the visitor's current URL and forwards it to this link automatically.
-            </p>
-          )}
-          {!addError && newValueType === "static" && (
-            <p className="text-xs text-muted-foreground">
-              Always appends <code className="bg-muted px-1 rounded">{newKey || "key"}={newValue || "value"}</code> to this link.
-            </p>
           )}
         </div>
 
