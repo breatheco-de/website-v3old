@@ -69,13 +69,14 @@ export function useInternalNav(onNavigate?: () => void) {
   const [, setLocation] = useLocation();
   const pageSections = usePageSections();
 
-  /** Register a global mousedown listener once that pre-resolves {qs:} tokens
-   *  in any anchor's href when the user middle-clicks (button 1), so the
-   *  browser's built-in "open in new tab" reads the resolved URL. */
+  /** Register a global auxclick listener once that intercepts middle-clicks
+   *  (button 1) on anchors that contain {qs:} tokens. auxclick is the correct
+   *  event for "open in new tab" — mousedown fires too early and the browser
+   *  may capture the href before our setTimeout restores it. */
   useEffect(() => {
     if (_globalMiddleClickInstalled) return;
     _globalMiddleClickInstalled = true;
-    document.addEventListener("mousedown", (e: MouseEvent) => {
+    document.addEventListener("auxclick", (e: MouseEvent) => {
       if (e.button !== 1) return;
       const anchor = (e.target as Element)?.closest("a");
       if (!anchor) return;
@@ -83,8 +84,8 @@ export function useInternalNav(onNavigate?: () => void) {
       if (!raw?.includes("{qs:")) return;
       const resolved = resolveQsTokens(raw);
       if (resolved === raw) return;
-      anchor.setAttribute("href", resolved);
-      setTimeout(() => anchor.setAttribute("href", raw), 0);
+      e.preventDefault();
+      window.open(resolved, "_blank", "noopener,noreferrer");
     });
   }, []);
 
@@ -140,10 +141,11 @@ export function useInternalNav(onNavigate?: () => void) {
       setLocation(href);
       window.scrollTo(0, 0);
       onNavigate?.();
-    } else {
-      // External URL — always open in new tab with resolved href (handles {qs:} tokens too)
+    } else if (href !== rawHref) {
+      // External URL had {qs:} tokens — browser would use the raw href (literal tokens).
+      // Intercept and open the resolved URL instead.
       e.preventDefault();
-      window.open(href, "_blank", "noopener,noreferrer");
+      window.open(href, anchor.target || "_blank");
       onNavigate?.();
     }
   };
