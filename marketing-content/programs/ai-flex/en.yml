@@ -340,7 +340,7 @@ sections:
       banner: true
       buttons:
         - text: Enroll now
-          url: {{ global.ai_flex_path_1_url | https://4geeks.com/es/checkout?plan=ai-flex-plan-pro&cohort=1713&team_seats=1 }}
+          url: {{ global.ai_flex_path_1_url | https://4geeks.com/checkout?plan=ai-flex-plan-pro&cohort=1713&team_seats=1 }}
           variant: primary
         - text: View plans
           variant: outline
@@ -520,7 +520,7 @@ sections:
       banner: true
       buttons:
         - text: Enroll now
-          url: https://4geeks.com/es/checkout?plan=ai-flex-pro&cohort=1718
+          url: {{ global.ai_flex_path_4_url | https://4geeks.com/checkout?plan=ai-flex-plan-pro&cohort=1718&team_seats=1 }}
           variant: primary
         - text: View plans
           url: "#pricing-6svo9e"
@@ -699,7 +699,7 @@ sections:
       banner: true
       buttons:
         - text: Enroll now
-          url: https://4geeks.com/es/checkout?plan=ai-flex-pro&cohort=1717
+          url: {{ global.ai_flex_path_2_url | https://4geeks.com/checkout?plan=ai-flex-plan-pro&cohort=1717&team_seats=1 }}
           variant: primary
         - text: View plans
           url: "#pricing-6svo9e"
@@ -878,7 +878,7 @@ sections:
       banner: true
       buttons:
         - text: Enroll now
-          url: https://4geeks.com/es/checkout?plan=ai-flex-pro&cohort=1719
+          url: {{ global.ai_flex_path_3_url | https://4geeks.com/checkout?plan=ai-flex-pro&cohort=1719 }}
           variant: primary
         - text: View plans
           url: "#pricing-6svo9e"

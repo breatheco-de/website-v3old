@@ -556,10 +556,46 @@ global.ai_flex_path_1_url:
   conditions:
     - query:
         region: "usa-canada"
-      value: "https://4geeks.com/es/checkout?plan=ai-flex-plan-pro&cohort=1713&team_seats=1"
+      value: "https://4geeks.com/checkout?plan=ai-flex-plan-pro&cohort=1713&team_seats=1"
     - query:
         region: "europe"
-      value: "https://4geeks.com/es/checkout?plan=ai-flex-pro-ue&cohort=1713&team_seats=1"
+      value: "https://4geeks.com/checkout?plan=ai-flex-pro-ue&cohort=1713&team_seats=1"
     - query:
         region: "latam"
-      value: "https://4geeks.com/es/checkout?plan=ai-flex-pro-latam&cohort=1713&team_seats=1"
+      value: "https://4geeks.com/checkout?plan=ai-flex-pro-latam&cohort=1713&team_seats=1"
+global.ai_flex_path_2_url:
+  default: "https://4geeks.com/es/checkout?plan=ai-flex-plan-pro&cohort=1717&team_seats=1"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "https://4geeks.com/checkout?plan=ai-flex-plan-pro&cohort=1717&team_seats=1"
+    - query:
+        region: "europe"
+      value: "https://4geeks.com/checkout?plan=ai-flex-pro-ue&cohort=1717&team_seats=1"
+    - query:
+        region: "latam"
+      value: "https://4geeks.com/checkout?plan=ai-flex-pro-latam&cohort=1717&team_seats=1"
+global.ai_flex_path_3_url:
+  default: "https://4geeks.com/es/checkout?plan=ai-flex-plan-pro&cohort=1719&team_seats=1"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "https://4geeks.com/checkout?plan=ai-flex-plan-pro&cohort=1719&team_seats=1"
+    - query:
+        region: "europe"
+      value: "https://4geeks.com/checkout?plan=ai-flex-pro-ue&cohort=1719&team_seats=1"
+    - query:
+        region: "latam"
+      value: "https://4geeks.com/checkout?plan=ai-flex-pro-latam&cohort=1719&team_seats=1"
+global.ai_flex_path_4_url:
+  default: "https://4geeks.com/checkout?plan=ai-flex-plan-pro&cohort=1718&team_seats=1"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "https://4geeks.com/checkout?plan=ai-flex-plan-pro&cohort=1718&team_seats=1"
+    - query:
+        region: "europe"
+      value: "https://4geeks.com/checkout?plan=ai-flex-pro-ue&cohort=1718&team_seats=1"
+    - query:
+        region: "latam"
+      value: "https://4geeks.com/checkout?plan=ai-flex-pro-latam&cohort=1718&team_seats=1"
