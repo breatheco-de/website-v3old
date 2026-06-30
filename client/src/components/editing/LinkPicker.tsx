@@ -233,12 +233,12 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
   const addNewRow = () => {
     // Only one draft at a time
     setParams(prev => prev.filter(p => p.id !== DRAFT_ID));
-    setParams(prev => [...prev, { id: DRAFT_ID, key: "", value: "", valueType: "fromUrl" }]);
+    setParams(prev => [...prev, { id: DRAFT_ID, key: "", value: "", valueType: "static" }]);
     setEditingId(DRAFT_ID);
     setEditKey("");
     setEditValue("");
     setEditFallback("");
-    setEditType("fromUrl");
+    setEditType("static");
     setEditError("");
   };
 
