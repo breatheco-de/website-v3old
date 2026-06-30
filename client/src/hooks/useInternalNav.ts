@@ -181,16 +181,19 @@ export function useInternalNav(onNavigate?: () => void) {
   };
 
   /** Intercept middle-click (button 1) on anchors that contain {qs:} tokens.
-   *  The browser opens the raw href on mousedown before onClick fires, so we
-   *  must preventDefault here and open the resolved URL ourselves. */
+   *  Modern browsers open-in-new-tab on `auxclick`, not `mousedown`, so
+   *  preventDefault on mousedown is too early. Instead we temporarily swap
+   *  the href to the resolved URL so the browser reads the correct value
+   *  when it processes auxclick, then restore immediately after. */
   const handleMouseDown = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (e.button !== 1) return; // only middle-click
-    const rawHref = e.currentTarget.getAttribute("href");
+    const anchor = e.currentTarget;
+    const rawHref = anchor.getAttribute("href");
     if (!rawHref || !rawHref.includes("{qs:")) return;
     const href = resolveQsTokens(rawHref);
     if (href === rawHref) return; // nothing changed, let browser handle it
-    e.preventDefault();
-    window.open(href, "_blank", "noopener,noreferrer");
+    anchor.setAttribute("href", href);
+    setTimeout(() => anchor.setAttribute("href", rawHref), 0);
   };
 
   const handler = handleClick as typeof handleClick & {
