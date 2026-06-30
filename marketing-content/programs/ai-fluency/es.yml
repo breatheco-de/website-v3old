@@ -362,7 +362,7 @@ sections:
         text: Una sesión de mentoría 1:1 incluida. Agrega más en cualquier momento por $25 cada una.
     cta:
       text: Inscríbete ahora
-      url: https://4geeks.com/es/checkout?plan=ai-fluency&cohort=1706
+      url: {{ global.ai_fluency_url | https://4geeks.com/es/checkout?plan=ai-fluency&cohort=1706 }}
       variant: primary
     section_id: pricing-aifluency
     marginY:
@@ -398,7 +398,7 @@ sections:
         text: Trabajamos con socios de confianza para ofrecer financiamiento flexible y asequible, para que puedas enfocarte en tu futuro, no en tus tarifas.
     cta:
       text: Inscríbete ahora
-      url: https://4geeks.com/es/checkout?plan=ai-fluency&cohort=1706
+      url: https://4geeks.com/es/checkout?plan=ai-fluency-ue&cohort=1706
       variant: primary
     section_id: pricing-qhcsa1
     marginY:

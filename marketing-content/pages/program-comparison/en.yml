@@ -139,14 +139,14 @@ sections:
                 url: /en/checkout?plan=ai-fluency&cohort=1706
                 variant: primary
               - text: View full program
-                url: /en/career-programs/ai-fluency
+                url: https://4geeksacademy.com/en/career-programs/ai-fluency
                 variant: outline
           - cta:
               - text: Choose Your Plan
                 url: /en/ai-flex
                 variant: primary
               - text: View catalog
-                url: /en/ai-flex/catalog
+                url: https://4geeksacademy.com/en/career-programs/ai-flex
                 variant: outline
     footer_note: "* Some programs are subject to regional availability. Discounts and scholarships are available for AI Engineering."
     other_programs_note:
@@ -201,7 +201,7 @@ sections:
           - AI Engineer, Forward-Deployed Engineer, AI Systems Engineer, Automation Engineer, AI Software Engineer
           - Does not Apply. Designed to enhance the role you already have, not to change it.
           - A complement to any professional career. Can also serve as a starting point toward AI Engineering for those who want to go deeper.
-      - feature: Average U.S. Salary
+      - feature: Average Salary
         values:
           - $20K–$60K (entry-level, Latin American job market)
           - Productivity and effectiveness gains in your current role, with real impact on your output and earning potential over time.
@@ -215,7 +215,7 @@ sections:
         values:
           - $3,000. Upfront payment discount and financing available.
           - $500. Upfront payment discount and financing available.
-          - "Basic: [PLACEHOLDER]/month for 1 student. Pro: $500/year for up to 2 students."
+          - "Basic: $85/month for 1 student. Pro: $600/year for up to 2 students."
       - feature: Payment Plans
         values:
           - "10% off with upfront payment. Financing available: 6 monthly installments of $459."
@@ -245,14 +245,14 @@ sections:
                 url: /en/checkout?plan=ai-fluency&cohort=1706
                 variant: primary
               - text: View full program
-                url: /en/career-programs/ai-fluency
+                url: https://4geeksacademy.com/en/career-programs/ai-fluency
                 variant: outline
           - cta:
               - text: Choose Your Plan
                 url: /en/ai-flex
                 variant: primary
               - text: View catalog
-                url: /en/ai-flex/catalog
+                url: https://4geeksacademy.com/en/career-programs/ai-flex
                 variant: outline
     footer_note: "* Some programs are subject to regional availability. Discounts and scholarships are available for AI Engineering."
     other_programs_note:
@@ -321,7 +321,7 @@ sections:
         values:
           - €6,250. Upfront payment discount and financing available.
           - €900. Upfront payment discount and financing available.
-          - "Basic: [PLACEHOLDER]/month for 1 student. Pro: €900/year for up to 2 students."
+          - "Basic: €129 /month for 1 student. Pro: €900/year for up to 2 students."
       - feature: Payment Plans
         values:
           - 10% off with upfront payment. Financing available from an estimated €140/month over 48 months (TIN 7.75%), with a €500 reservation deposit. Subject to approval by our financing partner.
