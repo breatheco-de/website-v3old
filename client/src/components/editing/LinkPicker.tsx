@@ -300,7 +300,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
                       className="h-7 text-xs flex-1 min-w-0"
                       onKeyDown={e => { if (e.key === "Enter") confirmEdit(); if (e.key === "Escape") cancelEdit(); }}
                     />
-                    <span className="text-xs text-muted-foreground shrink-0">from</span>
+                    <span className="text-xs text-muted-foreground shrink-0">value from</span>
                     {/* Custom dropdown — no Radix, safe inside Dialog focus trap */}
                     <div className="relative shrink-0">
                       <button
@@ -397,7 +397,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
 
         {/* URL preview — always visible, full URL with domain */}
         <div className="border-t pt-2">
-          <p className="text-[10px] text-muted-foreground font-medium mb-1">Result</p>
+          <p className="text-[13px] text-muted-foreground font-medium">Result</p>
           <code className="text-[10px] text-muted-foreground break-all">
             {preview.startsWith("http") ? preview : `${window.location.origin}${preview}`}
           </code>
