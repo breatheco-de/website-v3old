@@ -146,7 +146,7 @@ sections:
                 url: /en/ai-flex
                 variant: primary
               - text: View catalog
-                url: /en/ai-flex/catalog
+                url: https://4geeksacademy.com/en/career-programs/ai-flex
                 variant: outline
     footer_note: "* Some programs are subject to regional availability. Discounts and scholarships are available for AI Engineering."
     other_programs_note:
