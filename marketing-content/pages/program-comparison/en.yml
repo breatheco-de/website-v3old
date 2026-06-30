@@ -348,14 +348,14 @@ sections:
                 variant: outline
           - cta:
               - text: Enroll Now
-                url: /en/checkout?plan=ai-fluency&cohort=1706
+                url: {{ global.ai_fluency_url | https://4geeks.com/checkout?plan=ai-fluency-ue&cohort=1706 }}
                 variant: primary
               - text: View full program
                 url: /en/career-programs/ai-fluency
                 variant: outline
           - cta:
               - text: Choose Your Plan
-                url: /en/ai-flex
+                url: {{ global.ai_flex_path_1_url | https://4geeks.com/checkout?plan=ai-flex-pro-ue&cohort=1713&team_seats=1 }}
                 variant: primary
               - text: View catalog
                 url: /en/ai-flex/catalog
