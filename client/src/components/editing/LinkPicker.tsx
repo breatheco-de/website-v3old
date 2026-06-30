@@ -232,6 +232,15 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
               className="h-8 text-xs w-28 shrink-0"
               onKeyDown={e => { if (e.key === "Enter") addParam(); }}
             />
+            <select
+              value={newValueType}
+              onChange={e => { setNewValueType(e.target.value as "static" | "fromUrl"); setAddError(""); }}
+              title="Where to get the value of this param"
+              className="shrink-0 h-8 rounded-md border border-input bg-background px-2 text-xs text-foreground ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            >
+              <option value="fromUrl">From URL param</option>
+              <option value="static">Static value</option>
+            </select>
             <Input
               placeholder="value"
               value={newValue}
@@ -242,17 +251,6 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
             <Button size="sm" variant="outline" onClick={addParam} className="shrink-0">
               <IconPlus size={14} />
             </Button>
-          </div>
-          <div className="space-y-1">
-            <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">Where to get the value of this param</p>
-            <select
-              value={newValueType}
-              onChange={e => { setNewValueType(e.target.value as "static" | "fromUrl"); setAddError(""); }}
-              className="h-8 w-full text-xs border rounded-md px-2 bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-ring"
-            >
-              <option value="fromUrl">From URL — read from visitor's current URL query string</option>
-              <option value="static">Static — always use the same fixed value</option>
-            </select>
           </div>
           {addError && <p className="text-xs text-destructive">{addError}</p>}
           {!addError && newValueType === "fromUrl" && (
