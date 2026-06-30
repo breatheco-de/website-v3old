@@ -671,3 +671,5 @@ global.ai_fluency_url:
     - query:
         region: "europe"
       value: "https://4geeks.com/checkout?plan=ai-fluency-ue&cohort=1706"
+global.price_ai_fluency_financing:
+  default: "$75"
