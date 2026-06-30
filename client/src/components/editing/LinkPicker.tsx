@@ -311,29 +311,29 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
                       <SelectTrigger className="h-7 text-xs w-28 shrink-0 px-2">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="z-[10003]">
                         <SelectItem value="static">static value</SelectItem>
-                        <SelectItem value="fromUrl">url param</SelectItem>
+                        <SelectItem value="fromUrl">from visitor URL</SelectItem>
                       </SelectContent>
                     </Select>
-                    {/* Confirm — borderless, larger hit area */}
+                    {/* Confirm */}
                     <button
                       onClick={confirmEdit}
                       className="text-primary hover-elevate rounded p-1 shrink-0"
                       title="Confirm"
                     >
-                      <Check className="h-4 w-4" />
+                      <Check className="h-5 w-5" />
                     </button>
                   </div>
-                  {/* Hint text */}
-                  {!editError && editType === "fromUrl" && editValue.trim() && (
+                  {/* Hint text — always visible based on type */}
+                  {!editError && editType === "fromUrl" && (
                     <p className="text-xs text-muted-foreground">
-                      Reads <code className="bg-muted px-1 rounded">?{editValue}=…</code> from the visitor's URL and forwards it to this link.
+                      Reads <code className="bg-muted px-1 rounded">?{editValue || "param"}=…</code> from the visitor's URL and appends it to the link.
                     </p>
                   )}
-                  {!editError && editType === "static" && editValue.trim() && editKey.trim() && (
+                  {!editError && editType === "static" && (
                     <p className="text-xs text-muted-foreground">
-                      Always appends <code className="bg-muted px-1 rounded">{editKey}={editValue}</code> to this link.
+                      Always appends a fixed <code className="bg-muted px-1 rounded">{editKey || "key"}={editValue || "value"}</code> to the link.
                     </p>
                   )}
                   {editError && <p className="text-xs text-destructive">{editError}</p>}
