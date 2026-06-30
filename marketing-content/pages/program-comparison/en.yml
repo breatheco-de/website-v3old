@@ -143,7 +143,7 @@ sections:
                 variant: outline
           - cta:
               - text: Choose Your Plan
-                url: /en/ai-flex
+                url: {{ global.ai_fluency_url | https://4geeks.com/checkout?plan=ai-fluency&cohort=1706 }}
                 variant: primary
               - text: View catalog
                 url: https://4geeksacademy.com/en/career-programs/ai-flex
