@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { ArrowDown, Check, ExternalLink, Layers, Link, PanelBottom, Search } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { ArrowDown, Check, ChevronDown, ExternalLink, Layers, Link, PanelBottom, Search } from "lucide-react";
 import { IconPlus, IconX } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
@@ -183,7 +183,10 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
   const [newKey, setNewKey] = useState("");
   const [newValueType, setNewValueType] = useState<"static" | "fromUrl">("fromUrl");
   const [newValue, setNewValue] = useState("");
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [typeOpen, setTypeOpen] = useState(false);
   const [addError, setAddError] = useState("");
+  const typeDropRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (open) {
@@ -191,26 +194,94 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
       setNewKey("");
       setNewValue("");
       setNewValueType("fromUrl");
+      setEditingId(null);
       setAddError("");
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  const addParam = () => {
-    const k = newKey.trim();
-    const v = newValue.trim();
-    if (!k) { setAddError("Key is required"); return; }
-    if (!v) { setAddError(newValueType === "fromUrl" ? "Param name is required" : "Value is required"); return; }
-    if (params.some(p => p.key === k)) { setAddError("Key already exists — remove it first to change its value"); return; }
-    setParams(prev => [...prev, { id: `${k}-${Date.now()}`, key: k, valueType: newValueType, value: v }]);
-    setNewKey("");
-    setNewValue("");
+  // Close type dropdown on outside click
+  useEffect(() => {
+    if (!typeOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (typeDropRef.current && !typeDropRef.current.contains(e.target as Node)) {
+        setTypeOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [typeOpen]);
+
+  // Live display: merge current form state into the committed list
+  const displayParams: QsParam[] = (() => {
+    const base = params.map(p =>
+      p.id === editingId
+        ? { ...p, key: newKey, value: newValue, valueType: newValueType }
+        : p
+    );
+    if (!editingId && (newKey.trim() || newValue.trim())) {
+      return [...base, { id: "__draft__", key: newKey || "…", value: newValue || "…", valueType: newValueType }];
+    }
+    return base;
+  })();
+
+  const startEditing = (p: QsParam) => {
+    // Auto-commit current draft if in new mode and valid
+    if (!editingId && newKey.trim() && newValue.trim()) {
+      const k = newKey.trim();
+      if (!params.some(p2 => p2.key === k)) {
+        setParams(prev => [...prev, { id: `${k}-${Date.now()}`, key: k, value: newValue.trim(), valueType: newValueType }]);
+      }
+    }
+    setEditingId(p.id);
+    setNewKey(p.key);
+    setNewValue(p.value);
+    setNewValueType(p.valueType);
     setAddError("");
   };
 
-  const removeParam = (id: string) => setParams(prev => prev.filter(p => p.id !== id));
+  const startNew = () => {
+    if (editingId) {
+      const k = newKey.trim();
+      const v = newValue.trim();
+      if (k && v) {
+        setParams(prev => prev.map(p => p.id === editingId ? { ...p, key: k, value: v, valueType: newValueType } : p));
+      }
+      setEditingId(null);
+    }
+    setNewKey("");
+    setNewValue("");
+    setNewValueType("fromUrl");
+    setAddError("");
+  };
 
-  const preview = buildUrlWithQs(baseUrl, params);
+  const removeParam = (id: string) => {
+    setParams(prev => prev.filter(p => p.id !== id));
+    if (editingId === id) {
+      setEditingId(null);
+      setNewKey("");
+      setNewValue("");
+      setNewValueType("fromUrl");
+    }
+  };
+
+  const handleApply = () => {
+    let finalParams = params.map(p =>
+      p.id === editingId && newKey.trim() && newValue.trim()
+        ? { ...p, key: newKey.trim(), value: newValue.trim(), valueType: newValueType }
+        : p
+    );
+    if (!editingId && newKey.trim() && newValue.trim()) {
+      const k = newKey.trim();
+      if (!finalParams.some(p => p.key === k)) {
+        finalParams = [...finalParams, { id: `${k}-${Date.now()}`, key: k, value: newValue.trim(), valueType: newValueType }];
+      }
+    }
+    onSave(finalParams);
+  };
+
+  const preview = buildUrlWithQs(baseUrl, displayParams.filter(p => p.id !== "__draft__"));
+  const typeLabel = newValueType === "static" ? "static value" : "url param";
 
   return (
     <Dialog open={open} onOpenChange={o => !o && onClose()}>
@@ -222,55 +293,75 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
           </DialogTitle>
         </DialogHeader>
 
-        <div className="border-b pb-3 space-y-2">
-          <p className="text-xs font-medium text-foreground">Add param</p>
+        {/* Form — no bottom separator */}
+        <div className="space-y-2">
           <div className="flex items-center gap-2">
             <Input
               placeholder="key name"
               value={newKey}
               onChange={e => { setNewKey(e.target.value); setAddError(""); }}
               className="h-8 text-xs w-28 shrink-0"
-              onKeyDown={e => { if (e.key === "Enter") addParam(); }}
             />
             <Input
               placeholder="value"
               value={newValue}
               onChange={e => { setNewValue(e.target.value); setAddError(""); }}
               className="h-8 text-xs flex-1 min-w-0"
-              onKeyDown={e => { if (e.key === "Enter") addParam(); }}
             />
             <span className="text-xs text-muted-foreground shrink-0">from</span>
-            <select
-              value={newValueType}
-              onChange={e => { setNewValueType(e.target.value as "static" | "fromUrl"); setAddError(""); }}
-              className="shrink-0 h-8 rounded-md border border-input bg-background px-2 text-xs text-foreground ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-            >
-              <option value="static">static value</option>
-              <option value="fromUrl">url param</option>
-            </select>
-            <Button size="sm" variant="outline" onClick={addParam} className="shrink-0">
-              <IconPlus size={14} />
-            </Button>
+            {/* Custom dropdown — renders in Dialog DOM, no portal/focus-trap conflict */}
+            <div ref={typeDropRef} className="relative shrink-0">
+              <button
+                type="button"
+                onClick={() => setTypeOpen(v => !v)}
+                className="h-8 flex items-center justify-between gap-1.5 rounded-md border border-input bg-background px-3 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-ring min-w-[100px]"
+              >
+                {typeLabel}
+                <ChevronDown className="h-3 w-3 opacity-50 shrink-0" />
+              </button>
+              {typeOpen && (
+                <div className="absolute top-full mt-1 left-0 z-[10010] min-w-full bg-popover border border-border rounded-md shadow-md py-1 text-xs">
+                  {(["static", "fromUrl"] as const).map(opt => (
+                    <button
+                      key={opt}
+                      type="button"
+                      onClick={() => { setNewValueType(opt); setTypeOpen(false); setAddError(""); }}
+                      className={cn(
+                        "w-full text-left px-3 py-1.5 hover-elevate",
+                        newValueType === opt ? "text-primary font-medium" : "text-foreground"
+                      )}
+                    >
+                      {opt === "static" ? "static value" : "url param"}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
           {addError && <p className="text-xs text-destructive">{addError}</p>}
-          {!addError && newValueType === "fromUrl" && (
+          {!addError && newValueType === "fromUrl" && newValue.trim() && (
             <p className="text-xs text-muted-foreground">
-              Reads <code className="bg-muted px-1 rounded">?{newValue || "param"}=…</code> from the visitor's current URL and forwards it to this link automatically.
-            </p>
-          )}
-          {!addError && newValueType === "static" && (
-            <p className="text-xs text-muted-foreground">
-              Always appends <code className="bg-muted px-1 rounded">{newKey || "key"}={newValue || "value"}</code> to this link.
+              Reads <code className="bg-muted px-1 rounded">?{newValue}=…</code> from the visitor's URL and forwards it to this link.
             </p>
           )}
         </div>
 
-        <div className="space-y-1.5 min-h-[48px]">
-          {params.length === 0 ? (
-            <p className="text-xs text-muted-foreground text-center py-3">No params yet — add one above</p>
-          ) : (
-            params.map(p => (
-              <div key={p.id} className="flex items-center gap-2 text-xs bg-muted/50 rounded px-2 py-1.5">
+        {/* Params list — no min-h, fits content */}
+        {displayParams.length > 0 && (
+          <div className="space-y-1">
+            {displayParams.map(p => (
+              <div
+                key={p.id}
+                className={cn(
+                  "flex items-center gap-2 text-xs rounded px-2 py-1.5",
+                  p.id === "__draft__"
+                    ? "bg-muted/30 border border-dashed border-border opacity-60"
+                    : p.id === editingId
+                      ? "bg-primary/5 border border-primary/20 cursor-default"
+                      : "bg-muted/50 cursor-pointer hover-elevate"
+                )}
+                onClick={() => p.id !== "__draft__" && p.id !== editingId && startEditing(p)}
+              >
                 <code className="font-medium text-foreground shrink-0">{p.key}</code>
                 <span className="text-muted-foreground shrink-0">=</span>
                 <code className="text-foreground flex-1 min-w-0 truncate">
@@ -279,18 +370,31 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
                 <span className="text-muted-foreground/60 text-[10px] shrink-0">
                   {p.valueType === "fromUrl" ? "from URL" : "static"}
                 </span>
-                <button
-                  onClick={() => removeParam(p.id)}
-                  className="text-muted-foreground hover-elevate rounded p-0.5 shrink-0"
-                >
-                  <IconX size={12} />
-                </button>
+                {p.id !== "__draft__" && (
+                  <button
+                    onClick={ev => { ev.stopPropagation(); removeParam(p.id); }}
+                    className="text-muted-foreground hover-elevate rounded p-0.5 shrink-0"
+                  >
+                    <IconX size={12} />
+                  </button>
+                )}
               </div>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
 
-        {params.length > 0 && (
+        {/* Add param button below the list */}
+        <button
+          type="button"
+          onClick={startNew}
+          className="flex items-center gap-1 text-xs text-muted-foreground hover-elevate px-1.5 py-0.5 rounded-md w-fit"
+        >
+          <IconPlus size={12} />
+          Add param
+        </button>
+
+        {/* URL preview */}
+        {displayParams.some(p => p.id !== "__draft__") && (
           <div className="border-t pt-2">
             <p className="text-[10px] text-muted-foreground font-medium mb-1">Result</p>
             <code className="text-[10px] text-muted-foreground break-all">{preview}</code>
@@ -299,7 +403,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
 
         <DialogFooter>
           <Button variant="outline" size="sm" onClick={onClose}>Cancel</Button>
-          <Button size="sm" onClick={() => onSave(params)}>Apply</Button>
+          <Button size="sm" onClick={handleApply}>Apply</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
