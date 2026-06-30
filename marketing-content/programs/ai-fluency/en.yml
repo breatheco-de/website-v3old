@@ -341,41 +341,33 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Finance Your Investment
-    subtitle: We offer multiple ways to fund your enrollment. Choose the option that works best for you.
+    title: Tuition & Financing Options
+    subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Credit-Based Financing: starting below"
-    financing_amount: $299
+    financing_text: "Flexible Financing: 2 interest-free installments"
     tech_icons:
-      - html
-      - css
-      - javascript
-      - react
-      - python
-      - nodejs
-      - git
-      - bootstrap
-      - api
-      - settings
-    features_title: Access hundreds of exercises, projects tutorials and courses
+      - openai
+      - claude
+      - n8n
+      - openclaw
+    features_title: Choose the option that fits you best.
     features:
-      - icon: certificate
-        text: Build your portfolio with hundreds of real-world projects.
-      - icon: cloud
-        text: Thousands of cloud-based coding challenges (no setup needed).
-      - text: AI-powered feedback as you code.
-        icon: RigobotIconTiny
-      - icon: certificate
-        text: Course certificates
-      - icon: certificate
-        text: Earn certificates from a USA certified school.
+      - icon: IconCheck
+        text: The full tuition is $500. Pay upfront and receive a 10% discount.
+      - icon: IconCheck
+        text: Spread your payments with 2 interest-free installments through 4Geeks.
+      - icon: IconCheck
+        text: One 1:1 mentorship session included. Add more at any time for $25 each.
     cta:
-      text: Apply Now
-      url: /apply
+      text: Enroll Now
+      url: https://4geeks.com/checkout?plan=ai-fluency&cohort=1706
       variant: primary
-    section_id: pricing-nszmgy
+    section_id: pricing-aifluency-latam
+    marginY:
+      desktop: lg md
     paddingY:
-      desktop: sm
+      desktop: md lg
+    background: hsl(210 100% 50% / 0.05)
   - type: pricing
     version: "1.0"
     variant: product
