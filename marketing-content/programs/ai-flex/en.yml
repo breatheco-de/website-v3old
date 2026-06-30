@@ -1138,6 +1138,7 @@ sections:
           - text: Codespaces ($10/mo included)
           - text: School account with GitHub Developer Program
           - text: VPS included
+            not_included: true
           - text: Course certificates
           - text: New courses every month
       - name: Pro Plan
