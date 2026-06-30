@@ -224,7 +224,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
 
         <div className="border-b pb-3 space-y-2">
           <p className="text-xs font-medium text-foreground">Add param</p>
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2">
             <Input
               placeholder="key name"
               value={newKey}
@@ -232,22 +232,36 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
               className="h-8 text-xs w-28 shrink-0"
               onKeyDown={e => { if (e.key === "Enter") addParam(); }}
             />
-            <select
-              value={newValueType}
-              onChange={e => { setNewValueType(e.target.value as "static" | "fromUrl"); setAddError(""); }}
-              title="Where to get the value of this param"
-              className="shrink-0 h-8 rounded-md border border-input bg-background px-2 text-xs text-foreground ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-            >
-              <option value="fromUrl">From URL param</option>
-              <option value="static">Static value</option>
-            </select>
             <Input
               placeholder="value"
               value={newValue}
               onChange={e => { setNewValue(e.target.value); setAddError(""); }}
-              className="h-8 text-xs flex-1"
+              className="h-8 text-xs flex-1 min-w-0"
               onKeyDown={e => { if (e.key === "Enter") addParam(); }}
             />
+            <span className="text-xs text-muted-foreground shrink-0">from</span>
+            <div className="flex shrink-0 h-8 rounded-md border overflow-hidden text-xs">
+              <button
+                type="button"
+                onClick={() => { setNewValueType("static"); setAddError(""); }}
+                className={cn(
+                  "px-2 font-medium transition-colors whitespace-nowrap",
+                  newValueType === "static"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover-elevate"
+                )}
+              >static value</button>
+              <button
+                type="button"
+                onClick={() => { setNewValueType("fromUrl"); setAddError(""); }}
+                className={cn(
+                  "px-2 font-medium border-l transition-colors whitespace-nowrap",
+                  newValueType === "fromUrl"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover-elevate"
+                )}
+              >from url param</button>
+            </div>
             <Button size="sm" variant="outline" onClick={addParam} className="shrink-0">
               <IconPlus size={14} />
             </Button>
