@@ -426,38 +426,33 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Tuition and Financing Options
-    subtitle: Investing in a new career matters. We make it easier with multiple ways to finance your enrollment.
-    discount_text: "Full payment discount: Save 10% with early payment."
-    financing_text: Estimated installment of €140/month financing €5,750 over 48 months (7.75% APR), after a €500 deposit and subject to lender approval.*
-    financing_amount: 140€
+    title: Tuition & Financing Options
+    subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
+    discount_text: "Full Payment Discount: Save 10% with upfront payment."
+    financing_text: "Flexible Financing: 2 interest-free installments"
     tech_icons:
-      - python
-      - tensorflow
-      - pandas
-      - numpy
-      - sql
-      - git
-      - jupyter
-      - api
-    static_icons: true
+      - openai
+      - claude
+      - n8n
+      - openclaw
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Pay upfront to get a better price with an additional discount, or split your payments into 6 interest-free installments through our partners.
+        text: The full tuition is €900. Pay upfront and receive a 10% discount.
       - icon: IconCheck
-        text: 2–3 merit-based scholarships available per cohort for highly qualified applicants.
+        text: Spread your payments with 2 interest-free installments through 4Geeks.
       - icon: IconCheck
-        text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
+        text: One 1:1 mentorship session included. Add more at any time for $25 each.
     cta:
       text: Enroll Now
       url: https://4geeks.com/checkout?plan=ai-fluency-ue&cohort=1706
       variant: primary
-    section_id: pricing-qhcsa1
+    section_id: pricing-aifluency-europe
     marginY:
-      desktop: md xl
+      desktop: lg md
     paddingY:
       desktop: md lg
+    background: hsl(210 100% 50% / 0.05)
     showOnLocations:
       - barcelona-spain
       - madrid-spain
@@ -470,7 +465,6 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
-    background: hsl(210 100% 50% / 0.05)
   - type: testimonials
     section_id: testimonials-ghxelh
     title: The People Behind the Numbers.
