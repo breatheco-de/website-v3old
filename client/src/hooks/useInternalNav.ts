@@ -112,6 +112,12 @@ export function useInternalNav(onNavigate?: () => void) {
       setLocation(href);
       window.scrollTo(0, 0);
       onNavigate?.();
+    } else if (href !== rawHref) {
+      // External URL had {qs:} tokens — browser would use the raw href (literal tokens).
+      // Intercept and open the resolved URL instead.
+      e.preventDefault();
+      window.open(href, anchor.target || "_blank");
+      onNavigate?.();
     }
   };
 
