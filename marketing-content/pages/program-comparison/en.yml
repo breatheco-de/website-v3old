@@ -245,14 +245,14 @@ sections:
                 url: /en/checkout?plan=ai-fluency&cohort=1706
                 variant: primary
               - text: View full program
-                url: /en/career-programs/ai-fluency
+                url: https://4geeksacademy.com/en/career-programs/ai-fluency
                 variant: outline
           - cta:
               - text: Choose Your Plan
                 url: /en/ai-flex
                 variant: primary
               - text: View catalog
-                url: /en/ai-flex/catalog
+                url: https://4geeksacademy.com/en/career-programs/ai-flex
                 variant: outline
     footer_note: "* Some programs are subject to regional availability. Discounts and scholarships are available for AI Engineering."
     other_programs_note:
