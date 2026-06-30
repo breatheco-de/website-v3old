@@ -340,11 +340,11 @@ sections:
       banner: true
       buttons:
         - text: Inscríbete ahora
-          url: https://4geeks.com/es/checkout?plan=ai-flex-plan-pro&cohort=1713
+          url: {{ global.ai_flex_path_1_url | https://4geeks.com/es/checkout?plan=ai-flex-plan-pro&cohort=1713&team_seats=1 }}
           variant: primary
         - text: Ver planes
           variant: outline
-          url: "#pricing-6svo9e"
+          url: "#pricing-6svo9e?cohort=1713"
     courses:
       - name: Prompt Engineering
         tagline: Patrones de prompting y bibliotecas reutilizables
@@ -520,10 +520,10 @@ sections:
       banner: true
       buttons:
         - text: Inscríbete ahora
-          url: https://4geeks.com/es/checkout?plan=ai-flex-pro&cohort=1718
+          url: {{ global.ai_flex_path_4_url | https://4geeks.com/es/checkout?plan=ai-flex-plan-pro&cohort=1718&team_seats=1 }}
           variant: primary
         - text: Ver planes
-          url: "#pricing-6svo9e"
+          url: "#pricing-6svo9e?cohort=1718"
           variant: outline
     courses:
       - name: Prompt Engineering
@@ -699,10 +699,10 @@ sections:
       banner: true
       buttons:
         - text: Inscríbete ahora
-          url: https://4geeks.com/es/checkout?plan=ai-flex-pro&cohort=1717
+          url: {{ global.ai_flex_path_2_url | https://4geeks.com/es/checkout?plan=ai-flex-plan-pro&cohort=1717&team_seats=1 }}
           variant: primary
         - text: Ver planes
-          url: "#pricing-6svo9e"
+          url: "#pricing-6svo9e?cohort=1717"
           variant: outline
     courses:
       - name: Prompt Engineering
@@ -878,10 +878,10 @@ sections:
       banner: true
       buttons:
         - text: Inscríbete ahora
-          url: https://4geeks.com/es/checkout?plan=ai-flex-pro&cohort=1719
+          url: {{ global.ai_flex_path_3_url | https://4geeks.com/es/checkout?plan=ai-flex-plan-pro&cohort=1719&team_seats=1 }}
           variant: primary
         - text: Ver planes
-          url: "#pricing-6svo9e"
+          url: "#pricing-6svo9e?cohort=1719"
           variant: outline
     courses:
       - name: Prompt Engineering
@@ -1126,7 +1126,7 @@ sections:
         billing_note: Cargo mensual recurrente
         cta:
           label: Suscribirse al Plan Básico
-          url: https://4geeks.com/es/checkout?plan=ai-flex-basic&cohort=1713
+          url: https://4geeks.com/es/checkout?plan=ai-flex-basic&cohort={qs:cohort|1713}
         featured: false
         features:
           - text: 1 sesión de mentoría / mes
@@ -1155,7 +1155,7 @@ sections:
           - Affirm
         cta:
           label: Suscribirse al Plan Pro
-          url: https://4geeks.com/es/checkout?plan=ai-flex-pro&cohort=1719
+          url: https://4geeks.com/es/checkout?plan=ai-flex-plan-pro&cohort={qs:cohort|1713}&team_seats=1
         features:
           - text: 2 sesiones de mentoría / mes
           - text: Acceso a eventos exclusivos
@@ -1205,7 +1205,7 @@ sections:
         billing_note: Cargo mensual recurrente
         cta:
           label: Suscribirse al Plan Básico
-          url: https://4geeks.com/es/checkout?plan=ai-flex-basic&cohort=1713
+          url: https://4geeks.com/es/checkout?plan=ai-flex-basic&cohort={qs:cohort|1713}
         featured: false
         features:
           - text: 1 sesión de mentoría / mes
@@ -1232,7 +1232,7 @@ sections:
           - 4Geeks Academy
         cta:
           label: Suscribirse al Plan Pro
-          url: https://4geeks.com/es/checkout?plan=ai-flex-pro-latam&cohort=1719
+          url: https://4geeks.com/es/checkout?plan=ai-flex-pro-latam&cohort={qs:cohort|1713}&team_seats=1
         features:
           - text: 2 sesiones de mentoría / mes
           - text: Acceso a eventos exclusivos
@@ -1281,7 +1281,7 @@ sections:
         billing_note: Cargo mensual recurrente
         cta:
           label: Suscribirse al Plan Básico
-          url: https://4geeks.com/es/checkout?plan=ai-flex-basic&cohort=1713
+          url: https://4geeks.com/es/checkout?plan=ai-flex-basic&cohort={qs:cohort|1713}
         featured: false
         features:
           - text: 1 sesión de mentoría / mes
@@ -1309,7 +1309,7 @@ sections:
           - 4Geeks Academy
         cta:
           label: Suscribirse al Plan Pro
-          url: https://4geeks.com/es/checkout?plan=ai-flex-plan-pro&cohort=1719
+          url: https://4geeks.com/es/checkout?plan=ai-flex-pro-ue&cohort={qs:cohort|1713}
         features:
           - text: 2 sesiones de mentoría / mes
           - text: Acceso a eventos exclusivos
