@@ -368,6 +368,18 @@ sections:
     paddingY:
       desktop: md lg
     background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
   - type: pricing
     version: "1.0"
     variant: product
