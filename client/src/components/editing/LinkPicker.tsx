@@ -273,7 +273,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
   return (
     // modal={false} disables Radix focus-trap so the Select portal works;
     // our DialogOverlay CSS (pointer-events-auto) still blocks outside clicks visually.
-    <Dialog open={open} onOpenChange={o => !o && onClose()}>
+    <Dialog open={open} modal={false} onOpenChange={o => !o && onClose()}>
       <DialogContent className="z-[10002] max-w-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-sm font-semibold">
@@ -307,6 +307,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
                       className="h-7 text-xs flex-1 min-w-0"
                       onKeyDown={e => { if (e.key === "Enter") confirmEdit(); if (e.key === "Escape") cancelEdit(); }}
                     />
+                    <span className="text-xs text-muted-foreground shrink-0">from</span>
                     <Select value={editType} onValueChange={v => { setEditType(v as "static" | "fromUrl"); setEditError(""); }}>
                       <SelectTrigger className="h-7 text-xs w-28 shrink-0 px-2">
                         <SelectValue />
