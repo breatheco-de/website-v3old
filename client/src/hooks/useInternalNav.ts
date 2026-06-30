@@ -41,6 +41,16 @@ function resolveQsTokens(str: string): string {
   return resolved.length > 0 ? `${base}?${resolved.join("&")}` : base;
 }
 
+/** Resolve {{ global.var | resolved_value }} template variables that are
+ *  preserved in edit mode (preserveTemplate: true). The server keeps the full
+ *  `{{ global.foo | actual_url }}` string so the inline editor can display it;
+ *  here we extract the resolved value after the pipe so that clicks navigate
+ *  to the correct destination instead of the raw template string. */
+function resolveGlobalTemplate(href: string): string {
+  const match = href.match(/^\{\{\s*\S+\s*\|\s*([\s\S]+?)\s*\}\}$/);
+  return match ? match[1].trim() : href;
+}
+
 /** For a hash URL like "#pricing?cohort=x", separate the element id from the extra querystring */
 function parseHashHref(href: string): { id: string; extraSearch: string } {
   const withoutHash = href.slice(1);
@@ -81,8 +91,8 @@ export function useInternalNav(onNavigate?: () => void) {
       const anchor = (e.target as Element)?.closest("a");
       if (!anchor) return;
       const raw = anchor.getAttribute("href");
-      if (!raw?.includes("{qs:")) return;
-      const resolved = resolveQsTokens(raw);
+      if (!raw) return;
+      const resolved = resolveQsTokens(resolveGlobalTemplate(raw));
       if (resolved === raw) return;
       e.preventDefault();
       window.open(resolved, "_blank", "noopener,noreferrer");
@@ -98,7 +108,7 @@ export function useInternalNav(onNavigate?: () => void) {
     const rawHref = anchor.getAttribute("href");
     if (!rawHref) return;
 
-    const href = resolveQsTokens(rawHref);
+    const href = resolveQsTokens(resolveGlobalTemplate(rawHref));
 
     if (href === "#top") {
       e.preventDefault();
@@ -158,7 +168,7 @@ export function useInternalNav(onNavigate?: () => void) {
   const navigate = (url: string): Record<string, unknown> | null => {
     if (!url) return null;
 
-    const resolved = resolveQsTokens(url);
+    const resolved = resolveQsTokens(resolveGlobalTemplate(url));
 
     if (resolved.startsWith("inline#")) {
       const sectionId = resolved.slice(7);

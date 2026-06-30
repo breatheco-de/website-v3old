@@ -203,7 +203,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
   const [editKey, setEditKey] = useState("");
   const [editValue, setEditValue] = useState("");
   const [editFallback, setEditFallback] = useState("");
-  const [editType, setEditType] = useState<"static" | "fromUrl">("fromUrl");
+  const [editType, setEditType] = useState<"static" | "fromUrl">("static");
   const [editError, setEditError] = useState("");
   const [typeOpen, setTypeOpen] = useState(false);
 
@@ -214,7 +214,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
       setEditKey("");
       setEditValue("");
       setEditFallback("");
-      setEditType("fromUrl");
+      setEditType("static");
       setEditError("");
       setTypeOpen(false);
     }
