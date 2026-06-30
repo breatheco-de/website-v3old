@@ -426,10 +426,10 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Tuition & Financing Options
-    subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
-    discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: "Flexible Financing: 2 interest-free installments"
+    title: Tuition & Payment Options
+    subtitle: One price, two ways to pay it. Choose what works for you.
+    discount_text: "Pay in full: €900, with a 10% discount."
+    financing_text: "Or split it: 2 interest-free installments."
     tech_icons:
       - openai
       - claude
