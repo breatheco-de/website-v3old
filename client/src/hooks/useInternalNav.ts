@@ -5,9 +5,11 @@ function isInternalHref(href: string): boolean {
   return href.startsWith("/") && !href.startsWith("//");
 }
 
-/** Replace {qs:paramName} tokens with values from the current URL's querystring.
- *  If the named param is absent from the visitor URL, the entire key=value pair
- *  is stripped from the output URL (not left as key= empty). */
+/** Replace {qs:paramName} and {qs:paramName|fallback} tokens with values from
+ *  the current URL's querystring.
+ *  - If the named param is present: use its value.
+ *  - If absent and a fallback is provided (e.g. {qs:cohort|bootcamp-2025}): use the fallback.
+ *  - If absent and no fallback: strip the entire key=value pair from the URL. */
 function resolveQsTokens(str: string): string {
   const qIdx = str.indexOf("?");
   if (qIdx === -1) return str;
@@ -22,11 +24,14 @@ function resolveQsTokens(str: string): string {
       if (eqIdx === -1) return pair;
       const k = pair.slice(0, eqIdx);
       const v = pair.slice(eqIdx + 1);
-      const match = v.match(/^\{qs:([^}]+)\}$/);
+      const match = v.match(/^\{qs:([^|}\s]+)(?:\|([^}]*))?\}$/);
       if (match) {
-        const val = urlParams.get(match[1]);
-        if (val === null) return null;
-        return `${k}=${encodeURIComponent(val)}`;
+        const paramName = match[1];
+        const fallback = match[2]; // undefined if no fallback was specified
+        const val = urlParams.get(paramName);
+        if (val !== null) return `${k}=${encodeURIComponent(val)}`;
+        if (fallback !== undefined) return `${k}=${encodeURIComponent(fallback)}`;
+        return null; // no value, no fallback → strip pair
       }
       return pair;
     })

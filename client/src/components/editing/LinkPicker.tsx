@@ -44,6 +44,8 @@ interface QsParam {
   key: string;
   valueType: "static" | "fromUrl";
   value: string;
+  /** Only for valueType="fromUrl": value to use when the param is absent from the visitor URL */
+  fallback?: string;
 }
 
 function extractPath(url: string): string {
@@ -68,7 +70,7 @@ function detectLinkType(value: string, modals: SectionOption[], scrollSections: 
   return "internal";
 }
 
-/** Parse a URL into its base and query params (handles {qs:...} tokens) */
+/** Parse a URL into its base and query params (handles {qs:param} and {qs:param|fallback} tokens) */
 function parseUrlParts(url: string): { base: string; params: QsParam[] } {
   const qIdx = url.indexOf("?");
   if (qIdx === -1) return { base: url, params: [] };
@@ -79,12 +81,21 @@ function parseUrlParts(url: string): { base: string; params: QsParam[] } {
     const eqIdx = pair.indexOf("=");
     const k = eqIdx === -1 ? pair : pair.slice(0, eqIdx);
     const v = eqIdx === -1 ? "" : pair.slice(eqIdx + 1);
-    const qsTokenMatch = v.match(/^\{qs:([^}]+)\}$/);
+    const qsTokenMatch = v.match(/^\{qs:([^|}\s]+)(?:\|([^}]*))?\}$/);
+    if (qsTokenMatch) {
+      return {
+        id: `${k}-${i}-${Date.now()}`,
+        key: k,
+        valueType: "fromUrl",
+        value: qsTokenMatch[1],
+        fallback: qsTokenMatch[2], // undefined if no fallback was written
+      };
+    }
     return {
       id: `${k}-${i}-${Date.now()}`,
       key: k,
-      valueType: qsTokenMatch ? "fromUrl" : "static",
-      value: qsTokenMatch ? qsTokenMatch[1] : v,
+      valueType: "static",
+      value: v,
     };
   });
   return { base, params };
@@ -94,8 +105,13 @@ function parseUrlParts(url: string): { base: string; params: QsParam[] } {
 function buildUrlWithQs(base: string, params: QsParam[]): string {
   if (params.length === 0) return base;
   const parts = params.map(p => {
-    const val = p.valueType === "fromUrl" ? `{qs:${p.value}}` : p.value;
-    return `${p.key}=${val}`;
+    if (p.valueType === "fromUrl") {
+      const token = p.fallback !== undefined && p.fallback !== ""
+        ? `{qs:${p.value}|${p.fallback}}`
+        : `{qs:${p.value}}`;
+      return `${p.key}=${token}`;
+    }
+    return `${p.key}=${p.value}`;
   });
   return `${base}?${parts.join("&")}`;
 }
@@ -186,6 +202,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editKey, setEditKey] = useState("");
   const [editValue, setEditValue] = useState("");
+  const [editFallback, setEditFallback] = useState("");
   const [editType, setEditType] = useState<"static" | "fromUrl">("fromUrl");
   const [editError, setEditError] = useState("");
   const [typeOpen, setTypeOpen] = useState(false);
@@ -196,6 +213,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
       setEditingId(null);
       setEditKey("");
       setEditValue("");
+      setEditFallback("");
       setEditType("fromUrl");
       setEditError("");
       setTypeOpen(false);
@@ -207,6 +225,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
     setEditingId(p.id);
     setEditKey(p.key);
     setEditValue(p.value);
+    setEditFallback(p.fallback ?? "");
     setEditType(p.valueType);
     setEditError("");
   };
@@ -218,6 +237,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
     setEditingId(DRAFT_ID);
     setEditKey("");
     setEditValue("");
+    setEditFallback("");
     setEditType("fromUrl");
     setEditError("");
   };
@@ -230,15 +250,16 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
     if (params.some(p => p.key === k && p.id !== editingId)) {
       setEditError("Key already exists"); return;
     }
+    const fallbackVal = editType === "fromUrl" ? editFallback.trim() : undefined;
     if (editingId === DRAFT_ID) {
       setParams(prev => prev.map(p =>
         p.id === DRAFT_ID
-          ? { id: `${k}-${Date.now()}`, key: k, value: v, valueType: editType }
+          ? { id: `${k}-${Date.now()}`, key: k, value: v, valueType: editType, fallback: fallbackVal }
           : p
       ));
     } else {
       setParams(prev => prev.map(p =>
-        p.id === editingId ? { ...p, key: k, value: v, valueType: editType } : p
+        p.id === editingId ? { ...p, key: k, value: v, valueType: editType, fallback: fallbackVal } : p
       ));
     }
     setEditingId(null);
@@ -294,7 +315,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
                       autoFocus
                     />
                     <Input
-                      placeholder="value"
+                      placeholder="param name"
                       value={editValue}
                       onChange={e => { setEditValue(e.target.value); setEditError(""); }}
                       className="h-7 text-xs flex-1 min-w-0"
@@ -336,10 +357,24 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
                       <Check className="h-5 w-5" />
                     </button>
                   </div>
+                  {/* Fallback field — only for fromUrl */}
+                  {editType === "fromUrl" && (
+                    <div className="flex items-center gap-1.5 pl-0">
+                      <span className="text-xs text-muted-foreground shrink-0 w-24">Fallback</span>
+                      <Input
+                        placeholder="value if param absent (optional)"
+                        value={editFallback}
+                        onChange={e => setEditFallback(e.target.value)}
+                        className="h-7 text-xs flex-1 min-w-0"
+                        onKeyDown={e => { if (e.key === "Enter") confirmEdit(); if (e.key === "Escape") cancelEdit(); }}
+                      />
+                    </div>
+                  )}
                   {/* Hint text — always visible based on type */}
                   {!editError && editType === "fromUrl" && (
                     <p className="text-xs text-muted-foreground">
-                      Reads <code className="bg-muted px-1 rounded">?{editValue || "param"}=…</code> from the visitor's URL and appends it to the link.
+                      Reads <code className="bg-muted px-1 rounded">?{editValue || "param"}=…</code> from the visitor's URL.
+                      {editFallback ? <> Uses <code className="bg-muted px-1 rounded">{editFallback}</code> if absent.</> : <> Omits the param if absent.</>}
                     </p>
                   )}
                   {!editError && editType === "static" && (
@@ -361,10 +396,14 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
                 <code className="font-medium text-foreground shrink-0">{p.key}</code>
                 <span className="text-muted-foreground shrink-0">=</span>
                 <code className="text-foreground flex-1 min-w-0 truncate">
-                  {p.valueType === "fromUrl" ? `{qs:${p.value}}` : p.value}
+                  {p.valueType === "fromUrl"
+                    ? (p.fallback ? `{qs:${p.value}|${p.fallback}}` : `{qs:${p.value}}`)
+                    : p.value}
                 </code>
                 <span className="text-muted-foreground/60 text-[10px] shrink-0">
-                  {p.valueType === "fromUrl" ? "from URL" : "static"}
+                  {p.valueType === "fromUrl"
+                    ? (p.fallback ? "from URL / fallback" : "from URL")
+                    : "static"}
                 </span>
                 <button
                   onClick={() => startEditing(p)}
