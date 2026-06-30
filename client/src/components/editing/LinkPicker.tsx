@@ -273,7 +273,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
   return (
     // modal={false} disables Radix focus-trap so the Select portal works;
     // our DialogOverlay CSS (pointer-events-auto) still blocks outside clicks visually.
-    <Dialog open={open} modal={false} onOpenChange={o => !o && onClose()}>
+    <Dialog open={open} onOpenChange={o => !o && onClose()}>
       <DialogContent className="z-[10002] max-w-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-sm font-semibold">
@@ -290,7 +290,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
             if (isEditing) {
               // ── EDIT ROW ─────────────────────────────────────────────
               return (
-                <div key={p.id} className="space-y-1">
+                <div key={p.id} className="space-y-1.5">
                   <div className="flex items-center gap-1.5">
                     <Input
                       placeholder="key"
@@ -307,7 +307,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
                       className="h-7 text-xs flex-1 min-w-0"
                       onKeyDown={e => { if (e.key === "Enter") confirmEdit(); if (e.key === "Escape") cancelEdit(); }}
                     />
-                    <Select value={editType} onValueChange={v => setEditType(v as "static" | "fromUrl")}>
+                    <Select value={editType} onValueChange={v => { setEditType(v as "static" | "fromUrl"); setEditError(""); }}>
                       <SelectTrigger className="h-7 text-xs w-28 shrink-0 px-2">
                         <SelectValue />
                       </SelectTrigger>
@@ -316,16 +316,27 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
                         <SelectItem value="fromUrl">url param</SelectItem>
                       </SelectContent>
                     </Select>
-                    {/* Confirm — no border */}
+                    {/* Confirm — borderless, larger hit area */}
                     <button
                       onClick={confirmEdit}
-                      className="text-primary hover-elevate rounded p-0.5 shrink-0"
+                      className="text-primary hover-elevate rounded p-1 shrink-0"
                       title="Confirm"
                     >
-                      <Check className="h-3.5 w-3.5" />
+                      <Check className="h-4 w-4" />
                     </button>
                   </div>
-                  {editError && <p className="text-xs text-destructive pl-0.5">{editError}</p>}
+                  {/* Hint text */}
+                  {!editError && editType === "fromUrl" && editValue.trim() && (
+                    <p className="text-xs text-muted-foreground">
+                      Reads <code className="bg-muted px-1 rounded">?{editValue}=…</code> from the visitor's URL and forwards it to this link.
+                    </p>
+                  )}
+                  {!editError && editType === "static" && editValue.trim() && editKey.trim() && (
+                    <p className="text-xs text-muted-foreground">
+                      Always appends <code className="bg-muted px-1 rounded">{editKey}={editValue}</code> to this link.
+                    </p>
+                  )}
+                  {editError && <p className="text-xs text-destructive">{editError}</p>}
                 </div>
               );
             }
@@ -363,23 +374,21 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
           })}
         </div>
 
-        {/* Add param button */}
+        {/* Add param button — tight to the list */}
         <button
           type="button"
           onClick={addNewRow}
-          className="flex items-center gap-1 text-xs text-muted-foreground hover-elevate px-1.5 py-0.5 rounded-md w-fit"
+          className="flex items-center gap-1 text-xs text-muted-foreground hover-elevate px-1.5 py-0.5 rounded-md w-fit -mt-1"
         >
           <IconPlus size={12} />
           Add param
         </button>
 
-        {/* URL preview */}
-        {committed.length > 0 && (
-          <div className="border-t pt-2">
-            <p className="text-[10px] text-muted-foreground font-medium mb-1">Result</p>
-            <code className="text-[10px] text-muted-foreground break-all">{preview}</code>
-          </div>
-        )}
+        {/* URL preview — always visible */}
+        <div className="border-t pt-2">
+          <p className="text-[10px] text-muted-foreground font-medium mb-1">Result</p>
+          <code className="text-[10px] text-muted-foreground break-all">{preview}</code>
+        </div>
 
         <DialogFooter>
           <Button variant="outline" size="sm" onClick={onClose}>Cancel</Button>
