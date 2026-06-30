@@ -340,7 +340,7 @@ sections:
       banner: true
       buttons:
         - text: Enroll now
-          url: https://4geeks.com/es/checkout?plan=ai-flex-plan-pro&cohort=1713
+          url: {{ global.ai_flex_path_1_url | https://4geeks.com/es/checkout?plan=ai-flex-plan-pro&cohort=1713&team_seats=1 }}
           variant: primary
         - text: View plans
           variant: outline
