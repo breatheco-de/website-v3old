@@ -240,28 +240,14 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
               onKeyDown={e => { if (e.key === "Enter") addParam(); }}
             />
             <span className="text-xs text-muted-foreground shrink-0">from</span>
-            <div className="flex shrink-0 h-8 rounded-md border overflow-hidden text-xs">
-              <button
-                type="button"
-                onClick={() => { setNewValueType("static"); setAddError(""); }}
-                className={cn(
-                  "px-2 font-medium transition-colors whitespace-nowrap",
-                  newValueType === "static"
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover-elevate"
-                )}
-              >static value</button>
-              <button
-                type="button"
-                onClick={() => { setNewValueType("fromUrl"); setAddError(""); }}
-                className={cn(
-                  "px-2 font-medium border-l transition-colors whitespace-nowrap",
-                  newValueType === "fromUrl"
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover-elevate"
-                )}
-              >from url param</button>
-            </div>
+            <select
+              value={newValueType}
+              onChange={e => { setNewValueType(e.target.value as "static" | "fromUrl"); setAddError(""); }}
+              className="shrink-0 h-8 rounded-md border border-input bg-background px-2 text-xs text-foreground ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            >
+              <option value="static">static value</option>
+              <option value="fromUrl">url param</option>
+            </select>
             <Button size="sm" variant="outline" onClick={addParam} className="shrink-0">
               <IconPlus size={14} />
             </Button>
