@@ -386,7 +386,7 @@ sections:
     title: Tuition & Financing Options
     subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
     discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: Flexible financing starting around
+    financing_text: Flexible financing starting at
     financing_amount: {{ global.price_ai_fluency_financing | $150 }}
     tech_icons:
       - openai
