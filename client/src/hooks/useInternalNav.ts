@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useLocation } from "wouter";
 import { usePageSections } from "@/contexts/PageSectionsContext";
 
@@ -61,9 +62,31 @@ function mergeSearch(existing: string, extra: string): string {
   return str ? `?${str}` : "";
 }
 
+/** Module-level flag so we only register the global middle-click listener once */
+let _globalMiddleClickInstalled = false;
+
 export function useInternalNav(onNavigate?: () => void) {
   const [, setLocation] = useLocation();
   const pageSections = usePageSections();
+
+  /** Register a global mousedown listener once that pre-resolves {qs:} tokens
+   *  in any anchor's href when the user middle-clicks (button 1), so the
+   *  browser's built-in "open in new tab" reads the resolved URL. */
+  useEffect(() => {
+    if (_globalMiddleClickInstalled) return;
+    _globalMiddleClickInstalled = true;
+    document.addEventListener("mousedown", (e: MouseEvent) => {
+      if (e.button !== 1) return;
+      const anchor = (e.target as Element)?.closest("a");
+      if (!anchor) return;
+      const raw = anchor.getAttribute("href");
+      if (!raw?.includes("{qs:")) return;
+      const resolved = resolveQsTokens(raw);
+      if (resolved === raw) return;
+      anchor.setAttribute("href", resolved);
+      setTimeout(() => anchor.setAttribute("href", raw), 0);
+    });
+  }, []);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) {
@@ -117,11 +140,10 @@ export function useInternalNav(onNavigate?: () => void) {
       setLocation(href);
       window.scrollTo(0, 0);
       onNavigate?.();
-    } else if (href !== rawHref) {
-      // External URL had {qs:} tokens — browser would use the raw href (literal tokens).
-      // Intercept and open the resolved URL instead.
+    } else {
+      // External URL — always open in new tab with resolved href (handles {qs:} tokens too)
       e.preventDefault();
-      window.open(href, anchor.target || "_blank");
+      window.open(href, "_blank", "noopener,noreferrer");
       onNavigate?.();
     }
   };

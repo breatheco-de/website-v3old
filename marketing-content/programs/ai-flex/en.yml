@@ -344,7 +344,7 @@ sections:
           variant: primary
         - text: View plans
           variant: outline
-          url: "#pricing-6svo9e"
+          url: "#pricing-6svo9e?cohort=1713"
     courses:
       - name: Prompt Engineering
         tagline: Prompting patterns & reusable libraries
@@ -523,7 +523,7 @@ sections:
           url: {{ global.ai_flex_path_4_url | https://4geeks.com/checkout?plan=ai-flex-plan-pro&cohort=1718&team_seats=1 }}
           variant: primary
         - text: View plans
-          url: "#pricing-6svo9e"
+          url: "#pricing-6svo9e?cohort=1718"
           variant: outline
     courses:
       - name: Prompt Engineering
@@ -1126,7 +1126,7 @@ sections:
         billing_note: Recurring monthly charge
         cta:
           label: Subscribe to Basic Plan
-          url: https://4geeks.com/checkout?plan=ai-flex-basic&cohort=1713
+          url: https://4geeks.com/checkout?plan=ai-flex-basic&cohort={qs:cohort|1713}
         featured: false
         features:
           - text: 1 mentorship sessions / month
@@ -1205,7 +1205,7 @@ sections:
         billing_note: Recurring monthly charge
         cta:
           label: Subscribe to Basic Plan
-          url: https://4geeks.com/es/checkout?plan=ai-flex-basic&cohort=1713
+          url: https://4geeks.com/checkout?plan=ai-flex-basic&cohort={qs:cohort|1713}
         featured: false
         features:
           - text: 1 Mentorship sessions / month
@@ -1281,7 +1281,7 @@ sections:
         billing_note: Recurring monthly charge
         cta:
           label: Subscribe to Basic Plan
-          url: https://4geeks.com/es/checkout?plan=ai-flex-basic&cohort=1713
+          url: https://4geeks.com/checkout?plan=ai-flex-basic&cohort={qs:cohort|1713}
         featured: false
         features:
           - text: 1 Mentorship sessions / month

@@ -315,7 +315,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
                       autoFocus
                     />
                     <Input
-                      placeholder="param name"
+                      placeholder="value"
                       value={editValue}
                       onChange={e => { setEditValue(e.target.value); setEditError(""); }}
                       className="h-7 text-xs flex-1 min-w-0"
@@ -330,7 +330,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
                         onClick={e => { e.stopPropagation(); setTypeOpen(o => !o); }}
                         onKeyDown={e => { if (e.key === "Escape") setTypeOpen(false); }}
                       >
-                        <span>{editType === "fromUrl" ? "visitor URL" : "static value"}</span>
+                        <span>{editType === "fromUrl" ? "current page URL" : "static value"}</span>
                         <IconChevronDown size={12} className="opacity-50 shrink-0" />
                       </button>
                       {typeOpen && (
@@ -342,7 +342,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
                               className={`w-full text-left px-3 py-1.5 text-xs hover-elevate flex items-center gap-2 ${editType === opt ? "text-primary font-medium" : "text-foreground"}`}
                               onClick={e => { e.stopPropagation(); setEditType(opt); setTypeOpen(false); setEditError(""); }}
                             >
-                              {opt === "fromUrl" ? "visitor URL" : "static value"}
+                              {opt === "fromUrl" ? "current page URL" : "static value"}
                             </button>
                           ))}
                         </div>
