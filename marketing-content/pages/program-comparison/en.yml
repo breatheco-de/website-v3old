@@ -242,7 +242,7 @@ sections:
                 variant: outline
           - cta:
               - text: Enroll Now
-                url: /en/checkout?plan=ai-fluency&cohort=1706
+                url: {{ global.ai_fluency_url | https://4geeks.com/checkout?plan=ai-fluency-latam&cohort=1706 }}
                 variant: primary
               - text: View full program
                 url: https://4geeksacademy.com/en/career-programs/ai-fluency
