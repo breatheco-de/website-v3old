@@ -362,7 +362,7 @@ sections:
       text: Enroll Now
       url: https://4geeks.com/checkout?plan=ai-fluency&cohort=1706
       variant: primary
-    section_id: pricing-aifluency-latam
+    section_id: pricing-aifluency
     marginY:
       desktop: lg md
     paddingY:
