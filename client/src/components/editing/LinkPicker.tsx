@@ -1,13 +1,6 @@
 import { useState, useEffect } from "react";
 import { ArrowDown, Check, ExternalLink, Layers, Link, PanelBottom, Search } from "lucide-react";
-import { IconPencil, IconPlus, IconX } from "@tabler/icons-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { IconChevronDown, IconPencil, IconPlus, IconX } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -195,6 +188,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
   const [editValue, setEditValue] = useState("");
   const [editType, setEditType] = useState<"static" | "fromUrl">("fromUrl");
   const [editError, setEditError] = useState("");
+  const [typeOpen, setTypeOpen] = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -204,6 +198,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
       setEditValue("");
       setEditType("fromUrl");
       setEditError("");
+      setTypeOpen(false);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
@@ -271,9 +266,7 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
   const preview = buildUrlWithQs(baseUrl, committed);
 
   return (
-    // modal={false} disables Radix focus-trap so the Select portal works;
-    // our DialogOverlay CSS (pointer-events-auto) still blocks outside clicks visually.
-    <Dialog open={open} modal={false} onOpenChange={o => !o && onClose()}>
+    <Dialog open={open} onOpenChange={o => !o && onClose()}>
       <DialogContent className="z-[10002] max-w-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-sm font-semibold">
@@ -308,15 +301,32 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
                       onKeyDown={e => { if (e.key === "Enter") confirmEdit(); if (e.key === "Escape") cancelEdit(); }}
                     />
                     <span className="text-xs text-muted-foreground shrink-0">from</span>
-                    <Select value={editType} onValueChange={v => { setEditType(v as "static" | "fromUrl"); setEditError(""); }}>
-                      <SelectTrigger className="h-7 text-xs w-28 shrink-0 px-2">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent className="z-[10003]">
-                        <SelectItem value="static">static value</SelectItem>
-                        <SelectItem value="fromUrl">from visitor URL</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    {/* Custom dropdown — no Radix, safe inside Dialog focus trap */}
+                    <div className="relative shrink-0">
+                      <button
+                        type="button"
+                        className="h-7 text-xs w-32 px-2 flex items-center justify-between gap-1 rounded-md border border-input bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+                        onClick={e => { e.stopPropagation(); setTypeOpen(o => !o); }}
+                        onKeyDown={e => { if (e.key === "Escape") setTypeOpen(false); }}
+                      >
+                        <span>{editType === "fromUrl" ? "visitor URL" : "static value"}</span>
+                        <IconChevronDown size={12} className="opacity-50 shrink-0" />
+                      </button>
+                      {typeOpen && (
+                        <div className="absolute top-full mt-1 left-0 min-w-full z-[10003] bg-popover border border-input rounded-md shadow-md overflow-hidden">
+                          {(["fromUrl", "static"] as const).map(opt => (
+                            <button
+                              key={opt}
+                              type="button"
+                              className={`w-full text-left px-3 py-1.5 text-xs hover-elevate flex items-center gap-2 ${editType === opt ? "text-primary font-medium" : "text-foreground"}`}
+                              onClick={e => { e.stopPropagation(); setEditType(opt); setTypeOpen(false); setEditError(""); }}
+                            >
+                              {opt === "fromUrl" ? "visitor URL" : "static value"}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                     {/* Confirm */}
                     <button
                       onClick={confirmEdit}
@@ -385,10 +395,12 @@ function QsParamDialog({ open, baseUrl, initialParams, onSave, onClose }: QsPara
           Add param
         </button>
 
-        {/* URL preview — always visible */}
+        {/* URL preview — always visible, full URL with domain */}
         <div className="border-t pt-2">
           <p className="text-[10px] text-muted-foreground font-medium mb-1">Result</p>
-          <code className="text-[10px] text-muted-foreground break-all">{preview}</code>
+          <code className="text-[10px] text-muted-foreground break-all">
+            {preview.startsWith("http") ? preview : `${window.location.origin}${preview}`}
+          </code>
         </div>
 
         <DialogFooter>
