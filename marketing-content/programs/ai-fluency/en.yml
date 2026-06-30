@@ -430,6 +430,7 @@ sections:
     subtitle: Investing in your AI skills is the smart move. One price, two ways to pay.
     discount_text: "Pay in full: €900, with a 10% discount."
     financing_text: "Or split it: 2 interest-free installments."
+    financing_amount: €450
     tech_icons:
       - openai
       - claude
