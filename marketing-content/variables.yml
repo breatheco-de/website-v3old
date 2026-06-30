@@ -599,3 +599,15 @@ global.ai_flex_path_4_url:
     - query:
         region: "latam"
       value: "https://4geeks.com/checkout?plan=ai-flex-pro-latam&cohort=1718&team_seats=1"
+global.ai_fluency_url:
+  default: "https://4geeks.com/checkout?plan=ai-fluency&cohort=1706"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "https://4geeks.com/checkout?plan=ai-fluency&cohort=1706"
+    - query:
+        region: "latam"
+      value: "https://4geeks.com/checkout?plan=ai-fluency-latam&cohort=1706"
+    - query:
+        region: "europe"
+      value: "https://4geeks.com/checkout?plan=ai-fluency-ue&cohort=1706"

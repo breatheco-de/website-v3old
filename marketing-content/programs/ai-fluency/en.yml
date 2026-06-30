@@ -361,7 +361,7 @@ sections:
         text: One 1:1 mentorship session included. Add more at any time for $25 each.
     cta:
       text: Enroll Now
-      url: https://4geeks.com/es/checkout?plan=ai-fluency&cohort=1706
+      url: {{ global.ai_fluency_url | https://4geeks.com/checkout?plan=ai-fluency&cohort=1706 }}
       variant: primary
     section_id: pricing-aifluency
     marginY:
@@ -397,7 +397,7 @@ sections:
         text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
     cta:
       text: Enroll Now
-      url: https://4geeks.com/es/checkout?plan=ai-fluency&cohort=1706
+      url: https://4geeks.com/checkout?plan=ai-fluency-ue&cohort=1706
       variant: primary
     section_id: pricing-qhcsa1
     marginY:
