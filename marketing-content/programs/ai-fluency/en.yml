@@ -49,7 +49,7 @@ sections:
       description: "Fill in your details and we'll send you everything you need: syllabus, program details, and pricing. It only takes 2 minutes."
       cta_button:
         text: Send Me the Details
-        url: "#modal-y2myvq"
+        url: "#pricing-aifluency"
         variant: primary
       login_link:
         text: Already a student? Login here.
