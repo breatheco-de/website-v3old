@@ -426,9 +426,9 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Tuition & Payment Options
-    subtitle: Investing in your AI skills is the smart move. One price, two ways to pay.
-    discount_text: "Pay in full: €900, with a 10% discount."
+    title: Tuition, Financing & Start Dates
+    subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
+    discount_text: "Full tuition: €900. Pay upfront and save 10%."
     financing_text: "Or split it: 2 interest-free installments."
     financing_amount: €450
     tech_icons:
@@ -439,7 +439,7 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: The full tuition is €900. Pay upfront and receive a 10% discount.
+        text: Secure your spot. Next cohorts start July 15 and August 26.
       - icon: IconCheck
         text: Spread your payments with 2 interest-free installments through 4Geeks.
       - icon: IconCheck
@@ -448,7 +448,7 @@ sections:
       text: Enroll Now
       url: https://4geeks.com/checkout?plan=ai-fluency-ue&cohort=1706
       variant: primary
-    section_id: pricing-aifluency
+    section_id: pricing-aifluency-europe
     marginY:
       desktop: lg md
     paddingY:
