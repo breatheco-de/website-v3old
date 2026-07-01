@@ -393,10 +393,10 @@ sections:
       - claude
       - n8n
       - openclaw
-    features_title: Secure your spot. Choose the option that fits you best.
+    features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Next cohorts start July 15 and August 26.
+        text: Secure your spot. Next cohorts start July 15 and August 26.
       - icon: IconCheck
         text: Spread your payments with flexible financing through Affirm or Klarna. Terms and availability vary by region.
       - icon: IconCheck
