@@ -430,10 +430,9 @@ sections:
     variant: product
     title: Tuition, Financing & Start Dates
     subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
-    discount_text: "Full tuition: €900. Pay upfront and save 10%."
+    discount_text: "Pay upfront: €810. 10% discount applied."
     financing_text: "Or split it: 2 interest-free installments."
     financing_amount: €450
-    financing_period: ""
     tech_icons:
       - openai
       - claude
