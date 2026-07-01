@@ -433,6 +433,7 @@ sections:
     discount_text: "Full tuition: €900. Pay upfront and save 10%."
     financing_text: "Or split it: 2 interest-free installments."
     financing_amount: €450
+    financing_period: ""
     tech_icons:
       - openai
       - claude
