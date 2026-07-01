@@ -614,7 +614,7 @@ sections:
       - icon: IconCheck
         text: We work with trusted partners to offer flexible and affordable financing, so you can focus on your future, not your fees.
     cta:
-      text: Get more information
+      text: Get started
       url: /es/apply
       variant: primary
     section_id: pricing-4zx54o
