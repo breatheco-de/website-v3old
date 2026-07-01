@@ -387,7 +387,7 @@ sections:
     subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
     discount_text: "Full tuition: $900. Pay upfront and save 10%."
     financing_text: Flexible financing starting at
-    financing_amount: $150
+    financing_amount: $75
     tech_icons:
       - openai
       - claude
