@@ -37,3 +37,9 @@ yaml: |
       text: "Apply Now"
       url: "/apply"
       variant: "primary"
+    footer: "UPCOMING COHORT START DATES"
+    footer_badges:
+      - label: "Feb 3, 2025"
+        tag: "Filling fast"
+      - label: "Mar 10, 2025"
+      - label: "Apr 7, 2025"

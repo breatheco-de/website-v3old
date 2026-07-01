@@ -114,3 +114,23 @@ props:
         type: string
         required: false
     description: Call-to-action button
+  footer:
+    type: string
+    required: false
+    description: Uppercase label shown above the footer badges row
+    example: UPCOMING COHORT START DATES
+  footer_badges:
+    type: array
+    required: false
+    description: List of pill badges shown below the features grid
+    items:
+      label:
+        type: string
+        required: true
+        description: Text inside the badge
+        example: Feb 3, 2025
+      tag:
+        type: string
+        required: false
+        description: Optional secondary badge rendered inline (e.g. "Filling fast")
+        example: Filling fast
