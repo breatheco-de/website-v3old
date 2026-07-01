@@ -36,17 +36,17 @@ sections:
       legend_highlight: Donde está 4Geeks ahora
       badges:
         inner:
-          - label: Full Stack con IA
+          - label: AI Engineering
             highlight: false
           - label: AI Flex
             highlight: true
         middle:
-          - label: Data Science y ML
-            highlight: false
           - label: AI Fluency
+            highlight: false
+          - label: Data Science y ML
             highlight: true
         outer:
-          - label: AI Engineering
+          - label: Full Stack con IA
             highlight: true
           - label: Cybersecurity
             highlight: false
