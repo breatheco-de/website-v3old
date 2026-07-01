@@ -347,7 +347,7 @@ sections:
     financing_text: "Or split it: 2 interest-free installments."
     financing_amount: $250
     financing_period: ""
-    footer: asdasd
+    footer: START DATES
     footer_badges:
       - label: Feb 3, 2025
         tag: Filling fast

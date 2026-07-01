@@ -134,7 +134,7 @@ export function PricingSection({ data }: PricingSectionProps) {
               </div>
             </div>
 
-            <div className="bg-background border border-t-0 lg:border-t lg:border-l-0 border-border rounded-b-2xl lg:rounded-b-none lg:rounded-r-2xl p-4 space-y-4 lg:col-span-8 overflow-hidden">
+            <div className="bg-background border border-t-0 lg:border-t lg:border-l-0 border-border rounded-b-2xl lg:rounded-b-none lg:rounded-r-2xl p-4 flex flex-col gap-4 lg:col-span-8 overflow-hidden">
               {data.features_title && (
                 <p
                   className="text-[#3A3A3A] font-normal text-body"
@@ -210,14 +210,14 @@ export function PricingSection({ data }: PricingSectionProps) {
               </div>
 
               {(data.footer || (data.footer_badges && data.footer_badges.length > 0)) && (
-                <div data-testid="footer-badges-section">
+                <div className="mt-auto" data-testid="footer-badges-section">
                   {data.footer && (
-                    <p className="text-sm font-semibold text-muted-foreground tracking-wider mb-2" data-testid="text-footer-label">
+                    <p className="text-xs font-semibold text-muted-foreground tracking-wider mb-2 text-center lg:text-left" data-testid="text-footer-label">
                       {data.footer}
                     </p>
                   )}
                   {data.footer_badges && data.footer_badges.length > 0 && (
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
                       {data.footer_badges.map((item, index) => (
                         <span
                           key={index}
