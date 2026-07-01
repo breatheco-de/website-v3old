@@ -37,18 +37,18 @@ sections:
       legend_highlight: Where 4Geeks is now
       badges:
         inner:
-          - label: Full Stack with AI
-            highlight: false
+          - label: AI Engineering
+            highlight: true
           - label: AI Flex
             highlight: true
         middle:
-          - label: Data Science & ML
-            highlight: false
           - label: AI Fluency
             highlight: true
+          - label: Data Science y ML
+            highlight: false
         outer:
-          - label: AI Engineering
-            highlight: true
+          - label: Full Stack con IA
+            highlight: false
           - label: Cybersecurity
             highlight: false
     section_id: hero-1v86vv
@@ -136,14 +136,14 @@ sections:
                 variant: outline
           - cta:
               - text: Enroll Now
-                url: /en/checkout?plan=ai-fluency&cohort=1706
+                url: {{ global.ai_fluency_url | https://4geeks.com/checkout?plan=ai-fluency&cohort=1706 }}
                 variant: primary
               - text: View full program
                 url: https://4geeksacademy.com/en/career-programs/ai-fluency
                 variant: outline
           - cta:
               - text: Choose Your Plan
-                url: /en/ai-flex
+                url: {{ global.ai_flex_path_1_url | https://4geeks.com/checkout?plan=ai-flex-plan-pro&cohort=1713&team_seats=1 }}
                 variant: primary
               - text: View catalog
                 url: https://4geeksacademy.com/en/career-programs/ai-flex
@@ -242,14 +242,14 @@ sections:
                 variant: outline
           - cta:
               - text: Enroll Now
-                url: /en/checkout?plan=ai-fluency&cohort=1706
+                url: {{ global.ai_fluency_url | https://4geeks.com/checkout?plan=ai-fluency-latam&cohort=1706 }}
                 variant: primary
               - text: View full program
                 url: https://4geeksacademy.com/en/career-programs/ai-fluency
                 variant: outline
           - cta:
               - text: Choose Your Plan
-                url: /en/ai-flex
+                url: {{ global.ai_flex_path_1_url | https://4geeks.com/checkout?plan=ai-flex-pro-latam&cohort=1713&team_seats=1 }}
                 variant: primary
               - text: View catalog
                 url: https://4geeksacademy.com/en/career-programs/ai-flex
@@ -348,14 +348,14 @@ sections:
                 variant: outline
           - cta:
               - text: Enroll Now
-                url: /en/checkout?plan=ai-fluency&cohort=1706
+                url: {{ global.ai_fluency_url | https://4geeks.com/checkout?plan=ai-fluency-ue&cohort=1706 }}
                 variant: primary
               - text: View full program
                 url: /en/career-programs/ai-fluency
                 variant: outline
           - cta:
               - text: Choose Your Plan
-                url: /en/ai-flex
+                url: {{ global.ai_flex_path_1_url | https://4geeks.com/checkout?plan=ai-flex-pro-ue&cohort=1713&team_seats=1 }}
                 variant: primary
               - text: View catalog
                 url: /en/ai-flex/catalog

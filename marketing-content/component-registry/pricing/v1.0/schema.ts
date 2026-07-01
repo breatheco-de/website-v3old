@@ -18,6 +18,11 @@ export const pricingPlanSchema = z.object({
   savings_badge: z.string().optional(),
 });
 
+export const pricingFooterBadgeSchema = z.object({
+  label: z.string(),
+  tag: z.string().optional(),
+});
+
 // Default variant - monthly/yearly pricing toggle
 export const pricingDefaultSchema = z.object({
   type: z.literal("pricing"),
@@ -50,6 +55,8 @@ export const pricingProductSchema = z.object({
   features_title: z.string().optional(),
   features: z.array(pricingFeatureSchema),
   cta: ctaButtonSchema,
+  footer: z.string().optional(),
+  footer_badges: z.array(pricingFooterBadgeSchema).optional(),
 });
 
 // ─── plan_cards_comparison variant ───────────────────────────────────────────
@@ -140,4 +147,5 @@ export const pricingSectionSchema = z.union([
 
 export type PricingFeature = z.infer<typeof pricingFeatureSchema>;
 export type PricingPlan = z.infer<typeof pricingPlanSchema>;
+export type PricingFooterBadge = z.infer<typeof pricingFooterBadgeSchema>;
 export type PricingSection = z.infer<typeof pricingSectionSchema>;

@@ -134,7 +134,7 @@ export function PricingSection({ data }: PricingSectionProps) {
               </div>
             </div>
 
-            <div className="bg-background border border-t-0 lg:border-t lg:border-l-0 border-border rounded-b-2xl lg:rounded-b-none lg:rounded-r-2xl p-4 space-y-4 lg:col-span-8 overflow-hidden">
+            <div className="bg-background border border-t-0 lg:border-t lg:border-l-0 border-border rounded-b-2xl lg:rounded-b-none lg:rounded-r-2xl p-4 flex flex-col gap-4 lg:col-span-8">
               {data.features_title && (
                 <p
                   className="text-[#3A3A3A] font-normal text-body"
@@ -208,6 +208,38 @@ export function PricingSection({ data }: PricingSectionProps) {
                   );
                 })}
               </div>
+
+              {(data.footer || (data.footer_badges && data.footer_badges.length > 0)) && (
+                <div className="mt-auto" data-testid="footer-badges-section">
+                  {data.footer && (
+                    <p className="text-xs font-semibold text-muted-foreground tracking-wider mb-2 text-center lg:text-left" data-testid="text-footer-label">
+                      {data.footer}
+                    </p>
+                  )}
+                  {data.footer_badges && data.footer_badges.length > 0 && (
+                    <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+                      {data.footer_badges.map((item, index) => (
+                        <span
+                          key={index}
+                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs text-foreground bg-muted"
+                          data-testid={`badge-footer-${index}`}
+                        >
+                          <span className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0" />
+                          {item.label}
+                          {item.tag && (
+                            <span
+                              className="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400"
+                              data-testid={`badge-footer-tag-${index}`}
+                            >
+                              {item.tag}
+                            </span>
+                          )}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

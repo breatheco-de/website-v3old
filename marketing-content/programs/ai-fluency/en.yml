@@ -21,8 +21,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: AI Fluency. Your professional edge is here.
-    title_highlight: Your professional edge is here.
+    title: AI Fluency. Your Professional Superpowers Start Here.
+    title_highlight: Your Professional Superpowers Start Here.
     subtitle: AI skills now carry a 56% salary premium across industries. In four weeks, you'll build AI workflows around your actual job, automate your most repetitive work, and turn AI into your most capable collaborator. No coding required.
     students_enrolled:
       avatars:
@@ -49,7 +49,7 @@ sections:
       description: "Fill in your details and we'll send you everything you need: syllabus, program details, and pricing. It only takes 2 minutes."
       cta_button:
         text: Send Me the Details
-        url: "#modal-y2myvq"
+        url: "#pricing-aifluency"
         variant: primary
       login_link:
         text: Already a student? Login here.
@@ -341,10 +341,18 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Tuition & Payment Options
-    subtitle: Investing in your AI skills is the smart move. One price, two ways to pay.
-    discount_text: "Pay in full: $500, with a 10% discount."
+    title: Tuition, Financing & Start Dates
+    subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
+    discount_text: "Save 10%: Pay $450 upfront."
     financing_text: "Or split it: 2 interest-free installments."
+    financing_amount: $250
+    financing_period: ""
+    footer: START DATES
+    footer_badges:
+      - label: Feb 3, 2025
+        tag: Filling fast
+      - label: Mar 10, 2025
+      - label: Apr 7, 2025
     tech_icons:
       - openai
       - claude
@@ -353,7 +361,7 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: The full tuition is $500. Pay upfront and receive a 10% discount.
+        text: Secure your spot. Next cohorts start July 15 and August 26.
       - icon: IconCheck
         text: Spread your payments with 2 interest-free installments through 4Geeks.
       - icon: IconCheck
@@ -383,11 +391,11 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Tuition & Financing Options
+    title: Tuition, Financing & Start Dates
     subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
-    discount_text: "Full Payment Discount: Save 10% with upfront payment."
-    financing_text: Flexible financing starting around
-    financing_amount: {{ global.price_ai_fluency_financing | $150 }}
+    discount_text: "Save 10%: Pay $810 upfront."
+    financing_text: Flexible financing starting at
+    financing_amount: $75
     tech_icons:
       - openai
       - claude
@@ -396,7 +404,7 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: The full tuition is $900. Pay upfront and receive a 10% discount.
+        text: Secure your spot. Next cohorts start July 15 and August 26.
       - icon: IconCheck
         text: Spread your payments with flexible financing through Affirm or Klarna. Terms and availability vary by region.
       - icon: IconCheck
@@ -423,13 +431,16 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+    static_icons: false
   - type: pricing
     version: "1.0"
     variant: product
-    title: Tuition & Payment Options
-    subtitle: Investing in your AI skills is the smart move. One price, two ways to pay.
-    discount_text: "Pay in full: €900, with a 10% discount."
+    title: Tuition, Financing & Start Dates
+    subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
+    discount_text: "Save 10%: Pay €810 upfront."
     financing_text: "Or split it: 2 interest-free installments."
+    financing_amount: €450
+    financing_period: ""
     tech_icons:
       - openai
       - claude
@@ -438,7 +449,7 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: The full tuition is €900. Pay upfront and receive a 10% discount.
+        text: Secure your spot. Next cohorts start July 15 and August 26.
       - icon: IconCheck
         text: Spread your payments with 2 interest-free installments through 4Geeks.
       - icon: IconCheck
