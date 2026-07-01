@@ -567,7 +567,7 @@ sections:
       - icon: IconCheck
         text: Finance your tuition in monthly installments, with term lengths of up to 48 months depending on your region.
     cta:
-      text: Get more info
+      text: Get started
       url: "#modal-ubwgcj"
       variant: primary
     section_id: pricing-oyjnax
