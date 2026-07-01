@@ -431,6 +431,7 @@ sections:
       - orlando-usa
       - tampa-usa
       - toronto-canada
+    static_icons: false
   - type: pricing
     version: "1.0"
     variant: product
