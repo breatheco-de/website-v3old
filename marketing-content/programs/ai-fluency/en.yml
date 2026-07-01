@@ -347,6 +347,12 @@ sections:
     financing_text: "Or split it: 2 interest-free installments."
     financing_amount: $250
     financing_period: ""
+    footer: asdasd
+    footer_badges:
+      - label: Feb 3, 2025
+        tag: Filling fast
+      - label: Mar 10, 2025
+      - label: Apr 7, 2025
     tech_icons:
       - openai
       - claude
