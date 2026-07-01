@@ -387,7 +387,7 @@ sections:
     subtitle: Investing in your AI skills is the smart move. Choose your payment option and secure your spot.
     discount_text: "Full tuition: $900. Pay upfront and save 10%."
     financing_text: Flexible financing starting at
-    financing_amount: {{ global.price_ai_fluency_financing | $150 }}
+    financing_amount: $150
     tech_icons:
       - openai
       - claude
