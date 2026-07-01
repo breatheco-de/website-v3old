@@ -134,7 +134,7 @@ export function PricingSection({ data }: PricingSectionProps) {
               </div>
             </div>
 
-            <div className="bg-background border border-t-0 lg:border-t lg:border-l-0 border-border rounded-b-2xl lg:rounded-b-none lg:rounded-r-2xl p-4 flex flex-col gap-4 lg:col-span-8 overflow-hidden">
+            <div className="bg-background border border-t-0 lg:border-t lg:border-l-0 border-border rounded-b-2xl lg:rounded-b-none lg:rounded-r-2xl p-4 flex flex-col gap-4 lg:col-span-8">
               {data.features_title && (
                 <p
                   className="text-[#3A3A3A] font-normal text-body"
