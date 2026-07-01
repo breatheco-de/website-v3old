@@ -117,12 +117,14 @@ props:
   footer:
     type: string
     required: false
-    description: Uppercase label shown above the footer badges row
+    variant: product
+    description: "variant: product only. Uppercase label shown above the footer badges row."
     example: UPCOMING COHORT START DATES
   footer_badges:
     type: array
     required: false
-    description: List of pill badges shown below the features grid
+    variant: product
+    description: "variant: product only. List of pill badges shown below the features grid."
     items:
       label:
         type: string

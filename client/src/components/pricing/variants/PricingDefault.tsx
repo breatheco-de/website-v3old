@@ -208,6 +208,38 @@ export function PricingSection({ data }: PricingSectionProps) {
                   );
                 })}
               </div>
+
+              {data.footer && data.footer_badges && data.footer_badges.length > 0 && (
+                <>
+                  <div className="border-t border-border" />
+                  <div data-testid="footer-badges-section">
+                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2" data-testid="text-footer-label">
+                      {data.footer}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {data.footer_badges.map((item, index) => (
+                        <div key={index} className="flex items-center gap-1.5">
+                          <span
+                            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border text-xs text-foreground bg-background"
+                            data-testid={`badge-footer-${index}`}
+                          >
+                            <span className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0" />
+                            {item.label}
+                          </span>
+                          {item.tag && (
+                            <span
+                              className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400"
+                              data-testid={`badge-footer-tag-${index}`}
+                            >
+                              {item.tag}
+                            </span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -417,38 +449,6 @@ export function PricingSection({ data }: PricingSectionProps) {
                 );
               })}
             </div>
-
-            {data.footer && data.footer_badges && data.footer_badges.length > 0 && (
-              <>
-                <div className="border-t border-border" />
-                <div data-testid="footer-badges-section">
-                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2" data-testid="text-footer-label">
-                    {data.footer}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {data.footer_badges.map((item, index) => (
-                      <div key={index} className="flex items-center gap-1.5">
-                        <span
-                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border text-xs text-foreground bg-background"
-                          data-testid={`badge-footer-${index}`}
-                        >
-                          <span className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0" />
-                          {item.label}
-                        </span>
-                        {item.tag && (
-                          <span
-                            className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400"
-                            data-testid={`badge-footer-tag-${index}`}
-                          >
-                            {item.tag}
-                          </span>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </>
-            )}
           </div>
         </div>
       </div>

@@ -37,8 +37,6 @@ export const pricingDefaultSchema = z.object({
   features_title: z.string().optional(),
   features: z.array(pricingFeatureSchema),
   cta: ctaButtonSchema,
-  footer: z.string().optional(),
-  footer_badges: z.array(pricingFooterBadgeSchema).optional(),
 });
 
 // Product variant - financing focused pricing
@@ -57,6 +55,8 @@ export const pricingProductSchema = z.object({
   features_title: z.string().optional(),
   features: z.array(pricingFeatureSchema),
   cta: ctaButtonSchema,
+  footer: z.string().optional(),
+  footer_badges: z.array(pricingFooterBadgeSchema).optional(),
 });
 
 // ─── plan_cards_comparison variant ───────────────────────────────────────────
