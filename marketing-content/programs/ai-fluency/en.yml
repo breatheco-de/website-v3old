@@ -384,7 +384,7 @@ sections:
     version: "1.0"
     variant: product
     title: Tuition, Financing & Start Dates
-    subtitle: Investing in your AI skills is the smart move. Choose your payment option and secure your spot.
+    subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
     discount_text: "Full tuition: $900. Pay upfront and save 10%."
     financing_text: Flexible financing starting at
     financing_amount: $150
@@ -393,10 +393,10 @@ sections:
       - claude
       - n8n
       - openclaw
-    features_title: Choose the option that fits you best.
+    features_title: Secure your spot. Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Next cohorts start July 15 and August 26. Enroll now to secure your spot.
+        text: Next cohorts start July 15 and August 26.
       - icon: IconCheck
         text: Spread your payments with flexible financing through Affirm or Klarna. Terms and availability vary by region.
       - icon: IconCheck
