@@ -430,7 +430,7 @@ sections:
     variant: product
     title: Tuition, Financing & Start Dates
     subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
-    discount_text: "Pay upfront: €810. 10% discount applied."
+    discount_text: "Save 10%: Pay €810 upfront."
     financing_text: "Or split it: 2 interest-free installments."
     financing_amount: €450
     tech_icons:
