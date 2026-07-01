@@ -19,8 +19,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: AI Flex.The AI skills that matter, all in one place. At your pace.
-    title_highlight: The AI skills that matter, all in one place.
+    title: AI Flex.The AI skills that matter. At your pace.
+    title_highlight: The skills that matter. At your pace.
     subtitle: The people building AI skills right now are pulling ahead fast. AI Flex gives you access to 8 courses covering automation, AI workflows, vibe coding, and data skills. Follow a curated learning path or build your own. Fully self-paced.
     students_enrolled:
       avatars:
