@@ -212,7 +212,7 @@ export function PricingSection({ data }: PricingSectionProps) {
               {(data.footer || (data.footer_badges && data.footer_badges.length > 0)) && (
                 <div data-testid="footer-badges-section">
                   {data.footer && (
-                    <p className="text-xs font-semibold text-muted-foreground tracking-wider mb-2" data-testid="text-footer-label">
+                    <p className="text-sm font-semibold text-muted-foreground tracking-wider mb-2" data-testid="text-footer-label">
                       {data.footer}
                     </p>
                   )}
@@ -221,7 +221,7 @@ export function PricingSection({ data }: PricingSectionProps) {
                       {data.footer_badges.map((item, index) => (
                         <span
                           key={index}
-                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border text-xs text-foreground bg-background"
+                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs text-foreground bg-muted"
                           data-testid={`badge-footer-${index}`}
                         >
                           <span className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0" />
