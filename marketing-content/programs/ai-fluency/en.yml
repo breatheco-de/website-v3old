@@ -346,6 +346,7 @@ sections:
     discount_text: "Save 10%: Pay $450 upfront."
     financing_text: "Or split it: 2 interest-free installments."
     financing_amount: $250
+    financing_period: ""
     tech_icons:
       - openai
       - claude
