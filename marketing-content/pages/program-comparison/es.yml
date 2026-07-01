@@ -37,17 +37,17 @@ sections:
       badges:
         inner:
           - label: AI Engineering
-            highlight: false
+            highlight: true
           - label: AI Flex
             highlight: true
         middle:
           - label: AI Fluency
-            highlight: false
-          - label: Data Science y ML
             highlight: true
+          - label: Data Science y ML
+            highlight: false
         outer:
           - label: Full Stack con IA
-            highlight: true
+            highlight: false
           - label: Cybersecurity
             highlight: false
     section_id: hero-1v86vv
