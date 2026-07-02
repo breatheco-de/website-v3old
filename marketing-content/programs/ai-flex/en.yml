@@ -19,8 +19,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: AI Flex. AI skills on your terms. With a tutor that never sleeps.
-    title_highlight: AI skills on your terms. With a tutor that never sleeps.
+    title: AI Flex. AI Skills on Your Terms. With a Tutor That Never Sleeps.
+    title_highlight: AI Skills on Your Terms. With a Tutor That Never Sleeps.
     subtitle: The people building AI skills right now are pulling ahead fast. AI Flex gives you access to 8 courses covering automation, AI workflows, vibe coding, and data skills. Follow a curated learning path or build your own. Fully self-paced.
     students_enrolled:
       avatars:
