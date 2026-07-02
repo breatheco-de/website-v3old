@@ -45,10 +45,10 @@ sections:
     tutors_label: "Your tutors:"
     description: AI is not the future, it's the foundation. The professionals pulling ahead aren't waiting. With AI Fluency, you'll build the skills to level up.
     signup_card:
-      title: See What You'll Learn
+      title: What You Get
       description: A 4-week program built around your actual job. See the full curriculum, week by week.
       cta_button:
-        text: View Program Overview
+        text: Program Details
         url: "#syllabus-aifluency"
         variant: primary
       login_link:
