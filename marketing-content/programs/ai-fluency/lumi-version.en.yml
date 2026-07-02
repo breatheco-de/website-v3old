@@ -21,8 +21,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: AI Fluency. Your Professional Superpower Is Here.
-    title_highlight: Your Professional Superpower Is Here.
+    title: Everyone uses AI. Some command it. Lead the second group and learn from 0 to 100 in 1 month.
+    title_highlight: Lead the second group and learn from 0 to 100 in 1 month.
     subtitle: AI skills now carry a 56% salary premium across industries. In four weeks, you'll build AI workflows around your actual job, automate your most repetitive work, and turn AI into your most capable collaborator. No coding required.
     students_enrolled:
       avatars:
