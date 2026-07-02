@@ -1,0 +1,81 @@
+slug: mcp-explanation
+sections:
+  - badge: AI Engineering Concepts
+    cta_buttons:
+      - icon: Rocket
+        text: Explore AI Engineering
+        url: /us/ai-engineering-devs
+        variant: primary
+    subtitle: MCP (Model Context Protocol) is an open standard that lets AI models like Claude connect to external tools, data sources, and services in a consistent, structured way.
+    title: What is an MCP Tool?
+    type: hero
+    variant: singleColumn
+    version: "1.0"
+    section_id: hero-m576iy
+  - content: |-
+      # What is an MCP Tool?
+
+      Model Context Protocol (MCP) is an open standard, originally introduced by Anthropic, that defines how AI models communicate with external tools and data sources. Instead of every AI application building a custom, one-off integration for every service it wants to use, MCP provides a shared language that any compliant model or app can speak.
+
+      An **MCP tool** is simply a capability exposed through this protocol — like searching a database, reading a file, sending an email, or querying an API. When an AI model is connected to an MCP server, it can discover what tools are available, understand what inputs each tool needs, and call them to complete a task on your behalf.
+
+      ## Why MCP Matters
+
+      Before MCP, connecting an AI model to your data and services meant writing a custom integration for every single combination of model and tool. MCP replaces that N×M problem with a single protocol: build one MCP server for your tool, and any MCP-compatible AI application can use it.
+
+      This matters for teams building AI products because it means:
+
+      - **Faster integrations** — connect to new data sources and services without custom glue code for every model.
+      - **Portability** — a tool built for one MCP-compatible AI generally works with others.
+      - **Clear boundaries** — tools declare exactly what inputs they accept and what they return, making behavior predictable and auditable.
+
+      ## How an MCP Tool Call Works
+
+      A typical interaction between an AI model and an MCP tool follows a simple, predictable flow:
+
+      1. **Connect** — The AI application connects to one or more MCP servers, each exposing a set of tools, resources, or prompts.
+      2. **Discover** — The model requests the list of available tools and reads each tool's name, description, and expected parameters.
+      3. **Call** — When the task requires it, the model invokes a tool with structured arguments, and the server executes the underlying action.
+      4. **Respond** — The tool returns a structured result back to the model, which uses it to continue reasoning or reply to the user.
+
+      ## Common Types of MCP Tools
+
+      MCP tools can expose almost anything an application can programmatically do, including:
+
+      - Searching documents or databases
+      - Querying or updating a CMS
+      - Managing calendar events and emails
+      - Reading and editing files
+      - Calling third-party services like project trackers or messaging apps
+
+      ## Frequently Asked Questions
+
+      **Is MCP the same as a plugin or an API?**
+      It's related but more standardized. Rather than every AI product defining its own plugin format, MCP gives models and tool providers one common protocol, so a tool built for one MCP-compatible AI can generally work with others.
+
+      **Who created MCP?**
+      Anthropic introduced the Model Context Protocol as an open standard, and it has since been adopted and extended by other AI providers and tool builders across the industry.
+
+      **Do I need to write code to use MCP tools?**
+      As a user, no — you simply grant an AI application access to a connector, and the model handles calling the underlying tools. Building a new MCP server or tool does require development work.
+
+      **What kinds of tools can be exposed over MCP?**
+      Almost anything an application can programmatically do: searching documents, querying a database, managing calendar events, editing files, or calling third-party services like project trackers or messaging apps.
+    show_toc: true
+    toc_position: side
+    type: article
+    version: "1.0"
+    section_id: article-c8zuqt
+  - background: bg-primary
+    cta_text: Learn More
+    cta_url: /us/ai-engineering-devs
+    subtitle: Learn how to design, build, and deploy agentic AI systems in our AI Engineering program.
+    title: Want to Build AI-Powered Tools Like This?
+    type: cta_banner
+    variant: default
+    version: "1.0"
+    section_id: cta_banner-f9jm1b
+meta:
+  description: Learn what MCP (Model Context Protocol) tools are, how they work, and why they matter for building AI-powered applications.
+  page_title: What is an MCP Tool? | 4Geeks Academy
+  robots: index, follow
