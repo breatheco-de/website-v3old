@@ -66,6 +66,8 @@ sections:
     type: article
     version: "1.0"
     section_id: article-c8zuqt
+    maxWidth:
+      desktop: xl
   - background: bg-primary
     cta_text: Learn More
     cta_url: /us/ai-engineering-devs
