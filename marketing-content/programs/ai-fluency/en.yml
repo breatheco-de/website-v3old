@@ -360,7 +360,7 @@ sections:
         text: Spread your payments with 2 interest-free installments through 4Geeks.
       - icon: IconCheck
         text: One 1:1 mentorship session included. Add more at any time for $25 each.
-        footer: UPCOMING COHORT START DATES
+    footer: UPCOMING COHORT START DATES
     footer_badges:
       - label: Feb 3, 2025
         tag: Filling fast
