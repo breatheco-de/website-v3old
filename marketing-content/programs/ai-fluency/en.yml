@@ -563,7 +563,7 @@ sections:
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Start Your Application
+      submit_label: Enroll Now
       fields:
         email:
           visible: true
