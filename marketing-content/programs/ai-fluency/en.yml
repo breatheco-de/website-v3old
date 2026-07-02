@@ -460,6 +460,12 @@ sections:
         text: Spread your payments with 2 interest-free installments through 4Geeks.
       - icon: IconCheck
         text: One 1:1 mentorship session included. Add more at any time for €25 each.
+    footer: UPCOMING COHORT START DATES
+    footer_badges:
+      - label: Feb 3, 2025
+        tag: Filling fast
+      - label: Mar 10, 2025
+      - label: Apr 7, 2025
     cta:
       text: Enroll Now
       url: https://4geeks.com/checkout?plan=ai-fluency-ue&cohort=1706
