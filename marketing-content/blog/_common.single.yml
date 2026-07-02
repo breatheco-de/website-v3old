@@ -1,12 +1,15 @@
-slug: "{{ single.slug }}"
-title: "{{ single.title }}"
+slug: {{ single.slug }}
+title: {{ single.title }}
 settings:
   max_width: md
 meta:
-  robots: "index, follow"
+  robots: index, follow
   priority: 0.8
   change_frequency: monthly
 schema:
   include:
     - organization
     - website
+section_defaults:
+  maxWidth:
+    desktop: xl
