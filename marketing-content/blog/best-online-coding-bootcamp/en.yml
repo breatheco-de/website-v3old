@@ -17,3 +17,5 @@ sections:
     section_id: faq-o27257
     paddingY:
       desktop: sm
+  - maxWidth:
+      desktop: xl
