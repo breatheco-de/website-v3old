@@ -409,6 +409,12 @@ sections:
         text: Spread your payments with flexible financing through Affirm or Klarna. Terms and availability vary by region.
       - icon: IconCheck
         text: One 1:1 mentorship session included. Add more at any time for $25 each.
+    footer: UPCOMING COHORT START DATES
+    footer_badges:
+      - label: Feb 3, 2025
+        tag: Filling fast
+      - label: Mar 10, 2025
+      - label: Apr 7, 2025
     cta:
       text: Enroll Now
       url: {{ global.ai_fluency_url | https://4geeks.com/checkout?plan=ai-fluency&cohort=1706 }}
