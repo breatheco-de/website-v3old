@@ -20139,6 +20139,20 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/affirm-banner-587w.webp"
         }
       ]
+    },
+    "blog_posts-24f22f313d9f5b790bdc42dba7522d42949c8b7c-fe4a9be2-1472x983": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-24f22f313d9f5b790bdc42dba7522d42949c8b7c-fe4a9be2-1472x983.webp",
+      "alt": "Image from blog_posts",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "team"
+      ],
+      "usage_count": 0,
+      "width": 1472,
+      "height": 983,
+      "format": "webp",
+      "parentId": "blog_posts-24f22f313d9f5b790bdc42dba7522d42949c8b7c-fe4a9be2"
     }
   }
 }
