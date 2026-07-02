@@ -459,10 +459,9 @@ sections:
         text: One 1:1 mentorship session included. Add more at any time for €25 each.
     footer: UPCOMING COHORTS
     footer_badges:
-      - label: Feb 3, 2025
+      - label: Jul 15, 2026
         tag: Filling fast
-      - label: Mar 10, 2025
-      - label: Apr 7, 2025
+      - label: Aug 26, 2026
     cta:
       text: Enroll Now
       url: https://4geeks.com/checkout?plan=ai-fluency-ue&cohort=1706
