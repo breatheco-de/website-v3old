@@ -15,6 +15,9 @@ sections:
     type: hero
     variant: singleColumn
     version: "1.0"
+    paddingY:
+      desktop: lg
+      mobile: lg
   - card_color: bg-background
     items:
       - title: hiring rate for graduates
@@ -29,6 +32,12 @@ sections:
     type: features_grid
     variant: stats-cards
     version: "1.0"
+    marginY:
+      desktop: lg
+      mobile: md
+    paddingY:
+      desktop: lg
+      mobile: md
   - modules:
       - description: Configure an open source AI agent as a personal assistant, then develop custom skills for it. Turn it into a productive tool with real autonomy in business contexts.
         title: Personal Assistants with OpenClaw
@@ -47,6 +56,12 @@ sections:
     title: A preview of what's inside
     type: syllabus
     variant: landing-syllabus
+    marginY:
+      desktop: lg
+      mobile: md
+    paddingY:
+      desktop: lg
+      mobile: md
   - left:
       bullets:
         - icon: IconUsers
@@ -77,6 +92,12 @@ sections:
     subtitle: No session caps, no expiration date. This is the part most bootcamps cut corners on. We don't.
     title: Mentorship and career support without a limit
     type: double_cta
+    marginY:
+      desktop: lg
+      mobile: md
+    paddingY:
+      desktop: lg
+      mobile: md
   - card_color: bg-background
     items:
       - title: Full Time · Monday to Friday — immersive and fast, built for people who can go all in and finish sooner
@@ -89,6 +110,12 @@ sections:
     type: features_grid
     variant: stats-cards
     version: "1.0"
+    marginY:
+      desktop: lg
+      mobile: md
+    paddingY:
+      desktop: lg
+      mobile: md
   - cta:
       text: Reserve my seat
       url: "#register-event"
@@ -131,6 +158,12 @@ sections:
     type: pricing
     variant: product
     version: "1.0"
+    marginY:
+      desktop: lg
+      mobile: md
+    paddingY:
+      desktop: lg
+      mobile: md
   - background: hsl(var(--primary))
     form:
       button_className: bg-white text-primary hover:bg-white/90 border-white
@@ -166,6 +199,12 @@ sections:
     type: cta_banner
     variant: form
     version: "1.0"
+    marginY:
+      desktop: md
+      mobile: sm
+    paddingY:
+      desktop: lg
+      mobile: md
   - copyright_text: 2026 4Geeks. All rights reserved.
     section_id: footer-event
     type: footer
