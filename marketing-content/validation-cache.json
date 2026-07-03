@@ -4367,6 +4367,28 @@
           "category": "seo"
         }
       ]
+    },
+    "/landing/ai-engineering-event-registration": {
+      "lastRunAt": "2026-07-03T14:15:52.223Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-event-registration/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "ORPHAN_PAGE",
+          "message": "landing page \"ai-engineering-event-registration\" (en) has no seo.pillar — it belongs to no cluster",
+          "file": "/home/runner/workspace/marketing-content/landings/ai-engineering-event-registration/en.yml",
+          "suggestion": "Set seo.pillar to the URL of the main topic page this page supports",
+          "category": "seo"
+        }
+      ]
     }
   }
 }
