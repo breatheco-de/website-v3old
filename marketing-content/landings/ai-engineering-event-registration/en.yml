@@ -116,23 +116,47 @@ sections:
     paddingY:
       desktop: lg
       mobile: md
-  - cta:
-      text: Reserve my seat
-      url: "#register-event"
-      variant: primary
-    discount_text: "Pay in full and save 10%: $13,499 instead of $14,999 — that's $1,500 off."
-    features:
-      - icon: IconCheck
-        text: Full AI Engineering program, start to finish — one payment of $13,499 locks in your seat for the next cohort with no interest and no monthly payments to track.
-      - icon: IconCheck
-        text: "Monthly plan: $500 today reserves your seat and access starts immediately."
-      - icon: IconCheck
-        text: Your first monthly payment isn't due for 30 days.
-      - icon: IconCheck
-        text: Same curriculum, mentors, projects, and unlimited career support on every plan.
-    features_title: Multiple ways to get started.
-    financing_amount: $500
-    financing_text: Or start your monthly plan today for just
+  - marginY:
+      desktop: lg
+      mobile: md
+    paddingY:
+      desktop: lg
+      mobile: md
+    plans:
+      - amount: 13,499
+        billing_note: One-time payment — no interest, no monthly payments to track
+        cta:
+          label: Reserve my seat
+          url: "#register-event"
+          variant: primary
+        currency: $
+        features:
+          - text: Full AI Engineering program, start to finish
+          - text: Locks in your seat for the next cohort
+          - text: No interest, no monthly payments to track
+          - text: Same mentorship and career support as any plan
+        for_label: Full AI Engineering program
+        name: Pay in Full
+        period: ""
+        tag: One payment
+        top_badge: Save $1,500 — 10% off
+      - amount: "500"
+        billing_note: First monthly payment isn't due for 30 days
+        cta:
+          label: Start monthly plan
+          url: "#register-event"
+          variant: secondary
+        currency: $
+        featured: true
+        features:
+          - text: $500 today reserves your seat, access starts immediately
+          - text: First monthly payment isn't due for 30 days
+          - text: Same curriculum, mentors, and projects
+          - text: Same mentorship and career support as any plan
+        for_label: Spread it out
+        name: Monthly Plan
+        period: to start today
+        tag: 48 months
     section_id: pricing-event
     subtitle: Two ways to enroll. Same program, same mentors, same outcome. Choose what fits your finances right now.
     tech_icons:
@@ -156,14 +180,8 @@ sections:
       - n8n
     title: Pick Your Path In
     type: pricing
-    variant: product
+    variant: plan_cards
     version: "1.0"
-    marginY:
-      desktop: lg
-      mobile: md
-    paddingY:
-      desktop: lg
-      mobile: md
   - background: hsl(var(--primary))
     form:
       button_className: bg-white text-primary hover:bg-white/90 border-white
