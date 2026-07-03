@@ -116,6 +116,16 @@ sections:
     paddingY:
       desktop: lg
       mobile: md
+  - type: pricing_plans
+    version: v1.0
+    id: pricing-plans-section
+    title: Choose Your Plan
+    subtitle: Flexible options to match your learning goals. Cancel anytime.
+    cta_label: Get Started
+    cta_url: /en/apply
+    section_id: pricing_plans-c1dheb
+    paddingY:
+      desktop: sm
   - marginY:
       desktop: lg
       mobile: md
