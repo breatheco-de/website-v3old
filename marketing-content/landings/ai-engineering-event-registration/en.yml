@@ -11,7 +11,7 @@ sections:
         variant: outline
     section_id: hero-event
     subtitle: Learn to design, ship, and deploy real AI systems, agents, and applications, with mentors who've done it and a career team that starts working before you graduate.
-    title: Stop watching AI change every industry. Start being who builds it.
+    title: "Stop watching AI change <span style=\"color: hsl(var(--primary));\">every</span> industry. Start being who builds it."
     type: hero
     variant: singleColumn
     version: "1.0"
