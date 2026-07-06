@@ -32,10 +32,9 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduates
     bullet_points:
-      - Automate repetitive work with AI agents and n8n.
-      - Write prompts that get professional results every time.
-      - Build real AI workflows you'll actually use at work.
-      - Get 1:1 mentorship and 24/7 support from Rigobot, your AI tutor.
+      - Configure AI with the context, tools and prompting to get its best work.
+      - Automate the repetitive tasks that cost you hours every week.
+      - Build a working automation that solves a real problem from your job. - Get 1:1 mentorship and 24/7 support from Rigobot, your AI tutor.
     tutors:
       - name: Expert Instructor
         role: Lead Instructor
