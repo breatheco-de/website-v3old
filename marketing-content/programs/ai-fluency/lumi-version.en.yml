@@ -263,7 +263,7 @@ sections:
         projects: Link your apps with n8n to build a live automation. You’ll learn to make Gmail, Sheets, and Slack talk to each other, leaving your entire weekly routine on autopilot and reclaiming up to 3+ hours of your free time every single week. recurring task.
         orientation: vertical
         icon: IconLayoutKanban
-      - title: Fully AI-Automated Workflow
+      - title: Your Fully AI-Automated Workflow
         duration: Capstone Project
         objectives:
           - A live n8n automation solving a real personal or professional task
