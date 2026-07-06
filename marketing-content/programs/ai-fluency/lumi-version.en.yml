@@ -30,10 +30,10 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
-      count: +6000 graduates
+      count: +8000 graduates
     bullet_points:
-      - Save hours of repetitive work by learning how to use AI and N8N.
-      - Write prompts that get professional results every time.
+      - Save between 40 minutos and 3 hours of repetitive work by learning how to use AI and N8N.
+      - Apply the AI knowledge to your work and stand out on your work.
       - Build real AI workflows you'll actually use at work.
     tutors:
       - name: Expert Instructor
