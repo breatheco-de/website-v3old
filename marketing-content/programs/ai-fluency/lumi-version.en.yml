@@ -61,7 +61,7 @@ sections:
         - icon: IconUsers
           text: 1 Live Class Per Week
         - icon: IconUserCheck
-          text: 1:1 Mentorship Session Included
+          text: 1:1 Mentorship Session with real instructors to solve all your doubts
         - icon: IconRobot
           text: AI-Powered Learning & Feedback
     paddingY:
