@@ -23,7 +23,7 @@ sections:
     variant: course
     title: AI Fluency. The AI Skills Your Job Already Expects. No Coding.
     title_highlight: The AI Skills Your Job Already Expects. No Coding.
-    subtitle: AI skills now carry a 56% salary premium across industries. In four weeks, you'll build AI workflows around your actual job, automate your most repetitive work, and turn AI into your most capable collaborator. No coding required.
+    subtitle: AI skills now carry a 56% salary premium. AI Fluency is a 4-week program that teaches professionals to automate real work with AI, no coding required. Build practical AI workflows around your actual job, with AI agents that handle your repetitive work. Plus 1:1 mentorship, live sessions and a 24/7 AI tutor.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -35,6 +35,7 @@ sections:
       - Configure AI with the context, tools and prompting to get its best work.
       - Automate the repetitive tasks that cost you hours every week.
       - Build a working automation that solves a real problem from your job.
+      - Never get stuck, with 1:1 mentorship and Rigobot whenever you need it.
     tutors:
       - name: Expert Instructor
         role: Lead Instructor
@@ -43,7 +44,7 @@ sections:
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
-    description: AI is not the future, it's the foundation. The professionals pulling ahead aren't waiting. With AI Fluency, you'll build the skills to level up.
+    description: AI is not the future, it's the foundation. The professionals pulling ahead aren't waiting. AI Fluency is your fastest way to move with them.
     signup_card:
       title: What You Get
       description: A structured 4-week program built around your actual job, with live classes, mentorship, and AI-powered feedback.
