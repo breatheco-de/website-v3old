@@ -141,6 +141,7 @@ sections:
       desktop: none
     marginY:
       desktop: md lg
+    title: Companies that trust 4Geeks
   - type: features_quad
     version: "1.0"
     variant: default
