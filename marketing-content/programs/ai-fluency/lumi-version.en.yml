@@ -206,6 +206,49 @@ sections:
     rating_summary:
       average: {{ global.global_review_rating | 4.9 }}
       count: {{ global.global_review_count | 700 }}
+    items:
+      - name: Rachel Higgins
+        role: Content Strategist & Mom
+        company: Freelance
+        rating: 5
+        comment: As a mom of two toddlers returning to work after my pregnancy, time is my most precious asset. This course allowed me to automate my client onboarding and content planning workflows. Now, my AI assistant handles the busywork behind the scenes so I can keep expanding my business without sacrificing family time.
+        outcome: Balanced career & family
+      - name: Tyler Reynolds
+        role: Sales Associate
+        company: HubSpot
+        rating: 5
+        comment: Honestly, I felt like everyone on my sales team was moving faster than me, closing deals while I was buried in admin work. I researched 4Geeks, took this course, and it completely leveled the playing field. Learning to plug AI into my daily routine cut my prospecting time in half and made me the most efficient person on the floor.
+        outcome: Top sales performer
+      - name: Matthew Miller
+        role: Marketing Specialist
+        company: Freelance
+        rating: 5
+        comment: Total game-changer. I managed to plug OpenClaw straight into my Slack workspace, and now my private assistant filters leads and drafts weekly reports for me. Reclaimed an entire day of my week.
+        outcome: 12h+ saved weekly
+      - name: Amanda Brooks
+        role: Operations Coordinator
+        company: Stripe
+        rating: 5
+        comment: I was terrified that n8n would be too technical for me, but the step-by-step builds are foolproof. By week 4, I had an autonomous workflow handling customer data behind the scenes. This is the end of repetitive tasks.
+        outcome: Workday cut in half
+      - name: Thomas Wright
+        role: Real Estate Agent
+        company: RE/MAX
+        rating: 4
+        comment: The content is gold, and OpenClaw is the real deal for organizing client files, but week 3 is incredibly intense since you have to set up software locally. Took me a couple of tries to get everything synced up perfectly, but customer support helped me out.
+        outcome: Automated client management
+      - name: Jessica Taylor
+        role: Founder
+        company: Agency Scale
+        rating: 5
+        comment: The Capstone Project paid for the entire course. I launched a fully functional autonomous support system that makes smart decisions 24/7 using n8n and AI. I’m finally free from my email inbox.
+        outcome: Business automated
+      - name: Marcus Vance
+        role: Recruiting Coordinator
+        company: Accenture
+        rating: 4
+        comment: Incredible for building workflows that actually sort candidates instead of just generating generic AI text. Giving it 4 stars only because week 4 moves insanely fast—had to rewatch the n8n videos a few times to fully catch up.
+        outcome: Candidate screening expert
     paddingY:
       desktop: md lg
     marginY:
