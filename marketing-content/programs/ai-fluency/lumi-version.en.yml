@@ -153,7 +153,7 @@ sections:
       - icon: IconClock
         title: How much time could I save by letting AI do repetitive tasks at my work? ➡️ Research confirms 3-6 hours weekly
       - icon: IconTrendingUp
-        title: Is AI fluency really a must-have for my career? ➡️ 71% of leaders prefer hiring candidates with AI skills over more experienced ones.
+        title: Is AI fluency really a must-have for my career? ➡️ 71% recluiters prefer hiring candidates with AI skills.
       - icon: IconCoin
         title: Can real AI skills actually boost my income?
     background: hsl(var(--muted))
