@@ -21,7 +21,7 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Everyone use AI, some command it. Learn AI from 0 to 100 in 1 Month.
+    title: Everyone use AI, some master it. Learn AI from 0 to 100 in 1 Month.
     title_highlight: Learn AI from 0 to 100 in 1 Month.
     subtitle: AI skills now carry a 56% salary premium across industries. In four weeks, you'll build AI workflows around your actual job, automate your most repetitive work and save hours every single day. No coding and no experience on AI required.
     students_enrolled:
@@ -32,7 +32,7 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +8000 graduates
     bullet_points:
-      - No need of previous experience on programming or other tech skills.
+      - Learn how to command AI with no programming experience or other tech skills.
       - Save between 3-6 hours weekly of repetitive work by learning how to use AI and N8N.
       - Build real AI workflows you'll actually use at work.
       - Lock in a certificate endorsed by the Florida Department of Education.
