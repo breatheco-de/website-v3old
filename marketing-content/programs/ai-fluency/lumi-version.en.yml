@@ -230,7 +230,7 @@ sections:
           - The difference between a chatbot, assistant, and agent
           - "Prompt fundamentals: role, context, format, constraints"
           - "Job audit: identify your top automation candidates"
-        projects: Write your first 5 prompts for real tasks you do every week.
+        projects: You will learn to write 5 well written prompts for real tasks you do every week. This is the first step for automating your workflow
         orientation: vertical
         icon: IconBolt
       - title: Prompting as a Skill
