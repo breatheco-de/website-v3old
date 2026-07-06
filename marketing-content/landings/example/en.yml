@@ -464,7 +464,7 @@ sections:
         role: Software Engineer
         company: Google
         rating: 5
-        avatar: https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcSij3eXeRM3zWtl6buNJLe4NEALH808pgG2m4TKXSKGWrtJh0JwEGwqk4xv_nzaGkaNgpi_CAhOd4umdZmVqNdDSbIW&s=19
+        avatar: null
         comment: This program changed my life. I went from zero coding experience to landing my dream job in 6 months.
         outcome: Hired in 4 months
       - name: James Chen
