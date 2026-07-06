@@ -230,7 +230,7 @@ sections:
           - The difference between a chatbot, assistant, and agent
           - "Prompt fundamentals: role, context, format, constraints"
           - "Job audit: identify your top automation candidates"
-        projects: You will learn to write 5 well written prompts for real tasks you do every week. This is the first step for automating your workflow and save hours of work.
+        projects: Audit your current job to find your most repetitive tasks, and build 5 foundational prompts to handle them. You will master the core structure (role, context, constraints) needed to make any AI useful for your specific daily routine.
         orientation: vertical
         icon: IconBolt
       - title: Prompting as a Skill
@@ -240,7 +240,7 @@ sections:
           - Prompting for emails, reports, research, and meeting summaries
           - Managing AI context effectively
           - Building a personal prompt library
-        projects: Leave with 3-5 working prompts for your actual job tasks.
+        projects: Get deeplyy into your job workflow and leave this week with the skill of creating prompt focused on your actual wrkflow
         orientation: vertical
         icon: IconCode
       - title: Get Your Personal AI Assistant
