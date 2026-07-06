@@ -151,11 +151,11 @@ sections:
       - icon: IconRocket
         title: You use AI tools but are not leveraging their full potential.
       - icon: IconClock
-        title: How much time could I save by letting AI do repetitive tasks at my work? Between 3 to 6 hours weekly
+        title: How much time could I save by letting AI do repetitive tasks at my work? Research confirms 3-6 hours weekly
       - icon: IconTrendingUp
         title: You know AI fluency is becoming a must-have to stay ahead in your career.
       - icon: IconCoin
-        title: You want the salary premium that comes with real AI skills.
+        title: Can real AI skills actually boost my income? Time is money
     background: hsl(var(--muted))
     section_id: features_quad-aifluency
     marginY:
