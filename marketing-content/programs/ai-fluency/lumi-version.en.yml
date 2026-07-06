@@ -155,7 +155,7 @@ sections:
       - icon: IconTrendingUp
         title: Is AI fluency really a must-have for my career? ➡️ Yes. 71% of recruiters prioritize AI skills.
       - icon: IconCoin
-        title: Can real AI skills actually boost my income? ➡️ AI skills grant 56% higher pay.
+        title: Can real AI skills boost my income? ➡️ AI skills grant 56% higher pay.
     background: hsl(var(--muted))
     section_id: features_quad-aifluency
     marginY:
