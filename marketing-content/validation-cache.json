@@ -400,24 +400,8 @@
       ]
     },
     "/en/career-programs/ai-fluency": {
-      "lastRunAt": "2026-06-29T16:20:24.176Z",
+      "lastRunAt": "2026-07-06T19:55:25.038Z",
       "errors": [
-        {
-          "type": "error",
-          "code": "INVALID_BACKGROUND",
-          "message": "Invalid background value: \"bg-background\" at sections[7].background",
-          "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/en.yml",
-          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
-          "category": "content"
-        },
-        {
-          "type": "error",
-          "code": "DUPLICATE_TITLE",
-          "message": "Duplicate page_title \"AI fluency\" used by 2 files",
-          "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/en.yml",
-          "suggestion": "Also used in: /home/runner/workspace/marketing-content/programs/ai-fluency/es.yml",
-          "category": "seo"
-        },
         {
           "type": "error",
           "code": "BROKEN_INTERNAL_LINK",
@@ -451,14 +435,6 @@
           "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/en.yml",
           "suggestion": "Ensure FAQ sections generate FAQPage structured data",
           "category": "seo"
-        },
-        {
-          "type": "warning",
-          "code": "BROKEN_ANCHOR",
-          "message": "Anchor \"#modal-y2myvq\" has no matching section_id in this file",
-          "file": "/home/runner/workspace/marketing-content/programs/ai-fluency/en.yml",
-          "suggestion": "Add `section_id: modal-y2myvq` to a section, or update the URL to point to an existing section_id",
-          "category": "integrity"
         }
       ]
     },
