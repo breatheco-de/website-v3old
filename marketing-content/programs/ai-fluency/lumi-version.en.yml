@@ -260,7 +260,7 @@ sections:
           - Connecting n8n to Gmail, Slack, Google Sheets, and webhooks
           - Linking n8n to an AI agent for smart decision-making steps
           - "Final project prep: map and build your automation"
-        projects: Build and demo a live automation that handles a real recurring task.
+        projects: Link your apps with n8n to build a live automation. You’ll learn to make Gmail, Sheets, and Slack talk to each other, leaving your entire weekly routine on autopilot and reclaiming up to 3+ hours of your free time every single week. recurring task.
         orientation: vertical
         icon: IconLayoutKanban
       - title: AI-Automated Workflow
