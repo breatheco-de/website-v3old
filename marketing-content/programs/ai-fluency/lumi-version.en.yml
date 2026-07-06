@@ -149,11 +149,11 @@ sections:
     description: Ask yourself this 4 questions.
     cards:
       - icon: IconRocket
-        title: Am I spending hours every day on repetitive tasks just to get my job done? AI can do it for you
+        title: Am I spending hours every day on repetitive tasks just to get my job done? ➡️ AI can do it for you
       - icon: IconClock
-        title: How much time could I save by letting AI do repetitive tasks at my work? Research confirms 3-6 hours weekly
+        title: How much time could I save by letting AI do repetitive tasks at my work? ➡️ Research confirms 3-6 hours weekly
       - icon: IconTrendingUp
-        title: Is AI fluency really a must-have for my career? 71% of jobs hire AI skilled employees at any job.
+        title: Is AI fluency really a must-have for my career? ➡️ 71% of jobs hire AI skilled employees at any job.
       - icon: IconCoin
         title: Can real AI skills actually boost my income?
     background: hsl(var(--muted))
