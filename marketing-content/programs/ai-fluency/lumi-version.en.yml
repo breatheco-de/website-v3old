@@ -177,7 +177,7 @@ sections:
       displaced_label: Without AI skills
       created_label: With AI skills
     card_gauge:
-      title: AI Knowledge Is Becoming a Job Requirement
+      title: Knowing AI Is Becoming a Job Requirement
       description: Global job roles · LinkedIn 2025
       outer_stat_percentage: 70
       show_gauge: true
