@@ -253,7 +253,7 @@ sections:
         projects: Deploy OpenClaw—the market's most powerful open-source AI assistant. You’ll learn to sync AI with your workspace (Drive, Notion, Gmail) to build a private, chat-driven workflow that manages your data on autopilot.
         orientation: vertical
         icon: IconRobot
-      - title: Automation Pipelines with n8n
+      - title: Automated Workflows with n8n
         duration: Week 4
         objectives:
           - "n8n fundamentals: nodes, triggers, and workflows"
