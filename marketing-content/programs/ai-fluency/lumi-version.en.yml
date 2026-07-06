@@ -149,7 +149,7 @@ sections:
     description: Ask yourself this 4 questions.
     cards:
       - icon: IconRocket
-        title: Am I spending hours every day on repetitive tasks just to get my job done? ➡️ AI can do it for you
+        title: Am I doing repetitive work everyday? ➡️ AI can do it for you
       - icon: IconClock
         title: How much time could AI save me? ➡️ Research confirms 3-6 hours weekly
       - icon: IconTrendingUp
