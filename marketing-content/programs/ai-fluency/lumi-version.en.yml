@@ -155,7 +155,7 @@ sections:
       - icon: IconTrendingUp
         title: Is AI fluency really a must-have for my career? 71% of jobs hire AI skilled employees at any job.
       - icon: IconCoin
-        title: Can real AI skills actually boost my income? Time is money
+        title: Can real AI skills actually boost my income?
     background: hsl(var(--muted))
     section_id: features_quad-aifluency
     marginY:
