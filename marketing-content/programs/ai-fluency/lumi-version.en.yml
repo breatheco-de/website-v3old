@@ -149,7 +149,7 @@ sections:
     description: Ask yourself this 4 questions.
     cards:
       - icon: IconRocket
-        title: Can AI do 70% of my repetitive workflow? Yes it can.
+        title: My jobs is taking me through doing repetitive tasks that take me hours of job?
       - icon: IconClock
         title: How much time could I save by letting AI do repetitive tasks at my work? Research confirms 3-6 hours weekly
       - icon: IconTrendingUp
