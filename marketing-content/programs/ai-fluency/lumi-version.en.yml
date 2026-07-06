@@ -41,7 +41,7 @@ sections:
         role: Lead Instructor
         image: https://randomuser.me/api/portraits/men/10.jpg
       - name: Rigobot AI
-        role: 4Geeks 24/7 AI Assistant
+        role: 4Geeks 24/7 AI Assistant. Ask any question at any time
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
     description: AI is not the future, it's the foundation. The professionals pulling ahead aren't waiting. With AI Fluency, you'll build the skills to level up.
