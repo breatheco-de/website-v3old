@@ -464,7 +464,7 @@ sections:
         role: Software Engineer
         company: Google
         rating: 5
-        avatar: null
+        avatar: https://storage.googleapis.com/4geeks-academy-website/media/group-7086-1-800x440.webp
         comment: This program changed my life. I went from zero coding experience to landing my dream job in 6 months.
         outcome: Hired in 4 months
       - name: James Chen
