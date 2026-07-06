@@ -40,7 +40,7 @@ sections:
       - name: Expert Instructor
         role: Lead Instructor
         image: https://randomuser.me/api/portraits/men/10.jpg
-      - name: Rigobopt AI
+      - name: Rigobot AI
         role: 24/7 AI Assistant
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
