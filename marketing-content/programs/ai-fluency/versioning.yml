@@ -2,3 +2,7 @@ en:
   variants:
     - slug: lumi-version
       allocation: 0
+es:
+  variants:
+    - slug: lumi-version
+      allocation: 0
