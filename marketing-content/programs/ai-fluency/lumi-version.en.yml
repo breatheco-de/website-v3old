@@ -145,7 +145,7 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: Is This Program Right for You?
+    heading: Is this program right for you?
     description: If you are nodding at any of these, you're exactly who this is built for.
     cards:
       - icon: IconRocket
