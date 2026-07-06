@@ -19,9 +19,9 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: AI Flex. AI Skills on Your Terms. With a Tutor That Never Sleeps.
-    title_highlight: AI Skills on Your Terms. With a Tutor That Never Sleeps.
-    subtitle: The people building AI skills right now are pulling ahead fast. AI Flex gives you access to 8 courses covering automation, AI workflows, vibe coding, and data skills. Follow a curated learning path or build your own. Fully self-paced.
+    title: AI Flex. AI Skills on Your Terms. At Your Pace, Always Supported.
+    title_highlight: AI Skills on Your Terms. At Your Pace, Always Supported.
+    subtitle: AI Flex gives you access to 8+ courses covering automation, AI workflows, vibe coding, data skills and more. Follow a curated learning path or build your own, fully self-paced.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -30,9 +30,10 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduates
     bullet_points:
-      - 24/7 feedback and guidance from Rigobot, our AI tutor.
-      - Book 1:1 mentorship sessions whenever you need human expertise.
-      - Certificates that stack toward AI Fluency and AI Engineering.
+      - Learn what you want, on your own schedule.
+      - Monthly 1:1 session with an expert mentor included, with more available anytime.
+      - Never get stuck. Rigobot gives you feedback day or night.
+      - Join a community of students and alumni learning alongside you.
     tutors:
       - name: Expert Instructor
         role: Lead Instructor
@@ -41,10 +42,10 @@ sections:
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
-    description: AI is not the future, it's the foundation. AI Flex gives you the skills to stay ahead, at the pace that fits your life.
+    description: AI is not the future, it's the foundation. Start with AI Flex, and go as far as you want.
     signup_card:
       title: Start Learning Today
-      description: Choose your plan and get instant access to 8 AI courses, Rigobot, and your first mentorship session.
+      description: Choose your plan and get instant access to 8+ AI courses, Rigobot, and monthly mentorship.
       cta_button:
         text: See Plans and Pricing
         url: "#pricing-6svo9e"
@@ -56,9 +57,9 @@ sections:
         - icon: calendar
           text: Self-Paced, Start Anytime
         - icon: IconUsers
-          text: 8 AI and Tech Courses
+          text: 8+ AI and Tech Courses
         - icon: IconUserCheck
-          text: Optional 1:1 Mentorship
+          text: Monthly 1:1 Mentorship Included
         - icon: IconRobot
           text: AI-Powered Learning & Feedback
     paddingY:
