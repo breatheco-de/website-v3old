@@ -200,10 +200,9 @@ sections:
   - type: testimonials
     section_id: testimonials-ghxelh
     title: The People Behind the Numbers.
-    subtitle: "Different backgrounds. One outcome: real AI fluency."
     related_features:
-      - content-and-syllabus
-      - career-support
+      - online-platform
+    subtitle: "Different backgrounds. One outcome: real AI fluency."
     rating_summary:
       average: {{ global.global_review_rating | 4.9 }}
       count: {{ global.global_review_count | 700 }}
