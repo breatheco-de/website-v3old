@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import UniversalImage from "@/components/UniversalImage";
 import type { TestimonialsSection as TestimonialsSectionType } from "@shared/schema";
 import { DotsIndicator } from "@/components/DotsIndicator";
 import { useQuery } from "@tanstack/react-query";
@@ -133,13 +135,23 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
     return sorted.slice(0, limit).map(mapBankToItem);
   })();
 
-  const hardcodedItems = data?.items || testimonials?.map(t => ({
-    name: t.name,
-    role: t.role,
-    rating: t.rating,
-    comment: t.comment,
-    company: t.course,
-  })) || [];
+  const hardcodedItems: TestimonialItem[] = data?.items
+    ? data.items.map((item) => ({
+        name: item.name,
+        role: item.role,
+        rating: item.rating,
+        comment: item.comment,
+        company: item.company,
+        avatar: item.avatar,
+        outcome: item.outcome,
+      }))
+    : testimonials?.map((t) => ({
+        name: t.name,
+        role: t.role,
+        rating: t.rating,
+        comment: t.comment,
+        company: t.course,
+      })) ?? [];
 
   const items = useBankData && bankItems.length > 0 ? bankItems : hardcodedItems;
 
@@ -602,7 +614,7 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
                       zIndex: transform.zIndex,
                     }}
                   >
-                    <TestimonialCard testimonial={testimonial} />
+                    <TestimonialCard testimonial={testimonial} index={index} />
                   </div>
                 );
               })}
@@ -628,19 +640,30 @@ export default TestimonialsSection;
 
 interface TestimonialCardProps {
   testimonial: TestimonialItem;
+  index: number;
 }
 
-function TestimonialCard({ testimonial }: TestimonialCardProps) {
+function TestimonialCard({ testimonial, index }: TestimonialCardProps) {
   return (
     <Card className="min-h-[320px] md:min-h-[270px] border border-border bg-card">
       <CardContent className="p-6 h-full flex flex-col min-h-[320px] md:min-h-[270px]">
         {/* Header with Avatar and Info */}
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center flex-shrink-0">
-            <span className="font-semibold text-muted-foreground text-base">
-              {getInitials(testimonial.name)}
-            </span>
-          </div>
+          <Avatar className="w-12 h-12 flex-shrink-0 overflow-hidden">
+            {testimonial.avatar ? (
+              <UniversalImage
+                id={testimonial.avatar}
+                alt={testimonial.name}
+                className="w-full h-full"
+                style={{ objectFit: "cover" }}
+                fieldContext={{ arrayPath: "items", index, srcField: "avatar" }}
+              />
+            ) : (
+              <AvatarFallback className="bg-muted text-muted-foreground text-base font-semibold">
+                {getInitials(testimonial.name)}
+              </AvatarFallback>
+            )}
+          </Avatar>
           <div className="flex-1 min-w-0">
             <p className="font-semibold text-foreground truncate text-base">
               {testimonial.name}
