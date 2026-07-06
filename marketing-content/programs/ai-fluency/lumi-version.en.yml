@@ -269,7 +269,7 @@ sections:
           - A live n8n automation solving a real personal or professional task
           - At least one AI decision-making step integrated into the workflow
           - Live demo presented to instructor and peers
-        projects: A real automation you built, own, and can keep improving.
+        projects: Launch a fully functional, production-ready system for your actual job. You will master the skill of building, debugging, and scaling a 24/7 automated workflow.
         orientation: horizontal
         icon: IconChartBar
     marginY:
