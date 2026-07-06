@@ -290,6 +290,20 @@ sections:
     paddingY:
       desktop: lg
     section_id: syllabus-aifluency
+  - type: testimonials
+    section_id: testimonials-ghxelh
+    title: The People Behind the Numbers.
+    subtitle: "Different backgrounds. One outcome: real AI fluency."
+    related_features:
+      - content-and-syllabus
+      - career-support
+    rating_summary:
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 700 }}
+    paddingY:
+      desktop: md lg
+    marginY:
+      desktop: none md
   - type: human_and_ai_duo
     version: "1.0"
     heading: Human and AI Support, So You Never Lose Momentum
@@ -387,20 +401,6 @@ sections:
       - panamacity-panama
       - quito-ecuador
       - santiago-chile
-  - type: testimonials
-    section_id: testimonials-ghxelh
-    title: The People Behind the Numbers.
-    subtitle: "Different backgrounds. One outcome: real AI fluency."
-    related_features:
-      - content-and-syllabus
-      - career-support
-    rating_summary:
-      average: {{ global.global_review_rating | 4.9 }}
-      count: {{ global.global_review_count | 700 }}
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: none md
   - type: pricing
     version: "1.0"
     variant: product
