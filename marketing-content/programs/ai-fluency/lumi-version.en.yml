@@ -243,7 +243,7 @@ sections:
         projects: Leave with 3-5 working prompts for your actual job tasks.
         orientation: vertical
         icon: IconCode
-      - title: Your Personal AI Assistant
+      - title: Get Your Personal AI Assistant
         duration: Week 3
         objectives:
           - What AI agents are and how skills work
