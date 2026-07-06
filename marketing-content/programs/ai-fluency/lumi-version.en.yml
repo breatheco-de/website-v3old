@@ -250,7 +250,7 @@ sections:
           - Installing and configuring OpenClaw
           - Creating custom skills from prompt templates
           - Connecting your assistant to Google Drive, Gmail, or Notion
-        projects: Deploy OpenClaw—the market's most powerful open-source AI assistant. You’ll learn to bridge AI with your workspace (Drive, Notion, Gmail) to build a private, chat-driven workflow that manages your data on autopilot.
+        projects: Deploy OpenClaw—the market's most powerful open-source AI assistant. You’ll learn to sync AI with your workspace (Drive, Notion, Gmail) to build a private, chat-driven workflow that manages your data on autopilot.
         orientation: vertical
         icon: IconRobot
       - title: Automation Pipelines with n8n
