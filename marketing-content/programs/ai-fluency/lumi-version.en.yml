@@ -222,7 +222,7 @@ sections:
       - name: Git
         icon: git
     module_cards:
-      - title: How AI Really Works
+      - title: Understanding AI Basics
         duration: Week 1
         objectives:
           - What LLMs are and how they work
@@ -230,7 +230,7 @@ sections:
           - The difference between a chatbot, assistant, and agent
           - "Prompt fundamentals: role, context, format, constraints"
           - "Job audit: identify your top automation candidates"
-        projects: Write your first 5 prompts for real tasks you do every week.
+        Skills: Write your first 5 prompts for real tasks you do every week.
         orientation: vertical
         icon: IconBolt
       - title: Prompting as a Skill
