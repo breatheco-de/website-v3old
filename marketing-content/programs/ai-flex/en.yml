@@ -61,7 +61,7 @@ sections:
         - icon: IconUserCheck
           text: Monthly 1:1 Mentorship Included
         - icon: IconRobot
-          text: New Courses Added Every Month
+          text: New Content Added Every Month
     paddingY:
       desktop: lg md
     marginY:
