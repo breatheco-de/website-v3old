@@ -21,8 +21,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: AI Fluency. Learn AI for Work in 4 Weeks. No Coding.
-    title_highlight: Learn AI for Work in 4 Weeks. No Coding.
+    title: AI Fluency. The AI Skills Your Job Already Expects.No Coding.
+    title_highlight: The AI Skills Your Job Already Expects.No Coding.
     subtitle: AI skills now carry a 56% salary premium across industries. In four weeks, you'll build AI workflows around your actual job, automate your most repetitive work, and turn AI into your most capable collaborator. No coding required.
     students_enrolled:
       avatars:
