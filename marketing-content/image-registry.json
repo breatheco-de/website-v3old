@@ -14691,7 +14691,11 @@
       "alt": "Image: google",
       "focal_point": "center",
       "tags": [
-        "logo"
+        "logo",
+        "hero",
+        "photo",
+        "partner",
+        "press"
       ],
       "usage_count": 0,
       "width": 583,
