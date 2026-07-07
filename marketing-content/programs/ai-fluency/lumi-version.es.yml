@@ -138,6 +138,18 @@ sections:
       url: https://www.youtube.com/watch?v=NkmjzrAZ4x8&list=PLmBUv425PabVE26vtG0AqlDTXNmEZ2U0r
     form:
       conversion_name: request_more_info
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - madrid-spain
+      - lisbon-portugal
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
   - type: modal
     version: "1.0"
     heading: Get the Program Details
