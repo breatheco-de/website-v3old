@@ -290,7 +290,7 @@ sections:
         projects: Aprende a usar OpenClaw, el asistente de IA de código abierto más potente del mercado. Sincronizarás la IA con tu espacio de trabajo (Drive, Notion, Gmail) para crear un flujo privado basado en chat que gestione tus datos en piloto automático.
         orientation: vertical
         icon: IconRobot
-      - title: Pipelines de automatización con n8n
+      - title: Automatiza tus procesos con IA y N8N
         duration: Semana 4
         objectives:
           - "Fundamentos de n8n: nodos, disparadores y flujos de trabajo"
