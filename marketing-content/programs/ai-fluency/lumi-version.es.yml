@@ -167,7 +167,7 @@ sections:
     variant: stats-charts
     subtitle: Los datos son claros.
     title: "El Impacto de saber usar <span style=\"color: hsl(var(--primary));\">IA</span>"
-    description: Los profesionales con habilidades en IA ganan más, avanzan más rápido y tienen mayor demanda en todas las industrias, no solo en tecnología. La oportunidad es real, y los números lo demuestran.
+    description: null
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
     card_gauge_accent: hsl(var(--destructive) / 0.5)
