@@ -40,8 +40,8 @@ sections:
       - name: Instructor Experto
         role: Instructor Principal
         image: https://randomuser.me/api/portraits/men/10.jpg
-      - name: Rigo
-        role: Tutor de IA
+      - name: Rigobot IA
+        role: IA de 4Geeks 24/7. Responde cualquier duda.
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Tus tutores:"
     description: La IA no es el futuro, es la base. Los profesionales que van adelante no están esperando. Con AI Fluency, desarrollarás las habilidades para dar el salto.
