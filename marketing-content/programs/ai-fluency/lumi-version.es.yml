@@ -443,14 +443,10 @@ sections:
     financing_text: Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
     financing_amount: 140€
     tech_icons:
-      - python
-      - tensorflow
-      - pandas
-      - numpy
-      - sql
-      - git
-      - jupyter
-      - api
+      - openai
+      - claude
+      - n8n
+      - openclaw
     static_icons: true
     features_title: Elige la opción que mejor se adapte a ti.
     features:
