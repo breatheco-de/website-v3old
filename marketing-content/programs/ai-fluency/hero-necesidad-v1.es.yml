@@ -382,6 +382,17 @@ sections:
     paddingY:
       desktop: md lg
     background: hsl(210 100% 50% / 0.05)
+    heading: Ayuda real, cuando la necesites
+    description: Mentor humano cuando quieres profundidad. IA cuando quieres velocidad. Nunca te quedas atascado.
+    bullet_groups:
+      - bullets:
+          - text: 1 hora, tú y tu mentor senior. Resuelve todas tus dudas.
+          - text: Enfocado en tu trabajo real, no en teoría.
+          - text: ¿Te parece poco? Tenemos paquetes de mentoría aún más personalizados.
+      - bullets:
+          - text: Disponible 24/7. No te quedas estancado nunca.
+          - text: Feedback al instante, adaptado a tu nivel.
+          - text: Te acompaña en cada módulo, a tu propio ritmo.
   - type: pricing
     version: "1.0"
     variant: product
