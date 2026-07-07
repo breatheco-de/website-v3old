@@ -159,7 +159,7 @@ sections:
     version: "1.0"
     variant: stats-charts
     subtitle: Los datos son claros.
-    title: "Cómo la<i><b><span style=\"color: hsl(var(--primary));\"> IA</span></b></i> acelera las carreras"
+    title: "Cómo la<span style=\"color: hsl(var(--primary));\"><b style=\"\"> IA</b></span> acelera las carreras"
     description: null
     background: bg-slate-950
     card_bars_accent: hsl(var(--color-green))
