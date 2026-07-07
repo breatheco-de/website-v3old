@@ -151,7 +151,7 @@ sections:
         title: Te abruma la cantidad de herramientas de IA y no sabes cuál te sirve de verdad.
       - icon: IconTrendingUp
         title: Sabes que quedarte atrás en IA te puede costar tu trabajo.
-    background: linear-gradient(to bottom right, hsl(var(--primary) / 0.05), transparent, hsl(var(--chart-2) / 0.05))
+    background: linear-gradient(to bottom left, hsl(var(--primary) / 0.14), transparent 60%)
     section_id: features_quad-aifluency
     marginY:
       desktop: none lg
