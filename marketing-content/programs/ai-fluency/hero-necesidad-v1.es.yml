@@ -438,7 +438,7 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--card))
   - type: testimonials
     section_id: testimonials-ghxelh
     title: Las personas detrás de los números.
