@@ -162,8 +162,8 @@ sections:
     title: Cómo la IA acelera las carreras
     description: null
     background: bg-slate-950
-    card_bars_accent: hsl(var(--primary))
-    card_gauge_accent: hsl(var(--destructive) / 0.5)
+    card_bars_accent: hsl(var(--color-green))
+    card_gauge_accent: hsl(var(--accent))
     card_trend_accent: hsl(var(--accent))
     card_bars:
       title: Las habilidades de IA aumentan tu salario
