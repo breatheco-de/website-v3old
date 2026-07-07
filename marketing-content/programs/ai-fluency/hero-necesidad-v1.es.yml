@@ -173,7 +173,7 @@ sections:
       displaced_label: Sin IA
       created_label: Con IA
     card_gauge:
-      title: El conocimiento en IA impulsará tu carrera
+      title: El conocimiento en IA se convierte en requisito laboral
       description: LinkedIn 2025
       outer_stat_percentage: 70
       show_gauge: true
