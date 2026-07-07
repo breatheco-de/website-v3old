@@ -379,7 +379,7 @@ sections:
       desktop: lg md
     paddingY:
       desktop: md lg
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--card))
     heading: Ayuda real, cuando la necesites
     description: Mentor humano cuando quieres profundidad. IA cuando quieres velocidad. Nunca te quedas atascado.
     bullet_groups:
