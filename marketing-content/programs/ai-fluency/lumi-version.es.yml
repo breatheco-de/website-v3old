@@ -270,7 +270,7 @@ sections:
         projects: Analiza tu trabajo actual para identificar tus tareas más repetitivas y crea 5 prompts esenciales para resolverlas. Dominarás la estructura clave (rol, contexto y restricciones) necesaria para que cualquier IA sea útil en tu rutina diaria.
         orientation: vertical
         icon: IconBolt
-      - title: El prompting como habilidad
+      - title: Experto en prompting en 7 días
         duration: Semana 2
         objectives:
           - "Patrones de prompting: cadena de pensamiento, few-shot, persona, output estructurado"
