@@ -172,7 +172,7 @@ sections:
     card_gauge_accent: hsl(var(--destructive) / 0.5)
     card_trend_accent: hsl(var(--accent))
     card_bars:
-      title: Dominar la IA = Mayores ingresos
+      title: Dominar la IA se traduce en mayores ingresos
       description: Mismo rol · con y sin habilidades en IA · PwC 2025
       stat_value: +56%
       stat_label: prima salarial para trabajadores con habilidades en IA frente a compañeros del mismo rol
