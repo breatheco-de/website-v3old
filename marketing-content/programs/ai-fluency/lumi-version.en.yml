@@ -391,7 +391,8 @@ sections:
       mobile: sm none
       desktop: md none
     section_id: human_and_ai_duo-99s71d
-  - type: pricing
+  - id: pricing
+    type: pricing
     version: "1.0"
     variant: product
     title: Tuition, Financing & Start Dates
