@@ -245,7 +245,7 @@ sections:
           - La diferencia entre chatbot, asistente y agente
           - Escribe tu primer prompt bien estructurado
           - Detecta qué tareas de tu trabajo puedes automatizar
-        projects: Tus primeros prompts, listos para usar en tu trabajo.
+        projects: "Ejemplo: escribe el prompt perfecto para resumir tus reuniones."
         orientation: vertical
         icon: IconBolt
       - title: Experto en prompting en 7 días
@@ -255,7 +255,7 @@ sections:
           - Prompts para emails, informes y reuniones
           - Cómo dar el contexto correcto a la IA
           - Tu propia biblioteca de prompts, lista para reutilizar
-        projects: Una colección de prompts que ya puedes usar.
+        projects: "Ejemplo: un prompt que redacta tus emails en tu tono, siempre."
         orientation: vertical
         icon: IconCode
       - title: Automatiza tus procesos con agentes de IA
@@ -265,7 +265,7 @@ sections:
           - Configura tu propio asistente con OpenClaw
           - Crea habilidades personalizadas para tus tareas
           - Conéctalo a Gmail, Drive o Notion
-        projects: Tu asistente de IA, resolviendo una tarea real.
+        projects: "Ejemplo: un asistente que organiza tu bandeja de Gmail solo."
         orientation: vertical
         icon: IconRobot
       - title: Automatiza la tarea más repetitiva de tu trabajo
@@ -275,7 +275,7 @@ sections:
           - Conéctalo con Gmail, Slack y Google Sheets
           - Suma IA a tu automatización para que tome decisiones
           - Diseña tu propia automatización, paso a paso
-        projects: Una automatización en vivo, resolviendo una tarea real.
+        projects: "Ejemplo: reportes semanales que se arman solos con n8n."
         orientation: vertical
         icon: IconLayoutKanban
       - title: Sal con una automatización real, funcionando
@@ -284,7 +284,7 @@ sections:
           - Una automatización real, funcionando de verdad
           - Con IA tomando decisiones dentro del flujo
           - La presentas en vivo frente a tu instructor y compañeros
-        projects: Tuya, real, y lista para seguir mejorándola.
+        projects: "Ejemplo: la automatización que ya usas todos los días, sin pensarlo."
         orientation: horizontal
         icon: IconChartBar
     marginY:
