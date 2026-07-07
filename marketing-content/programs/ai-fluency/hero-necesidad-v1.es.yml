@@ -337,7 +337,7 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
         alt: Estudiante africana colaborando con su equipo
         object_fit: cover
-        object_position: 50%15%
+        object_position: 70%15%
         border_radius: 0.5rem
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latina_female-133x500.webp
         alt: Estudiante latina celebrando un logro
