@@ -304,23 +304,21 @@ sections:
     section_id: syllabus-aifluency
   - type: human_and_ai_duo
     version: "1.0"
-    heading: Soporte humano y de IA para que nunca pierdas el ritmo
-    description: Mantenerse motivado es fácil cuando todo encaja. Se vuelve difícil cuando te topas con un muro. AI Fluency combina un mentor humano real con Rigobot, nuestro tutor de IA, para que siempre tengas a alguien a quien acudir y ninguna razón para parar.
+    heading: Ayuda real, cuando la necesites
+    description: Mentor humano cuando quieres profundidad. IA cuando quieres velocidad. Nunca te quedas atascado.
     bullet_groups:
-      - title: "Tu mentor experto:"
+      - title: "Mentor humano:"
         image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
         bullets:
-          - text: Una sesión 1:1 con un instructor senior, incluida en tu matrícula
-          - text: Orientación experta adaptada a ti.
-          - text: Enfocado en tus tareas, flujos de trabajo y objetivos reales
-          - text: Sesiones adicionales disponibles para reservar cuando quieras, con costo adicional
+          - text: 1 hora, tú y tu mentor senior. Resuelve todas tus dudas.
+          - text: Enfocado en tu trabajo real, no en teoría.
+          - text: ¿Te parece poco? Tenemos paquetes de mentoría aún más personalizados.
       - title: "Rigobot, tu tutor de IA:"
         image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
         bullets:
-          - text: Disponible 24/7 durante todo el programa
-          - text: Pide ayuda, feedback o una explicación cuando lo necesites
-          - text: Tu tutor siempre activo para todos los módulos a tu propio ritmo
-          - text: Se adapta a tu nivel y a lo que estás trabajando
+          - text: Disponible 24/7. No te quedas estancado nunca.
+          - text: Feedback al instante, adaptado a tu nivel.
+          - text: Te acompaña en cada módulo, a tu propio ritmo.
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina-brightened-1365x2048.webp
         alt: "Image: valentina_brightened"
