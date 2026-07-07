@@ -66,14 +66,14 @@ sections:
       features:
         - icon: calendar
           text: 24-Week or 15-Week Accelerated Morning Track
-        - icon: IconShield
-          text: Hire-or-Refund available as add-on
         - icon: IconUsers
           text: {{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
           text: Unlimited 1:1 Mentorship
         - icon: IconRobot
           text: AI-Powered Learning & Feedback
+        - icon: IconShield
+          text: Hire-or-Refund available as add-on
     section_id: hero-tznhhe
     paddingY:
       desktop: lg md
