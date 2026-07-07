@@ -348,47 +348,47 @@ sections:
       desktop: 6xl
   - type: human_and_ai_duo
     version: "1.0"
-    heading: Human and AI Support, So You Never Lose Momentum
-    description: Staying motivated is easy when everything clicks. It gets really hard when you hit a wall. AI Fluency pairs a real human mentor with Rigobot, our AI tutor, so you always have somewhere to turn to and no reason to stop.
+    heading: Ayuda real, cuando la necesites
+    description: Mentor humano cuando quieres profundidad. IA cuando quieres velocidad. Nunca te quedas atascado.
     bullet_groups:
-      - title: "Your expert mentor:"
+      - title: "Mentor humano:"
         image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
         bullets:
-          - text: A 1:1 session with a senior instructor, included in your enrollment
-          - text: Expert guidance tailored to you.
-          - text: Focused on your actual tasks, workflows, and goals
-          - text: Additional sessions available to book anytime, at extra cost
-      - title: "Rigobot, your AI tutor:"
+          - text: 1 hora, tú y tu mentor senior. Resuelve todas tus dudas.
+          - text: Enfocado en tu trabajo real, no en teoría.
+          - text: ¿Te parece poco? Tenemos paquetes de mentoría aún más personalizados.
+      - title: "Rigobot, tu tutor de IA:"
         image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
         bullets:
-          - text: Available 24/7 throughout the program
-          - text: Ask for help, feedback, or an explanation whenever you need it
-          - text: Your always-on tutor for all self-paced modules
-          - text: Adapts to your skill level and what you are working on
+          - text: Disponible 24/7. No te quedas estancado nunca.
+          - text: Feedback al instante, adaptado a tu nivel.
+          - text: Te acompaña en cada módulo, a tu propio ritmo.
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
-        alt: Asian student learning to code
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina-brightened-1365x2048.webp
+        alt: "Image: valentina_brightened"
         object_fit: cover
         object_position: 40%20%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male-133x500.webp
-        alt: Latino student working on a project
+        id: valentina-brightened-1365x2048
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536.webp
+        alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_african-133x500.webp
-        alt: African student collaborating with team
+        id: chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
+        alt: Estudiante africana colaborando con su equipo
         object_fit: cover
-        object_position: 50%15%
+        object_position: 70%15%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latina_female-133x500.webp
-        alt: Latina student celebrating success
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74.webp
+        alt: Estudiante latina celebrando un logro
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
     image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
-    image_alt: Woman working on laptop in cafe
-    background: bg-background
+    image_alt: Mujer trabajando con portátil en una cafetería
+    background: hsl(var(--secondary))
     paddingY:
       mobile: sm none
       desktop: md none
