@@ -4,6 +4,9 @@ yaml: |
   - type: hero
     version: "1.0"
     variant: course
+    badge:
+      text: Career Program
+      color: primary
     title: Full Stack Development with AI Program
     title_highlight: Full Stack Developer with AI
     subtitle: Train for high-demand software development roles with an AI-powered full stack curriculum, personalized mentorship, and proven career outcomes.

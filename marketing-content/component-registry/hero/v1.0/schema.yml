@@ -670,6 +670,27 @@ variant_props:
       type: string
       required: false
   course:
+    badge:
+      type: object
+      required: false
+      properties:
+        text:
+          type: string
+          required: true
+          description: Badge label text
+          example: New Course
+        color:
+          type: string
+          required: false
+          options:
+            - primary
+            - secondary
+            - accent
+            - muted
+            - destructive
+          description: Semantic color token for the badge pill. Defaults to primary (the standard blue).
+          example: primary
+      description: Small pill badge displayed above the title
     layout_reversed:
       type: boolean
       required: false

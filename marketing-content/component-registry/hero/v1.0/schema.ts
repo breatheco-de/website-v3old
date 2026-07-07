@@ -222,6 +222,10 @@ export const heroCourseSchema = z.object({
   type: z.literal("hero"),
   version: z.string().optional(),
   variant: z.literal("course"),
+  badge: z.object({
+    text: z.string(),
+    color: z.enum(["primary", "secondary", "accent", "muted", "destructive"]).optional(), // defaults to primary
+  }).optional(),
   title: z.string(),
   title_highlight: z.string().optional(),
   subtitle: z.string().optional(),

@@ -18,6 +18,14 @@ interface HeroCourseProps {
   data: HeroCourseType;
 }
 
+const BADGE_COLOR_CLASSES: Record<string, string> = {
+  primary: "bg-primary/10 text-primary",
+  secondary: "bg-secondary text-secondary-foreground",
+  accent: "bg-accent text-accent-foreground",
+  muted: "bg-muted text-muted-foreground",
+  destructive: "bg-destructive/10 text-destructive",
+};
+
 export default function HeroCourse({ data }: HeroCourseProps) {
   const handleLinkClick = useInternalNav();
   return (
@@ -35,6 +43,19 @@ export default function HeroCourse({ data }: HeroCourseProps) {
           <div
             className={cn("space-y-6", data.layout_reversed && "lg:order-2")}
           >
+            {data.badge?.text && (
+              <span
+                className={cn(
+                  "inline-block px-3 py-1 rounded-full text-xs font-medium",
+                  BADGE_COLOR_CLASSES[data.badge.color || "primary"] ||
+                    BADGE_COLOR_CLASSES.primary,
+                )}
+                data-testid="text-hero-badge"
+              >
+                {data.badge.text}
+              </span>
+            )}
+
             <h1
               className="text-h1 text-foreground"
               data-testid="text-hero-title"
