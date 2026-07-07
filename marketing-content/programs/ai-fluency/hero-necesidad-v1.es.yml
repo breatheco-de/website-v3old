@@ -232,20 +232,8 @@ sections:
     tech_logos:
       - icon: openai
         name: OpenAI
-      - icon: openclaw
-        name: OpenClaw
       - icon: n8n
         name: n8n
-      - icon: gmail
-        name: Gmail
-      - icon: google-drive
-        name: Google Drive
-      - icon: notion
-        name: Notion
-      - icon: slack
-        name: Slack
-      - icon: google-sheets
-        name: Google Sheets
     module_cards:
       - title: Domina las bases del prompting
         duration: Semana 1
