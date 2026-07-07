@@ -58,11 +58,11 @@ sections:
         - icon: calendar
           text: Programa de cohorte de 4 semanas
         - icon: IconUsers
-          text: 1 clase en vivo por semana
+          text: 1 clase en vivo por semana con expertos en IA
         - icon: IconUserCheck
-          text: Sesión de mentoría 1:1 incluida
+          text: Sesión de mentoría 1 a 1. Resuelve tus dudas con veteranos en IA.
         - icon: IconRobot
-          text: Aprendizaje y feedback con IA
+          text: Aprendizaje y feedback con IA disponibles 24/7
     paddingY:
       desktop: lg md
     marginY:
