@@ -147,8 +147,8 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: Is this program right for you?
-    description: Ask yourself this 4 questions.
+    heading: ¿Este programa es para ti?
+    description: Hazte estas 4 preguntas
     cards:
       - icon: IconRocket
         title: Am I doing repetitive tasks everyday at work? ➡️ AI automates that work.
