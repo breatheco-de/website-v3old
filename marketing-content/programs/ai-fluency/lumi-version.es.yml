@@ -147,18 +147,18 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: ¿Este programa es para ti?
-    description: Hazte estas 4 preguntas
+    heading: "Este programa es para ti si:"
+    description: null
     cards:
-      - icon: IconRocket
-        title: ¿Hago tareas repetitivas en mi trabajo? ➡️ La IA las automatiza.
       - icon: IconClock
-        title: ¿Cuánto tiempo me ahorraría aprender a usar la IA? ➡️ Entre 5-7 horas de trabajo semanales.
-      - icon: IconTrendingUp
-        title: ¿Saber usar la IA es obligatorio para mi carrera? ➡️ El 71% de los reclutadores prioriza habilidades en IA.
+        title: Haces tareas repetitivas y piensas que con IA las puedes hacer mas rapido.
       - icon: IconCoin
-        title: ¿Tener habilidades en IA aumentará mis ingresos? ➡️ Salarios un 56% más altos.
-    background: hsl(var(--muted))
+        title: Quieres aumentar tu salario gracias a la inteligencia artificial.
+      - icon: IconRocket
+        title: Te abruma la cantidad de herramientas de IA y no sabes cuál te sirve de verdad.
+      - icon: IconTrendingUp
+        title: Sabes que quedarte atrás en IA te puede costar tu trabajo.
+    background: hsl(210 100% 50% / 0.05)
     section_id: features_quad-aifluency
     marginY:
       desktop: none lg
