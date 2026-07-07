@@ -143,7 +143,7 @@ sections:
       desktop: none
     marginY:
       desktop: md lg
-    title: "<span style=\"font-size: 1.25rem;\">Companies that trust 4Geeks</span>"
+    title: "<span style=\"font-size: 1.25rem;\">Empresas que confian en 4Geeks</span>"
   - type: features_quad
     version: "1.0"
     variant: default
