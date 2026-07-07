@@ -259,7 +259,7 @@ sections:
       - name: Git
         icon: git
     module_cards:
-      - title: Cómo funciona realmente la IA
+      - title: Conociendo las Bases de la IA
         duration: Semana 1
         objectives:
           - Qué son los LLMs y cómo funcionan
