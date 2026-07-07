@@ -344,7 +344,7 @@ sections:
         border_radius: 0.5rem
     image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
     image_alt: Mujer trabajando con portátil en una cafetería
-    background: hsl(var(--card))
+    background: hsl(var(--muted))
     paddingY:
       mobile: sm none
       desktop: md none
