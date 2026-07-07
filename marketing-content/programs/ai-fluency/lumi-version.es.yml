@@ -210,43 +210,36 @@ sections:
     items:
       - name: Valeria Hernández
         role: Estratega de Contenido y Mamá
-        company: Freelance
         rating: 5
         comment: Como mamá de dos niños pequeños que vuelve al trabajo tras el embarazo, mi tiempo vale oro. Este curso me permitió automatizar el registro de clientes y la planificación de contenidos. Ahora, mi asistente de IA se encarga del trabajo aburrido detrás de escena para poder hacer crecer mi negocio sin sacrificar tiempo en familia.
         outcome: Equilibrio entre carrera y familia
       - name: Mateo Reynolds
         role: Especialista de Ventas
-        company: HubSpot
         rating: 5
         comment: Sinceramente, sentía que todos en mi equipo de ventas iban más rápido que yo, cerrando tratos mientras yo me ahogaba en papeleo. Investigué sobre 4Geeks, hice este curso y cambió las reglas del juego. Integrar la IA en mi rutina diaria redujo a la mitad mi tiempo de prospección y me convirtió en el más eficiente de la oficina.
         outcome: Líder en ventas del equipo
       - name: Carlos Miller
         role: Especialista en Marketing
-        company: Freelance
         rating: 5
         comment: Un cambio total. Logré conectar OpenClaw directo a mi Slack y ahora mi asistente privado filtra clientes potenciales y redacta mis reportes semanales. Recuperé un día entero de mi semana.
         outcome: Más de 12 horas ahorradas por semana
       - name: Amanda Brooks
         role: Coordinadora de Operaciones
-        company: Stripe
         rating: 5
         comment: Me aterraba que n8n fuera demasiado técnico para mí, pero el paso a paso es a prueba de errores. En la semana 4, ya tenía un flujo de trabajo autónomo gestionando datos de clientes detrás de escena. Es el fin de las tareas repetitivas.
         outcome: Jornada laboral reducida a la mitad
       - name: Tomás Wright
         role: Agente Inmobiliario
-        company: RE/MAX
         rating: 4
         comment: El contenido es oro puro y OpenClaw funciona de maravilla para organizar archivos de clientes, pero la semana 3 es superintensa porque debes configurar el software de forma local. Me tomó un par de intentos sincronizar todo bien, pero el soporte técnico me ayudó.
         outcome: Gestión de clientes automatizada
       - name: Jésica Taylor
         role: Fundadora
-        company: Agency Scale
         rating: 5
         comment: El Proyecto Final pagó el costo de todo el curso. Lancé un sistema de soporte autónomo totalmente funcional que toma decisiones inteligentes 24/7 usando n8n e IA. Por fin soy libre de mi bandeja de entrada de correos.
         outcome: Negocio automatizado
       - name: Marcos Vance
         role: Coordinador de Reclutamiento
-        company: Accenture
         rating: 4
         comment: Increíble para crear flujos de trabajo que de verdad filtran candidatos en vez de solo generar texto genérico con IA. Le doy 4 estrellas solo porque la semana 4 va volando; tuve que volver a ver los videos de n8n varias veces para ponerme al día.
         outcome: Experto en filtrado de candidatos
