@@ -114,7 +114,7 @@ sections:
       title: Lo que obtendras
       description: Un programa estructurado de 4 semanas adaptado a tu trabajo real, con clases en vivo, mentorías y retroalimentación con IA.
       cta_button:
-        text: Asegura tu futuro
+        text: Asegura tu plaza
         url: "#modal-y2myvq"
         variant: primary
       login_link:
