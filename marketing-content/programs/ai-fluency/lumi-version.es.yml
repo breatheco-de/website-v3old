@@ -166,7 +166,7 @@ sections:
     version: "1.0"
     variant: stats-charts
     subtitle: Los datos son claros.
-    title: Los Numeros no Engañan. Aprender IA impulsa tu carrera y aumenta tus ingresos
+    title: Aprender IA impulsa tu carrera y aumenta tus ingresos
     description: Los profesionales con habilidades en IA ganan más, avanzan más rápido y tienen mayor demanda en todas las industrias, no solo en tecnología. La oportunidad es real, y los números lo demuestran.
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
