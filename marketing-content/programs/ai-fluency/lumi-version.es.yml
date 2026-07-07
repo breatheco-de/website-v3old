@@ -173,20 +173,20 @@ sections:
     card_gauge_accent: hsl(var(--destructive) / 0.5)
     card_trend_accent: hsl(var(--accent))
     card_bars:
-      title: Las habilidades en IA generan una prima salarial
+      title: Dominar la IA se traduce en mayores ingresos
       description: Mismo rol · con y sin habilidades en IA · PwC 2025
       stat_value: +56%
-      stat_label: prima salarial para trabajadores con habilidades en IA frente a compañeros del mismo rol
+      stat_label: Mejores salarios para trabajadores con habilidades en IA frente a compañeros del mismo rol
       displaced_label: Sin habilidades en IA
       created_label: Con habilidades en IA
     card_gauge:
-      title: La alfabetización en IA se convierte en requisito laboral
+      title: Saber usar la IA se convierte en requisito laboral
       description: Roles laborales globales · LinkedIn 2025
       outer_stat_percentage: 70
       show_gauge: true
       inner_stat_highlight: false
       gauge_label: requieren alfabetización en IA
-      stat_label: de los roles laborales ya requieren alfabetización en IA a nivel global
+      stat_label: de los roles laborales ya requieren conocimientos en IA a nivel global
       bar1_label: Roles que requieren alfabetización en IA
       bar2_label: Roles sin requisito de IA
     card_trend:
