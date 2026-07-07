@@ -166,7 +166,7 @@ sections:
     version: "1.0"
     variant: stats-charts
     subtitle: Los datos son claros.
-    title: "El Impacto de saber usar <span style=\"color: hsl(var(--primary));\">IA</span>"
+    title: "El Impacto de la <span style=\"color: hsl(var(--primary));\">IA en la vida diaria</span>"
     description: null
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
