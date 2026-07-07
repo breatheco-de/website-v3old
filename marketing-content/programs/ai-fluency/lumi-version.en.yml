@@ -48,7 +48,7 @@ sections:
       title: What You Get
       description: A structured 4-week program built around your actual job, with live classes, mentorship, and AI-powered feedback.
       cta_button:
-        text: Program Details
+        text: Show me the details
         url: "#pricing-aifluency-latam"
         variant: primary
       login_link:
