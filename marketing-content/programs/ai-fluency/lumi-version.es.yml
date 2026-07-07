@@ -446,45 +446,53 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Matrícula y opciones de financiamiento
-    subtitle: Invertir en tus habilidades de IA es la decisión inteligente. 4Geeks tiene el historial para respaldarlo.
-    discount_text: "Descuento por pago completo: Ahorra 10% con pago anticipado."
-    financing_text: "Financiamiento flexible: desde"
-    financing_amount: {{ global.price_ai_fluency_financing | $150 }}
+    title: Tuition, Financing & Start Dates
+    subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
+    discount_text: "Save 10%: Pay $810 upfront."
+    financing_text: Flexible financing starting at
+    financing_amount: $75
     tech_icons:
       - openai
       - claude
       - n8n
       - openclaw
-    features_title: Elige la opción que mejor se adapte a ti.
+    features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: La matrícula completa es $900. Paga por adelantado y recibe un 10% de descuento.
+        text: Secure your spot. Next cohorts start July 15 and August 26.
       - icon: IconCheck
-        text: Divide tus pagos con financiamiento flexible a través de Affirm o Klarna. Términos y disponibilidad varían según la región.
+        text: Spread your payments with flexible financing through Affirm or Klarna. Terms and availability vary by region.
       - icon: IconCheck
-        text: Una sesión de mentoría 1:1 incluida. Agrega más en cualquier momento por $25 cada una.
+        text: One 1:1 mentorship session included. Add more at any time for $25 each.
+    footer: UPCOMING COHORTS
+    footer_badges:
+      - label: Feb 3, 2025
+        tag: Filling fast
+      - label: Mar 10, 2025
+      - label: Apr 7, 2025
     cta:
-      text: Inscríbete ahora
-      url: {{ global.ai_fluency_url | https://4geeks.com/es/checkout?plan=ai-fluency&cohort=1706 }}
+      text: Enroll Now
+      url: {{ global.ai_fluency_url | https://4geeks.com/checkout?plan=ai-fluency&cohort=1706 }}
       variant: primary
     section_id: pricing-aifluency
     marginY:
       desktop: lg md
     paddingY:
       desktop: md lg
-    background: hsl(var(--card))
-    heading: Ayuda real, cuando la necesites
-    description: Mentor humano cuando quieres profundidad. IA cuando quieres velocidad. Nunca te quedas atascado.
-    bullet_groups:
-      - bullets:
-          - text: 1 hora, tú y tu mentor senior. Resuelve todas tus dudas.
-          - text: Enfocado en tu trabajo real, no en teoría.
-          - text: ¿Te parece poco? Tenemos paquetes de mentoría aún más personalizados.
-      - bullets:
-          - text: Disponible 24/7. No te quedas estancado nunca.
-          - text: Feedback al instante, adaptado a tu nivel.
-          - text: Te acompaña en cada módulo, a tu propio ritmo.
+    background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
+    static_icons: false
   - type: pricing
     version: "1.0"
     variant: product
