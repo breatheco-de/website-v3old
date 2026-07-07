@@ -328,11 +328,12 @@ sections:
         object_position: 40%20%
         border_radius: 0.5rem
         id: valentina-brightened-1365x2048
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male-133x500.webp
-        alt: Estudiante latino trabajando en un proyecto
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536.webp
+        alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
+        id: chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student_african-133x500.webp
         alt: Estudiante africana colaborando con su equipo
         object_fit: cover
