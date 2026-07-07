@@ -175,7 +175,7 @@ sections:
       title: Dominar la IA se traduce en mayores ingresos
       description: Mismo rol · con y sin habilidades en IA · PwC 2025
       stat_value: +56%
-      stat_label: prima salarial para trabajadores con habilidades en IA frente a compañeros del mismo rol
+      stat_label: Salario minimo para trabajadores con habilidades en IA frente a compañeros del mismo rol
       displaced_label: Sin habilidades en IA
       created_label: Con habilidades en IA
     card_gauge:
