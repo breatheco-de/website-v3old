@@ -169,9 +169,9 @@ sections:
     title: "El Impacto de la <span style=\"color: hsl(var(--primary));\">IA</span> en la vida diaria"
     description: null
     background: bg-slate-950
-    card_bars_accent: hsl(var(--primary))
-    card_gauge_accent: hsl(var(--destructive) / 0.5)
-    card_trend_accent: hsl(var(--accent))
+    card_bars_accent: hsl(var(--color-green))
+    card_gauge_accent: hsl(var(--primary))
+    card_trend_accent: hsl(var(--color-purple))
     card_bars:
       title: Dominar la IA se traduce en mayores ingresos
       description: Mismo rol · con y sin habilidades en IA · PwC 2025
