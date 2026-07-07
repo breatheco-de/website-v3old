@@ -45,7 +45,7 @@ sections:
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Tus tutores:"
     signup_card:
-      title: Recibe el resumen completo del programa
+      title: Lo que obtendras
       description: "Completa tus datos y el equipo de admisiones te enviará todo lo que necesitas: plan de estudios, detalles del programa y precios. Solo tarda 2 minutos."
       cta_button:
         text: Envíame los detalles
