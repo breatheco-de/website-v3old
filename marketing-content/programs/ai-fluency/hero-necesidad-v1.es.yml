@@ -143,14 +143,14 @@ sections:
     heading: ¿Es este programa para ti?
     description: Si te identificas con alguno de estos puntos, este programa está hecho para ti.
     cards:
-      - icon: IconRocket
-        title: Usas herramientas de IA pero no estás aprovechando todo su potencial.
       - icon: IconClock
-        title: Las tareas repetitivas consumen tu tiempo y tu atención.
-      - icon: IconTrendingUp
-        title: Sabes que la fluidez en IA se está convirtiendo en un requisito para avanzar en tu carrera.
+        title: Las tareas repetitivas te consumen y sabes que con IA lo puedes hacer mejor.
       - icon: IconCoin
-        title: Quieres la prima salarial que viene con habilidades reales en IA.
+        title: Quieres aumentar tu salario gracias a la inteligencia artificial.
+      - icon: IconRocket
+        title: Sientes que la IA te puede ahorrar horas de trabajo, pero no sabes por dónde empezar.
+      - icon: IconTrendingUp
+        title: Sabes que quedarte atrás en IA te puede costar tu trabajo.
     background: hsl(var(--muted))
     section_id: features_quad-aifluency
     marginY:
