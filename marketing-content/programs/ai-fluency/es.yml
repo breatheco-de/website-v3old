@@ -185,7 +185,7 @@ sections:
       show_gauge: true
       inner_stat_highlight: false
       gauge_label: requieren alfabetización en IA
-      stat_label: de los roles laborales ya requieren alfabetización en IA a nivel global
+      stat_label: de los roles laborales ya requieren conocimientos en IA a nivel global
       bar1_label: Roles que requieren alfabetización en IA
       bar2_label: Roles sin requisito de IA
     card_trend:
