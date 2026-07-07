@@ -166,7 +166,7 @@ sections:
     version: "1.0"
     variant: stats-charts
     subtitle: Los datos son claros.
-    title: Mira los números. La IA impulsa tu carrera e ingresos.
+    title: Los numeros hablan por si solos. Mira el impacto de la IA
     description: Los profesionales con habilidades en IA ganan más, avanzan más rápido y tienen mayor demanda en todas las industrias, no solo en tecnología. La oportunidad es real, y los números lo demuestran.
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
