@@ -447,7 +447,6 @@ sections:
       - claude
       - n8n
       - openclaw
-    static_icons: true
     features_title: Elige la opción que mejor se adapte a ti.
     features:
       - icon: IconCheck
