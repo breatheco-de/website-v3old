@@ -151,7 +151,7 @@ sections:
     description: Hazte estas 4 preguntas
     cards:
       - icon: IconRocket
-        title: ¿Hago las mismas tareas repetitivas todos los dias? ➡️ La IA las automatiza.
+        title: ¿Hago las mismas tareas repetitivas en el trabajo todos los dias? ➡️ La IA las automatiza.
       - icon: IconClock
         title: ¿Cuánto tiempo me puede ahorrar la IA? ➡️ Los estudios confirman de 5 a 7 horas semanales.
       - icon: IconTrendingUp
