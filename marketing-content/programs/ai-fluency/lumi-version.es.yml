@@ -267,7 +267,7 @@ sections:
           - La diferencia entre un chatbot, asistente y agente
           - "Fundamentos del prompting: rol, contexto, formato, restricciones"
           - "Auditoría laboral: identifica tus principales candidatos a automatización"
-        projects: Escribe tus primeros 5 prompts para tareas reales que haces cada semana.
+        projects: Analiza tu trabajo actual para identificar tus tareas más repetitivas y crea 5 prompts esenciales para resolverlas. Dominarás la estructura clave (rol, contexto y restricciones) necesaria para que cualquier IA sea útil en tu rutina diaria.
         orientation: vertical
         icon: IconBolt
       - title: El prompting como habilidad
@@ -277,7 +277,7 @@ sections:
           - Prompting para emails, informes, investigación y resúmenes de reuniones
           - Gestión efectiva del contexto en IA
           - Construcción de una biblioteca personal de prompts
-        projects: Sal con 3-5 prompts funcionales para tareas reales de tu trabajo.
+        projects: Transforma tus prompts de la semana 1 en plantillas avanzadas y reutilizables, y diseña tus primeros 3 a 5 prompts para las tareas reales que haces cada semana.
         orientation: vertical
         icon: IconCode
       - title: Tu asistente personal de IA
@@ -287,7 +287,7 @@ sections:
           - Instalación y configuración de OpenClaw
           - Creación de habilidades personalizadas a partir de plantillas de prompts
           - Conexión de tu asistente a Google Drive, Gmail o Notion
-        projects: Ejecuta una habilidad personalizada en una tarea personal real.
+        projects: Aprende a usar OpenClaw, el asistente de IA de código abierto más potente del mercado. Sincronizarás la IA con tu espacio de trabajo (Drive, Notion, Gmail) para crear un flujo privado basado en chat que gestione tus datos en piloto automático.
         orientation: vertical
         icon: IconRobot
       - title: Pipelines de automatización con n8n
@@ -297,7 +297,7 @@ sections:
           - Conexión de n8n con Gmail, Slack, Google Sheets y webhooks
           - Integración de n8n con un agente de IA para pasos de toma de decisiones inteligentes
           - "Preparación del proyecto final: mapea y construye tu automatización"
-        projects: Construye y demuestra una automatización en vivo que gestione una tarea recurrente real.
+        projects: Conecta tus aplicaciones con n8n para crear una automatización en vivo. Harás que Gmail, Sheets y Slack se comuniquen entre sí, dejando tu rutina semanal en piloto automático y recuperando más de 3 horas libres cada semana.
         orientation: vertical
         icon: IconLayoutKanban
       - title: Flujo de trabajo automatizado con IA
@@ -306,7 +306,7 @@ sections:
           - Una automatización en vivo en n8n que resuelve una tarea personal o profesional real
           - Al menos un paso de toma de decisiones con IA integrado en el flujo de trabajo
           - Demo en vivo presentada al instructor y a los compañeros
-        projects: Una automatización real que construiste, que es tuya y que puedes seguir mejorando.
+        projects: Lanza una automatización totalmente funcional para tu trabajo real. Dominarás por completo la habilidad de crear flujos de trabajo automatizados que operan las 24 horas, los 7 días de la semana.
         orientation: horizontal
         icon: IconChartBar
     marginY:
