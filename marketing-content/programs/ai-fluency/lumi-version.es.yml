@@ -438,6 +438,48 @@ sections:
     version: "1.0"
     variant: product
     title: Matrícula y opciones de financiamiento
+    subtitle: Invertir en tus habilidades de IA es la decisión inteligente. 4Geeks tiene el historial para respaldarlo.
+    discount_text: "Descuento por pago completo: Ahorra 10% con pago anticipado."
+    financing_text: "Financiamiento flexible: desde"
+    financing_amount: {{ global.price_ai_fluency_financing | $150 }}
+    tech_icons:
+      - openai
+      - claude
+      - n8n
+      - openclaw
+    features_title: Elige la opción que mejor se adapte a ti.
+    features:
+      - icon: IconCheck
+        text: La matrícula completa es $900. Paga por adelantado y recibe un 10% de descuento.
+      - icon: IconCheck
+        text: Divide tus pagos con financiamiento flexible a través de Affirm o Klarna. Términos y disponibilidad varían según la región.
+      - icon: IconCheck
+        text: Una sesión de mentoría 1:1 incluida. Agrega más en cualquier momento por $25 cada una.
+    cta:
+      text: Inscríbete ahora
+      url: {{ global.ai_fluency_url | https://4geeks.com/es/checkout?plan=ai-fluency&cohort=1706 }}
+      variant: primary
+    section_id: pricing-aifluency
+    marginY:
+      desktop: lg md
+    paddingY:
+      desktop: md lg
+    background: hsl(var(--card))
+    heading: Ayuda real, cuando la necesites
+    description: Mentor humano cuando quieres profundidad. IA cuando quieres velocidad. Nunca te quedas atascado.
+    bullet_groups:
+      - bullets:
+          - text: 1 hora, tú y tu mentor senior. Resuelve todas tus dudas.
+          - text: Enfocado en tu trabajo real, no en teoría.
+          - text: ¿Te parece poco? Tenemos paquetes de mentoría aún más personalizados.
+      - bullets:
+          - text: Disponible 24/7. No te quedas estancado nunca.
+          - text: Feedback al instante, adaptado a tu nivel.
+          - text: Te acompaña en cada módulo, a tu propio ritmo.
+  - type: pricing
+    version: "1.0"
+    variant: product
+    title: Matrícula y opciones de financiamiento
     subtitle: Invertir en una nueva carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
     discount_text: "Descuento por pago completo: Ahorra 10% con pago anticipado."
     financing_text: Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
