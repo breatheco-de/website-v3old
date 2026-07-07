@@ -240,51 +240,51 @@ sections:
       - title: Domina las bases del prompting
         duration: Semana 1
         objectives:
-          - Qué son los LLMs y cómo funcionan
-          - Por qué la elección del modelo importa en costo y calidad
-          - La diferencia entre un chatbot, asistente y agente
-          - "Fundamentos del prompting: rol, contexto, formato, restricciones"
-          - "Auditoría laboral: identifica tus principales candidatos a automatización"
-        projects: Escribe tus primeros 5 prompts para tareas reales que haces cada semana.
+          - Entiende cómo piensa la IA (sin tecnicismos)
+          - Elige el modelo correcto para cada tarea
+          - La diferencia entre chatbot, asistente y agente
+          - Escribe tu primer prompt bien estructurado
+          - Detecta qué tareas de tu trabajo puedes automatizar
+        projects: Tus primeros prompts, listos para usar en tu trabajo.
         orientation: vertical
         icon: IconBolt
       - title: Experto en prompting en 7 días
         duration: Semana 2
         objectives:
-          - "Patrones de prompting: cadena de pensamiento, few-shot, persona, output estructurado"
-          - Prompting para emails, informes, investigación y resúmenes de reuniones
-          - Gestión efectiva del contexto en IA
-          - Construcción de una biblioteca personal de prompts
-        projects: Sal con 3-5 prompts funcionales para tareas reales de tu trabajo.
+          - Técnicas de prompting que sí funcionan
+          - Prompts para emails, informes y reuniones
+          - Cómo dar el contexto correcto a la IA
+          - Tu propia biblioteca de prompts, lista para reutilizar
+        projects: Una colección de prompts que ya puedes usar.
         orientation: vertical
         icon: IconCode
       - title: Automatiza tus procesos con agentes de IA
         duration: Semana 3
         objectives:
-          - Qué son los agentes de IA y cómo funcionan las habilidades
-          - Instalación y configuración de OpenClaw
-          - Creación de habilidades personalizadas a partir de plantillas de prompts
-          - Conexión de tu asistente a Google Drive, Gmail o Notion
-        projects: Ejecuta una habilidad personalizada en una tarea personal real.
+          - Qué es un agente de IA y cómo trabaja para ti
+          - Configura tu propio asistente con OpenClaw
+          - Crea habilidades personalizadas para tus tareas
+          - Conéctalo a Gmail, Drive o Notion
+        projects: Tu asistente de IA, resolviendo una tarea real.
         orientation: vertical
         icon: IconRobot
       - title: Automatiza la tarea más repetitiva de tu trabajo
         duration: Semana 4
         objectives:
-          - "Fundamentos de n8n: nodos, disparadores y flujos de trabajo"
-          - Conexión de n8n con Gmail, Slack, Google Sheets y webhooks
-          - Integración de n8n con un agente de IA para pasos de toma de decisiones inteligentes
-          - "Preparación del proyecto final: mapea y construye tu automatización"
-        projects: Construye y demuestra una automatización en vivo que gestione una tarea recurrente real.
+          - Aprende n8n sin complicarte
+          - Conéctalo con Gmail, Slack y Google Sheets
+          - Suma IA a tu automatización para que tome decisiones
+          - Diseña tu propia automatización, paso a paso
+        projects: Una automatización en vivo, resolviendo una tarea real.
         orientation: vertical
         icon: IconLayoutKanban
       - title: Sal con una automatización real, funcionando
         duration: Proyecto Capstone
         objectives:
-          - Una automatización en vivo en n8n que resuelve una tarea personal o profesional real
-          - Al menos un paso de toma de decisiones con IA integrado en el flujo de trabajo
-          - Demo en vivo presentada al instructor y a los compañeros
-        projects: Una automatización real que construiste, que es tuya y que puedes seguir mejorando.
+          - Una automatización real, funcionando de verdad
+          - Con IA tomando decisiones dentro del flujo
+          - La presentas en vivo frente a tu instructor y compañeros
+        projects: Tuya, real, y lista para seguir mejorándola.
         orientation: horizontal
         icon: IconChartBar
     marginY:
