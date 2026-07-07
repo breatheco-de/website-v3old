@@ -343,7 +343,6 @@ sections:
       desktop: md lg
     marginY:
       desktop: md lg
-    background: hsl(var(--secondary))
     maxWidth:
       desktop: 6xl
   - type: human_and_ai_duo
