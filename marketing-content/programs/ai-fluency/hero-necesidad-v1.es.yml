@@ -40,7 +40,7 @@ sections:
     description: AI Fluency es el programa de 4Geeks para llevar tu trabajo diario al siguiente nivel con IA y volverte imprescindible en tu empleo.
     signup_card:
       title: Recibe el resumen completo del programa
-      description: "Completa tus datos y el equipo de admisiones te enviará todo lo que necesitas: plan de estudios, detalles del programa y precios. Solo tarda 2 minutos."
+      description: "Completa tus datos y el equipo de admisiones te enviará todo lo que necesitas: plan de estudios, detalles del programa y precios. Solo tarda 30 segundos."
       cta_button:
         text: Envíame los detalles
         url: "#modal-y2myvq"
@@ -56,7 +56,7 @@ sections:
         - icon: IconUserCheck
           text: Sesión de mentoría 1:1 incluida
         - icon: IconRobot
-          text: Aprendizaje y feedback con IA
+          text: Aprendizaje y feedback en tiempo real con IA
     paddingY:
       desktop: lg md
     marginY:
