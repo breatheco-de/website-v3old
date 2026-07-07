@@ -165,34 +165,35 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-charts
-    subtitle: The data is clear.
-    title: Professionals with AI skills earn more and advance faster.
-    description: Employers across every industry are actively hiring for AI literacy — and paying a premium for it. The demand is real, the gap is widening, and the opportunity is yours to take ."
+    subtitle: Los datos son claros.
+    title: La fluidez en IA es cómo aceleran las carreras
+    description: Los profesionales con habilidades en IA ganan más, avanzan más rápido y tienen mayor demanda en todas las industrias, no solo en tecnología. La oportunidad es real, y los números lo demuestran.
+    background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
     card_gauge_accent: hsl(var(--destructive) / 0.5)
     card_trend_accent: hsl(var(--accent))
     card_bars:
-      title: AI Skills Command a Salary Premium
-      description: Same role · with vs without AI skills · PwC 2025
+      title: Las habilidades en IA generan una prima salarial
+      description: Mismo rol · con y sin habilidades en IA · PwC 2025
       stat_value: +56%
-      stat_label: salary premium for AI-skilled workers over same-role peers
-      displaced_label: Without AI skills
-      created_label: With AI skills
+      stat_label: prima salarial para trabajadores con habilidades en IA frente a compañeros del mismo rol
+      displaced_label: Sin habilidades en IA
+      created_label: Con habilidades en IA
     card_gauge:
-      title: Knowing AI Is Becoming a Job Requirement
-      description: Global job roles · LinkedIn 2025
+      title: La alfabetización en IA se convierte en requisito laboral
+      description: Roles laborales globales · LinkedIn 2025
       outer_stat_percentage: 70
       show_gauge: true
       inner_stat_highlight: false
-      gauge_label: require AI literacy
-      stat_label: of job roles now require AI knowledge globally
-      bar1_label: Roles requiring AI literacy
-      bar2_label: Roles without AI requirement
+      gauge_label: requieren alfabetización en IA
+      stat_label: de los roles laborales ya requieren alfabetización en IA a nivel global
+      bar1_label: Roles que requieren alfabetización en IA
+      bar2_label: Roles sin requisito de IA
     card_trend:
-      title: Demand for AI-Fluent Workers Is Accelerating
-      description: Indexed demand growth · LinkedIn/WEF 2026
+      title: La demanda de trabajadores con fluidez en IA se acelera
+      description: Crecimiento de demanda indexado · LinkedIn/WEF 2026
       stat_value: 7x
-      stat_label: growth in demand for AI-fluent workers since 2023
+      stat_label: crecimiento en la demanda de trabajadores con fluidez en IA desde 2023
       end_label: 7x · 2026
     section_id: features_grid-aifluency
     paddingY:
