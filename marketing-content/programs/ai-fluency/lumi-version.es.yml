@@ -60,7 +60,7 @@ sections:
         - icon: IconUsers
           text: 1 clase en vivo por semana con expertos en IA
         - icon: IconUserCheck
-          text: Mentoría 1 a 1 con expertos para resolver todas tus dudas
+          text: Mentoría 1 a 1 flexible para resolver todas tus dudas.
         - icon: IconRobot
           text: Aprendizaje y feedback con IA disponibles 24/7
     paddingY:
