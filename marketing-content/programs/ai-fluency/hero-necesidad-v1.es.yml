@@ -334,7 +334,7 @@ sections:
         object_position: 50%30%
         border_radius: 0.5rem
         id: chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_african-133x500.webp
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
         alt: Estudiante africana colaborando con su equipo
         object_fit: cover
         object_position: 50%15%
