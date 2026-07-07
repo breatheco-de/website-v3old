@@ -46,7 +46,7 @@ sections:
     tutors_label: "Tus tutores:"
     signup_card:
       title: Lo que obtendras
-      description: "Completa tus datos y el equipo de admisiones te enviará todo lo que necesitas: plan de estudios, detalles del programa y precios. Solo tarda 2 minutos."
+      description: Un programa estructurado de 4 semanas adaptado a tu trabajo real, con clases en vivo, mentorías y retroalimentación con IA.
       cta_button:
         text: Envíame los detalles
         url: "#modal-y2myvq"
