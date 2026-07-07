@@ -32,10 +32,9 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduates
     bullet_points:
-      - Configure AI with the context, tools and prompting to get its best work.
+      - "Become as productive as an entire team with AI: reports, data, design, communications, and more."
       - Automate the repetitive tasks that cost you hours every week.
-      - Build a working automation that solves a real problem from your job.
-      - Never get stuck, with 1:1 mentorship and Rigobot whenever you need it.
+      - Walk away with real AI workflows built for your job.
     tutors:
       - name: Expert Instructor
         role: Lead Instructor

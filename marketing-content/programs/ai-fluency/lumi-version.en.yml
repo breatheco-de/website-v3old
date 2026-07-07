@@ -33,7 +33,7 @@ sections:
       count: +8500 graduates
     bullet_points:
       - Master AI with no programming experience or other tech skills.
-      - Save between 3-6 hours weekly of repetitive work by learning how to use AI and N8N.
+      - Save between 5-7 hours weekly of repetitive work by learning how to use AI and N8N.
       - Learn real-world AI prompting secrets to automize your workflow
       - Lock in a certificate endorsed by the Florida Department of Education.
     tutors:
@@ -48,7 +48,7 @@ sections:
       title: What You Get
       description: A structured 4-week program built around your actual job, with live classes, mentorship, and AI-powered feedback.
       cta_button:
-        text: Program Details
+        text: Show me the details
         url: "#pricing-aifluency-latam"
         variant: primary
       login_link:
@@ -151,7 +151,7 @@ sections:
       - icon: IconRocket
         title: Am I doing repetitive tasks everyday at work? ➡️ AI automates that work.
       - icon: IconClock
-        title: How much time could AI save me? ➡️ Research confirms 3-6 hours weekly
+        title: How much time could AI save me? ➡️ Research confirms 5-7 hours weekly
       - icon: IconTrendingUp
         title: Is AI fluency really a must-have for my career? ➡️ 71% of recruiters prioritize AI skills.
       - icon: IconCoin
