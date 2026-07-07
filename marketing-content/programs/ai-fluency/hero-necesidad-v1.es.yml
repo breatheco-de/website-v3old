@@ -140,15 +140,15 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: ¿Es este programa para ti?
-    description: Si te identificas con alguno de estos puntos, este programa está hecho para ti.
+    heading: "Este programa es para ti si:"
+    description: null
     cards:
       - icon: IconClock
         title: Las tareas repetitivas te consumen y sabes que con IA lo puedes hacer mejor.
       - icon: IconCoin
         title: Quieres aumentar tu salario gracias a la inteligencia artificial.
       - icon: IconRocket
-        title: Sientes que la IA te puede ahorrar horas de trabajo, pero no sabes por dónde empezar.
+        title: Te abruma la cantidad de herramientas de IA y no sabes cuál te sirve de verdad.
       - icon: IconTrendingUp
         title: Sabes que quedarte atrás en IA te puede costar tu trabajo.
     background: hsl(var(--muted))
