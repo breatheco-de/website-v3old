@@ -24,6 +24,9 @@ sections:
     title: AI Fluency. Los profesionales más destacados ya están aquí.
     title_highlight: Los profesionales más destacados ya están aquí.
     subtitle: Las habilidades en IA tienen ahora una prima salarial del 56% en todas las industrias. En cuatro semanas, construirás flujos de trabajo con IA alrededor de tu trabajo real, automatizarás tus tareas más repetitivas y convertirás la IA en tu colaboradora más capaz. No se requiere programación.
+    badge:
+      text: Nuevo programa
+      color: primary
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
