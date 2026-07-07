@@ -20415,6 +20415,46 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-1024x1536-q85-960w.webp"
         }
       ]
+    },
+    "blog_posts-4geeks-portraits-39-1-jpg-e023a61f-5504x3504": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-4geeks-portraits-39-1-jpg-e023a61f-5504x3504.webp",
+      "alt": "Image from blog_posts",
+      "focal_point": "center",
+      "tags": [
+        "avatar"
+      ],
+      "usage_count": 0,
+      "width": 5504,
+      "height": 3504,
+      "format": "webp",
+      "parentId": "blog_posts-4geeks-portraits-39-1-jpg-e023a61f",
+      "preset": [
+        "avatar"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        128,
+        256
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-4geeks-portraits-39-1-jpg-e023a61f-5504x3504-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-4geeks-portraits-39-1-jpg-e023a61f-5504x3504-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-4geeks-portraits-39-1-jpg-e023a61f-5504x3504-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-4geeks-portraits-39-1-jpg-e023a61f-5504x3504-256w.webp"
+        }
+      ]
     }
   }
 }
