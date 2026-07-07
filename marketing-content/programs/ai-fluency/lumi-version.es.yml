@@ -204,9 +204,6 @@ sections:
     section_id: testimonials-ghxelh
     title: Las personas detrás de los números.
     subtitle: "Distintos puntos de partida. Un mismo resultado: fluidez real en IA."
-    related_features:
-      - content-and-syllabus
-      - career-support
     rating_summary:
       average: {{ global.global_review_rating | 4.9 }}
       count: {{ global.global_review_count | 700 }}
