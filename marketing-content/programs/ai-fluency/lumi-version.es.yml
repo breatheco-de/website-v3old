@@ -479,7 +479,7 @@ sections:
     background: hsl(var(--card))
   - type: faq
     section_id: faq-f4yd0z
-    title: FAQ
+    title: Preguntas frecuentes
     dynamic_entries:
       database: frequently_asked_questions
       limit: 9
@@ -515,20 +515,20 @@ sections:
           - rome-italy
           - valencia-spain
     hardcoded_entries:
-      - question: Do I need to know how to code to take AI Fluency?
+      - question: ¿Necesito saber programar para tomar AI Fluency?
         answer: |2-
 
-           No. AI Fluency is designed for working professionals with no coding background. Every tool you use in the program — from prompt engineering to n8n automations — works without writing a single line of code. The focus is on applying AI to real work tasks, not on programming.
-      - question: How does the AI Fluency program work?
-        answer: AI Fluency runs over 4 weeks. Each week has a self-paced module you complete on your own schedule, followed by one live class where you apply what you learned with instructor guidance and peer feedback. If you miss a live class, the recording is available so you can catch up before the next session.
-      - question: What do I build during the AI Fluency program?
+           No. AI Fluency está diseñado para profesionales en activo sin experiencia en programación. Todas las herramientas del programa — desde prompt engineering hasta automatizaciones con n8n — funcionan sin escribir una sola línea de código. El foco está en aplicar la IA a tareas reales de trabajo, no en programar.
+      - question: ¿Cómo funciona el programa AI Fluency?
+        answer: AI Fluency dura 4 semanas. Cada semana tiene un módulo a tu ritmo que completas según tu horario, seguido de una clase en vivo donde aplicas lo aprendido con la guía del instructor y el feedback de tus compañeros. Si te pierdes una clase en vivo, la grabación está disponible para que puedas ponerte al día antes de la siguiente sesión.
+      - question: ¿Qué construyo durante el programa AI Fluency?
         answer: |2-
 
-           By the end of AI Fluency you have three tangible deliverables: a personal prompt library you can use immediately at work, a configured AI assistant connected to the tools you already use daily, and a working n8n automation that handles a real recurring task in your professional life. These are not exercises — they are tools you keep and use from day one after the program ends.
-      - question: How do I enroll in AI Fluency and when can I start?
+           Al terminar AI Fluency tendrás tres entregables concretos: una biblioteca personal de prompts que puedes usar de inmediato en tu trabajo, un asistente de IA configurado y conectado a las herramientas que ya usas a diario, y una automatización funcional en n8n que gestiona una tarea recurrente real en tu vida profesional. No son ejercicios — son herramientas que conservas y usas desde el primer día después del programa.
+      - question: ¿Cómo me inscribo en AI Fluency y cuándo puedo empezar?
         answer: |2-
 
-           AI Fluency runs on fixed cohort start dates with limited spots per cohort to keep live sessions small and interactive. Upcoming start dates are listed on the AI Fluency program page.
+           AI Fluency funciona con fechas fijas de inicio de cohorte y plazas limitadas por cohorte para mantener las sesiones en vivo pequeñas e interactivas. Las próximas fechas de inicio están listadas en la página del programa AI Fluency.
   - type: cta_banner
     version: "1.0"
     title: Ready to Build Your AI Fluency?
