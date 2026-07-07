@@ -49,7 +49,7 @@ sections:
       description: A structured 4-week program built around your actual job, with live classes, mentorship, and AI-powered feedback.
       cta_button:
         text: Program Details
-        url: "#syllabus-aifluency"
+        url: "#pricing"
         variant: primary
       login_link:
         text: Already a student? Login here.
