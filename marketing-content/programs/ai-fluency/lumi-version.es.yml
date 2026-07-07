@@ -280,7 +280,7 @@ sections:
         projects: Transforma tus prompts de la semana 1 en plantillas avanzadas y reutilizables, y diseña tus primeros 3 a 5 prompts para las tareas reales que haces cada semana.
         orientation: vertical
         icon: IconCode
-      - title: Tu asistente personal de IA
+      - title: Automatiza tus procesos con agentes de IA
         duration: Semana 3
         objectives:
           - Qué son los agentes de IA y cómo funcionan las habilidades
