@@ -179,7 +179,7 @@ sections:
       displaced_label: Sin habilidades en IA
       created_label: Con habilidades en IA
     card_gauge:
-      title: La alfabetización en IA se convierte en requisito laboral
+      title: Saber usar la IA se convierte en requisito laboral
       description: Roles laborales globales · LinkedIn 2025
       outer_stat_percentage: 70
       show_gauge: true
