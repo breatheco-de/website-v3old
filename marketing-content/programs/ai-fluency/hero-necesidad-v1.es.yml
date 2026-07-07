@@ -21,9 +21,9 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: AI Fluency. Los profesionales más destacados ya están aquí.
-    title_highlight: Los profesionales más destacados ya están aquí.
-    subtitle: Las habilidades en IA tienen ahora una prima salarial del 56% en todas las industrias. En cuatro semanas, construirás flujos de trabajo con IA alrededor de tu trabajo real, automatizarás tus tareas más repetitivas y convertirás la IA en tu colaboradora más capaz. No se requiere programación.
+    title: ¿Sabes usar ChatGPT o sabes usar la IA? Hay una diferencia enorme, y se nota en tu productividad.
+    title_highlight: Hay una diferencia enorme, y se nota en tu productividad.
+    subtitle: En 4 semanas, aprendes a exprimir la IA al máximo y te vuelves radicalmente más eficiente en tu trabajo actual — sin cambiar de carrera, sin programar.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -43,7 +43,7 @@ sections:
         role: Tutor de IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Tus tutores:"
-    description: La IA no es el futuro, es la base. Los profesionales que van adelante no están esperando. Con AI Fluency, desarrollarás las habilidades para dar el salto.
+    description: AI Fluency es el programa de 4Geeks para llevar tu trabajo diario al siguiente nivel con IA.
     signup_card:
       title: Recibe el resumen completo del programa
       description: "Completa tus datos y el equipo de admisiones te enviará todo lo que necesitas: plan de estudios, detalles del programa y precios. Solo tarda 2 minutos."
