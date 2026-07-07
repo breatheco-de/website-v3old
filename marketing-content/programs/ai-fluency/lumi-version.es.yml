@@ -72,6 +72,60 @@ sections:
       url: https://www.youtube.com/watch?v=NkmjzrAZ4x8&list=PLmBUv425PabVE26vtG0AqlDTXNmEZ2U0r
     form:
       conversion_name: request_more_info
+  - type: hero
+    version: "1.0"
+    variant: course
+    title: Todos usan IA, pocos la Dominan. Multiplica tu productividad en solo 30 días.
+    title_highlight: Multiplica tu productividad en solo 30 días.
+    subtitle: En 4 semanas dominarás la IA desde cero. Aprenderás a crear automatizaciones para reducir tu jornada de 5 a 7 horas semanales, delegando tus tareas más repetitivas. No necesitas ningún conocimiento previo en tecnología. Este curso es para quien quiera aumentar su productividad laboral, destacar sobre el resto y tener más tiempo libre.
+    students_enrolled:
+      avatars:
+        - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
+        - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+        - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
+        - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
+      count: +8500 graduados
+    bullet_points:
+      - Aprende IA en 4 semanas sin conocimientos previos.
+      - Ahorra de 5 a 7 horas semanales de trabajo repetitivo usando IA y N8N.
+      - Aprende a crear prompts aplicados al mundo real para automatizar tu flujo de trabajo.
+      - Obtén un certificado avalado por el Departamento de Educación de Florida.
+    tutors:
+      - name: Instructor Experto
+        role: Instructor Principal
+        image: https://randomuser.me/api/portraits/men/10.jpg
+      - name: Tutor con IA
+        role: IA de 4Geeks 24/7. Atención continua las 24h.
+        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
+    tutors_label: "Tus tutores:"
+    signup_card:
+      title: Lo que obtendras
+      description: Un programa estructurado de 4 semanas adaptado a tu trabajo real, con clases en vivo, mentorías y retroalimentación con IA.
+      cta_button:
+        text: Asegura tu futuro
+        url: "#modal-y2myvq"
+        variant: primary
+      login_link:
+        text: ¿Ya eres estudiante? Inicia sesión aquí.
+        url: https://4geeks.com/es/login
+      features:
+        - icon: calendar
+          text: Programa de cohorte de 4 semanas
+        - icon: IconUsers
+          text: 1 clase en vivo por semana con expertos en IA
+        - icon: IconUserCheck
+          text: Mentoría 1 a 1 flexible para resolver todas tus dudas.
+        - icon: IconRobot
+          text: Aprendizaje y feedback con IA disponibles 24/7
+    paddingY:
+      desktop: lg md
+    marginY:
+      desktop: none
+    section_id: hero-yt9c4j
+    video:
+      url: https://www.youtube.com/watch?v=NkmjzrAZ4x8&list=PLmBUv425PabVE26vtG0AqlDTXNmEZ2U0r
+    form:
+      conversion_name: request_more_info
   - type: modal
     version: "1.0"
     heading: Get the Program Details
