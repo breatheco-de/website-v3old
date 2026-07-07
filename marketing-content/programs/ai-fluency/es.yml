@@ -322,7 +322,7 @@ sections:
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
+      - src: https://breathecode.herokuapp.com/v1/media/file/4geeks-portraits-39-1-jpg
         alt: Estudiante africana colaborando con su equipo
         object_fit: cover
         object_position: 50%15%
