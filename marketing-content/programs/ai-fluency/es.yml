@@ -327,7 +327,7 @@ sections:
         object_fit: cover
         object_position: 50%15%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74.webp
         alt: Estudiante latina celebrando un logro
         object_fit: cover
         object_position: 50%30%
