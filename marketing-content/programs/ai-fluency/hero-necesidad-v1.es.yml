@@ -322,11 +322,12 @@ sections:
           - text: Tu tutor siempre activo para todos los módulos a tu propio ritmo
           - text: Se adapta a tu nivel y a lo que estás trabajando
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
-        alt: Estudiante asiática aprendiendo a programar
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina-brightened-1365x2048.webp
+        alt: "Image: valentina_brightened"
         object_fit: cover
         object_position: 40%20%
         border_radius: 0.5rem
+        id: valentina-brightened-1365x2048
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male-133x500.webp
         alt: Estudiante latino trabajando en un proyecto
         object_fit: cover
