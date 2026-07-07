@@ -227,15 +227,25 @@ sections:
       desktop: 6xl
   - type: syllabus
     variant: program-modules
-    program_title: Descripción del Programa AI Fluency
-    program_description: Aprende haciendo, semana a semana. El programa comienza con un análisis de tu propio trabajo y tareas, para que todo lo que aprendas se aplique directamente a tu día a día. Cada semana combina módulos a tu ritmo y una sesión en vivo con tu instructor y cohorte para practicar, resolver dudas y recibir feedback.
+    program_title: Cómo aprenderás en 4 semanas
+    program_description: "Aprendes haciendo, no memorizando. Cada semana: un módulo a tu ritmo + una clase en vivo con tu instructor para practicar, resolver dudas y aplicarlo directo a tu trabajo real."
     tech_logos:
-      - name: OpenAI
-        icon: openai
-      - name: n8n
-        icon: n8n
-      - name: Git
-        icon: git
+      - icon: openai
+        name: OpenAI
+      - icon: openclaw
+        name: OpenClaw
+      - icon: n8n
+        name: n8n
+      - icon: gmail
+        name: Gmail
+      - icon: google-drive
+        name: Google Drive
+      - icon: notion
+        name: Notion
+      - icon: slack
+        name: Slack
+      - icon: google-sheets
+        name: Google Sheets
     module_cards:
       - title: Domina las bases del prompting
         duration: Semana 1
