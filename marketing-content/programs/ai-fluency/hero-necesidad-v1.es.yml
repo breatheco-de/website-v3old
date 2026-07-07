@@ -164,7 +164,7 @@ sections:
     background: bg-slate-950
     card_bars_accent: hsl(var(--color-green))
     card_gauge_accent: hsl(var(--primary))
-    card_trend_accent: hsl(var(--color-orange))
+    card_trend_accent: hsl(var(--color-purple))
     card_bars:
       title: Las habilidades de IA aumentan tu salario
       description: PwC 2025
