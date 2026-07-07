@@ -27,7 +27,7 @@ sections:
     variant: course
     title: "AI Engineering. The #1 Fastest-Growing Job of 2026."
     title_highlight: "The #1 Fastest-Growing Job of 2026."
-    subtitle: Build the skills companies are hiring for. Our intensive program gets you job-ready building production-grade AI systems, coding agents, and automation pipelines. With unlimited 1:1 mentorship and career support for life.
+    subtitle: Own the skills companies are hiring for. Our intensive program gets you job-ready building production-grade AI systems, coding agents, and automation pipelines. With unlimited 1:1 mentorship and career support for life.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -36,9 +36,9 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduates
     bullet_points:
-      - Build a complete AI-native company end to end, with agents, pipelines, and real-time data.
-      - Work with AI coding agents to build and deliver production-ready software faster.
-      - Get hired through our proven career support system. 84% placement rate. Optional Job Guarantee* available.
+      - Build a real, complete AI-native company, with agents, pipelines, and real-time data. Not standalone class exercises.
+      - Coding skills are no longer enough. Work with AI coding agents to ship software systems the way companies actually build them now.
+      - "Get hired, not just trained. 84% of graduates land a job within 3–6 months. Add tuition protection: land a job or your money back.*"
     tutors:
       - name: Marco Gonzalo
         role: Main Instructor
@@ -47,7 +47,7 @@ sections:
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
-    description: "Launch your career in one of tech's fastest-growing fields, with the skills to land positions paying $95K–$135K+.<div><br></div><div><span style=\"font-size: 12px; text-align: center;\"><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" target=\"_blank\">*Not available in all regions. Terms and conditions apply.</a></span></div>"
+    description: "Become an AI Engineer and stand at the forefront of AI development. Launch your career with the skills to land positions paying $95K–$135K+.<div><br></div><div><span style=\"font-size: 12px; text-align: center;\"><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" target=\"_blank\">*Not available in all regions. Terms and conditions apply.</a></span></div>"
     media:
       type: video
       src: https://www.youtube.com/shorts/sSxJnelPJT8
@@ -66,14 +66,14 @@ sections:
       features:
         - icon: calendar
           text: 24-Week or 15-Week Accelerated Morning Track
-        - icon: IconShield
-          text: Optional Job Guarantee (available as add-on)
         - icon: IconUsers
           text: {{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
           text: Unlimited 1:1 Mentorship
         - icon: IconRobot
           text: AI-Powered Learning & Feedback
+        - icon: IconShield
+          text: Hire-or-Refund available as add-on
     section_id: hero-tznhhe
     paddingY:
       desktop: lg md

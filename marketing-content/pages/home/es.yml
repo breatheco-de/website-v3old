@@ -206,9 +206,9 @@ sections:
     section_id: features_grid-xxxxxxx
   - type: image_row
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-800x1200-q72.webp
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
         alt: "Image: ChatGPT Image Mar 26, 2026, 04_28_27 PM"
-        id: chatgpt-image-mar-26-2026-04-28-27-pm-800x1200-q72
+        id: chatgpt-image-mar-26-2026-04-28-27-pm
         object_position: 60%90%
       - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-900x1350-q70.webp
         alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"

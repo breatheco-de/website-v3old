@@ -11495,7 +11495,10 @@
       "alt": "Image: CareerKarma_logo",
       "focal_point": "center",
       "tags": [
-        "logo"
+        "logo",
+        "photo",
+        "partner",
+        "press"
       ],
       "usage_count": 0,
       "hash": "9d069a809ee0995949e3f3e880eec84786f5852d821b0e6e6e0e68831e806b0d",
@@ -14691,7 +14694,11 @@
       "alt": "Image: google",
       "focal_point": "center",
       "tags": [
-        "logo"
+        "logo",
+        "hero",
+        "photo",
+        "partner",
+        "press"
       ],
       "usage_count": 0,
       "width": 583,
@@ -20263,6 +20270,189 @@
         {
           "w": 640,
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-24f22f313d9f5b790bdc42dba7522d42949c8b7c-fe4a9be2-740x415-640w.webp"
+        }
+      ]
+    },
+    "chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536.webp",
+      "alt": "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM",
+      "focal_point": "center",
+      "tags": [
+        "team",
+        "photo"
+      ],
+      "usage_count": 0,
+      "width": 1024,
+      "height": 1536,
+      "format": "webp",
+      "parentId": "chatgpt-image-mar-26-2026-04-26-00-pm",
+      "preset": [
+        "avatar",
+        "card",
+        "full"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        128,
+        256,
+        320,
+        480,
+        640,
+        960
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536-960w.webp"
+        }
+      ]
+    },
+    "chatgpt-image-mar-26-2026-04-28-27-pm-1024x1536-q85": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-1024x1536-q85.webp",
+      "alt": "Image: ChatGPT Image Mar 26, 2026, 04_28_27 PM",
+      "focal_point": "center",
+      "tags": [
+        "avatar",
+        "photo",
+        "team",
+        "badge",
+        "illustration",
+        "award"
+      ],
+      "usage_count": 0,
+      "width": 1024,
+      "height": 1536,
+      "format": "webp",
+      "parentId": "chatgpt-image-mar-26-2026-04-28-27-pm",
+      "quality_override": 85,
+      "preset": [
+        "avatar",
+        "full",
+        "card",
+        "icon",
+        "logo"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        120,
+        128,
+        240,
+        256,
+        320,
+        480,
+        640,
+        960
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-1024x1536-q85-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-1024x1536-q85-64w.webp"
+        },
+        {
+          "w": 120,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-1024x1536-q85-120w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-1024x1536-q85-128w.webp"
+        },
+        {
+          "w": 240,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-1024x1536-q85-240w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-1024x1536-q85-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-1024x1536-q85-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-1024x1536-q85-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-1024x1536-q85-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-28-27-pm-1024x1536-q85-960w.webp"
+        }
+      ]
+    },
+    "blog_posts-4geeks-portraits-39-1-jpg-e023a61f-5504x3504": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-4geeks-portraits-39-1-jpg-e023a61f-5504x3504.webp",
+      "alt": "Image from blog_posts",
+      "focal_point": "center",
+      "tags": [
+        "avatar"
+      ],
+      "usage_count": 0,
+      "width": 5504,
+      "height": 3504,
+      "format": "webp",
+      "parentId": "blog_posts-4geeks-portraits-39-1-jpg-e023a61f",
+      "preset": [
+        "avatar"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        128,
+        256
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-4geeks-portraits-39-1-jpg-e023a61f-5504x3504-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-4geeks-portraits-39-1-jpg-e023a61f-5504x3504-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-4geeks-portraits-39-1-jpg-e023a61f-5504x3504-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-4geeks-portraits-39-1-jpg-e023a61f-5504x3504-256w.webp"
         }
       ]
     }

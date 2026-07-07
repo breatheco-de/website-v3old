@@ -21,32 +21,26 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: AI Fluency. Los profesionales más destacados ya están aquí.
-    title_highlight: Los profesionales más destacados ya están aquí.
-    subtitle: Las habilidades en IA tienen ahora una prima salarial del 56% en todas las industrias. En cuatro semanas, construirás flujos de trabajo con IA alrededor de tu trabajo real, automatizarás tus tareas más repetitivas y convertirás la IA en tu colaboradora más capaz. No se requiere programación.
+    title: ¿Sabes usar IA o la dominas? La productividad marca la diferencia.
+    title_highlight: La productividad marca la diferencia.
+    subtitle: En solo 4 semanas aprenderás desde cero a construir automatizaciones con IA que reducirán tu tiempo de trabajo entre 5 y 7 horas semanales. Eliminarás tus tareas más repetitivas y tendrás un asistente de IA trabajando para ti todos los días. Sin códigos ni programación.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
-      count: +6000 graduados
+      count: +8500 graduados
     bullet_points:
-      - Automatiza trabajo repetitivo con agentes de IA y n8n.
-      - Escribe prompts que dan resultados profesionales cada vez.
-      - Construye flujos de trabajo reales con IA que usarás en tu trabajo.
-    tutors:
-      - name: Instructor Experto
-        role: Instructor Principal
-        image: https://randomuser.me/api/portraits/men/10.jpg
-      - name: Rigo
-        role: Tutor de IA
-        image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: "Tus tutores:"
-    description: La IA no es el futuro, es la base. Los profesionales que van adelante no están esperando. Con AI Fluency, desarrollarás las habilidades para dar el salto.
+      - Automatiza lo repetitivo y resuelve todo con IA, agentes y n8n trabajando por ti en tu equipo.
+      - Conviértete en especialista en prompts con resultados profesionales, escribiendo prompts que funcionan siempre, no a veces.
+      - Domina y crea flujos de trabajo reales, no ejercicios, construyendo automatizaciones que usas todos los días en tu trabajo.
+    tutors: null
+    tutors_label: null
+    description: <i><br></i>
     signup_card:
-      title: Recibe el resumen completo del programa
-      description: "Completa tus datos y el equipo de admisiones te enviará todo lo que necesitas: plan de estudios, detalles del programa y precios. Solo tarda 2 minutos."
+      title: Lo que obtienes
+      description: Un programa estructurado de 4 semanas, hecho a la medida de tu trabajo actual, con clases en vivo, mentoría y feedback con IA. Solo tarda 30 segundos.
       cta_button:
         text: Envíame los detalles
         url: "#modal-y2myvq"
@@ -62,7 +56,7 @@ sections:
         - icon: IconUserCheck
           text: Sesión de mentoría 1:1 incluida
         - icon: IconRobot
-          text: Aprendizaje y feedback con IA
+          text: Aprendizaje y feedback en tiempo real con IA
     paddingY:
       desktop: lg md
     marginY:
@@ -142,22 +136,22 @@ sections:
     paddingY:
       desktop: none
     marginY:
-      desktop: md lg
+      desktop: md xl
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: ¿Es este programa para ti?
-    description: Si te identificas con alguno de estos puntos, este programa está hecho para ti.
+    heading: "Este programa es para ti si:"
+    description: null
     cards:
-      - icon: IconRocket
-        title: Usas herramientas de IA pero no estás aprovechando todo su potencial.
       - icon: IconClock
-        title: Las tareas repetitivas consumen tu tiempo y tu atención.
-      - icon: IconTrendingUp
-        title: Sabes que la fluidez en IA se está convirtiendo en un requisito para avanzar en tu carrera.
+        title: Las tareas repetitivas te consumen y sabes que con IA lo puedes hacer mejor.
       - icon: IconCoin
-        title: Quieres la prima salarial que viene con habilidades reales en IA.
-    background: hsl(var(--muted))
+        title: Quieres aumentar tu salario gracias a la inteligencia artificial.
+      - icon: IconRocket
+        title: Te abruma la cantidad de herramientas de IA y no sabes cuál te sirve de verdad.
+      - icon: IconTrendingUp
+        title: Sabes que quedarte atrás en IA te puede costar tu trabajo.
+    background: hsl(210 100% 50% / 0.05)
     section_id: features_quad-aifluency
     marginY:
       desktop: none lg
@@ -165,34 +159,34 @@ sections:
     version: "1.0"
     variant: stats-charts
     subtitle: Los datos son claros.
-    title: La fluidez en IA es cómo aceleran las carreras
-    description: Los profesionales con habilidades en IA ganan más, avanzan más rápido y tienen mayor demanda en todas las industrias, no solo en tecnología. La oportunidad es real, y los números lo demuestran.
+    title: "Cómo la<span style=\"color: hsl(var(--primary));\"><b style=\"\"> IA</b></span> acelera las carreras"
+    description: null
     background: bg-slate-950
-    card_bars_accent: hsl(var(--primary))
-    card_gauge_accent: hsl(var(--destructive) / 0.5)
-    card_trend_accent: hsl(var(--accent))
+    card_bars_accent: hsl(var(--color-green))
+    card_gauge_accent: hsl(var(--primary))
+    card_trend_accent: hsl(var(--color-purple))
     card_bars:
-      title: Las habilidades en IA generan una prima salarial
-      description: Mismo rol · con y sin habilidades en IA · PwC 2025
+      title: Las habilidades de IA aumentan tu salario
+      description: PwC 2025
       stat_value: +56%
-      stat_label: prima salarial para trabajadores con habilidades en IA frente a compañeros del mismo rol
-      displaced_label: Sin habilidades en IA
-      created_label: Con habilidades en IA
+      stat_label: más salario si sabes usar IA
+      displaced_label: Sin IA
+      created_label: Con IA
     card_gauge:
-      title: La alfabetización en IA se convierte en requisito laboral
-      description: Roles laborales globales · LinkedIn 2025
+      title: El conocimiento en IA se convierte en requisito laboral
+      description: LinkedIn 2025
       outer_stat_percentage: 70
       show_gauge: true
       inner_stat_highlight: false
-      gauge_label: requieren alfabetización en IA
-      stat_label: de los roles laborales ya requieren alfabetización en IA a nivel global
-      bar1_label: Roles que requieren alfabetización en IA
-      bar2_label: Roles sin requisito de IA
+      gauge_label: piden IA
+      stat_label: de los roles ya piden saber usar IA
+      bar1_label: Roles que piden IA
+      bar2_label: Roles sin ese requisito
     card_trend:
-      title: La demanda de trabajadores con fluidez en IA se acelera
-      description: Crecimiento de demanda indexado · LinkedIn/WEF 2026
+      title: La demanda de profesionales en IA aumenta cada día
+      description: LinkedIn/WEF 2026
       stat_value: 7x
-      stat_label: crecimiento en la demanda de trabajadores con fluidez en IA desde 2023
+      stat_label: más demanda desde 2023
       end_label: 7x · 2026
     section_id: features_grid-aifluency
     paddingY:
@@ -203,15 +197,21 @@ sections:
     version: v1.0
     title: Muy bien valorado en las principales plataformas.
     items:
-      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         rating: 4.9
         review_count: 4.9 en Course Report
-      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        alt: Course Report logo
+        id: logo-course-report
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79.webp
         rating: 4.8
         review_count: 4.8 en Google
-      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        alt: "Image: google"
+        id: google-583x196-q79
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/CareerKarma_logo.png
         rating: 4.9
         review_count: 4.9 en Career Karma
+        alt: "Image: CareerKarma_logo"
+        id: careerkarma-logo
       - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
         rating: 4.9
         review_count: 4.9 en SwitchUp
@@ -227,105 +227,115 @@ sections:
       desktop: 6xl
   - type: syllabus
     variant: program-modules
-    program_title: Descripción del Programa AI Fluency
-    program_description: Aprende haciendo, semana a semana. El programa comienza con un análisis de tu propio trabajo y tareas, para que todo lo que aprendas se aplique directamente a tu día a día. Cada semana combina módulos a tu ritmo y una sesión en vivo con tu instructor y cohorte para practicar, resolver dudas y recibir feedback.
+    program_title: Cómo aprenderás en 4 semanas
+    program_description: "Aprendes haciendo, no memorizando. Cada semana: un módulo a tu ritmo + una clase en vivo con tu instructor para practicar, resolver dudas y aplicarlo directo a tu trabajo real."
     tech_logos:
-      - name: OpenAI
-        icon: openai
-      - name: n8n
-        icon: n8n
-      - name: Git
-        icon: git
+      - icon: openai
+        name: OpenAI
+      - icon: openclaw
+        name: OpenClaw
+      - icon: n8n
+        name: n8n
+      - icon: gmail
+        name: Gmail
+      - icon: google-drive
+        name: Google Drive
+      - icon: notion
+        name: Notion
+      - icon: slack
+        name: Slack
+      - icon: google-sheets
+        name: Google Sheets
     module_cards:
-      - title: Cómo funciona realmente la IA
+      - title: Domina las bases del prompting
         duration: Semana 1
         objectives:
-          - Qué son los LLMs y cómo funcionan
-          - Por qué la elección del modelo importa en costo y calidad
-          - La diferencia entre un chatbot, asistente y agente
-          - "Fundamentos del prompting: rol, contexto, formato, restricciones"
-          - "Auditoría laboral: identifica tus principales candidatos a automatización"
-        projects: Escribe tus primeros 5 prompts para tareas reales que haces cada semana.
+          - Entiende cómo piensa la IA (sin tecnicismos)
+          - Elige el modelo correcto para cada tarea
+          - La diferencia entre chatbot, asistente y agente
+          - Escribe tu primer prompt bien estructurado
+          - Detecta qué tareas de tu trabajo puedes automatizar
+        projects: "Ejemplo: escribe el prompt perfecto para resumir tus reuniones."
         orientation: vertical
         icon: IconBolt
-      - title: El prompting como habilidad
+      - title: Experto en prompting en 7 días
         duration: Semana 2
         objectives:
-          - "Patrones de prompting: cadena de pensamiento, few-shot, persona, output estructurado"
-          - Prompting para emails, informes, investigación y resúmenes de reuniones
-          - Gestión efectiva del contexto en IA
-          - Construcción de una biblioteca personal de prompts
-        projects: Sal con 3-5 prompts funcionales para tareas reales de tu trabajo.
+          - Técnicas de prompting que sí funcionan
+          - Prompts para emails, informes y reuniones
+          - Cómo dar el contexto correcto a la IA
+          - Tu propia biblioteca de prompts, lista para reutilizar
+        projects: "Ejemplo: un prompt que redacta tus emails en tu tono, siempre."
         orientation: vertical
         icon: IconCode
-      - title: Tu asistente personal de IA
+      - title: Automatiza tus procesos con agentes de IA
         duration: Semana 3
         objectives:
-          - Qué son los agentes de IA y cómo funcionan las habilidades
-          - Instalación y configuración de OpenClaw
-          - Creación de habilidades personalizadas a partir de plantillas de prompts
-          - Conexión de tu asistente a Google Drive, Gmail o Notion
-        projects: Ejecuta una habilidad personalizada en una tarea personal real.
+          - Qué es un agente de IA y cómo trabaja para ti
+          - Configura tu propio asistente con OpenClaw
+          - Crea habilidades personalizadas para tus tareas
+          - Conéctalo a Gmail, Drive o Notion
+        projects: "Ejemplo: un asistente que organiza tu bandeja de Gmail solo."
         orientation: vertical
         icon: IconRobot
-      - title: Pipelines de automatización con n8n
+      - title: Automatiza la tarea más repetitiva de tu trabajo
         duration: Semana 4
         objectives:
-          - "Fundamentos de n8n: nodos, disparadores y flujos de trabajo"
-          - Conexión de n8n con Gmail, Slack, Google Sheets y webhooks
-          - Integración de n8n con un agente de IA para pasos de toma de decisiones inteligentes
-          - "Preparación del proyecto final: mapea y construye tu automatización"
-        projects: Construye y demuestra una automatización en vivo que gestione una tarea recurrente real.
+          - Aprende n8n sin complicarte
+          - Conéctalo con Gmail, Slack y Google Sheets
+          - Suma IA a tu automatización para que tome decisiones
+          - Diseña tu propia automatización, paso a paso
+        projects: "Ejemplo: reportes semanales que se arman solos con n8n."
         orientation: vertical
         icon: IconLayoutKanban
-      - title: Flujo de trabajo automatizado con IA
+      - title: Sal con una automatización real, funcionando
         duration: Proyecto Capstone
         objectives:
-          - Una automatización en vivo en n8n que resuelve una tarea personal o profesional real
-          - Al menos un paso de toma de decisiones con IA integrado en el flujo de trabajo
-          - Demo en vivo presentada al instructor y a los compañeros
-        projects: Una automatización real que construiste, que es tuya y que puedes seguir mejorando.
+          - Una automatización real, funcionando de verdad
+          - Con IA tomando decisiones dentro del flujo
+          - La presentas en vivo frente a tu instructor y compañeros
+        projects: "Ejemplo: la automatización que ya usas todos los días, sin pensarlo."
         orientation: horizontal
         icon: IconChartBar
     marginY:
-      desktop: md
+      desktop: md lg
     paddingY:
       desktop: lg
     section_id: syllabus-aifluency
   - type: human_and_ai_duo
     version: "1.0"
-    heading: Soporte humano y de IA para que nunca pierdas el ritmo
-    description: Mantenerse motivado es fácil cuando todo encaja. Se vuelve difícil cuando te topas con un muro. AI Fluency combina un mentor humano real con Rigobot, nuestro tutor de IA, para que siempre tengas a alguien a quien acudir y ninguna razón para parar.
+    heading: Ayuda real, cuando la necesites
+    description: Mentor humano cuando quieres profundidad. IA cuando quieres velocidad. Nunca te quedas atascado.
     bullet_groups:
-      - title: "Tu mentor experto:"
+      - title: "Mentor humano:"
         image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
         bullets:
-          - text: Una sesión 1:1 con un instructor senior, incluida en tu matrícula
-          - text: Orientación experta adaptada a ti.
-          - text: Enfocado en tus tareas, flujos de trabajo y objetivos reales
-          - text: Sesiones adicionales disponibles para reservar cuando quieras, con costo adicional
+          - text: 1 hora, tú y tu mentor senior. Resuelve todas tus dudas.
+          - text: Enfocado en tu trabajo real, no en teoría.
+          - text: ¿Te parece poco? Tenemos paquetes de mentoría aún más personalizados.
       - title: "Rigobot, tu tutor de IA:"
         image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
         bullets:
-          - text: Disponible 24/7 durante todo el programa
-          - text: Pide ayuda, feedback o una explicación cuando lo necesites
-          - text: Tu tutor siempre activo para todos los módulos a tu propio ritmo
-          - text: Se adapta a tu nivel y a lo que estás trabajando
+          - text: Disponible 24/7. No te quedas estancado nunca.
+          - text: Feedback al instante, adaptado a tu nivel.
+          - text: Te acompaña en cada módulo, a tu propio ritmo.
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
-        alt: Estudiante asiática aprendiendo a programar
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina-brightened-1365x2048.webp
+        alt: "Image: valentina_brightened"
         object_fit: cover
         object_position: 40%20%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male-133x500.webp
-        alt: Estudiante latino trabajando en un proyecto
+        id: valentina-brightened-1365x2048
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536.webp
+        alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
-      - src: https://breathecode.herokuapp.com/v1/media/file/4geeks-portraits-39-1-jpg
+        id: chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
         alt: Estudiante africana colaborando con su equipo
         object_fit: cover
-        object_position: 50%15%
+        object_position: 70%15%
         border_radius: 0.5rem
       - src: https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74.webp
         alt: Estudiante latina celebrando un logro
@@ -334,7 +344,7 @@ sections:
         border_radius: 0.5rem
     image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
     image_alt: Mujer trabajando con portátil en una cafetería
-    background: bg-background
+    background: hsl(var(--secondary))
     paddingY:
       mobile: sm none
       desktop: md none
@@ -369,7 +379,18 @@ sections:
       desktop: lg md
     paddingY:
       desktop: md lg
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--card))
+    heading: Ayuda real, cuando la necesites
+    description: Mentor humano cuando quieres profundidad. IA cuando quieres velocidad. Nunca te quedas atascado.
+    bullet_groups:
+      - bullets:
+          - text: 1 hora, tú y tu mentor senior. Resuelve todas tus dudas.
+          - text: Enfocado en tu trabajo real, no en teoría.
+          - text: ¿Te parece poco? Tenemos paquetes de mentoría aún más personalizados.
+      - bullets:
+          - text: Disponible 24/7. No te quedas estancado nunca.
+          - text: Feedback al instante, adaptado a tu nivel.
+          - text: Te acompaña en cada módulo, a tu propio ritmo.
   - type: pricing
     version: "1.0"
     variant: product
@@ -417,7 +438,7 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--card))
   - type: testimonials
     section_id: testimonials-ghxelh
     title: Las personas detrás de los números.

@@ -30,7 +30,7 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
-      count: +8000 graduates
+      count: +8500 graduates
     bullet_points:
       - Master AI with no programming experience or other tech skills.
       - Save between 3-6 hours weekly of repetitive work by learning how to use AI and N8N.
@@ -49,7 +49,7 @@ sections:
       description: A structured 4-week program built around your actual job, with live classes, mentorship, and AI-powered feedback.
       cta_button:
         text: Program Details
-        url: "#syllabus-aifluency"
+        url: "#pricing-aifluency-latam"
         variant: primary
       login_link:
         text: Already a student? Login here.
@@ -391,7 +391,8 @@ sections:
       mobile: sm none
       desktop: md none
     section_id: human_and_ai_duo-99s71d
-  - type: pricing
+  - id: pricing
+    type: pricing
     version: "1.0"
     variant: product
     title: Tuition, Financing & Start Dates

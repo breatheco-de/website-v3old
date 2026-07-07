@@ -21,55 +21,57 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Everyone use AI, some master it. Learn AI Fluency from 0 to 100 in 1 Month.
-    title_highlight: Learn AI Fluency from 0 to 100 in 1 Month.
-    subtitle: AI skills now carry a 56% salary premium across industries. In four weeks, you'll build AI workflows around your actual job, automate your most repetitive work and save hours every single day. No coding and no experience on AI required.
+    title: Todos usan IA, pocos la Dominan. Aprende a usarla de 0 a 100 en 1 mes.
+    title_highlight: Aprende a usarla de 0 a 100 en 1 mes.
+    subtitle: En cuatro semanas dominaras la IA al maximo sin tener ningun conociemiento previo, aprenderas de 0 a 100 a construir automatizaciones con IA que haran que reduzcas tu tiempo de trabajo entre 3-5 horas semanales, automatizarás tus tareas más repetitivas y convertirás la IA en tu colaboradora más capaz. No se requiere programación.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
-      count: +8000 graduates
+      count: +6000 graduados
     bullet_points:
-      - Master AI with no programming experience or other tech skills.
-      - Save between 3-6 hours weekly of repetitive work by learning how to use AI and N8N.
-      - Learn real-world AI prompting secrets to automize your workflow
-      - Lock in a certificate endorsed by the Florida Department of Education.
+      - Automatiza trabajo repetitivo con agentes de IA y n8n.
+      - Escribe prompts que dan resultados profesionales cada vez.
+      - Construye flujos de trabajo reales con IA que usarás en tu trabajo.
     tutors:
-      - name: Expert Instructor
-        role: Lead Instructor
+      - name: Instructor Experto
+        role: Instructor Principal
         image: https://randomuser.me/api/portraits/men/10.jpg
-      - name: Rigobot AI
-        role: 4Geeks 24/7 AI Assistant. Answers any question at any time
+      - name: Rigo
+        role: Tutor de IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
-    tutors_label: "Your tutors:"
+    tutors_label: "Tus tutores:"
+    description: La IA no es el futuro, es la base. Los profesionales que van adelante no están esperando. Con AI Fluency, desarrollarás las habilidades para dar el salto.
     signup_card:
-      title: What You Get
-      description: A structured 4-week program built around your actual job, with live classes, mentorship, and AI-powered feedback.
+      title: Recibe el resumen completo del programa
+      description: "Completa tus datos y el equipo de admisiones te enviará todo lo que necesitas: plan de estudios, detalles del programa y precios. Solo tarda 2 minutos."
       cta_button:
-        text: Program Details
-        url: "#syllabus-aifluency"
+        text: Envíame los detalles
+        url: "#modal-y2myvq"
         variant: primary
       login_link:
-        text: Already a student? Login here.
-        url: https://4geeks.com/login
+        text: ¿Ya eres estudiante? Inicia sesión aquí.
+        url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: 4-Week Cohort Program
+          text: Programa de cohorte de 4 semanas
         - icon: IconUsers
-          text: 1 Live Class Per Week With AI Experts
+          text: 1 clase en vivo por semana
         - icon: IconUserCheck
-          text: 1:1 Mentorship Session. Solve all your doubts with 1+ year AI veterans.
+          text: Sesión de mentoría 1:1 incluida
         - icon: IconRobot
-          text: 24/7 Available AI-Powered Learning & Feedback
+          text: Aprendizaje y feedback con IA
     paddingY:
       desktop: lg md
     marginY:
       desktop: none
     section_id: hero-yt9c4j
     video:
-      url: https://www.youtube.com/watch?v=a6aYSobiuBc
+      url: https://www.youtube.com/watch?v=NkmjzrAZ4x8&list=PLmBUv425PabVE26vtG0AqlDTXNmEZ2U0r
+    form:
+      conversion_name: request_more_info
   - type: modal
     version: "1.0"
     heading: Get the Program Details
