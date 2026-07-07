@@ -496,33 +496,41 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Matrícula y opciones de financiamiento
-    subtitle: Invertir en una nueva carrera importa. Te lo facilitamos con múltiples formas de financiar tu inscripción.
-    discount_text: "Descuento por pago completo: Ahorra 10% con pago anticipado."
-    financing_text: Cuota estimada de 140 €/mes financiando 5.750 € a 48 meses (TIN 7,75 %), tras una reserva previa de 500 € y sujeta a aprobación por la entidad financiera.*
-    financing_amount: 140€
+    title: Tuition, Financing & Start Dates
+    subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
+    discount_text: "Save 10%: Pay €810 upfront."
+    financing_text: "Or split it: 2 interest-free installments."
+    financing_amount: €450
+    financing_period: ""
     tech_icons:
       - openai
       - claude
       - n8n
       - openclaw
-    features_title: Elige la opción que mejor se adapte a ti.
+    features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Paga de contado para obtener un mejor precio con un descuento adicional, o divide tus pagos en 6 cuotas sin intereses con nuestros partners.
+        text: Secure your spot. Next cohorts start July 15 and August 26.
       - icon: IconCheck
-        text: 2–3 becas basadas en mérito disponibles por cohorte para solicitantes altamente calificados.
+        text: Spread your payments with 2 interest-free installments through 4Geeks.
       - icon: IconCheck
-        text: Trabajamos con socios de confianza para ofrecer financiamiento flexible y asequible, para que puedas enfocarte en tu futuro, no en tus tarifas.
+        text: One 1:1 mentorship session included. Add more at any time for €25 each.
+    footer: UPCOMING COHORTS
+    footer_badges:
+      - label: Feb 3, 2025
+        tag: Filling fast
+      - label: Mar 10, 2025
+      - label: Apr 7, 2025
     cta:
-      text: Inscríbete ahora
-      url: https://4geeks.com/es/checkout?plan=ai-fluency-ue&cohort=1706
+      text: Enroll Now
+      url: https://4geeks.com/checkout?plan=ai-fluency-ue&cohort=1706
       variant: primary
-    section_id: pricing-qhcsa1
+    section_id: pricing-aifluency-europe
     marginY:
-      desktop: md xl
+      desktop: lg md
     paddingY:
       desktop: md lg
+    background: hsl(210 100% 50% / 0.05)
     showOnLocations:
       - barcelona-spain
       - madrid-spain
@@ -535,7 +543,6 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
-    background: hsl(var(--card))
   - type: faq
     section_id: faq-f4yd0z
     title: Preguntas frecuentes
