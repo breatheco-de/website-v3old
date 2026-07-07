@@ -159,34 +159,34 @@ sections:
     version: "1.0"
     variant: stats-charts
     subtitle: Los datos son claros.
-    title: La fluidez en IA es cómo aceleran las carreras
-    description: Los profesionales con habilidades en IA ganan más, avanzan más rápido y tienen mayor demanda en todas las industrias, no solo en tecnología. La oportunidad es real, y los números lo demuestran.
+    title: Cómo la IA acelera las carreras
+    description: null
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
     card_gauge_accent: hsl(var(--destructive) / 0.5)
     card_trend_accent: hsl(var(--accent))
     card_bars:
-      title: Las habilidades en IA generan una prima salarial
-      description: Mismo rol · con y sin habilidades en IA · PwC 2025
+      title: Las habilidades de IA aumentan tu salario
+      description: PwC 2025
       stat_value: +56%
-      stat_label: prima salarial para trabajadores con habilidades en IA frente a compañeros del mismo rol
-      displaced_label: Sin habilidades en IA
-      created_label: Con habilidades en IA
+      stat_label: más salario si sabes usar IA
+      displaced_label: Sin IA
+      created_label: Con IA
     card_gauge:
-      title: La alfabetización en IA se convierte en requisito laboral
-      description: Roles laborales globales · LinkedIn 2025
+      title: El conocimiento en IA impulsará tu carrera
+      description: LinkedIn 2025
       outer_stat_percentage: 70
       show_gauge: true
       inner_stat_highlight: false
-      gauge_label: requieren alfabetización en IA
-      stat_label: de los roles laborales ya requieren alfabetización en IA a nivel global
-      bar1_label: Roles que requieren alfabetización en IA
-      bar2_label: Roles sin requisito de IA
+      gauge_label: piden IA
+      stat_label: de los roles ya piden saber usar IA
+      bar1_label: Roles que piden IA
+      bar2_label: Roles sin ese requisito
     card_trend:
-      title: La demanda de trabajadores con fluidez en IA se acelera
-      description: Crecimiento de demanda indexado · LinkedIn/WEF 2026
+      title: La demanda de profesionales en IA aumenta cada día
+      description: LinkedIn/WEF 2026
       stat_value: 7x
-      stat_label: crecimiento en la demanda de trabajadores con fluidez en IA desde 2023
+      stat_label: más demanda desde 2023
       end_label: 7x · 2026
     section_id: features_grid-aifluency
     paddingY:
