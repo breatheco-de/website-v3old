@@ -151,13 +151,13 @@ sections:
     description: Hazte estas 4 preguntas
     cards:
       - icon: IconRocket
-        title: Am I doing repetitive tasks everyday at work? ➡️ AI automates that work.
+        title: ¿Hago tareas repetitivas cada día en el trabajo? ➡️ La IA las automatiza.
       - icon: IconClock
-        title: How much time could AI save me? ➡️ Research confirms 3-6 hours weekly
+        title: ¿Cuánto tiempo me puede ahorrar la IA? ➡️ Los estudios confirman de 3 a 6 horas semanales.
       - icon: IconTrendingUp
-        title: Is AI fluency really a must-have for my career? ➡️ 71% of recruiters prioritize AI skills.
+        title: ¿Dominar la IA es obligatorio para mi carrera? ➡️ El 71% de los reclutadores prioriza habilidades en IA.
       - icon: IconCoin
-        title: Can real AI skills boost my income? ➡️ 56% higher pay.
+        title: ¿Tener habilidades reales en IA aumentará mis ingresos? ➡️ Salarios un 56% más altos.
     background: hsl(var(--muted))
     section_id: features_quad-aifluency
     marginY:
