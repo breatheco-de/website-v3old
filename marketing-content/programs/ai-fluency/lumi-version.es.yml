@@ -157,7 +157,7 @@ sections:
       - icon: IconTrendingUp
         title: ¿Dominar la IA es obligatorio para mi carrera? ➡️ El 71% de los reclutadores prioriza habilidades en IA.
       - icon: IconCoin
-        title: ¿Tener habilidades reales en IA aumentará mis ingresos? ➡️ Salarios un 56% más altos.
+        title: ¿Tener habilidades en IA aumentará mis ingresos? ➡️ Salarios un 56% más altos.
     background: hsl(var(--muted))
     section_id: features_quad-aifluency
     marginY:
