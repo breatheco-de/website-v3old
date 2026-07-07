@@ -237,7 +237,7 @@ sections:
       - name: Git
         icon: git
     module_cards:
-      - title: Cómo funciona realmente la IA
+      - title: Domina las bases del prompting
         duration: Semana 1
         objectives:
           - Qué son los LLMs y cómo funcionan
@@ -248,7 +248,7 @@ sections:
         projects: Escribe tus primeros 5 prompts para tareas reales que haces cada semana.
         orientation: vertical
         icon: IconBolt
-      - title: El prompting como habilidad
+      - title: Experto en prompting en 7 días
         duration: Semana 2
         objectives:
           - "Patrones de prompting: cadena de pensamiento, few-shot, persona, output estructurado"
@@ -258,7 +258,7 @@ sections:
         projects: Sal con 3-5 prompts funcionales para tareas reales de tu trabajo.
         orientation: vertical
         icon: IconCode
-      - title: Tu asistente personal de IA
+      - title: Automatiza tus procesos con agentes de IA
         duration: Semana 3
         objectives:
           - Qué son los agentes de IA y cómo funcionan las habilidades
@@ -268,7 +268,7 @@ sections:
         projects: Ejecuta una habilidad personalizada en una tarea personal real.
         orientation: vertical
         icon: IconRobot
-      - title: Pipelines de automatización con n8n
+      - title: Automatiza la tarea más repetitiva de tu trabajo
         duration: Semana 4
         objectives:
           - "Fundamentos de n8n: nodos, disparadores y flujos de trabajo"
@@ -278,7 +278,7 @@ sections:
         projects: Construye y demuestra una automatización en vivo que gestione una tarea recurrente real.
         orientation: vertical
         icon: IconLayoutKanban
-      - title: Flujo de trabajo automatizado con IA
+      - title: Sal con una automatización real, funcionando
         duration: Proyecto Capstone
         objectives:
           - Una automatización en vivo en n8n que resuelve una tarea personal o profesional real
