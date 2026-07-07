@@ -136,7 +136,7 @@ sections:
     paddingY:
       desktop: none
     marginY:
-      desktop: md lg
+      desktop: md xl
   - type: features_quad
     version: "1.0"
     variant: default
