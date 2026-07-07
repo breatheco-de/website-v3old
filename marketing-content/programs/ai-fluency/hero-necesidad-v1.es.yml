@@ -37,7 +37,7 @@ sections:
       - Domina y crea flujos de trabajo reales, no ejercicios, construyendo automatizaciones que usas todos los días en tu trabajo.
     tutors: null
     tutors_label: null
-    description: AI Fluency es el programa de 4Geeks para llevar tu trabajo diario al siguiente nivel con IA y volverte imprescindible en tu empleo.
+    description: "<i><span style=\"color: hsl(var(--muted-foreground));\"><span style=\"font-size: 0.75rem;\">AI Fluency es el programa de 4Geeks para llevar tu trabajo diario al siguiente nivel con IA y volverte imprescindible en tu empleo.</span></span></i>"
     signup_card:
       title: Recibe el resumen completo del programa
       description: "Completa tus datos y el equipo de admisiones te enviará todo lo que necesitas: plan de estudios, detalles del programa y precios. Solo tarda 30 segundos."
