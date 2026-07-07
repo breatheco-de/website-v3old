@@ -597,33 +597,33 @@ sections:
            AI Fluency funciona con fechas fijas de inicio de cohorte y plazas limitadas por cohorte para mantener las sesiones en vivo pequeñas e interactivas. Las próximas fechas de inicio están listadas en la página del programa AI Fluency.
   - type: cta_banner
     version: "1.0"
-    title: Ready to Build Your AI Fluency?
-    subtitle: Join the next cohort and leave with real skills, a live automation, and a certificate. Your next step starts here.
+    title: ¿Listo para desarrollar tu fluidez en IA?
+    subtitle: Únete a la próxima cohorte y sal con habilidades reales, una automatización en vivo y un certificado. Tu siguiente paso empieza aquí.
     background: hsl(var(--primary))
     variant: form
     form:
       variant: stacked
       conversion_name: student_application
-      submit_label: Enroll Now
+      submit_label: Iniciar solicitud
       fields:
         email:
           visible: true
           required: true
-          placeholder: Your email address
+          placeholder: Tu correo electrónico
         first_name:
           visible: true
           required: true
-          placeholder: First name
+          placeholder: Nombre
         phone:
           visible: true
           required: true
-          placeholder: Phone number
+          placeholder: Número de teléfono
         program:
           visible: false
           required: true
           default: {{ single.bc_slug | ai-fluency }}
       success:
-        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
+        message: Revisa tu bandeja de entrada. El equipo de admisiones se pondrá en contacto pronto con todo lo que necesitas saber.
       button_className: bg-primary
       terms_className: text-white/80
     form_background: hsl(var(--card))
