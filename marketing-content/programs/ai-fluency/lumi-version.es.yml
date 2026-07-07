@@ -37,7 +37,7 @@ sections:
       - Aprende a crear prompts aplicados al mundo real para automatizar tu flujo de trabajo.
       - Obtén un certificado avalado por el Departamento de Educación de Florida.
     tutors:
-      - name: Instructor Experto
+      - name: Juan Luis Guera
         role: Instructor Principal
         image: https://randomuser.me/api/portraits/men/10.jpg
       - name: Tutor con IA
