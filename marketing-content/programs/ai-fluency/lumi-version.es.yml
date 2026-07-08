@@ -22,7 +22,7 @@ sections:
     version: "1.0"
     variant: course
     badge:
-      text: El texto que quieras mostrar
+      text: AI Fluency
       color: primary
     title: Todos usan IA, pocos la Dominan. Multiplica tu productividad en solo 28 días.
     title_highlight: Multiplica tu productividad en solo 28 días.
