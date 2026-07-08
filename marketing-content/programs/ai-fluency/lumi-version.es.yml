@@ -260,8 +260,8 @@ sections:
       - title: Construye tu asistente virtual
         duration: Semana 3
         objectives:
-          - Qué son los agentes de IA y cómo funcionan las "skills"
           - Instalación y configuración de OpenClaw
+          - Qué son los agentes de IA y cómo funcionan las "skills"
           - Creación de habilidades personalizadas a partir de plantillas de prompts
           - Conexión de tu asistente a Google Drive, Gmail o Notion
         projects: Aprende a usar OpenClaw, el asistente de IA de código abierto más potente del mercado. Sincronizarás la IA con tu espacio de trabajo (Drive, Notion, Gmail) para crear un flujo privado basado en chat que gestione tus datos en piloto automático.
