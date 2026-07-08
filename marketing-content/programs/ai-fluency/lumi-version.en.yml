@@ -117,18 +117,18 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: Is this program right for you?
-    description: Ask yourself this 4 questions.
+    heading: "Este programa es para ti si:"
+    description: null
     cards:
-      - icon: IconRocket
-        title: Am I doing repetitive tasks everyday at work? ➡️ AI automates that work.
       - icon: IconClock
-        title: How much time could AI save me? ➡️ Research confirms 5-7 hours weekly
-      - icon: IconTrendingUp
-        title: Is AI fluency really a must-have for my career? ➡️ 71% of recruiters prioritize AI skills.
+        title: You do repetitive tasks and know that AI could help you get them done faster.
       - icon: IconCoin
-        title: Can real AI skills boost my income? ➡️ 56% higher pay.
-    background: hsl(var(--muted))
+        title: You want to boost your salary by leveraging artificial intelligence.
+      - icon: IconRocket
+        title: You're overwhelmed by the sheer number of AI tools and don't know which ones actually work for you.
+      - icon: IconTrendingUp
+        title: You know that falling behind on AI could cost you your job.
+    background: hsl(210 100% 50% / 0.05)
     section_id: features_quad-aifluency
     marginY:
       desktop: none lg
