@@ -19,16 +19,11 @@ sections:
       desktop: lg
       mobile: lg
   - card_bars:
+      created_label: Steady growth since our first cohort in 2015
       description: 4Geeks Academy
       stat_label: students graduated worldwide
       stat_value: 8,500+
       title: Building tech careers since 2015
-      years:
-        - "2015"
-        - "2018"
-        - "2021"
-        - "2024"
-        - "2026"
     card_bars_accent: hsl(var(--color-green))
     card_color: bg-background
     card_gauge:
@@ -48,7 +43,7 @@ sections:
       stat_value: +55%
       title: Salary does change
     card_trend_accent: hsl(var(--color-purple))
-    description: With 10 campuses across the US, LatAm, and Europe.
+    description: With 10 campuses across the US, LatAm, and Europe, giving you a global network of classmates, mentors, and hiring partners wherever you are.
     marginY:
       desktop: lg
       mobile: md
