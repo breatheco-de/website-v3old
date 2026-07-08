@@ -551,7 +551,7 @@ sections:
           - valencia-spain
     hardcoded_entries:
       - answer: No. AI Fluency está diseñado para profesionales en activo sin experiencia en programación. Todas las herramientas del programa, desde prompt engineering hasta automatizaciones con n8n, funcionan sin escribir una sola línea de código. El foco está en aplicar la IA a tareas reales de trabajo, no en programar.
-        question: ¿Necesito saber programar para tomar AI Fluency?
+        question: ¿Necesito saber programar para cursar AI Fluency?
       - answer: AI Fluency dura 4 semanas. Cada semana tiene un módulo a tu ritmo que completas según tu horario, seguido de una clase en vivo donde aplicas lo aprendido con la guía del instructor y el feedback de tus compañeros. Si te pierdes una clase en vivo, la grabación está disponible para que puedas ponerte al día antes de la siguiente sesión.
         question: ¿Cómo funciona el programa AI Fluency?
       - answer: "Al terminar AI Fluency tendrás tres entregables concretos: una biblioteca personal de prompts que puedes usar de inmediato en tu trabajo, un asistente de IA configurado y conectado a las herramientas que ya usas a diario, y una automatización funcional en n8n que gestiona una tarea recurrente real en tu vida profesional. No son ejercicios, son herramientas que conservas y usas desde el primer día después del programa."
