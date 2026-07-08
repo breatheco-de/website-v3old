@@ -257,7 +257,7 @@ sections:
         projects: Convierte tus prompts en plantillas avanzadas y reutilizables para que la IA te de la respuesta que realmente esperas.
         orientation: vertical
         icon: IconCode
-      - title: Consigue tu asistente virtual
+      - title: Contruye tu asistente virtual
         duration: Semana 3
         objectives:
           - Qué son los agentes de IA y cómo funcionan las habilidades
