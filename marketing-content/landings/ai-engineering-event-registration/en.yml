@@ -58,169 +58,69 @@ sections:
     type: features_grid
     variant: stats-charts
     version: "1.0"
-  - header: A preview of what's inside
+  - description: <p>You'll go from configuring your first agent to orchestrating systems where multiple agents collaborate on their own. This is a highlight reel — the full curriculum covers more ground.</p>
+    header: A preview of what's inside
     marginY:
       desktop: lg
       mobile: md
     module_cards:
-      - duration: Core AI and Agents
+      - duration: Module 01
         icon: IconRobot
         objectives:
-          - Configure an open-source AI agent as a personal assistant
-          - Assign tasks and integrate external applications with the agent
+          - Configure an open source AI agent as a personal assistant
+          - Develop custom skills for it
+          - Turn it into a productive tool with real autonomy in business contexts
         orientation: vertical
-        projects: Deploy and configure a self-hosted AI assistant — yours, under your control, without relying on external vendors.
         title: Personal Assistants with OpenClaw
-      - duration: Core AI and Agents
+      - duration: Module 02
         icon: IconRobot
         objectives:
-          - Identify scenarios where an agent solves real business problems
-          - Develop custom skills for OpenClaw
-          - Implement contextual memory (episodic, semantic, procedural)
-          - Advanced configuration and extension of the agent
+          - "Implement contextual memory: episodic, semantic, procedural"
+          - Build memory banks and context rules from an existing codebase
+          - Turn your agent into a collaborator that understands your work
         orientation: vertical
-        projects: Take your basic assistant agent to a productive tool with real autonomy in business contexts.
         title: Advanced Personal Assistants with OpenClaw
-      - duration: Core AI and Agents
+      - duration: Module 03
         icon: IconCode
         objectives:
-          - Build memory banks and context rules from an existing codebase
-          - Write executable specifications for agents (agent specs)
-          - Synthesize reusable skills so agents act with precision
+          - Write executable specifications for agents, agent specs
+          - Synthesize reusable skills so agents act with precision instead of guessing
         orientation: vertical
-        projects: Build memory banks and context rules that turn a coding agent into a collaborator that understands your codebase.
         title: Working with AI Coding Agents
-      - duration: Core AI and Agents
+      - duration: Module 04
         icon: IconDatabase
         objectives:
           - Prepare data and select models for training
-          - Implement RAG techniques on proprietary knowledge bases
-          - Work with vector databases
+          - Implement RAG on proprietary knowledge bases, work with vector databases
+          - Learn when and how to fine tune
           - Evaluate, debug, and integrate models in production
         orientation: vertical
-        projects: Implement RAG so your agent answers with proprietary, up-to-date knowledge.
-        title: LLMs, Training & RAG
-      - duration: Core AI and Agents
+        title: LLMs, Training and RAG
+      - duration: Module 05
         icon: IconBolt
         objectives:
-          - Build agents with tool calling (real function calls)
-          - Implement guardrails as a security and control mechanism
-          - Provide tools to the agent via CLIs optimized for AI
-          - Extend agent capabilities with the Model Context Protocol (MCP)
+          - Build agents with real tool calling that access external systems safely under guardrails
+          - Extend agent capabilities with the Model Context Protocol
+          - Provide tools through CLIs optimized for AI
           - Give an agent persistent memory
         orientation: vertical
-        projects: Build agents that call tools, access external systems via MCPs and CLIs, and operate with persistent memory.
         title: Agentic Engineering
-      - duration: Core AI and Agents
+      - duration: Module 06
         icon: IconLayoutKanban
         objectives:
-          - Design multi-agent systems with LangGraph's state graph model
-          - Define state schemas and handle errors at individual nodes without crashing the graph
-          - Build modular subgraphs and trace routing decisions and token cost across the whole system
+          - Design multi agent systems with LangGraph's state graph model
+          - Define state schemas, handle errors at individual nodes without crashing the graph
+          - Build modular subgraphs
+          - Trace routing decisions and token cost across the whole system
         orientation: vertical
-        projects: Design systems where multiple agents collaborate, distribute tasks, and run autonomously at scale.
         title: Agentic Workflows and Orchestration
-      - duration: Infrastructure for AI
-        icon: IconServer
-        objectives:
-          - Design backend architectures for AI-powered solutions
-          - Create agent loops integrating LLMs with APIs
-          - Implement lightweight storage and CSV data processing
-          - Build and expose REST APIs for frontends and agents
-        orientation: vertical
-        projects: Build robust APIs with FastAPI, implement agent loops in Python, and design backend architectures for AI use cases.
-        title: Backend Development with Coding Agents
-      - duration: Infrastructure for AI
-        icon: IconCode
-        objectives:
-          - Model business logic with workflow diagrams
-          - Implement basic and advanced flows in n8n
-          - Integrate LLMs and external apps in automations
-          - Deploy maintainable workflows with error handling
-        orientation: vertical
-        projects: Build AI-powered business automations in n8n that run autonomously without manual intervention.
-        title: Workflow Automations
-      - duration: Infrastructure for AI
-        icon: IconChartBar
-        objectives:
-          - Manipulate and prepare datasets with Python
-          - Build data pipelines from the application to analysis systems
-        orientation: vertical
-        projects: Build pipelines that take raw data, transform it, and leave it ready to feed models, reports, or agents.
-        title: Data Pipelines
-      - duration: Infrastructure for AI
-        icon: IconChartBar
-        objectives:
-          - Optimize storage for reporting and data integrity
-          - Identify data collection opportunities in real scenarios
-          - Collect telemetry and user context from the application
-          - Build reports from telemetry data
-        orientation: vertical
-        projects: Instrument applications to collect behavioral data and make decisions based on real evidence.
-        title: Telemetry
-      - duration: Infrastructure for AI
-        icon: IconServer
-        objectives:
-          - Implement background processing for costly tasks
-          - Manage process queues with workers
-          - Use queues to delegate work between agents and services
-        orientation: vertical
-        projects: Implement background processing and queue systems that let agents delegate heavy work without blocking users.
-        title: Asynchronous Processing and Offloading
-      - duration: Infrastructure for AI
-        icon: IconBolt
-        objectives:
-          - Build support chats with LLMs in real time
-          - Implement response streaming with generators (yield)
-          - Integrate webhooks and pub/sub in AI applications
-        orientation: vertical
-        projects: Implement real-time communication between users and language models using streaming, WebSockets, and event-driven architectures.
-        title: Real-Time
-      - duration: Infrastructure for AI
-        icon: IconCode
-        objectives:
-          - Implement authentication and route restrictions in FastAPI
-          - Build complete authentication flows (login, tokens, sessions)
-        orientation: vertical
-        projects: Implement secure authentication in FastAPI and build complete login flows that define what each user — and agent — can do.
-        title: Web Application Authentication
-      - duration: Infrastructure for AI
-        icon: IconCode
-        objectives:
-          - Understand and manage runtime errors with flow control
-          - Develop test suites for robust applications
-        orientation: vertical
-        projects: Verify AI-generated code with controlled error handling and test suites that validate expected behavior.
-        title: Error Handling, Debugging and Testing
-      - duration: Infrastructure for AI
-        icon: IconCode
-        objectives:
-          - Identify and fix OWASP Top 10 vulnerabilities in web applications
-          - Implement security practices specific to AI integrations
-          - Use LLMs as a cybersecurity auditing tool
-        orientation: vertical
-        projects: Identify critical vulnerabilities in AI applications and implement safe practices in model integration.
-        title: Cybersecurity in AI Applications
-      - duration: Capstone
-        icon: IconCode
-        objectives:
-          - AI-generated frontend
-          - API with full authentication
-          - Telemetry and reporting pipeline
-          - Agent-generated automated workflows
-          - RAG knowledge layer
-          - Agents with tool calling
-          - Real-time communication
-        orientation: horizontal
-        projects: Integrate everything you have learned into a working, deployed system — a full transformation of a company through AI.
-        title: AI-Transformed Company
     paddingY:
       desktop: lg
       mobile: md
-    program_description: Build real AI-powered systems from day one. This curriculum is organized around two tracks — Core AI and Agents, and Infrastructure for AI — plus a capstone that integrates everything into a fully transformed, deployed company.
-    program_title: AI Engineering — Program Modules
+    program_description: A snapshot of the core building blocks you'll work with in this program.
+    program_title: AI Engineering — Core Modules
     section_id: curriculum-event
-    subheader: This is the full program curriculum, not a stripped-down version.
+    subheader: This is a snapshot of the core building blocks, not the full syllabus.
     tech_logos:
       - icon: python
         name: Python
