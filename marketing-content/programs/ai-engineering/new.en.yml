@@ -65,7 +65,7 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: {{ global.ai_engineering_program_tracks | 22-Week or 17-Week Accelerated Morning Track }}
+          text: {{ global.ai_engineering_program_tracks | 22 Weeks or 17-Week Accelerated Morning Track }}
         - icon: IconUsers
           text: {{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
