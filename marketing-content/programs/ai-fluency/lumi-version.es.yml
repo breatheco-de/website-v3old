@@ -267,7 +267,7 @@ sections:
         projects: Haz que la IA trabaje por ti. Conectaras a la IA con tu espacio de trabajo (Drive, Notion, Gmail) para crear un flujo de trabajo.
         orientation: vertical
         icon: IconRobot
-      - title: Automatiza tus procesos con IA y N8N
+      - title: Automatiza tus procesos con N8N
         duration: Semana 4
         objectives:
           - "Fundamentos de n8n: nodos, disparadores y flujos de trabajo"
