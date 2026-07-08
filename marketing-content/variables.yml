@@ -550,7 +550,7 @@ global.full_tuition_ai_engineering:
   conditions:
     - query:
         region: "usa-canada"
-      value: "Standard tuition is $14,999."
+      value: "Standard tuition is $15,999."
 global.ai_flex_path_1_url:
   default: "https://4geeks.com/es/checkout?plan=ai-flex-plan-pro&cohort=1713&team_seats=1"
   conditions:
