@@ -215,7 +215,6 @@ sections:
       desktop: md lg
     marginY:
       desktop: none md
-    background: hsl(210 100% 50% / 0.05)
   - type: syllabus
     variant: program-modules
     program_title: AI Fluency Program Overview
