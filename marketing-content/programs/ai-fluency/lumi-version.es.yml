@@ -24,6 +24,8 @@ sections:
     badge:
       text: AI Fluency
       color: primary
+      background: hsl(var(--primary))
+      text_color: hsl(var(--primary-foreground))
     title: Todos usan IA, pocos la Dominan. Multiplica tu productividad en solo 28 días.
     title_highlight: Multiplica tu productividad en solo 28 días.
     subtitle: En solo 4 semanas aprenderás desde cero a construir automatizaciones con IA que reducirán tu tiempo de trabajo entre 5 y 7 horas semanales. Eliminarás tus tareas más repetitivas y tendrás un asistente de IA trabajando para ti todos los días. Sin códigos ni programación.
@@ -520,7 +522,7 @@ sections:
     title: Preguntas frecuentes
     dynamic_entries:
       database: frequently_asked_questions
-      limit: 6
+      limit: 9
       permanent_filters:
         - item_property_slug: locations
           value: all
@@ -533,9 +535,6 @@ sections:
         - do-i-need-expensive-hardware-for-ai-development
         - do-i-need-to-have-previous-experience-in-programming-to-join-the-bootcamp
         - do-i-need-to-have-work-authorization-to-qualify-for-the-job-guarantee
-        - consigo-trabajo-despus-de-completar-el-programa
-        - la-garanta-de-empleo-reembolsa-la-matrcula-completa-si-no-me-contratan
-        - el-certificado-es-reconocido-por-empleadores
     marginY:
       desktop: none
     paddingY:
