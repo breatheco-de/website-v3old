@@ -128,11 +128,11 @@ sections:
     description: null
     cards:
       - icon: IconClock
-        title: Las tareas repetitivas del trabajo consumen tiempo que la IA podria ahorrarte.
+        title: El trabajo repetitivo consume un tiempo que la IA podría ahorrarte.
       - icon: IconCoin
         title: Quieres aumentar tu salario gracias a la inteligencia artificial.
       - icon: IconRocket
-        title: Te abruma la cantidad de herramientas de IA y no sabes cuál te sirve de verdad.
+        title: En tu trabajo.
       - icon: IconTrendingUp
         title: Sabes que dominar IA te hara alguien imprescindible en tu trabajo.
     background: hsl(210 100% 50% / 0.05)
