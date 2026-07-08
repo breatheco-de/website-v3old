@@ -58,7 +58,7 @@ sections:
     type: features_grid
     variant: stats-charts
     version: "1.0"
-  - description: <p>You'll go from configuring your first agent to orchestrating systems where multiple agents collaborate on their own. This is a highlight reel — the full curriculum covers more ground.</p>
+  - description: "<ul><li>Unlimited 1:1 mentorship</li><li>Rigobot: 24/7 AI feedback on your code</li><li>Project based, not lecture based</li><li>Structured career support after graduation</li></ul>"
     header: A preview of what's inside
     marginY:
       desktop: lg
