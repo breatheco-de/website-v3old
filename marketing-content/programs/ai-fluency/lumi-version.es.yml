@@ -264,7 +264,7 @@ sections:
           - Qué son los agentes de IA y cómo funcionan las "skills"
           - Creación de "skills" personalizadas a partir de plantillas de prompts
           - Conexión de tu asistente a Google Drive, Gmail o Notion
-        projects: Haz que la IA trabaje por ti. Sincronizarás la IA con tu espacio de trabajo (Drive, Notion, Gmail) para crear un flujo privado basado en chat que gestione tus datos en piloto automático.
+        projects: Haz que la IA trabaje por ti. Conectaras a la IA con tu espacio de trabajo (Drive, Notion, Gmail) para crear un flujo de trabajo.
         orientation: vertical
         icon: IconRobot
       - title: Automatiza tus procesos con IA y N8N
