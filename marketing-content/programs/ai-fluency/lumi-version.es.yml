@@ -133,7 +133,7 @@ sections:
     background: hsl(210 100% 50% / 0.05)
     section_id: features_quad-aifluency
     marginY:
-      desktop: none lg
+      desktop: none xl
   - type: features_grid
     version: "1.0"
     variant: stats-charts
