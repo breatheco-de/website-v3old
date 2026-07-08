@@ -675,3 +675,7 @@ global.price_ai_fluency_financing:
   default: "$75"
 global.ai_engineering_program_tracks:
   default: "22-Weeks or 17-Week Accelerated Morning Track"
+  conditions:
+    - query:
+        region: "usa-canada"
+      value: "2-Weeks or 17-Week Accelerated Morning Track"
