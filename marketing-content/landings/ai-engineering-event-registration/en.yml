@@ -48,7 +48,7 @@ sections:
     description: With 10 campuses across the US, LATAM, and Europe, giving you a global network of classmates, mentors, and hiring partners wherever you are.
     marginY:
       mobile: md
-      desktop: none
+      desktop: none lg
     paddingY:
       mobile: md
       desktop: none
