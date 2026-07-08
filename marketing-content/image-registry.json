@@ -20455,6 +20455,79 @@
           "url": "https://storage.googleapis.com/4geeks-academy-website/media/blog_posts-4geeks-portraits-39-1-jpg-e023a61f-5504x3504-256w.webp"
         }
       ]
+    },
+    "victor_gomez-5760x3840": {
+      "src": "https://storage.googleapis.com/4geeks-academy-website/media/victor_gomez-5760x3840.webp",
+      "alt": "Victor Gomez",
+      "focal_point": "center",
+      "tags": [
+        "photo",
+        "avatar"
+      ],
+      "usage_count": 0,
+      "width": 5760,
+      "height": 3840,
+      "format": "webp",
+      "parentId": "victor_gomez",
+      "preset": [
+        "full",
+        "card",
+        "avatar"
+      ],
+      "widths_generated": [
+        32,
+        64,
+        128,
+        256,
+        320,
+        480,
+        640,
+        960,
+        1280,
+        1920
+      ],
+      "srcset": [
+        {
+          "w": 32,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/victor_gomez-5760x3840-32w.webp"
+        },
+        {
+          "w": 64,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/victor_gomez-5760x3840-64w.webp"
+        },
+        {
+          "w": 128,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/victor_gomez-5760x3840-128w.webp"
+        },
+        {
+          "w": 256,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/victor_gomez-5760x3840-256w.webp"
+        },
+        {
+          "w": 320,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/victor_gomez-5760x3840-320w.webp"
+        },
+        {
+          "w": 480,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/victor_gomez-5760x3840-480w.webp"
+        },
+        {
+          "w": 640,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/victor_gomez-5760x3840-640w.webp"
+        },
+        {
+          "w": 960,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/victor_gomez-5760x3840-960w.webp"
+        },
+        {
+          "w": 1280,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/victor_gomez-5760x3840-1280w.webp"
+        },
+        {
+          "w": 1920,
+          "url": "https://storage.googleapis.com/4geeks-academy-website/media/victor_gomez-5760x3840-1920w.webp"
+        }
+      ]
     }
   }
 }
