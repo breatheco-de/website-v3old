@@ -244,7 +244,7 @@ sections:
           - La diferencia entre un chatbot, asistente y agente
           - "Fundamentos del prompting: rol, contexto, formato, restricciones"
           - "Auditoría laboral: identifica tus principales candidatos a automatización"
-        projects: Analiza tu trabajo actual para identificar tus tareas más repetitivas y crea 5 prompts esenciales para resolverlas. Dominarás la estructura clave (rol, contexto y restricciones) necesaria para que cualquier IA sea útil en tu rutina diaria.
+        projects: Identifica las tareas más repetitivas de tu trabajo y crea 5 prompts esenciales para resolverlas. Dominarás la estructura clave (rol, contexto y restricciones) necesaria para que cualquier IA sea útil en tu rutina diaria.
         orientation: vertical
         icon: IconBolt
       - title: Experto en prompting en 7 días
