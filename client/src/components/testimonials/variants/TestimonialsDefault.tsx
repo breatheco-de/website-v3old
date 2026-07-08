@@ -698,7 +698,10 @@ function TestimonialCard({ testimonial, index }: TestimonialCardProps) {
         {/* Outcome Badge - always at bottom */}
         {testimonial.outcome && (
           <div className="pt-3 mt-auto">
-            <Badge variant="secondary" className="text-xs">
+            <Badge
+              variant="secondary"
+              className="text-xs max-w-full whitespace-normal break-words text-left h-auto"
+            >
               {testimonial.outcome}
             </Badge>
           </div>
