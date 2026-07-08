@@ -233,7 +233,7 @@ sections:
       desktop: none lg
     paddingY:
       mobile: md
-      desktop: none lg
+      desktop: none
     plans:
       - amount: 13,499
         billing_note: One time payment, no interest, no monthly payments to track
