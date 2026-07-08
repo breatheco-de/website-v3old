@@ -109,6 +109,8 @@ const CARD_SPACING_MOBILE = 220;
 const DRAG_MULTIPLIER = 0.52;
 const SIDE_SCALE = 0.85;
 const SIDE_OPACITY = 0.5;
+// Mobile: side cards fade harder so half-cut text doesn't read as broken content
+const SIDE_OPACITY_MOBILE = 0.2;
 
 export function TestimonialsSection({ data, testimonials }: TestimonialsSectionProps) {
   const { i18n } = useTranslation();
@@ -229,17 +231,19 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
       // Side cards (dist ~1): scale 0.85, opacity 0.5
       // Hidden (dist > 1.5): opacity 0
       
+      const sideOpacity = isDesktopOrTablet ? SIDE_OPACITY : SIDE_OPACITY_MOBILE;
+
       if (normalizedDist <= 1) {
         // Smoothly interpolate from center to side
         scale = 1 - (normalizedDist * (1 - SIDE_SCALE));
-        opacity = 1 - (normalizedDist * (1 - SIDE_OPACITY));
+        opacity = 1 - (normalizedDist * (1 - sideOpacity));
         // Z-index based on proximity - closer = higher
         zIndex = Math.round(10 - normalizedDist * 5);
       } else if (normalizedDist <= 2) {
         // Fade out zone
         const fadeProgress = normalizedDist - 1; // 0 to 1
         scale = SIDE_SCALE;
-        opacity = SIDE_OPACITY * (1 - fadeProgress);
+        opacity = sideOpacity * (1 - fadeProgress);
         zIndex = 1;
       } else {
         // Hidden
@@ -570,14 +574,14 @@ export function TestimonialsSection({ data, testimonials }: TestimonialsSectionP
 
         {/* Carousel Container */}
         <div className="relative h-[380px] lg:h-[420px]">
-          {/* Left fade - much smaller on mobile for better card visibility */}
+          {/* Left fade - wide enough on mobile to soften half-cut side cards */}
           <div 
-            className="absolute left-0 top-0 bottom-0 w-[20px] lg:w-[180px] bg-gradient-to-r from-background to-transparent z-30 pointer-events-none"
+            className="absolute left-0 top-0 bottom-0 w-[56px] lg:w-[180px] bg-gradient-to-r from-background to-transparent z-30 pointer-events-none"
           />
           
-          {/* Right fade - much smaller on mobile for better card visibility */}
+          {/* Right fade - wide enough on mobile to soften half-cut side cards */}
           <div 
-            className="absolute right-0 top-0 bottom-0 w-[20px] lg:w-[180px] bg-gradient-to-l from-background to-transparent z-30 pointer-events-none"
+            className="absolute right-0 top-0 bottom-0 w-[56px] lg:w-[180px] bg-gradient-to-l from-background to-transparent z-30 pointer-events-none"
           />
 
           {/* Scrollable container - native scroll on mobile, custom drag on desktop */}
@@ -687,7 +691,7 @@ function TestimonialCard({ testimonial, index }: TestimonialCardProps) {
         </div>
 
         {/* Review Text */}
-        <p className="text-muted-foreground leading-relaxed text-sm line-clamp-none md:line-clamp-5 flex-1">
+        <p className="text-muted-foreground leading-relaxed text-sm line-clamp-[8] md:line-clamp-5 flex-1">
           {testimonial.comment}
         </p>
 
