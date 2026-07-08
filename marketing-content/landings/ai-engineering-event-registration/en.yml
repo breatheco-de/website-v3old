@@ -63,7 +63,7 @@ sections:
     header: A preview of what's inside
     marginY:
       mobile: md
-      desktop: none lg
+      desktop: none md
     module_cards:
       - duration: Module 01
         icon: IconRobot
@@ -117,7 +117,7 @@ sections:
         title: Agentic Workflows and Orchestration
     paddingY:
       mobile: md
-      desktop: none lg
+      desktop: none
     program_description: |-
       ● Unlimited 1:1 mentorship
       ● Rigobot: 24/7 AI feedback on your code
@@ -170,11 +170,11 @@ sections:
     title: Mentorship and career support without a limit
     type: double_cta
     marginY:
-      desktop: lg
       mobile: md
+      desktop: none lg
     paddingY:
-      desktop: lg
       mobile: md
+      desktop: none lg
   - card_color: bg-background
     items:
       - title: Full Time · Monday to Friday — immersive and fast, built for people who can go all in and finish sooner
