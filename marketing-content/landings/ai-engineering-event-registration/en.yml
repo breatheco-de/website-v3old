@@ -228,16 +228,6 @@ sections:
       mobile: md
       desktop: none
     background: hsl(var(--card))
-  - type: pricing_plans
-    version: v1.0
-    id: pricing-plans-section
-    title: Choose Your Plan
-    subtitle: Flexible options to match your learning goals. Cancel anytime.
-    cta_label: Get Started
-    cta_url: /en/apply
-    section_id: pricing_plans-c1dheb
-    paddingY:
-      desktop: none
   - marginY:
       mobile: md
       desktop: none lg
