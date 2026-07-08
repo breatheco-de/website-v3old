@@ -194,6 +194,7 @@ sections:
     paddingY:
       desktop: lg
       mobile: md
+    background: hsl(var(--card))
   - type: pricing_plans
     version: v1.0
     id: pricing-plans-section
