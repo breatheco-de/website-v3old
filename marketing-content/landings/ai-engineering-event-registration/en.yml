@@ -16,8 +16,8 @@ sections:
     variant: singleColumn
     version: "1.0"
     paddingY:
-      desktop: lg
       mobile: lg
+      desktop: lg none
   - card_bars:
       created_label: Steady growth since our first cohort in 2015
       description: 4Geeks Academy
@@ -45,11 +45,11 @@ sections:
     card_trend_accent: hsl(var(--color-purple))
     description: With 10 campuses across the US, LATAM, and Europe, giving you a global network of classmates, mentors, and hiring partners wherever you are.
     marginY:
-      desktop: lg
       mobile: md
+      desktop: none lg
     paddingY:
-      desktop: lg
       mobile: md
+      desktop: none lg
     section_id: stats-event
     subtitle: The numbers speak for themselves.
     title: "Real<span style=\"color: hsl(var(--primary));\"><b style=\"\"> outcomes</b></span>, not just promises"
