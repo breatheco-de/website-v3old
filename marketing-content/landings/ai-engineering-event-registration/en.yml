@@ -174,7 +174,7 @@ sections:
       desktop: none md
     paddingY:
       mobile: md
-      desktop: none md
+      desktop: none
     background: hsl(var(--secondary))
   - card_color: bg-background
     items:
