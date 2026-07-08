@@ -225,6 +225,8 @@ export const heroCourseSchema = z.object({
   badge: z.object({
     text: z.string(),
     color: z.enum(["primary", "secondary", "accent", "muted", "destructive"]).optional(), // defaults to primary
+    background: z.string().optional(), // custom CSS background (overrides `color` preset)
+    text_color: z.string().optional(), // custom CSS text color (overrides `color` preset)
   }).optional(),
   title: z.string(),
   title_highlight: z.string().optional(),

@@ -41,15 +41,24 @@ export default function HeroCourse({ data }: HeroCourseProps) {
         >
           {/* Content column (left by default, right when reversed) */}
           <div
-            className={cn("space-y-6", data.layout_reversed && "lg:order-2")}
+            className={cn("relative space-y-6", data.layout_reversed && "lg:order-2")}
           >
             {data.badge?.text && (
               <span
                 className={cn(
-                  "inline-block px-3 py-1 rounded-full text-xs font-medium",
-                  BADGE_COLOR_CLASSES[data.badge.color || "primary"] ||
-                    BADGE_COLOR_CLASSES.primary,
+                  "absolute -top-8 left-0 lg:-left-5 z-10 inline-block px-3 py-1 rounded-full text-xs font-medium",
+                  !data.badge.background &&
+                    (BADGE_COLOR_CLASSES[data.badge.color || "primary"] ||
+                      BADGE_COLOR_CLASSES.primary),
                 )}
+                style={{
+                  ...(data.badge.background
+                    ? { background: data.badge.background }
+                    : {}),
+                  ...(data.badge.text_color
+                    ? { color: data.badge.text_color }
+                    : {}),
+                }}
                 data-testid="text-hero-badge"
               >
                 {data.badge.text}
