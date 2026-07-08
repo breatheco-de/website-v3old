@@ -56,13 +56,13 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: 4-Week Cohort Program
+          text: 4 Weeks
         - icon: IconUsers
           text: 1 Live Class Per Week
         - icon: IconUserCheck
           text: 1:1 Mentorship Session Included
         - icon: IconRobot
-          text: AI-Powered Learning & Feedback
+          text: AI-Powered Learning & Feedback 24/7
     paddingY:
       desktop: lg md
     marginY:
