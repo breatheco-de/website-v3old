@@ -204,13 +204,13 @@ sections:
     cta_url: /en/apply
     section_id: pricing_plans-c1dheb
     paddingY:
-      desktop: sm
+      desktop: sm none
   - marginY:
-      desktop: lg
       mobile: md
+      desktop: none lg
     paddingY:
-      desktop: lg
       mobile: md
+      desktop: none lg
     plans:
       - amount: 13,499
         billing_note: One-time payment — no interest, no monthly payments to track
