@@ -117,7 +117,7 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: "Este programa es para ti si:"
+    heading: "This program is for you if:"
     description: null
     cards:
       - icon: IconClock
