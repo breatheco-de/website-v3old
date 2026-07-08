@@ -171,7 +171,7 @@ sections:
     paddingY:
       desktop: none lg
     marginY:
-      desktop: lg
+      desktop: lg md
   - type: testimonials
     section_id: testimonials-ghxelh
     title: Las personas detrás de los números.
