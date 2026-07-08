@@ -38,7 +38,7 @@ sections:
     tutors:
       - name: Instructor Experto
         role: Instructor Principal
-        image: https://randomuser.me/api/portraits/men/10.jpg
+        image: https://storage.googleapis.com/4geeks-academy-website/media/victor_gomez-5760x3840.webp
       - name: Rigo
         role: Tutor de IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
