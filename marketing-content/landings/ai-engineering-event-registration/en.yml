@@ -58,6 +58,7 @@ sections:
     type: features_grid
     variant: stats-charts
     version: "1.0"
+    background: hsl(var(--secondary))
   - description: <p>You'll go from configuring your first agent to orchestrating systems where multiple agents collaborate on their own. This is a highlight reel — the full curriculum covers more ground.</p>
     header: A preview of what's inside
     marginY:
