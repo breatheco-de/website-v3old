@@ -678,4 +678,4 @@ global.ai_engineering_program_tracks:
   conditions:
     - query:
         region: "usa-canada"
-      value: "2-Weeks or 17-Week Accelerated Morning Track"
+      value: "22-Weeks or 17-Week Accelerated Morning Track"
