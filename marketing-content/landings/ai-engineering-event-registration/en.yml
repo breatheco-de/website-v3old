@@ -171,7 +171,7 @@ sections:
     type: double_cta
     marginY:
       mobile: md
-      desktop: none md
+      desktop: none sm
     paddingY:
       mobile: md
       desktop: none
