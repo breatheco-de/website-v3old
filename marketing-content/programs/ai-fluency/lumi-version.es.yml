@@ -180,7 +180,7 @@ sections:
   - type: testimonials
     section_id: testimonials-ghxelh
     title: Las personas detrás de los números.
-    subtitle: "Distintos puntos de partida. Un mismo resultado: fluidez real en IA."
+    subtitle: "Distintos puntos de partida. Un mismo resultado: Productividad, Libertad y ."
     rating_summary:
       average: {{ global.global_review_rating | 4.9 }}
       count: {{ global.global_review_count | 700 }}
