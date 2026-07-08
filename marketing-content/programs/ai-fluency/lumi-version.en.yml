@@ -558,44 +558,6 @@ sections:
         answer: |2-
 
            AI Fluency runs on fixed cohort start dates with limited spots per cohort to keep live sessions small and interactive. Upcoming start dates are listed on the AI Fluency program page.
-  - type: cta_banner
-    version: "1.0"
-    title: Ready to Build Your AI Fluency?
-    subtitle: Join the next cohort and leave with real skills, a live automation, and a certificate. Your next step starts here.
-    background: hsl(var(--primary))
-    variant: form
-    form:
-      variant: stacked
-      conversion_name: student_application
-      submit_label: Enroll Now
-      fields:
-        email:
-          visible: true
-          required: true
-          placeholder: Your email address
-        first_name:
-          visible: true
-          required: true
-          placeholder: First name
-        phone:
-          visible: true
-          required: true
-          placeholder: Phone number
-        program:
-          visible: false
-          required: true
-          default: {{ single.bc_slug | ai-fluency }}
-      success:
-        message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
-      button_className: bg-primary
-      terms_className: text-white/80
-    form_background: hsl(var(--card))
-    terms_color: hsl(var(--primary))
-    marginY:
-      desktop: lg none
-    paddingY:
-      desktop: md
-    section_id: cta_banner-aifluency
   - type: sticky_cta
     section_id: sticky_cta-euuky9
     version: "1.0"
