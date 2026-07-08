@@ -25,9 +25,9 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: AI Engineering
-    title_highlight: Artificial Intelligence Engineering
-    subtitle: AI Engineer is the fastest-growing job of 2026. Our intensive program is built to get you hired, backed by an AI-first methodology, unlimited 1:1 mentorship, and lifelong career support.
+    title: "AI Engineering. The #1 Fastest-Growing Job of 2026."
+    title_highlight: "The #1 Fastest-Growing Job of 2026."
+    subtitle: Own the skills companies are hiring for. Our intensive program gets you job-ready building production-grade AI systems, coding agents, and automation pipelines. With unlimited 1:1 mentorship and career support for life.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -36,9 +36,9 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +6000 graduates
     bullet_points:
-      - Build a complete AI-native company end to end, with agents, pipelines, and real-time data.
-      - Work with AI coding agents to build and deliver production-ready software faster.
-      - Leave with a portfolio that gets you in the door at top tech companies.
+      - Build a real, complete AI-native company, with agents, pipelines, and real-time data. Not standalone exercises.
+      - Coding skills are no longer enough. Work with AI coding agents to ship software systems the way companies actually build them now.
+      - "Get hired, not just trained. 84% of graduates land a job within 3–6 months. Add tuition protection: land a job or your money back.*"
     tutors:
       - name: Marco Gonzalo
         role: Main Instructor
@@ -47,7 +47,7 @@ sections:
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
-    description: "Graduate job-ready for one of tech's fastest-growing roles, with the skills and support to land positions paying $95K–$135K+.<div><br></div><div><span style=\"font-size: 12px; text-align: center;\">Florida residents: Only our full-stack development program is authorized by the Commission for Independent Education in Florida. Our job guarantee bundle is not offered in Florida where our only physical location is in Miami.</span></div>"
+    description: "Become an AI Engineer and stand at the forefront of AI development. Launch your career with the skills to land positions paying $95K–$135K+.<div><br></div><div><span style=\"font-size: 12px; text-align: center;\"><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" target=\"_blank\">*Not available in all regions. Terms and conditions apply.</a></span></div>"
     media:
       type: video
       src: https://www.youtube.com/shorts/sSxJnelPJT8
@@ -55,7 +55,7 @@ sections:
       alt: AI Engineering program introduction
     signup_card:
       title: Get the Full Program Overview
-      description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, financing options and more. It takes 2 minutes."
+      description: "Fill in your details and our admissions team will send you everything you need: syllabus, program details, financing options, and more. It takes 2 minutes."
       cta_button:
         text: Send Me the Details
         url: "#modal-ubwgcj"
@@ -65,15 +65,15 @@ sections:
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: 22-Weeks or 17-Week Accelerated Morning Track
-        - icon: IconShield
-          text: Optional Job Guarantee (available as add-on)
+          text: {{ global.ai_engineering_program_tracks | 22 Weeks or 17-Week Accelerated Morning Track }}
         - icon: IconUsers
           text: {{ global.global_teacher_student_ratio | 7:1 }} Student-to-Instructor Ratio
         - icon: IconUserCheck
           text: Unlimited 1:1 Mentorship
         - icon: IconRobot
           text: AI-Powered Learning & Feedback
+        - icon: IconShield
+          text: Hire-or-Refund available as add-on
     section_id: hero-tznhhe
     paddingY:
       desktop: lg md
