@@ -190,7 +190,7 @@ sections:
       bar1_label: Roles que requieren conocimientos en IA
       bar2_label: Roles sin requisito de IA
     card_trend:
-      title: La demanda de trabajadores con fluidez en IA se acelera
+      title: La demanda de trabajadores que sepan usar IA se acelera
       description: Crecimiento de demanda indexado · LinkedIn/WEF 2026
       stat_value: 7x
       stat_label: crecimiento en la demanda de trabajadores con fluidez en IA desde 2023
