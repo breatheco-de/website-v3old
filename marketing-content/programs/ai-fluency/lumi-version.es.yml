@@ -274,7 +274,7 @@ sections:
           - Conexión de n8n con Gmail, Slack, Google Sheets y webhooks
           - Integración de n8n con un agente de IA para pasos de toma de decisiones inteligentes
           - "Preparación del proyecto final: mapea y construye tu automatización"
-        projects: Conecta tus aplicaciones con n8n para crear una automatización en vivo. Harás que Gmail, Sheets y Slack se comuniquen entre sí, dejando tu rutina semanal en piloto automático y recuperando más de 3 horas libres cada semana.
+        projects: Harás que Gmail, Sheets y Slack se comuniquen entre sí, dejando tu rutina semanal en piloto automático y recuperando más de 3 horas libres cada semana.
         orientation: vertical
         icon: IconLayoutKanban
       - title: Flujo de trabajo automatizado con IA
