@@ -368,10 +368,10 @@ sections:
     type: pricing
     version: "1.0"
     variant: product
-    title: Tuition, Financing & Start Dates
-    subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
-    discount_text: "Save 10%: Pay $450 upfront."
-    financing_text: "Or split it: 2 interest-free installments."
+    title: Matrícula, financiamiento y fechas de inicio
+    subtitle: Invertir en tus habilidades de IA es la jugada inteligente. Y 4Geeks tiene los resultados que lo respaldan.
+    discount_text: "Ahorra 10%: paga $450 por adelantado."
+    financing_text: O paga en 2 cuotas sin intereses.
     financing_amount: $250
     financing_period: ""
     tech_icons:
@@ -379,22 +379,22 @@ sections:
       - claude
       - n8n
       - openclaw
-    features_title: Choose the option that fits you best.
+    features_title: Elige la opción que más te convenga.
     features:
       - icon: IconCheck
-        text: Secure your spot. Next cohorts start July 15 and August 26.
+        text: Asegura tu cupo. Las próximas cohortes inician el 15 de julio y el 26 de agosto.
       - icon: IconCheck
-        text: Spread your payments with 2 interest-free installments through 4Geeks.
+        text: Divide tus pagos en 2 cuotas sin intereses a través de 4Geeks.
       - icon: IconCheck
-        text: One 1:1 mentorship session included. Add more at any time for $25 each.
-    footer: UPCOMING COHORTS
+        text: Incluye una sesión de mentoría 1 a 1. Agrega más cuando quieras por $25 cada una.
+    footer: PRÓXIMAS COHORTES
     footer_badges:
       - label: Feb 3, 2025
-        tag: Filling fast
+        tag: Llenándose rápido
       - label: Mar 10, 2025
       - label: Apr 7, 2025
     cta:
-      text: Enroll Now
+      text: Inscríbete ahora
       url: https://4geeks.com/checkout?plan=ai-fluency&cohort=1706
       variant: primary
     section_id: pricing-aifluency-latam
@@ -418,32 +418,32 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Tuition, Financing & Start Dates
-    subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
-    discount_text: "Save 10%: Pay $810 upfront."
-    financing_text: Flexible financing starting at
+    title: Matrícula, financiamiento y fechas de inicio
+    subtitle: Invertir en tus habilidades de IA es la jugada inteligente. Y 4Geeks tiene los resultados que lo respaldan.
+    discount_text: "Ahorra 10%: paga $810 por adelantado."
+    financing_text: Financiamiento flexible desde
     financing_amount: $75
     tech_icons:
       - openai
       - claude
       - n8n
       - openclaw
-    features_title: Choose the option that fits you best.
+    features_title: Elige la opción que más te convenga.
     features:
       - icon: IconCheck
-        text: Secure your spot. Next cohorts start July 15 and August 26.
+        text: Asegura tu cupo. Las próximas cohortes inician el 15 de julio y el 26 de agosto.
       - icon: IconCheck
-        text: Spread your payments with flexible financing through Affirm or Klarna. Terms and availability vary by region.
+        text: Divide tus pagos con financiamiento flexible a través de Affirm o Klarna. Los términos y la disponibilidad varían según la región.
       - icon: IconCheck
-        text: One 1:1 mentorship session included. Add more at any time for $25 each.
-    footer: UPCOMING COHORTS
+        text: Incluye una sesión de mentoría 1 a 1. Agrega más cuando quieras por $25 cada una.
+    footer: PRÓXIMAS COHORTES
     footer_badges:
       - label: Feb 3, 2025
-        tag: Filling fast
+        tag: Llenándose rápido
       - label: Mar 10, 2025
       - label: Apr 7, 2025
     cta:
-      text: Enroll Now
+      text: Inscríbete ahora
       url: {{ global.ai_fluency_url | https://4geeks.com/checkout?plan=ai-fluency&cohort=1706 }}
       variant: primary
     section_id: pricing-aifluency
@@ -468,10 +468,10 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Tuition, Financing & Start Dates
-    subtitle: Investing in your AI skills is the smart move. 4Geeks has the track record to back it up.
-    discount_text: "Save 10%: Pay €810 upfront."
-    financing_text: "Or split it: 2 interest-free installments."
+    title: Matrícula, financiamiento y fechas de inicio
+    subtitle: Invertir en tus habilidades de IA es la jugada inteligente. Y 4Geeks tiene los resultados que lo respaldan.
+    discount_text: "Ahorra 10%: paga €810 por adelantado."
+    financing_text: O paga en 2 cuotas sin intereses.
     financing_amount: €450
     financing_period: ""
     tech_icons:
@@ -479,22 +479,22 @@ sections:
       - claude
       - n8n
       - openclaw
-    features_title: Choose the option that fits you best.
+    features_title: Elige la opción que más te convenga.
     features:
       - icon: IconCheck
-        text: Secure your spot. Next cohorts start July 15 and August 26.
+        text: Asegura tu cupo. Las próximas cohortes inician el 15 de julio y el 26 de agosto.
       - icon: IconCheck
-        text: Spread your payments with 2 interest-free installments through 4Geeks.
+        text: Divide tus pagos en 2 cuotas sin intereses a través de 4Geeks.
       - icon: IconCheck
-        text: One 1:1 mentorship session included. Add more at any time for €25 each.
-    footer: UPCOMING COHORTS
+        text: Incluye una sesión de mentoría 1 a 1. Agrega más cuando quieras por €25 cada una.
+    footer: PRÓXIMAS COHORTES
     footer_badges:
       - label: Feb 3, 2025
-        tag: Filling fast
+        tag: Llenándose rápido
       - label: Mar 10, 2025
       - label: Apr 7, 2025
     cta:
-      text: Enroll Now
+      text: Inscríbete ahora
       url: https://4geeks.com/checkout?plan=ai-fluency-ue&cohort=1706
       variant: primary
     section_id: pricing-aifluency-europe
