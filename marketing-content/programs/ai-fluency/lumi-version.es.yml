@@ -522,7 +522,7 @@ sections:
     title: Preguntas frecuentes
     dynamic_entries:
       database: frequently_asked_questions
-      limit: 9
+      limit: 6
       permanent_filters:
         - item_property_slug: locations
           value: all
@@ -535,6 +535,7 @@ sections:
         - do-i-need-expensive-hardware-for-ai-development
         - do-i-need-to-have-previous-experience-in-programming-to-join-the-bootcamp
         - do-i-need-to-have-work-authorization-to-qualify-for-the-job-guarantee
+        - consigo-trabajo-despus-de-completar-el-programa
     marginY:
       desktop: none
     paddingY:
