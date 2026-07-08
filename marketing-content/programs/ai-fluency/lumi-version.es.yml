@@ -139,7 +139,7 @@ sections:
     variant: stats-charts
     subtitle: Los datos son claros.
     title: "El Impacto de la <span style=\"color: hsl(var(--primary));\">IA</span> en la vida laboral"
-    description: Las empresas están contratando (y pagando más) por talento con conocimientos de IA. La demanda es real y la brecha crece. Si en tu CV no aparecen keywords como 'Fluidez en IA', estás quedando fuera de búsquedas donde sí calificas.
+    description: La demanda es real y la brecha crece. Si en tu CV no aparecen keywords como 'Fluidez en IA', estás quedando fuera de búsquedas donde sí calificas.
     background: bg-slate-950
     card_bars_accent: hsl(var(--color-green))
     card_gauge_accent: hsl(var(--primary))
