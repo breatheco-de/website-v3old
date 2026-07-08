@@ -138,9 +138,9 @@ sections:
     subtitle: The data is clear.
     title: Professionals with AI skills earn more and advance faster.
     description: Employers across every industry are actively hiring for AI literacy — and paying a premium for it. The demand is real, the gap is widening, and the opportunity is yours to take ."
-    card_bars_accent: hsl(var(--primary))
-    card_gauge_accent: hsl(var(--destructive) / 0.5)
-    card_trend_accent: hsl(var(--accent))
+    card_bars_accent: hsl(var(--color-green))
+    card_gauge_accent: hsl(var(--primary))
+    card_trend_accent: hsl(var(--color-purple))
     card_bars:
       title: AI Skills Command a Salary Premium
       description: Same role · with vs without AI skills · PwC 2025
