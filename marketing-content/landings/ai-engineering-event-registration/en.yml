@@ -48,10 +48,10 @@ sections:
     description: With 10 campuses across the US, LATAM, and Europe, giving you a global network of classmates, mentors, and hiring partners wherever you are.
     marginY:
       mobile: md
-      desktop: none lg
+      desktop: none
     paddingY:
       mobile: md
-      desktop: none lg
+      desktop: none
     section_id: stats-event
     subtitle: The numbers speak for themselves.
     title: "Real<span style=\"color: hsl(var(--primary));\"><b style=\"\"> outcomes</b></span>, not just promises"
@@ -62,8 +62,8 @@ sections:
   - description: <p>You'll go from configuring your first agent to orchestrating systems where multiple agents collaborate on their own. This is a highlight reel — the full curriculum covers more ground.</p>
     header: A preview of what's inside
     marginY:
-      desktop: lg
       mobile: md
+      desktop: none lg
     module_cards:
       - duration: Module 01
         icon: IconRobot
@@ -116,8 +116,8 @@ sections:
         orientation: vertical
         title: Agentic Workflows and Orchestration
     paddingY:
-      desktop: lg
       mobile: md
+      desktop: none lg
     program_description: |-
       ● Unlimited 1:1 mentorship
       ● Rigobot: 24/7 AI feedback on your code
