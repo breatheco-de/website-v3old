@@ -117,7 +117,11 @@ sections:
     paddingY:
       desktop: lg
       mobile: md
-    program_description: "<ul><li>Unlimited 1:1 mentorship</li><li>Rigobot: 24/7 AI feedback on your code</li><li>Project based, not lecture based</li><li>Structured career support after graduation</li></ul>"
+    program_description: |-
+      ● Unlimited 1:1 mentorship
+      ● Rigobot: 24/7 AI feedback on your code
+      ● Project based, not lecture based
+      ● Structured career support after graduation
     program_title: AI Engineering — Core Modules
     section_id: curriculum-event
     subheader: This is a snapshot of the core building blocks, not the full syllabus.
