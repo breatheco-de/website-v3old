@@ -134,7 +134,7 @@ sections:
       - icon: IconRocket
         title: Te abruma la cantidad de herramientas de IA y no sabes cuál te sirve de verdad.
       - icon: IconTrendingUp
-        title: Sabes que aprender los secretos de la IA te hara alguien imprescindible en tu trabajo.
+        title: Sabes que dominar IA te hara alguien imprescindible en tu trabajo.
     background: hsl(210 100% 50% / 0.05)
     section_id: features_quad-aifluency
     marginY:
