@@ -179,9 +179,9 @@ sections:
   - card_color: bg-background
     items:
       - title: Full Time · Monday to Friday — immersive and fast, built for people who can go all in and finish sooner
-        value: 10am–1pm EST
+        value: 10am – 1pm EST
       - title: Part Time · Monday, Wednesday, Friday — built for people keeping their job while they train
-        value: 6pm–9pm EST
+        value: 6pm – 9pm EST
     section_id: schedule-event
     subtitle: Live classes, real instructors, two schedules to choose from. Same curriculum either way.
     title: Pick the schedule that fits your life
