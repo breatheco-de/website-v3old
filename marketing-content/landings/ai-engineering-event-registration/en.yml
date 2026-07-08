@@ -31,7 +31,7 @@ sections:
       bar2_label: Don't
       description: 4Geeks Academy
       gauge_label: hired
-      outer_stat_percentage: 16
+      outer_stat_percentage: 84
       show_gauge: true
       stat_label: of our graduates get hired in tech
       title: Who gets hired in tech?
