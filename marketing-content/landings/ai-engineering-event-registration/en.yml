@@ -18,26 +18,49 @@ sections:
     paddingY:
       desktop: lg
       mobile: lg
-  - card_color: bg-background
-    items:
-      - title: hiring rate for graduates
-        value: 84%
-      - title: average salary increase
-        value: 55%
-      - title: building tech careers since
-        value: "2015"
-      - title: campuses across US, LatAm, and Europe
-        value: "10"
-    section_id: stats-event
-    type: features_grid
-    variant: stats-cards
-    version: "1.0"
+  - card_bars:
+      description: 4Geeks Academy
+      stat_label: students graduated worldwide
+      stat_value: 8,500+
+      title: Building tech careers since 2015
+      years:
+        - "2015"
+        - "2018"
+        - "2021"
+        - "2024"
+        - "2026"
+    card_bars_accent: hsl(var(--color-green))
+    card_color: bg-background
+    card_gauge:
+      bar1_label: Get hired
+      bar2_label: Don't
+      description: 4Geeks Academy
+      gauge_label: hired
+      outer_stat_percentage: 16
+      show_gauge: true
+      stat_label: of our graduates get hired in tech
+      title: Who gets hired in tech?
+    card_gauge_accent: hsl(var(--primary))
+    card_trend:
+      description: 4Geeks Academy
+      end_label: 55% · new salary
+      stat_label: average salary increase in new role
+      stat_value: +55%
+      title: Salary does change
+    card_trend_accent: hsl(var(--color-purple))
+    description: With 10 campuses across the US, LatAm, and Europe.
     marginY:
       desktop: lg
       mobile: md
     paddingY:
       desktop: lg
       mobile: md
+    section_id: stats-event
+    subtitle: The numbers speak for themselves.
+    title: Real outcomes, not just promises
+    type: features_grid
+    variant: stats-charts
+    version: "1.0"
   - modules:
       - description: Configure an open source AI agent as a personal assistant, then develop custom skills for it. Turn it into a productive tool with real autonomy in business contexts.
         title: Personal Assistants with OpenClaw
