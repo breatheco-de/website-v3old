@@ -171,7 +171,7 @@ sections:
     type: double_cta
     marginY:
       mobile: md
-      desktop: none sm
+      desktop: none
     paddingY:
       mobile: md
       desktop: none
@@ -190,10 +190,10 @@ sections:
     version: "1.0"
     marginY:
       mobile: md
-      desktop: lg none
+      desktop: none
     paddingY:
       mobile: md
-      desktop: lg none
+      desktop: none
     background: hsl(var(--card))
   - type: pricing_plans
     version: v1.0
