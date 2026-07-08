@@ -189,11 +189,11 @@ sections:
     variant: stats-cards
     version: "1.0"
     marginY:
-      desktop: lg
       mobile: md
+      desktop: lg none
     paddingY:
-      desktop: lg
       mobile: md
+      desktop: lg none
     background: hsl(var(--card))
   - type: pricing_plans
     version: v1.0
@@ -204,7 +204,7 @@ sections:
     cta_url: /en/apply
     section_id: pricing_plans-c1dheb
     paddingY:
-      desktop: sm none
+      desktop: none
   - marginY:
       mobile: md
       desktop: none lg
