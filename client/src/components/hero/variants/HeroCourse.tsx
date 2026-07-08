@@ -46,7 +46,7 @@ export default function HeroCourse({ data }: HeroCourseProps) {
             {data.badge?.text && (
               <span
                 className={cn(
-                  "absolute -top-8 left-0 lg:-left-5 z-10 inline-block px-3 py-1 rounded-full text-xs font-medium",
+                  "absolute -top-8 left-0 z-10 inline-block px-3 py-1 rounded-full text-xs font-medium",
                   !data.badge.background &&
                     (BADGE_COLOR_CLASSES[data.badge.color || "primary"] ||
                       BADGE_COLOR_CLASSES.primary),
