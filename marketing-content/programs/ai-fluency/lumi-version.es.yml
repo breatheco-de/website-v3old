@@ -550,17 +550,21 @@ sections:
           - rome-italy
           - valencia-spain
     hardcoded_entries:
-      - question: ¿Necesito saber programar para tomar AI Fluency?
-        answer: |2-
+      - answer: |2-
 
            No. AI Fluency está diseñado para profesionales en activo sin experiencia en programación. Todas las herramientas del programa — desde prompt engineering hasta automatizaciones con n8n — funcionan sin escribir una sola línea de código. El foco está en aplicar la IA a tareas reales de trabajo, no en programar.
-      - question: ¿Cómo funciona el programa AI Fluency?
-        answer: AI Fluency dura 4 semanas. Cada semana tiene un módulo a tu ritmo que completas según tu horario, seguido de una clase en vivo donde aplicas lo aprendido con la guía del instructor y el feedback de tus compañeros. Si te pierdes una clase en vivo, la grabación está disponible para que puedas ponerte al día antes de la siguiente sesión.
-      - question: ¿Qué construyo durante el programa AI Fluency?
-        answer: |2-
+        question: ¿Necesito saber programar para tomar AI Fluency?
+      - answer: AI Fluency dura 4 semanas. Cada semana tiene un módulo a tu ritmo que completas según tu horario, seguido de una clase en vivo donde aplicas lo aprendido con la guía del instructor y el feedback de tus compañeros. Si te pierdes una clase en vivo, la grabación está disponible para que puedas ponerte al día antes de la siguiente sesión.
+        question: ¿Cómo funciona el programa AI Fluency?
+      - answer: |2-
 
            Al terminar AI Fluency tendrás tres entregables concretos: una biblioteca personal de prompts que puedes usar de inmediato en tu trabajo, un asistente de IA configurado y conectado a las herramientas que ya usas a diario, y una automatización funcional en n8n que gestiona una tarea recurrente real en tu vida profesional. No son ejercicios — son herramientas que conservas y usas desde el primer día después del programa.
-      - question: ¿Cómo me inscribo en AI Fluency y cuándo puedo empezar?
-        answer: |2-
+        question: ¿Qué construyo durante el programa AI Fluency?
+      - answer: |2-
 
            AI Fluency funciona con fechas fijas de inicio de cohorte y plazas limitadas por cohorte para mantener las sesiones en vivo pequeñas e interactivas. Las próximas fechas de inicio están listadas en la página del programa AI Fluency.
+        question: ¿Cómo me inscribo en AI Fluency y cuándo puedo empezar?
+      - answer: Sí. Nuestros certificados son reconocidos por empleadores en todo el mundo. Estamos licenciados por el Departamento de Educación de Florida, y medios como Forbes, Newsweek y Course Report nos han destacado como una de las academias de tecnología líderes.
+        question: ¿El certificado es reconocido por los empleadores?
+      - answer: "Porque no es un curso genérico de IA: está diseñado alrededor de tu trabajo real, con clases en vivo, mentoría 1:1 y un tutor de IA disponible 24/7. Te vas con prompts y automatizaciones que ya puedes usar desde el primer día, no con teoría que se queda guardada. Todo respaldado por una academia acreditada por el Departamento de Educación de Florida."
+        question: ¿Por qué elegir 4Geeks Academy para esto?
