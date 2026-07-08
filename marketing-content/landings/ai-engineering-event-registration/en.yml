@@ -43,7 +43,7 @@ sections:
       stat_value: +55%
       title: Salary does change
     card_trend_accent: hsl(var(--color-purple))
-    description: With 10 campuses across the US, LatAm, and Europe, giving you a global network of classmates, mentors, and hiring partners wherever you are.
+    description: With 10 campuses across the US, LATAM, and Europe, giving you a global network of classmates, mentors, and hiring partners wherever you are.
     marginY:
       desktop: lg
       mobile: md
