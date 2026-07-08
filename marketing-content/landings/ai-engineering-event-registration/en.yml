@@ -52,7 +52,7 @@ sections:
       mobile: md
     section_id: stats-event
     subtitle: The numbers speak for themselves.
-    title: "Real<i><span style=\"color: hsl(var(--primary));\"><b> outcomes</b></span></i>, not just promises"
+    title: "Real<span style=\"color: hsl(var(--primary));\"><b style=\"\"> outcomes</b></span>, not just promises"
     type: features_grid
     variant: stats-charts
     version: "1.0"
