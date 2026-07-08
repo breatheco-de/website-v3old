@@ -345,6 +345,7 @@ sections:
       desktop: md lg
     maxWidth:
       desktop: 6xl
+    background: hsl(210 100% 50% / 0.05)
   - type: human_and_ai_duo
     version: "1.0"
     heading: Ayuda real, cuando la necesites
