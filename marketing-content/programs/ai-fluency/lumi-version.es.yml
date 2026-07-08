@@ -21,8 +21,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Todos usan IA, pocos la Dominan. Multiplica tu productividad en solo 30 días.
-    title_highlight: Multiplica tu productividad en solo 30 días.
+    title: Todos usan IA, pocos la Dominan. Multiplica tu productividad en solo 28 días.
+    title_highlight: Multiplica tu productividad en solo 28 días.
     subtitle: En solo 4 semanas aprenderás desde cero a construir automatizaciones con IA que reducirán tu tiempo de trabajo entre 5 y 7 horas semanales. Eliminarás tus tareas más repetitivas y tendrás un asistente de IA trabajando para ti todos los días. Sin códigos ni programación.
     students_enrolled:
       avatars:
