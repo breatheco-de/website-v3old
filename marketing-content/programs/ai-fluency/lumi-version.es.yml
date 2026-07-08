@@ -260,7 +260,7 @@ sections:
       - title: Construye tu asistente virtual
         duration: Semana 3
         objectives:
-          - Qué son los agentes de IA y cómo funcionan las habilidades
+          - Qué son los agentes de IA y cómo funcionan las "skills"
           - Instalación y configuración de OpenClaw
           - Creación de habilidades personalizadas a partir de plantillas de prompts
           - Conexión de tu asistente a Google Drive, Gmail o Notion
