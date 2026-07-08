@@ -71,7 +71,7 @@ export function PricingSection({ data }: PricingSectionProps) {
 
           <div className="grid lg:grid-cols-12 gap-0 items-stretch relative overflow-hidden">
             <div
-              className="relative rounded-t-2xl lg:rounded-tl-2xl lg:rounded-bl-2xl lg:rounded-tr-none lg:rounded-br-none overflow-hidden lg:col-span-4"
+              className="relative min-w-0 rounded-t-2xl lg:rounded-tl-2xl lg:rounded-bl-2xl lg:rounded-tr-none lg:rounded-br-none overflow-hidden lg:col-span-4"
               data-testid="card-pricing"
               style={{
                 background: "linear-gradient(135deg, #366bff 0%, #4aa5ff 100%)",
@@ -134,7 +134,7 @@ export function PricingSection({ data }: PricingSectionProps) {
               </div>
             </div>
 
-            <div className="bg-background border border-t-0 lg:border-t lg:border-l-0 border-border rounded-b-2xl lg:rounded-b-none lg:rounded-r-2xl p-4 flex flex-col gap-4 lg:col-span-8">
+            <div className="min-w-0 bg-background border border-t-0 lg:border-t lg:border-l-0 border-border rounded-b-2xl lg:rounded-b-none lg:rounded-r-2xl p-4 flex flex-col gap-4 lg:col-span-8">
               {data.features_title && (
                 <p
                   className="text-[#3A3A3A] font-normal text-body"
@@ -313,7 +313,7 @@ export function PricingSection({ data }: PricingSectionProps) {
           </div>
 
           <div
-            className="relative rounded-t-2xl lg:rounded-t-none lg:rounded-l-2xl overflow-hidden lg:col-span-4"
+            className="relative min-w-0 rounded-t-2xl lg:rounded-t-none lg:rounded-l-2xl overflow-hidden lg:col-span-4"
             style={{
               background: "linear-gradient(135deg, #66B8FF 0%, #3399FF 100%)",
             }}
@@ -375,7 +375,7 @@ export function PricingSection({ data }: PricingSectionProps) {
             </div>
           </div>
 
-          <div className="bg-background border border-t-0 lg:border-t lg:border-l-0 border-border rounded-b-2xl lg:rounded-b-none lg:rounded-r-2xl p-4 space-y-4 lg:col-span-8 overflow-hidden">
+          <div className="min-w-0 bg-background border border-t-0 lg:border-t lg:border-l-0 border-border rounded-b-2xl lg:rounded-b-none lg:rounded-r-2xl p-4 space-y-4 lg:col-span-8 overflow-hidden">
             {data.features_title && (
               <p
                 className="text-[#3A3A3A] font-normal text-lg"
