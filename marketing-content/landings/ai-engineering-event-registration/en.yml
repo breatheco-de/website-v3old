@@ -294,7 +294,6 @@ sections:
     type: pricing
     variant: plan_cards
     version: "1.0"
-    background: hsl(var(--muted))
   - background: hsl(var(--primary))
     form:
       button_className: bg-white text-primary hover:bg-white/90 border-white
