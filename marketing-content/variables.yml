@@ -673,3 +673,5 @@ global.ai_fluency_url:
       value: "https://4geeks.com/checkout?plan=ai-fluency-ue&cohort=1706"
 global.price_ai_fluency_financing:
   default: "$75"
+global.ai_engineering_program_tracks:
+  default: "22-Weeks or 17-Week Accelerated Morning Track"
