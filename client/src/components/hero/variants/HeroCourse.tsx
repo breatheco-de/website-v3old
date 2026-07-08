@@ -41,7 +41,7 @@ export default function HeroCourse({ data }: HeroCourseProps) {
         >
           {/* Content column (left by default, right when reversed) */}
           <div
-            className={cn("relative space-y-6", data.layout_reversed && "lg:order-2")}
+            className={cn("relative", data.layout_reversed && "lg:order-2")}
           >
             {data.badge?.text && (
               <span
@@ -65,6 +65,7 @@ export default function HeroCourse({ data }: HeroCourseProps) {
               </span>
             )}
 
+            <div className="space-y-6">
             <h1
               className="text-h1 text-foreground"
               data-testid="text-hero-title"
@@ -232,6 +233,7 @@ export default function HeroCourse({ data }: HeroCourseProps) {
                 className="text-foreground leading-relaxed pt-4"
               />
             )}
+            </div>
           </div>
 
           {/* Media + signup column (right by default, left when reversed) */}
