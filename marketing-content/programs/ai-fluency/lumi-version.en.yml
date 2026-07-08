@@ -360,7 +360,6 @@ sections:
       mobile: sm none
       desktop: md none
     section_id: human_and_ai_duo-99s71d
-    background: hsl(var(--secondary))
   - id: pricing
     type: pricing
     version: "1.0"
