@@ -25,7 +25,7 @@ sections:
       text: AI Fluency
       color: primary
       background: hsl(210 100% 50% / 0.05)
-      text_color: hsl(var(--primary-foreground))
+      text_color: hsl(var(--foreground))
     title: Everyone use AI, some master it. Learn AI Fluency from 0 to 100 in 1 Month.
     title_highlight: Learn AI Fluency from 0 to 100 in 1 Month.
     subtitle: AI skills now carry a 56% salary premium across industries. In four weeks, you'll build AI workflows around your actual job, automate your most repetitive work and save hours every single day. No coding and no experience on AI required.
