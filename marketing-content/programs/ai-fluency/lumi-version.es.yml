@@ -236,7 +236,7 @@ sections:
       - name: Git
         icon: git
     module_cards:
-      - title: Domina las bases del prompting
+      - title: Aprende IA desde la Base
         duration: Semana 1
         objectives:
           - Qué son los LLMs y cómo funcionan
