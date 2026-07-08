@@ -175,7 +175,7 @@ sections:
     paddingY:
       mobile: md
       desktop: none lg
-    background: hsl(var(--muted))
+    background: hsl(var(--secondary))
   - card_color: bg-background
     items:
       - title: Full Time · Monday to Friday — immersive and fast, built for people who can go all in and finish sooner
