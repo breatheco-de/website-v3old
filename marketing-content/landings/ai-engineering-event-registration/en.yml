@@ -18,6 +18,8 @@ sections:
     paddingY:
       mobile: lg
       desktop: lg none
+    marginY:
+      desktop: none md
   - card_bars:
       created_label: Steady growth since our first cohort in 2015
       description: 4Geeks Academy
