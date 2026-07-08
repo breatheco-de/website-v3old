@@ -1,7 +1,7 @@
 slug: ai-engineering-event-registration
 sections:
   - background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
-    badge: AI Engineering Program — Live at this event, talk to us today
+    badge: "AI Engineering Program: Live at this event, talk to us today"
     cta_buttons:
       - text: See enrollment options
         url: "#pricing-event"
@@ -96,7 +96,7 @@ sections:
     rounded: true
     section_id: image_row-z97kqt
     type: image_row
-  - description: <p>You'll go from configuring your first agent to orchestrating systems where multiple agents collaborate on their own. This is a highlight reel — the full curriculum covers more ground.</p>
+  - description: <p>You'll go from configuring your first agent to orchestrating systems where multiple agents collaborate on their own. This is a highlight reel. The full curriculum covers more ground.</p>
     header: A preview of what's inside
     marginY:
       mobile: md
@@ -155,8 +155,8 @@ sections:
     paddingY:
       mobile: md
       desktop: none
-    program_description: A hands-on curriculum built around real AI agents, tools, and workflows — not lectures.
-    program_title: AI Engineering — Core Modules
+    program_description: A hands-on curriculum built around real AI agents, tools, and workflows, not lectures.
+    program_title: AI Engineering Core Modules
     section_id: curriculum-event
     subheader: This is a snapshot of the core building blocks, not the full syllabus.
     tech_logos:
@@ -211,10 +211,10 @@ sections:
     background: hsl(var(--secondary))
   - card_color: bg-background
     items:
-      - title: Full Time · Monday to Friday — immersive and fast, built for people who can go all in and finish sooner
-        value: 10am – 1pm EST
-      - title: Part Time · Monday, Wednesday, Friday — built for people keeping their job while they train
-        value: 6pm – 9pm EST
+      - title: Full Time · Monday to Friday, immersive and fast, built for people who can go all in and finish sooner
+        value: 10am to 1pm EST
+      - title: Part Time · Monday, Wednesday, Friday, built for people keeping their job while they train
+        value: 6pm to 9pm EST
     section_id: schedule-event
     subtitle: Live classes, real instructors, two schedules to choose from. Same curriculum either way.
     title: Pick the schedule that fits your life
@@ -246,7 +246,7 @@ sections:
       desktop: none lg
     plans:
       - amount: 13,499
-        billing_note: One-time payment — no interest, no monthly payments to track
+        billing_note: One-time payment, no interest, no monthly payments to track
         cta:
           label: Reserve my seat
           url: "#register-event"
@@ -261,7 +261,7 @@ sections:
         name: Pay in Full
         period: ""
         tag: One payment
-        top_badge: Save $1,500 — 10% off
+        top_badge: Save $1,500, 10% off
       - amount: "500"
         billing_note: First monthly payment isn't due for 30 days
         cta:
@@ -331,7 +331,7 @@ sections:
           visible: false
       submit_label: Reserve my seat
       success:
-        message: You're in! Our admissions team will be in touch within minutes — check your inbox.
+        message: You're in! Our admissions team will be in touch within minutes. Check your inbox.
       terms_className: text-white/80
       variant: stacked
     section_id: register-event
