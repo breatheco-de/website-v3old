@@ -218,7 +218,7 @@ sections:
     paddingY:
       desktop: md lg
     marginY:
-      desktop: none md
+      desktop: none
   - type: syllabus
     variant: program-modules
     program_title: Cómo aprenderás en 4 semanas
