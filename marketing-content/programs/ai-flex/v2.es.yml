@@ -61,7 +61,7 @@ sections:
         - icon: IconUserCheck
           text: Sesion 1:1 mensual con expertos para resolver todas tus dudas.
         - icon: IconRobot
-          text: Aprendizaje y feedback con IA
+          text: Aprendizaje y feedback con IA disponibles 24/7
     paddingY:
       desktop: lg md
     marginY:
