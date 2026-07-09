@@ -181,7 +181,7 @@ sections:
       desktop: md none
     section_id: human_and_ai_duo-99s71d
     marginY:
-      desktop: none md
+      desktop: none
   - marginY:
       mobile: md
       desktop: none lg
