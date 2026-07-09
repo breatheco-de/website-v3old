@@ -157,7 +157,7 @@ sections:
         period: ""
         top_badge: Save 10% - Best Deal
       - amount: "500"
-        billing_note: First monthly payment isn't due for 30 days
+        billing_note: Payments of $323 for 48 months
         cta:
           label: Reserve my seat
           url: https://4geeks.com/checkout?plan=ai-engineering-registration-fee&cohort=1536
