@@ -418,7 +418,7 @@ sections:
       desktop: md none
     maxWidth:
       desktop: 6xl
-    background: hsl(var(--primary))
+    background: hsl(var(--secondary))
   - copyright_text: 2026 4Geeks. All rights reserved.
     section_id: footer-event
     type: footer
