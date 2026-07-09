@@ -971,45 +971,50 @@ sections:
     background: hsl(210 100% 50% / 0.05)
   - type: human_and_ai_duo
     version: "1.0"
-    heading: Tutoría con IA 24/7. Experiencia humana bajo demanda.
-    description: Rigobot está disponible las 24 horas durante tu suscripción — pide ayuda, recibe feedback o trabaja un concepto cuando lo necesites. Si quieres una perspectiva humana, puedes reservar mentores senior en cualquier momento.
+    heading: Ayuda real, cuando la necesites
+    description: Mentor humano cuando quieres profundidad. IA cuando quieres velocidad. Nunca te quedas atascado.
     bullet_groups:
+      - title: "Mentor humano:"
+        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
+        bullets:
+          - text: 1 mentoría, tú y tu mentor senior. Resuelve todas tus dudas.
+          - text: Enfocado en tu trabajo real, no en teoría.
+          - text: ¿Te parece poco? Tenemos paquetes de mentoría aún más personalizados.
       - title: "Rigobot, tu tutor de IA:"
         image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
         bullets:
-          - text: Disponible 24/7 en todos los cursos del catálogo
-          - text: Pide ayuda, recibe feedback o trabaja un concepto en cualquier momento
-          - text: Se adapta a tu nivel y a lo que estás trabajando
-      - title: "Mentores expertos:"
-        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
-        bullets:
-          - text: Reserva una sesión 1:1 con un instructor senior por $25
-          - text: Enfocado en tu trabajo real, tu ritmo, tus preguntas
-          - text: Agrega tantas sesiones como necesites, cuando las necesites
-    section_id: human_and_ai_duo-aiflex
+          - text: Disponible 24/7. No te quedas estancado nunca.
+          - text: Feedback al instante, adaptado a tu nivel.
+          - text: Te acompaña en cada módulo, a tu propio ritmo.
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
-        alt: Estudiante asiática aprendiendo a programar
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina-brightened-1365x2048.webp
+        alt: "Image: valentina_brightened"
         object_fit: cover
         object_position: 40%20%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male-133x500.webp
-        alt: Estudiante latino trabajando en un proyecto
+        id: valentina-brightened-1365x2048
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536.webp
+        alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_african-133x500.webp
+        id: chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
         alt: Estudiante africana colaborando con su equipo
         object_fit: cover
-        object_position: 50%15%
+        object_position: 70%15%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latina_female-133x500.webp
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74.webp
         alt: Estudiante latina celebrando un logro
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
+    image_alt: Mujer trabajando con portátil en una cafetería
     paddingY:
-      desktop: none
+      mobile: sm none
+      desktop: md none
+    section_id: human_and_ai_duo-99s71d
   - type: two_column_accordion_card
     version: "1.0"
     variant: image_background
