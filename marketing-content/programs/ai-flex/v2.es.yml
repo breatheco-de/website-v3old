@@ -24,7 +24,7 @@ sections:
       color: primary
       background: hsl(var(--primary))
       text_color: hsl(var(--primary-foreground))
-    title: Aprende Skills de IA. Haz el test. Recibe tu ruta. Avanza a tu ritmo.
+    title: Domina la IA. Haz el test, recibe tu ruta y avanza a tu ritmo.
     title_highlight: Haz el test. Recibe tu ruta. Avanza a tu ritmo.
     subtitle: La IA ya no es opcional en el mercado. No te quedes atrás. Respondiendo solo 4 preguntas te damos la ruta exacta para que domines la IA a tu propio ritmo. Deja de ser quien solo habla con ella y empieza a multiplicar tu productividad, velocidad y la calidad de tus entregas.
     students_enrolled:
