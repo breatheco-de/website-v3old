@@ -167,41 +167,41 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-charts
-    subtitle: Los datos lo confirman.
-    title: Cómo las habilidades en IA pueden impulsar tu carrera
-    description: En todas las industrias, los profesionales con habilidades en IA trabajan más rápido, ganan más y avanzan hacia roles de mayor valor. Los datos son claros — y la oportunidad también.
-    card_bars_accent: hsl(var(--primary))
-    card_gauge_accent: hsl(var(--destructive) / 0.5)
-    card_trend_accent: hsl(var(--accent))
+    subtitle: Los datos son claros.
+    title: "Dominar la IA ya no es opcional, <span style=\"color: hsl(var(--primary));\">es la diferencia entre avanzar o quedarte atrás.</span>"
+    description: La demanda es real y la brecha crece. Si en tu CV no aparecen skills como 'IA', estás quedando fuera de búsquedas donde sí calificas.
+    background: bg-slate-950
+    card_bars_accent: hsl(var(--color-green))
+    card_gauge_accent: hsl(var(--primary))
+    card_trend_accent: hsl(var(--color-purple))
     card_bars:
-      title: La prima salarial es real
+      title: Dominar la IA se traduce en mayores ingresos
       description: Mismo rol · con y sin habilidades en IA · PwC 2025
       stat_value: +56%
-      stat_label: ganado por trabajadores con habilidades en IA frente a compañeros del mismo rol
+      stat_label: Mejores salarios para trabajadores con habilidades en IA frente a compañeros del mismo rol
       displaced_label: Sin habilidades en IA
       created_label: Con habilidades en IA
-    card_trend:
-      title: La demanda creció 7x en dos años
-      description: Roles que requieren fluidez en IA · McKinsey 2025
-      stat_value: 7x
-      stat_label: crecimiento en roles que requieren fluidez en IA desde 2023
-      end_label: 7x · 2025
     card_gauge:
-      title: El salto de productividad es real
-      description: Crecimiento de productividad · industrias expuestas a IA · PwC 2025
-      inner_stat_percentage: 27
-      outer_stat_percentage: 73
-      show_gauge: false
+      title: Saber usar la IA se convierte en requisito laboral
+      description: Roles laborales globales · LinkedIn 2025
+      outer_stat_percentage: 70
+      show_gauge: true
       inner_stat_highlight: false
-      gauge_label: tasa de crecimiento de productividad
-      stat_label: crecimiento de productividad en empresas que usan bien la IA, frente al 7% en 2022
-      bar1_label: Empresas que adoptan IA
-      bar2_label: Promedio del sector
+      gauge_label: requieren alfabetización en IA
+      stat_label: de los roles laborales ya requieren conocimientos en IA a nivel global
+      bar1_label: Roles que requieren conocimientos en IA
+      bar2_label: Roles sin requisito de IA
+    card_trend:
+      title: La demanda de trabajadores que sepan usar IA se acelera
+      description: Crecimiento de demanda indexado · LinkedIn/WEF 2026
+      stat_value: 7x
+      stat_label: crecimiento en la demanda de trabajadores con fluidez en IA desde 2023
+      end_label: 7x · 2026
+    section_id: features_grid-aifluency
     paddingY:
-      desktop: none md
+      desktop: none lg
     marginY:
-      desktop: lg
-    section_id: features_grid-aiflex-whynow
+      desktop: lg md
   - type: survey
     version: v1.0
     variant: default
