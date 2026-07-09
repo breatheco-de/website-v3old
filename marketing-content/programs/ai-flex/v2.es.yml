@@ -59,7 +59,7 @@ sections:
         - icon: IconUsers
           text: 8 cursos + cursos mensuales con las ultimas tendencias en IA
         - icon: IconUserCheck
-          text: Mentoría 1:1 opcional
+          text: Sesion 1:1 con expertos para resolver todas tus dudas.
         - icon: IconRobot
           text: Aprendizaje y feedback con IA
     paddingY:
