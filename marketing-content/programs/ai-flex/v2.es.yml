@@ -24,7 +24,7 @@ sections:
       color: primary
       background: hsl(var(--primary))
       text_color: hsl(var(--primary-foreground))
-    title: Resultados reales usando IA. Tú eliges los cursos, tú marcas el ritmo.
+    title: Multiplica tu valor profesional usando IA. Tú eliges los cursos, tú marcas el ritmo.
     title_highlight: Tú eliges los cursos, tú marcas el ritmo.
     subtitle: Las personas que están desarrollando habilidades en IA ahora mismo se están adelantando rápido. AI Flex te da acceso a +8 cursos que cubren automatización, flujos de trabajo con IA, vibe coding y habilidades de datos. Sigue una ruta de aprendizaje curada o construye la tuya. Totalmente a tu ritmo.
     students_enrolled:
