@@ -210,7 +210,7 @@ sections:
         billing_note: First monthly payment isn't due for 30 days
         cta:
           label: Reserve my seat
-          url: "#register-event"
+          url: https://4geeks.com/checkout?plan=ai-engineering-registration-fee&cohort=1536
           variant: secondary
         currency: $
         featured: true
