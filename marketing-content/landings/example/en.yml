@@ -1,5 +1,223 @@
 slug: example
 sections:
+  - type: enrollment_selector
+    version: v1.0
+    variant: default
+    eyebrow: Enrollment · Apply now
+    title: Reserve your seat.<br /><span class="text-primary italic">Start learning today.</span>
+    description: Pay your $250 registration fee to lock in your spot. You'll get immediate access to 4Geeks.com and your prework — your admissions rep will reach out within 24 hours to finalize everything.
+    choose_program_label: Choose your program
+    choose_date_label: Choose your start date
+    included_label: What's included
+    programs:
+      - id: ai-engineering
+        selection_card:
+          name: AI Engineering
+          duration: 24 weeks
+          badge: Most Popular
+          icon: IconCode
+        summary:
+          price_label: Due today
+          price_amount: $250
+          price_sub: Applied toward your total tuition
+          rows:
+            - label: Total program fee
+              value: $15,999
+            - label: Financing from
+              value: Plans from $349/mo
+            - label: Job guarantee
+              value: Not included
+          cta:
+            text: Secure My Seat
+            url: https://4geeks.com/checkout?cohort={qs:cohort|sept-2026}
+            variant: primary
+          trust_note:
+            initials: EA
+            message: <span class="font-semibold text-foreground">An admissions advisor will call you within 24 hours</span> to finalize enrollment, walk you through financing, and answer any questions.
+        benefits:
+          - title: Immediate access to 4Geeks.com + prework
+            desc: Your account activates the moment you pay. Start Foundations right away — Git, JavaScript basics, YAML & JSON, internet fundamentals, and your first coding agents.
+          - title: Unlimited 1-on-1 mentorship
+            desc: Book as many sessions as you need with senior engineers and industry mentors — no caps, no waitlists, ever.
+          - title: Weekly live group sessions
+            desc: Join mentor-led group sessions every week to get guidance on projects, talk through blockers, and learn alongside your cohort.
+          - title: Unlimited career support
+            desc: Resume reviews, mock interviews, LinkedIn optimization, and job search coaching — for life, not just while enrolled.
+        unlocks:
+          - text: Master the fundamentals — Learn Git, JavaScript, YAML/JSON, and core web concepts.
+          - text: Build AI from day one — Create your first coding agents with hands-on projects.
+          - text: Learn with expert support — Get LMS & VPS access plus weekly live mentor sessions.
+        dates:
+          mode: static
+          items:
+            - date_iso: "2026-09-08"
+              seats: 4
+              url: "?cohort=sept-2026"
+            - date_iso: "2026-10-13"
+              seats: 12
+              url: "?cohort=oct-2026"
+            - date_iso: "2026-11-10"
+              url: "?cohort=nov-2026"
+      - id: ai-fluency
+        selection_card:
+          name: AI Fluency
+          duration: 12 weeks
+          badge: Career Transition
+          icon: IconBrain
+        summary:
+          price_label: Due today
+          price_amount: $250
+          price_sub: Applied toward your total tuition
+          rows:
+            - label: Total program fee
+              value: $8,999
+            - label: Financing from
+              value: Plans from $199/mo
+            - label: Job guarantee
+              value: Not included
+          cta:
+            text: Secure My Seat
+            url: https://4geeks.com/checkout?cohort={qs:cohort|fluency-sept-2026}
+            variant: primary
+          trust_note:
+            initials: EA
+            message: <span class="font-semibold text-foreground">An admissions advisor will call you within 24 hours</span> to finalize enrollment, walk you through financing, and answer any questions.
+        benefits:
+          - title: Immediate access to 4Geeks.com + prework
+            desc: Start learning AI fundamentals right away — prompting, agents, automation, and no-code tools.
+          - title: Weekly 1-on-1 mentorship sessions
+            desc: Get personalized guidance from industry practitioners who've worked in AI-first companies.
+          - title: Live cohort classes twice a week
+            desc: Join live sessions with your cohort to tackle real-world projects and get feedback in real time.
+          - title: Career support for 6 months
+            desc: Resume reviews, LinkedIn optimization, and job search coaching included for 6 months after graduation.
+        unlocks:
+          - text: Understand and apply AI tools in your current role immediately.
+          - text: Build no-code and low-code AI automations with hands-on projects.
+          - text: Get certified — earn your AI Fluency certificate upon completion.
+        dates:
+          mode: interval
+          start_date_iso: "2026-09-08"
+          interval: 4
+          interval_unit: weeks
+          url: "?cohort=fluency-rolling"
+      - id: ai-flex
+        selection_card:
+          name: AI Flex
+          duration: Self-paced
+          badge: Customizable
+          icon: IconAdjustmentsHorizontal
+        summary:
+          price_label: Your plan
+          price_amount: $129
+          price_period: /mo
+          price_sub: Billed monthly
+          rows:
+            - label: Total
+              value: $129/mo
+            - label: Financing from
+              value: Plans from $75/mo
+          cta:
+            text: Start Now
+            url: https://4geeks.com/checkout?plan=basic
+            variant: primary
+          trust_note:
+            initials: EA
+            message: <span class="font-semibold text-foreground">Questions?</span> Our team is available Mon–Fri 9am–6pm ET.
+        benefits:
+          - title: Immediate access to full course catalog
+            desc: Your account activates the moment you enroll. Start learning immediately.
+          - title: 1 monthly 1-on-1 mentorship session
+            desc: Meet with senior engineers and industry mentors for personalized guidance.
+          - title: Everything you need to build with AI
+            desc: AI tokens, AI completions, GitHub Copilot, a dedicated VPS, and more — all included.
+        unlocks:
+          - text: 1 mentorship session per month with senior engineers and industry mentors.
+          - text: Unlimited access to the full course catalog plus certificates for every course completed.
+          - text: Everything you need to build with AI — Includes AI tokens, AI completions, GitHub Copilot, a dedicated VPS.
+        plans:
+          - id: basic
+            name: Basic
+            tagline: Solo learners, self-paced
+            currency: $
+            amount: "129"
+            period: /month
+            billing_note: Monthly · Cancel anytime
+            tag: Starter
+            featured: false
+            summary:
+              price_label: Your plan
+              price_amount: $129
+              price_period: /mo
+              price_sub: Billed monthly
+              rows:
+                - label: Total
+                  value: $129/mo
+                - label: Financing from
+                  value: Plans from $75/mo
+              cta:
+                text: Start Now
+                url: https://4geeks.com/checkout?plan=basic
+                variant: primary
+              trust_note:
+                initials: EA
+                message: <span class="font-semibold text-foreground">Questions?</span> Our team is available Mon–Fri 9am–6pm ET.
+          - id: pro
+            name: Pro
+            tagline: Teams & serious learners
+            currency: $
+            amount: "900"
+            period: /year
+            billing_note: Annually · Save 10 months
+            tag: Best Value
+            featured: true
+            summary:
+              price_label: Your plan
+              price_amount: $900
+              price_period: /yr
+              price_sub: Billed annually
+              rows:
+                - label: Total
+                  value: $900/yr
+                - label: Financing from
+                  value: Plans from $75/mo
+              cta:
+                text: Start Now
+                url: https://4geeks.com/checkout?plan=pro
+                variant: primary
+              trust_note:
+                initials: EA
+                message: <span class="font-semibold text-foreground">Questions?</span> Our team is available Mon–Fri 9am–6pm ET.
+    section_id: enrollment_selector-d0qc5t
+    paddingY:
+      desktop: sm
+    maxWidth:
+      desktop: xl
+  - type: trust_cards
+    version: v1.0
+    title: Trusted by Students Worldwide
+    items:
+      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+        rating: 4.9
+        review_count: 2,847 reviews
+        trusted_text: Verified Reviews
+      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        rating: 4.8
+        review_count: 1,523 reviews
+        trusted_text: Top Rated Program
+      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        rating: 4.9
+        review_count: 987 reviews
+        trusted_text: Verified Reviews
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 987 reviews
+        trusted_text: Verified Reviews
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-llqka9
+    paddingY:
+      desktop: sm
   - type: pricing
     version: "1.0"
     variant: plan_cards
