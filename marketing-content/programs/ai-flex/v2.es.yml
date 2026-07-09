@@ -47,7 +47,6 @@ sections:
         role: Tutor de IA
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Tus tutores:"
-    description: La IA no es el futuro, es la base. AI Flex te da las habilidades para mantenerte adelante, al ritmo que encaje con tu vida.
     signup_card:
       title: Empieza a aprender hoy
       description: Elige tu plan y obtén acceso instantáneo a 8 cursos de IA, Rigobot y tu primera sesión de mentoría.
@@ -942,28 +941,34 @@ sections:
     version: v1.0
     title: Muy bien valorado en las principales plataformas.
     items:
-      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         rating: 4.9
         review_count: 4.9 en Course Report
-      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        alt: Course Report logo
+        id: logo-course-report
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79.webp
         rating: 4.8
         review_count: 4.8 en Google
-      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        alt: "Image: google"
+        id: google-583x196-q79
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/CareerKarma_logo.png
         rating: 4.9
         review_count: 4.9 en Career Karma
+        alt: "Image: CareerKarma_logo"
+        id: careerkarma-logo
       - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
         rating: 4.9
         review_count: 4.9 en SwitchUp
     name: Tarjetas de confianza por defecto
     description: Cuatro tarjetas de plataformas de reseñas con valoraciones
-    section_id: trust_cards-2jxl3t
+    section_id: trust_cards-jji04i
     paddingY:
       desktop: md lg
     marginY:
-      desktop: md lg
-    background: hsl(var(--secondary))
+      desktop: md none
     maxWidth:
       desktop: 6xl
+    background: hsl(210 100% 50% / 0.05)
   - type: human_and_ai_duo
     version: "1.0"
     heading: Tutoría con IA 24/7. Experiencia humana bajo demanda.
