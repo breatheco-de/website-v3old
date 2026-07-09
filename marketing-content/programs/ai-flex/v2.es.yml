@@ -24,9 +24,9 @@ sections:
       color: primary
       background: hsl(var(--primary))
       text_color: hsl(var(--primary-foreground))
-    title: Aprende Skills de IA. Haz el test. Recibe tu ruta. Avanza a tu ritmo.
-    title_highlight: Haz el test. Recibe tu ruta. Avanza a tu ritmo.
-    subtitle: La IA ya no es opcional en el mercado. No te quedes atrás. Respondiendo solo 4 preguntas te damos la ruta exacta para que domines la IA a tu propio ritmo. Deja de ser quien solo habla con ella y empieza a multiplicar tu productividad, velocidad y la calidad de tus entregas.
+    title: Domina la IA. Haz el test, recibe tu ruta y avanza a tu ritmo.
+    title_highlight: Haz el test, recibe tu ruta y avanza a tu ritmo.
+    subtitle: Seas nuevo o busques mantenerte actualizado, la IA ya no es opcional en el mercado. No te quedes atrás. Respondiendo solo 4 preguntas te damos la ruta exacta para que domines la IA a tu propio ritmo. Deja de ser quien solo habla con ella y empieza a multiplicar tu productividad, velocidad y la calidad de tus entregas.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -35,23 +35,17 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +8500 graduados
     bullet_points:
-      - Obten la ruta perfecta tomando en cuenta tus metas respondiendo 4 preguntas
-      - "Contenido premium que se actualiza cada mes: Domina las últimas herramientas de IA antes que el resto."
-      - Nuevos cursos de IA cada mes
-      - "Reserva sesiones de mentoría 1:1 cuando necesites experiencia humana."
-      - Certificados que se acumulan hacia AI Fluency y AI Engineering.
+      - Responde 4 preguntas y obtén una ruta de aprendizaje adaptada a tus metas.
+      - Contenido premium que se actualiza cada mes. Domina las últimas herramientas de IA antes que el resto.
+      - Obten certificados reconocidos por empleadores en todo el mundo.
     tutors:
-      - name: Instructor Experto
-        role: Instructor Principal
-        image: https://randomuser.me/api/portraits/men/10.jpg
-      - name: Rigo
-        role: Tutor de IA
+      - name: Tutor con IA
+        role: IA de 4Geeks 24/7. Atención continua las 24h.
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Tus tutores:"
-    description: La IA no es el futuro, es la base. AI Flex te da las habilidades para mantenerte adelante, al ritmo que encaje con tu vida.
     signup_card:
       title: Empieza a aprender hoy
-      description: Elige tu plan y obtén acceso instantáneo a 8 cursos de IA, Rigobot y tu primera sesión de mentoría.
+      description: Descubre tu nivel actual en solo 30 segundos y recibe acceso a tus primeros cursos adaptados a tus metas de IA.
       cta_button:
         text: Empezar Test
         url: "#survey-g6wkjo"
@@ -61,13 +55,13 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: A tu ritmo, empieza cuando quieras
+          text: Aprende a tu ritmo, sin horarios
         - icon: IconUsers
-          text: +8 cursos de IA y tecnología
+          text: 8 cursos + cursos mensuales con las ultimas tendencias en IA
         - icon: IconUserCheck
-          text: Mentoría 1:1 opcional
+          text: Sesion 1:1 mensual con expertos para resolver todas tus dudas.
         - icon: IconRobot
-          text: Aprendizaje y feedback con IA
+          text: Aprendizaje y feedback con IA disponibles 24/7
     paddingY:
       desktop: lg md
     marginY:
@@ -119,34 +113,6 @@ sections:
     marginY:
       desktop: md lg
     title: "<span style=\"font-size: 1.25rem;\">Empresas que confían en 4Geeks</span>"
-  - type: modal
-    version: "1.0"
-    heading: Recibe los detalles del programa
-    description: Completa tus datos de contacto y el equipo de admisiones te enviará todo lo que necesitas saber.
-    show_close: true
-    size: md
-    form:
-      variant: stacked
-      submit_label: Envíame los detalles
-      conversion_name: request_more_info
-      automations: soft
-      fields:
-        email:
-          visible: true
-          required: true
-        first_name:
-          visible: true
-          required: true
-        phone:
-          visible: true
-          required: true
-        program:
-          visible: false
-          required: true
-          default: {{ single.bc_slug | ai-fluency }}
-      success:
-        message: Revisa tu bandeja de entrada. El equipo de admisiones se pondrá en contacto pronto.
-    section_id: modal-y2myvq
   - type: features_quad
     version: "1.0"
     variant: default
@@ -156,11 +122,11 @@ sections:
       - icon: IconBulb
         title: La IA evoluciona cada mes y tú quieres estar siempre al día.
       - icon: IconRocket
-        title: Odias los horarios fijos y prefieres aprender a tu propio ritmo.
+        title: Quieres aprender a tu propio ritmo, sin horarios fijos.
       - icon: book-open-check
         title: Quieres explorar antes de comprometerte con un solo camino.
       - icon: IconUserCheck
-        title: No sabes por dónde empezar con la IA, y no quieres perder tiempo decidiendo.
+        title: Quieres una ruta clara para empezar con la IA, sin perder tiempo decidiendo.
     background: hsl(var(--muted))
     section_id: features_quad-aiflex
     marginY:
@@ -168,41 +134,88 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-charts
-    subtitle: Los datos lo confirman.
-    title: Cómo las habilidades en IA pueden impulsar tu carrera
-    description: En todas las industrias, los profesionales con habilidades en IA trabajan más rápido, ganan más y avanzan hacia roles de mayor valor. Los datos son claros — y la oportunidad también.
-    card_bars_accent: hsl(var(--primary))
-    card_gauge_accent: hsl(var(--destructive) / 0.5)
-    card_trend_accent: hsl(var(--accent))
+    subtitle: Los datos son claros.
+    title: "Dominar la IA ya no es opcional, <span style=\"color: hsl(var(--primary));\">es la diferencia entre avanzar o quedarte atrás.</span>"
+    description: La demanda es real y la brecha crece. Si en tu CV no aparecen skills como 'IA', estás quedando fuera de búsquedas donde sí calificas.
+    background: bg-slate-950
+    card_bars_accent: hsl(var(--color-green))
+    card_gauge_accent: hsl(var(--primary))
+    card_trend_accent: hsl(var(--color-purple))
     card_bars:
-      title: La prima salarial es real
+      title: Dominar la IA se traduce en mayores ingresos
       description: Mismo rol · con y sin habilidades en IA · PwC 2025
       stat_value: +56%
-      stat_label: ganado por trabajadores con habilidades en IA frente a compañeros del mismo rol
+      stat_label: Mejores salarios para trabajadores con habilidades en IA frente a compañeros del mismo rol
       displaced_label: Sin habilidades en IA
       created_label: Con habilidades en IA
-    card_trend:
-      title: La demanda creció 7x en dos años
-      description: Roles que requieren fluidez en IA · McKinsey 2025
-      stat_value: 7x
-      stat_label: crecimiento en roles que requieren fluidez en IA desde 2023
-      end_label: 7x · 2025
     card_gauge:
-      title: El salto de productividad es real
-      description: Crecimiento de productividad · industrias expuestas a IA · PwC 2025
-      inner_stat_percentage: 27
-      outer_stat_percentage: 73
-      show_gauge: false
+      title: Saber usar la IA se convierte en requisito laboral
+      description: Roles laborales globales · LinkedIn 2025
+      outer_stat_percentage: 70
+      show_gauge: true
       inner_stat_highlight: false
-      gauge_label: tasa de crecimiento de productividad
-      stat_label: crecimiento de productividad en empresas que usan bien la IA, frente al 7% en 2022
-      bar1_label: Empresas que adoptan IA
-      bar2_label: Promedio del sector
+      gauge_label: requieren alfabetización en IA
+      stat_label: de los roles laborales ya requieren conocimientos en IA a nivel global
+      bar1_label: Roles que requieren conocimientos en IA
+      bar2_label: Roles sin requisito de IA
+    card_trend:
+      title: La demanda de trabajadores que sepan usar IA se acelera
+      description: Crecimiento de demanda indexado · LinkedIn/WEF 2026
+      stat_value: 7x
+      stat_label: crecimiento en la demanda de trabajadores con fluidez en IA desde 2023
+      end_label: 7x · 2026
+    section_id: features_grid-aifluency
     paddingY:
-      desktop: none md
+      desktop: none lg
     marginY:
-      desktop: lg
-    section_id: features_grid-aiflex-whynow
+      desktop: lg md
+  - type: testimonials
+    section_id: testimonials-ghxelh
+    title: Las personas detrás de los números.
+    subtitle: Distintos puntos de partida. Mismo resultado. Mas productividad, mas eficiencia y hoas recuperadas.
+    rating_summary:
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 700 }}
+    items:
+      - name: Valeria Hernández
+        role: Estratega de Contenido y Mamá
+        rating: 5
+        comment: Como mamá de dos niños pequeños que vuelve al trabajo tras el embarazo, mi tiempo vale oro. Este curso me permitió automatizar el registro de clientes y la planificación de contenidos. Ahora, mi asistente de IA se encarga del trabajo aburrido detrás de escena para poder hacer crecer mi negocio sin sacrificar tiempo en familia.
+        outcome: Equilibrio entre carrera y familia
+      - name: Mateo Pérez
+        role: Especialista de Ventas
+        rating: 5
+        comment: Sinceramente, sentía que todos en mi equipo de ventas iban más rápido que yo, cerrando tratos mientras yo me ahogaba en papeleo. Investigué sobre 4Geeks, hice este curso y cambió las reglas del juego. Integrar la IA en mi rutina diaria redujo a la mitad mi tiempo de prospección y me convirtió en el más eficiente de la oficina.
+        outcome: Líder en ventas del equipo
+      - name: Carlos Del Valle
+        role: Especialista en Marketing
+        rating: 5
+        comment: Un cambio total. Logré conectar OpenClaw directo a mi Slack y ahora mi asistente privado filtra clientes potenciales y redacta mis reportes semanales. Recuperé un día entero de mi semana.
+        outcome: Más de 12 horas ahorradas por semana
+      - name: Amanda Noguera
+        role: Coordinadora de Operaciones
+        rating: 5
+        comment: Me aterraba que n8n fuera demasiado técnico para mí, pero el paso a paso es a prueba de errores. En la semana 4, ya tenía un flujo de trabajo autónomo gestionando datos de clientes detrás de escena. Es el fin de las tareas repetitivas.
+        outcome: Jornada laboral reducida a la mitad
+      - name: Tomás Gonzalez
+        role: Agente Inmobiliario
+        rating: 4
+        comment: El contenido es oro puro y OpenClaw funciona de maravilla para organizar archivos de clientes, pero la semana 3 es superintensa porque debes configurar el software de forma local. Me tomó un par de intentos sincronizar todo bien, pero el soporte técnico me ayudó.
+        outcome: Gestión de clientes automatizada
+      - name: Jésica
+        role: Fundadora
+        rating: 5
+        comment: El Proyecto Final pagó el costo de todo el curso. Lancé un sistema de soporte autónomo totalmente funcional que toma decisiones inteligentes 24/7 usando n8n e IA. Por fin soy libre de mi bandeja de entrada de correos.
+        outcome: Negocio automatizado
+      - name: Marcos Vance
+        role: Coordinador de Reclutamiento
+        rating: 4
+        comment: Increíble para crear flujos de trabajo que de verdad filtran candidatos en vez de solo generar texto genérico con IA. Le doy 4 estrellas solo porque la semana 4 va volando; tuve que volver a ver los videos de n8n varias veces para ponerme al día.
+        outcome: Experto en filtrado de candidatos
+    paddingY:
+      desktop: md lg
+    marginY:
+      desktop: none
   - type: survey
     version: v1.0
     variant: default
@@ -1030,69 +1043,80 @@ sections:
     version: v1.0
     title: Muy bien valorado en las principales plataformas.
     items:
-      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         rating: 4.9
         review_count: 4.9 en Course Report
-      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        alt: Course Report logo
+        id: logo-course-report
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79.webp
         rating: 4.8
         review_count: 4.8 en Google
-      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        alt: "Image: google"
+        id: google-583x196-q79
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/CareerKarma_logo.png
         rating: 4.9
         review_count: 4.9 en Career Karma
+        alt: "Image: CareerKarma_logo"
+        id: careerkarma-logo
       - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
         rating: 4.9
         review_count: 4.9 en SwitchUp
     name: Tarjetas de confianza por defecto
     description: Cuatro tarjetas de plataformas de reseñas con valoraciones
-    section_id: trust_cards-2jxl3t
+    section_id: trust_cards-jji04i
     paddingY:
       desktop: md lg
     marginY:
-      desktop: md lg
-    background: hsl(var(--secondary))
+      desktop: md sm
     maxWidth:
       desktop: 6xl
+    background: hsl(210 100% 50% / 0.05)
   - type: human_and_ai_duo
     version: "1.0"
-    heading: Tutoría con IA 24/7. Experiencia humana bajo demanda.
-    description: Rigobot está disponible las 24 horas durante tu suscripción — pide ayuda, recibe feedback o trabaja un concepto cuando lo necesites. Si quieres una perspectiva humana, puedes reservar mentores senior en cualquier momento.
+    heading: Ayuda real, cuando la necesites
+    description: Mentor humano cuando quieres profundidad. IA cuando quieres velocidad. Nunca te quedas atascado.
     bullet_groups:
+      - title: "Mentor humano:"
+        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
+        bullets:
+          - text: 1 mentoría, tú y tu mentor senior. Resuelve todas tus dudas.
+          - text: Enfocado en tu trabajo real, no en teoría.
+          - text: ¿Te parece poco? Tenemos paquetes de mentoría aún más personalizados.
       - title: "Rigobot, tu tutor de IA:"
         image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
         bullets:
-          - text: Disponible 24/7 en todos los cursos del catálogo
-          - text: Pide ayuda, recibe feedback o trabaja un concepto en cualquier momento
-          - text: Se adapta a tu nivel y a lo que estás trabajando
-      - title: "Mentores expertos:"
-        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
-        bullets:
-          - text: Reserva una sesión 1:1 con un instructor senior por $25
-          - text: Enfocado en tu trabajo real, tu ritmo, tus preguntas
-          - text: Agrega tantas sesiones como necesites, cuando las necesites
-    section_id: human_and_ai_duo-aiflex
+          - text: Disponible 24/7. No te quedas estancado nunca.
+          - text: Feedback al instante, adaptado a tu nivel.
+          - text: Te acompaña en cada módulo, a tu propio ritmo.
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
-        alt: Estudiante asiática aprendiendo a programar
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina-brightened-1365x2048.webp
+        alt: "Image: valentina_brightened"
         object_fit: cover
         object_position: 40%20%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male-133x500.webp
-        alt: Estudiante latino trabajando en un proyecto
+        id: valentina-brightened-1365x2048
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536.webp
+        alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_african-133x500.webp
+        id: chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
         alt: Estudiante africana colaborando con su equipo
         object_fit: cover
-        object_position: 50%15%
+        object_position: 70%15%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latina_female-133x500.webp
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74.webp
         alt: Estudiante latina celebrando un logro
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
+    image_alt: Mujer trabajando con portátil en una cafetería
     paddingY:
-      desktop: none
+      mobile: sm none
+      desktop: md none
+    section_id: human_and_ai_duo-99s71d
   - type: two_column_accordion_card
     version: "1.0"
     variant: image_background
@@ -1114,7 +1138,7 @@ sections:
     paddingY:
       desktop: lg
     marginY:
-      desktop: lg none
+      desktop: md none
   - type: pricing
     version: "1.0"
     variant: plan_cards
@@ -1348,20 +1372,6 @@ sections:
       - munich-germany
       - rome-italy
       - valencia-spain
-  - type: testimonials
-    section_id: testimonials-cbhm8t
-    title: Las personas detrás de los números.
-    subtitle: "Distintos puntos de partida. Un mismo resultado: habilidades reales en IA."
-    related_features:
-      - content-and-syllabus
-      - career-support
-    rating_summary:
-      average: {{ global.global_review_rating | 4.9 }}
-      count: {{ global.global_review_count | 700 }}
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: none md
   - type: faq
     section_id: faq-hwxrsu
     title: Preguntas frecuentes
