@@ -43,8 +43,8 @@ sections:
       - name: Instructor Experto
         role: Instructor Principal
         image: https://randomuser.me/api/portraits/men/10.jpg
-      - name: Rigo
-        role: Tutor de IA
+      - name: Tutor con IA
+        role: IA de 4Geeks 24/7. Atención continua las 24h.
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Tus tutores:"
     signup_card:
