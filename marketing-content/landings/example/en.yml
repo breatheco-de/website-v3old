@@ -15,7 +15,7 @@ sections:
         billing_note: Recurring monthly charge
         cta:
           label: Subscribe to Basic Plan
-          url: /en/signup
+          url: pricing-e9hpwj?plan=1
         features:
           - text: Mentorship sessions / month
           - text: Access to exclusive events
