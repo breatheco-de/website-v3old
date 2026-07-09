@@ -24,8 +24,8 @@ sections:
       color: primary
       background: hsl(var(--primary))
       text_color: hsl(var(--primary-foreground))
-    title: Domina el mercado. Trabaja más rápido, entrega mejor.
-    title_highlight: Trabaja más rápido, entrega mejor.
+    title: Domina el mercado. Trabaja más rápido
+    title_highlight: Trabaja más rápido
     subtitle: Las personas que están desarrollando habilidades en IA ahora mismo se están adelantando rápido. AI Flex te da acceso a +8 cursos que cubren automatización, flujos de trabajo con IA, vibe coding y habilidades de datos. Sigue una ruta de aprendizaje curada o construye la tuya. Totalmente a tu ritmo.
     students_enrolled:
       avatars:
