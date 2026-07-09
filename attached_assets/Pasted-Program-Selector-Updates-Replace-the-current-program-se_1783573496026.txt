@@ -1,0 +1,129 @@
+Program Selector Updates
+Replace the current program selector with:
+AI Engineering
+Duration: 24 weeks
+Tag: Most Popular
+AI Fluency
+Duration: 4 weeks
+Tag: Upskilling
+AI Flex
+Self-paced
+Tag: Customizable
+
+AI Engineering Updates
+What You Unlock
+Replace current content with:
+Master the fundamentals — Learn Git, JavaScript, YAML/JSON, and core web concepts.
+Build AI from day one — Create your first coding agents with hands-on projects.
+Learn with expert support — Get LMS & VPS access plus weekly live mentor sessions.
+Pricing Updates
+Program Fee: $15,999
+With Job Guarantee Add-on: $17,999
+
+AI Fluency Updates
+What's Included
+Replace current bullets with:
+Immediate access to 4Geeks.com
+Your account activates the moment you pay. Start Foundations right away.
+Start Foundations right away
+Get immediate access to Foundations, where you'll learn AI fundamentals and prompt engineering basics — so you're ready to hit the ground running on day one.
+Everything you need to build with AI
+Enjoy AI tokens, AI completions, GitHub Copilot, a dedicated VPS, and other premium tools—all included, so you can create without extra costs or technical setup.
+Weekly live classes
+Join mentor-led live sessions every week to get guidance on projects, talk through blockers, and learn alongside your cohort in real time.
+Real-world portfolio projects
+Graduate with deployed projects that demonstrate what you can actually build.
+Alumni network — 4,000+ graduates
+Instant access to a global community of working engineers. Referrals, connections, and job leads.
+Flexible financing
+Flexible payment plans starting at $75/month.
+
+Pricing Updates
+Total Program Fee: $900
+Upfront Payment Discount: 10%
+Financing: Starting at $75/month
+Remove:
+Job Guarantee add-on
+"$250 is applied toward your tuition"
+"Applied toward your total tuition"
+Update final CTA to:
+Secure My Seat
+
+Admissions Advisor Copy
+Keep:
+An admissions advisor will call you within 24 hours to finalize enrollment, walk you through financing, and answer any questions.
+
+AI Fluency — Unlock Section
+Replace current unlocks with:
+24/7 AI Mentor Support — Get access to Rigobot, ready to answer questions, guide you through challenges, and help you build your projects anytime.
+Build AI from day one — Create your first coding agents with hands-on projects.
+Access to AI tokens & completions — Everything you need to build, test, and ship your projects from day one.
+
+AI Flex Updates
+General Changes
+Remove:
+Choose your start date component
+Replace with:
+Choose your plan
+Plans:
+Basic
+$129/month
+Pro
+$900/year
+Tag: Save 10 months
+Tag: For up to 2 students
+Pricing notes:
+Annual Pro price should be considered the total program fee.
+Financing available starting at $75/month.
+Remove:
+Job Guarantee add-on
+"$250 is applied toward your tuition"
+"Applied toward your total tuition"
+Final CTA:
+Start Now
+
+AI Flex — Basic Plan
+What's Included
+Live events & networking opportunities
+Join workshops, panel discussions and guest speaker sessions with industry professionals and fellow builders.
+Immediate access to 4Geeks.com + full course catalog
+Your account activates the moment you enroll. Start learning immediately with courses on Prompt Engineering, AI Assistants, No-Code & Automations, and more—so you're ready to hit the ground running on day one.
+1 monthly 1-on-1 mentorship session
+Meet with senior engineers and industry mentors for personalized guidance on your learning, projects, and career.
+Real-world portfolio projects
+Build and deploy projects that showcase your skills and prove what you can create with AI.
+Everything you need to build with AI
+Get AI tokens, AI completions, GitHub Copilot, a dedicated VPS, and other premium tools—all included, so you can focus on building instead of paying for or setting up software.
+New AI courses every month
+Stay ahead with fresh courses and content released monthly, keeping you up to date as AI evolves.
+Certificates for every course
+Earn a certificate for every course you complete and showcase your growing AI expertise.
+
+Basic Plan — Unlocks
+1 mentorship session per month with senior engineers and industry mentors.
+Unlimited access to the full course catalog plus certificates for every course completed.
+Everything you need to build with AI — Includes AI tokens, AI completions, GitHub Copilot, a dedicated VPS, and premium AI tools.
+
+AI Flex — Pro Plan
+What's Included
+Exclusive community events
+Join workshops, panel discussions, guest speaker sessions, hackathons, and networking events with industry professionals and fellow builders.
+Immediate access to 4Geeks.com + full course catalog
+Your account activates the moment you enroll. Start learning immediately with courses on Prompt Engineering, AI Assistants, No-Code & Automations, and more—so you're ready to hit the ground running on day one.
+1 monthly 1-on-1 mentorship session
+Meet with senior engineers and industry mentors for personalized guidance on your learning, projects, and career.
+Real-world portfolio projects
+Build and deploy projects that showcase your skills and prove what you can create with AI.
+Everything you need to build with AI
+Get AI tokens, AI completions, GitHub Copilot, a dedicated VPS, and other premium tools—all included, so you can focus on building instead of paying for or setting up software.
+New AI courses every month
+Stay ahead with fresh courses and content released monthly, keeping you up to date as AI evolves.
+Certificates for every course
+Earn a certificate for every course you complete and showcase your growing AI expertise.
+
+Pro Plan — Unlocks
+2 mentorship sessions per month for more personalized guidance and faster progress.
+2 seats included — Learn with a friend or teammate, share the subscription cost, and each of you receives your own account and certificates.
+Double the AI credits — Get 2× the AI tokens, AI completions, and AI chats to build bigger projects without limits.
+Premium AI development tools — GitHub Copilot, dedicated VPS, and everything you need to create, test, and deploy AI applications.
+
