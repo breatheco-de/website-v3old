@@ -205,11 +205,11 @@ sections:
         name: Pay in Full
         period: ""
         tag: One payment
-        top_badge: Save $1,500, 10% off
+        top_badge: Save 10% Best Deal
       - amount: "500"
         billing_note: First monthly payment isn't due for 30 days
         cta:
-          label: Start monthly plan
+          label: Reserve my seat
           url: "#register-event"
           variant: secondary
         currency: $
