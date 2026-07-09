@@ -368,7 +368,7 @@ sections:
     maxWidth:
       desktop: 6xl
     marginY:
-      desktop: none md
+      desktop: none sm
   - card_color: bg-background
     items:
       - title: Full Time · Monday to Friday, immersive and fast, built for people who can go all in and finish sooner
