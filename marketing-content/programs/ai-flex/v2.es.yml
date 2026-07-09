@@ -26,7 +26,7 @@ sections:
       text_color: hsl(var(--primary-foreground))
     title: Domina la IA. Haz el test, recibe tu ruta y avanza a tu ritmo.
     title_highlight: Haz el test, recibe tu ruta y avanza a tu ritmo.
-    subtitle: La IA ya no es opcional en el mercado. No te quedes atrás. Respondiendo solo 4 preguntas te damos la ruta exacta para que domines la IA a tu propio ritmo. Deja de ser quien solo habla con ella y empieza a multiplicar tu productividad, velocidad y la calidad de tus entregas.
+    subtitle: Seas nuevo o busques mantenerte actualizado, la IA ya no es opcional en el mercado. No te quedes atrás. Respondiendo solo 4 preguntas te damos la ruta exacta para que domines la IA a tu propio ritmo. Deja de ser quien solo habla con ella y empieza a multiplicar tu productividad, velocidad y la calidad de tus entregas.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
