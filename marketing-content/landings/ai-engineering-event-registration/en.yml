@@ -332,6 +332,14 @@ sections:
     paddingY:
       desktop: lg
       mobile: md
+    plans:
+      - null
+      - features:
+          - text: $500 today reserves your seat, access starts immediately
+          - text: First monthly payment isn't due for 30 days
+          - text: Monthly payment plan set up with payments of $399 or less
+          - text: Same curriculum, mentors, and projects
+          - text: Same mentorship and career support as any plan
   - copyright_text: 2026 4Geeks. All rights reserved.
     section_id: footer-event
     type: footer
