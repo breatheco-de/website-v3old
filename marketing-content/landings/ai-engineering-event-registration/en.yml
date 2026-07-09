@@ -205,7 +205,7 @@ sections:
         name: Pay in Full
         period: ""
         tag: One payment
-        top_badge: Save 10% Best Deal
+        top_badge: Save 10% - Best Deal
       - amount: "500"
         billing_note: First monthly payment isn't due for 30 days
         cta:
