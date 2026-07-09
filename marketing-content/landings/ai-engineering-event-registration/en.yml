@@ -291,55 +291,6 @@ sections:
     type: pricing
     variant: plan_cards
     version: "1.0"
-  - background: hsl(var(--primary))
-    form:
-      button_className: bg-white text-primary hover:bg-white/90 border-white
-      conversion_name: student_application
-      fields:
-        email:
-          placeholder: Your email address
-          required: true
-          visible: true
-        first_name:
-          placeholder: First name
-          required: true
-          visible: true
-        last_name:
-          placeholder: Last name
-          required: true
-          visible: true
-        phone:
-          placeholder: Phone number
-          required: true
-          visible: true
-        program:
-          default: ai-engineering
-          visible: false
-      submit_label: Reserve my seat
-      success:
-        message: You're in! Our admissions team will be in touch within minutes. Check your inbox.
-      terms_className: text-white/80
-      variant: stacked
-    section_id: register-event
-    subtitle: Just $500 to start today. Get access to your course material immediately. Your first monthly payment isn't due for 30 days.
-    title: The best time to start was yesterday. The next best time is right here, right now.
-    type: cta_banner
-    variant: form
-    version: "1.0"
-    marginY:
-      desktop: md
-      mobile: sm
-    paddingY:
-      desktop: lg
-      mobile: md
-    plans:
-      - null
-      - features:
-          - text: $500 today reserves your seat, access starts immediately
-          - text: First monthly payment isn't due for 30 days
-          - text: Monthly payment plan set up with payments of $399 or less
-          - text: Same curriculum, mentors, and projects
-          - text: Same mentorship and career support as any plan
   - copyright_text: 2026 4Geeks. All rights reserved.
     section_id: footer-event
     type: footer
