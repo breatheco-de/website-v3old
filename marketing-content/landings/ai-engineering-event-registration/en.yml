@@ -189,7 +189,7 @@ sections:
       mobile: md
       desktop: none
     plans:
-      - amount: 13,499
+      - amount: 14,399
         billing_note: One time payment, no interest, no monthly payments to track
         cta:
           label: Reserve my seat
