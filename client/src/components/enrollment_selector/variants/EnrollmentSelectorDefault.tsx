@@ -242,10 +242,11 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                         setSelectedDateIdx(0);
                         setSelectedPlanIdx(0);
                       }}
-                      className={`relative text-left rounded-[10px] p-3.5 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200 ${
-                        active ? "bg-card" : "bg-muted/70 hover:bg-muted/80"
-                      }`}
-                      style={tileStyle(active, flashing)}
+                      className="relative text-left rounded-[10px] p-3.5 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200"
+                      style={{
+                        ...tileStyle(active, flashing),
+                        background: active ? "hsl(var(--card))" : "hsl(var(--muted-foreground) / 0.07)",
+                      }}
                     >
                       {active && (
                         <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary" />
@@ -300,10 +301,11 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                         setSelectedDateIdx(i);
                         if (d.url) nav.navigate(d.url);
                       }}
-                      className={`text-center rounded-[10px] p-3 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200 ${
-                        active ? "bg-card" : "bg-muted/70 hover:bg-muted/80"
-                      }`}
-                      style={tileStyle(active, flashing)}
+                      className="text-center rounded-[10px] p-3 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200"
+                      style={{
+                        ...tileStyle(active, flashing),
+                        background: active ? "hsl(var(--card))" : "hsl(var(--muted-foreground) / 0.07)",
+                      }}
                     >
                       <span
                         className="block text-[16px] font-extrabold mb-1 transition-colors duration-200"
@@ -341,10 +343,11 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                         triggerFlash(fid);
                         setSelectedPlanIdx(i);
                       }}
-                      className={`relative w-full text-left rounded-[12px] py-2.5 px-3.5 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200 ${
-                        active ? "bg-card" : "bg-muted/70 hover:bg-muted/80"
-                      }`}
-                      style={tileStyle(active, flashing)}
+                      className="relative w-full text-left rounded-[12px] py-2.5 px-3.5 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200"
+                      style={{
+                        ...tileStyle(active, flashing),
+                        background: active ? "hsl(var(--card))" : "hsl(var(--muted-foreground) / 0.07)",
+                      }}
                     >
                       {active && (
                         <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary" />
@@ -521,7 +524,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
 
               {/* UNLOCKS */}
               {activeUnlocks.length > 0 && (
-                <div className="bg-muted/40 rounded-[0.8rem] p-3.5 mb-4">
+                <div className="rounded-[0.8rem] p-3.5 mb-4" style={{ background: "hsl(var(--muted-foreground) / 0.05)" }}>
                   <p className="text-[10px] font-bold tracking-[1.8px] uppercase text-muted-foreground mb-3">
                     You unlock right now
                   </p>
