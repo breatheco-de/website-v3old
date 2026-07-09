@@ -26,14 +26,14 @@ sections:
       text_color: hsl(var(--primary-foreground))
     title: Aprende Skills de IA. Haz el test. Recibe tu ruta. Avanza a tu ritmo.
     title_highlight: Haz el test. Recibe tu ruta. Avanza a tu ritmo.
-    subtitle: La IA ya no es opcional en el mercado. No te quedes atrás. Respondiendo solo 4 preguntas te damos la ruta exacta para que domines la IA a tu propio ritmo. Deja de ser quien solo habla con ella y empieza a multiplicar tu productividad, velocidad y la calidad de tus entregas.
+    subtitle: Las personas que están desarrollando habilidades en IA ahora mismo se están adelantando rápido. AI Flex te da acceso a todos los cursos self-paced de IA que cubren automatización, flujos de trabajo, vibe coding y habilidades de datos. Sigue una ruta de aprendizaje sugerida o construye la tuya. Totalmente a tu ritmo.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
-      count: +8500 graduados
+      count: +6000 graduados
     bullet_points:
       - Feedback y orientación 24/7 de Rigobot, nuestro tutor de IA.
       - Reserva sesiones de mentoría 1:1 cuando necesites experiencia humana.
