@@ -174,7 +174,7 @@ sections:
         for_label: Spread it out
         name: Monthly Plan
         period: to start today
-        tag: Upfront
+        tag: 48 months
     section_id: pricing-event
     subtitle: Two ways to enroll. Same program, same mentors, same outcome. Choose what fits your finances right now.
     tech_icons:
