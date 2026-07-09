@@ -180,43 +180,126 @@ sections:
       mobile: sm none
       desktop: md none
     section_id: human_and_ai_duo-99s71d
-  - left:
-      bullets:
-        - icon: IconUsers
-          text: 1:1 time with real engineers, not just group office hours
-        - icon: IconCode
-          text: Code review on every project, not just the final one
-        - icon: IconInfinity
-          text: Available through the entire program, every module
-      cta_text: See enrollment options
-      cta_url: "#pricing-event"
-      cta_variant: primary
-      description: Get matched with mentors working in the field right now. Ask questions whenever you're stuck, there's no cap on sessions and no clock running while you learn.
-      heading: Unlimited mentorship
-    right:
-      bullets:
-        - icon: IconFileText
-          text: Resume, portfolio, and LinkedIn built to get you noticed
-        - icon: IconMessages
-          text: Interview prep and mock interviews with real feedback
-        - icon: IconTrendingUp
-          text: Support continues after you're hired, not just until you are
-      cta_text: Reserve my seat
-      cta_url: "#register-event"
-      cta_variant: secondary
-      description: Your job search doesn't end when the program does. Career coaches keep working with you after graduation, for as long as you need it.
-      heading: Unlimited career support
-    section_id: support-event
-    subtitle: No session caps, no expiration date. This is the part most bootcamps cut corners on. We don't.
-    title: Mentorship and career support without a limit
-    type: double_cta
+  - type: career_support_explain
+    version: v1.0
+    heading: How We Get You Hired. From First Day to Signed Offer.
+    description: A complete system that takes you from enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and 1:1 support that's with you beyond landing your first role.
+    background: hsl(var(--sidebar-background))
+    tabs:
+      - tab_label: Job-Ready, Faster
+        layout: three_columns
+        col1_subtitle: Build a Recruiter-Ready Profile, Smarter.
+        col1_description: |-
+          Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
+          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
+        col1_tagline: We'll help you create tailored job search materials
+        col1_boxes:
+          - icon: linkedin
+            text: LinkedIn
+          - icon: IconFileText
+            text: Resume
+          - icon: briefcase-business
+            text: Portfolio
+          - icon: IconMail
+            text: Cover letter
+        col2_heading: Career Strategy, Built Around You
+        col2_bullets:
+          - icon: IconRobot
+            text: 24/7 feedback from RigoBot to audit your LinkedIn and resume
+          - icon: IconUsers
+            text: 1-on-1 career coaching and strategy sessions
+          - icon: IconMicrophone
+            text: Mock interviews and technical interview prep
+        col3_image_id: 4geeks_member
+        col3_object_fit: cover
+        col3_object_position: center
+      - tab_label: Real Hiring Access
+        layout: two_column_cards
+        title: Access the Hidden Job Market.
+        left_text: Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
+        left_image_id: career_team_women
+        left_image_object_fit: cover
+        left_image_object_position: center
+        left_stat:
+          value: {{ global.number_of_hiring_partners_aprox | 250 }}+
+          label: companies in 4Geeks employer network
+        right_bullets:
+          - icon: IconUserPlus
+            text: Direct referrals to hiring partners
+          - icon: target
+            text: Curated job matches based on your profile
+          - icon: bot-message-square
+            text: Networking and recruiter conversation coaching
+        right_logos:
+          - image_id: logo_google
+            alt: Google
+          - image_id: logo_meta-761x243-q70
+            alt: Meta
+          - image_id: logo_microsoft
+            alt: Microsoft
+          - image_id: logo_uber
+            alt: Uber
+          - image_id: logo_ebay-400x160-q70
+            alt: eBay
+          - image_id: logo_kpmg
+            alt: KPMG
+      - tab_label: Proof That Converts
+        layout: text_and_image
+        title: Projects that Demonstrate Real Skill.
+        left_description: |-
+          Visibility gets attention. Proof closes the gap.
+          Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
+        left_bullets:
+          - icon: briefcase-business
+            text: Industry-aligned, real-world projects
+          - icon: IconPresentation
+            text: A showcase-ready capstone project
+          - icon: github
+            text: GitHub optimization and professional code review
+        right_image_id: geekforce_valentina_ancieta
+        right_image_object_fit: cover
+        right_image_object_position: center
+      - tab_label: Your Best-Fit Role
+        layout: text_with_testimonials_carousel
+        title: Turn Your Background into an Advantage.
+        left_description: Your previous experience matters. We map your transferable skills, focus your search on the right roles, and when offers come, help you negotiate with confidence and choose the right one.
+        left_bullets:
+          - icon: IconTransfer
+            text: Transferable skills mapping
+          - icon: IconMap
+            text: Personalized career roadmap
+          - icon: IconCoin
+            text: Salary negotiation coaching
+          - icon: IconUsers
+            text: Ongoing alumni career support
+        testimonials:
+          - image_id: mailinh_tran
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: clark_university-500x156-q60
+            description: MaiLinh came to 4Geeks with an entrepreneurial vision and no technical background. Today she runs her own tech startup and leads a team of developers.
+            achievement: She launched her own business and is now hiring the talent she once wanted to become.
+          - image_id: martin_coimbra
+            image_object_fit: cover
+            image_object_position: center top
+            contributor_logos:
+              - image_id: logo_utec-545x305-q70
+            description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
+            achievement: His salary doubled. And he finally does work he loves.
+          - image_id: melanie_galaretto
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: logo_utec-545x305-q70
+              - image_id: bid_logo
+            description: Melanie retrained as a software developer and now works remotely for a tech company, from home, in a career she chose.
+            achievement: Her salary doubled. And she works remotely, on her own terms.
+    section_id: career_support_explain-xpc3k2
+    maxWidth:
+      desktop: 6xl
     marginY:
-      mobile: md
-      desktop: none lg
-    paddingY:
-      mobile: md
-      desktop: none
-    background: hsl(var(--secondary))
+      desktop: none md
   - card_color: bg-background
     items:
       - title: Full Time · Monday to Friday, immersive and fast, built for people who can go all in and finish sooner
