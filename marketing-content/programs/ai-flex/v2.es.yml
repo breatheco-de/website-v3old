@@ -1369,7 +1369,7 @@ sections:
     title: Preguntas frecuentes
     dynamic_entries:
       database: frequently_asked_questions
-      limit: 9
+      limit: 5
       permanent_filters:
         - item_property_slug: locations
           value: all
