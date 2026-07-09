@@ -31,6 +31,7 @@ const benefitSchema = z.object({
 });
 
 const unlockSchema = z.object({
+  icon: z.string().optional(),
   text: z.string(),
 });
 
@@ -48,6 +49,7 @@ const staticDateItemSchema = z.object({
   label: z.string().optional(),
   year: z.string().optional(),
   note: z.string().optional(),
+  /** Querystring-only URL like "?cohort=sept-2026" merged into the current page URL on click */
   url: z.string().optional(),
   seats: z.number().optional(),
 });
@@ -62,6 +64,7 @@ const intervalDatesSchema = z.object({
   start_date_iso: z.string(),
   interval: z.number(),
   interval_unit: z.enum(["days", "weeks", "months"]),
+  /** Querystring-only URL like "?cohort=rolling" merged into the current page URL on click */
   url: z.string().optional(),
 });
 
@@ -112,7 +115,16 @@ export const enrollmentSelectorDefaultSchema = z.object({
   programs: z.array(enrollmentProgramSchema),
 });
 
+// ─── Section schema (adds type/version/variant for SectionRenderer union) ─────
+
+export const enrollmentSelectorSectionSchema = enrollmentSelectorDefaultSchema.extend({
+  type: z.literal("enrollment_selector"),
+  version: z.string().optional().default("1.0"),
+  variant: z.enum(["default"]).optional().default("default"),
+});
+
 export type EnrollmentSelectorDefault = z.infer<typeof enrollmentSelectorDefaultSchema>;
+export type EnrollmentSelectorSection = z.infer<typeof enrollmentSelectorSectionSchema>;
 export type EnrollmentSelectorProgram = z.infer<typeof enrollmentProgramSchema>;
 export type EnrollmentSelectorPlan = z.infer<typeof enrollmentPlanSchema>;
 export type EnrollmentSummary = z.infer<typeof enrollmentSummarySchema>;
