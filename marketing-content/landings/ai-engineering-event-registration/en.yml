@@ -184,7 +184,7 @@ sections:
     version: v1.0
     heading: How We Get You Hired. From First Day to Signed Offer.
     description: A complete system that takes you from enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and 1:1 support that's with you beyond landing your first role.
-    background: hsl(var(--sidebar-background))
+    background: hsl(var(--secondary))
     tabs:
       - tab_label: Job-Ready, Faster
         layout: three_columns
