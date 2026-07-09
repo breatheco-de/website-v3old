@@ -29,7 +29,7 @@ sections:
               value: Not included
           cta:
             text: Secure My Seat
-            url: https://4geeks.com/checkout?cohort={qs:cohort|sept-2026}
+            url: "#enrollment_selector-d0qc5t"
             variant: primary
           trust_note:
             initials: EA
@@ -77,7 +77,7 @@ sections:
               value: Not included
           cta:
             text: Secure My Seat
-            url: https://4geeks.com/checkout?cohort={qs:cohort|fluency-sept-2026}
+            url: /en/career-programs/ai-flex
             variant: primary
           trust_note:
             initials: EA

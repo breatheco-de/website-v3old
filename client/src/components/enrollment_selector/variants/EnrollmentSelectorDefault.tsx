@@ -126,6 +126,14 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
     );
   }, [program]);
 
+  // On mount: fire the URL of the first pre-selected date to set query params
+  useEffect(() => {
+    if (filteredByQs) return;
+    const firstDate = displayDates[0];
+    if (firstDate?.url) nav.navigate(firstDate.url);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Preselect date from ?cohort querystring once dates are resolved
   useEffect(() => {
     if (!isDateMode || !program?.dates || program.dates.mode !== "static") return;

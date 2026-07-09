@@ -5251,8 +5251,12 @@ export function SectionEditorPanel({
 
                     const getCtaField = (item: Record<string, unknown>, field: string): string => {
                       if (ctaSubPath) {
-                        const sub = item[ctaSubPath] as Record<string, unknown> | undefined;
-                        return (sub?.[field] as string) || "";
+                        const parts = ctaSubPath.split(".");
+                        let sub: unknown = item;
+                        for (const p of parts) {
+                          sub = (sub as Record<string, unknown>)?.[p];
+                        }
+                        return ((sub as Record<string, unknown>)?.[field] as string) || "";
                       }
                       return (item[field] as string) || "";
                     };

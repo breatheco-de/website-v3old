@@ -323,17 +323,8 @@
       ]
     },
     "/en/career-programs/ai-flex": {
-      "lastRunAt": "2026-06-29T16:20:24.176Z",
-      "errors": [
-        {
-          "type": "error",
-          "code": "DUPLICATE_TITLE",
-          "message": "Duplicate page_title \"AI Flex\" used by 2 files",
-          "file": "/home/runner/workspace/marketing-content/programs/ai-flex/en.yml",
-          "suggestion": "Also used in: /home/runner/workspace/marketing-content/programs/ai-flex/es.yml",
-          "category": "seo"
-        }
-      ],
+      "lastRunAt": "2026-07-09T20:01:04.363Z",
+      "errors": [],
       "warnings": [
         {
           "type": "warning",
@@ -350,14 +341,6 @@
           "file": "/home/runner/workspace/marketing-content/programs/ai-flex/en.yml",
           "suggestion": "Ensure FAQ sections generate FAQPage structured data",
           "category": "seo"
-        },
-        {
-          "type": "warning",
-          "code": "BROKEN_ANCHOR",
-          "message": "Anchor \"#pricing-aiflex\" has no matching section_id in this file",
-          "file": "/home/runner/workspace/marketing-content/programs/ai-flex/en.yml",
-          "suggestion": "Add `section_id: pricing-aiflex` to a section, or update the URL to point to an existing section_id",
-          "category": "integrity"
         }
       ]
     },
