@@ -14,7 +14,7 @@ sections:
     version: "1.0"
     paddingY:
       mobile: lg
-      desktop: lg md
+      desktop: lg sm
     marginY:
       desktop: none md
   - card_bars:
