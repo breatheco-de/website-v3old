@@ -475,7 +475,7 @@ sections:
       desktop: md xl
     paddingY:
       desktop: md sm
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--card))
   - type: features_grid
     version: "1.0"
     variant: stats-cards
