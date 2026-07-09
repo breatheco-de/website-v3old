@@ -15,7 +15,7 @@ sections:
           name: AI Engineering
           duration: 24 weeks
           badge: Most Popular
-          icon: IconCode
+          icon: badge-minus
         summary:
           price_label: Due today
           price_amount: $250
@@ -29,7 +29,7 @@ sections:
               value: Not included
           cta:
             text: Secure My Seat
-            url: "#enrollment_selector-d0qc5t"
+            url: https://4geeks.com/checkout?plan=hola&cohort={qs:cohort}
             variant: primary
           trust_note:
             initials: EA

@@ -11,7 +11,9 @@ const trustNoteSchema = z.object({
 
 const summaryRowSchema = z.object({
   label: z.string(),
-  value: z.string(),
+  value: z.string().optional(),
+  show_dynamic_program: z.boolean().optional(),
+  show_dynamic_date: z.boolean().optional(),
 });
 
 export const enrollmentSummarySchema = z.object({

@@ -18,6 +18,10 @@ programs:
       price_amount: "$250"
       price_sub: "Applied toward your total tuition"
       rows:
+        - label: "Program"
+          show_dynamic_program: true
+        - label: "Start date"
+          show_dynamic_date: true
         - label: "Total program fee"
           value: "$15,999"
         - label: "Financing from"
@@ -67,6 +71,10 @@ programs:
       price_amount: "$250"
       price_sub: "Applied toward your total tuition"
       rows:
+        - label: "Program"
+          show_dynamic_program: true
+        - label: "Start date"
+          show_dynamic_date: true
         - label: "Total program fee"
           value: "$8,999"
         - label: "Financing from"
@@ -112,10 +120,12 @@ programs:
       price_period: "/mo"
       price_sub: "Billed monthly"
       rows:
+        - label: "Program"
+          show_dynamic_program: true
+        - label: "Plan"
+          show_dynamic_date: true
         - label: "Total"
           value: "$129/mo"
-        - label: "Financing from"
-          value: "Plans from $75/mo"
       cta:
         text: "Start Now"
         url: "https://4geeks.com/checkout?plan=basic"
@@ -123,17 +133,6 @@ programs:
       trust_note:
         initials: "EA"
         message: "<span class=\"font-semibold text-foreground\">Questions?</span> Our team is available Mon–Fri 9am–6pm ET."
-    benefits:
-      - title: "Immediate access to full course catalog"
-        desc: "Your account activates the moment you enroll. Start learning immediately."
-      - title: "1 monthly 1-on-1 mentorship session"
-        desc: "Meet with senior engineers and industry mentors for personalized guidance."
-      - title: "Everything you need to build with AI"
-        desc: "AI tokens, AI completions, GitHub Copilot, a dedicated VPS, and more — all included."
-    unlocks:
-      - text: "1 mentorship session per month with senior engineers and industry mentors."
-      - text: "Unlimited access to the full course catalog plus certificates for every course completed."
-      - text: "Everything you need to build with AI — Includes AI tokens, AI completions, GitHub Copilot, a dedicated VPS."
     plans:
       - id: basic
         name: "Basic"
@@ -150,6 +149,10 @@ programs:
           price_period: "/mo"
           price_sub: "Billed monthly"
           rows:
+            - label: "Program"
+              show_dynamic_program: true
+            - label: "Plan"
+              show_dynamic_date: true
             - label: "Total"
               value: "$129/mo"
             - label: "Financing from"
@@ -161,6 +164,17 @@ programs:
           trust_note:
             initials: "EA"
             message: "<span class=\"font-semibold text-foreground\">Questions?</span> Our team is available Mon–Fri 9am–6pm ET."
+        benefits:
+          - title: "Immediate access to full course catalog"
+            desc: "Your account activates the moment you enroll. Start learning immediately."
+          - title: "1 monthly 1-on-1 mentorship session"
+            desc: "Meet with senior engineers and industry mentors for personalized guidance."
+          - title: "Everything you need to build with AI"
+            desc: "AI tokens, AI completions, GitHub Copilot, a dedicated VPS, and more — all included."
+        unlocks:
+          - text: "1 mentorship session per month with senior engineers and industry mentors."
+          - text: "Unlimited access to the full course catalog plus certificates for every course completed."
+          - text: "Everything you need to build with AI — Includes AI tokens, AI completions, GitHub Copilot, a dedicated VPS."
       - id: pro
         name: "Pro"
         tagline: "Teams & serious learners"
@@ -176,6 +190,10 @@ programs:
           price_period: "/yr"
           price_sub: "Billed annually"
           rows:
+            - label: "Program"
+              show_dynamic_program: true
+            - label: "Plan"
+              show_dynamic_date: true
             - label: "Total"
               value: "$900/yr"
             - label: "Financing from"
@@ -187,3 +205,14 @@ programs:
           trust_note:
             initials: "EA"
             message: "<span class=\"font-semibold text-foreground\">Questions?</span> Our team is available Mon–Fri 9am–6pm ET."
+        benefits:
+          - title: "Full catalog + all premium courses"
+            desc: "Access everything including advanced AI engineering, system design, and specialization tracks."
+          - title: "Unlimited 1-on-1 mentorship sessions"
+            desc: "Book as many sessions as you need with senior engineers and industry mentors — no caps."
+          - title: "Priority support & cohort access"
+            desc: "Join live cohort sessions, get priority support from instructors, and access exclusive workshops."
+        unlocks:
+          - text: "Unlimited mentorship with senior engineers — no caps, no waitlists."
+          - text: "Access all premium courses including advanced AI engineering and specialization tracks."
+          - text: "Priority support, live cohort sessions, and exclusive workshops included."

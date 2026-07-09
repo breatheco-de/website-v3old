@@ -165,22 +165,6 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
   const sectionClsLast =
     "bg-card border border-border rounded-[0.8rem] p-5 shadow-[0_1px_4px_rgba(0,0,0,0.06),0_4px_16px_rgba(0,0,0,0.05)]";
 
-  // Auto-inserted summary rows (program name + start date or plan name)
-  const autoRows: Array<{ label: string; value: string; accent: boolean }> = [];
-  if (program) {
-    autoRows.push({ label: "Program", value: program.selection_card.name, accent: true });
-  }
-  if (isDateMode && displayDates.length > 0) {
-    const d = displayDates[selectedDateIdx];
-    autoRows.push({
-      label: data.choose_date_label ?? "Start date",
-      value: d ? `${d.label}, ${d.year}` : "TBD",
-      accent: false,
-    });
-  } else if (isPlanMode && plan) {
-    autoRows.push({ label: "Plan", value: plan.name, accent: false });
-  }
-
   if (!program || !activeSummary) return null;
 
   const ctaVariantMap: Record<string, "default" | "secondary" | "outline"> = {
@@ -263,7 +247,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                         className="flex items-center gap-1.5 text-[15px] font-extrabold mb-1 pr-4 transition-colors duration-200"
                         style={{ color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))" }}
                       >
-                        {ProgramIcon && <ProgramIcon size={16} stroke={2} />}
+                        {ProgramIcon && <ProgramIcon size={16} />}
                         {prog.selection_card.name}
                       </span>
                       <span className="flex items-center gap-1.5 text-[13px] text-muted-foreground flex-wrap">
@@ -439,7 +423,6 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                         {BenefitIcon ? (
                           <BenefitIcon
                             size={14}
-                            stroke={2.5}
                             style={{ color: "hsl(var(--color-green))" }}
                           />
                         ) : (
@@ -498,36 +481,51 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
             <div className="p-5">
               {/* SUMMARY ROWS */}
               <div className="flex flex-col divide-y divide-border mb-4">
-                {autoRows.map((row, i) => (
-                  <div
-                    key={`auto-${i}`}
-                    className="flex items-center justify-between py-2.5 text-[12px]"
-                  >
-                    <span className="text-muted-foreground">{row.label}</span>
-                    <span
-                      className="font-semibold text-right text-[13px]"
-                      style={{
-                        color: row.accent
-                          ? "hsl(var(--primary))"
-                          : "hsl(var(--foreground))",
-                      }}
+                {activeSummary.rows.map((row, i) => {
+                  let dynamicValue: string | null = null;
+                  let accent = false;
+
+                  if (row.show_dynamic_program && program) {
+                    dynamicValue = program.selection_card.name;
+                    accent = true;
+                  } else if (row.show_dynamic_date) {
+                    if (isDateMode && displayDates.length > 0) {
+                      const d = displayDates[selectedDateIdx];
+                      dynamicValue = d ? `${d.label}, ${d.year}` : "TBD";
+                    } else if (isPlanMode && plan) {
+                      dynamicValue = plan.name;
+                    }
+                  }
+
+                  const isDynamic = dynamicValue !== null;
+                  const value = dynamicValue ?? row.value ?? "";
+
+                  return (
+                    <div
+                      key={i}
+                      className="flex items-center justify-between py-2.5 text-[12px]"
                     >
-                      {row.value}
-                    </span>
-                  </div>
-                ))}
-                {activeSummary.rows.map((row, i) => (
-                  <div
-                    key={`yaml-${i}`}
-                    className="flex items-center justify-between py-2.5 text-[12px]"
-                  >
-                    <span className="text-muted-foreground">{row.label}</span>
-                    <RichTextContent
-                      html={row.value}
-                      className="font-semibold text-right text-[13px] text-foreground [&_p]:m-0 [&_p]:text-[13px] [&_p]:font-semibold [&_p]:leading-none max-w-none"
-                    />
-                  </div>
-                ))}
+                      <span className="text-muted-foreground">{row.label}</span>
+                      {isDynamic ? (
+                        <span
+                          className="font-semibold text-right text-[13px]"
+                          style={{
+                            color: accent
+                              ? "hsl(var(--primary))"
+                              : "hsl(var(--foreground))",
+                          }}
+                        >
+                          {value}
+                        </span>
+                      ) : (
+                        <RichTextContent
+                          html={value}
+                          className="font-semibold text-right text-[13px] text-foreground [&_p]:m-0 [&_p]:text-[13px] [&_p]:font-semibold [&_p]:leading-none max-w-none"
+                        />
+                      )}
+                    </div>
+                  );
+                })}
               </div>
 
               {/* UNLOCKS */}
@@ -546,7 +544,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                             style={{ background: "hsl(var(--color-green))" }}
                           >
                             {UnlockIcon ? (
-                              <UnlockIcon size={8} className="text-white" stroke={3} />
+                              <UnlockIcon size={8} className="text-white" />
                             ) : (
                               <IconCheck size={8} className="text-white" stroke={3} />
                             )}
