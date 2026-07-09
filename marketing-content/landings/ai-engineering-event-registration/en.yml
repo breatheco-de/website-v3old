@@ -134,7 +134,7 @@ sections:
     variant: program-modules
   - marginY:
       mobile: md
-      desktop: none md
+      desktop: none sm
     paddingY:
       mobile: md
       desktop: none
