@@ -20,7 +20,7 @@ sections:
     version: "1.0"
     variant: course
     badge:
-      text: AI Fluency
+      text: AI Flex
       color: primary
       background: hsl(var(--primary))
       text_color: hsl(var(--primary-foreground))
