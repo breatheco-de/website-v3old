@@ -105,7 +105,7 @@ sections:
         dates:
           mode: interval
           start_date_iso: "2026-09-08"
-          interval: 4
+          interval: 6
           interval_unit: weeks
           url: "?cohort="
       - id: ai-flex
