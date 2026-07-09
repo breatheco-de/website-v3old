@@ -185,7 +185,7 @@ sections:
     background: hsl(var(--secondary))
   - marginY:
       mobile: md
-      desktop: none lg
+      desktop: none md
     paddingY:
       mobile: md
       desktop: none
