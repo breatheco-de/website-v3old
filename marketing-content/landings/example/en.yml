@@ -97,9 +97,9 @@ sections:
           - text: Get certified — earn your AI Fluency certificate upon completion.
         dates:
           mode: interval
-          start_date_iso: "2026-09-08"
-          interval: 4
-          interval_unit: weeks
+          start_date_iso: "2026-09-02"
+          interval: 1
+          interval_unit: months
           url: "?cohort=fluency-rolling"
       - id: ai-flex
         selection_card:

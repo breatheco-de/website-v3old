@@ -182,8 +182,8 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
   };
 
   return (
-    <div className="font-sans">
-      <div className="px-4 md:px-8 py-8 md:py-12 grid grid-cols-1 md:grid-cols-[1fr_370px] gap-8 md:gap-12 items-start">
+    <div>
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_370px] gap-8 md:gap-12 items-start">
 
         {/* ── LEFT COLUMN ── */}
         <div>
@@ -193,8 +193,19 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
             </p>
           )}
 
-          <h1 className="font-sans text-[32px] md:text-[48px] font-black tracking-tight text-foreground leading-[1.1] mb-3">
-            <RichTextContent html={data.title} className="[&_p]:m-0 [&_*]:!leading-[1.1]" />
+          <h1 className="font-inter font-black tracking-tight text-foreground leading-[1.1] mb-3">
+            <div
+              className="block md:hidden text-[38px] leading-[1.1]"
+              dangerouslySetInnerHTML={{
+                __html: (data.title || "")
+                  .replace(/font-size\s*:[^;"]*(;)?/g, "")
+                  .replace(/<br\s*\/?>/gi, " "),
+              }}
+            />
+            <div
+              className="hidden md:block leading-[1.1]"
+              dangerouslySetInnerHTML={{ __html: data.title || "" }}
+            />
           </h1>
 
           {data.description && (
@@ -452,7 +463,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
               >
                 {activeSummary.price_label}
               </p>
-              <p className="font-sans text-[42px] font-extrabold leading-none tracking-tight mb-1 text-primary-foreground">
+              <p className="font-inter text-[42px] font-extrabold leading-none tracking-tight mb-1 text-primary-foreground">
                 {activeSummary.price_amount}
                 {activeSummary.price_period && (
                   <span

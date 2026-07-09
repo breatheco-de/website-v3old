@@ -1,0 +1,1 @@
+- [Font weights in section components](font-weights-section-components.md) — use font-inter (not font-sans) for bold/extrabold/black text; mockup sandbox used Inter, production uses Archivo (limited weights)
