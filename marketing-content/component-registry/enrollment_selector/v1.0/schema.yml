@@ -1,0 +1,54 @@
+name: Enrollment Selector
+version: "1.0"
+component: EnrollmentSelectorDefault
+file: client/src/components/enrollment_selector/variants/EnrollmentSelectorDefault.tsx
+description: >-
+  An interactive enrollment/checkout section with a program selector, date or plan picker,
+  a benefits list, and a sticky summary card. Supports date-mode (cohort start dates) and
+  plan-mode (subscription plans). Responds to ?program=<id> querystring to pre-filter a
+  specific program and hide the selector.
+
+when_to_use: >
+  Use on enrollment or pricing pages where users need to choose a program, pick a start date
+  or subscription plan, and review what is included before completing enrollment. The right
+  column summary card is sticky and shows pricing, summary rows, feature unlocks, a CTA
+  button, and an optional trust note.
+
+props:
+  eyebrow:
+    type: string
+    required: false
+    description: Small uppercase label shown above the main title
+  title:
+    type: string
+    required: true
+    description: Main section heading. Supports richtext HTML (italic, bold, span with text-primary, etc.)
+  description:
+    type: string
+    required: false
+    description: Short paragraph displayed below the title
+  choose_program_label:
+    type: string
+    required: false
+    description: Label above the program selector tiles (default "Choose your program")
+  choose_date_label:
+    type: string
+    required: false
+    description: Label above the date selector and the auto-inserted "Start date" summary row (default "Choose your start date")
+  choose_plan_label:
+    type: string
+    required: false
+    description: Label above the plan selector tiles (default "Choose your plan")
+  included_label:
+    type: string
+    required: false
+    description: Label above the benefits list (default "What's included")
+  programs:
+    type: array
+    required: true
+    description: >-
+      Array of programs. A program with a "dates" key uses date-mode; one with a "plans" key uses
+      plan-mode. Each program has: id, selection_card (name, duration, badge?, icon?),
+      summary (price_label, price_amount, price_period?, price_sub?, rows[], cta, trust_note?),
+      benefits[], unlocks[], and either dates (static or interval) or plans[].
+      Plans can override summary, benefits, and unlocks from the parent program.

@@ -350,6 +350,11 @@
       "id": "primary",
       "label": "Primary",
       "cssVar": "--primary"
+    },
+    {
+      "id": "green",
+      "label": "Green",
+      "cssVar": "--color-green"
     }
   ],
   "courses": [

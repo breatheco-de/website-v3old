@@ -146,6 +146,14 @@ export function useInternalNav(onNavigate?: () => void) {
       return;
     }
 
+    if (href.startsWith("?")) {
+      e.preventDefault();
+      const mergedSearch = mergeSearch(window.location.search, href.slice(1));
+      history.replaceState(null, "", window.location.pathname + mergedSearch);
+      onNavigate?.();
+      return;
+    }
+
     if (isInternalHref(href)) {
       e.preventDefault();
       setLocation(href);
@@ -204,6 +212,13 @@ export function useInternalNav(onNavigate?: () => void) {
           });
         }
       }
+      onNavigate?.();
+      return null;
+    }
+
+    if (resolved.startsWith("?")) {
+      const mergedSearch = mergeSearch(window.location.search, resolved.slice(1));
+      history.replaceState(null, "", window.location.pathname + mergedSearch);
       onNavigate?.();
       return null;
     }

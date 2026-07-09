@@ -826,6 +826,26 @@ import { imageRowSectionSchema, type ImageRowSection } from "../marketing-conten
 export { imageRowSectionSchema, type ImageRowSection };
 import { courseSelectorSectionSchema, type CourseSelectorSection, type CourseItem, type CourseBadge, type CourseTag } from "../marketing-content/component-registry/course_selector/v1.0/schema";
 export { courseSelectorSectionSchema, type CourseSelectorSection, type CourseItem, type CourseBadge, type CourseTag };
+import {
+  enrollmentSelectorDefaultSchema,
+  enrollmentProgramSchema,
+  enrollmentPlanSchema,
+  enrollmentSummarySchema,
+  type EnrollmentSelectorDefault,
+  type EnrollmentSelectorProgram,
+  type EnrollmentSelectorPlan,
+  type EnrollmentSummary,
+} from "../marketing-content/component-registry/enrollment_selector/v1.0/schema";
+export {
+  enrollmentSelectorDefaultSchema,
+  enrollmentProgramSchema,
+  enrollmentPlanSchema,
+  enrollmentSummarySchema,
+  type EnrollmentSelectorDefault,
+  type EnrollmentSelectorProgram,
+  type EnrollmentSelectorPlan,
+  type EnrollmentSummary,
+};
 import { articleSectionSchema, type ArticleSection } from "../marketing-content/component-registry/article/v1.0/schema";
 export { articleSectionSchema, type ArticleSection };
 import { partnershipCarouselSectionSchema, type PartnershipCarouselSection, type PartnershipSlide } from "../marketing-content/component-registry/partnership_carousel/v1.0/schema";
