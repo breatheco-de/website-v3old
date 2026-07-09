@@ -182,8 +182,8 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
   };
 
   return (
-    <div>
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_370px] gap-8 md:gap-12 items-start">
+    <div className="font-sans">
+      <div className="px-4 md:px-8 py-8 md:py-12 grid grid-cols-1 md:grid-cols-[1fr_370px] gap-8 md:gap-12 items-start">
 
         {/* ── LEFT COLUMN ── */}
         <div>
@@ -231,11 +231,10 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                         setSelectedDateIdx(0);
                         setSelectedPlanIdx(0);
                       }}
-                      className="relative text-left rounded-[10px] p-3.5 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200"
-                      style={{
-                        ...tileStyle(active, flashing),
-                        background: active ? "hsl(var(--card))" : "hsl(var(--muted) / 0.7)",
-                      }}
+                      className={`relative text-left rounded-[10px] p-3.5 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200 ${
+                        active ? "bg-card" : "bg-muted/70 hover:bg-muted/80"
+                      }`}
+                      style={tileStyle(active, flashing)}
                     >
                       {active && (
                         <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary" />
@@ -290,11 +289,10 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                         setSelectedDateIdx(i);
                         if (d.url) nav.navigate(d.url);
                       }}
-                      className="text-center rounded-[10px] p-3 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200"
-                      style={{
-                        ...tileStyle(active, flashing),
-                        background: active ? "hsl(var(--card))" : "hsl(var(--muted) / 0.7)",
-                      }}
+                      className={`text-center rounded-[10px] p-3 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200 ${
+                        active ? "bg-card" : "bg-muted/70 hover:bg-muted/80"
+                      }`}
+                      style={tileStyle(active, flashing)}
                     >
                       <span
                         className="block text-[16px] font-extrabold mb-1 transition-colors duration-200"
@@ -332,11 +330,10 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                         triggerFlash(fid);
                         setSelectedPlanIdx(i);
                       }}
-                      className="relative w-full text-left rounded-[12px] py-2.5 px-3.5 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200"
-                      style={{
-                        ...tileStyle(active, flashing),
-                        background: active ? "hsl(var(--card))" : "hsl(var(--muted) / 0.7)",
-                      }}
+                      className={`relative w-full text-left rounded-[12px] py-2.5 px-3.5 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200 ${
+                        active ? "bg-card" : "bg-muted/70 hover:bg-muted/80"
+                      }`}
+                      style={tileStyle(active, flashing)}
                     >
                       {active && (
                         <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary" />
@@ -513,7 +510,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
 
               {/* UNLOCKS */}
               {activeUnlocks.length > 0 && (
-                <div className="rounded-[0.8rem] p-3.5 mb-4" style={{ background: "hsl(var(--muted) / 0.4)" }}>
+                <div className="bg-muted/40 rounded-[0.8rem] p-3.5 mb-4">
                   <p className="text-[10px] font-bold tracking-[1.8px] uppercase text-muted-foreground mb-3">
                     You unlock right now
                   </p>
