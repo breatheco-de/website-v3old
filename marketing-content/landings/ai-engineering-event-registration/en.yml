@@ -149,8 +149,8 @@ sections:
         features:
           - text: "Full AI Engineering program: 24 weeks, live classes taught by real instructors"
           - text: Unlimited 1:1 mentorship for life, no cap on sessions
-          - text: 24/7 AI feedback from Rigobot on every project you submit
-          - text: Certificate accredited by the Florida Department of Education
+          - text: 24/7 feedback from your AI tutor on every project you submit
+          - text: Structured career support during and after the program
           - text: Direct access to our network of 400+ hiring partners
         for_label: Full AI Engineering program
         name: Pay in Full
@@ -168,8 +168,8 @@ sections:
         features:
           - text: $500 today reserves your seat, access starts immediately
           - text: First monthly payment isn't due for 30 days, then $399 or less per month
-          - text: Unlimited 1:1 mentorship and 24/7 AI feedback from Rigobot, same as any plan
-          - text: Certificate accredited by the Florida Department of Education
+          - text: Unlimited 1:1 mentorship and 24/7 feedback from your AI tutor, same as any plan
+          - text: Structured career support during and after the program
           - text: Direct access to our network of 400+ hiring partners
         for_label: Spread it out
         name: Monthly Plan
@@ -203,7 +203,7 @@ sections:
   - type: human_and_ai_duo
     version: "1.0"
     heading: Human and AI Support, So You Never Lose Momentum
-    description: Staying motivated is easy when everything clicks. It gets really hard when you hit a wall. AI Fluency pairs a real human mentor with Rigobot, our AI tutor, so you always have somewhere to turn to and no reason to stop.
+    description: Staying motivated is easy when everything clicks. It gets really hard when you hit a wall. AI Engineering pairs a real human mentor with your AI tutor, so you always have somewhere to turn to and no reason to stop.
     bullet_groups:
       - title: "Your expert mentor:"
         image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
@@ -212,7 +212,7 @@ sections:
           - text: Expert guidance tailored to you.
           - text: Focused on your actual tasks, workflows, and goals
           - text: Additional sessions available to book anytime, at extra cost
-      - title: "Rigobot, your AI tutor:"
+      - title: "Your AI tutor:"
         image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
         bullets:
           - text: Available 24/7 throughout the program
@@ -276,7 +276,7 @@ sections:
         col2_heading: Career Strategy, Built Around You
         col2_bullets:
           - icon: IconRobot
-            text: 24/7 feedback from RigoBot to audit your LinkedIn and resume
+            text: 24/7 feedback from your AI tutor to audit your LinkedIn and resume
           - icon: IconUsers
             text: 1-on-1 career coaching and strategy sessions
           - icon: IconMicrophone
