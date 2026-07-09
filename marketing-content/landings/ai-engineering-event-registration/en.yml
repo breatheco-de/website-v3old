@@ -178,7 +178,7 @@ sections:
     image_alt: Woman working on laptop in cafe
     paddingY:
       mobile: sm none
-      desktop: md none
+      desktop: none
     section_id: human_and_ai_duo-99s71d
     marginY:
       desktop: none
