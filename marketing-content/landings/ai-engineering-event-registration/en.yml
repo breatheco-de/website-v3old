@@ -445,7 +445,7 @@ sections:
       - icon: IconCheck
         text: Finance your tuition in monthly installments, with term lengths of up to 48 months depending on your region.
     cta:
-      text: See Enrollment options
+      text: See Enrollment Options
       url: "#pricing-event"
       variant: primary
     section_id: pricing-oyjnax
