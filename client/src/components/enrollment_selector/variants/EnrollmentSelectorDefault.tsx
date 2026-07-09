@@ -245,7 +245,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                       className="relative text-left rounded-[10px] p-3.5 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200"
                       style={{
                         ...tileStyle(active, flashing),
-                        background: active ? "hsl(var(--card))" : "hsl(var(--muted-foreground) / 0.055)",
+                        background: active ? "hsl(var(--card))" : "hsl(var(--muted-foreground) / 0.04)",
                       }}
                     >
                       {active && (
@@ -304,7 +304,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                       className="text-center rounded-[10px] p-3 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200"
                       style={{
                         ...tileStyle(active, flashing),
-                        background: active ? "hsl(var(--card))" : "hsl(var(--muted-foreground) / 0.055)",
+                        background: active ? "hsl(var(--card))" : "hsl(var(--muted-foreground) / 0.04)",
                       }}
                     >
                       <span
@@ -346,7 +346,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                       className="relative w-full text-left rounded-[12px] py-2.5 px-3.5 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200"
                       style={{
                         ...tileStyle(active, flashing),
-                        background: active ? "hsl(var(--card))" : "hsl(var(--muted-foreground) / 0.055)",
+                        background: active ? "hsl(var(--card))" : "hsl(var(--muted-foreground) / 0.04)",
                       }}
                     >
                       {active && (
@@ -524,7 +524,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
 
               {/* UNLOCKS */}
               {activeUnlocks.length > 0 && (
-                <div className="rounded-[0.8rem] p-3.5 mb-4" style={{ background: "hsl(var(--muted-foreground) / 0.04)" }}>
+                <div className="rounded-[0.8rem] p-3.5 mb-4" style={{ background: "hsl(var(--muted-foreground) / 0.03)" }}>
                   <p className="text-[10px] font-bold tracking-[1.8px] uppercase text-muted-foreground mb-3">
                     You unlock right now
                   </p>
