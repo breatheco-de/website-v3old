@@ -41,7 +41,7 @@ function generateIntervalDates(
   const result: DisplayDate[] = [];
   for (let i = 0; i < 3; i++) {
     result.push({
-      label: current.toLocaleDateString("en-US", { month: "long", day: "numeric" }),
+      label: current.toLocaleDateString(undefined, { month: "long", day: "numeric" }),
       year: String(current.getFullYear()),
       url,
       date_iso: current.toISOString().slice(0, 10),
@@ -107,7 +107,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
         .map((item) => ({
           label:
             item.label ??
-            new Date(item.date_iso + "T00:00:00").toLocaleDateString("en-US", {
+            new Date(item.date_iso + "T00:00:00").toLocaleDateString(undefined, {
               month: "long",
               day: "numeric",
             }),
@@ -198,7 +198,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
           </h1>
 
           {data.description && (
-            <p className="text-[14px] text-muted-foreground leading-relaxed max-w-[500px] mb-9">
+            <p className="text-[14px] text-muted-foreground leading-relaxed mb-9">
               {data.description}
             </p>
           )}

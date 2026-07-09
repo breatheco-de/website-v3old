@@ -85,7 +85,7 @@ export const enrollmentPlanSchema = z.object({
   billing_note: z.string().optional(),
   tag: z.string().optional(),
   featured: z.boolean().optional(),
-  summary: enrollmentSummarySchema.optional(),
+  summary: enrollmentSummarySchema,
   benefits: z.array(benefitSchema).optional(),
   unlocks: z.array(unlockSchema).optional(),
 });

@@ -8,6 +8,8 @@ export const fieldEditors: Record<string, EditorType> = {
   "default:programs[].summary.cta": "cta-picker",
   "default:programs[].summary.rows[].value": "rich-text-editor",
   "default:programs[].summary.trust_note.image_id": "image-picker",
+  "default:programs[].dates.items[].url": "link-picker",
+  "default:programs[].dates.url": "link-picker",
   "default:programs[].plans[].summary.cta": "cta-picker",
   "default:programs[].plans[].summary.rows[].value": "rich-text-editor",
   "default:programs[].plans[].summary.trust_note.image_id": "image-picker",

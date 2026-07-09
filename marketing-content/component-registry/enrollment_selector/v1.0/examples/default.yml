@@ -56,6 +56,50 @@ programs:
         - date_iso: "2026-11-10"
           url: "?cohort=nov-2026"
 
+  - id: ai-fluency
+    selection_card:
+      name: "AI Fluency"
+      duration: "12 weeks"
+      badge: "Career Transition"
+      icon: "IconBrain"
+    summary:
+      price_label: "Due today"
+      price_amount: "$250"
+      price_sub: "Applied toward your total tuition"
+      rows:
+        - label: "Total program fee"
+          value: "$8,999"
+        - label: "Financing from"
+          value: "Plans from $199/mo"
+        - label: "Job guarantee"
+          value: "Not included"
+      cta:
+        text: "Secure My Seat"
+        url: "https://4geeks.com/checkout?cohort=fluency-sept-2026"
+        variant: "primary"
+      trust_note:
+        initials: "EA"
+        message: "<span class=\"font-semibold text-foreground\">An admissions advisor will call you within 24 hours</span> to finalize enrollment, walk you through financing, and answer any questions."
+    benefits:
+      - title: "Immediate access to 4Geeks.com + prework"
+        desc: "Start learning AI fundamentals right away — prompting, agents, automation, and no-code tools."
+      - title: "Weekly 1-on-1 mentorship sessions"
+        desc: "Get personalized guidance from industry practitioners who've worked in AI-first companies."
+      - title: "Live cohort classes twice a week"
+        desc: "Join live sessions with your cohort to tackle real-world projects and get feedback in real time."
+      - title: "Career support for 6 months"
+        desc: "Resume reviews, LinkedIn optimization, and job search coaching included for 6 months after graduation."
+    unlocks:
+      - text: "Understand and apply AI tools in your current role immediately."
+      - text: "Build no-code and low-code AI automations with hands-on projects."
+      - text: "Get certified — earn your AI Fluency certificate upon completion."
+    dates:
+      mode: interval
+      start_date_iso: "2026-09-08"
+      interval: 4
+      interval_unit: "weeks"
+      url: "?cohort=fluency-rolling"
+
   - id: ai-flex
     selection_card:
       name: "AI Flex"
