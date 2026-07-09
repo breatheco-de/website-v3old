@@ -1,0 +1,76 @@
+slug: mejores-practicas-programacion
+sections:
+  - badge: Fundamentos de Programación
+    cta_buttons:
+      - text: Descubre si Calificas. Es Gratis.
+        url: /apply
+        variant: primary
+    subtitle: Que el código funcione es solo el primer paso. Escribir código legible, mantenible y pensado para durar es lo que distingue a un desarrollador profesional de un principiante. Esto es lo que realmente importa.
+    title: 10 Buenas Prácticas de Programación que Todo Desarrollador Debe Dominar
+    type: hero
+    variant: singleColumn
+    version: "1.0"
+  - content: |-
+      ## Por Qué las Buenas Prácticas Importan Más que Nunca
+
+      Cualquiera puede lograr que un código funcione. La habilidad real está en escribir código que otro desarrollador (incluido tu "yo" del futuro) pueda leer, confiar y modificar con seguridad seis meses después. Con herramientas de IA generando cada vez más código de base, el criterio para escribir, revisar y estructurar bien el código importa más, no menos. Estas diez prácticas aparecen en todo equipo de ingeniería serio, sin importar el lenguaje o la tecnología.
+
+      ## 1. Escribe Código para Humanos, no Solo para la Computadora
+
+      El código se lee muchas más veces de las que se escribe. Prioriza la claridad sobre el ingenio: un bucle directo es mejor que una línea "inteligente" que le toma cinco minutos descifrar a un compañero. Si una línea necesita un comentario para explicar *qué* hace, usualmente es señal de que el código mismo debería simplificarse.
+
+      ## 2. Sigue Convenciones de Nombres Consistentes
+
+      Una variable llamada `x` o una función llamada `hacerAlgo()` obliga a cualquier lector a descifrar la intención. Los nombres deben describir el propósito: `calcularInteresMensual()` en vez de `calc()`, `cantidadUsuariosActivos` en vez de `n`. Elige una convención (camelCase, snake_case, la que use tu equipo) y aplícala en todas partes, incluyendo archivos y carpetas.
+
+      ## 3. Mantén las Funciones Pequeñas y Enfocadas
+
+      Una función debe hacer una sola cosa bien. Cuando una función maneja validación, llamadas a base de datos, formato y manejo de errores al mismo tiempo, se vuelve casi imposible de probar o reutilizar. Dividir la lógica en funciones pequeñas y de propósito único facilita aislar errores y componer código.
+
+      ## 4. No te Repitas (DRY)
+
+      Si te encuentras copiando y pegando el mismo bloque de lógica en tres lugares, es una señal de que debes extraerlo a una función, clase o módulo compartido. La duplicación no es solo más trabajo, es más riesgo: cada copia es un lugar donde una corrección futura puede olvidarse.
+
+      ## 5. Usa el Control de Versiones Correctamente
+
+      Git es más que un sistema de respaldo. Commits pequeños y enfocados, con mensajes claros, crean un historial legible de *por qué* se hicieron los cambios, no solo *qué* cambió. Trabajar en ramas por funcionalidad, abrir pull requests y nunca hacer commit directo a `main` protege el código de roturas accidentales.
+
+      ## 6. Escribe Pruebas Antes de Confiar en tu Código
+
+      Las pruebas manuales no escalan. Las pruebas automatizadas, unitarias y de integración, detectan regresiones en el momento en que ocurren, no semanas después en producción. Los equipos que tratan las pruebas como opcionales inevitablemente se vuelven más lentos con el tiempo, porque cada cambio arriesga romper algo que nadie recuerda revisar.
+
+      ## 7. Documenta el Por Qué, no Solo el Qué
+
+      La buena documentación no repite el código, explica el razonamiento detrás de decisiones no obvias: por qué esta librería y no otra, por qué este caso especial se maneja así. Un `README` breve que explique la instalación, la arquitectura y las decisiones clave ahorra horas a cada nuevo colaborador.
+
+      ## 8. Maneja los Errores a Propósito
+
+      Las excepciones sin manejar y las fallas silenciosas son dos de las causas más comunes de incidentes en producción. Decidir deliberadamente cómo debe fallar una función, qué se registra, qué se reintenta, qué se muestra al usuario, es una responsabilidad de diseño central, no un detalle secundario.
+
+      ## 9. Haz de la Revisión de Código un Hábito, no un Trámite
+
+      La revisión de código detecta errores, pero su mayor valor es difundir conocimiento y consistencia en el equipo. Una buena revisión hace preguntas, sugiere alternativas y trata al autor con respeto. Saltarse las revisiones para ahorrar tiempo casi siempre cuesta más tiempo después.
+
+      ## 10. Usa las Herramientas de IA como Colaborador, no como Muleta
+
+      Los asistentes de IA pueden generar código rápido, pero no entienden las restricciones de tu sistema, las convenciones de tu equipo ni los casos especiales que solo un humano detectaría. Los mejores desarrolladores usan la IA para acelerar lo que ya entienden, y aun así revisan, prueban y razonan cada línea antes de publicarla.
+
+      ## Uniendo Todo
+
+      Ninguna de estas prácticas es complicada por sí sola. Lo difícil es aplicarlas de forma consistente, bajo presión de tiempo, en un código real con compañeros reales. Por eso la práctica guiada por ingenieros con experiencia importa más que solo leer sobre el tema: estos hábitos se construyen con repetición en proyectos reales, revisiones de código reales y retroalimentación real, no solo con teoría.
+    show_toc: true
+    toc_position: side
+    type: article
+  - background: hsl(var(--primary))
+    cta_text: Descubre si Calificas. Es Gratis.
+    cta_url: /apply
+    subtitle: En 4Geeks Academy, los estudiantes construyen estos hábitos desde el primer día a través de proyectos reales y mentoría de ingenieros en ejercicio.
+    title: ¿Listo para Poner Estas Prácticas en Acción?
+    type: cta_banner
+    version: "1.0"
+meta:
+  change_frequency: monthly
+  description: "Conoce las buenas prácticas de programación que distinguen a los desarrolladores profesionales: código limpio, control de versiones, testing, revisión de código y más."
+  page_title: 10 Buenas Prácticas de Programación que Todo Desarrollador Debe Conocer | 4Geeks Academy
+  priority: 0.7
+  robots: index, follow
