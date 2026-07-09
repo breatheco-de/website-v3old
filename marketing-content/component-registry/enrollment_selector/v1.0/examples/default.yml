@@ -26,7 +26,7 @@ programs:
           value: "Not included"
       cta:
         text: "Secure My Seat"
-        url: "https://4geeks.com/checkout?cohort={qs:cohort|sept-2026}"
+        url: "https://4geeks.com/checkout?cohort=sept-2026"
         variant: "primary"
       trust_note:
         initials: "EA"
@@ -49,12 +49,12 @@ programs:
       items:
         - date_iso: "2026-09-08"
           seats: 4
-          url: "https://4geeks.com/checkout?cohort=sept-2026"
+          url: "?cohort=sept-2026"
         - date_iso: "2026-10-13"
           seats: 12
-          url: "https://4geeks.com/checkout?cohort=oct-2026"
+          url: "?cohort=oct-2026"
         - date_iso: "2026-11-10"
-          url: "https://4geeks.com/checkout?cohort=nov-2026"
+          url: "?cohort=nov-2026"
 
   - id: ai-flex
     selection_card:

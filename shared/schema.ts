@@ -831,7 +831,9 @@ import {
   enrollmentProgramSchema,
   enrollmentPlanSchema,
   enrollmentSummarySchema,
+  enrollmentSelectorSectionSchema,
   type EnrollmentSelectorDefault,
+  type EnrollmentSelectorSection,
   type EnrollmentSelectorProgram,
   type EnrollmentSelectorPlan,
   type EnrollmentSummary,
@@ -841,7 +843,9 @@ export {
   enrollmentProgramSchema,
   enrollmentPlanSchema,
   enrollmentSummarySchema,
+  enrollmentSelectorSectionSchema,
   type EnrollmentSelectorDefault,
+  type EnrollmentSelectorSection,
   type EnrollmentSelectorProgram,
   type EnrollmentSelectorPlan,
   type EnrollmentSummary,
@@ -1158,6 +1162,7 @@ const baseSectionSchema = z.union([
   trustCardsSectionSchema,
   programsShowcaseSectionSchema,
   credibilityStripSectionSchema,
+  enrollmentSelectorSectionSchema,
 ]);
 
 // Combined section schema with layout fields

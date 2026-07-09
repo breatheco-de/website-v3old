@@ -287,6 +287,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                       onClick={() => {
                         triggerFlash(fid);
                         setSelectedDateIdx(i);
+                        if (d.url) nav.navigate(d.url);
                       }}
                       className={`text-center rounded-[10px] p-3 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200 ${
                         active ? "bg-card" : "bg-muted/70 hover:bg-muted/80"
@@ -499,9 +500,9 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                     className="flex items-center justify-between py-2.5 text-[12px]"
                   >
                     <span className="text-muted-foreground">{row.label}</span>
-                    <span
-                      className="font-semibold text-right text-[13px] text-foreground"
-                      dangerouslySetInnerHTML={{ __html: row.value }}
+                    <RichTextContent
+                      html={row.value}
+                      className="font-semibold text-right text-[13px] text-foreground [&_p]:m-0 [&_p]:text-[13px] [&_p]:font-semibold [&_p]:leading-none max-w-none"
                     />
                   </div>
                 ))}
@@ -514,19 +515,26 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                     You unlock right now
                   </p>
                   <div className="flex flex-col gap-1.5">
-                    {activeUnlocks.map((item, i) => (
-                      <div key={i} className="flex items-start gap-2">
-                        <span
-                          className="w-3.5 h-3.5 rounded-full shrink-0 flex items-center justify-center mt-[3px]"
-                          style={{ background: "hsl(var(--color-green))" }}
-                        >
-                          <IconCheck size={8} className="text-white" stroke={3} />
-                        </span>
-                        <span className="text-[11px] text-foreground/80 font-medium leading-snug">
-                          {item.text}
-                        </span>
-                      </div>
-                    ))}
+                    {activeUnlocks.map((item, i) => {
+                      const UnlockIcon = item.icon ? getIcon(item.icon) : null;
+                      return (
+                        <div key={i} className="flex items-start gap-2">
+                          <span
+                            className="w-3.5 h-3.5 rounded-full shrink-0 flex items-center justify-center mt-[3px]"
+                            style={{ background: "hsl(var(--color-green))" }}
+                          >
+                            {UnlockIcon ? (
+                              <UnlockIcon size={8} className="text-white" stroke={3} />
+                            ) : (
+                              <IconCheck size={8} className="text-white" stroke={3} />
+                            )}
+                          </span>
+                          <span className="text-[11px] text-foreground/80 font-medium leading-snug">
+                            {item.text}
+                          </span>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               )}
