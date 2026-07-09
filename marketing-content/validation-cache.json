@@ -4365,6 +4365,58 @@
           "category": "seo"
         }
       ]
+    },
+    "/en/mejores-practicas-programacion": {
+      "lastRunAt": "2026-07-09T20:02:51.423Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_LONG",
+          "message": "Page title is too long (74 chars): \"10 Programming Best Practices Every Developer Should Know | ...\"",
+          "file": "/home/runner/workspace/marketing-content/pages/mejores-practicas-programacion/en.yml",
+          "suggestion": "Keep page title under 60 characters to avoid truncation in search results",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/mejores-practicas-programacion/en.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
+    },
+    "/es/mejores-practicas-programacion": {
+      "lastRunAt": "2026-07-09T20:03:03.381Z",
+      "errors": [],
+      "warnings": [
+        {
+          "type": "warning",
+          "code": "TITLE_TOO_LONG",
+          "message": "Page title is too long (88 chars): \"10 Buenas Prácticas de Programación que Todo Desarrollador D...\"",
+          "file": "/home/runner/workspace/marketing-content/pages/mejores-practicas-programacion/es.yml",
+          "suggestion": "Keep page title under 60 characters to avoid truncation in search results",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "DESCRIPTION_TOO_LONG",
+          "message": "Description is too long (167 chars)",
+          "file": "/home/runner/workspace/marketing-content/pages/mejores-practicas-programacion/es.yml",
+          "suggestion": "Keep meta description under 160 characters to avoid truncation",
+          "category": "seo"
+        },
+        {
+          "type": "warning",
+          "code": "MISSING_OG_IMAGE",
+          "message": "Missing og_image in meta",
+          "file": "/home/runner/workspace/marketing-content/pages/mejores-practicas-programacion/es.yml",
+          "suggestion": "Add an og_image for better social media sharing appearance",
+          "category": "seo"
+        }
+      ]
     }
   }
 }
