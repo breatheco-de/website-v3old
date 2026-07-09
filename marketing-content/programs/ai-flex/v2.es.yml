@@ -19,6 +19,11 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
+    badge:
+      text: AI Fluency
+      color: primary
+      background: hsl(var(--primary))
+      text_color: hsl(var(--primary-foreground))
     title: AI Flex. Habilidades reales en IA. A tu ritmo.
     title_highlight: Habilidades reales en IA. A tu ritmo.
     subtitle: Las personas que están desarrollando habilidades en IA ahora mismo se están adelantando rápido. AI Flex te da acceso a +8 cursos que cubren automatización, flujos de trabajo con IA, vibe coding y habilidades de datos. Sigue una ruta de aprendizaje curada o construye la tuya. Totalmente a tu ritmo.
