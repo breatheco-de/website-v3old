@@ -33,7 +33,7 @@ sections:
               value: Not included
           cta:
             text: Secure My Seat
-            url: https://4geeks.com/checkout?cohort={qs:cohort|sept-2026}
+            url: https://4geeks.com/checkout?plan=ai-engineering&cohort={qs:cohort|sept-2026}
             variant: primary
           trust_note:
             initials: EA
