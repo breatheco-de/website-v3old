@@ -147,10 +147,10 @@ sections:
           variant: primary
         currency: $
         features:
-          - text: "Full AI Engineering program: 24 weeks, live classes taught by real instructors"
+          - text: "Full AI Engineering program: 24 weeks, live classes taught by real experts"
           - text: Unlimited 1:1 mentorship for life, no cap on sessions
-          - text: 24/7 AI feedback from 4Geek's AI tutor on every project you submit
-          - text: Certificate recognized by top tech companies
+          - text: 24/7 feedback from your AI tutor through every lesson, not just projects
+          - text: Structured career support during and after the program
           - text: Direct access to our network of 400+ hiring partners
         for_label: Full AI Engineering program
         name: Pay in Full
@@ -166,9 +166,9 @@ sections:
         featured: true
         features:
           - text: $500 today reserves your seat, access starts immediately
-          - text: Access to the full program including classes with experts and live mentorship
-          - text: Unlimited 1:1 mentorship and 24/7 AI feedback 4Geek's AI tutor, same as any plan
-          - text: Certificate recognized by top tech companies
+          - text: First monthly payment isn't due for 30 days. Payments of $323 for 48 months
+          - text: Unlimited 1:1 mentorship and 24/7 feedback from your AI tutor through every lesson
+          - text: Structured career support during and after the program
           - text: Direct access to our network of 400+ hiring partners
         for_label: Spread it out
         name: Secure Your Seat
