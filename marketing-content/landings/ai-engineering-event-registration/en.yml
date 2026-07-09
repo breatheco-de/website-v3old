@@ -180,6 +180,8 @@ sections:
       mobile: sm none
       desktop: md none
     section_id: human_and_ai_duo-99s71d
+    marginY:
+      desktop: none md
   - type: career_support_explain
     version: v1.0
     heading: How We Get You Hired. From First Day to Signed Offer.
