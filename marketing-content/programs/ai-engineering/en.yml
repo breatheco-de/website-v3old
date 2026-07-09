@@ -500,7 +500,7 @@ sections:
     marginY:
       desktop: none xl
     paddingY:
-      desktop: md none
+      desktop: none
     background: hsl(var(--card))
   - type: pricing
     version: "1.0"
