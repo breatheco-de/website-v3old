@@ -247,7 +247,7 @@ sections:
       desktop: none
     section_id: human_and_ai_duo-99s71d
     marginY:
-      desktop: none
+      desktop: none sm
     background: hsl(var(--secondary))
   - type: career_support_explain
     version: v1.0
