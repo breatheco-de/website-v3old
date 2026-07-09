@@ -1270,20 +1270,6 @@ sections:
       - munich-germany
       - rome-italy
       - valencia-spain
-  - type: testimonials
-    section_id: testimonials-cbhm8t
-    title: Las personas detrás de los números.
-    subtitle: "Distintos puntos de partida. Un mismo resultado: habilidades reales en IA."
-    related_features:
-      - content-and-syllabus
-      - career-support
-    rating_summary:
-      average: {{ global.global_review_rating | 4.9 }}
-      count: {{ global.global_review_count | 700 }}
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: none md
   - type: faq
     section_id: faq-hwxrsu
     title: Preguntas frecuentes
