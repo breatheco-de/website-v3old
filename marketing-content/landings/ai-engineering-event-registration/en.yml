@@ -182,7 +182,7 @@ sections:
     section_id: human_and_ai_duo-99s71d
     marginY:
       desktop: none
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--primary))
   - marginY:
       mobile: md
       desktop: none lg
