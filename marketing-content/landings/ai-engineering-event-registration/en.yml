@@ -132,43 +132,54 @@ sections:
         name: React
     type: syllabus
     variant: program-modules
-  - background: hsl(var(--background))
-    gap: md
-    height: 31rem
-    highlight:
-      background: primary
-      heading: Committed to breaking into tech? We support you like no one else does.
-      text: Mentors and career coaches that are always within reach, an AI tutor, and your personal AI agent. All tailored to you.
-      text_1: "<span style=\"font-size: 1.5rem;\"><b><span style=\"line-height: 1.1;\"><span style=\"font-size: 1.25rem;\">Committed to breaking into tech? We support you like no one else does.</span></span></b></span>"
-      text_2: "<div><span style=\"font-size: 1.5rem;\"></span></div><span style=\"font-size: 1.5rem;\"><div><span></span></div></span><!--StartFragment--><ul class=\"[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3\" style=\"font-size: 20px;\"><li class=\"whitespace-normal break-words pl-2\">Unlimited 1:1 mentorship with real tech professionals</li><li class=\"whitespace-normal break-words pl-2\">Career coaching built to get you hired</li><li class=\"whitespace-normal break-words pl-2\">An AI tutor that adapts to your learning path</li><li class=\"whitespace-normal break-words pl-2\">Your own AI agent</li></ul><p class=\"font-claude-response-body break-words whitespace-normal leading-[1.7]\" style=\"font-size: 20px;\"><br></p><!--EndFragment-->"
-      width: 2
+  - type: human_and_ai_duo
+    version: "1.0"
+    heading: Human and AI Support, So You Never Lose Momentum
+    description: Staying motivated is easy when everything clicks. It gets really hard when you hit a wall. AI Fluency pairs a real human mentor with Rigobot, our AI tutor, so you always have somewhere to turn to and no reason to stop.
+    bullet_groups:
+      - title: "Your expert mentor:"
+        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
+        bullets:
+          - text: A 1:1 session with a senior instructor, included in your enrollment
+          - text: Expert guidance tailored to you.
+          - text: Focused on your actual tasks, workflows, and goals
+          - text: Additional sessions available to book anytime, at extra cost
+      - title: "Rigobot, your AI tutor:"
+        image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
+        bullets:
+          - text: Available 24/7 throughout the program
+          - text: Ask for help, feedback, or an explanation whenever you need it
+          - text: Your always-on tutor for all self-paced modules
+          - text: Adapts to your skill level and what you are working on
     images:
-      - alt: "Image: ChatGPT Image Mar 26, 2026, 04_28_27 PM"
-        id: chatgpt-image-mar-26-2026-04-28-27-pm
-        object_position: 60%90%
-        src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
-      - alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
-        id: chatgpt-image-mar-26-2026-04-26-00-pm-900x1350-q70
-        object_position: 40% 80%
-        src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-900x1350-q70.webp
-      - alt: "Image: valentina_brightened"
-        id: valentina-brightened
-        src: https://storage.googleapis.com/4geeks-academy-website/media/valentina_brightened.png
-      - alt: "Image: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74"
-        id: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74
-        object_position: 38% 100%
-        object_scale: 1.45
-        src: https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74.webp
-    marginY:
-      desktop: md xl
-    maxWidth:
-      desktop: 6xl
-    mobile_height: 24rem
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina-brightened-1365x2048.webp
+        alt: "Image: valentina_brightened"
+        object_fit: cover
+        object_position: 40%20%
+        border_radius: 0.5rem
+        id: valentina-brightened-1365x2048
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536.webp
+        alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
+        object_fit: cover
+        object_position: 50%30%
+        border_radius: 0.5rem
+        id: chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
+        alt: Estudiante africana colaborando con su equipo
+        object_fit: cover
+        object_position: 70%15%
+        border_radius: 0.5rem
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74.webp
+        alt: Estudiante latina celebrando un logro
+        object_fit: cover
+        object_position: 50%30%
+        border_radius: 0.5rem
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
+    image_alt: Woman working on laptop in cafe
     paddingY:
-      desktop: none
-    rounded: true
-    section_id: image_row-z97kqt
-    type: image_row
+      mobile: sm none
+      desktop: md none
+    section_id: human_and_ai_duo-99s71d
   - left:
       bullets:
         - icon: IconUsers
