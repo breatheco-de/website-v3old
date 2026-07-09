@@ -114,25 +114,6 @@ programs:
       duration: "Self-paced"
       badge: "Customizable"
       icon: "IconAdjustmentsHorizontal"
-    summary:
-      price_label: "Your plan"
-      price_amount: "$129"
-      price_period: "/mo"
-      price_sub: "Billed monthly"
-      rows:
-        - label: "Program"
-          show_dynamic_program: true
-        - label: "Plan"
-          show_dynamic_date: true
-        - label: "Total"
-          value: "$129/mo"
-      cta:
-        text: "Start Now"
-        url: "https://4geeks.com/checkout?plan=basic"
-        variant: "primary"
-      trust_note:
-        initials: "EA"
-        message: "<span class=\"font-semibold text-foreground\">Questions?</span> Our team is available Mon–Fri 9am–6pm ET."
     plans:
       - id: basic
         name: "Basic"

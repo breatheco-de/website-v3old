@@ -15,12 +15,16 @@ sections:
           name: AI Engineering
           duration: 24 weeks
           badge: Most Popular
-          icon: badge-minus
+          icon: IconCode
         summary:
           price_label: Due today
           price_amount: $250
           price_sub: Applied toward your total tuition
           rows:
+            - label: Program
+              show_dynamic_program: true
+            - label: Start date
+              show_dynamic_date: true
             - label: Total program fee
               value: $15,999
             - label: Financing from
@@ -29,7 +33,7 @@ sections:
               value: Not included
           cta:
             text: Secure My Seat
-            url: https://4geeks.com/checkout?plan=hola&cohort={qs:cohort}
+            url: https://4geeks.com/checkout?cohort={qs:cohort|sept-2026}
             variant: primary
           trust_note:
             initials: EA
@@ -54,7 +58,7 @@ sections:
               seats: 4
               url: "?cohort=sept-2026"
             - date_iso: "2026-10-13"
-              seats: 12
+              note: ss
               url: "?cohort=oct-2026"
             - date_iso: "2026-11-10"
               url: "?cohort=nov-2026"
@@ -69,6 +73,10 @@ sections:
           price_amount: $250
           price_sub: Applied toward your total tuition
           rows:
+            - label: Program
+              show_dynamic_program: true
+            - label: Start date
+              show_dynamic_date: true
             - label: Total program fee
               value: $8,999
             - label: Financing from
@@ -77,7 +85,7 @@ sections:
               value: Not included
           cta:
             text: Secure My Seat
-            url: /en/career-programs/ai-flex
+            url: https://4geeks.com/checkout?cohort={qs:cohort|fluency-sept-2026}
             variant: primary
           trust_note:
             initials: EA
@@ -97,9 +105,9 @@ sections:
           - text: Get certified — earn your AI Fluency certificate upon completion.
         dates:
           mode: interval
-          start_date_iso: "2026-09-02"
-          interval: 1
-          interval_unit: months
+          start_date_iso: "2026-09-08"
+          interval: 30
+          interval_unit: days
           url: "?cohort=fluency-rolling"
       - id: ai-flex
         selection_card:
@@ -113,10 +121,12 @@ sections:
           price_period: /mo
           price_sub: Billed monthly
           rows:
+            - label: Program
+              show_dynamic_program: true
+            - label: Plan
+              show_dynamic_date: true
             - label: Total
               value: $129/mo
-            - label: Financing from
-              value: Plans from $75/mo
           cta:
             text: Start Now
             url: https://4geeks.com/checkout?plan=basic
@@ -124,17 +134,6 @@ sections:
           trust_note:
             initials: EA
             message: <span class="font-semibold text-foreground">Questions?</span> Our team is available Mon–Fri 9am–6pm ET.
-        benefits:
-          - title: Immediate access to full course catalog
-            desc: Your account activates the moment you enroll. Start learning immediately.
-          - title: 1 monthly 1-on-1 mentorship session
-            desc: Meet with senior engineers and industry mentors for personalized guidance.
-          - title: Everything you need to build with AI
-            desc: AI tokens, AI completions, GitHub Copilot, a dedicated VPS, and more — all included.
-        unlocks:
-          - text: 1 mentorship session per month with senior engineers and industry mentors.
-          - text: Unlimited access to the full course catalog plus certificates for every course completed.
-          - text: Everything you need to build with AI — Includes AI tokens, AI completions, GitHub Copilot, a dedicated VPS.
         plans:
           - id: basic
             name: Basic
@@ -151,6 +150,10 @@ sections:
               price_period: /mo
               price_sub: Billed monthly
               rows:
+                - label: Program
+                  show_dynamic_program: true
+                - label: Plan
+                  show_dynamic_date: true
                 - label: Total
                   value: $129/mo
                 - label: Financing from
@@ -162,6 +165,17 @@ sections:
               trust_note:
                 initials: EA
                 message: <span class="font-semibold text-foreground">Questions?</span> Our team is available Mon–Fri 9am–6pm ET.
+            benefits:
+              - title: Immediate access to full course catalog
+                desc: Your account activates the moment you enroll. Start learning immediately.
+              - title: 1 monthly 1-on-1 mentorship session
+                desc: Meet with senior engineers and industry mentors for personalized guidance.
+              - title: Everything you need to build with AI
+                desc: AI tokens, AI completions, GitHub Copilot, a dedicated VPS, and more — all included.
+            unlocks:
+              - text: 1 mentorship session per month with senior engineers and industry mentors.
+              - text: Unlimited access to the full course catalog plus certificates for every course completed.
+              - text: Everything you need to build with AI — Includes AI tokens, AI completions, GitHub Copilot, a dedicated VPS.
           - id: pro
             name: Pro
             tagline: Teams & serious learners
@@ -177,6 +191,10 @@ sections:
               price_period: /yr
               price_sub: Billed annually
               rows:
+                - label: Program
+                  show_dynamic_program: true
+                - label: Plan
+                  show_dynamic_date: true
                 - label: Total
                   value: $900/yr
                 - label: Financing from
@@ -188,7 +206,18 @@ sections:
               trust_note:
                 initials: EA
                 message: <span class="font-semibold text-foreground">Questions?</span> Our team is available Mon–Fri 9am–6pm ET.
-    section_id: enrollment_selector-d0qc5t
+            benefits:
+              - title: Full catalog + all premium courses
+                desc: Access everything including advanced AI engineering, system design, and specialization tracks.
+              - title: Unlimited 1-on-1 mentorship sessions
+                desc: Book as many sessions as you need with senior engineers and industry mentors — no caps.
+              - title: Priority support & cohort access
+                desc: Join live cohort sessions, get priority support from instructors, and access exclusive workshops.
+            unlocks:
+              - text: Unlimited mentorship with senior engineers — no caps, no waitlists.
+              - text: Access all premium courses including advanced AI engineering and specialization tracks.
+              - text: Priority support, live cohort sessions, and exclusive workshops included.
+    section_id: enrollment_selector-99m0l0
     paddingY:
       desktop: sm
     maxWidth:

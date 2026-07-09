@@ -6,15 +6,14 @@ import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
 import { IconChevronRight, IconCheck } from "@tabler/icons-react";
 import type { EnrollmentSelectorDefault, EnrollmentSelectorProgram } from "@shared/schema";
+import { addDays, addWeeks, addMonths } from "date-fns";
 
 // ─── Date utils ───────────────────────────────────────────────────────────────
 
 function advanceByInterval(d: Date, interval: number, unit: "days" | "weeks" | "months"): Date {
-  const next = new Date(d);
-  if (unit === "days") next.setDate(next.getDate() + interval);
-  else if (unit === "weeks") next.setDate(next.getDate() + interval * 7);
-  else next.setMonth(next.getMonth() + interval);
-  return next;
+  if (unit === "days")  return addDays(d, interval);
+  if (unit === "weeks") return addWeeks(d, interval);
+  return addMonths(d, interval);
 }
 
 type DisplayDate = {
