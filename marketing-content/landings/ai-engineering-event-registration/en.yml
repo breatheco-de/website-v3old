@@ -476,7 +476,7 @@ sections:
       - quito-ecuador
       - santiago-chile
       - mexicocity-mexico
-    background: hsl(var(--secondary))
+    background: hsl(var(--card))
 meta:
   description: Design, ship, and deploy real AI systems and agents. See the curriculum, schedules, and enrollment options — start today for just $500.
   page_title: AI Engineering Program | 4Geeks Academy Event
