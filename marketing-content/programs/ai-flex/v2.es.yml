@@ -1036,7 +1036,7 @@ sections:
     paddingY:
       desktop: lg
     marginY:
-      desktop: lg none
+      desktop: md none
   - type: pricing
     version: "1.0"
     variant: plan_cards
