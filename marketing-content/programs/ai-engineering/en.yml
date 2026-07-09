@@ -478,9 +478,9 @@ sections:
         video_url: https://youtu.be/-2ZvlgDnltc
     section_id: ai_learning-xiuj75
     marginY:
-      desktop: md none
+      desktop: none
     paddingY:
-      desktop: md none
+      desktop: none
     background: hsl(var(--card))
   - type: features_grid
     version: "1.0"
