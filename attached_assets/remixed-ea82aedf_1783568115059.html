@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply Now — 4Geeks Academy</title>
+
+<style>
+  :root {
+    --bg: #f4f4f4;
+    --ink: #000000;
+    --surface: #ffffff;
+    --surface2: #efefef;
+    --border: #d8d8d8;
+    --muted: #767676;
+    --accent: #0062ff;
+    --accent-light: #e8f0ff;
+    --green: #0d7a4e;
+    --green-light: #edf7f2;
+    --amber: #b45309;
+    --amber-light: #fef3e2;
+    --red: #c4341a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo {
+    font-family: Georgia, serif;
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--ink);
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-logo-badge {
+    width: 28px; height: 28px;
+    background: var(--ink);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .nav-back {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+  }
+  .nav-back:hover { color: var(--ink); }
+
+  /* LAYOUT */
+  .page {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 48px 40px 80px;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 48px;
+    align-items: start;
+  }
+
+  /* LEFT COLUMN */
+  .left-col {}
+
+  .page-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: Georgia, serif;
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--ink);
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+
+  .page-sub {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: 520px;
+    margin-bottom: 36px;
+  }
+
+  /* FORM SECTIONS */
+  .form-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .form-section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  /* PROGRAM GRID */
+  .program-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+
+  .prog-btn {
+    background: var(--surface2);
+    border: 1.5px solid transparent;
+    border-radius: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s ease;
+    position: relative;
+    outline: none;
+  }
+  .prog-btn:hover { border-color: var(--border); background: var(--surface); }
+  .prog-btn.active {
+    border-color: var(--ink);
+    background: var(--surface);
+  }
+  .prog-btn.active::after {
+    content: '';
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--ink);
+  }
+  .prog-name {
+    font-family: Georgia, serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 3px;
+  }
+  .prog-meta {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .prog-badge {
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+
+  /* DATE GRID */
+  .date-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+
+  .date-btn {
+    background: var(--surface2);
+    border: 1.5px solid transparent;
+    border-radius: 10px;
+    padding: 12px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s ease;
+    outline: none;
+  }
+  .date-btn:hover { border-color: var(--border); background: var(--surface); }
+  .date-btn.active { border-color: var(--ink); background: var(--surface); }
+
+  .date-main {
+    font-family: Georgia, serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .date-seats {
+    font-size: 11px;
+    color: var(--muted);
+    display: block;
+  }
+  .date-seats.low { color: var(--amber); font-weight: 500; }
+
+  /* BENEFITS */
+  .benefits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .benefit-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .benefit-check {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--green-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .benefit-check svg { width: 11px; height: 11px; }
+
+  .benefit-body {}
+  .benefit-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .benefit-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .section-rule {
+    height: 1px;
+    background: var(--border);
+    margin: 20px 0;
+  }
+
+  /* JOB GUARANTEE TOGGLE */
+  .jg-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .jg-info {}
+  .jg-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 3px;
+  }
+  .jg-pill {
+    background: var(--amber-light);
+    color: var(--amber);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+  .jg-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    max-width: 380px;
+  }
+  .jg-added {
+    display: none;
+    align-items: center;
+    gap: 5px;
+    background: var(--green-light);
+    color: var(--green);
+    border: 1px solid rgba(13,122,78,0.2);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-top: 8px;
+  }
+  .jg-added.visible { display: inline-flex; }
+
+  /* TOGGLE SWITCH */
+  .toggle-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .toggle-label-text {
+    font-size: 12px;
+    color: var(--muted);
+    min-width: 20px;
+    text-align: right;
+  }
+  .toggle {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+  .toggle-track {
+    position: absolute;
+    inset: 0;
+    background: var(--border);
+    border-radius: 12px;
+    transition: background 0.2s;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .toggle input:checked + .toggle-track { background: var(--ink); }
+  .toggle-knob {
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 18px; height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.2s;
+    pointer-events: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+  .toggle input:checked ~ .toggle-knob { transform: translateX(20px); }
+
+  /* RIGHT COLUMN — STICKY SUMMARY */
+  .right-col {
+    position: sticky;
+    top: 72px;
+  }
+
+  .summary-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .summary-header {
+    background: var(--ink);
+    padding: 20px 22px;
+  }
+  .summary-header-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 6px;
+  }
+  .summary-due {
+    font-family: Georgia, serif;
+    font-size: 38px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .summary-due-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .summary-body { padding: 18px 22px; }
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .summary-row:last-child { border-bottom: none; }
+  .sr-label { color: var(--muted); }
+  .sr-val { font-weight: 600; color: var(--ink); text-align: right; }
+  .sr-val.green { color: var(--green); }
+  .sr-val.blue { color: var(--accent); }
+  .sr-val.muted { color: var(--muted); font-weight: 400; }
+
+  /* UNLOCKS BOX */
+  .unlocks {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 14px 0;
+  }
+  .unlocks-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .unlock-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--ink);
+    margin-bottom: 7px;
+  }
+  .unlock-item:last-child { margin-bottom: 0; }
+  .unlock-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+  }
+
+  /* CTA */
+  .cta-btn {
+    width: 100%;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: opacity 0.15s, transform 0.1s;
+    letter-spacing: -0.2px;
+  }
+  .cta-btn:hover { opacity: 0.88; }
+  .cta-btn:active { transform: scale(0.99); }
+
+  .cta-note {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  /* REP BOX */
+  .rep-box {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .rep-avatar {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .rep-text {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .rep-text strong { color: var(--ink); font-weight: 600; }
+
+  /* SUCCESS STATE */
+  .success-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15,15,14,0.6);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .success-overlay.visible { display: flex; }
+  .success-card {
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 440px;
+    width: 100%;
+    text-align: center;
+  }
+  .success-icon {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: var(--green-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .success-icon svg { width: 28px; height: 28px; }
+  .success-card h2 {
+    font-family: Georgia, serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+  .success-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+  .success-list {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-align: left;
+    margin-bottom: 24px;
+  }
+  .success-list-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--ink);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .success-list-item:last-child { border-bottom: none; }
+  .success-list-item .sdot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+  .success-close {
+    width: 100%;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 13px;
+    font-family: Georgia, serif;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-badge">4G</div>
+    4Geeks Academy
+  </div>
+  <a class="nav-back" href="#">← Back to programs</a>
+</nav>
+
+<div class="page">
+
+  <!-- LEFT COLUMN -->
+  <div class="left-col">
+
+    <div class="page-eyebrow">Enrollment · Apply now</div>
+    <h1>Reserve your seat.<br>Start learning <em>today.</em></h1>
+    <p class="page-sub">Pay your $250 registration fee to lock in your spot. You'll get immediate access to 4Geeks.com and your prework — your admissions rep will reach out within 24 hours to finalize everything.</p>
+
+    <!-- PROGRAM SELECTOR -->
+    <div class="form-section">
+      <div class="form-section-label">Choose your program</div>
+      <div class="program-grid">
+        <button class="prog-btn active" onclick="selectProgram(this, 'AI Engineering', 14999, 16999)">
+          <span class="prog-name">AI Engineering</span>
+          <span class="prog-meta">24 weeks <span class="prog-badge">Most popular</span></span>
+        </button>
+        <button class="prog-btn" onclick="selectProgram(this, 'Data Science & ML', 10999, 12999)">
+          <span class="prog-name">Data Science & ML</span>
+          <span class="prog-meta">18 weeks</span>
+        </button>
+
+        <button class="prog-btn" onclick="selectProgram(this, 'Cybersecurity', 9999, 11999)">
+          <span class="prog-name">Cybersecurity</span>
+          <span class="prog-meta">16 weeks</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- START DATE -->
+    <div class="form-section">
+      <div class="form-section-label">Choose your start date</div>
+      <div class="date-grid">
+        <button class="date-btn active" onclick="selectDate(this, 'June 9')">
+          <span class="date-main">June 9</span>
+          <span class="date-seats low">4 seats left</span>
+        </button>
+        <button class="date-btn" onclick="selectDate(this, 'July 14')">
+          <span class="date-main">July 14</span>
+          <span class="date-seats">12 seats left</span>
+        </button>
+        <button class="date-btn" onclick="selectDate(this, 'Aug 18')">
+          <span class="date-main">Aug 18</span>
+          <span class="date-seats">Open</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- BENEFITS -->
+    <div class="form-section">
+      <div class="form-section-label">What's included</div>
+      <div class="benefits-list">
+
+        <div class="benefit-row">
+          <div class="benefit-check">
+            <svg viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.2,8.5 9.5,2" stroke="#0d7a4e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="benefit-body">
+            <div class="benefit-title">Immediate access to 4Geeks.com + prework</div>
+            <div class="benefit-desc">Your account activates the moment you pay. Start Foundations right away — Git, JavaScript basics, YAML &amp; JSON, internet fundamentals, and your first coding agents — so you're ready to hit the ground running on day one.</div>
+          </div>
+        </div>
+
+        <div class="benefit-row">
+          <div class="benefit-check">
+            <svg viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.2,8.5 9.5,2" stroke="#0d7a4e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="benefit-body">
+            <div class="benefit-title">Unlimited 1-on-1 mentorship</div>
+            <div class="benefit-desc">Book as many sessions as you need with senior engineers and industry mentors — no caps, no waitlists, ever.</div>
+          </div>
+        </div>
+
+        <div class="benefit-row">
+          <div class="benefit-check">
+            <svg viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.2,8.5 9.5,2" stroke="#0d7a4e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="benefit-body">
+            <div class="benefit-title">Weekly live group sessions</div>
+            <div class="benefit-desc">Join mentor-led group sessions every week to get guidance on projects, talk through blockers, and learn alongside your cohort in real time.</div>
+          </div>
+        </div>
+
+        <div class="benefit-row">
+          <div class="benefit-check">
+            <svg viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.2,8.5 9.5,2" stroke="#0d7a4e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="benefit-body">
+            <div class="benefit-title">Unlimited career support</div>
+            <div class="benefit-desc">Resume reviews, mock interviews, LinkedIn optimization, and job search coaching — for life, not just while enrolled.</div>
+          </div>
+        </div>
+
+        <div class="benefit-row">
+          <div class="benefit-check">
+            <svg viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.2,8.5 9.5,2" stroke="#0d7a4e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="benefit-body">
+            <div class="benefit-title">Real-world portfolio projects</div>
+            <div class="benefit-desc">Graduate with deployed, employer-ready projects that demonstrate what you can actually build.</div>
+          </div>
+        </div>
+
+        <div class="benefit-row">
+          <div class="benefit-check">
+            <svg viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.2,8.5 9.5,2" stroke="#0d7a4e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="benefit-body">
+            <div class="benefit-title">Alumni network — 4,000+ graduates</div>
+            <div class="benefit-desc">Instant access to a global community of working engineers. Referrals, connections, job leads.</div>
+          </div>
+        </div>
+
+        <div class="benefit-row">
+          <div class="benefit-check">
+            <svg viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.2,8.5 9.5,2" stroke="#0d7a4e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="benefit-body">
+            <div class="benefit-title">Flexible financing</div>
+            <div class="benefit-desc">Flexible payment plans starting at $349/month. Income share and partner financing also available.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="section-rule"></div>
+
+      <!-- JOB GUARANTEE TOGGLE -->
+      <div class="jg-row">
+        <div class="jg-info">
+          <div class="jg-title">
+            Job guarantee
+            <span class="jg-pill">Optional add-on</span>
+          </div>
+          <div class="jg-desc">Get hired within 9 months of graduating — or receive a full refund. Conditions apply.</div>
+          <div class="jg-added" id="jg-added">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><polyline points="1.5,5.5 4.2,8.5 9.5,2" stroke="#0d7a4e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Job guarantee added
+          </div>
+        </div>
+        <div class="toggle-wrap">
+          <span class="toggle-label-text" id="jg-label">Off</span>
+          <label class="toggle">
+            <input type="checkbox" id="jg-toggle" onchange="toggleJG()">
+            <div class="toggle-track"></div>
+            <div class="toggle-knob"></div>
+          </label>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div class="right-col">
+    <div class="summary-card">
+
+      <div class="summary-header">
+        <div class="summary-header-label">Due today</div>
+        <div class="summary-due">$250</div>
+        <div class="summary-due-sub">Applied toward your total tuition</div>
+      </div>
+
+      <div class="summary-body">
+
+        <div class="summary-row">
+          <span class="sr-label">Program</span>
+          <span class="sr-val blue" id="s-program">AI Engineering</span>
+        </div>
+        <div class="summary-row">
+          <span class="sr-label">Start date</span>
+          <span class="sr-val" id="s-date">June 9, 2026</span>
+        </div>
+        <div class="summary-row">
+          <span class="sr-label">Total program fee</span>
+          <span class="sr-val" id="s-total">$14,999</span>
+        </div>
+        <div class="summary-row">
+          <span class="sr-label">Financing from</span>
+          <span class="sr-val green" id="s-monthly">Plans starting at $349/mo</span>
+        </div>
+        <div class="summary-row">
+          <span class="sr-label">Job guarantee</span>
+          <span class="sr-val muted" id="s-jg">Not included</span>
+        </div>
+
+        <div class="unlocks">
+          <div class="unlocks-label">You unlock right now</div>
+          <div class="unlock-item"><div class="unlock-dot"></div>4Geeks.com LMS access</div>
+          <div class="unlock-item"><div class="unlock-dot"></div>Git & version control — work like a real developer from day one</div>
+          <div class="unlock-item"><div class="unlock-dot"></div>JavaScript basics — your first lines of real code</div>
+          <div class="unlock-item"><div class="unlock-dot"></div>YAML & JSON — the data languages powering modern AI</div>
+          <div class="unlock-item"><div class="unlock-dot"></div>Internet fundamentals — understand how everything connects</div>
+          <div class="unlock-item"><div class="unlock-dot"></div>Your first coding agents — hands-on AI from week one</div>
+          <div class="unlock-item"><div class="unlock-dot"></div>Weekly prework classes led by mentors — ask questions, stay on track</div>
+          <div class="unlock-item"><div class="unlock-dot"></div>Cohort seat confirmed</div>
+          <div class="unlock-item"><div class="unlock-dot"></div>Admissions rep call within 24 hrs</div>
+        </div>
+
+        <button class="cta-btn" onclick="handleApply()">Secure my seat — $250</button>
+
+        <p class="cta-note">$250 is applied to your tuition, not an extra fee.</p>
+
+        <div class="rep-box">
+          <div class="rep-avatar">EA</div>
+          <div class="rep-text">
+            <strong>An admissions advisor will call you within 24 hours</strong> to finalize enrollment, walk you through financing, and answer any questions.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="success-overlay" id="success-overlay" onclick="closeSuccess(event)">
+  <div class="success-card">
+    <div class="success-icon">
+      <svg viewBox="0 0 28 28" fill="none"><polyline points="4,14 10.5,21 24,7" stroke="#0d7a4e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h2>You're in.</h2>
+    <p>Your seat is reserved and your $250 registration fee has been received. Here's what happens next:</p>
+    <div class="success-list">
+      <div class="success-list-item"><div class="sdot"></div>Check your email — your 4Geeks.com login is on its way</div>
+      <div class="success-list-item"><div class="sdot"></div>Start your prework anytime — no waiting required</div>
+      <div class="success-list-item"><div class="sdot"></div>Your admissions rep will call within 24 hours</div>
+      <div class="success-list-item"><div class="sdot"></div>Financing finalized on that call — nothing else due today</div>
+    </div>
+    <button class="success-close" onclick="closeSuccess()">Got it — go to my dashboard</button>
+  </div>
+</div>
+
+<script>
+  let state = {
+    program: 'AI Engineering',
+    basePrice: 14999,
+    jgPrice: 16999,
+    date: 'June 9',
+    jg: false
+  };
+
+  function selectProgram(el, name, base, jg) {
+    document.querySelectorAll('.prog-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    state.program = name;
+    state.basePrice = base;
+    state.jgPrice = jg;
+    updateSummary();
+  }
+
+  function selectDate(el, date) {
+    document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    state.date = date;
+    updateSummary();
+  }
+
+  function toggleJG() {
+    state.jg = document.getElementById('jg-toggle').checked;
+    document.getElementById('jg-label').textContent = state.jg ? 'On' : 'Off';
+    const added = document.getElementById('jg-added');
+    if (state.jg) added.classList.add('visible');
+    else added.classList.remove('visible');
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const total = state.jg ? state.jgPrice : state.basePrice;
+    document.getElementById('s-program').textContent = state.program;
+    document.getElementById('s-date').textContent = state.date + ', 2026';
+    document.getElementById('s-total').textContent = '$' + total.toLocaleString();
+    document.getElementById('s-monthly').textContent = state.jg ? 'Plans starting at $399/mo' : 'Plans starting at $349/mo';
+    const jgEl = document.getElementById('s-jg');
+    if (state.jg) {
+      const diff = state.jgPrice - state.basePrice;
+      jgEl.textContent = 'Included (+$' + diff.toLocaleString() + ')';
+      jgEl.style.color = 'var(--green)';
+      jgEl.style.fontWeight = 'bold';
+    } else {
+      jgEl.textContent = 'Not included';
+      jgEl.style.color = 'var(--muted)';
+      jgEl.style.fontWeight = '400';
+    }
+    document.querySelector('.cta-btn').textContent = 'Secure my seat — $250';
+  }
+
+  function handleApply() {
+    document.getElementById('success-overlay').classList.add('visible');
+  }
+
+  function closeSuccess(e) {
+    if (!e || e.target === document.getElementById('success-overlay')) {
+      document.getElementById('success-overlay').classList.remove('visible');
+    }
+  }
+</script>
+
+</body>
+</html>
