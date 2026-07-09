@@ -54,11 +54,13 @@ sections:
         dates:
           mode: static
           items:
-            - date_iso: "2026-09-08"
+            - date_iso: "2026-07-08"
               url: "?cohort=sept-2026"
             - date_iso: "2026-10-13"
               url: "?cohort=oct-2026"
             - date_iso: "2026-11-10"
+              url: "?cohort=nov-2026"
+            - date_iso: "2026-12-10"
               url: "?cohort=nov-2026"
       - id: ai-fluency
         selection_card:
