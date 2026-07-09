@@ -52,10 +52,8 @@ programs:
       mode: static
       items:
         - date_iso: "2026-09-08"
-          seats: 4
           url: "?cohort=sept-2026"
         - date_iso: "2026-10-13"
-          seats: 12
           url: "?cohort=oct-2026"
         - date_iso: "2026-11-10"
           url: "?cohort=nov-2026"

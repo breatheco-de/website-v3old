@@ -53,7 +53,6 @@ const staticDateItemSchema = z.object({
   note: z.string().optional(),
   /** Querystring-only URL like "?cohort=sept-2026" merged into the current page URL on click */
   url: z.string().optional(),
-  seats: z.number().optional(),
 });
 
 const staticDatesSchema = z.object({

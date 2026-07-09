@@ -20,7 +20,6 @@ type DisplayDate = {
   label: string;
   year: string;
   note?: string;
-  seats?: number;
   url?: string;
   date_iso: string;
 };
@@ -112,7 +111,6 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
             }),
           year: item.year ?? String(new Date(item.date_iso + "T00:00:00").getFullYear()),
           note: item.note,
-          seats: item.seats,
           url: item.url,
           date_iso: item.date_iso,
         }));
@@ -305,8 +303,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                         {d.label}
                       </span>
                       <span className="block text-[12px] font-medium text-muted-foreground">
-                        {d.note ??
-                          (typeof d.seats === "number" ? `${d.seats} seats left` : "Open")}
+                        {d.note ?? "Open"}
                       </span>
                     </button>
                   );
