@@ -24,8 +24,8 @@ sections:
       color: primary
       background: hsl(var(--primary))
       text_color: hsl(var(--primary-foreground))
-    title: Aprende Skills de IA. Haz el test, recibe tu ruta y avanza a tu ritmo.
-    title_highlight: Haz el test, recibe tu ruta y avanza a tu ritmo.
+    title: Aprende Skills de IA. Haz el test. Recibe tu ruta. Avanza a tu ritmo.
+    title_highlight: Haz el test. Recibe tu ruta. Avanza a tu ritmo.
     subtitle: Las personas que están desarrollando habilidades en IA ahora mismo se están adelantando rápido. AI Flex te da acceso a +8 cursos que cubren automatización, flujos de trabajo con IA, vibe coding y habilidades de datos. Sigue una ruta de aprendizaje curada o construye la tuya. Totalmente a tu ritmo.
     students_enrolled:
       avatars:
@@ -51,7 +51,7 @@ sections:
       title: Empieza a aprender hoy
       description: Elige tu plan y obtén acceso instantáneo a 8 cursos de IA, Rigobot y tu primera sesión de mentoría.
       cta_button:
-        text: Ver planes y precios
+        text: Empezar Test
         url: "#pricing-6svo9e"
         variant: primary
       login_link:
