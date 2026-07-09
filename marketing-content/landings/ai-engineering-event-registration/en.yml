@@ -60,7 +60,7 @@ sections:
     header: A preview of what's inside
     marginY:
       mobile: md
-      desktop: none lg
+      desktop: none xl
     module_cards:
       - duration: Module 01
         icon: IconRobot
