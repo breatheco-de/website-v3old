@@ -45,7 +45,7 @@ sections:
     tutors_label: "Tus tutores:"
     signup_card:
       title: Empieza a aprender hoy
-      description: Elige tu plan y obtén acceso instantáneo a 8 cursos de IA, Rigobot y tu primera sesión de mentoría.
+      description: Descubre tu nivel actual en solo 30 segundos y recibe acceso a tus primeros cursos adaptados a tus metas de IA.
       cta_button:
         text: Empezar Test
         url: "#survey-g6wkjo"
