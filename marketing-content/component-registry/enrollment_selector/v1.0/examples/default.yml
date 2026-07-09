@@ -26,7 +26,7 @@ programs:
           value: "Not included"
       cta:
         text: "Secure My Seat"
-        url: "https://4geeks.com/checkout?cohort=sept-2026"
+        url: "https://4geeks.com/checkout?cohort={qs:cohort|sept-2026}"
         variant: "primary"
       trust_note:
         initials: "EA"
@@ -75,7 +75,7 @@ programs:
           value: "Not included"
       cta:
         text: "Secure My Seat"
-        url: "https://4geeks.com/checkout?cohort=fluency-sept-2026"
+        url: "https://4geeks.com/checkout?cohort={qs:cohort|fluency-sept-2026}"
         variant: "primary"
       trust_note:
         initials: "EA"
