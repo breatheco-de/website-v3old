@@ -199,6 +199,8 @@ sections:
     section_id: enrollment_selector-hmrgaw
     paddingY:
       desktop: sm
+    maxWidth:
+      desktop: xl
   - type: enrollment_selector
     version: v1.0
     variant: default
