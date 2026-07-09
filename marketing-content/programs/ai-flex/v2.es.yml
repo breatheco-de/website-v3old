@@ -24,18 +24,20 @@ sections:
       color: primary
       background: hsl(var(--primary))
       text_color: hsl(var(--primary-foreground))
-    title: AI Flex. Habilidades reales en IA. A tu ritmo.
-    title_highlight: Habilidades reales en IA. A tu ritmo.
-    subtitle: Las personas que están desarrollando habilidades en IA ahora mismo se están adelantando rápido. AI Flex te da acceso a +8 cursos que cubren automatización, flujos de trabajo con IA, vibe coding y habilidades de datos. Sigue una ruta de aprendizaje curada o construye la tuya. Totalmente a tu ritmo.
+    title: Aprende Skills de IA. Haz el test. Recibe tu ruta. Avanza a tu ritmo.
+    title_highlight: Haz el test. Recibe tu ruta. Avanza a tu ritmo.
+    subtitle: La IA ya no es opcional en el mercado. No te quedes atrás. Respondiendo solo 4 preguntas te damos la ruta exacta para que domines la IA a tu propio ritmo. Deja de ser quien solo habla con ella y empieza a multiplicar tu productividad, velocidad y la calidad de tus entregas.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
-      count: +6000 graduados
+      count: +8500 graduados
     bullet_points:
-      - Feedback y orientación 24/7 de Rigobot, nuestro tutor de IA.
+      - Obten la ruta perfecta tomando en cuenta tus metas respondiendo 4 preguntas
+      - Contenido premium que se actualiza cada mes: Domina las últimas herramientas de IA antes que el resto.
+      - Nuevos cursos de IA cada mes
       - Reserva sesiones de mentoría 1:1 cuando necesites experiencia humana.
       - Certificados que se acumulan hacia AI Fluency y AI Engineering.
     tutors:
@@ -51,8 +53,8 @@ sections:
       title: Empieza a aprender hoy
       description: Elige tu plan y obtén acceso instantáneo a 8 cursos de IA, Rigobot y tu primera sesión de mentoría.
       cta_button:
-        text: Ver planes y precios
-        url: "#pricing-6svo9e"
+        text: Empezar Test
+        url: "#survey-g6wkjo"
         variant: primary
       login_link:
         text: ¿Ya eres estudiante? Inicia sesión aquí.
@@ -74,18 +76,18 @@ sections:
     video:
       url: https://youtu.be/hWq9IGCMYAQ
   - type: awards_marquee
-    section_id: awards_marquee-t8ylg2
+    section_id: awards_marquee-tjpzl5
     version: v1.0
     speed: 60
     gradient: true
     gradientWidth: 400
     items:
       - id: switchup-2025
-        alt: SwitchUp - Mejores Bootcamps de Código 2025
+        alt: SwitchUp - Best Coding Bootcamps 2025
         logo: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
         logoHeight: 64px
       - id: course-report-2024
-        alt: Course Report - Mejor Bootcamp de Código 2024
+        alt: Course Report - Best Coding Bootcamp 2024
         logo: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         logoHeight: 64px
       - id: tech-hub
@@ -105,17 +107,18 @@ sections:
         logo: https://storage.googleapis.com/4geeks-academy-website/media/newsweek_badge-800x550-q55.webp
         logoHeight: 64px
       - id: reviews-coursereport
-        alt: 4.9 en Reseñas de Course Report
+        alt: 4.9 on Course Report Reviews
         logo: https://storage.googleapis.com/4geeks-academy-website/media/reviews_1765549549051.png
         logoHeight: 64px
       - id: excelencia-educativa
-        alt: Excelencia Educativa - Calidad Institucional
+        alt: Excelencia Educativa - Institutional Quality
         logo: https://storage.googleapis.com/4geeks-academy-website/media/exelencia_educativa-544x226-q70.webp
         logoHeight: 64px
     paddingY:
       desktop: none
     marginY:
       desktop: md lg
+    title: "<span style=\"font-size: 1.25rem;\">Empresas que confían en 4Geeks</span>"
   - type: modal
     version: "1.0"
     heading: Recibe los detalles del programa
@@ -147,21 +150,17 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: ¿AI Flex es para ti?
-    description: Si te identificas con alguno de estos puntos, este programa está hecho para ti.
+    heading: "Este programa es para ti si:"
+    description: null
     cards:
-      - icon: IconRocket
-        title: Quieres desarrollar habilidades reales en IA, a tu ritmo.
-        description: Sin cohorte, sin horario fijo, sin presión por seguir el ritmo de nadie más que el tuyo.
       - icon: IconBulb
-        title: Eres un aprendiz autodidacta y la IA es el espacio más interesante en el que estar ahora mismo.
-        description: Ocho cursos, elige lo que te atrae, profundiza todo lo que quieras.
-      - icon: IconUserCheck
-        title: Cuando te atasques, un experto humano está a un mensaje de distancia.
-        description: Mentoría 1:1 opcional, disponible cuando la necesites.
+        title: La IA evoluciona cada mes y tú quieres estar siempre al día.
+      - icon: IconRocket
+        title: Odias los horarios fijos y prefieres aprender a tu propio ritmo.
       - icon: book-open-check
-        title: Aprende directamente en nuestra plataforma interactiva desde tu navegador. Sin configuración, sin instalaciones.
-        description: Ejercicios interactivos autoevaluados con un tutor de IA que trabaja contigo 24/7. Solo abre y empieza.
+        title: Quieres explorar antes de comprometerte con un solo camino.
+      - icon: IconUserCheck
+        title: No sabes por dónde empezar con la IA, y no quieres perder tiempo decidiendo.
     background: hsl(var(--muted))
     section_id: features_quad-aiflex
     marginY:
@@ -1368,7 +1367,7 @@ sections:
     title: Preguntas frecuentes
     dynamic_entries:
       database: frequently_asked_questions
-      limit: 9
+      limit: 5
       permanent_filters:
         - item_property_slug: locations
           value: all

@@ -1,0 +1,7 @@
+slug: mejores-practicas-programacion
+schema:
+  include:
+    - organization
+    - website
+template: default
+title: Programming Best Practices
