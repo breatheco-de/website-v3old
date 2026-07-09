@@ -965,7 +965,7 @@ sections:
     paddingY:
       desktop: md lg
     marginY:
-      desktop: md none
+      desktop: md sm
     maxWidth:
       desktop: 6xl
     background: hsl(210 100% 50% / 0.05)
