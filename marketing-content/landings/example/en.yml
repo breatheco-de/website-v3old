@@ -55,7 +55,7 @@ sections:
           mode: static
           items:
             - date_iso: "2026-09-08"
-              note: asda
+              note: Fast track
               url: "?cohort=sept-2026"
             - date_iso: "2026-10-13"
               url: "?cohort=oct-2026"
