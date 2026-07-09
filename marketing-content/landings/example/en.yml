@@ -107,7 +107,7 @@ sections:
           start_date_iso: "2026-09-08"
           interval: 6
           interval_unit: weeks
-          url: "?cohort="
+          url: "?cohort=1"
       - id: ai-flex
         selection_card:
           name: AI Flex
