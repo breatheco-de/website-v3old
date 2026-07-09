@@ -439,7 +439,7 @@ sections:
       desktop: md none
     maxWidth:
       desktop: 6xl
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--secondary))
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
