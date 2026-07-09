@@ -6,9 +6,6 @@ sections:
       - text: See enrollment options
         url: "#pricing-event"
         variant: primary
-      - text: See the curriculum
-        url: "#curriculum-event"
-        variant: outline
     section_id: hero-event
     subtitle: Learn to design, ship, and deploy real AI systems, agents, and applications, with mentors who've done it and a career team that starts working before you graduate.
     title: "Stop watching AI change <span style=\"color: hsl(var(--primary));\">every</span> industry. Start being who builds it."
@@ -17,7 +14,7 @@ sections:
     version: "1.0"
     paddingY:
       mobile: lg
-      desktop: lg md
+      desktop: lg sm
     marginY:
       desktop: none md
   - card_bars:
@@ -63,7 +60,7 @@ sections:
     header: A preview of what's inside
     marginY:
       mobile: md
-      desktop: none xl
+      desktop: none sm
     module_cards:
       - duration: Module 01
         icon: IconRobot
@@ -135,140 +132,47 @@ sections:
         name: React
     type: syllabus
     variant: program-modules
-  - background: hsl(var(--background))
-    gap: md
-    height: 31rem
-    highlight:
-      background: primary
-      heading: Committed to breaking into tech? We support you like no one else does.
-      text: Mentors and career coaches that are always within reach, an AI tutor, and your personal AI agent. All tailored to you.
-      text_1: "<span style=\"font-size: 1.5rem;\"><b><span style=\"line-height: 1.1;\">Committed to breaking into tech? We support you like no one else does.</span></b></span>"
-      text_2: "<div><span style=\"font-size: 1.5rem;\"></span></div><span style=\"font-size: 1.5rem;\"><div><span></span></div></span><!--StartFragment--><ul class=\"[li_&]:mb-0 [li_&]:mt-1 [li_&]:gap-1 [&:not(:last-child)_ul]:pb-1 [&:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3\" style=\"font-size: 20px;\"><li class=\"whitespace-normal break-words pl-2\">Unlimited 1:1 mentorship with real tech professionals</li><li class=\"whitespace-normal break-words pl-2\">Career coaching built to get you hired</li><li class=\"whitespace-normal break-words pl-2\">An AI tutor that adapts to your learning path</li><li class=\"whitespace-normal break-words pl-2\">Your own AI agent</li></ul><p class=\"font-claude-response-body break-words whitespace-normal leading-[1.7]\" style=\"font-size: 20px;\"><span style=\"font-size: 1.25rem;\"><span><span style=\"font-weight: bolder;\"><span style=\"font-size: 1.5rem;\">Tailored to you. Included for life.</span></span></span></span></p><!--EndFragment-->"
-      width: 2
-    images:
-      - alt: "Image: ChatGPT Image Mar 26, 2026, 04_28_27 PM"
-        id: chatgpt-image-mar-26-2026-04-28-27-pm
-        object_position: 60%90%
-        src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
-      - alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
-        id: chatgpt-image-mar-26-2026-04-26-00-pm-900x1350-q70
-        object_position: 40% 80%
-        src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-900x1350-q70.webp
-      - alt: "Image: valentina_brightened"
-        id: valentina-brightened
-        src: https://storage.googleapis.com/4geeks-academy-website/media/valentina_brightened.png
-      - alt: "Image: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74"
-        id: 664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74
-        object_position: 38% 100%
-        object_scale: 1.45
-        src: https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74.webp
-    marginY:
-      desktop: md xl
-    maxWidth:
-      desktop: 6xl
-    mobile_height: 24rem
-    paddingY:
-      desktop: none
-    rounded: true
-    section_id: image_row-z97kqt
-    type: image_row
-  - left:
-      bullets:
-        - icon: IconUsers
-          text: 1:1 time with real engineers, not just group office hours
-        - icon: IconCode
-          text: Code review on every project, not just the final one
-        - icon: IconInfinity
-          text: Available through the entire program, every module
-      cta_text: See enrollment options
-      cta_url: "#pricing-event"
-      cta_variant: primary
-      description: Get matched with mentors working in the field right now. Ask questions whenever you're stuck, there's no cap on sessions and no clock running while you learn.
-      heading: Unlimited mentorship
-    right:
-      bullets:
-        - icon: IconFileText
-          text: Resume, portfolio, and LinkedIn built to get you noticed
-        - icon: IconMessages
-          text: Interview prep and mock interviews with real feedback
-        - icon: IconTrendingUp
-          text: Support continues after you're hired, not just until you are
-      cta_text: Reserve my seat
-      cta_url: "#register-event"
-      cta_variant: secondary
-      description: Your job search doesn't end when the program does. Career coaches keep working with you after graduation, for as long as you need it.
-      heading: Unlimited career support
-    section_id: support-event
-    subtitle: No session caps, no expiration date. This is the part most bootcamps cut corners on. We don't.
-    title: Mentorship and career support without a limit
-    type: double_cta
-    marginY:
-      mobile: md
-      desktop: none lg
-    paddingY:
-      mobile: md
-      desktop: none
-    background: hsl(var(--secondary))
-  - card_color: bg-background
-    items:
-      - title: Full Time · Monday to Friday, immersive and fast, built for people who can go all in and finish sooner
-        value: 10am to 1pm EST
-      - title: Part Time · Monday, Wednesday, Friday, built for people keeping their job while they train
-        value: 6pm to 9pm EST
-    section_id: schedule-event
-    subtitle: Live classes, real instructors, two schedules to choose from. Same curriculum either way.
-    title: Pick the schedule that fits your life
-    type: features_grid
-    variant: stats-cards
-    version: "1.0"
-    marginY:
-      mobile: md
-      desktop: none
-    paddingY:
-      mobile: md
-      desktop: none
-    background: hsl(var(--card))
   - marginY:
       mobile: md
-      desktop: none lg
+      desktop: none md
     paddingY:
       mobile: md
       desktop: none
     plans:
-      - amount: 13,499
+      - amount: 14,399
         billing_note: One time payment, no interest, no monthly payments to track
         cta:
           label: Reserve my seat
-          url: "#register-event"
+          url: https://4geeks.com/checkout?plan=ai-engineering-registration-fee-full-payment&cohort=1536
           variant: primary
         currency: $
         features:
-          - text: Full AI Engineering program, start to finish
-          - text: Locks in your seat for the next cohort
-          - text: No interest, no monthly payments to track
-          - text: Same mentorship and career support as any plan
+          - text: "Full AI Engineering program: 24 weeks, live classes taught by real experts"
+          - text: Unlimited 1:1 mentorship for life, no cap on sessions
+          - text: 24/7 feedback from your AI tutor through every lesson, not just projects
+          - text: Structured career support during and after the program
+          - text: Direct access to our network of 400+ hiring partners
         for_label: Full AI Engineering program
         name: Pay in Full
         period: ""
-        tag: One payment
-        top_badge: Save $1,500, 10% off
+        top_badge: Save 10% - Best Deal
       - amount: "500"
-        billing_note: First monthly payment isn't due for 30 days
+        billing_note: First monthly payment isn't due for 30 days. Payments of $323 for 48 months
         cta:
-          label: Start monthly plan
-          url: "#register-event"
+          label: Reserve my seat
+          url: https://4geeks.com/checkout?plan=ai-engineering-registration-fee&cohort=1536
           variant: secondary
         currency: $
         featured: true
         features:
           - text: $500 today reserves your seat, access starts immediately
-          - text: First monthly payment isn't due for 30 days
-          - text: Same curriculum, mentors, and projects
-          - text: Same mentorship and career support as any plan
+          - text: First monthly payment isn't due for 30 days. Payments of $323 for 48 months
+          - text: Unlimited 1:1 mentorship and 24/7 feedback from your AI tutor through every lesson
+          - text: Structured career support during and after the program
+          - text: Direct access to our network of 400+ hiring partners
         for_label: Spread it out
-        name: Monthly Plan
+        name: Secure Your Seat
         period: to start today
-        tag: 48 months
     section_id: pricing-event
     subtitle: Two ways to enroll. Same program, same mentors, same outcome. Choose what fits your finances right now.
     tech_icons:
@@ -294,52 +198,287 @@ sections:
     type: pricing
     variant: plan_cards
     version: "1.0"
-  - background: hsl(var(--primary))
-    form:
-      button_className: bg-white text-primary hover:bg-white/90 border-white
-      conversion_name: student_application
-      fields:
-        email:
-          placeholder: Your email address
-          required: true
-          visible: true
-        first_name:
-          placeholder: First name
-          required: true
-          visible: true
-        last_name:
-          placeholder: Last name
-          required: true
-          visible: true
-        phone:
-          placeholder: Phone number
-          required: true
-          visible: true
-        program:
-          default: ai-engineering
-          visible: false
-      submit_label: Reserve my seat
-      success:
-        message: You're in! Our admissions team will be in touch within minutes. Check your inbox.
-      terms_className: text-white/80
-      variant: stacked
-    section_id: register-event
-    subtitle: Just $500 to start today. Get access to your course material immediately. Your first monthly payment isn't due for 30 days.
-    title: The best time to start was yesterday. The next best time is right here, right now.
-    type: cta_banner
-    variant: form
+  - type: human_and_ai_duo
+    version: "1.0"
+    heading: Human and AI Support, So You Never Lose Momentum
+    description: Staying motivated is easy when everything clicks. It gets really hard when you hit a wall. AI Engineering pairs a real human mentor with your AI tutor, so you always have somewhere to turn to and no reason to stop.
+    bullet_groups:
+      - title: "Your expert mentor:"
+        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
+        bullets:
+          - text: A 1:1 session with a senior instructor, included in your enrollment
+          - text: Expert guidance tailored to you.
+          - text: Focused on your actual tasks, workflows, and goals
+          - text: Additional sessions available to book anytime, at extra cost
+      - title: "Your AI tutor:"
+        image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
+        bullets:
+          - text: Available 24/7 throughout the program
+          - text: Ask for help, feedback, or an explanation whenever you need it
+          - text: Your always-on tutor for all self-paced modules
+          - text: Adapts to your skill level and what you are working on
+    images:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina-brightened-1365x2048.webp
+        alt: "Image: valentina_brightened"
+        object_fit: cover
+        object_position: 40%20%
+        border_radius: 0.5rem
+        id: valentina-brightened-1365x2048
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536.webp
+        alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
+        object_fit: cover
+        object_position: 50%30%
+        border_radius: 0.5rem
+        id: chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
+        alt: Estudiante africana colaborando con su equipo
+        object_fit: cover
+        object_position: 70%15%
+        border_radius: 0.5rem
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74.webp
+        alt: Estudiante latina celebrando un logro
+        object_fit: cover
+        object_position: 50%30%
+        border_radius: 0.5rem
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
+    image_alt: Woman working on laptop in cafe
+    paddingY:
+      mobile: sm none
+      desktop: none
+    section_id: human_and_ai_duo-99s71d
+    marginY:
+      desktop: none md
+    background: hsl(var(--secondary))
+  - type: career_support_explain
+    version: v1.0
+    heading: How We Get You Hired. From First Day to Signed Offer.
+    description: A complete system that takes you from enrolled to employed. AI-optimized profiles, direct access to 400+ hiring partners, and 1:1 support that's with you beyond landing your first role.
+    background: hsl(var(--background))
+    tabs:
+      - tab_label: Job-Ready, Faster
+        layout: three_columns
+        col1_subtitle: Build a Recruiter-Ready Profile, Smarter.
+        col1_description: |-
+          Prepare for real hiring processes using a combination of AI tools and 1-on-1 coaching.
+          RigoBot reviews your resume and LinkedIn in real-time. Career mentors help you refine your story, portfolio, and interview performance for optimal impact.
+        col1_tagline: We'll help you create tailored job search materials
+        col1_boxes:
+          - icon: linkedin
+            text: LinkedIn
+          - icon: IconFileText
+            text: Resume
+          - icon: briefcase-business
+            text: Portfolio
+          - icon: IconMail
+            text: Cover letter
+        col2_heading: Career Strategy, Built Around You
+        col2_bullets:
+          - icon: IconRobot
+            text: 24/7 feedback from your AI tutor to audit your LinkedIn and resume
+          - icon: IconUsers
+            text: 1-on-1 career coaching and strategy sessions
+          - icon: IconMicrophone
+            text: Mock interviews and technical interview prep
+        col3_image_id: 4geeks_member
+        col3_object_fit: cover
+        col3_object_position: center
+      - tab_label: Real Hiring Access
+        layout: two_column_cards
+        title: Access the Hidden Job Market.
+        left_text: Once your profile is ready, visibility becomes the focus. We connect you directly with hiring partners and decision-makers. Your profile is shared with companies actively recruiting 4Geeks graduates, supported by a targeted networking strategy.
+        left_image_id: career_team_women
+        left_image_object_fit: cover
+        left_image_object_position: center
+        left_stat:
+          value: {{ global.number_of_hiring_partners_aprox | 250 }}+
+          label: companies in 4Geeks employer network
+        right_bullets:
+          - icon: IconUserPlus
+            text: Direct referrals to hiring partners
+          - icon: target
+            text: Curated job matches based on your profile
+          - icon: bot-message-square
+            text: Networking and recruiter conversation coaching
+        right_logos:
+          - image_id: logo_google
+            alt: Google
+          - image_id: logo_meta-761x243-q70
+            alt: Meta
+          - image_id: logo_microsoft
+            alt: Microsoft
+          - image_id: logo_uber
+            alt: Uber
+          - image_id: logo_ebay-400x160-q70
+            alt: eBay
+          - image_id: logo_kpmg
+            alt: KPMG
+      - tab_label: Proof That Converts
+        layout: text_and_image
+        title: Projects that Demonstrate Real Skill.
+        left_description: |-
+          Visibility gets attention. Proof closes the gap.
+          Graduate with a portfolio that shows what you can actually build. From hands-on projects to a capstone that solves real business problems, your work becomes clear evidence of your ability.
+        left_bullets:
+          - icon: briefcase-business
+            text: Industry-aligned, real-world projects
+          - icon: IconPresentation
+            text: A showcase-ready capstone project
+          - icon: github
+            text: GitHub optimization and professional code review
+        right_image_id: geekforce_valentina_ancieta
+        right_image_object_fit: cover
+        right_image_object_position: center
+      - tab_label: Your Best-Fit Role
+        layout: text_with_testimonials_carousel
+        title: Turn Your Background into an Advantage.
+        left_description: Your previous experience matters. We map your transferable skills, focus your search on the right roles, and when offers come, help you negotiate with confidence and choose the right one.
+        left_bullets:
+          - icon: IconTransfer
+            text: Transferable skills mapping
+          - icon: IconMap
+            text: Personalized career roadmap
+          - icon: IconCoin
+            text: Salary negotiation coaching
+          - icon: IconUsers
+            text: Ongoing alumni career support
+        testimonials:
+          - image_id: mailinh_tran
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: clark_university-500x156-q60
+            description: MaiLinh came to 4Geeks with an entrepreneurial vision and no technical background. Today she runs her own tech startup and leads a team of developers.
+            achievement: She launched her own business and is now hiring the talent she once wanted to become.
+          - image_id: martin_coimbra
+            image_object_fit: cover
+            image_object_position: center top
+            contributor_logos:
+              - image_id: logo_utec-545x305-q70
+            description: Martín joined the first program we launched together with UTEC and IDB. He landed a better-paying job, a career he is passionate about, and a whole new professional life.
+            achievement: His salary doubled. And he finally does work he loves.
+          - image_id: melanie_galaretto
+            image_object_fit: cover
+            image_object_position: center
+            contributor_logos:
+              - image_id: logo_utec-545x305-q70
+              - image_id: bid_logo
+            description: Melanie retrained as a software developer and now works remotely for a tech company, from home, in a career she chose.
+            achievement: Her salary doubled. And she works remotely, on her own terms.
+    section_id: career_support_explain-xpc3k2
+    maxWidth:
+      desktop: 6xl
+    marginY:
+      desktop: none
+  - card_color: bg-background
+    items:
+      - title: Full Time · Monday to Friday, immersive and fast, built for people who can go all in and finish sooner
+        value: 10am to 1pm EST
+      - title: Part Time · Monday to Thursday, built for people keeping their job while they train
+        value: 6pm to 9pm EST
+    section_id: schedule-event
+    subtitle: Live classes, real instructors, two schedules to choose from. Same curriculum either way.
+    title: Pick the schedule that fits your life
+    type: features_grid
+    variant: stats-cards
     version: "1.0"
     marginY:
-      desktop: md
-      mobile: sm
-    paddingY:
-      desktop: lg
       mobile: md
-  - copyright_text: 2026 4Geeks. All rights reserved.
-    section_id: footer-event
-    type: footer
+      desktop: none
+    paddingY:
+      mobile: md
+      desktop: none
+    background: hsl(var(--card))
+  - type: trust_cards
+    version: v1.0
+    title: Top rated across all major platforms.
+    items:
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+        rating: 4.9
+        review_count: 4.9 en Course Report
+        alt: Course Report logo
+        id: logo-course-report
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79.webp
+        rating: 4.8
+        review_count: 4.8 en Google
+        alt: "Image: google"
+        id: google-583x196-q79
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/CareerKarma_logo.png
+        rating: 4.9
+        review_count: 4.9 en Career Karma
+        alt: "Image: CareerKarma_logo"
+        id: careerkarma-logo
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 4.9 en SwitchUp
+    name: Default Trust Cards
+    description: Four review platform cards with ratings
+    section_id: trust_cards-jji04i
+    paddingY:
+      desktop: md lg
+    marginY:
+      desktop: md none
+    maxWidth:
+      desktop: 6xl
+    background: hsl(210 100% 50% / 0.05)
+    plans: null
+  - type: pricing
     version: "1.0"
+    variant: product
+    title: Tuition & Financing Options
+    subtitle: Investing in a new career matters. We make it easier with multiple ways to fund your enrollment.
+    discount_text: "Full Payment Discount: Save 10% with upfront payment."
+    financing_text: Secure your seat for just
+    financing_amount: $500
+    tech_icons:
+      - openai
+      - python
+      - react
+      - nodejs
+      - api
+      - brain
+      - robot
+      - settings
+    features_title: Choose the option that fits you best.
+    features:
+      - icon: IconCheck
+        text: Standard tuition is $15,999. Pay upfront and receive a 10% discount, or spread payments interest-free over 6 months.
+      - icon: IconCheck
+        text: Enroll with a Job Guarantee* for added confidence. Get hired within 9 months of graduation or your money back.&nbsp;<div>*Not available in all regions. <a href="https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf">Terms and conditions apply</a>.</div>
+      - icon: IconCheck
+        text: Finance your tuition in monthly installments, with term lengths of up to 48 months depending on your region.
+    cta:
+      text: See Enrollment Options
+      url: "#pricing-event"
+      variant: primary
+    section_id: pricing-oyjnax
+    marginY:
+      desktop: lg md
+    paddingY:
+      desktop: md
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - tampa-usa
+      - orlando-usa
+      - toronto-canada
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
+      - mexicocity-mexico
+    background: hsl(var(--card))
 meta:
   description: Design, ship, and deploy real AI systems and agents. See the curriculum, schedules, and enrollment options — start today for just $500.
   page_title: AI Engineering Program | 4Geeks Academy Event
-  robots: noindex, follow
