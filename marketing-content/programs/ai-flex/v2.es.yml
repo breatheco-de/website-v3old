@@ -214,112 +214,53 @@ sections:
     paddingY:
       desktop: md sm
     section_id: ai_learning-d34ymi
-  - type: survey
-    version: v1.0
-    variant: default
-    aggregation_method: sum
-    infinite_progress_bar: false
-    badge_text: Construye tu ruta
-    title: Tu plan de estudios en IA,
-    title_highlight: diseñado para ti.
-    subtitle: Unas pocas preguntas. Sin compromiso. Mapeamos los cursos exactos que necesitas.
-    icon: 4GeeksAvatar
-    back_label: Atrás
-    restart_label: Empezar de nuevo
-    step_label: Pregunta
-    step_of_label: de
-    max_questions: 4
-    alternate_link:
-      label: Explorar el catálogo en su lugar
-      url: inline#ai-flex-path-ai-first
-    questions:
-      - text: ¿Cuál es tu objetivo principal ahora mismo?
-        options:
-          - label: Usar IA para ser más productivo en mi trabajo actual
-            value: 0
-            action:
-              next_question: 2
-          - label: Automatizar tareas repetitivas sin escribir código
-            value: 3
-            action:
-              next_question: 2
-          - label: Construir apps o proyectos técnicos con IA
-            value: 6
-            action:
-              next_question: 2
-          - label: Trabajar con datos, analítica o machine learning
-            value: 10
-            action:
-              next_question: 2
-      - text: ¿Qué tan cómodo te sientes programando?
-        options:
-          - label: Sin experiencia — y prefiero que siga así
-            value: 0
-            action:
-              next_question: 3
-          - label: Sin experiencia — pero estoy abierto a lo básico
-            value: 2
-            action:
-              next_question: 3
-          - label: Algo de bases (scripts, hojas de cálculo, HTML)
-            value: 5
-            action:
-              next_question: 3
-          - label: Programo con regularidad
-            value: 8
-            action:
-              next_question: 3
-      - text: ¿Qué habilidad marcaría la mayor diferencia en tu trabajo ahora mismo?
-        options:
-          - label: Obtener resultados fiables y de calidad profesional con herramientas de IA
-            value: 0
-            action:
-              next_question: 4
-          - label: Configurar asistentes de IA para mis herramientas actuales
-            value: 1
-            action:
-              next_question: 4
-          - label: Construir automatizaciones que funcionen sin mí
-            value: 2
-            action:
-              next_question: 4
-          - label: Escribir código o construir software con IA
-            value: 5
-            action:
-              next_question: 4
-          - label: Analizar datos y tomar decisiones más inteligentes
-            value: 7
-            action:
-              next_question: 4
-      - text: ¿Cómo planeas usar lo que aprendas?
-        options:
-          - label: Mejorar en lo que ya hago
-            value: 0
-          - label: Explorar — aún no estoy seguro
-            value: 1
-          - label: Añadir una nueva capacidad a mi rol actual
-            value: 2
-          - label: Prepararme para un cambio de carrera hacia tech
-            value: 4
-    routes:
-      thresholds:
-        - until: 5
-          url: inline#ai-flex-path-ai-first
-        - until: 11
-          url: inline#ai-flex-path-builder
-        - until: 20
-          url: inline#ai-flex-path-career-switcher
-        - until: 29
-          url: inline#ai-flex-path-data-driven-analyst
-      fallback:
-        url: inline#ai-flex-path-data-driven-analyst
-    maxWidth:
-      desktop: xl
-    section_id: survey-g6wkjo
+  - type: testimonials
+    section_id: testimonials-ghxelh
+    title: Las personas detrás de los números.
+    subtitle: Distintos puntos de partida. Mismo resultado. Mas productividad, mas eficiencia y hoas recuperadas.
+    rating_summary:
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 700 }}
+    items:
+      - name: Valeria Hernández
+        role: Estratega de Contenido y Mamá
+        rating: 5
+        comment: Como mamá de dos niños pequeños que vuelve al trabajo tras el embarazo, mi tiempo vale oro. Este curso me permitió automatizar el registro de clientes y la planificación de contenidos. Ahora, mi asistente de IA se encarga del trabajo aburrido detrás de escena para poder hacer crecer mi negocio sin sacrificar tiempo en familia.
+        outcome: Equilibrio entre carrera y familia
+      - name: Mateo Pérez
+        role: Especialista de Ventas
+        rating: 5
+        comment: Sinceramente, sentía que todos en mi equipo de ventas iban más rápido que yo, cerrando tratos mientras yo me ahogaba en papeleo. Investigué sobre 4Geeks, hice este curso y cambió las reglas del juego. Integrar la IA en mi rutina diaria redujo a la mitad mi tiempo de prospección y me convirtió en el más eficiente de la oficina.
+        outcome: Líder en ventas del equipo
+      - name: Carlos Del Valle
+        role: Especialista en Marketing
+        rating: 5
+        comment: Un cambio total. Logré conectar OpenClaw directo a mi Slack y ahora mi asistente privado filtra clientes potenciales y redacta mis reportes semanales. Recuperé un día entero de mi semana.
+        outcome: Más de 12 horas ahorradas por semana
+      - name: Amanda Noguera
+        role: Coordinadora de Operaciones
+        rating: 5
+        comment: Me aterraba que n8n fuera demasiado técnico para mí, pero el paso a paso es a prueba de errores. En la semana 4, ya tenía un flujo de trabajo autónomo gestionando datos de clientes detrás de escena. Es el fin de las tareas repetitivas.
+        outcome: Jornada laboral reducida a la mitad
+      - name: Tomás Gonzalez
+        role: Agente Inmobiliario
+        rating: 4
+        comment: El contenido es oro puro y OpenClaw funciona de maravilla para organizar archivos de clientes, pero la semana 3 es superintensa porque debes configurar el software de forma local. Me tomó un par de intentos sincronizar todo bien, pero el soporte técnico me ayudó.
+        outcome: Gestión de clientes automatizada
+      - name: Jésica
+        role: Fundadora
+        rating: 5
+        comment: El Proyecto Final pagó el costo de todo el curso. Lancé un sistema de soporte autónomo totalmente funcional que toma decisiones inteligentes 24/7 usando n8n e IA. Por fin soy libre de mi bandeja de entrada de correos.
+        outcome: Negocio automatizado
+      - name: Marcos Vance
+        role: Coordinador de Reclutamiento
+        rating: 4
+        comment: Increíble para crear flujos de trabajo que de verdad filtran candidatos en vez de solo generar texto genérico con IA. Le doy 4 estrellas solo porque la semana 4 va volando; tuve que volver a ver los videos de n8n varias veces para ponerme al día.
+        outcome: Experto en filtrado de candidatos
     paddingY:
-      desktop: sm
-    image_id: rigobot-png
-    background: linear-gradient(to bottom, hsl(210 100% 50% / 0.05), transparent)
+      desktop: md lg
+    marginY:
+      desktop: none
   - type: ai_flex_path
     version: v1.0
     variant: course_color_selector
