@@ -150,21 +150,17 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: ¿AI Flex es para ti?
-    description: Si te identificas con alguno de estos puntos, este programa está hecho para ti.
+    heading: "Este programa es para ti si:"
+    description: null
     cards:
-      - icon: IconRocket
-        title: Quieres desarrollar habilidades reales en IA, a tu ritmo.
-        description: Sin cohorte, sin horario fijo, sin presión por seguir el ritmo de nadie más que el tuyo.
       - icon: IconBulb
-        title: Eres un aprendiz autodidacta y la IA es el espacio más interesante en el que estar ahora mismo.
-        description: Ocho cursos, elige lo que te atrae, profundiza todo lo que quieras.
-      - icon: IconUserCheck
-        title: Cuando te atasques, un experto humano está a un mensaje de distancia.
-        description: Mentoría 1:1 opcional, disponible cuando la necesites.
+        title: La IA evoluciona cada mes y tú quieres estar siempre al día.
+      - icon: IconRocket
+        title: Odias los horarios fijos y prefieres aprender a tu propio ritmo.
       - icon: book-open-check
-        title: Aprende directamente en nuestra plataforma interactiva desde tu navegador. Sin configuración, sin instalaciones.
-        description: Ejercicios interactivos autoevaluados con un tutor de IA que trabaja contigo 24/7. Solo abre y empieza.
+        title: Quieres explorar antes de comprometerte con un solo camino.
+      - icon: IconUserCheck
+        title: No sabes por dónde empezar con la IA, y no quieres perder tiempo decidiendo.
     background: hsl(var(--muted))
     section_id: features_quad-aiflex
     marginY:
