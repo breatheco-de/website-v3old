@@ -147,10 +147,11 @@ sections:
           variant: primary
         currency: $
         features:
-          - text: Full AI Engineering program, start to finish
-          - text: Locks in your seat for the next cohort
-          - text: No interest, no monthly payments to track
-          - text: Same mentorship and career support as any plan
+          - text: "Full AI Engineering program: 24 weeks, live classes taught by real instructors"
+          - text: Unlimited 1:1 mentorship for life, no cap on sessions
+          - text: 24/7 AI feedback from Rigobot on every project you submit
+          - text: Certificate accredited by the Florida Department of Education
+          - text: Direct access to our network of 400+ hiring partners
         for_label: Full AI Engineering program
         name: Pay in Full
         period: ""
@@ -166,9 +167,10 @@ sections:
         featured: true
         features:
           - text: $500 today reserves your seat, access starts immediately
-          - text: First monthly payment isn't due for 30 days
-          - text: Same curriculum, mentors, and projects
-          - text: Same mentorship and career support as any plan
+          - text: First monthly payment isn't due for 30 days, then $399 or less per month
+          - text: Unlimited 1:1 mentorship and 24/7 AI feedback from Rigobot, same as any plan
+          - text: Certificate accredited by the Florida Department of Education
+          - text: Direct access to our network of 400+ hiring partners
         for_label: Spread it out
         name: Monthly Plan
         period: to start today
