@@ -36,7 +36,7 @@ sections:
             url: https://4geeks.com/checkout?plan=ai-engineering&cohort={qs:cohort|sept-2026}
             variant: primary
           trust_note:
-            initials: EA
+            initials: null
             message: <span class="font-semibold text-foreground">An admissions advisor will call you within 24 hours</span> to finalize enrollment, walk you through financing, and answer any questions.
         benefits:
           - title: Immediate access to 4Geeks.com + prework
