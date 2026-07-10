@@ -93,7 +93,7 @@ sections:
               value: $75/mo
           cta:
             text: Secure My Seat
-            url: https://4geeks.com/checkout?cohort={qs:cohort|fluency-sept-2026}
+            url: https://4geeks.com/checkout?plan=ai-fluency&cohort={qs:cohort|fluency-sept-2026}
             variant: primary
           trust_note:
             initials: 4G
@@ -114,11 +114,23 @@ sections:
           - text: Build AI from day one — Create your first coding agents with hands-on projects.
           - text: 24/7 AI Mentor Support — Get access to Rigobot, ready to answer questions, guide you through challenges, and help you build your projects anytime.
         dates:
-          mode: interval
-          start_date_iso: "2026-09-08"
-          interval: 6
-          interval_unit: weeks
-          url: "?cohort=1"
+          mode: static
+          items:
+            - date_iso: "2026-09-08"
+              tags:
+                - text: 4 seats left
+                  color: ""
+              badges:
+                - text: 4 seats left
+                  icon: IconUsers
+                  color: hsl(var(--destructive) / 0.5)
+              url: "?cohort=1536"
+            - date_iso: "2026-30-07"
+              url: "?cohort=1706"
+            - date_iso: "2026-10-09"
+              url: "?cohort=1770"
+            - date_iso: "2026-22-10"
+              url: "?cohort=1771"
       - id: ai-flex
         description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
         selection_card:
