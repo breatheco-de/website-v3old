@@ -228,7 +228,7 @@ sections:
       - name: Git
         icon: git
     module_cards:
-      - title: Understanding AI Basics
+      - title: How AI Really Works
         duration: Week 1
         objectives:
           - What LLMs are and how they work
@@ -249,7 +249,7 @@ sections:
         projects: Upgrade your week 1 prompts into advanced, reusable templates and write your first 3-5 prompts for real tasks you do every week.
         orientation: vertical
         icon: IconCode
-      - title: Get Your Personal AI Assistant
+      - title: Your Personal AI Assistant
         duration: Week 3
         objectives:
           - What AI agents are and how skills work
@@ -259,7 +259,7 @@ sections:
         projects: Install and configure OpenClaw, the fastest-growing open-source AI agent on GitHub, and build custom skills that handle your tasks autonomously, whether you're at your desk or not.
         orientation: vertical
         icon: IconRobot
-      - title: Automated Workflows with n8n
+      - title: Automation Pipelines with n8n
         duration: Week 4
         objectives:
           - "n8n fundamentals: nodes, triggers, and workflows"
@@ -269,13 +269,19 @@ sections:
         projects: Connect your Gmail, Slack, Google Sheets, and n8n to a live automation with built-in decision-making. Watch your first fully autonomous workflow run without you lifting a finger.
         orientation: vertical
         icon: IconLayoutKanban
-      - title: Your Fully AI-Automated Workflow
+      - title: Your AI-Automated Workflow
         duration: Capstone Project
         objectives:
           - A live n8n automation solving a real personal or professional task
           - At least one AI decision-making step integrated into the workflow
           - Live demo presented to instructor and peers
-        projects: Deliver a fully functional AI automation that makes you faster and more productive at your actual
+        projects: Deliver a fully functional AI automation that makes you faster and more productive at your actual job. The proof that you know how to leverage AI to stay ahead in your field.
+        orientation: horizontal
+        icon: IconChartBar
+    marginY:
+      desktop: md
+    paddingY:
+      desktop: lg
     section_id: syllabus-aifluency
   - type: trust_cards
     version: v1.0
