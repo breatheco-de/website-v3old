@@ -50,7 +50,7 @@ sections:
       description: A structured 4-week program that transforms how you work through AI, with live classes, 1:1 mentorship, and AI-powered feedback 24/7.
       cta_button:
         text: Get Started
-        url: "#modal-y2myvq"
+        url: /en/payment-component
         variant: primary
       login_link:
         text: Already a student? Login here.
