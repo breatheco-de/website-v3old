@@ -76,7 +76,7 @@ sections:
         selection_card:
           name: AI Fluency
           duration: 4 weeks
-          badge: Career Transition
+          badge: Upskilling
           icon: IconBrain
         summary:
           price_label: Pay today
