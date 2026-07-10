@@ -379,19 +379,20 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Secure your spot today. Don't miss the opportunity.
+        text: Secure your spot. Next cohorts start July 15 and August 26.
       - icon: IconCheck
         text: Spread your payments with 2 interest-free installments through 4Geeks.
       - icon: IconCheck
         text: One 1:1 mentorship session included. Add more at any time for $25 each.
     footer: UPCOMING COHORTS
     footer_badges:
-      - label: July 15, 2026
+      - label: Feb 3, 2025
         tag: Filling fast
-      - label: August 26, 2026
+      - label: Mar 10, 2025
+      - label: Apr 7, 2025
     cta:
       text: Enroll Now
-      url: https://4geeks.com/checkout?plan=ai-fluency&cohort=1706
+      url: /en/payment-component
       variant: primary
     section_id: pricing-aifluency-latam
     marginY:
@@ -435,10 +436,9 @@ sections:
         text: One 1:1 mentorship session included. Add more at any time for $25 each.
     footer: UPCOMING COHORTS
     footer_badges:
-      - label: Feb 3, 2025
+      - label: July 15, 2026
         tag: Filling fast
-      - label: Mar 10, 2025
-      - label: Apr 7, 2025
+      - label: August 26, 2026
     cta:
       text: Enroll Now
       url: {{ global.ai_fluency_url | https://4geeks.com/checkout?plan=ai-fluency&cohort=1706 }}
