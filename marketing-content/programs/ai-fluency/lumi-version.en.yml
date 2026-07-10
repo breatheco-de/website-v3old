@@ -26,8 +26,8 @@ sections:
       color: primary
       background: hsl(var(--primary))
       text_color: hsl(var(--primary-foreground))
-    title: AI Fluency. The AI Skills That Make You Irreplaceable.
-    title_highlight: The AI Skills That Make You Irreplaceable.
+    title: The AI Skills That Make You Irreplaceable. 4 Weeks.
+    title_highlight: 4 Weeks.
     subtitle: In 4 weeks, you'll build AI workflows around your actual job, automate your most repetitive work, and achieve more while working less. No coding required. Includes 1:1 mentorship, live sessions, and a 24/7 AI tutor.
     students_enrolled:
       avatars:
