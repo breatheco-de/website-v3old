@@ -524,7 +524,7 @@ sections:
           icon: IconBrain
         summary:
           price_label: Pay today
-          price_amount: 810€
+          price_amount: $400
           price_sub: Get 10% off
           rows:
             - label: Program
@@ -532,9 +532,9 @@ sections:
             - label: Start date
               show_dynamic_date: true
             - label: Total program fee
-              value: 900€
+              value: $500
             - label: Financing from
-              value: 450€/mo for 2 months
+              value: $250/mo for 2 months
           cta:
             text: Secure My Seat
             url: https://4geeks.com/checkout?cohort={qs:cohort|fluency-sept-2026}
