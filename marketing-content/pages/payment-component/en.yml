@@ -716,5 +716,6 @@ sections:
       - caracas-venezuela
       - buenosaires-argentina
       - bogota-colombia
+      - santiago-chile
 meta:
   page_title: payment component
