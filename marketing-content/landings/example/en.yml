@@ -309,7 +309,7 @@ sections:
             - label: Total program fee
               value: 900€
             - label: Financing from
-              value: 450€/mo
+              value: 450€/mo for 2 months
           cta:
             text: Secure My Seat
             url: https://4geeks.com/checkout?cohort={qs:cohort|fluency-sept-2026}
@@ -327,7 +327,7 @@ sections:
           - title: Real-world projects
             desc: Graduate with deployed projects that demonstrate what you can actually build.
           - title: Flexible financing
-            desc: Flexible payment plans start at $75/month, or save 10% when you pay upfront.
+            desc: Flexible payment plans start at $450/month, or save 10% when you pay upfront.
         unlocks:
           - text: Access to AI tokens & completions — Everything you need to build, test, and ship your projects from day one.
           - text: Build AI from day one — Create your first coding agents with hands-on projects.
@@ -409,7 +409,7 @@ sections:
                 - label: Total
                   value: $900/yr
                 - label: Financing from
-                  value: Plans from $75/mo
+                  value: 450€/mom for 2 months
               cta:
                 text: Start Now
                 url: https://4geeks.com/checkout?plan=pro
