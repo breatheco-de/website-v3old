@@ -340,7 +340,7 @@ sections:
         summary:
           cta:
             text: Asegura Mi Cupo
-            url: https://4geeks.com/checkout?cohort={qs:cohort|fluency-sept-2026}
+            url: https://4geeks.com/checkout?plan=ai-fluency-ue&cohort={qs:cohort|fluency-sept-2026}
             variant: primary
           price_amount: 810€
           price_label: Paga hoy
