@@ -26,7 +26,7 @@ sections:
       color: primary
       background: hsl(var(--primary))
       text_color: hsl(var(--primary-foreground))
-    title: Todos usan IA, pocos la Dominan. Multiplica tu productividad en solo 28 días.
+    title: Todos usan IA, pocos la dominan. Multiplica tu productividad en solo 28 días.
     title_highlight: Multiplica tu productividad en solo 28 días.
     subtitle: En solo 4 semanas aprenderás desde cero a construir automatizaciones con IA que reducirán tu tiempo de trabajo entre 5 y 7 horas semanales. Eliminarás tus tareas más repetitivas y tendrás un asistente de IA trabajando para ti todos los días. Sin códigos ni programación.
     students_enrolled:
@@ -39,7 +39,7 @@ sections:
     bullet_points:
       - Aprende IA en 4 semanas sin conocimientos previos.
       - Ahorra de 5 a 7 horas semanales de trabajo repetitivo usando IA y N8N.
-      - Se tan productivo como un equipo entero gracias a la IA. Genera reportes, estudia datos y automatiza procesos.
+      - Sé tan productivo como un equipo entero gracias a la IA. Genera reportes, estudia datos y automatiza procesos.
       - Obtén un certificado reconocido por empleadores en todo el mundo.
     tutors:
       - name: Juan Luis Guera
@@ -51,7 +51,7 @@ sections:
     tutors_label: "Tus tutores:"
     signup_card:
       title: Lo que incluye el curso
-      description: Un programa estructurado de 4 semanas que te permitirá ser mas productivo en tu trabajo actual, con clases en vivo, mentorías y retroalimentación con IA las 24h.
+      description: Un programa estructurado de 4 semanas que te permitirá ser más productivo en tu trabajo actual, con clases en vivo, mentorías y retroalimentación con IA las 24h.
       cta_button:
         text: Empieza ahora
         url: "#modal-y2myvq"
@@ -101,7 +101,7 @@ sections:
         logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70.webp
         logoHeight: 64px
       - id: premios-tecnologia
-        alt: Premios Tecnologia Siglo XXI
+        alt: Premios Tecnología Siglo XXI
         logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
         logoHeight: 64px
       - id: newsweek
@@ -208,7 +208,7 @@ sections:
         rating: 5
         comment: Me aterraba que n8n fuera demasiado técnico para mí, pero el paso a paso es a prueba de errores. En la semana 4, ya tenía un flujo de trabajo autónomo gestionando datos de clientes detrás de escena. Es el fin de las tareas repetitivas.
         outcome: Jornada laboral reducida a la mitad
-      - name: Tomás Gonzalez
+      - name: Tomás González
         role: Agente Inmobiliario
         rating: 4
         comment: El contenido es oro puro y OpenClaw funciona de maravilla para organizar archivos de clientes, pero la semana 3 es superintensa porque debes configurar el software de forma local. Me tomó un par de intentos sincronizar todo bien, pero el soporte técnico me ayudó.
@@ -239,7 +239,7 @@ sections:
       - name: Git
         icon: git
     module_cards:
-      - title: Aprende IA desde la Base
+      - title: Aprende IA desde la base
         duration: Semana 1
         objectives:
           - Qué son los LLMs y cómo funcionan
@@ -270,14 +270,14 @@ sections:
         projects: Haz que la IA trabaje por ti. Conectarás a la IA con tu espacio de trabajo (Drive, Notion, Gmail) para crear un flujo de trabajo.
         orientation: vertical
         icon: IconRobot
-      - title: Automatiza tus procesos con N8N
+      - title: Automatiza tus procesos con n8n
         duration: Semana 4
         objectives:
           - "Fundamentos de n8n: nodos, disparadores y flujos de trabajo"
           - Conexión de n8n con Gmail, Slack, Google Sheets y webhooks
           - Integración de n8n con un agente de IA para pasos de toma de decisiones inteligentes
           - "Preparación del proyecto final: mapea y construye tu automatización"
-        projects: Automatiza tareas repetitivas de tu trabajo con N8N, conecta tu correo electrónico, hojas de cálculo y google drive para que tu rutina diaria se ejecute en piloto automático.
+        projects: Automatiza tareas repetitivas de tu trabajo con n8n, conecta tu correo electrónico, hojas de cálculo y google drive para que tu rutina diaria se ejecute en piloto automático.
         orientation: vertical
         icon: IconLayoutKanban
       - title: Flujo de trabajo automatizado con IA
