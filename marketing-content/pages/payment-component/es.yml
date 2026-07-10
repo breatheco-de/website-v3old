@@ -3,11 +3,11 @@ sections:
   - type: enrollment_selector
     version: v1.0
     variant: default
-    eyebrow: Enrollment · Apply now
-    title: "Reserve your seat.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Start learning</span></span> today.</span>"
-    choose_program_label: Choose your program
-    choose_date_label: Choose your start date
-    included_label: What's included
+    eyebrow: Inscripción · Aplica ahora
+    title: "Reserva tu cupo.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Empieza a aprender</span></span> hoy.</span>"
+    choose_program_label: Elige tu programa
+    choose_date_label: Elige tu fecha de inicio
+    included_label: Qué incluye
     programs:
       - id: ai-engineering
         description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
@@ -237,11 +237,11 @@ sections:
   - type: enrollment_selector
     version: v1.0
     variant: default
-    eyebrow: Enrollment · Apply now
-    title: "Reserve your seat.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Start learning</span></span> today.</span>"
-    choose_program_label: Choose your program
-    choose_date_label: Choose your start date
-    included_label: What's included
+    eyebrow: Inscripción · Aplica ahora
+    title: "Reserva tu cupo.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Empieza a aprender</span></span> hoy.</span>"
+    choose_program_label: Elige tu programa
+    choose_date_label: Elige tu fecha de inicio
+    included_label: Qué incluye
     programs:
       - id: ai-engineering
         description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
@@ -467,11 +467,11 @@ sections:
   - type: enrollment_selector
     version: v1.0
     variant: default
-    eyebrow: Enrollment · Apply now
-    title: "Reserve your seat.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Start learning</span></span> today.</span>"
-    choose_program_label: Choose your program
-    choose_date_label: Choose your start date
-    included_label: What's included
+    eyebrow: Inscripción · Aplica ahora
+    title: "Reserva tu cupo.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Empieza a aprender</span></span> hoy.</span>"
+    choose_program_label: Elige tu programa
+    choose_date_label: Elige tu fecha de inicio
+    included_label: Qué incluye
     programs:
       - id: ai-engineering
         description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
