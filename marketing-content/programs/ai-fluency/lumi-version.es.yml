@@ -175,7 +175,7 @@ sections:
       end_label: 7x · 2026
     section_id: features_grid-aifluency
     paddingY:
-      desktop: none lg
+      desktop: sm lg
     marginY:
       desktop: lg md
   - type: testimonials
