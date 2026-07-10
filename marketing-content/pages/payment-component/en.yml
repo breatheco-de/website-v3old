@@ -125,11 +125,11 @@ sections:
                   icon: IconUsers
                   color: hsl(var(--destructive) / 0.5)
               url: "?cohort=1536"
-            - date_iso: "2026-30-07"
+            - date_iso: "2026-07-30"
               url: "?cohort=1706"
-            - date_iso: "2026-10-09"
+            - date_iso: "2026-09-10"
               url: "?cohort=1770"
-            - date_iso: "2026-22-10"
+            - date_iso: "2026-10-22"
               url: "?cohort=1771"
       - id: ai-flex
         description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
