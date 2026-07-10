@@ -36,7 +36,6 @@ sections:
             url: https://4geeks.com/checkout?plan=ai-engineering&cohort={qs:cohort|sept-2026}
             variant: primary
           trust_note:
-            initials: null
             message: <span class="font-semibold text-foreground">An admissions advisor will call you within 24 hours</span> to finalize enrollment, walk you through financing, and answer any questions.
         benefits:
           - title: Immediate access to 4Geeks.com + prework
@@ -92,7 +91,7 @@ sections:
             url: https://4geeks.com/checkout?cohort={qs:cohort|fluency-sept-2026}
             variant: primary
           trust_note:
-            initials: EA
+            initials: 4G
             message: <span class="font-semibold text-foreground">An admissions advisor will call you within 24 hours</span> to finalize enrollment, walk you through financing, and answer any questions.
         benefits:
           - title: Immediate access to 4Geeks.com + prework
@@ -148,7 +147,7 @@ sections:
                 url: https://4geeks.com/checkout?plan=basic
                 variant: primary
               trust_note:
-                initials: EA
+                initials: 4G
                 message: <span class="font-semibold text-foreground">Questions?</span> Our team is available Mon–Fri 9am–6pm ET.
             benefits:
               - title: Immediate access to full course catalog
@@ -189,7 +188,7 @@ sections:
                 url: https://4geeks.com/checkout?plan=pro
                 variant: primary
               trust_note:
-                initials: EA
+                initials: 4G
                 message: <span class="font-semibold text-foreground">Questions?</span> Our team is available Mon–Fri 9am–6pm ET.
             benefits:
               - title: Full catalog + all premium courses
