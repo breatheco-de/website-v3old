@@ -35,8 +35,9 @@ sections:
             text: Secure My Seat
             url: https://4geeks.com/checkout?plan=ai-engineering&cohort={qs:cohort|sept-2026}
             variant: primary
-          trust_note:
-            message: <span class="font-semibold text-foreground">An admissions advisor will call you within 24 hours</span> to finalize enrollment, walk you through financing, and answer any questions.
+          trust_note: null
+          initials: 4G
+          message: <span class="font-semibold text-foreground">An admissions advisor will call you within 24 hours</span> to finalize enrollment, walk you through financing, and answer any questions.
         benefits:
           - title: Immediate access to 4Geeks.com + prework
             desc: Your account activates the moment you pay. Start Foundations right away — Git, JavaScript basics, YAML & JSON, internet fundamentals, and your first coding agents.
