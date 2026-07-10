@@ -73,20 +73,18 @@ sections:
           badge: Career Transition
           icon: IconBrain
         summary:
-          price_label: Due today
-          price_amount: $250
-          price_sub: Applied toward your total tuition
+          price_label: Pay today
+          price_amount: $810
+          price_sub: Get 10% off
           rows:
             - label: Program
               show_dynamic_program: true
             - label: Start date
               show_dynamic_date: true
             - label: Total program fee
-              value: $8,999
+              value: $900
             - label: Financing from
-              value: Plans from $199/mo
-            - label: Job guarantee
-              value: Not included
+              value: $75/mo
           cta:
             text: Secure My Seat
             url: https://4geeks.com/checkout?cohort={qs:cohort|fluency-sept-2026}
