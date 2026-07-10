@@ -442,7 +442,18 @@ sections:
       desktop: sm
     maxWidth:
       desktop: xl
-    _imageSizes: {}
+    showOnLocations:
+      - barcelona-spain
+      - berlin-germany
+      - dublin-ireland
+      - hamburg-germany
+      - lisbon-portugal
+      - madrid-spain
+      - malaga-spain
+      - milan-italy
+      - munich-germany
+      - rome-italy
+      - valencia-spain
   - type: trust_cards
     version: v1.0
     title: Trusted by Students Worldwide
