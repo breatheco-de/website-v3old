@@ -255,7 +255,7 @@ sections:
             - label: Total program fee
               value: 15,999€
             - label: Financing from
-              value: Plans from 349€/mo
+              value: 349€/mo
           cta:
             text: Secure My Seat
             url: https://4geeks.com/checkout?plan=ai-engineering&cohort={qs:cohort|sept-2026}
@@ -409,7 +409,7 @@ sections:
                 - label: Total
                   value: $900/yr
                 - label: Financing from
-                  value: 450€/mom for 2 months
+                  value: 450€/mo for 2 months
               cta:
                 text: Start Now
                 url: https://4geeks.com/checkout?plan=pro
