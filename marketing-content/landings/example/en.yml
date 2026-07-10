@@ -5,12 +5,12 @@ sections:
     variant: default
     eyebrow: Enrollment · Apply now
     title: "Reserve your seat.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Start learning</span></span> today.</span>"
-    description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
     choose_program_label: Choose your program
     choose_date_label: Choose your start date
     included_label: What's included
     programs:
       - id: ai-engineering
+        description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
         selection_card:
           name: AI Engineering
           duration: 24 weeks
@@ -59,13 +59,20 @@ sections:
           mode: static
           items:
             - date_iso: "2026-09-08"
-              note: 4 seats, fast track
+              tags:
+                - text: 4 seats left
+                  color: ""
+              badges:
+                - text: 4 seats left
+                  icon: IconUsers
+                  color: hsl(var(--destructive) / 0.5)
               url: "?cohort=1536"
             - date_iso: "2026-10-13"
               url: "?cohort=1536"
             - date_iso: "2026-11-10"
               url: "?cohort=1536"
       - id: ai-fluency
+        description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
         selection_card:
           name: AI Fluency
           duration: 4 weeks
@@ -113,6 +120,7 @@ sections:
           interval_unit: weeks
           url: "?cohort=1"
       - id: ai-flex
+        description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
         selection_card:
           name: AI Flex
           duration: Self-paced
@@ -231,12 +239,12 @@ sections:
     variant: default
     eyebrow: Enrollment · Apply now
     title: "Reserve your seat.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Start learning</span></span> today.</span>"
-    description: Secure your seat in AI Engineering with a 250€ registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
     choose_program_label: Choose your program
     choose_date_label: Choose your start date
     included_label: What's included
     programs:
       - id: ai-engineering
+        description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
         selection_card:
           name: AI Engineering
           duration: 24 weeks
@@ -283,14 +291,18 @@ sections:
           mode: static
           items:
             - date_iso: "2026-09-08"
-              note: 4 seats, fast track
-              badge: 1
+              badges:
+                - text: 4 seats left
+                  color: destructive
+                - text: Fast track
+                  color: primary
               url: "?cohort=sept-2026"
             - date_iso: "2026-10-13"
               url: "?cohort=oct-2026"
             - date_iso: "2026-11-10"
               url: "?cohort=nov-2026"
       - id: ai-fluency
+        description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
         selection_card:
           name: AI Fluency
           duration: 4 weeks
@@ -338,6 +350,7 @@ sections:
           interval_unit: weeks
           url: "?cohort=1"
       - id: ai-flex
+        description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
         selection_card:
           name: AI Flex
           duration: Self-paced
@@ -456,12 +469,12 @@ sections:
     variant: default
     eyebrow: Enrollment · Apply now
     title: "Reserve your seat.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Start learning</span></span> today.</span>"
-    description: Secure your seat in AI Engineering with a $100 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
     choose_program_label: Choose your program
     choose_date_label: Choose your start date
     included_label: What's included
     programs:
       - id: ai-engineering
+        description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
         selection_card:
           name: AI Engineering
           duration: 24 weeks
@@ -510,13 +523,18 @@ sections:
           mode: static
           items:
             - date_iso: "2026-09-08"
-              note: 4 seats, fast track
+              badges:
+                - text: 4 seats left
+                  color: destructive
+                - text: Fast track
+                  color: primary
               url: "?cohort=1577"
             - date_iso: "2026-10-13"
               url: "?cohort=1577"
             - date_iso: "2026-11-10"
               url: "?cohort=1577"
       - id: ai-fluency
+        description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
         selection_card:
           name: AI Fluency
           duration: 4 weeks
@@ -564,6 +582,7 @@ sections:
           interval_unit: weeks
           url: "?cohort=1"
       - id: ai-flex
+        description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
         selection_card:
           name: AI Flex
           duration: Self-paced
@@ -681,12 +700,12 @@ sections:
     variant: default
     eyebrow: Enrollment · Apply now
     title: "Reserve your seat.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Start learning</span></span> today.</span>"
-    description: Secure your seat in AI Engineering with a CLP 100,000 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
     choose_program_label: Choose your program
     choose_date_label: Choose your start date
     included_label: What's included
     programs:
       - id: ai-engineering
+        description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
         selection_card:
           name: AI Engineering
           duration: 24 weeks
@@ -735,13 +754,18 @@ sections:
           mode: static
           items:
             - date_iso: "2026-09-08"
-              note: 4 seats, fast track
+              badges:
+                - text: 4 seats left
+                  color: destructive
+                - text: Fast track
+                  color: primary
               url: "?cohort=1577"
             - date_iso: "2026-10-13"
               url: "?cohort=1577"
             - date_iso: "2026-11-10"
               url: "?cohort=1577"
       - id: ai-fluency
+        description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
         selection_card:
           name: AI Fluency
           duration: 4 weeks
@@ -789,6 +813,7 @@ sections:
           interval_unit: weeks
           url: "?cohort=1"
       - id: ai-flex
+        description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
         selection_card:
           name: AI Flex
           duration: Self-paced

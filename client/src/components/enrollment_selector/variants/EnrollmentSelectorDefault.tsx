@@ -7,6 +7,53 @@ import { useInternalNav } from "@/hooks/useInternalNav";
 import { IconChevronRight, IconCheck } from "@tabler/icons-react";
 import type { EnrollmentSelectorDefault, EnrollmentSelectorProgram } from "@shared/schema";
 import { addDays, addWeeks, addMonths } from "date-fns";
+import { resolveColorVar, hslColor } from "@/components/course_selector/shared";
+
+// ─── Date chip sub-components ─────────────────────────────────────────────────
+
+type DateChip = { text: string; color?: string };
+
+function asChipList(chips: unknown): DateChip[] {
+  return Array.isArray(chips) ? chips : [];
+}
+
+function selectionCardBadgeText(badge: unknown): string | null {
+  if (!badge) return null;
+  if (typeof badge === "string") return badge.trim() || null;
+  if (typeof badge === "object" && badge !== null && "text" in badge) {
+    const text = (badge as { text?: unknown }).text;
+    return typeof text === "string" && text.trim() ? text : null;
+  }
+  return null;
+}
+
+function DateBadgeItem({ text, color }: DateChip) {
+  const resolved = resolveColorVar(color);
+  return (
+    <span
+      className="inline-flex items-center justify-center self-center shrink-0 text-[10.5px] font-bold leading-none px-1.5 py-[3px] rounded-full whitespace-nowrap"
+      style={{
+        background: hslColor(resolved, 0.12),
+        color: hslColor(resolved, 1),
+      }}
+    >
+      {text}
+    </span>
+  );
+}
+
+function DateTagItem({ text, color }: DateChip) {
+  return (
+    <span
+      className="inline-flex items-center justify-center self-center shrink-0 text-[11.2px] font-medium leading-none py-0.5 whitespace-nowrap"
+      style={{
+        color: color ? hslColor(resolveColorVar(color), 1) : "hsl(var(--muted-foreground))",
+      }}
+    >
+      {text}
+    </span>
+  );
+}
 
 // ─── Date utils ───────────────────────────────────────────────────────────────
 
@@ -19,7 +66,8 @@ function advanceByInterval(d: Date, interval: number, unit: "days" | "weeks" | "
 type DisplayDate = {
   label: string;
   year: string;
-  note?: string;
+  badges: DateChip[];
+  tags: DateChip[];
   url?: string;
   date_iso: string;
 };
@@ -41,6 +89,8 @@ function generateIntervalDates(
     result.push({
       label: current.toLocaleDateString(undefined, { month: "long", day: "numeric" }),
       year: String(current.getFullYear()),
+      badges: [],
+      tags: [],
       url,
       date_iso: current.toISOString().slice(0, 10),
     });
@@ -110,7 +160,8 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
               day: "numeric",
             }),
           year: item.year ?? String(new Date(item.date_iso + "T00:00:00").getFullYear()),
-          note: item.note,
+          badges: asChipList(item.badges),
+          tags: asChipList(item.tags),
           url: item.url,
           date_iso: item.date_iso,
         }));
@@ -197,9 +248,9 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
             />
           </h1>
 
-          {data.description && (
+          {program.description && (
             <p className="text-[14px] text-muted-foreground leading-relaxed mb-9">
-              {data.description}
+              {program.description}
             </p>
           )}
 
@@ -218,6 +269,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                   const active = selectedProgramIdx === i;
                   const fid = `prog-${i}`;
                   const flashing = flashId === fid;
+                  const programBadge = selectionCardBadgeText(prog.selection_card.badge);
                   const ProgramIcon = prog.selection_card.icon
                     ? getIcon(prog.selection_card.icon)
                     : null;
@@ -249,18 +301,8 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                       </span>
                       <span className="flex items-center gap-1.5 text-[13px] text-muted-foreground flex-wrap">
                         {prog.selection_card.duration}
-                        {prog.selection_card.badge && (
-                          <span
-                            className="text-[9px] font-bold px-1.5 py-px rounded-full whitespace-nowrap transition-colors duration-200"
-                            style={{
-                              background: active
-                                ? "hsl(var(--primary) / 0.12)"
-                                : "hsl(var(--primary) / 0.08)",
-                              color: "hsl(var(--primary))",
-                            }}
-                          >
-                            {prog.selection_card.badge}
-                          </span>
+                        {programBadge && (
+                          <DateBadgeItem text={programBadge} color="primary" />
                         )}
                       </span>
                     </button>
@@ -302,9 +344,17 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                       >
                         {d.label}
                       </span>
-                      <span className="block text-[12px] font-medium text-muted-foreground">
-                        {d.note ?? "Open"}
-                      </span>
+                      {(d.badges.length > 0 || d.tags.length > 0) && (
+                        <div className="flex w-full flex-wrap items-center justify-center content-center gap-x-1 gap-y-0.5">
+                          {d.tags.map((tag, ti) => (
+                            <DateTagItem key={`tag-${ti}`} {...tag} />
+                          ))}
+                          {d.badges.map((badge, bi) => (
+                            <DateBadgeItem key={`badge-${bi}`} {...badge} />
+                          ))}
+
+                        </div>
+                      )}
                     </button>
                   );
                 })}
@@ -606,6 +656,7 @@ function ProgramFilteredHeader({ program }: { program: EnrollmentSelectorProgram
   const ProgramIcon = program.selection_card.icon
     ? getIcon(program.selection_card.icon)
     : null;
+  const programBadge = selectionCardBadgeText(program.selection_card.badge);
   return (
     <div className="flex items-start gap-3.5">
       {ProgramIcon && (
@@ -619,16 +670,8 @@ function ProgramFilteredHeader({ program }: { program: EnrollmentSelectorProgram
         </h2>
         <div className="flex flex-wrap items-center gap-2 text-[13px] text-muted-foreground">
           <span>{program.selection_card.duration}</span>
-          {program.selection_card.badge && (
-            <span
-              className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full tracking-wide"
-              style={{
-                background: "hsl(var(--primary) / 0.1)",
-                color: "hsl(var(--primary))",
-              }}
-            >
-              {program.selection_card.badge}
-            </span>
+          {programBadge && (
+            <DateBadgeItem text={programBadge} color="primary" />
           )}
         </div>
       </div>

@@ -46,11 +46,22 @@ const selectionCardSchema = z.object({
 
 // ─── Date configuration ────────────────────────────────────────────────────────
 
+const dateBadgeSchema = z.object({
+  text: z.string(),
+  color: z.string().optional(),
+});
+
+const dateTagSchema = z.object({
+  text: z.string(),
+  color: z.string().optional(),
+});
+
 const staticDateItemSchema = z.object({
   date_iso: z.string(),
   label: z.string().optional(),
   year: z.string().optional(),
-  note: z.string().optional(),
+  badges: z.array(dateBadgeSchema).optional(),
+  tags: z.array(dateTagSchema).optional(),
   /** Querystring-only URL like "?cohort=sept-2026" merged into the current page URL on click */
   url: z.string().optional(),
 });
@@ -95,6 +106,7 @@ export const enrollmentPlanSchema = z.object({
 
 export const enrollmentProgramSchema = z.object({
   id: z.string(),
+  description: z.string().optional(),
   selection_card: selectionCardSchema,
   summary: enrollmentSummarySchema,
   benefits: z.array(benefitSchema).default([]),
@@ -108,7 +120,6 @@ export const enrollmentProgramSchema = z.object({
 export const enrollmentSelectorDefaultSchema = z.object({
   eyebrow: z.string().optional(),
   title: z.string(),
-  description: z.string().optional(),
   choose_program_label: z.string().optional(),
   choose_date_label: z.string().optional(),
   choose_plan_label: z.string().optional(),
