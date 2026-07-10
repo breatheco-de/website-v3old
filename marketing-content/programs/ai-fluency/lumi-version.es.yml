@@ -537,6 +537,11 @@ sections:
       - rome-italy
     original_price: €900
     discount_badge: "-10%"
+    yearly:
+      discount_badge: 10% OFF
+      original_price: "900"
+      period: pago único
+      price: "810"
   - type: faq
     section_id: faq-f4yd0z
     title: Preguntas frecuentes
