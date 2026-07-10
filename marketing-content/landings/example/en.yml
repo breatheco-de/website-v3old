@@ -704,7 +704,7 @@ sections:
             - label: Total program fee from
               value: CLP 2,450,000
             - label: Financing from
-              value: CLP 450.000/mo
+              value: CLP 450,000/mo
             - label: Job guarantee
               value: Not included
           cta:
