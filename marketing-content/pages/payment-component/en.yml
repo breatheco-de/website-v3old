@@ -63,9 +63,11 @@ sections:
                 - text: Fast-Track
                   color: ""
               badges:
-                - text: 4 seats left
-                  icon: IconUsers
-                  color: hsl(var(--destructive) / 0.5)
+                badges:
+                  - text: 4 seats left
+                    color: destructive
+                  - text: Fast track
+                    color: primary
               url: "?cohort=1536"
             - date_iso: "2026-10-13"
               url: "?cohort=1536"
