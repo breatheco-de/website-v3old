@@ -697,3 +697,4 @@ sections:
       - bogota-colombia
 meta:
   page_title: payment component
+  robots: noindex
