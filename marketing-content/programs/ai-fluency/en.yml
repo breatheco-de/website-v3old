@@ -20,10 +20,10 @@ schema:
 sections:
   - type: hero
     version: "1.0"
-    variant: course
+    AI skills now carry a 56% salary premium across industries. In 4 weeks, you'll build AI workflows around your actual job, automate your most repetitive work, and achieve more while working less. No coding required. Includes 1:1 mentorship, live sessions, and a 24/7 AI tutorvariant: course
     title: AI Fluency. The AI Skills Your Job Already Expects.
     title_highlight: The AI Skills Your Job Already Expects.
-    subtitle: AI skills now carry a 56% salary premium. In 4 weeks, you'll learn to automate your work with AI, no coding required, building practical AI workflows around your actual job with AI agents that handle your repetitive tasks. Includes 1:1 mentorship, live sessions and a 24/7 AI tutor.
+    subtitle: AI skills now carry a 56% salary premium across industries. In 4 weeks, you'll build AI workflows around your actual job, automate your most repetitive work, and achieve more while working less. No coding required. Includes 1:1 mentorship, live sessions, and a 24/7 AI tutor.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
