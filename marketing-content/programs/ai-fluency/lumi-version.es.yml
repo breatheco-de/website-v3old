@@ -135,7 +135,7 @@ sections:
         title: Quieres exprimirle todo el potencial a la IA para ser más productivo.
       - icon: IconTrendingUp
         title: Sabes que dominar la IA te hará imprescindible en tu trabajo.
-    background: hsl(210 100% 50% / 0.05)
+    background: hsl(var(--secondary))
     section_id: features_quad-aifluency
     text_align: center
     marginY:
