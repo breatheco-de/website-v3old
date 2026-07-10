@@ -42,7 +42,7 @@ sections:
       - Sé tan productivo como un equipo entero gracias a la IA. Genera reportes, estudia datos y automatiza procesos.
       - Obtén un certificado reconocido por empleadores en todo el mundo.
     tutors:
-      - name: Juan Luis Guera
+      - name: Juan Luis Guerra
         role: Instructor Principal
         image: https://randomuser.me/api/portraits/men/10.jpg
       - name: Tutor con IA
@@ -213,7 +213,7 @@ sections:
         rating: 4
         comment: El contenido es oro puro y OpenClaw funciona de maravilla para organizar archivos de clientes, pero la semana 3 es superintensa porque debes configurar el software de forma local. Me tomó un par de intentos sincronizar todo bien, pero el soporte técnico me ayudó.
         outcome: Gestión de clientes automatizada
-      - name: Jésica
+      - name: Jessica
         role: Fundadora
         rating: 5
         comment: El Proyecto Final pagó el costo de todo el curso. Lancé un sistema de soporte autónomo totalmente funcional que toma decisiones inteligentes 24/7 usando n8n e IA. Por fin soy libre de mi bandeja de entrada de correos.
