@@ -557,11 +557,18 @@ sections:
           - desc: Planes de pago flexibles desde $250/mes, o ahorra 10% si pagas por adelantado.
             title: Financiamiento flexible
         dates:
-          interval: 6
-          interval_unit: weeks
-          mode: interval
-          start_date_iso: "2026-09-08"
-          url: "?cohort=1"
+          mode: static
+          items:
+            - date_iso: "2026-07-30"
+              badges:
+                - text: 2 seats left
+                  icon: IconUsers
+                  color: hsl(var(--destructive) / 0.5)
+              url: "?cohort=1772"
+            - date_iso: "2026-09-10"
+              url: "?cohort=1773"
+            - date_iso: "2026-10-22"
+              url: "?cohort=1774"
         description: Asegura tu cupo en AI Engineering, entra directo a tus clases con AI Fluency, o desbloquea todo nuestro catálogo con AI Flex. Completa tu pago para obtener acceso inmediato a 4Geeks.com.
         id: ai-fluency
         selection_card:
