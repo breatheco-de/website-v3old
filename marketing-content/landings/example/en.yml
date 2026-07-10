@@ -457,7 +457,7 @@ sections:
     variant: default
     eyebrow: Enrollment · Apply now
     title: "Reserve your seat.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Start learning</span></span> today.</span>"
-    description: Pay your $250 registration fee to lock in your spot. You'll get immediate access to 4Geeks.com and your prework — your admissions rep will reach out within 24 hours to finalize everything.
+    description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
     choose_program_label: Choose your program
     choose_date_label: Choose your start date
     included_label: What's included
