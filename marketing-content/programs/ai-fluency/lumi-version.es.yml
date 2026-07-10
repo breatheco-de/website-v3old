@@ -140,6 +140,8 @@ sections:
     text_align: center
     marginY:
       desktop: none xl
+    paddingY:
+      desktop: none sm
   - type: features_grid
     version: "1.0"
     variant: stats-charts
@@ -175,7 +177,7 @@ sections:
       end_label: 7x · 2026
     section_id: features_grid-aifluency
     paddingY:
-      desktop: sm lg
+      desktop: none lg
     marginY:
       desktop: lg md
   - type: testimonials
