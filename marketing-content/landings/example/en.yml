@@ -681,7 +681,7 @@ sections:
     variant: default
     eyebrow: Enrollment · Apply now
     title: "Reserve your seat.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Start learning</span></span> today.</span>"
-    description: Secure your seat in AI Engineering with a $100 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
+    description: Secure your seat in AI Engineering with a CLP 100,000 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
     choose_program_label: Choose your program
     choose_date_label: Choose your start date
     included_label: What's included
@@ -694,7 +694,7 @@ sections:
           icon: IconCode
         summary:
           price_label: Due today
-          price_amount: $100
+          price_amount: CLP 100,000
           price_sub: Applied toward your total tuition
           rows:
             - label: Program
@@ -702,9 +702,9 @@ sections:
             - label: Start date
               show_dynamic_date: true
             - label: Total program fee from
-              value: $2,700
+              value: CLP 2,450,000
             - label: Financing from
-              value: $458.33/mo
+              value: CLP 450.000/mo
             - label: Job guarantee
               value: Not included
           cta:
