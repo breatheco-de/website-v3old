@@ -54,7 +54,7 @@ sections:
       description: Un programa estructurado de 4 semanas que te permitirá ser más productivo en tu trabajo actual, con clases en vivo, mentorías y retroalimentación con IA las 24h.
       cta_button:
         text: Empieza ahora
-        url: "#modal-y2myvq"
+        url: https://4geeksacademy.com/es/payment-component?program=ai-fluency
         variant: primary
       login_link:
         text: ¿Ya eres estudiante? Inicia sesión aquí.
