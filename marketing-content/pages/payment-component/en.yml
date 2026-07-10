@@ -117,9 +117,6 @@ sections:
           mode: static
           items:
             - date_iso: "2026-09-08"
-              tags:
-                - text: 4 seats left
-                  color: ""
               badges:
                 - text: 4 seats left
                   icon: IconUsers
