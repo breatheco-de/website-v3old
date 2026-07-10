@@ -137,6 +137,7 @@ sections:
         title: Sabes que dominar la IA te hará imprescindible en tu trabajo.
     background: hsl(210 100% 50% / 0.05)
     section_id: features_quad-aifluency
+    text_align: center
     marginY:
       desktop: none xl
   - type: features_grid
