@@ -284,7 +284,7 @@ sections:
           - Una automatización en vivo en n8n que resuelve una tarea personal o profesional real
           - Al menos un paso de toma de decisiones con IA integrado en el flujo de trabajo
           - Demo en vivo presentada al instructor y a los compañeros
-        projects: Lanza una automatización totalmente funcional para tu trabajo real. Dominarás por completo la habilidad de crear flujos de trabajo automatizados que operan las 24 horas, los 7 días de la semana.
+        projects: ¡Llegó la hora de juntar todas las piezas! crea una gran automatización en n8n que conecte varias herramientas y que use inteligencia artificial para tomar decisiones. Crea un flujo de trabajo capaz de ejecutarse solo y de trabajar 24/7.
         orientation: horizontal
         icon: IconChartBar
     marginY:
