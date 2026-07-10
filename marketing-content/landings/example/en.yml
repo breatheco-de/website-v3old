@@ -121,7 +121,7 @@ sections:
           icon: IconAdjustmentsHorizontal
         plans:
           - id: basic
-            name: BasiC
+            name: Basic
             currency: $
             amount: "129"
             period: /month
@@ -189,16 +189,23 @@ sections:
                 initials: 4G
                 message: <span class="font-semibold text-foreground">Have questions?</span> Reach out to us at support@4geeksacademy.com.
             benefits:
-              - title: Full catalog + all premium courses
-                desc: Access everything including advanced AI engineering, system design, and specialization tracks.
-              - title: Unlimited 1-on-1 mentorship sessions
-                desc: Book as many sessions as you need with senior engineers and industry mentors — no caps.
-              - title: Priority support & cohort access
-                desc: Join live cohort sessions, get priority support from instructors, and access exclusive workshops.
+              - title: Immediate access to 4Geeks.com + full course catalog
+                desc: Your account activates the moment you enroll. Start learning immediately with courses on Prompt Engineering, AI Assistants, No-Code & Automations, and more—so you're ready to hit the ground running on day one.
+              - title: 2/mo 1:1 mentorship sessions
+                desc: Meet with senior engineers and industry mentors for personalized guidance on your learning, projects, and career.
+              - title: Everything you need to build with AI
+                desc: Get AI tokens, AI completions, GitHub Copilot, a dedicated VPS, and other premium tools—all included, so you can focus on building instead of paying for or setting up software.
+              - title: New AI courses every month
+                desc: Stay ahead with fresh courses and content released monthly, keeping you up to date as AI evolves.
+              - title: Certificates for every course
+                desc: Earn a certificate for every course you complete and showcase your growing AI expertise.
+              - title: Exclusive community events
+                desc: Join workshops, panel discussions, guest speaker sessions, hackathons, and networking events with industry professionals and fellow builders.
             unlocks:
-              - text: Unlimited mentorship with senior engineers — no caps, no waitlists.
-              - text: Access all premium courses including advanced AI engineering and specialization tracks.
-              - text: Priority support, live cohort sessions, and exclusive workshops included.
+              - text: 2 mentorship sessions per month for more personalized guidance and faster progress.
+              - text: 2 seats included — Learn with a friend or teammate, share the subscription cost, and each of you receives your own account and certificates.
+              - text: Double the AI credits — Get 2× the AI tokens, AI completions, and AI chats to build bigger projects without limits.
+              - text: Premium AI development tools — GitHub Copilot, dedicated VPS, and everything you need to create, test, and deploy AI applications.
     section_id: enrollment_selector-hmrgaw
     paddingY:
       desktop: sm
