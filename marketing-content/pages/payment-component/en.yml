@@ -10,7 +10,7 @@ sections:
     included_label: What's included
     programs:
       - id: ai-engineering
-        description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
+        description: Secure your seat in AI Engineering with a registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
         selection_card:
           name: AI Engineering
           duration: 24 weeks
