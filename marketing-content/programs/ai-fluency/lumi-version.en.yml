@@ -441,7 +441,7 @@ sections:
       - label: August 26, 2026
     cta:
       text: Enroll Now
-      url: {{ global.ai_fluency_url | https://4geeks.com/checkout?plan=ai-fluency&cohort=1706 }}
+      url: /en/payment-component
       variant: primary
     section_id: pricing-aifluency
     marginY:
