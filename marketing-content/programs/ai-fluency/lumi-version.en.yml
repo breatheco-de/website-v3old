@@ -21,7 +21,12 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: AI Fluency. The AI Skills That Make You Irreplaceable.
+    badge:
+      text: AI Fluency
+      color: primary
+      background: hsl(var(--primary))
+      text_color: hsl(var(--primary-foreground))
+    title: The AI Skills That Make You Irreplaceable. 4 Weeks.
     title_highlight: The AI Skills That Make You Irreplaceable.
     subtitle: In 4 weeks, you'll build AI workflows around your actual job, automate your most repetitive work, and achieve more while working less. No coding required. Includes 1:1 mentorship, live sessions, and a 24/7 AI tutor.
     students_enrolled:
@@ -30,7 +35,7 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
-      count: +8500 graduates
+      count: +6000 graduates
     bullet_points:
       - Earn up to 56% more. AI skills now carry the highest salary premium across every industry.
       - "Become as productive as an entire team: let AI handle reports, data, communication, and more."
