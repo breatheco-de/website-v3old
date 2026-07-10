@@ -253,11 +253,9 @@ sections:
             - label: Start date
               show_dynamic_date: true
             - label: Total program fee
-              value: $15,999
+              value: 15,999€
             - label: Financing from
-              value: Plans from $349/mo
-            - label: Job guarantee
-              value: Not included
+              value: Plans from 349€/mo
           cta:
             text: Secure My Seat
             url: https://4geeks.com/checkout?plan=ai-engineering&cohort={qs:cohort|sept-2026}
@@ -277,7 +275,7 @@ sections:
           - title: Alumni network — 8,500+ graduates
             desc: Instant access to a global community of working engineers. Referrals, connections, job leads.
           - title: Flexible financing
-            desc: Flexible payment plans starting at $349/month. Partner financing also available.
+            desc: Flexible payment plans starting at 349€/month. Partner financing also available.
         unlocks:
           - text: Master the fundamentals — Learn Git, JavaScript, YAML/JSON, and core web concepts.
           - text: Build AI from day one — Create your first coding agents with hands-on projects.
@@ -311,7 +309,7 @@ sections:
             - label: Total program fee
               value: 900€
             - label: Financing from
-              value: $75/mo
+              value: 450€/mo
           cta:
             text: Secure My Seat
             url: https://4geeks.com/checkout?cohort={qs:cohort|fluency-sept-2026}
