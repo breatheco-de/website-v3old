@@ -709,7 +709,7 @@ sections:
               value: Not included
           cta:
             text: Secure My Seat
-            url: https://4geeks.com/checkout?plan=prework-latam&cohort={qs:cohort|sept-2026}
+            url: https://4geeks.com/checkout?plan=pre-work-cl&cohort={qs:cohort|sept-2026}
             variant: primary
           trust_note:
             initials: 4G
@@ -736,7 +736,7 @@ sections:
           items:
             - date_iso: "2026-09-08"
               note: 4 seats, fast track
-              url: "?cohort=sept-2026"
+              url: "?cohort=1577"
             - date_iso: "2026-10-13"
               url: "?cohort=1577"
             - date_iso: "2026-11-10"
