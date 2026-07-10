@@ -429,6 +429,7 @@ sections:
       - claude
       - n8n
       - openclaw
+      - gmail
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
