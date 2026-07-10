@@ -149,15 +149,19 @@ sections:
                 message: <span class="font-semibold text-foreground">Have questions?</span> Reach out to us at support@4geeksacademy.com.
             benefits:
               - title: Immediate access to full course catalog
-                desc: Your account activates the moment you enroll. Start learning immediately.
-              - title: 1 monthly 1-on-1 mentorship session
-                desc: Meet with senior engineers and industry mentors for personalized guidance.
+                desc: Your account activates the moment you enroll. Start learning immediately with courses on Prompt Engineering, AI Assistants, No-Code & Automations, and more.
+              - title: 1 monthly 1:1 mentorship session
+                desc: Meet with senior engineers and industry mentors for personalized guidance on your learning.
               - title: Everything you need to build with AI
                 desc: AI tokens, AI completions, GitHub Copilot, a dedicated VPS, and more — all included.
+              - title: New AI courses every month
+                desc: Stay ahead with fresh courses and content released monthly, keeping you up to date as AI evolves.
+              - title: Certificates for every course
+                desc: Earn a certificate for every course you complete and showcase your growing AI expertise.
             unlocks:
               - text: 1 mentorship session per month with senior engineers and industry mentors.
               - text: Unlimited access to the full course catalog plus certificates for every course completed.
-              - text: Everything you need to build with AI — Includes AI tokens, AI completions, GitHub Copilot, a dedicated VPS.
+              - text: Everything you need to build with AI — Includes AI tokens, AI compilations, GitHub Copilot, a dedicated VPS.
           - id: pro
             name: Pro
             tagline: For up to 2 students
