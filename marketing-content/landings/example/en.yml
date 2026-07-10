@@ -892,17 +892,6 @@ sections:
       desktop: xl
     showOnLocations:
       - santiago-chile
-      - quito-ecuador
-      - panamacity-panama
-      - montevideo-uruguay
-      - mexicocity-mexico
-      - lima-peru
-      - lapaz-bolivia
-      - costa-rica
-      - caracas-venezuela
-      - buenosaires-argentina
-      - bogota-colombia
-    _imageSizes: {}
   - type: trust_cards
     version: v1.0
     title: Trusted by Students Worldwide
