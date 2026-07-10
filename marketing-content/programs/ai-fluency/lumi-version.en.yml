@@ -122,18 +122,18 @@ sections:
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: "This program is for you if:"
-    description: null
+    heading: Is This Program Right for You?
+    description: If you are nodding at any of these, you're exactly who this is built for.
     cards:
-      - icon: IconClock
-        title: You do repetitive tasks and know that AI could help you get them done faster.
-      - icon: IconCoin
-        title: You want to boost your salary by leveraging artificial intelligence.
       - icon: IconRocket
-        title: You're overwhelmed by the sheer number of AI tools and don't know which ones actually work for you.
+        title: You use AI tools but are not leveraging their full potential.
+      - icon: IconClock
+        title: Repetitive tasks are taking up your time and attention.
       - icon: IconTrendingUp
-        title: You know that falling behind on AI could cost you your job.
-    background: hsl(210 100% 50% / 0.05)
+        title: You know AI fluency is becoming a must-have to stay ahead in your career.
+      - icon: IconCoin
+        title: You want the salary premium that comes with real AI skills.
+    background: hsl(var(--muted))
     section_id: features_quad-aifluency
     marginY:
       desktop: none lg
