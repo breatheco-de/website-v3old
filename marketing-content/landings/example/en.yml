@@ -47,10 +47,14 @@ sections:
             desc: Join mentor-led group sessions every week to get guidance on projects, talk through blockers, and learn alongside your cohort.
           - title: Unlimited career support
             desc: Resume reviews, mock interviews, LinkedIn optimization, and job search coaching — for life, not just while enrolled.
+          - title: Alumni network — 8,500+ graduates
+            desc: Instant access to a global community of working engineers. Referrals, connections, job leads.
+          - title: Flexible financing
+            desc: Flexible payment plans starting at $349/month. Partner financing also available.
         unlocks:
           - text: Master the fundamentals — Learn Git, JavaScript, YAML/JSON, and core web concepts.
           - text: Build AI from day one — Create your first coding agents with hands-on projects.
-          - text: Learn with expert support — Get LMS & VPS access plus weekly live mentor sessions.
+          - text: Learn with expert support — Get LMS & VPS access plus weekly live classes and 1:1 mentorship sessions.
         dates:
           mode: static
           items:
