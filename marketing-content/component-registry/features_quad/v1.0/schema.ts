@@ -33,6 +33,7 @@ export const featureQuadSectionSchema = z.object({
   cards: z.array(featureQuadCardSchema).min(4).max(4).describe("Array of exactly 4 feature cards"),
   footer_description: z.string().optional().describe("Optional footer text (italic)"),
   background: z.string().optional().describe("Background CSS class (e.g., 'bg-muted/30')"),
+  text_align: z.enum(["left", "center"]).optional().describe("Alignment for heading + description: 'left' (default when both present) or 'center'"),
   video: videoConfigSchema.optional().describe("Video configuration - when provided, replaces images with video"),
   description_with_background: z.boolean().optional().describe("If true, the description and title will have a background color on carousel variant"),
   laptop_image: featureQuadLaptopImageSchema.optional().describe("Optional laptop image override for the laptopEdge variant"),

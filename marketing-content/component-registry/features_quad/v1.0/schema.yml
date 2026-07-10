@@ -47,6 +47,13 @@ props:
     type: string
     required: false
     description: Background CSS class (e.g., "bg-muted/30")
+  text_align:
+    type: string
+    required: false
+    description: >-
+      Alignment for the heading + description block. "left" (default when both
+      heading and description are present) or "center" to center them.
+    example: center
   video:
     type: string
     required: false

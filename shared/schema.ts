@@ -955,6 +955,7 @@ export const featureQuadSectionSchema = z.object({
   cards: z.array(featureQuadCardSchema),
   footer_description: z.string().optional(),
   background: z.string().optional(),
+  text_align: z.enum(["left", "center"]).optional(),
   description_with_background: z.boolean().optional(),
   // Video option - when provided, replaces images with video
   // Accepts either string URL (legacy) or full config object
