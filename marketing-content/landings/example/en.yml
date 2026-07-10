@@ -93,14 +93,16 @@ sections:
             initials: 4G
             message: <span class="font-semibold text-foreground">Have questions?</span> Reach out to us at support@4geeksacademy.com.
         benefits:
-          - title: Immediate access to 4Geeks.com + prework
+          - title: Immediate access to 4Geeks.com
             desc: Start learning AI fundamentals right away — prompting, agents, automation, and no-code tools.
-          - title: Weekly 1-on-1 mentorship sessions
-            desc: Get personalized guidance from industry practitioners who've worked in AI-first companies.
-          - title: Live cohort classes twice a week
-            desc: Join live sessions with your cohort to tackle real-world projects and get feedback in real time.
-          - title: Career support for 6 months
-            desc: Resume reviews, LinkedIn optimization, and job search coaching included for 6 months after graduation.
+          - title: Weekly live classes
+            desc: Join mentor-led live sessions every week to get guidance on projects, talk through blockers, and learn alongside your cohort in real time.
+          - title: Everything you need to build with AI
+            desc: Enjoy AI tokens, AI completions, GitHub Copilot, a dedicated VPS, and other premium tools—all included, so you can create without extra costs or technical setup.
+          - title: Real-world projects
+            desc: Graduate with deployed projects that demonstrate what you can actually build.
+          - title: Flexible financing
+            desc: Flexible payment plans start at $75/month, or save 10% when you pay upfront.
         unlocks:
           - text: Understand and apply AI tools in your current role immediately.
           - text: Build no-code and low-code AI automations with hands-on projects.
