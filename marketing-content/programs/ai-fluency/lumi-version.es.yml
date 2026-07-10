@@ -125,7 +125,7 @@ sections:
     version: "1.0"
     variant: default
     heading: "Este programa es para ti si:"
-    description: null
+    description: Este curso está diseñado para cualquier persona que quiera aprender a aplicar la inteligencia artificial en su carrera profesional, sin necesidad de experiencia previa ni conocimientos de programación.
     cards:
       - icon: IconClock
         title: Usas la IA para chatear, pero no para ahorrarte horas de trabajo.
