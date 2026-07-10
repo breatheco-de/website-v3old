@@ -60,6 +60,7 @@ sections:
           items:
             - date_iso: "2026-09-08"
               note: 4 seats, fast track
+              badge: 1
               url: "?cohort=sept-2026"
             - date_iso: "2026-10-13"
               url: "?cohort=oct-2026"
