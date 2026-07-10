@@ -35,7 +35,6 @@ sections:
             text: Secure My Seat
             url: https://4geeks.com/checkout?plan=ai-engineering&cohort={qs:cohort|sept-2026}
             variant: primary
-          trust_note: null
           initials: 4G
           message: <span class="font-semibold text-foreground">An admissions advisor will call you within 24 hours</span> to finalize enrollment, walk you through financing, and answer any questions.
         benefits:
@@ -147,7 +146,7 @@ sections:
                 variant: primary
               trust_note:
                 initials: 4G
-                message: <span class="font-semibold text-foreground">Questions?</span> Our team is available Mon–Fri 9am–6pm ET.
+                message: <span class="font-semibold text-foreground">Have questions?</span> Reach out to us at support@4geeksacademy.com.
             benefits:
               - title: Immediate access to full course catalog
                 desc: Your account activates the moment you enroll. Start learning immediately.
@@ -188,7 +187,7 @@ sections:
                 variant: primary
               trust_note:
                 initials: 4G
-                message: <span class="font-semibold text-foreground">Questions?</span> Our team is available Mon–Fri 9am–6pm ET.
+                message: <span class="font-semibold text-foreground">Have questions?</span> Reach out to us at support@4geeksacademy.com.
             benefits:
               - title: Full catalog + all premium courses
                 desc: Access everything including advanced AI engineering, system design, and specialization tracks.
