@@ -402,7 +402,7 @@ sections:
       - label: 26 de agosto
     cta:
       text: Inscríbete ahora
-      url: https://4geeks.com/checkout?plan=ai-fluency&cohort=1706
+      url: https://4geeksacademy.com/es/payment-component?program=ai-fluency
       variant: primary
     section_id: pricing-aifluency-latam
     marginY:
