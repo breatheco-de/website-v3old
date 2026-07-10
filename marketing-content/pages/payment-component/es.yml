@@ -25,18 +25,16 @@ sections:
         dates:
           items:
             - badges:
-                - color: hsl(var(--destructive) / 0.5)
-                  icon: IconUsers
+                - color: destructive
                   text: Quedan 4 cupos
+                - color: primary
+                  text: Vía rápida
               date_iso: "2026-09-08"
-              tags:
-                - color: ""
-                  text: Quedan 4 cupos
-              url: "?cohort=1536"
+              url: "?cohort=sept-2026"
             - date_iso: "2026-10-13"
-              url: "?cohort=1536"
+              url: "?cohort=oct-2026"
             - date_iso: "2026-11-10"
-              url: "?cohort=1536"
+              url: "?cohort=nov-2026"
           mode: static
         description: Asegura tu cupo en AI Engineering, entra directo a tus clases con AI Fluency, o desbloquea todo nuestro catálogo con AI Flex. Completa tu pago para obtener acceso inmediato a 4Geeks.com.
         id: ai-engineering
