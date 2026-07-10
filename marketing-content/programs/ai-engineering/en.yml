@@ -48,7 +48,7 @@ sections:
         role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
-    description: "Become an AI Engineer and stand at the forefront of AI development. Launch a high-paying career in the fastest-growing field in tech.<div><br></div><div><span style=\"font-size: 12px; text-align: center;\"><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" target=\"_blank\">*Not available in all regions. Terms and conditions apply.</a></span></div>"
+    description: "Become an AI Engineer and stand at the forefront of AI development. Launch a high-paying career in today's fastest-growing field.<div><br></div><div><span style=\"font-size: 12px; text-align: center;\"><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" target=\"_blank\">*Not available in all regions. Terms and conditions apply.</a></span></div>"
     media:
       type: video
       src: https://www.youtube.com/shorts/sSxJnelPJT8
