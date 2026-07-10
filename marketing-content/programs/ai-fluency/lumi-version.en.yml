@@ -118,7 +118,7 @@ sections:
       desktop: none
     marginY:
       desktop: md lg
-    title: "<span style=\"font-size: 1.25rem;\">Companies that trust 4Geeks</span>"
+    title: "<span style=\"font-size: 1.25rem;\">Ranked among the world's best tech schools for 6 consecutive years</span>"
   - type: features_quad
     version: "1.0"
     variant: default
