@@ -218,7 +218,7 @@ sections:
       desktop: none md
   - type: syllabus
     variant: program-modules
-    program_title: AI Fluency Program Overview
+    program_title: AI Fluency. What You'll Learn and Build.
     program_description: Learn by doing, one week at a time. The program starts with an audit of your own job and tasks, so everything you learn applies directly to your work. Each week combines self-paced modules and a live session with your instructor and cohort to practice, troubleshoot, and get feedback.
     tech_logos:
       - name: OpenAI
@@ -236,7 +236,7 @@ sections:
           - The difference between a chatbot, assistant, and agent
           - "Prompt fundamentals: role, context, format, constraints"
           - "Job audit: identify your top automation candidates"
-        projects: Audit your current job to find your most repetitive tasks, and build 5 foundational prompts to handle them. You will master the core structure (role, context, constraints) needed to make any AI useful for your specific daily routine.
+        projects: Audit your own job to identify your top automation candidates. Build your first foundational prompts and learn exactly how to prompt AI to get optimal results.
         orientation: vertical
         icon: IconBolt
       - title: Prompting as a Skill
@@ -256,7 +256,7 @@ sections:
           - Installing and configuring OpenClaw
           - Creating custom skills from prompt templates
           - Connecting your assistant to Google Drive, Gmail, or Notion
-        projects: Learn to use OpenClaw—the market's most powerful open-source AI assistant. You’ll learn to sync AI with your workspace (Drive, Notion, Gmail) to build a private, chat-driven workflow that manages your data on autopilot.
+        projects: Install and configure OpenClaw, the fastest-growing open-source AI agent on GitHub, and build custom skills that handle your tasks autonomously, whether you're at your desk or not.
         orientation: vertical
         icon: IconRobot
       - title: Automated Workflows with n8n
@@ -266,7 +266,7 @@ sections:
           - Connecting n8n to Gmail, Slack, Google Sheets, and webhooks
           - Linking n8n to an AI agent for smart decision-making steps
           - "Final project prep: map and build your automation"
-        projects: Link your apps with n8n to build a live automation. You’ll learn to make Gmail, Sheets, and Slack talk to each other, leaving your entire weekly routine on autopilot and reclaiming up to 3+ hours of your free time every single week. recurring task.
+        projects: Connect your Gmail, Slack, Google Sheets, and n8n to a live automation with built-in decision-making. Watch your first fully autonomous workflow run without you lifting a finger.
         orientation: vertical
         icon: IconLayoutKanban
       - title: Your Fully AI-Automated Workflow
@@ -275,13 +275,7 @@ sections:
           - A live n8n automation solving a real personal or professional task
           - At least one AI decision-making step integrated into the workflow
           - Live demo presented to instructor and peers
-        projects: Launch a fully functional automation for your actual job. You will master the skill of creating a 24/7 automated workflow.
-        orientation: horizontal
-        icon: IconChartBar
-    marginY:
-      desktop: md
-    paddingY:
-      desktop: lg
+        projects: Deliver a fully functional AI automation that makes you faster and more productive at your actual
     section_id: syllabus-aifluency
   - type: trust_cards
     version: v1.0
