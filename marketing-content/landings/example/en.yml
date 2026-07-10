@@ -666,7 +666,6 @@ sections:
     maxWidth:
       desktop: xl
     showOnLocations:
-      - santiago-chile
       - quito-ecuador
       - panamacity-panama
       - montevideo-uruguay
