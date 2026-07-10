@@ -40,37 +40,39 @@ sections:
       - name: Expert Instructor
         role: Lead Instructor
         image: https://randomuser.me/api/portraits/men/10.jpg
-      - name: Rigobot AI
-        role: 4Geeks 24/7 AI Assistant. Answers any question at any time
+      - name: Rigo
+        role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
     description: AI is not the future, it's the foundation. AI Fluency is your fastest way to move ahead.
     signup_card:
-      title: What You Get
-      description: A structured 4-week program built around your actual job, with live classes, mentorship, and AI-powered feedback.
+      title: What's Included
+      description: A structured 4-week program that transforms how you work through AI, with live classes, 1:1 mentorship, and AI-powered feedback 24/7.
       cta_button:
-        text: Start Now
-        url: "#syllabus-aifluency"
+        text: Get Started
+        url: "#modal-y2myvq"
         variant: primary
       login_link:
         text: Already a student? Login here.
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: 4 Weeks
+          text: 4 Weeks of Hands-On Learning
         - icon: IconUsers
-          text: 1 Live Class Per Week
+          text: 1 Live Class Per Week With AI Experts
         - icon: IconUserCheck
           text: 1:1 Mentorship Session Included
         - icon: IconRobot
-          text: AI-Powered Learning & Feedback 24/7
+          text: AI-Powered Learning and Feedback 24/7
     paddingY:
       desktop: lg md
     marginY:
       desktop: none
     section_id: hero-yt9c4j
     video:
-      url: https://www.youtube.com/watch?v=a6aYSobiuBc
+      url: https://www.youtube.com/watch?v=NkmjzrAZ4x8&list=PLmBUv425PabVE26vtG0AqlDTXNmEZ2U0r
+    form:
+      conversion_name: request_more_info
   - type: awards_marquee
     section_id: awards_marquee-tjpzl5
     version: v1.0
