@@ -121,12 +121,11 @@ sections:
           icon: IconAdjustmentsHorizontal
         plans:
           - id: basic
-            name: Basic
-            tagline: Solo learners, self-paced
+            name: BasiC
             currency: $
             amount: "129"
             period: /month
-            billing_note: Monthly · Cancel anytime
+            billing_note: Monthly
             tag: Starter
             featured: false
             summary:
@@ -141,8 +140,6 @@ sections:
                   show_dynamic_date: true
                 - label: Total
                   value: $129/mo
-                - label: Financing from
-                  value: Plans from $75/mo
               cta:
                 text: Start Now
                 url: https://4geeks.com/checkout?plan=basic
@@ -163,7 +160,7 @@ sections:
               - text: Everything you need to build with AI — Includes AI tokens, AI completions, GitHub Copilot, a dedicated VPS.
           - id: pro
             name: Pro
-            tagline: Teams & serious learners
+            tagline: For up to 2 students
             currency: $
             amount: "900"
             period: /year
