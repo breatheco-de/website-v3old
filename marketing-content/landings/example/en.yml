@@ -481,6 +481,8 @@ sections:
               value: $15,999
             - label: Financing from
               value: $349/mo
+            - label: Job guarantee
+              value: Not included
           cta:
             text: Secure My Seat
             url: https://4geeks.com/checkout?plan=ai-engineering&cohort={qs:cohort|sept-2026}
