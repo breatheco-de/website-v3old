@@ -326,21 +326,21 @@ sections:
     background: hsl(210 100% 50% / 0.05)
   - type: human_and_ai_duo
     version: "1.0"
-    heading: Ayuda real, cuando la necesites
-    description: "Es normal tener dudas, pero te ayudamos a resolverlas: podrás acceder a Clases en vivo, Mentorías 1:1 y Eventos que te ayudaran a nunca quedarte atascado"
+    heading: Acompañamiento real, nunca estás solo
+    description: Es normal tener dudas. Por eso tienes acceso a una clase en vivo cada semana, una mentoría 1:1 de regalo para que la pruebes, y a Rigobot, tu mentor de inteligencia artificial, disponible las 24 horas, los 7 días de la semana.
     bullet_groups:
       - title: "Mentor humano:"
         image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
         bullets:
-          - text: 1 mentoría, tú y tu mentor senior. Resuelve todas tus dudas.
-          - text: Enfocado en tu trabajo real, no en teoría.
-          - text: ¿Te parece poco? Tenemos paquetes de mentoría aún más personalizados.
+          - text: 1 clase en vivo cada semana.
+          - text: Te regalamos una mentoría 1:1 para que la pruebes.
+          - text: ¿Quieres más? Tenemos paquetes de mentoría aún más personalizados.
       - title: "Rigobot, tu tutor de IA:"
         image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
         bullets:
-          - text: Disponible 24/7. No te quedas estancado nunca.
-          - text: Feedback al instante, adaptado a tu nivel.
-          - text: Te acompaña en cada módulo, a tu propio ritmo.
+          - text: Entrenado con miles de horas de mentorías reales de 4Geeks.
+          - text: Se adapta a tu nivel y te da feedback instantáneo.
+          - text: Disponible 24/7. Todas tus dudas, resueltas.
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina-brightened-1365x2048.webp
         alt: "Image: valentina_brightened"
