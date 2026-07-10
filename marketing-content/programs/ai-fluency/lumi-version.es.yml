@@ -327,7 +327,7 @@ sections:
   - type: human_and_ai_duo
     version: "1.0"
     heading: Ayuda real, cuando la necesites
-    description: Mentor humano cuando quieres profundidad. IA cuando quieres velocidad. Nunca te quedas atascado.
+    description: "Es normal tener dudas, pero te ayudamos a resolverlas: podrás acceder a Clases en vivo, Mentorías 1:1 y Eventos que te ayudaran a nunca quedarte atascado"
     bullet_groups:
       - title: "Mentor humano:"
         image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
