@@ -8,9 +8,7 @@ import { IconChevronRight, IconCheck } from "@tabler/icons-react";
 import type { EnrollmentSelectorDefault, EnrollmentSelectorProgram } from "@shared/schema";
 import { addDays, addWeeks, addMonths } from "date-fns";
 import { resolveColorVar, hslColor } from "@/components/course_selector/shared";
-
 // ─── Date chip sub-components ─────────────────────────────────────────────────
-
 type DateChip = { text: string; color?: string };
 
 function asChipList(chips: unknown): DateChip[] {
@@ -27,11 +25,15 @@ function selectionCardBadgeText(badge: unknown): string | null {
   return null;
 }
 
-function DateBadgeItem({ text, color }: DateChip) {
+function DateBadgeItem({ text, color, compact }: DateChip & { compact?: boolean }) {
   const resolved = resolveColorVar(color);
   return (
     <span
-      className="inline-flex items-center justify-center self-center shrink-0 text-[10.5px] font-bold leading-none px-1.5 py-[3px] rounded-full whitespace-nowrap"
+      className={
+        compact
+          ? "inline-flex items-center justify-center self-center shrink min-w-0 max-w-full text-[8.5px] font-bold leading-tight px-1 py-[2px] rounded-full text-center"
+          : "inline-flex items-center justify-center self-center shrink-0 text-[10.5px] font-bold leading-none px-1.5 py-[3px] rounded-full whitespace-nowrap"
+      }
       style={{
         background: hslColor(resolved, 0.12),
         color: hslColor(resolved, 1),
@@ -42,10 +44,14 @@ function DateBadgeItem({ text, color }: DateChip) {
   );
 }
 
-function DateTagItem({ text, color }: DateChip) {
+function DateTagItem({ text, color, compact }: DateChip & { compact?: boolean }) {
   return (
     <span
-      className="inline-flex items-center justify-center self-center shrink-0 text-[11.2px] font-medium leading-none py-0.5 whitespace-nowrap"
+      className={
+        compact
+          ? "inline-flex items-center justify-center self-center shrink min-w-0 max-w-full text-[9px] font-medium leading-tight py-0 text-center"
+          : "inline-flex items-center justify-center self-center shrink-0 text-[11.2px] font-medium leading-none py-0.5 whitespace-nowrap"
+      }
       style={{
         color: color ? hslColor(resolveColorVar(color), 1) : "hsl(var(--muted-foreground))",
       }}
@@ -101,14 +107,179 @@ function generateIntervalDates(
 
 // ─── Selectable tile styles ───────────────────────────────────────────────────
 
+const TILE_BTN_BASE =
+  "relative select-none border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background] duration-200";
+
 function tileStyle(active: boolean, flashing: boolean): React.CSSProperties {
   return {
     borderColor: (active || flashing) ? "hsl(var(--primary) / 0.55)" : "transparent",
     boxShadow: (active || flashing)
       ? "0 3px 10px hsl(var(--primary) / 0.1), 0 8px 22px hsl(var(--primary) / 0.07)"
       : "none",
-    opacity: active ? 1 : 0.88,
+    background: active ? "hsl(var(--card))" : "hsl(var(--muted-foreground) / 0.04)",
   };
+}
+
+// ─── Shared section blocks ────────────────────────────────────────────────────
+
+function DateSelectorTiles({
+  dates,
+  selectedIdx,
+  flashId,
+  label,
+  compact,
+  onSelect,
+}: {
+  dates: DisplayDate[];
+  selectedIdx: number;
+  flashId: string | null;
+  label: string;
+  compact?: boolean;
+  onSelect: (idx: number, url?: string) => void;
+}) {
+  return (
+    <>
+      <p
+        className={
+          compact
+            ? "text-[10px] font-bold tracking-[1.5px] uppercase text-muted-foreground mb-2"
+            : "text-[10px] md:text-[12px] font-bold tracking-[1.5px] md:tracking-[1.8px] uppercase text-muted-foreground mb-2 md:mb-3.5"
+        }
+      >
+        {label}
+      </p>
+      <div className={`grid grid-cols-3 ${compact ? "gap-1.5" : "gap-1.5 md:gap-2"}`}>
+        {dates.map((d, i) => {
+          const active = selectedIdx === i;
+          const fid = `date-${i}`;
+          const flashing = flashId === fid;
+          return (
+            <button
+              key={i}
+              type="button"
+              data-testid={`button-date-${i}`}
+              className={`${TILE_BTN_BASE} ${
+                compact
+                  ? "text-center rounded-[8px] px-1.5 py-2 min-w-0"
+                  : "text-center rounded-[10px] p-2 md:p-3"
+              }`}
+              style={tileStyle(active, flashing)}
+              onClick={() => onSelect(i, d.url)}
+            >
+              <span
+                className={
+                  compact
+                    ? "block text-[13px] font-extrabold leading-tight mb-0.5 transition-colors duration-200"
+                    : "block text-[14px] md:text-[16px] font-extrabold mb-0.5 md:mb-1 transition-colors duration-200"
+                }
+                style={{ color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))" }}
+              >
+                {d.label}
+              </span>
+              {(d.badges.length > 0 || d.tags.length > 0) && (
+                <div className="flex w-full flex-wrap items-center justify-center content-center gap-x-0.5 gap-y-0.5">
+                  {d.tags.map((tag, ti) => (
+                    <DateTagItem key={`tag-${ti}`} {...tag} compact={compact} />
+                  ))}
+                  {d.badges.map((badge, bi) => (
+                    <DateBadgeItem key={`badge-${bi}`} {...badge} compact={compact} />
+                  ))}
+                </div>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </>
+  );
+}
+
+type BenefitItem = { icon?: string; title: string; desc: string };
+
+function BenefitsList({
+  benefits,
+  label,
+  compact,
+}: {
+  benefits: BenefitItem[];
+  label: string;
+  compact?: boolean;
+}) {
+  return (
+    <>
+      <p
+        className={
+          compact
+            ? "text-[10px] font-bold tracking-[1.5px] uppercase text-muted-foreground mb-2"
+            : "text-[10px] md:text-[12px] font-bold tracking-[1.5px] md:tracking-[1.8px] uppercase text-muted-foreground mb-2.5 md:mb-4"
+        }
+      >
+        {label}
+      </p>
+      <div className={compact ? "flex flex-col gap-2" : "flex flex-col gap-2.5 md:gap-3.5"}>
+        {benefits.map((b, i) => {
+          const BenefitIcon = b.icon ? getIcon(b.icon) : null;
+          return (
+            <div key={i} className="flex items-start gap-2 md:gap-3">
+              <span
+                className={
+                  compact
+                    ? "w-[20px] h-[20px] rounded-full flex items-center justify-center shrink-0 mt-0.5"
+                    : "w-[20px] h-[20px] md:w-[24px] md:h-[24px] rounded-full flex items-center justify-center shrink-0 mt-0.5"
+                }
+                style={{ background: "hsl(var(--color-green) / 0.15)" }}
+              >
+                {BenefitIcon ? (
+                  <BenefitIcon size={compact ? 12 : 14} style={{ color: "hsl(var(--color-green))" }} />
+                ) : (
+                  <IconCheck
+                    size={compact ? 12 : 14}
+                    stroke={2.5}
+                    style={{ color: "hsl(var(--color-green))" }}
+                  />
+                )}
+              </span>
+              <div>
+                <p className={compact ? "text-[12px] font-semibold text-foreground leading-snug" : "text-[13px] md:text-[14px] font-semibold text-foreground"}>
+                  {b.title}
+                </p>
+                <p className={compact ? "text-[11px] text-muted-foreground leading-snug" : "text-[11px] md:text-[12px] text-muted-foreground leading-relaxed"}>
+                  {b.desc}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
+}
+
+function UnlocksList({ unlocks }: { unlocks: { icon?: string; text: string }[] }) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      {unlocks.map((item, i) => {
+        const UnlockIcon = item.icon ? getIcon(item.icon) : null;
+        return (
+          <div key={i} className="flex items-start gap-2">
+            <span
+              className="w-3.5 h-3.5 rounded-full shrink-0 flex items-center justify-center mt-[3px]"
+              style={{ background: "hsl(var(--color-green))" }}
+            >
+              {UnlockIcon ? (
+                <UnlockIcon size={8} className="text-white" />
+              ) : (
+                <IconCheck size={8} className="text-white" stroke={3} />
+              )}
+            </span>
+            <span className="text-[11px] text-foreground/80 font-medium leading-snug">
+              {item.text}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -208,10 +379,20 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
     flashTimer.current = setTimeout(() => setFlashId(null), 220);
   }
 
+  function handleDateSelect(idx: number, url?: string) {
+    const fid = `date-${idx}`;
+    triggerFlash(fid);
+    setSelectedDateIdx(idx);
+    if (url) nav.navigate(url);
+  }
+
   const sectionCls =
-    "bg-card border border-border rounded-[0.8rem] p-5 mb-4 shadow-[0_1px_4px_rgba(0,0,0,0.06),0_4px_16px_rgba(0,0,0,0.05)]";
+    "bg-card border border-border rounded-[0.8rem] p-3 mb-3 md:p-5 md:mb-4 shadow-[0_1px_4px_rgba(0,0,0,0.06),0_4px_16px_rgba(0,0,0,0.05)]";
   const sectionClsLast =
-    "bg-card border border-border rounded-[0.8rem] p-5 shadow-[0_1px_4px_rgba(0,0,0,0.06),0_4px_16px_rgba(0,0,0,0.05)]";
+    "bg-card border border-border rounded-[0.8rem] p-3 md:p-5 shadow-[0_1px_4px_rgba(0,0,0,0.06),0_4px_16px_rgba(0,0,0,0.05)]";
+  const summaryInsetCls = "rounded-[0.8rem] p-2.5 mb-3 md:p-3.5 md:mb-4";
+  const chooseDateLabel = data.choose_date_label ?? "Choose your start date";
+  const includedLabel = data.included_label ?? "What's included";
 
   if (!program || !activeSummary) return null;
 
@@ -223,19 +404,19 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_370px] gap-8 md:gap-12 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_370px] gap-4 md:gap-8 lg:gap-12 items-start">
 
         {/* ── LEFT COLUMN ── */}
         <div>
           {data.eyebrow && (
-            <p className="text-[10px] font-bold tracking-[2px] uppercase text-muted-foreground mb-2.5">
+            <p className="text-[9px] md:text-[10px] font-bold tracking-[2px] uppercase text-muted-foreground mb-1.5 md:mb-2.5">
               {data.eyebrow}
             </p>
           )}
 
-          <h1 className="font-inter font-black tracking-tight text-foreground leading-[1.1] mb-3">
+          <h1 className="font-inter font-black tracking-tight text-foreground leading-[1.1] mb-2 md:mb-3">
             <div
-              className="block md:hidden text-[38px] leading-[1.1]"
+              className="block md:hidden text-[34px] leading-[1.1]"
               dangerouslySetInnerHTML={{
                 __html: (data.title || "")
                   .replace(/font-size\s*:[^;"]*(;)?/g, "")
@@ -249,22 +430,18 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
           </h1>
 
           {program.description && (
-            <p className="text-[14px] text-muted-foreground leading-relaxed mb-9">
+            <p className="text-[13px] md:text-[14px] text-muted-foreground leading-relaxed mb-5 md:mb-9">
               {program.description}
             </p>
           )}
 
-          {/* PROGRAM SELECTOR or FILTERED HEADER */}
-          {filteredByQs ? (
+          {/* PROGRAM SELECTOR */}
+          {!filteredByQs && data.programs.length > 1 ? (
             <div className={sectionCls}>
-              <ProgramFilteredHeader program={program} />
-            </div>
-          ) : data.programs.length > 1 ? (
-            <div className={sectionCls}>
-              <p className="text-[12px] font-bold tracking-[1.8px] uppercase text-muted-foreground mb-3.5">
+              <p className="text-[10px] md:text-[12px] font-bold tracking-[1.5px] md:tracking-[1.8px] uppercase text-muted-foreground mb-2 md:mb-3.5">
                 {data.choose_program_label ?? "Choose your program"}
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 md:gap-2">
                 {data.programs.map((prog, i) => {
                   const active = selectedProgramIdx === i;
                   const fid = `prog-${i}`;
@@ -276,35 +453,35 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                   return (
                     <button
                       key={prog.id}
+                      type="button"
                       data-testid={`button-program-${prog.id}`}
+                      className={`${TILE_BTN_BASE} text-left rounded-[10px] px-3 py-3.5 md:p-3.5`}
+                      style={tileStyle(active, flashing)}
                       onClick={() => {
                         triggerFlash(fid);
                         setSelectedProgramIdx(i);
                         setSelectedDateIdx(0);
                         setSelectedPlanIdx(0);
                       }}
-                      className="relative text-left rounded-[10px] p-3.5 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200"
-                      style={{
-                        ...tileStyle(active, flashing),
-                        background: active ? "hsl(var(--card))" : "hsl(var(--muted-foreground) / 0.04)",
-                      }}
                     >
                       {active && (
                         <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary" />
                       )}
-                      <span
-                        className="flex items-center gap-1.5 text-[15px] font-extrabold mb-1 pr-4 transition-colors duration-200"
-                        style={{ color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))" }}
-                      >
-                        {ProgramIcon && <ProgramIcon size={16} />}
-                        {prog.selection_card.name}
-                      </span>
-                      <span className="flex items-center gap-1.5 text-[13px] text-muted-foreground flex-wrap">
-                        {prog.selection_card.duration}
-                        {programBadge && (
-                          <DateBadgeItem text={programBadge} color="primary" />
-                        )}
-                      </span>
+                      <div className="flex items-center justify-between gap-2 pr-5 sm:block sm:pr-4">
+                        <span
+                          className="flex items-center gap-1.5 min-w-0 text-[14px] sm:text-[15px] font-extrabold sm:mb-1 transition-colors duration-200"
+                          style={{ color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))" }}
+                        >
+                          {ProgramIcon && <ProgramIcon size={16} className="shrink-0" />}
+                          <span className="truncate">{prog.selection_card.name}</span>
+                        </span>
+                        <span className="flex items-center gap-1 shrink-0 text-[12px] sm:text-[13px] text-muted-foreground sm:mt-0">
+                          {prog.selection_card.duration}
+                          {programBadge && (
+                            <DateBadgeItem text={programBadge} color="primary" />
+                          )}
+                        </span>
+                      </div>
                     </button>
                   );
                 })}
@@ -312,60 +489,33 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
             </div>
           ) : null}
 
-          {/* DATE SELECTOR */}
+          {/* DATE SELECTOR — desktop only */}
           {isDateMode && displayDates.length > 0 && (
-            <div className={sectionCls}>
-              <p className="text-[12px] font-bold tracking-[1.8px] uppercase text-muted-foreground mb-3.5">
-                {data.choose_date_label ?? "Choose your start date"}
-              </p>
-              <div className="grid grid-cols-3 gap-2">
-                {displayDates.map((d, i) => {
-                  const active = selectedDateIdx === i;
-                  const fid = `date-${i}`;
-                  const flashing = flashId === fid;
-                  return (
-                    <button
-                      key={i}
-                      data-testid={`button-date-${i}`}
-                      onClick={() => {
-                        triggerFlash(fid);
-                        setSelectedDateIdx(i);
-                        if (d.url) nav.navigate(d.url);
-                      }}
-                      className="text-center rounded-[10px] p-3 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200"
-                      style={{
-                        ...tileStyle(active, flashing),
-                        background: active ? "hsl(var(--card))" : "hsl(var(--muted-foreground) / 0.04)",
-                      }}
-                    >
-                      <span
-                        className="block text-[16px] font-extrabold mb-1 transition-colors duration-200"
-                        style={{ color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))" }}
-                      >
-                        {d.label}
-                      </span>
-                      {(d.badges.length > 0 || d.tags.length > 0) && (
-                        <div className="flex w-full flex-wrap items-center justify-center content-center gap-x-1 gap-y-0.5">
-                          {d.tags.map((tag, ti) => (
-                            <DateTagItem key={`tag-${ti}`} {...tag} />
-                          ))}
-                          {d.badges.map((badge, bi) => (
-                            <DateBadgeItem key={`badge-${bi}`} {...badge} />
-                          ))}
-
-                        </div>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
+            <div className={`${sectionCls} hidden md:block`}>
+              {filteredByQs && (
+                <div className="mb-4 pb-4 border-b border-border">
+                  <ProgramFilteredHeader program={program} />
+                </div>
+              )}
+              <DateSelectorTiles
+                dates={displayDates}
+                selectedIdx={selectedDateIdx}
+                flashId={flashId}
+                label={chooseDateLabel}
+                onSelect={handleDateSelect}
+              />
             </div>
           )}
 
           {/* PLAN SELECTOR */}
           {isPlanMode && program.plans && (
             <div className={sectionCls}>
-              <p className="text-[12px] font-bold tracking-[1.8px] uppercase text-muted-foreground mb-3.5">
+              {filteredByQs && (
+                <div className="mb-4 pb-4 border-b border-border hidden md:block">
+                  <ProgramFilteredHeader program={program} />
+                </div>
+              )}
+              <p className="text-[10px] md:text-[12px] font-bold tracking-[1.5px] md:tracking-[1.8px] uppercase text-muted-foreground mb-2 md:mb-3.5">
                 {data.choose_plan_label ?? "Choose your plan"}
               </p>
               <div className="grid grid-cols-2 gap-3">
@@ -376,74 +526,72 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                   return (
                     <button
                       key={p.id}
+                      type="button"
                       data-testid={`button-plan-${p.id}`}
+                      className={`${TILE_BTN_BASE} w-full text-left rounded-[12px] py-2.5 px-3.5`}
+                      style={tileStyle(active, flashing)}
                       onClick={() => {
                         triggerFlash(fid);
                         setSelectedPlanIdx(i);
-                      }}
-                      className="relative w-full text-left rounded-[12px] py-2.5 px-3.5 border-[1.5px] outline-none cursor-pointer transition-[border-color,box-shadow,background,opacity] duration-200"
-                      style={{
-                        ...tileStyle(active, flashing),
-                        background: active ? "hsl(var(--card))" : "hsl(var(--muted-foreground) / 0.04)",
                       }}
                     >
                       {active && (
                         <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary" />
                       )}
                       <div className="flex items-start justify-between gap-1 mb-1 pr-4">
-                        <span
-                          className="text-[15px] font-extrabold leading-tight transition-colors duration-200"
-                          style={{
-                            color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))",
-                          }}
-                        >
-                          {p.name}
-                        </span>
-                        {p.tag && (
                           <span
-                            className="text-[8px] font-bold tracking-wide uppercase px-1.5 py-0.5 rounded-full shrink-0"
+                            className="text-[15px] font-extrabold leading-tight transition-colors duration-200"
                             style={{
-                              background: p.featured
-                                ? "hsl(var(--primary) / 0.12)"
-                                : "hsl(var(--muted))",
-                              color: p.featured
-                                ? "hsl(var(--primary))"
-                                : "hsl(var(--muted-foreground))",
+                              color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))",
                             }}
                           >
-                            {p.tag}
+                            {p.name}
                           </span>
+                          {p.tag && (
+                            <span
+                              className="text-[8px] font-bold tracking-wide uppercase px-1.5 py-0.5 rounded-full shrink-0"
+                              style={{
+                                background: p.featured
+                                  ? "hsl(var(--primary) / 0.12)"
+                                  : "hsl(var(--muted))",
+                                color: p.featured
+                                  ? "hsl(var(--primary))"
+                                  : "hsl(var(--muted-foreground))",
+                              }}
+                            >
+                              {p.tag}
+                            </span>
+                          )}
+                        </div>
+                        {p.tagline && (
+                          <p className="text-[11px] text-muted-foreground mb-2 leading-tight">
+                            {p.tagline}
+                          </p>
                         )}
-                      </div>
-                      {p.tagline && (
-                        <p className="text-[11px] text-muted-foreground mb-2 leading-tight">
-                          {p.tagline}
-                        </p>
-                      )}
-                      <div className="flex items-end gap-px mb-0.5">
-                        <span
-                          className="text-[12px] font-extrabold mb-0.5 transition-colors duration-200"
-                          style={{
-                            color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))",
-                          }}
-                        >
-                          {p.currency}
-                        </span>
-                        <span
-                          className="text-[26px] font-extrabold leading-none tracking-tight transition-colors duration-200"
-                          style={{
-                            color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))",
-                          }}
-                        >
-                          {p.amount}
-                        </span>
-                        <span className="text-[11px] ml-0.5 mb-0.5 font-medium text-muted-foreground">
-                          {p.period}
-                        </span>
-                      </div>
-                      {p.billing_note && (
-                        <p className="text-[11px] text-muted-foreground">{p.billing_note}</p>
-                      )}
+                        <div className="flex items-end gap-px mb-0.5">
+                          <span
+                            className="text-[12px] font-extrabold mb-0.5 transition-colors duration-200"
+                            style={{
+                              color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))",
+                            }}
+                          >
+                            {p.currency}
+                          </span>
+                          <span
+                            className="text-[26px] font-extrabold leading-none tracking-tight transition-colors duration-200"
+                            style={{
+                              color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))",
+                            }}
+                          >
+                            {p.amount}
+                          </span>
+                          <span className="text-[11px] ml-0.5 mb-0.5 font-medium text-muted-foreground">
+                            {p.period}
+                          </span>
+                        </div>
+                        {p.billing_note && (
+                          <p className="text-[11px] text-muted-foreground">{p.billing_note}</p>
+                        )}
                     </button>
                   );
                 })}
@@ -451,63 +599,36 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
             </div>
           )}
 
-          {/* BENEFITS */}
+          {/* BENEFITS — desktop only */}
           {activeBenefits.length > 0 && (
-            <div className={sectionClsLast}>
-              <p className="text-[12px] font-bold tracking-[1.8px] uppercase text-muted-foreground mb-4">
-                {data.included_label ?? "What's included"}
-              </p>
-              <div className="flex flex-col gap-3.5">
-                {activeBenefits.map((b, i) => {
-                  const BenefitIcon = b.icon ? getIcon(b.icon) : null;
-                  return (
-                    <div key={i} className="flex items-start gap-3">
-                      <span
-                        className="w-[24px] h-[24px] rounded-full flex items-center justify-center shrink-0 mt-0.5"
-                        style={{ background: "hsl(var(--color-green) / 0.15)" }}
-                      >
-                        {BenefitIcon ? (
-                          <BenefitIcon
-                            size={14}
-                            style={{ color: "hsl(var(--color-green))" }}
-                          />
-                        ) : (
-                          <IconCheck
-                            size={14}
-                            stroke={2.5}
-                            style={{ color: "hsl(var(--color-green))" }}
-                          />
-                        )}
-                      </span>
-                      <div>
-                        <p className="text-[14px] font-semibold text-foreground">{b.title}</p>
-                        <p className="text-[12px] text-muted-foreground leading-relaxed">{b.desc}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+            <div className={`${sectionClsLast} hidden md:block`}>
+              <BenefitsList benefits={activeBenefits} label={includedLabel} />
             </div>
           )}
         </div>
 
         {/* ── RIGHT COLUMN (sticky) ── */}
-        <div className="md:sticky md:top-[72px]">
+        <div className="relative md:sticky md:top-[72px]">
+          {filteredByQs && (
+            <div className="md:hidden mb-3">
+              <ProgramFilteredHeader program={program} metaFirst />
+            </div>
+          )}
           <div className="bg-card border border-border rounded-[0.8rem] overflow-hidden shadow-[0_1px_4px_rgba(0,0,0,0.06),0_4px_16px_rgba(0,0,0,0.05)]">
 
             {/* SUMMARY HEADER */}
-            <div className="bg-primary px-5 py-5">
+            <div className="bg-primary px-3 py-3.5 md:px-5 md:py-5">
               <p
-                className="text-[10px] font-bold tracking-[2px] uppercase mb-1.5"
+                className="text-[10px] md:text-[10px] font-bold tracking-[2px] uppercase mb-1 md:mb-1.5"
                 style={{ color: "hsl(var(--primary-foreground) / 0.6)" }}
               >
                 {activeSummary.price_label}
               </p>
-              <p className="font-inter text-[42px] font-extrabold leading-none tracking-tight mb-1 text-primary-foreground">
+              <p className="font-inter text-[33px] md:text-[42px] font-extrabold leading-none tracking-tight mb-0.5 md:mb-1 text-primary-foreground">
                 {activeSummary.price_amount}
                 {activeSummary.price_period && (
                   <span
-                    className="text-[18px] font-bold ml-1"
+                    className="text-[16px] md:text-[18px] font-bold ml-1"
                     style={{ color: "hsl(var(--primary-foreground) / 0.7)" }}
                   >
                     {activeSummary.price_period}
@@ -516,7 +637,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
               </p>
               {activeSummary.price_sub && (
                 <p
-                  className="text-[12px]"
+                  className="text-[12px] md:text-[12px]"
                   style={{ color: "hsl(var(--primary-foreground) / 0.6)" }}
                 >
                   {activeSummary.price_sub}
@@ -524,9 +645,26 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
               )}
             </div>
 
-            <div className="p-5">
+            <div className="px-3 pt-4 pb-3 md:p-5">
+              {/* MOBILE: date selector above summary rows */}
+              {isDateMode && displayDates.length > 0 && (
+                <div
+                  className="md:hidden rounded-[0.8rem] p-2.5 mb-4 md:p-3.5 md:mb-4"
+                  style={{ background: "hsl(var(--muted-foreground) / 0.03)" }}
+                >
+                  <DateSelectorTiles
+                    dates={displayDates}
+                    selectedIdx={selectedDateIdx}
+                    flashId={flashId}
+                    label={chooseDateLabel}
+                    compact
+                    onSelect={handleDateSelect}
+                  />
+                </div>
+              )}
+
               {/* SUMMARY ROWS */}
-              <div className="flex flex-col divide-y divide-border mb-4">
+              <div className="flex flex-col divide-y divide-border mb-3 md:mb-4">
                 {activeSummary.rows.map((row, i) => {
                   let dynamicValue: string | null = null;
                   let accent = false;
@@ -549,12 +687,12 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                   return (
                     <div
                       key={i}
-                      className="flex items-center justify-between py-2.5 text-[12px]"
+                      className="flex items-center justify-between py-1.5 md:py-2.5 text-[12px] md:text-[12px]"
                     >
                       <span className="text-muted-foreground">{row.label}</span>
                       {isDynamic ? (
                         <span
-                          className="font-semibold text-right text-[13px]"
+                          className="font-semibold text-right text-[13px] md:text-[13px]"
                           style={{
                             color: accent
                               ? "hsl(var(--primary))"
@@ -566,7 +704,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                       ) : (
                         <RichTextContent
                           html={value}
-                          className="font-semibold text-right text-[13px] text-foreground [&_p]:m-0 [&_p]:text-[13px] [&_p]:font-semibold [&_p]:leading-none max-w-none"
+                          className="font-semibold text-right text-[13px] md:text-[13px] text-foreground [&_p]:m-0 [&_p]:text-[13px] md:[&_p]:text-[13px] [&_p]:font-semibold [&_p]:leading-none max-w-none"
                         />
                       )}
                     </div>
@@ -574,40 +712,34 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                 })}
               </div>
 
-              {/* UNLOCKS */}
+              {/* MOBILE: benefits (replaces unlocks) */}
+              <div className="md:hidden">
+                {activeBenefits.length > 0 && (
+                  <div
+                    className={summaryInsetCls}
+                    style={{ background: "hsl(var(--muted-foreground) / 0.03)" }}
+                  >
+                    <BenefitsList benefits={activeBenefits} label={includedLabel} compact />
+                  </div>
+                )}
+              </div>
+
+              {/* DESKTOP: unlocks */}
               {activeUnlocks.length > 0 && (
-                <div className="rounded-[0.8rem] p-3.5 mb-4" style={{ background: "hsl(var(--muted-foreground) / 0.03)" }}>
+                <div
+                  className={`hidden md:block ${summaryInsetCls}`}
+                  style={{ background: "hsl(var(--muted-foreground) / 0.03)" }}
+                >
                   <p className="text-[10px] font-bold tracking-[1.8px] uppercase text-muted-foreground mb-3">
                     You unlock right now
                   </p>
-                  <div className="flex flex-col gap-1.5">
-                    {activeUnlocks.map((item, i) => {
-                      const UnlockIcon = item.icon ? getIcon(item.icon) : null;
-                      return (
-                        <div key={i} className="flex items-start gap-2">
-                          <span
-                            className="w-3.5 h-3.5 rounded-full shrink-0 flex items-center justify-center mt-[3px]"
-                            style={{ background: "hsl(var(--color-green))" }}
-                          >
-                            {UnlockIcon ? (
-                              <UnlockIcon size={8} className="text-white" />
-                            ) : (
-                              <IconCheck size={8} className="text-white" stroke={3} />
-                            )}
-                          </span>
-                          <span className="text-[11px] text-foreground/80 font-medium leading-snug">
-                            {item.text}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  </div>
+                  <UnlocksList unlocks={activeUnlocks} />
                 </div>
               )}
 
               {/* CTA */}
               <Button
-                className="w-full text-[14px] font-extrabold mb-2.5"
+                className="w-full text-[13px] md:text-[14px] font-extrabold mb-2 md:mb-2.5"
                 variant={ctaVariantMap[activeSummary.cta.variant] ?? "default"}
                 size="lg"
                 data-testid="button-enrollment-cta"
@@ -621,7 +753,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
 
               {/* TRUST NOTE */}
               {activeSummary.trust_note && (
-                <div className="border border-border rounded-[0.8rem] p-3 flex items-start gap-2.5 mt-2">
+                <div className="border border-border rounded-[0.8rem] p-2.5 md:p-3 flex items-start gap-2 md:gap-2.5 mt-1.5 md:mt-2">
                   {activeSummary.trust_note.image_id ? (
                     <div className="w-8 h-8 rounded-full overflow-hidden shrink-0">
                       <UniversalImage
@@ -652,28 +784,36 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
 
 // ─── Sub-component: filtered program header ───────────────────────────────────
 
-function ProgramFilteredHeader({ program }: { program: EnrollmentSelectorProgram }) {
+function ProgramFilteredHeader({
+  program,
+  metaFirst,
+}: {
+  program: EnrollmentSelectorProgram;
+  metaFirst?: boolean;
+}) {
   const ProgramIcon = program.selection_card.icon
     ? getIcon(program.selection_card.icon)
     : null;
   const programBadge = selectionCardBadgeText(program.selection_card.badge);
   return (
-    <div className="flex items-start gap-3.5">
-      {ProgramIcon && (
-        <span className="w-10 h-10 rounded-[10px] bg-primary/10 flex items-center justify-center shrink-0">
-          <ProgramIcon size={20} className="text-primary" />
-        </span>
-      )}
-      <div>
-        <h2 className="text-[18px] font-extrabold text-foreground leading-tight mb-1">
-          {program.selection_card.name}
-        </h2>
-        <div className="flex flex-wrap items-center gap-2 text-[13px] text-muted-foreground">
-          <span>{program.selection_card.duration}</span>
-          {programBadge && (
-            <DateBadgeItem text={programBadge} color="primary" />
-          )}
-        </div>
+    <div
+      className={
+        metaFirst
+          ? "flex flex-col-reverse items-start gap-1.5"
+          : "flex flex-col items-start gap-1.5 lg:flex-row lg:items-center lg:justify-between lg:gap-3"
+      }
+    >
+      <h2 className="font-inter flex min-w-0 items-center gap-2 text-[28px] md:text-[30px] font-bold tracking-tight text-foreground leading-[1.1]">
+        {ProgramIcon && (
+          <ProgramIcon size={26} className="shrink-0 text-primary" />
+        )}
+        <span className="min-w-0">{program.selection_card.name}</span>
+      </h2>
+      <div className="flex items-center gap-1.5 text-[13px] text-muted-foreground lg:shrink-0 lg:justify-end lg:gap-2 lg:text-[14px]">
+        <span className="lg:whitespace-nowrap">{program.selection_card.duration}</span>
+        {programBadge && (
+          <DateBadgeItem text={programBadge} color="primary" />
+        )}
       </div>
     </div>
   );
