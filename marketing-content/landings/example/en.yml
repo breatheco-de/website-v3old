@@ -215,6 +215,18 @@ sections:
       desktop: sm
     maxWidth:
       desktop: xl
+    showOnLocations:
+      - atlanta-usa
+      - austin-usa
+      - chicago-usa
+      - dallas-usa
+      - miami-usa
+      - houston-usa
+      - losangeles-usa
+      - newyork-usa
+      - orlando-usa
+      - tampa-usa
+      - toronto-canada
   - type: enrollment_selector
     version: v1.0
     variant: default
