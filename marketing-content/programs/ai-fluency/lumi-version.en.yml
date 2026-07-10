@@ -218,7 +218,7 @@ sections:
       desktop: none md
   - type: syllabus
     variant: program-modules
-    program_title: AI Fluency. What You'll Learn and Build.
+    program_title: Program Overview. What You'll Learn and Build.
     program_description: Learn by doing, one week at a time. The program starts with an audit of your own job and tasks, so everything you learn applies directly to your work. Each week combines self-paced modules and a live session with your instructor and cohort to practice, troubleshoot, and get feedback.
     tech_logos:
       - name: OpenAI
