@@ -128,13 +128,13 @@ sections:
     description: null
     cards:
       - icon: IconClock
-        title: Usas la IA para chatear pero no para ahorrarte horas de trabajo.
+        title: Usas la IA para chatear, pero no para ahorrarte horas de trabajo.
       - icon: IconCoin
         title: Quieres aumentar tu salario gracias a la inteligencia artificial.
       - icon: IconRocket
-        title: Quieres exprimirle todo el potencial a la IA para ser mas productivo.
+        title: Quieres exprimirle todo el potencial a la IA para ser más productivo.
       - icon: IconTrendingUp
-        title: Sabes que dominar IA te hara alguien imprescindible en tu trabajo.
+        title: Sabes que dominar la IA te hará imprescindible en tu trabajo.
     background: hsl(210 100% 50% / 0.05)
     section_id: features_quad-aifluency
     marginY:
