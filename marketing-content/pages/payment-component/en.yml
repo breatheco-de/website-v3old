@@ -60,7 +60,7 @@ sections:
           items:
             - date_iso: "2026-09-08"
               tags:
-                - text: 4 seats left
+                - text: Fast-Track
                   color: ""
               badges:
                 - text: 4 seats left
