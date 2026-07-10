@@ -535,8 +535,6 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
-    original_price: €900
-    discount_badge: "-10%"
     yearly:
       discount_badge: 10% OFF
       original_price: "900"
