@@ -104,9 +104,9 @@ sections:
           - title: Flexible financing
             desc: Flexible payment plans start at $75/month, or save 10% when you pay upfront.
         unlocks:
-          - text: Understand and apply AI tools in your current role immediately.
-          - text: Build no-code and low-code AI automations with hands-on projects.
-          - text: Get certified — earn your AI Fluency certificate upon completion.
+          - text: Access to AI tokens & completions — Everything you need to build, test, and ship your projects from day one.
+          - text: Build AI from day one — Create your first coding agents with hands-on projects.
+          - text: 24/7 AI Mentor Support — Get access to Rigobot, ready to answer questions, guide you through challenges, and help you build your projects anytime.
         dates:
           mode: interval
           start_date_iso: "2026-09-08"
