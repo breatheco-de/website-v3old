@@ -330,7 +330,7 @@ sections:
               value: 450€/mo for 2 months
           cta:
             text: Secure My Seat
-            url: https://4geeks.com/checkout?cohort={qs:cohort|fluency-sept-2026}
+            url: https://4geeks.com/checkout?plan=ai-fluency-ue&cohort={qs:cohort|fluency-sept-2026}
             variant: primary
           trust_note:
             initials: 4G
