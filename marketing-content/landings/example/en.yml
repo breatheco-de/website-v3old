@@ -18,7 +18,7 @@ sections:
           icon: IconCode
         summary:
           price_label: Due today
-          price_amount: $250
+          price_amount: $500
           price_sub: Applied toward your total tuition
           rows:
             - label: Program
@@ -33,7 +33,7 @@ sections:
               value: Not included
           cta:
             text: Secure My Seat
-            url: https://4geeks.com/checkout?plan=ai-engineering&cohort={qs:cohort|sept-2026}
+            url: https://4geeks.com/checkout?plan=ai-engineering-registration-fee&cohort={qs:cohort|sept-2026}
             variant: primary
           trust_note:
             initials: 4G
@@ -60,12 +60,11 @@ sections:
           items:
             - date_iso: "2026-09-08"
               note: 4 seats, fast track
-              badge: 1
-              url: "?cohort=sept-2026"
+              url: "?cohort=1536"
             - date_iso: "2026-10-13"
-              url: "?cohort=oct-2026"
+              url: "?cohort=1536"
             - date_iso: "2026-11-10"
-              url: "?cohort=nov-2026"
+              url: "?cohort=1536"
       - id: ai-fluency
         selection_card:
           name: AI Fluency
