@@ -378,8 +378,8 @@ sections:
     variant: product
     title: Precios, descuentos y financiación.
     subtitle: Invertir en inteligencia artificial es tu camino hacia el éxito, y 4Geeks es el mejor lugar para hacerlo.
-    discount_text: "Ahorra 10%: paga $450 por adelantado."
-    financing_text: O paga en 2 cuotas sin intereses.
+    discount_text: "10% de descuento: $450 de una sola vez."
+    financing_text: También puedes financiarlo en 2 cuotas de $250, sin intereses.
     financing_amount: $250
     financing_period: ""
     tech_icons:
@@ -432,8 +432,8 @@ sections:
     variant: product
     title: Precios, descuentos y financiación.
     subtitle: Invertir en inteligencia artificial es tu camino hacia el éxito, y 4Geeks es el mejor lugar para hacerlo.
-    discount_text: "Ahorra 10%: paga $810 por adelantado."
-    financing_text: Financiamiento flexible desde
+    discount_text: "10% de descuento: $810 de una sola vez."
+    financing_text: O financia con Affirm o Klarna, desde $75 al mes.
     financing_amount: $75
     tech_icons:
       - openai
@@ -486,8 +486,8 @@ sections:
     variant: product
     title: Precios, descuentos y financiación.
     subtitle: Invertir en inteligencia artificial es tu camino hacia el éxito, y 4Geeks es el mejor lugar para hacerlo.
-    discount_text: "Ahorra 10%: paga €810 por adelantado."
-    financing_text: O paga en 2 cuotas sin intereses.
+    discount_text: "10% de descuento: €810 de una sola vez."
+    financing_text: También puedes financiarlo en 2 cuotas de €450, sin intereses.
     financing_amount: €450
     financing_period: ""
     tech_icons:
