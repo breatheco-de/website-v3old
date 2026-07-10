@@ -28,7 +28,7 @@ sections:
             - label: Total program fee
               value: $15,999
             - label: Financing from
-              value: Plans from $349/mo
+              value: $349/mo
             - label: Job guarantee
               value: Not included
           cta:
@@ -184,7 +184,7 @@ sections:
                 - label: Total
                   value: $900/yr
                 - label: Financing from
-                  value: Plans from $75/mo
+                  value: $75/mo
               cta:
                 text: Start Now
                 url: https://4geeks.com/checkout?plan=pro
