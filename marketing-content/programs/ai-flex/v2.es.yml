@@ -55,11 +55,11 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Aprende a tu ritmo, sin horarios
+          text: Aprende a tu propio ritmo, 100% flexible
         - icon: IconUsers
-          text: 8 cursos + cursos mensuales con las ultimas tendencias en IA
+          text: Acceso a +8 cursos y actualizaciones mensuales con las últimas tendencias de IA
         - icon: IconUserCheck
-          text: Sesion 1:1 mensual con expertos para resolver todas tus dudas.
+          text: Sesión 1:1 mensual con expertos para resolver tus dudas de forma personalizada
         - icon: IconRobot
           text: Aprendizaje y feedback con IA disponibles 24/7
     paddingY:
