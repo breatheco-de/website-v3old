@@ -456,7 +456,7 @@ sections:
     variant: default
     eyebrow: Enrollment · Apply now
     title: "Reserve your seat.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Start learning</span></span> today.</span>"
-    description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
+    description: Secure your seat in AI Engineering with a $100 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
     choose_program_label: Choose your program
     choose_date_label: Choose your start date
     included_label: What's included
@@ -469,22 +469,22 @@ sections:
           icon: IconCode
         summary:
           price_label: Due today
-          price_amount: $250
+          price_amount: $100
           price_sub: Applied toward your total tuition
           rows:
             - label: Program
               show_dynamic_program: true
             - label: Start date
               show_dynamic_date: true
-            - label: Total program fee
-              value: $15,999
+            - label: Total program fee from
+              value: $2,700
             - label: Financing from
-              value: $349/mo
+              value: $458.33/mo
             - label: Job guarantee
               value: Not included
           cta:
             text: Secure My Seat
-            url: https://4geeks.com/checkout?plan=ai-engineering&cohort={qs:cohort|sept-2026}
+            url: https://4geeks.com/checkout?plan=prework-latam&cohort={qs:cohort|sept-2026}
             variant: primary
           trust_note:
             initials: 4G
@@ -511,12 +511,11 @@ sections:
           items:
             - date_iso: "2026-09-08"
               note: 4 seats, fast track
-              badge: 1
               url: "?cohort=sept-2026"
             - date_iso: "2026-10-13"
-              url: "?cohort=oct-2026"
+              url: "?cohort=1577"
             - date_iso: "2026-11-10"
-              url: "?cohort=nov-2026"
+              url: "?cohort=1577"
       - id: ai-fluency
         selection_card:
           name: AI Fluency
