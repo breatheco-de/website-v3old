@@ -440,7 +440,7 @@ sections:
       - label: August 26, 2026
     cta:
       text: Enroll Now
-      url: /en/payment-component
+      url: https://4geeksacademy.com/en/payment-component?program=ai-fluency
       variant: primary
     section_id: pricing-aifluency
     marginY:
