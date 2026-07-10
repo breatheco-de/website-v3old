@@ -21,53 +21,49 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    badge:
-      text: AI Fluency
-      color: primary
-      background: hsl(var(--primary))
-      text_color: hsl(var(--primary-foreground))
-    title: Everyone use AI, some master it. Learn AI Fluency from 0 to 100 in 1 Month.
-    title_highlight: Learn AI Fluency from 0 to 100 in 1 Month.
-    subtitle: AI skills now carry a 56% salary premium across industries. In four weeks, you'll build AI workflows around your actual job, automate your most repetitive work and save hours every single day. No coding and no experience on AI required.
+    title: AI Fluency. The AI Skills That Make You Irreplaceable.
+    title_highlight: The AI Skills That Make You Irreplaceable.
+    subtitle: In 4 weeks, you'll build AI workflows around your actual job, automate your most repetitive work, and achieve more while working less. No coding required. Includes 1:1 mentorship, live sessions, and a 24/7 AI tutor.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
-      count: +8500 graduates
+      count: +6000 graduates
     bullet_points:
-      - Master AI with no programming experience or other tech skills.
-      - Save between 5-7 hours weekly of repetitive work by learning how to use AI and N8N.
-      - Learn real-world AI prompting secrets to automize your workflow
-      - Lock in a certificate endorsed by the Florida Department of Education.
+      - Earn up to 56% more. AI skills now carry the highest salary premium across every industry.
+      - "Become as productive as an entire team: let AI handle reports, data, communication, and more."
+      - Deploy AI agents that save you 5+ hours every week.
+      - Walk away with a certificate recognized worldwide.
     tutors:
       - name: Expert Instructor
         role: Lead Instructor
         image: https://randomuser.me/api/portraits/men/10.jpg
-      - name: Rigobot AI
-        role: 4Geeks 24/7 AI Assistant. Answers any question at any time
+      - name: Rigo
+        role: AI Tutor
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
+    description: AI is not the future, it's the foundation. AI Fluency is your fastest way to move ahead.
     signup_card:
       title: What You Get
       description: A structured 4-week program built around your actual job, with live classes, mentorship, and AI-powered feedback.
       cta_button:
-        text: Show me the details
-        url: "#pricing-aifluency-latam"
+        text: Program Details
+        url: "#syllabus-aifluency"
         variant: primary
       login_link:
         text: Already a student? Login here.
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: 4-Week Cohort Program
+          text: 4 Weeks
         - icon: IconUsers
-          text: 1 Live Class Per Week With AI Experts
+          text: 1 Live Class Per Week
         - icon: IconUserCheck
-          text: 1:1 Mentorship Session. Solve all your doubts with 1+ year AI veterans.
+          text: 1:1 Mentorship Session Included
         - icon: IconRobot
-          text: 24/7 Available AI-Powered Learning & Feedback
+          text: AI-Powered Learning & Feedback 24/7
     paddingY:
       desktop: lg md
     marginY:
@@ -118,21 +114,21 @@ sections:
       desktop: none
     marginY:
       desktop: md lg
-    title: "<span style=\"font-size: 1.25rem;\">Companies that trust 4Geeks</span>"
+    title: "<span style=\"font-size: 1.25rem;\">Ranked among the world's best tech schools for 6 consecutive years</span>"
   - type: features_quad
     version: "1.0"
     variant: default
-    heading: "This program is for you if:"
-    description: null
+    heading: Is This Program Right for You?
+    description: If you are nodding at any of these, you're exactly who this is built for.
     cards:
-      - icon: IconClock
-        title: You do repetitive tasks and know that AI could help you get them done faster.
-      - icon: IconCoin
-        title: You want to boost your salary by leveraging artificial intelligence.
       - icon: IconRocket
-        title: You're overwhelmed by the sheer number of AI tools and don't know which ones actually work for you.
+        title: You use AI tools but are not leveraging their full potential.
+      - icon: IconClock
+        title: Repetitive tasks are taking up your time and attention.
       - icon: IconTrendingUp
-        title: You know that falling behind on AI could cost you your job.
+        title: You know AI fluency is becoming a must-have to stay ahead in your career.
+      - icon: IconCoin
+        title: You want the salary premium that comes with real AI skills.
     background: hsl(210 100% 50% / 0.05)
     section_id: features_quad-aifluency
     marginY:
@@ -141,7 +137,7 @@ sections:
     version: "1.0"
     variant: stats-charts
     subtitle: The data is clear.
-    title: "Professionals with <span style=\"color: hsl(var(--primary));\">AI</span> skills earn more and advance faster."
+    title: "Professionals with <span style=\"color: hsl(var(--primary));\">AI</span> <span style=\"color: hsl(var(--primary));\">skills</span> earn more and advance faster."
     description: Employers across every industry are actively hiring for AI literacy — and paying a premium for it. The demand is real, the gap is widening, and the opportunity is yours to take ."
     card_bars_accent: hsl(var(--color-green))
     card_gauge_accent: hsl(var(--primary))
