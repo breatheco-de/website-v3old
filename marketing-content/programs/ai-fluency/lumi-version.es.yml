@@ -26,7 +26,7 @@ sections:
       color: primary
       background: hsl(var(--primary))
       text_color: hsl(var(--primary-foreground))
-    title: Todos usan IA, pocos la Dominan. Multiplica tu productividad en solo 28 días.
+    title: Todos usan IA, pocos la dominan. Multiplica tu productividad en solo 28 días.
     title_highlight: Multiplica tu productividad en solo 28 días.
     subtitle: En solo 4 semanas aprenderás desde cero a construir automatizaciones con IA que reducirán tu tiempo de trabajo entre 5 y 7 horas semanales. Eliminarás tus tareas más repetitivas y tendrás un asistente de IA trabajando para ti todos los días. Sin códigos ni programación.
     students_enrolled:
@@ -39,10 +39,10 @@ sections:
     bullet_points:
       - Aprende IA en 4 semanas sin conocimientos previos.
       - Ahorra de 5 a 7 horas semanales de trabajo repetitivo usando IA y N8N.
-      - Se tan productivo como un equipo entero gracias a la IA. Genera reportes, estudia datos y automatiza procesos.
+      - Sé tan productivo como un equipo entero gracias a la IA. Genera reportes, estudia datos y automatiza procesos.
       - Obtén un certificado reconocido por empleadores en todo el mundo.
     tutors:
-      - name: Juan Luis Guera
+      - name: Juan Luis Guerra
         role: Instructor Principal
         image: https://randomuser.me/api/portraits/men/10.jpg
       - name: Tutor con IA
@@ -51,19 +51,19 @@ sections:
     tutors_label: "Tus tutores:"
     signup_card:
       title: Lo que incluye el curso
-      description: Un programa estructurado de 4 semanas que te permitirá ser mas productivo en tu trabajo actual, con clases en vivo, mentorías y retroalimentación con IA las 24h.
+      description: Un programa estructurado de 4 semanas que te permitirá ser más productivo en tu trabajo actual, con clases en vivo, mentorías y retroalimentación con IA las 24h.
       cta_button:
         text: Empieza ahora
-        url: "#modal-y2myvq"
+        url: https://4geeksacademy.com/es/payment-component?program=ai-fluency
         variant: primary
       login_link:
         text: ¿Ya eres estudiante? Inicia sesión aquí.
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Contenido orientado a la práctica
+          text: 4 Semanas de contenido orientado a la práctica
         - icon: IconUsers
-          text: 1 clase en vivo por semana con expertos en IA
+          text: 1 Clase en vivo por semana con expertos en IA
         - icon: IconUserCheck
           text: Sesión 1:1 con expertos para resolver todas tus dudas.
         - icon: IconRobot
@@ -101,7 +101,7 @@ sections:
         logo: https://storage.googleapis.com/4geeks-academy-website/media/ebootcamp_top-601x488-q70.webp
         logoHeight: 64px
       - id: premios-tecnologia
-        alt: Premios Tecnologia Siglo XXI
+        alt: Premios Tecnología Siglo XXI
         logo: https://storage.googleapis.com/4geeks-academy-website/media/premios_tecnologia_sigloxxi_1765549146476.png
         logoHeight: 64px
       - id: newsweek
@@ -188,41 +188,36 @@ sections:
       average: {{ global.global_review_rating | 4.9 }}
       count: {{ global.global_review_count | 700 }}
     items:
-      - name: Valeria Hernández
-        role: Estratega de Contenido y Mamá
+      - comment: Ha sido la mejor decisión que he tomado para tener mejores oportunidades de trabajo.
+        name: Josefa
+        outcome: Mejores oportunidades laborales
         rating: 5
-        comment: Como mamá de dos niños pequeños que vuelve al trabajo tras el embarazo, mi tiempo vale oro. Este curso me permitió automatizar el registro de clientes y la planificación de contenidos. Ahora, mi asistente de IA se encarga del trabajo aburrido detrás de escena para poder hacer crecer mi negocio sin sacrificar tiempo en familia.
-        outcome: Equilibrio entre carrera y familia
-      - name: Mateo Pérez
-        role: Especialista de Ventas
+        role: Graduada de 4Geeks Academy
+      - comment: La academia es muy buena, así como su plan de estudios. Los profesores tienen la mejor disposición y mantienen un ambiente agradable todo el tiempo.
+        name: Diego Sepúlveda
+        outcome: Ambiente de aprendizaje agradable
         rating: 5
-        comment: Sinceramente, sentía que todos en mi equipo de ventas iban más rápido que yo, cerrando tratos mientras yo me ahogaba en papeleo. Investigué sobre 4Geeks, hice este curso y cambió las reglas del juego. Integrar la IA en mi rutina diaria redujo a la mitad mi tiempo de prospección y me convirtió en el más eficiente de la oficina.
-        outcome: Líder en ventas del equipo
-      - name: Carlos Del Valle
-        role: Especialista en Marketing
+        role: Graduado de 4Geeks Academy
+      - comment: La forma de enseñar es excelente, súper clara, y está diseñada para quienes comienzan desde cero.
+        name: Martina Sofía Ojeda
+        outcome: Aprendió desde cero
         rating: 5
-        comment: Un cambio total. Logré conectar OpenClaw directo a mi Slack y ahora mi asistente privado filtra clientes potenciales y redacta mis reportes semanales. Recuperé un día entero de mi semana.
-        outcome: Más de 12 horas ahorradas por semana
-      - name: Amanda Noguera
-        role: Coordinadora de Operaciones
+        role: Graduada de 4Geeks Academy
+      - comment: Ha sido una experiencia increíble y muy útil para mi carrera. Enseñan de manera fenomenal, incluso para quienes no saben nada al empezar.
+        name: Luis Rosales
+        outcome: Sin experiencia previa necesaria
         rating: 5
-        comment: Me aterraba que n8n fuera demasiado técnico para mí, pero el paso a paso es a prueba de errores. En la semana 4, ya tenía un flujo de trabajo autónomo gestionando datos de clientes detrás de escena. Es el fin de las tareas repetitivas.
-        outcome: Jornada laboral reducida a la mitad
-      - name: Tomás Gonzalez
-        role: Agente Inmobiliario
-        rating: 4
-        comment: El contenido es oro puro y OpenClaw funciona de maravilla para organizar archivos de clientes, pero la semana 3 es superintensa porque debes configurar el software de forma local. Me tomó un par de intentos sincronizar todo bien, pero el soporte técnico me ayudó.
-        outcome: Gestión de clientes automatizada
-      - name: Jésica
-        role: Fundadora
+        role: Graduado de 4Geeks Academy
+      - comment: 4Geeks Academy fue y será una experiencia que cambió mi vida. Soy Comunicadora Social en marketing y publicidad, y esto fue un plus impresionante para mi carrera.
+        name: Annelis Fuenmayor
+        outcome: Nueva habilidad para su profesión
         rating: 5
-        comment: El Proyecto Final pagó el costo de todo el curso. Lancé un sistema de soporte autónomo totalmente funcional que toma decisiones inteligentes 24/7 usando n8n e IA. Por fin soy libre de mi bandeja de entrada de correos.
-        outcome: Negocio automatizado
-      - name: Marcos Vance
-        role: Coordinador de Reclutamiento
-        rating: 4
-        comment: Increíble para crear flujos de trabajo que de verdad filtran candidatos en vez de solo generar texto genérico con IA. Le doy 4 estrellas solo porque la semana 4 va volando; tuve que volver a ver los videos de n8n varias veces para ponerme al día.
-        outcome: Experto en filtrado de candidatos
+        role: Comunicadora Social
+      - comment: Me encantó haber sido parte de 4Geeks Academy. Ha sido una experiencia muy positiva, desde los compañeros con los que compartí hasta los profesores con quienes trabajamos.
+        name: Angela Patarroyo
+        outcome: Experiencia positiva de principio a fin
+        rating: 5
+        role: Graduada de 4Geeks Academy
     paddingY:
       desktop: md lg
     marginY:
@@ -239,7 +234,7 @@ sections:
       - name: Git
         icon: git
     module_cards:
-      - title: Aprende IA desde la Base
+      - title: Aprende IA desde la base
         duration: Semana 1
         objectives:
           - Qué son los LLMs y cómo funcionan
@@ -270,14 +265,14 @@ sections:
         projects: Haz que la IA trabaje por ti. Conectarás a la IA con tu espacio de trabajo (Drive, Notion, Gmail) para crear un flujo de trabajo.
         orientation: vertical
         icon: IconRobot
-      - title: Automatiza tus procesos con N8N
+      - title: Automatiza tus procesos con n8n
         duration: Semana 4
         objectives:
           - "Fundamentos de n8n: nodos, disparadores y flujos de trabajo"
           - Conexión de n8n con Gmail, Slack, Google Sheets y webhooks
           - Integración de n8n con un agente de IA para pasos de toma de decisiones inteligentes
           - "Preparación del proyecto final: mapea y construye tu automatización"
-        projects: Automatiza tareas repetitivas de tu trabajo con N8N, conecta tu correo electrónico, hojas de cálculo y google drive para que tu rutina diaria se ejecute en piloto automático.
+        projects: Automatiza tareas repetitivas de tu trabajo con n8n, conecta tu correo electrónico, hojas de cálculo y google drive para que tu rutina diaria se ejecute en piloto automático.
         orientation: vertical
         icon: IconLayoutKanban
       - title: Flujo de trabajo automatizado con IA
@@ -407,7 +402,7 @@ sections:
       - label: 26 de agosto
     cta:
       text: Inscríbete ahora
-      url: https://4geeks.com/checkout?plan=ai-fluency&cohort=1706
+      url: https://4geeksacademy.com/es/payment-component?program=ai-fluency
       variant: primary
     section_id: pricing-aifluency-latam
     marginY:
@@ -460,7 +455,7 @@ sections:
       - label: 26 de agosto
     cta:
       text: Inscríbete ahora
-      url: {{ global.ai_fluency_url | https://4geeks.com/checkout?plan=ai-fluency&cohort=1706 }}
+      url: https://4geeksacademy.com/es/payment-component?program=ai-fluency
       variant: primary
     section_id: pricing-aifluency
     marginY:
@@ -515,7 +510,7 @@ sections:
       - label: 26 de agosto
     cta:
       text: Inscríbete ahora
-      url: https://4geeks.com/checkout?plan=ai-fluency-ue&cohort=1706
+      url: https://4geeksacademy.com/es/payment-component?program=ai-fluency
       variant: primary
     section_id: pricing-aifluency-europe
     marginY:
@@ -535,8 +530,11 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
-    original_price: €900
-    discount_badge: "-10%"
+    yearly:
+      discount_badge: 10% OFF
+      original_price: "900"
+      period: pago único
+      price: "810"
   - type: faq
     section_id: faq-f4yd0z
     title: Preguntas frecuentes

@@ -21,8 +21,13 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: AI Fluency. The AI Skills That Make You Irreplaceable.
-    title_highlight: The AI Skills That Make You Irreplaceable.
+    badge:
+      text: AI Fluency
+      color: primary
+      background: hsl(var(--primary))
+      text_color: hsl(var(--primary-foreground))
+    title: The AI Skills That Make You Irreplaceable. 4 Weeks.
+    title_highlight: 4 Weeks.
     subtitle: In 4 weeks, you'll build AI workflows around your actual job, automate your most repetitive work, and achieve more while working less. No coding required. Includes 1:1 mentorship, live sessions, and a 24/7 AI tutor.
     students_enrolled:
       avatars:
@@ -30,7 +35,7 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
-      count: +6000 graduates
+      count: +8500 graduates
     bullet_points:
       - Earn up to 56% more. AI skills now carry the highest salary premium across every industry.
       - "Become as productive as an entire team: let AI handle reports, data, communication, and more."
@@ -46,31 +51,33 @@ sections:
     tutors_label: "Your tutors:"
     description: AI is not the future, it's the foundation. AI Fluency is your fastest way to move ahead.
     signup_card:
-      title: What You Get
-      description: A structured 4-week program built around your actual job, with live classes, mentorship, and AI-powered feedback.
+      title: What You'll Get
+      description: A structured 4-week program that transforms how you work through AI, with live classes, 1:1 mentorship, and AI-powered feedback 24/7.
       cta_button:
-        text: Program Details
-        url: "#syllabus-aifluency"
+        text: Get Started
+        url: https://4geeksacademy.com/en/payment-component?program=ai-fluency
         variant: primary
       login_link:
         text: Already a student? Login here.
         url: https://4geeks.com/login
       features:
         - icon: calendar
-          text: 4 Weeks
+          text: 4 Weeks of Hands-On Learning
         - icon: IconUsers
-          text: 1 Live Class Per Week
+          text: 1 Live Class Per Week With AI Experts
         - icon: IconUserCheck
           text: 1:1 Mentorship Session Included
         - icon: IconRobot
-          text: AI-Powered Learning & Feedback 24/7
+          text: AI-Powered Learning and Feedback 24/7
     paddingY:
       desktop: lg md
     marginY:
       desktop: none
     section_id: hero-yt9c4j
     video:
-      url: https://www.youtube.com/watch?v=a6aYSobiuBc
+      url: https://www.youtube.com/watch?v=NkmjzrAZ4x8&list=PLmBUv425PabVE26vtG0AqlDTXNmEZ2U0r
+    form:
+      conversion_name: request_more_info
   - type: awards_marquee
     section_id: awards_marquee-tjpzl5
     version: v1.0
@@ -131,6 +138,7 @@ sections:
         title: You want the salary premium that comes with real AI skills.
     background: hsl(210 100% 50% / 0.05)
     section_id: features_quad-aifluency
+    text_align: center
     marginY:
       desktop: none lg
   - type: features_grid
@@ -173,53 +181,49 @@ sections:
   - type: testimonials
     section_id: testimonials-ghxelh
     title: The People Behind the Numbers.
-    subtitle: "Different backgrounds. One outcome: real AI fluency."
+    subtitle: "Different starting points. One result: in-demand skills, better jobs, higher salaries."
     rating_summary:
       average: {{ global.global_review_rating | 4.9 }}
       count: {{ global.global_review_count | 700 }}
     items:
-      - name: Rachel Higgins
-        role: Content Strategist & Mom
+      - comment: "This course is truly amazing: the structure, the instructors, the 4Geeks culture. It's an exceptionally comprehensive program that covers every aspect you need."
+        name: Mariana Chaiban
+        outcome: Comprehensive learning experience
         rating: 5
-        comment: As a mom of two toddlers returning to work after my pregnancy, time is my most precious asset. This course allowed me to automate my client onboarding and content planning workflows. Now, my AI assistant handles the busywork behind the scenes so I can keep expanding my business without sacrificing family time.
-        outcome: Balanced career & family
-      - name: Tyler Reynolds
-        role: Sales Associate
+        role: 4Geeks Academy Graduate
+      - comment: Taking a course like this benefits you in so many ways. It gives you the confidence to create something from nothing.
+        name: Jonathan Ferragut
+        outcome: Built real projects with confidence
         rating: 5
-        comment: Honestly, I felt like everyone on my sales team was moving faster than me, closing deals while I was buried in admin work. I researched 4Geeks, took this course, and it completely leveled the playing field. Learning to plug AI into my daily routine cut my prospecting time in half and made me the most efficient person on the floor.
-        outcome: Top sales performer
-      - name: Matthew Miller
-        role: Marketing Specialist
+        role: 4Geeks Academy Graduate
+      - comment: 4Geeks gave me everything I was missing after finishing my degree. It marked the end of my studies and my entry into the job market.
+        name: Diego Gómez González
+        outcome: Entered the job market
         rating: 5
-        comment: Total game-changer. I managed to plug OpenClaw straight into my Slack workspace, and now my private assistant filters leads and drafts weekly reports for me. Reclaimed an entire day of my week.
-        outcome: 12h+ saved weekly
-      - name: Amanda Brooks
-        role: Operations Coordinator
+        role: 4Geeks Academy Graduate
+      - comment: I enrolled right after high school, and it's been an excellent experience. I love the close-knit community that's always there to help.
+        name: Ana Romero
+        outcome: Supportive, close-knit community
         rating: 5
-        comment: I was terrified that n8n would be too technical for me, but the step-by-step builds are foolproof. By week 4, I had an autonomous workflow handling customer data behind the scenes. This is the end of repetitive tasks.
-        outcome: Workday cut in half
-      - name: Thomas Wright
-        role: Real Estate Agent
-        rating: 4
-        comment: The content is gold, and OpenClaw is the real deal for organizing client files, but week 3 is incredibly intense since you have to set up software locally. Took me a couple of tries to get everything synced up perfectly, but customer support helped me out.
-        outcome: Automated client management
-      - name: Jessica Taylor
-        role: Founder
-        comment: The Capstone Project paid for the entire course. I launched a fully functional autonomous support system that makes smart decisions 24/7 using n8n and AI. I’m finally free from my email inbox.
-        outcome: Business automated
-      - name: Marcus Vance
-        role: Recruiting Coordinator
-        rating: 4
-        comment: Incredible for building workflows that actually sort candidates instead of just generating generic AI text. Giving it 4 stars only because week 4 moves insanely fast—had to rewatch the n8n videos a few times to fully catch up.
-        outcome: Candidate screening expert
+        role: 4Geeks Academy Graduate
+      - comment: "I love how 4Geeks teaches: there are always tutors making sure you master the material. They never leave your questions unanswered."
+        name: Naila Kaliyeva
+        outcome: Never left behind
+        rating: 5
+        role: 4Geeks Academy Graduate
+      - comment: My experience at 4Geeks was incredible. They gave me quality education and the tools to succeed, guiding me every step of the way.
+        name: Francisco Correa
+        outcome: Guided every step of the way
+        rating: 5
+        role: 4Geeks Academy Graduate
     paddingY:
       desktop: md lg
     marginY:
       desktop: none md
   - type: syllabus
     variant: program-modules
-    program_title: AI Fluency Program Overview
-    program_description: Learn by doing, one week at a time. The program starts with an audit of your own job and tasks, so everything you learn applies directly to your work. Each week combines self-paced modules and a live session with your instructor and cohort to practice, troubleshoot, and get feedback.
+    program_title: Program Overview. What You'll Learn and Build.
+    program_description: Learn by doing, one week at a time. The program starts with an audit of your own job and tasks, so your new skills apply directly to your work. Each week combines self-paced modules and a live session with your instructor and cohort to practice, troubleshoot, and get feedback.
     tech_logos:
       - name: OpenAI
         icon: openai
@@ -228,7 +232,7 @@ sections:
       - name: Git
         icon: git
     module_cards:
-      - title: Understanding AI Basics
+      - title: How AI Really Works
         duration: Week 1
         objectives:
           - What LLMs are and how they work
@@ -236,7 +240,7 @@ sections:
           - The difference between a chatbot, assistant, and agent
           - "Prompt fundamentals: role, context, format, constraints"
           - "Job audit: identify your top automation candidates"
-        projects: Audit your current job to find your most repetitive tasks, and build 5 foundational prompts to handle them. You will master the core structure (role, context, constraints) needed to make any AI useful for your specific daily routine.
+        projects: Audit your own job to identify your top automation candidates. Build your first foundational prompts and learn exactly how to prompt AI to get optimal results.
         orientation: vertical
         icon: IconBolt
       - title: Prompting as a Skill
@@ -249,33 +253,33 @@ sections:
         projects: Upgrade your week 1 prompts into advanced, reusable templates and write your first 3-5 prompts for real tasks you do every week.
         orientation: vertical
         icon: IconCode
-      - title: Get Your Personal AI Assistant
+      - title: Your Personal AI Assistant
         duration: Week 3
         objectives:
           - What AI agents are and how skills work
           - Installing and configuring OpenClaw
           - Creating custom skills from prompt templates
           - Connecting your assistant to Google Drive, Gmail, or Notion
-        projects: Learn to use OpenClaw—the market's most powerful open-source AI assistant. You’ll learn to sync AI with your workspace (Drive, Notion, Gmail) to build a private, chat-driven workflow that manages your data on autopilot.
+        projects: Install and configure OpenClaw, the fastest-growing open-source AI agent on GitHub, and build custom skills that handle your tasks autonomously, whether you're at your desk or not.
         orientation: vertical
         icon: IconRobot
-      - title: Automated Workflows with n8n
+      - title: Automation Pipelines with n8n
         duration: Week 4
         objectives:
           - "n8n fundamentals: nodes, triggers, and workflows"
           - Connecting n8n to Gmail, Slack, Google Sheets, and webhooks
           - Linking n8n to an AI agent for smart decision-making steps
           - "Final project prep: map and build your automation"
-        projects: Link your apps with n8n to build a live automation. You’ll learn to make Gmail, Sheets, and Slack talk to each other, leaving your entire weekly routine on autopilot and reclaiming up to 3+ hours of your free time every single week. recurring task.
+        projects: Connect your Gmail, Slack, Google Sheets, and n8n to a live automation with built-in decision-making. Watch your first fully autonomous workflow run without you lifting a finger.
         orientation: vertical
         icon: IconLayoutKanban
-      - title: Your Fully AI-Automated Workflow
+      - title: Your AI-Automated Workflow
         duration: Capstone Project
         objectives:
           - A live n8n automation solving a real personal or professional task
           - At least one AI decision-making step integrated into the workflow
           - Live demo presented to instructor and peers
-        projects: Launch a fully functional automation for your actual job. You will master the skill of creating a 24/7 automated workflow.
+        projects: Deliver a fully functional AI automation that makes you faster and more productive at your actual job. The proof that you know how to leverage AI to stay ahead in your field.
         orientation: horizontal
         icon: IconChartBar
     marginY:
@@ -332,26 +336,28 @@ sections:
         bullets:
           - text: Available 24/7 throughout the program
           - text: Ask for help, feedback, or an explanation whenever you need it
-          - text: Your always-on tutor for all self-paced modules
+          - text: Always-on for all self-paced modules
           - text: Adapts to your skill level and what you are working on
     images:
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp
-        alt: Asian student learning to code
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina-brightened-1365x2048.webp
+        alt: "Image: valentina_brightened"
         object_fit: cover
         object_position: 40%20%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latin_male-133x500.webp
-        alt: Latino student working on a project
+        id: valentina-brightened-1365x2048
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536.webp
+        alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_african-133x500.webp
-        alt: African student collaborating with team
+        id: chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
+        alt: Estudiante africana colaborando con su equipo
         object_fit: cover
-        object_position: 50%15%
+        object_position: 70%15%
         border_radius: 0.5rem
-      - src: https://storage.googleapis.com/4geeks-academy-website/media/student_latina_female-133x500.webp
-        alt: Latina student celebrating success
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74.webp
+        alt: Estudiante latina celebrando un logro
         object_fit: cover
         object_position: 50%30%
         border_radius: 0.5rem
@@ -379,20 +385,19 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Secure your spot. Next cohorts start July 15 and August 26.
+        text: Secure your spot today. Don't miss the opportunity.
       - icon: IconCheck
         text: Spread your payments with 2 interest-free installments through 4Geeks.
       - icon: IconCheck
         text: One 1:1 mentorship session included. Add more at any time for $25 each.
     footer: UPCOMING COHORTS
     footer_badges:
-      - label: Feb 3, 2025
+      - label: July 15, 2026
         tag: Filling fast
-      - label: Mar 10, 2025
-      - label: Apr 7, 2025
+      - label: August 26, 2026
     cta:
       text: Enroll Now
-      url: https://4geeks.com/checkout?plan=ai-fluency&cohort=1706
+      url: https://4geeksacademy.com/en/payment-component?program=ai-fluency
       variant: primary
     section_id: pricing-aifluency-latam
     marginY:
@@ -429,20 +434,19 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Secure your spot. Next cohorts start July 15 and August 26.
+        text: Secure your spot today. Don't miss the opportunity.
       - icon: IconCheck
         text: Spread your payments with flexible financing through Affirm or Klarna. Terms and availability vary by region.
       - icon: IconCheck
         text: One 1:1 mentorship session included. Add more at any time for $25 each.
     footer: UPCOMING COHORTS
     footer_badges:
-      - label: Feb 3, 2025
+      - label: July 15, 2026
         tag: Filling fast
-      - label: Mar 10, 2025
-      - label: Apr 7, 2025
+      - label: August 26, 2026
     cta:
       text: Enroll Now
-      url: {{ global.ai_fluency_url | https://4geeks.com/checkout?plan=ai-fluency&cohort=1706 }}
+      url: https://4geeksacademy.com/en/payment-component?program=ai-fluency
       variant: primary
     section_id: pricing-aifluency
     marginY:
@@ -480,20 +484,19 @@ sections:
     features_title: Choose the option that fits you best.
     features:
       - icon: IconCheck
-        text: Secure your spot. Next cohorts start July 15 and August 26.
+        text: Secure your spot today. Don't miss the opportunity.
       - icon: IconCheck
         text: Spread your payments with 2 interest-free installments through 4Geeks.
       - icon: IconCheck
         text: One 1:1 mentorship session included. Add more at any time for €25 each.
     footer: UPCOMING COHORTS
     footer_badges:
-      - label: Feb 3, 2025
+      - label: July 15, 2026
         tag: Filling fast
-      - label: Mar 10, 2025
-      - label: Apr 7, 2025
+      - label: August 26, 2026
     cta:
       text: Enroll Now
-      url: https://4geeks.com/checkout?plan=ai-fluency-ue&cohort=1706
+      url: https://4geeksacademy.com/en/payment-component?program=ai-fluency
       variant: primary
     section_id: pricing-aifluency-europe
     marginY:
