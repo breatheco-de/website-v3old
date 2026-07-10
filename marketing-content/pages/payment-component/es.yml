@@ -9,214 +9,214 @@ sections:
     choose_date_label: Elige tu fecha de inicio
     included_label: Qué incluye
     programs:
-      - id: ai-engineering
-        description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
-        selection_card:
-          name: AI Engineering
-          duration: 24 weeks
-          badge: Most Popular
-          icon: IconCode
-        summary:
-          price_label: Due today
-          price_amount: $500
-          price_sub: Applied toward your total tuition
-          rows:
-            - label: Program
-              show_dynamic_program: true
-            - label: Start date
-              show_dynamic_date: true
-            - label: Total program fee
-              value: $15,999
-            - label: Financing from
-              value: $349/mo
-            - label: Job guarantee
-              value: Not included
-          cta:
-            text: Secure My Seat
-            url: https://4geeks.com/checkout?plan=ai-engineering-registration-fee&cohort={qs:cohort|sept-2026}
-            variant: primary
-          trust_note:
-            initials: 4G
-            message: <span class="font-semibold text-foreground">An admissions advisor will call you within 24 hours</span> to finalize enrollment, walk you through financing, and answer any questions.
-        benefits:
-          - title: Immediate access to 4Geeks.com + prework
-            desc: Your account activates the moment you pay. Start Foundations right away — Git, JavaScript basics, YAML & JSON, internet fundamentals, and your first coding agents.
-          - title: Unlimited 1-on-1 mentorship
-            desc: Book as many sessions as you need with senior engineers and industry mentors — no caps, no waitlists, ever.
-          - title: Weekly live group sessions
-            desc: Join mentor-led group sessions every week to get guidance on projects, talk through blockers, and learn alongside your cohort.
-          - title: Unlimited career support
-            desc: Resume reviews, mock interviews, LinkedIn optimization, and job search coaching — for life, not just while enrolled.
-          - title: Alumni network — 8,500+ graduates
-            desc: Instant access to a global community of working engineers. Referrals, connections, job leads.
-          - title: Flexible financing
-            desc: Flexible payment plans starting at $349/month. Partner financing also available.
-        unlocks:
-          - text: Master the fundamentals — Learn Git, JavaScript, YAML/JSON, and core web concepts.
-          - text: Build AI from day one — Create your first coding agents with hands-on projects.
-          - text: Learn with expert support — Get LMS & VPS access plus weekly live classes and 1:1 mentorship sessions.
+      - benefits:
+          - desc: "Tu cuenta se activa en el momento en que pagas. Empieza Foundations de inmediato: Git, fundamentos de JavaScript, YAML y JSON, conceptos de internet, y tus primeros agentes de código."
+            title: Acceso inmediato a 4Geeks.com + prework
+          - desc: Agenda las sesiones que necesites con ingenieros senior y mentores de la industria. Sin límites, sin listas de espera, nunca.
+            title: Mentoría 1 a 1 ilimitada
+          - desc: Únete a sesiones guiadas por un mentor cada semana para recibir orientación en tus proyectos, resolver dudas y aprender junto a tu cohorte.
+            title: Sesiones grupales en vivo cada semana
+          - desc: Revisión de currículum, entrevistas simuladas, optimización de LinkedIn y asesoría de búsqueda de empleo. De por vida, no solo mientras estás inscrito.
+            title: Soporte de carrera ilimitado
+          - desc: Acceso inmediato a una comunidad global de ingenieros en activo. Referidos, contactos, oportunidades de empleo.
+            title: "Red de egresados: +8,500 graduados"
+          - desc: Planes de pago flexibles desde $349/mes. También disponible financiamiento con socios externos.
+            title: Financiamiento flexible
         dates:
-          mode: static
           items:
-            - date_iso: "2026-09-08"
-              tags:
-                - text: 4 seats left
-                  color: ""
-              badges:
-                - text: 4 seats left
+            - badges:
+                - color: hsl(var(--destructive) / 0.5)
                   icon: IconUsers
-                  color: hsl(var(--destructive) / 0.5)
+                  text: Quedan 4 cupos
+              date_iso: "2026-09-08"
+              tags:
+                - color: ""
+                  text: Quedan 4 cupos
               url: "?cohort=1536"
             - date_iso: "2026-10-13"
               url: "?cohort=1536"
             - date_iso: "2026-11-10"
               url: "?cohort=1536"
-      - id: ai-fluency
-        description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
+          mode: static
+        description: Asegura tu cupo en AI Engineering, entra directo a tus clases con AI Fluency, o desbloquea todo nuestro catálogo con AI Flex. Completa tu pago para obtener acceso inmediato a 4Geeks.com.
+        id: ai-engineering
         selection_card:
-          name: AI Fluency
-          duration: 4 weeks
-          badge: Career Transition
-          icon: IconBrain
+          badge: Más Popular
+          duration: 24 semanas
+          icon: IconCode
+          name: AI Engineering
         summary:
-          price_label: Pay today
-          price_amount: $810
-          price_sub: Get 10% off
-          rows:
-            - label: Program
-              show_dynamic_program: true
-            - label: Start date
-              show_dynamic_date: true
-            - label: Total program fee
-              value: $900
-            - label: Financing from
-              value: $75/mo
           cta:
-            text: Secure My Seat
-            url: https://4geeks.com/checkout?cohort={qs:cohort|fluency-sept-2026}
+            text: Asegura Mi Cupo
+            url: https://4geeks.com/checkout?plan=ai-engineering-registration-fee&cohort={qs:cohort|sept-2026}
             variant: primary
+          price_amount: $500
+          price_label: Pago inicial
+          price_sub: Se aplica a tu matrícula total
+          rows:
+            - label: Programa
+              show_dynamic_program: true
+            - label: Fecha de inicio
+              show_dynamic_date: true
+            - label: Costo total del programa
+              value: $15,999
+            - label: Financiamiento desde
+              value: $349/mes
+            - label: Garantía de empleo
+              value: No incluida
           trust_note:
             initials: 4G
-            message: <span class="font-semibold text-foreground">Have questions?</span> Reach out to us at support@4geeksacademy.com.
-        benefits:
-          - title: Immediate access to 4Geeks.com
-            desc: Start learning AI fundamentals right away — prompting, agents, automation, and no-code tools.
-          - title: Weekly live classes
-            desc: Join mentor-led live sessions every week to get guidance on projects, talk through blockers, and learn alongside your cohort in real time.
-          - title: Everything you need to build with AI
-            desc: Enjoy AI tokens, AI completions, GitHub Copilot, a dedicated VPS, and other premium tools—all included, so you can create without extra costs or technical setup.
-          - title: Real-world projects
-            desc: Graduate with deployed projects that demonstrate what you can actually build.
-          - title: Flexible financing
-            desc: Flexible payment plans start at $75/month, or save 10% when you pay upfront.
+            message: <span class="font-semibold text-foreground">Un asesor de admisiones te llamará dentro de 24 horas</span> para finalizar tu inscripción, explicarte el financiamiento y resolver tus dudas.
         unlocks:
-          - text: Access to AI tokens & completions — Everything you need to build, test, and ship your projects from day one.
-          - text: Build AI from day one — Create your first coding agents with hands-on projects.
-          - text: 24/7 AI Mentor Support — Get access to Rigobot, ready to answer questions, guide you through challenges, and help you build your projects anytime.
+          - text: Domina los fundamentos. Aprende Git, JavaScript, YAML/JSON y conceptos esenciales de la web.
+          - text: Construye con IA desde el primer día. Crea tus primeros agentes de código con proyectos prácticos.
+          - text: Aprende con soporte experto. Accede a LMS y VPS, más clases en vivo semanales y sesiones de mentoría 1 a 1.
+      - benefits:
+          - desc: "Empieza a aprender los fundamentos de IA de inmediato: prompting, agentes, automatización y herramientas sin código."
+            title: Acceso inmediato a 4Geeks.com
+          - desc: Únete a sesiones en vivo guiadas por un mentor cada semana para recibir orientación en tus proyectos, resolver dudas y aprender junto a tu cohorte en tiempo real.
+            title: Clases en vivo cada semana
+          - desc: Disfruta de tokens de IA, completions de IA, GitHub Copilot, un VPS dedicado y otras herramientas premium. Todo incluido, para que puedas crear sin costos extra ni configuración técnica.
+            title: Todo lo que necesitas para construir con IA
+          - desc: Gradúate con proyectos desplegados que demuestran lo que realmente puedes construir.
+            title: Proyectos reales
+          - desc: Planes de pago flexibles desde $75/mes, o ahorra 10% si pagas por adelantado.
+            title: Financiamiento flexible
         dates:
-          mode: interval
-          start_date_iso: "2026-09-08"
           interval: 6
           interval_unit: weeks
+          mode: interval
+          start_date_iso: "2026-09-08"
           url: "?cohort=1"
-      - id: ai-flex
-        description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
+        description: Asegura tu cupo en AI Engineering, entra directo a tus clases con AI Fluency, o desbloquea todo nuestro catálogo con AI Flex. Completa tu pago para obtener acceso inmediato a 4Geeks.com.
+        id: ai-fluency
         selection_card:
-          name: AI Flex
-          duration: Self-paced
-          badge: Customizable
-          icon: IconAdjustmentsHorizontal
+          badge: Productividad con IA
+          duration: 4 semanas
+          icon: IconBrain
+          name: AI Fluency
+        summary:
+          cta:
+            text: Asegura Mi Cupo
+            url: https://4geeks.com/checkout?cohort={qs:cohort|fluency-sept-2026}
+            variant: primary
+          price_amount: $810
+          price_label: Paga hoy
+          price_sub: Obtén 10% de descuento
+          rows:
+            - label: Programa
+              show_dynamic_program: true
+            - label: Fecha de inicio
+              show_dynamic_date: true
+            - label: Costo total del programa
+              value: $900
+            - label: Financiamiento desde
+              value: $75/mes
+          trust_note:
+            initials: 4G
+            message: <span class="font-semibold text-foreground">¿Tienes preguntas?</span> Escríbenos a support@4geeksacademy.com.
+        unlocks:
+          - text: Acceso a tokens y completions de IA. Todo lo que necesitas para construir, probar y lanzar tus proyectos desde el primer día.
+          - text: Construye con IA desde el primer día. Crea tus primeros agentes de código con proyectos prácticos.
+          - text: Soporte de mentor de IA 24/7. Accede a Rigobot, listo para responder preguntas, guiarte en los retos y ayudarte a construir tus proyectos en cualquier momento.
+      - description: Asegura tu cupo en AI Engineering, entra directo a tus clases con AI Fluency, o desbloquea todo nuestro catálogo con AI Flex. Completa tu pago para obtener acceso inmediato a 4Geeks.com.
+        id: ai-flex
         plans:
-          - id: basic
-            name: Basic
+          - amount: "129"
+            benefits:
+              - desc: Tu cuenta se activa en el momento en que te inscribes. Empieza a aprender de inmediato con cursos de Prompt Engineering, Asistentes de IA, No-Code y Automatizaciones, y más.
+                title: Acceso inmediato a todo el catálogo de cursos
+              - desc: Reúnete con ingenieros senior y mentores de la industria para recibir orientación personalizada en tu aprendizaje.
+                title: 1 sesión de mentoría 1 a 1 al mes
+              - desc: Tokens de IA, completions de IA, GitHub Copilot, un VPS dedicado y más. Todo incluido.
+                title: Todo lo que necesitas para construir con IA
+              - desc: Manténtete al día con contenido y cursos nuevos publicados cada mes, para que nunca te quedes atrás mientras la IA evoluciona.
+                title: Cursos nuevos de IA cada mes
+              - desc: Obtén un certificado por cada curso que completes y muestra tu creciente experiencia en IA.
+                title: Certificado por cada curso
+            billing_note: Mensual
             currency: $
-            amount: "129"
-            period: /month
-            billing_note: Monthly
-            tag: Starter
             featured: false
+            id: basic
+            name: Básico
+            period: /mes
             summary:
-              price_label: Your plan
-              price_amount: $129
-              price_period: /mo
-              price_sub: Billed monthly
-              rows:
-                - label: Program
-                  show_dynamic_program: true
-                - label: Plan
-                  show_dynamic_date: true
-                - label: Total
-                  value: $129/mo
               cta:
-                text: Start Now
+                text: Empieza Ahora
                 url: https://4geeks.com/checkout?plan=basic
                 variant: primary
-              trust_note:
-                initials: 4G
-                message: <span class="font-semibold text-foreground">Have questions?</span> Reach out to us at support@4geeksacademy.com.
-            benefits:
-              - title: Immediate access to full course catalog
-                desc: Your account activates the moment you enroll. Start learning immediately with courses on Prompt Engineering, AI Assistants, No-Code & Automations, and more.
-              - title: 1 monthly 1:1 mentorship session
-                desc: Meet with senior engineers and industry mentors for personalized guidance on your learning.
-              - title: Everything you need to build with AI
-                desc: AI tokens, AI completions, GitHub Copilot, a dedicated VPS, and more — all included.
-              - title: New AI courses every month
-                desc: Stay ahead with fresh courses and content released monthly, keeping you up to date as AI evolves.
-              - title: Certificates for every course
-                desc: Earn a certificate for every course you complete and showcase your growing AI expertise.
-            unlocks:
-              - text: 1 mentorship session per month with senior engineers and industry mentors.
-              - text: Unlimited access to the full course catalog plus certificates for every course completed.
-              - text: Everything you need to build with AI — Includes AI tokens, AI compilations, GitHub Copilot, a dedicated VPS.
-          - id: pro
-            name: Pro
-            tagline: For up to 2 students
-            currency: $
-            amount: "900"
-            period: /year
-            billing_note: Annually · Save 10 months
-            tag: Best Value
-            featured: true
-            summary:
-              price_label: SAVE 10 MONTHS
-              price_amount: $900
-              price_period: /yr
-              price_sub: Billed annually
+              price_amount: $129
+              price_label: Tu plan
+              price_period: /mes
+              price_sub: Facturación mensual
               rows:
-                - label: Program
+                - label: Programa
                   show_dynamic_program: true
                 - label: Plan
                   show_dynamic_date: true
                 - label: Total
-                  value: $900/yr
-                - label: Financing from
-                  value: $75/mo
-              cta:
-                text: Start Now
-                url: https://4geeks.com/checkout?plan=pro
-                variant: primary
+                  value: $129/mes
               trust_note:
                 initials: 4G
-                message: <span class="font-semibold text-foreground">Have questions?</span> Reach out to us at support@4geeksacademy.com.
-            benefits:
-              - title: Immediate access to 4Geeks.com + full course catalog
-                desc: Your account activates the moment you enroll. Start learning immediately with courses on Prompt Engineering, AI Assistants, No-Code & Automations, and more—so you're ready to hit the ground running on day one.
-              - title: 2/mo 1:1 mentorship sessions
-                desc: Meet with senior engineers and industry mentors for personalized guidance on your learning, projects, and career.
-              - title: Everything you need to build with AI
-                desc: Get AI tokens, AI completions, GitHub Copilot, a dedicated VPS, and other premium tools—all included, so you can focus on building instead of paying for or setting up software.
-              - title: New AI courses every month
-                desc: Stay ahead with fresh courses and content released monthly, keeping you up to date as AI evolves.
-              - title: Certificates for every course
-                desc: Earn a certificate for every course you complete and showcase your growing AI expertise.
-              - title: Exclusive community events
-                desc: Join workshops, panel discussions, guest speaker sessions, hackathons, and networking events with industry professionals and fellow builders.
+                message: <span class="font-semibold text-foreground">¿Tienes preguntas?</span> Escríbenos a support@4geeksacademy.com.
+            tag: Inicial
             unlocks:
-              - text: 2 mentorship sessions per month for more personalized guidance and faster progress.
-              - text: 2 seats included — Learn with a friend or teammate, share the subscription cost, and each of you receives your own account and certificates.
-              - text: Double the AI credits — Get 2× the AI tokens, AI completions, and AI chats to build bigger projects without limits.
-              - text: Premium AI development tools — GitHub Copilot, dedicated VPS, and everything you need to create, test, and deploy AI applications.
+              - text: 1 sesión de mentoría al mes con ingenieros senior y mentores de la industria.
+              - text: Acceso ilimitado a todo el catálogo de cursos, más certificado por cada uno que completes.
+              - text: Todo lo que necesitas para construir con IA. Incluye tokens de IA, completions de IA, GitHub Copilot y un VPS dedicado.
+          - amount: "900"
+            benefits:
+              - desc: Tu cuenta se activa en el momento en que te inscribes. Empieza a aprender de inmediato con cursos de Prompt Engineering, Asistentes de IA, No-Code y Automatizaciones, y más, para que estés listo desde el primer día.
+                title: Acceso inmediato a 4Geeks.com + catálogo completo de cursos
+              - desc: Reúnete con ingenieros senior y mentores de la industria para recibir orientación personalizada en tu aprendizaje, proyectos y carrera.
+                title: 2 sesiones de mentoría 1 a 1 al mes
+              - desc: Obtén tokens de IA, completions de IA, GitHub Copilot, un VPS dedicado y otras herramientas premium. Todo incluido, para que te enfoques en construir en vez de pagar o configurar software.
+                title: Todo lo que necesitas para construir con IA
+              - desc: Manténtete al día con contenido y cursos nuevos publicados cada mes, para que nunca te quedes atrás mientras la IA evoluciona.
+                title: Cursos nuevos de IA cada mes
+              - desc: Obtén un certificado por cada curso que completes y muestra tu creciente experiencia en IA.
+                title: Certificado por cada curso
+              - desc: Únete a talleres, paneles de discusión, charlas de invitados especiales, hackathons y eventos de networking con profesionales de la industria y otros builders.
+                title: Eventos exclusivos de la comunidad
+            billing_note: Anual · Ahorra 10 meses
+            currency: $
+            featured: true
+            id: pro
+            name: Pro
+            period: /año
+            summary:
+              cta:
+                text: Empieza Ahora
+                url: https://4geeks.com/checkout?plan=pro
+                variant: primary
+              price_amount: $900
+              price_label: AHORRA 10 MESES
+              price_period: /año
+              price_sub: Facturación anual
+              rows:
+                - label: Programa
+                  show_dynamic_program: true
+                - label: Plan
+                  show_dynamic_date: true
+                - label: Total
+                  value: $900/año
+                - label: Financiamiento desde
+                  value: $75/mes
+              trust_note:
+                initials: 4G
+                message: <span class="font-semibold text-foreground">¿Tienes preguntas?</span> Escríbenos a support@4geeksacademy.com.
+            tag: Mejor Valor
+            tagline: Para hasta 2 estudiantes
+            unlocks:
+              - text: 2 sesiones de mentoría al mes para una orientación más personalizada y avances más rápidos.
+              - text: 2 cupos incluidos. Aprende con un amigo o compañero, comparte el costo de la suscripción, y cada uno recibe su propia cuenta y certificados.
+              - text: El doble de créditos de IA. Obtén 2 veces más tokens de IA, completions de IA, y chats de IA para construir proyectos más grandes sin límites.
+              - text: Herramientas premium de desarrollo de IA. GitHub Copilot, VPS dedicado, y todo lo que necesitas para crear, probar y desplegar aplicaciones de IA.
+        selection_card:
+          badge: Personalizable
+          duration: A tu ritmo
+          icon: IconAdjustmentsHorizontal
+          name: AI Flex
     section_id: enrollment_selector-hmrgaw
     paddingY:
       desktop: sm
