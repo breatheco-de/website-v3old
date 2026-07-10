@@ -69,7 +69,7 @@ sections:
       - id: ai-fluency
         selection_card:
           name: AI Fluency
-          duration: 12 weeks
+          duration: 4 weeks
           badge: Career Transition
           icon: IconBrain
         summary:
