@@ -376,8 +376,8 @@ sections:
     type: pricing
     version: "1.0"
     variant: product
-    title: Matrícula, financiamiento y fechas de inicio
-    subtitle: Invertir en tus habilidades de IA es la jugada inteligente. Y 4Geeks tiene los resultados que lo respaldan.
+    title: Precios, descuentos y financiación.
+    subtitle: Invertir en inteligencia artificial es tu camino hacia el éxito, y 4Geeks es el mejor lugar para hacerlo.
     discount_text: "Ahorra 10%: paga $450 por adelantado."
     financing_text: O paga en 2 cuotas sin intereses.
     financing_amount: $250
@@ -387,14 +387,19 @@ sections:
       - claude
       - n8n
       - openclaw
-    features_title: Elige la opción que más te convenga.
+      - gmail
+      - notion
+      - slack
+      - google-sheets
+      - google-drive
+    features_title: "Así de simple: paga como prefieras."
     features:
       - icon: IconCheck
-        text: Asegura tu cupo. Las próximas cohortes inician el 15 de julio y el 26 de agosto.
+        text: Plazas limitadas. Apúntate ahora, no lo dejes para después.
       - icon: IconCheck
-        text: Divide tus pagos en 2 cuotas sin intereses a través de 4Geeks.
+        text: Financiación sin intereses, ajustada a tu realidad.
       - icon: IconCheck
-        text: Incluye una sesión de mentoría 1 a 1. Agrega más cuando quieras por $25 cada una.
+        text: Incluye 1 sesión de mentoría 1:1 con un experto.
     footer: PRÓXIMAS COHORTES
     footer_badges:
       - label: 15 de julio
@@ -425,8 +430,8 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Matrícula, financiamiento y fechas de inicio
-    subtitle: Invertir en tus habilidades de IA es la jugada inteligente. Y 4Geeks tiene los resultados que lo respaldan.
+    title: Precios, descuentos y financiación.
+    subtitle: Invertir en inteligencia artificial es tu camino hacia el éxito, y 4Geeks es el mejor lugar para hacerlo.
     discount_text: "Ahorra 10%: paga $810 por adelantado."
     financing_text: Financiamiento flexible desde
     financing_amount: $75
@@ -435,14 +440,19 @@ sections:
       - claude
       - n8n
       - openclaw
-    features_title: Elige la opción que más te convenga.
+      - gmail
+      - notion
+      - slack
+      - google-sheets
+      - google-drive
+    features_title: "Así de simple: paga como prefieras."
     features:
       - icon: IconCheck
-        text: Asegura tu cupo. Las próximas cohortes inician el 15 de julio y el 26 de agosto.
+        text: Plazas limitadas. Apúntate ahora, no lo dejes para después.
       - icon: IconCheck
-        text: Divide tus pagos con financiamiento flexible a través de Affirm o Klarna. Los términos y la disponibilidad varían según la región.
+        text: Financiación flexible con Affirm o Klarna, ajustada a tu realidad.
       - icon: IconCheck
-        text: Incluye una sesión de mentoría 1 a 1. Agrega más cuando quieras por $25 cada una.
+        text: Incluye 1 sesión de mentoría 1:1 con un experto.
     footer: PRÓXIMAS COHORTES
     footer_badges:
       - label: 15 de julio
@@ -474,8 +484,8 @@ sections:
   - type: pricing
     version: "1.0"
     variant: product
-    title: Matrícula, financiamiento y fechas de inicio
-    subtitle: Invertir en tus habilidades de IA es la jugada inteligente. Y 4Geeks tiene los resultados que lo respaldan.
+    title: Precios, descuentos y financiación.
+    subtitle: Invertir en inteligencia artificial es tu camino hacia el éxito, y 4Geeks es el mejor lugar para hacerlo.
     discount_text: "Ahorra 10%: paga €810 por adelantado."
     financing_text: O paga en 2 cuotas sin intereses.
     financing_amount: €450
@@ -485,14 +495,19 @@ sections:
       - claude
       - n8n
       - openclaw
-    features_title: Elige la opción que más te convenga.
+      - gmail
+      - notion
+      - slack
+      - google-sheets
+      - google-drive
+    features_title: "Así de simple: paga como prefieras."
     features:
       - icon: IconCheck
-        text: Asegura tu plaza. Las próximas cohortes inician el 15 de julio y el 26 de agosto.
+        text: Plazas limitadas. Apúntate ahora, no lo dejes para después.
       - icon: IconCheck
-        text: Divide tus pagos en 2 cuotas sin intereses a través de 4Geeks.
+        text: Financiación sin intereses, ajustada a tu realidad.
       - icon: IconCheck
-        text: Incluye una sesión de mentoría 1 a 1. Agrega más cuando quieras por €25 cada una.
+        text: Incluye 1 sesión de mentoría 1:1 con un experto.
     footer: PRÓXIMAS COHORTES
     footer_badges:
       - label: 15 de julio
@@ -520,6 +535,8 @@ sections:
       - milan-italy
       - munich-germany
       - rome-italy
+    original_price: €900
+    discount_badge: "-10%"
   - type: faq
     section_id: faq-f4yd0z
     title: Preguntas frecuentes
