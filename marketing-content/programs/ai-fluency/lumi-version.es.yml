@@ -61,7 +61,7 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Contenido orientado a la práctica
+          text: 4 semanas de contenido orientado a la práctica
         - icon: IconUsers
           text: 1 clase en vivo por semana con expertos en IA
         - icon: IconUserCheck
