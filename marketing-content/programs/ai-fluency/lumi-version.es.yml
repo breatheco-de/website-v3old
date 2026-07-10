@@ -188,41 +188,36 @@ sections:
       average: {{ global.global_review_rating | 4.9 }}
       count: {{ global.global_review_count | 700 }}
     items:
-      - name: Valeria Hernández
-        role: Estratega de Contenido y Mamá
+      - comment: Ha sido la mejor decisión que he tomado para tener mejores oportunidades de trabajo.
+        name: Josefa
+        outcome: Mejores oportunidades laborales
         rating: 5
-        comment: Como mamá de dos niños pequeños que vuelve al trabajo tras el embarazo, mi tiempo vale oro. Este curso me permitió automatizar el registro de clientes y la planificación de contenidos. Ahora, mi asistente de IA se encarga del trabajo aburrido detrás de escena para poder hacer crecer mi negocio sin sacrificar tiempo en familia.
-        outcome: Equilibrio entre carrera y familia
-      - name: Mateo Pérez
-        role: Especialista de Ventas
+        role: Graduada de 4Geeks Academy
+      - comment: La academia es muy buena, así como su plan de estudios. Los profesores tienen la mejor disposición y mantienen un ambiente agradable todo el tiempo.
+        name: Diego Sepúlveda
+        outcome: Ambiente de aprendizaje agradable
         rating: 5
-        comment: Sinceramente, sentía que todos en mi equipo de ventas iban más rápido que yo, cerrando tratos mientras yo me ahogaba en papeleo. Investigué sobre 4Geeks, hice este curso y cambió las reglas del juego. Integrar la IA en mi rutina diaria redujo a la mitad mi tiempo de prospección y me convirtió en el más eficiente de la oficina.
-        outcome: Líder en ventas del equipo
-      - name: Carlos Del Valle
-        role: Especialista en Marketing
+        role: Graduado de 4Geeks Academy
+      - comment: La forma de enseñar es excelente, súper clara, y está diseñada para quienes comienzan desde cero.
+        name: Martina Sofía Ojeda
+        outcome: Aprendió desde cero
         rating: 5
-        comment: Un cambio total. Logré conectar OpenClaw directo a mi Slack y ahora mi asistente privado filtra clientes potenciales y redacta mis reportes semanales. Recuperé un día entero de mi semana.
-        outcome: Más de 12 horas ahorradas por semana
-      - name: Amanda Noguera
-        role: Coordinadora de Operaciones
+        role: Graduada de 4Geeks Academy
+      - comment: Ha sido una experiencia increíble y muy útil para mi carrera. Enseñan de manera fenomenal, incluso para quienes no saben nada al empezar.
+        name: Luis Rosales
+        outcome: Sin experiencia previa necesaria
         rating: 5
-        comment: Me aterraba que n8n fuera demasiado técnico para mí, pero el paso a paso es a prueba de errores. En la semana 4, ya tenía un flujo de trabajo autónomo gestionando datos de clientes detrás de escena. Es el fin de las tareas repetitivas.
-        outcome: Jornada laboral reducida a la mitad
-      - name: Tomás González
-        role: Agente Inmobiliario
-        rating: 4
-        comment: El contenido es oro puro y OpenClaw funciona de maravilla para organizar archivos de clientes, pero la semana 3 es superintensa porque debes configurar el software de forma local. Me tomó un par de intentos sincronizar todo bien, pero el soporte técnico me ayudó.
-        outcome: Gestión de clientes automatizada
-      - name: Jessica
-        role: Fundadora
+        role: Graduado de 4Geeks Academy
+      - comment: 4Geeks Academy fue y será una experiencia que cambió mi vida. Soy Comunicadora Social en marketing y publicidad, y esto fue un plus impresionante para mi carrera.
+        name: Annelis Fuenmayor
+        outcome: Nueva habilidad para su profesión
         rating: 5
-        comment: El Proyecto Final pagó el costo de todo el curso. Lancé un sistema de soporte autónomo totalmente funcional que toma decisiones inteligentes 24/7 usando n8n e IA. Por fin soy libre de mi bandeja de entrada de correos.
-        outcome: Negocio automatizado
-      - name: Marcos Vance
-        role: Coordinador de Reclutamiento
-        rating: 4
-        comment: Increíble para crear flujos de trabajo que de verdad filtran candidatos en vez de solo generar texto genérico con IA. Le doy 4 estrellas solo porque la semana 4 va volando; tuve que volver a ver los videos de n8n varias veces para ponerme al día.
-        outcome: Experto en filtrado de candidatos
+        role: Comunicadora Social
+      - comment: Me encantó haber sido parte de 4Geeks Academy. Ha sido una experiencia muy positiva, desde los compañeros con los que compartí hasta los profesores con quienes trabajamos.
+        name: Angela Patarroyo
+        outcome: Experiencia positiva de principio a fin
+        rating: 5
+        role: Graduada de 4Geeks Academy
     paddingY:
       desktop: md lg
     marginY:
