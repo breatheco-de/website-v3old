@@ -118,7 +118,7 @@ sections:
           items:
             - date_iso: "2026-09-08"
               badges:
-                - text: 4 seats left
+                - text: 2 seats left
                   icon: IconUsers
                   color: hsl(var(--destructive) / 0.5)
               url: "?cohort=1536"
