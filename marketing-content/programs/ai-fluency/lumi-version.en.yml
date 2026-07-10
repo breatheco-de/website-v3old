@@ -26,8 +26,8 @@ sections:
       color: primary
       background: hsl(var(--primary))
       text_color: hsl(var(--primary-foreground))
-    title: The AI Skills That Make You Irreplaceable. 4 Weeks.
-    title_highlight: 4 Weeks.
+    title: The AI Skills That Make You Irreplaceable in just 4 Weeks.
+    title_highlight: in just 4 Weeks.
     subtitle: In 4 weeks, you'll build AI workflows around your actual job, automate your most repetitive work, and achieve more while working less. No coding required. Includes 1:1 mentorship, live sessions, and a 24/7 AI tutor.
     students_enrolled:
       avatars:
@@ -38,7 +38,7 @@ sections:
       count: +8500 graduates
     bullet_points:
       - Earn up to 56% more. AI skills now carry the highest salary premium across every industry.
-      - "Become as productive as an entire team: let AI handle reports, data, communication, and more. No coding required. "
+      - "Become as productive as an entire team: let AI handle reports, data, communication, and more."
       - Deploy AI agents that save you 5+ hours every week.
       - Walk away with a certificate recognized worldwide.
     tutors:
