@@ -51,7 +51,7 @@ sections:
     tutors_label: "Tus tutores:"
     signup_card:
       title: Lo que incluye el curso
-      description: Un programa estructurado de 4 semanas que te permitira ser mas productivo en tu trabajo actual, con clases en vivo, mentorías y retroalimentación con IA las 24h.
+      description: Un programa estructurado de 4 semanas que te permitirá ser mas productivo en tu trabajo actual, con clases en vivo, mentorías y retroalimentación con IA las 24h.
       cta_button:
         text: Empiezar ahora
         url: "#modal-y2myvq"
