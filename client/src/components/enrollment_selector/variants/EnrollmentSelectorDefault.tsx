@@ -396,6 +396,9 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
 
   if (!program || !activeSummary) return null;
 
+  const plansAttachToProgramCard =
+    !filteredByQs && data.programs.length > 1 && isPlanMode && !!program?.plans?.length;
+
   const ctaVariantMap: Record<string, "default" | "secondary" | "outline"> = {
     primary: "default",
     secondary: "secondary",
@@ -486,6 +489,20 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                   );
                 })}
               </div>
+
+              {plansAttachToProgramCard && program.plans && (
+                <PlanSelectorBlock
+                  plans={program.plans}
+                  label={data.choose_plan_label ?? "Choose your plan"}
+                  selectedPlanIdx={selectedPlanIdx}
+                  flashId={flashId}
+                  className="md:hidden mt-4 pt-4 border-t border-border"
+                  onSelect={(i) => {
+                    triggerFlash(`plan-${i}`);
+                    setSelectedPlanIdx(i);
+                  }}
+                />
+              )}
             </div>
           ) : null}
 
@@ -509,93 +526,27 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
 
           {/* PLAN SELECTOR */}
           {isPlanMode && program.plans && (
-            <div className={sectionCls}>
+            <div className={plansAttachToProgramCard ? `${sectionCls} hidden md:block` : sectionCls}>
               {filteredByQs && (
-                <div className="mb-4 pb-4 border-b border-border hidden md:block">
-                  <ProgramFilteredHeader program={program} />
-                </div>
+                <>
+                  <div className="mb-3 md:hidden">
+                    <ProgramFilteredHeader program={program} metaFirst />
+                  </div>
+                  <div className="mb-4 pb-4 border-b border-border hidden md:block">
+                    <ProgramFilteredHeader program={program} />
+                  </div>
+                </>
               )}
-              <p className="text-[10px] md:text-[12px] font-bold tracking-[1.5px] md:tracking-[1.8px] uppercase text-muted-foreground mb-2 md:mb-3.5">
-                {data.choose_plan_label ?? "Choose your plan"}
-              </p>
-              <div className="grid grid-cols-2 gap-3">
-                {program.plans.map((p, i) => {
-                  const active = selectedPlanIdx === i;
-                  const fid = `plan-${i}`;
-                  const flashing = flashId === fid;
-                  return (
-                    <button
-                      key={p.id}
-                      type="button"
-                      data-testid={`button-plan-${p.id}`}
-                      className={`${TILE_BTN_BASE} w-full text-left rounded-[12px] py-2.5 px-3.5`}
-                      style={tileStyle(active, flashing)}
-                      onClick={() => {
-                        triggerFlash(fid);
-                        setSelectedPlanIdx(i);
-                      }}
-                    >
-                      {active && (
-                        <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary" />
-                      )}
-                      <div className="flex items-start justify-between gap-1 mb-1 pr-4">
-                          <span
-                            className="text-[15px] font-extrabold leading-tight transition-colors duration-200"
-                            style={{
-                              color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))",
-                            }}
-                          >
-                            {p.name}
-                          </span>
-                          {p.tag && (
-                            <span
-                              className="text-[8px] font-bold tracking-wide uppercase px-1.5 py-0.5 rounded-full shrink-0"
-                              style={{
-                                background: p.featured
-                                  ? "hsl(var(--primary) / 0.12)"
-                                  : "hsl(var(--muted))",
-                                color: p.featured
-                                  ? "hsl(var(--primary))"
-                                  : "hsl(var(--muted-foreground))",
-                              }}
-                            >
-                              {p.tag}
-                            </span>
-                          )}
-                        </div>
-                        {p.tagline && (
-                          <p className="text-[11px] text-muted-foreground mb-2 leading-tight">
-                            {p.tagline}
-                          </p>
-                        )}
-                        <div className="flex items-end gap-px mb-0.5">
-                          <span
-                            className="text-[12px] font-extrabold mb-0.5 transition-colors duration-200"
-                            style={{
-                              color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))",
-                            }}
-                          >
-                            {p.currency}
-                          </span>
-                          <span
-                            className="text-[26px] font-extrabold leading-none tracking-tight transition-colors duration-200"
-                            style={{
-                              color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))",
-                            }}
-                          >
-                            {p.amount}
-                          </span>
-                          <span className="text-[11px] ml-0.5 mb-0.5 font-medium text-muted-foreground">
-                            {p.period}
-                          </span>
-                        </div>
-                        {p.billing_note && (
-                          <p className="text-[11px] text-muted-foreground">{p.billing_note}</p>
-                        )}
-                    </button>
-                  );
-                })}
-              </div>
+              <PlanSelectorBlock
+                plans={program.plans}
+                label={data.choose_plan_label ?? "Choose your plan"}
+                selectedPlanIdx={selectedPlanIdx}
+                flashId={flashId}
+                onSelect={(i) => {
+                  triggerFlash(`plan-${i}`);
+                  setSelectedPlanIdx(i);
+                }}
+              />
             </div>
           )}
 
@@ -609,7 +560,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
 
         {/* ── RIGHT COLUMN (sticky) ── */}
         <div className="relative md:sticky md:top-[72px]">
-          {filteredByQs && (
+          {filteredByQs && isDateMode && (
             <div className="md:hidden mb-3">
               <ProgramFilteredHeader program={program} metaFirst />
             </div>
@@ -777,6 +728,120 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Sub-component: plan selector ─────────────────────────────────────────────
+
+type EnrollmentPlan = NonNullable<EnrollmentSelectorProgram["plans"]>[number];
+
+function PlanSelectorBlock({
+  plans,
+  label,
+  selectedPlanIdx,
+  flashId,
+  className,
+  onSelect,
+}: {
+  plans: NonNullable<EnrollmentSelectorProgram["plans"]>;
+  label: string;
+  selectedPlanIdx: number;
+  flashId: string | null;
+  className?: string;
+  onSelect: (idx: number) => void;
+}) {
+  return (
+    <div className={className}>
+      <p className="text-[10px] md:text-[12px] font-bold tracking-[1.5px] md:tracking-[1.8px] uppercase text-muted-foreground mb-2 md:mb-3.5">
+        {label}
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
+        {plans.map((p: EnrollmentPlan, i) => {
+          const active = selectedPlanIdx === i;
+          const fid = `plan-${i}`;
+          const flashing = flashId === fid;
+          return (
+            <button
+              key={p.id}
+              type="button"
+              data-testid={`button-plan-${p.id}`}
+              className={`${TILE_BTN_BASE} w-full text-left rounded-[10px] py-2 px-2.5 md:rounded-[12px] md:py-2.5 md:px-3.5`}
+              style={tileStyle(active, flashing)}
+              onClick={() => onSelect(i)}
+            >
+              {active && (
+                <span className="absolute top-2.5 right-2.5 hidden md:block w-2 h-2 rounded-full bg-primary" />
+              )}
+              <div className="flex items-start justify-between gap-2 mb-0.5 md:mb-1">
+                <div className="flex min-w-0 items-start gap-1">
+                  <span
+                    className="text-[14px] md:text-[15px] font-extrabold leading-tight transition-colors duration-200"
+                    style={{
+                      color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))",
+                    }}
+                  >
+                    {p.name}
+                  </span>
+                  {p.tag && (
+                    <span
+                      className="text-[8px] font-bold tracking-wide uppercase px-1.5 py-0.5 rounded-full shrink-0"
+                      style={{
+                        background: p.featured
+                          ? "hsl(var(--primary) / 0.12)"
+                          : "hsl(var(--muted))",
+                        color: p.featured
+                          ? "hsl(var(--primary))"
+                          : "hsl(var(--muted-foreground))",
+                      }}
+                    >
+                      {p.tag}
+                    </span>
+                  )}
+                </div>
+                {p.tagline && (
+                  <p className="md:hidden shrink-0 max-w-[55%] text-[10px] text-muted-foreground text-right leading-tight">
+                    {p.tagline}
+                  </p>
+                )}
+              </div>
+              {p.tagline && (
+                <p className="hidden md:block text-[11px] text-muted-foreground mb-2 leading-tight">
+                  {p.tagline}
+                </p>
+              )}
+              <div className="flex items-end justify-between gap-2">
+                <div className="flex items-end gap-px min-w-0">
+                  <span
+                    className="text-[11px] md:text-[12px] font-extrabold mb-0.5 transition-colors duration-200"
+                    style={{
+                      color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))",
+                    }}
+                  >
+                    {p.currency}
+                  </span>
+                  <span
+                    className="text-[19px] md:text-[26px] font-extrabold leading-none tracking-tight transition-colors duration-200"
+                    style={{
+                      color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))",
+                    }}
+                  >
+                    {p.amount}
+                  </span>
+                  <span className="text-[10px] md:text-[11px] ml-0.5 mb-0.5 font-medium text-muted-foreground">
+                    {p.period}
+                  </span>
+                </div>
+                {p.billing_note && (
+                  <p className="text-[10px] md:text-[11px] text-muted-foreground shrink-0 text-right leading-tight">
+                    {p.billing_note}
+                  </p>
+                )}
+              </div>
+            </button>
+          );
+        })}
       </div>
     </div>
   );
