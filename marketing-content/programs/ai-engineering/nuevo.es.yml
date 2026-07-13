@@ -204,7 +204,7 @@ sections:
     version: "1.0"
     variant: stats-charts
     subtitle: La demanda existe. El talento, no.
-    title: "Dominar la IA ya no es opcional, <span style=\"color: hsl(var(--primary));\">es la diferencia entre avanzar o quedarte atrás.</span>"
+    title: Por qué Ingeniería de IA ahora
     description: null
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
@@ -239,6 +239,7 @@ sections:
       desktop: none lg
     marginY:
       desktop: md lg
+    title_highlight: ahora
   - type: syllabus
     section_id: syllabus-5hjjcl
     variant: program-modules
