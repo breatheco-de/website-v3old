@@ -19,16 +19,15 @@ sections:
     variant: productShowcase
     title: ""
     brand_mark:
-      prefix: Ingeniería de IA en 24 semanas. La universidad tarda
-      highlight: 4 años
+      prefix: Ingeniería de IA en 24 semanas. Llegamos a donde la universidad
+      highlight: jamás
       color: primary
-      suffix: en llegar ahí.
+      suffix: podrá llegar
     description: Mientras una carrera tradicional te enseña las bases de la informática, este programa te pone directo a construir agentes, RAG e infraestructura de IA que las empresas ya están contratando.
     bullets:
-      - text: 24 semanas 100% enfocadas en IA aplicada
-      - text: Stack vivo - LLMs, RAG, agentes, MCP
-      - text: Capstone - empresa real transformada con IA
-      - text: Mentoría senior ilimitada, incluso graduado/a
+      - text: 24 semanas, no 4 años.
+      - text: Mentoría ilimitada, aprendizaje basado en proyectos reales y 100% orientado a tu empleabilidad.
+      - text: Por una fracción del coste — y con un retorno de la inversión muy superior.
     form:
       variant: stacked
       conversion_name: request_more_info
