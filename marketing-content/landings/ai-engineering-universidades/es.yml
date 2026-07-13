@@ -124,7 +124,7 @@ sections:
         message: Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
     load: eager
     paddingY:
-      desktop: none lg
+      desktop: none md
   - type: comparison_table
     version: "1.0"
     title: Universidad tradicional vs. AI Engineering
