@@ -671,7 +671,7 @@ sections:
       variant: primary
     section_id: pricing-4zx54o
     marginY:
-      desktop: md xl
+      desktop: md lg
     paddingY:
       desktop: lg md
     showOnLocations:
