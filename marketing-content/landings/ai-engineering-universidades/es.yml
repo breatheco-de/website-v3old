@@ -662,8 +662,8 @@ sections:
   - type: cta_banner
     section_id: cta_banner-76bymf
     version: "1.0"
-    title: Tu carrera como Ingeniero de IA no va a empezar sola.
-    subtitle: Cada semana que esperas es una semana que otro se lleva el trabajo. Aplica en 2 minutos.
+    title: ¿Universidad, bootcamp, o ambos? Primero mira el programa completo.
+    subtitle: Te enviamos el plan de estudios detallado, opciones de financiación y los próximos pasos. Sin compromiso, toma 2 minutos.
     background: hsl(var(--primary))
     variant: form
     form:
@@ -691,7 +691,7 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
+        message: Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       button_className: bg-primary border-white
       terms_className: text-white/80
     form_background: hsl(var(--card))
