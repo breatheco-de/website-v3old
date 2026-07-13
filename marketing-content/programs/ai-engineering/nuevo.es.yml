@@ -197,6 +197,11 @@ sections:
       desktop: 6xl
     paddingY:
       desktop: md none
+    description: null
+    card_bars:
+      title: La IA crea más empleos de los que quita
+    card_gauge:
+      title: Sé parte del 3% que ya está listo para la IA
   - type: features_grid
     version: "1.0"
     variant: stats-charts
