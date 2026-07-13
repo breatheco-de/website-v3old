@@ -600,7 +600,7 @@ sections:
     form:
       variant: stacked
       conversion_name: request_more_info
-      submit_label: Quiero la información
+      submit_label: Obtener plan de estudios
       fields:
         email:
           visible: true
