@@ -1149,7 +1149,7 @@ sections:
         tag: Mensual
         for_label: Para 1 estudiante
         currency: $
-        amount: "85"
+        amount: "49"
         period: /mes
         billing_note: Cargo mensual recurrente
         cta:
@@ -1171,7 +1171,7 @@ sections:
         tag: Anual
         for_label: Para hasta 2 estudiantes
         currency: $
-        amount: "600"
+        amount: "343"
         period: /año
         billing_note: Facturación anual
         featured: true
