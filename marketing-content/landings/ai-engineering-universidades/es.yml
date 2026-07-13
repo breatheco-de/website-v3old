@@ -93,13 +93,13 @@ sections:
   - type: sticky_cta
     section_id: sticky_cta-56tm9c
     version: "1.0"
-    heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Obtener información
+    heading: Empieza tu carrera en IA sin esperar 4 años
+    button_label: Obtener el plan de estudios
     show_dismiss: false
     form:
       variant: inline
       conversion_name: student_application
-      submit_label: Obtener información
+      submit_label: Obtener el plan de estudios
       fields:
         email:
           visible: true
