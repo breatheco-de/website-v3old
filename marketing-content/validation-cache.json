@@ -73,41 +73,8 @@
       "warnings": []
     },
     "/es/programas-de-carrera/ai-engineering": {
-      "lastRunAt": "2026-06-29T16:20:24.176Z",
-      "errors": [
-        {
-          "type": "error",
-          "code": "INVALID_BACKGROUND",
-          "message": "Invalid background value: \"bg-slate-950\" at sections[4].background",
-          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering/es.yml",
-          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
-          "category": "content"
-        },
-        {
-          "type": "error",
-          "code": "INVALID_BACKGROUND",
-          "message": "Invalid background value: \"bg-muted/30\" at sections[12].background",
-          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering/es.yml",
-          "suggestion": "Use a theme-defined value. Examples: background, hsl(var(--background)), muted, hsl(var(--muted)), card",
-          "category": "content"
-        },
-        {
-          "type": "error",
-          "code": "DUPLICATE_TITLE",
-          "message": "Duplicate page_title \"Programa de Carrera Ingeniero de IA | 4Geeks\" used by 4 files",
-          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering/es.yml",
-          "suggestion": "Also used in: /home/runner/workspace/marketing-content/programs/ai-engineering-devs/es.yml, /home/runner/workspace/marketing-content/programs/ai-engineering-new/es.yml, /home/runner/workspace/marketing-content/landings/draft-spain/es.yml",
-          "category": "seo"
-        },
-        {
-          "type": "error",
-          "code": "DUPLICATE_DESCRIPTION",
-          "message": "Duplicate description used by 4 files: \"Conviértete en Ingeniero de IA en 24 semanas con mentoría il...\"",
-          "file": "/home/runner/workspace/marketing-content/programs/ai-engineering/es.yml",
-          "suggestion": "Also used in: /home/runner/workspace/marketing-content/programs/ai-engineering-devs/es.yml, /home/runner/workspace/marketing-content/programs/ai-engineering-new/es.yml, /home/runner/workspace/marketing-content/landings/draft-spain/es.yml",
-          "category": "seo"
-        }
-      ],
+      "lastRunAt": "2026-07-13T22:14:41.136Z",
+      "errors": [],
       "warnings": [
         {
           "type": "warning",
