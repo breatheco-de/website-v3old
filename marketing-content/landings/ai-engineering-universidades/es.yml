@@ -479,9 +479,6 @@ sections:
     background: hsl(var(--card))
   - type: testimonials_slide
     title: Dieron el salto sin pasar por la universidad de nuevo
-    related_features:
-      - mentors-and-teachers
-      - career-support
     description: Músicos, especialistas de soporte, emprendedores — sin experiencia previa en programación.
     testimonials:
       - name: Loretta Thompson
