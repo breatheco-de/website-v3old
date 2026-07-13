@@ -139,7 +139,7 @@ sections:
           - 24 semanas
       - feature: Enfoque curricular
         values:
-          - Fundamentos generales de computación
+          - Fundamentos generales de informática
           - 100% aplicado - agentes, RAG, MCP, infraestructura de IA
       - feature: Actualización del contenido
         values:
