@@ -193,6 +193,8 @@ sections:
         label: Aumento salarial promedio en el nuevo puesto
       - value: 3-6 meses
         label: Tiempo promedio para conseguir empleo
+      - value: 3-6 meses
+        label: Tiempo promedio para conseguir empleo
     collage_images:
       - image_id: group-7085-1
         col_span: 5
