@@ -279,7 +279,7 @@ sections:
         rating: 5
         role: Graduada de 4Geeks Academy
     paddingY:
-      desktop: md lg
+      desktop: md
     marginY:
       desktop: none
   - type: syllabus
