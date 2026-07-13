@@ -73,7 +73,7 @@ sections:
         - icon: IconRobot
           text: Mentor de IA disponible 24/7, además de tus mentores humanos.
         - icon: IconShield
-          text: Garantía de Empleo opcional* para mayor tranquilidad.
+          text: "Garantía de Empleo opcional* para mayor tranquilidad.<div style=\"font-size: 11px; margin-top: 4px;\"><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\" target=\"_blank\">*No disponible en todas las regiones. Aplican términos y condiciones.</a></div>"
     section_id: hero-tznhhe
     paddingY:
       desktop: lg md
