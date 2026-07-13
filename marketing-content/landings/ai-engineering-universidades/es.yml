@@ -188,7 +188,7 @@ sections:
       desktop: none md
     paddingY:
       mobile: none md
-      desktop: none
+      desktop: lg none
   - type: trust_cards
     maxWidth:
       desktop: 6xl
