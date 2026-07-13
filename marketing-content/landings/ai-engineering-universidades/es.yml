@@ -22,6 +22,7 @@ sections:
       prefix: Ingeniería de IA en 24 semanas. La universidad tarda
       highlight: 4 años
       color: primary
+      suffix: en llegar ahí.
     description: La IA está cambiando todos los trabajos. En 24 semanas pasas de usar herramientas de IA a desarrollar e integrar sistemas reales que las empresas llevan meses intentando contratar.
     bullets:
       - text: Mentoría ilimitada de por vida con ingenieros senior, incluso después de graduarte
