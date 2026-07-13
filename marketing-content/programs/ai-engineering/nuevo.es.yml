@@ -776,7 +776,7 @@ sections:
       desktop: none
     paddingY:
       desktop: md
-    background: hsl(var(--muted))
+    background: hsl(var(--card))
     item_overrides:
       how-long-does-the-program-take:
         hideOnLocations:
