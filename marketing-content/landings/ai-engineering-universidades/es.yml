@@ -171,12 +171,12 @@ sections:
     cards:
       - title: 87%
         description: de empresas no encuentra el talento de IA que necesita
-      - title: 87%
-        description: de empresas no encuentra el talento de IA que necesita
-      - title: 87%
-        description: de empresas no encuentra el talento de IA que necesita
-      - title: 87%
-        description: de empresas no encuentra el talento de IA que necesita
+      - title: ~30%
+        description: crecimiento interanual en ofertas de trabajo en IAmpresas no encuentra el talento de IA que necesita
+      - title: 800K
+        description: roles relacionados con IA previstos para 2027
+      - title: 40.000€-50.000€
+        description: salario anual promedio para ingenieros de IA
     marginY:
       desktop: none xl
     background: hsl(var(--card))
