@@ -581,7 +581,7 @@ sections:
             text: Asegura Mi Cupo
             url: https://4geeks.com/checkout?plan=ai-fluency-latam&cohort={qs:cohort|fluency-sept-2026}
             variant: primary
-          price_amount: $400
+          price_amount: $450
           price_label: Paga hoy
           price_sub: Obtén 10% de descuento
           rows:
