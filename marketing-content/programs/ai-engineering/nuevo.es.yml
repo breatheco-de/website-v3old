@@ -204,7 +204,7 @@ sections:
     version: "1.0"
     variant: stats-charts
     subtitle: La demanda existe. El talento, no.
-    title: Por qué Ingeniería de IA ahora
+    title: "Por qué Ingeniería de IA<span style=\"color: hsl(var(--primary));\"> ahora</span>"
     description: null
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
