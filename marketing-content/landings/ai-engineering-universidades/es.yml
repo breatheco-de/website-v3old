@@ -25,8 +25,9 @@ sections:
       suffix: en llegar ahí.
     description: Mientras una carrera tradicional te enseña las bases de la computación, este programa te pone directo a construir agentes, RAG e infraestructura de IA que las empresas ya están contratando.
     bullets:
-      - text: Mentoría ilimitada de por vida con ingenieros senior, incluso después de graduarte
-      - text: Paga en 10, 12 o 18 cuotas mensuales sin dejar tu trabajo actual
+      - text: 84% de tasa de contratación
+      - text: Mentoría 1:1 de por vida
+      - text: 24 semanas 100% enfocadas en convertirte en un profesional
     form:
       variant: stacked
       conversion_name: request_more_info
