@@ -187,14 +187,14 @@ sections:
     heading: Nuestros Graduados Consiguen Empleo. Rápido.
     subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
     stats:
-      - value: {{ global.global_job_placement_rate | 84% }}%
-        label: Tasa de contratación promedio
-      - value: {{ global.global_salary_increase | 55% }}%
-        label: Aumento salarial promedio en el nuevo puesto
-      - value: 3-6 meses
-        label: Tiempo promedio para conseguir empleo
-      - value: 3-6 meses
-        label: Tiempo promedio para conseguir empleo
+      - value: 87%
+        label: de empresas no encuentra el talento de IA que necesita
+      - value: ~30%
+        label: crecimiento interanual en ofertas de trabajo en IAmpresas no encuentra el talento de IA que necesita
+      - value: 800K
+        label: roles relacionados con IA previstos para 2027
+      - value: 40.000€-50.000€
+        label: salario anual promedio para ingenieros de IA (USD)
     collage_images:
       - image_id: group-7085-1
         col_span: 5
