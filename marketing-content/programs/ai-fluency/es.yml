@@ -375,6 +375,7 @@ sections:
     subtitle: Invertir en inteligencia artificial es tu camino hacia el éxito, y 4Geeks es el mejor lugar para hacerlo.
     discount_text: "10% de descuento: $450 de una sola vez."
     financing_text: También puedes financiarlo en 2 cuotas de $250, sin intereses.
+    original_price: $500
     financing_amount: $250
     financing_period: ""
     tech_icons:
