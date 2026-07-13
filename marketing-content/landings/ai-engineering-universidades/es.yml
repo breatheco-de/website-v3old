@@ -597,7 +597,7 @@ sections:
     form:
       variant: stacked
       conversion_name: request_more_info
-      submit_label: Obtén mas info
+      submit_label: Quiero la información
       fields:
         email:
           visible: true
