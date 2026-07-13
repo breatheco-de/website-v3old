@@ -94,7 +94,7 @@ sections:
     section_id: sticky_cta-56tm9c
     version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
-    button_label: Iniciar mi aplicación
+    button_label: Obtener información
     show_dismiss: false
     form:
       variant: inline
