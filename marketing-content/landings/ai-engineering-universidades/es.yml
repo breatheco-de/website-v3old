@@ -188,7 +188,7 @@ sections:
       desktop: lg md
     paddingY:
       mobile: none md
-      desktop: none md
+      desktop: none
   - type: trust_cards
     maxWidth:
       desktop: 6xl
@@ -215,7 +215,7 @@ sections:
         review_count: 4.9 en SwitchUp
     section_id: trust_cards-iojf4c
     paddingY:
-      desktop: none lg
+      desktop: md lg
     marginY:
       desktop: md lg
   - type: syllabus
