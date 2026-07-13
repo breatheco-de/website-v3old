@@ -56,7 +56,7 @@ sections:
         message: Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       consent: {}
     form_card_title: Obtén la información completa del programa
-    form_card_subtitle: Te enviamos el plan de estudios, opciones de financiación y más. Solo toma 2 minutos.
+    form_card_subtitle: Te enviamos el plan de estudios detallado, opciones de financiación y los próximos pasos. Sin compromiso, toma 2 minutos.
     form_card_image: https://storage.googleapis.com/4geeks-academy-website/media/Course-Report-Best-Coding-Bootcamp-2026-Badge.png
     show_awards_marquee: true
     awards_marquee:
