@@ -205,7 +205,7 @@ sections:
         id: gemini-generated-image-wpk4yvwpk4yvwpk4
         object_scale: 1.05
         transform_origin: 50% 50%
-        object_position: 50% 45%
+        object_position: 50% 40%
     section_id: graduates_stats-vlw0zo
     marginY:
       desktop: none
