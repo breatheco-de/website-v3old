@@ -152,7 +152,7 @@ sections:
       desktop: md none
   - type: graduates_stats
     heading: Resultados reales. Cifras reales.
-    subheading: Más de 6.000 graduados. Resultados sólidos en todos los frentes.
+    subheading: Más de 8500 graduados. Resultados sólidos en todos los frentes.
     stats:
       - value: 84%
         label: Tasa media de contratación
