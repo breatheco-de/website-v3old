@@ -174,8 +174,8 @@ sections:
         label: crecimiento interanual en ofertas de trabajo en IAmpresas no encuentra el talento de IA que necesita
       - value: 800K
         label: roles relacionados con IA previstos para 2027
-      - value: 40.000€-50.000€
-        label: salario anual promedio para ingenieros de IA (USD)
+      - value: 40.000€
+        label: salario anual promedio para ingenieros de IA
     collage_images:
       - image_id: group-7085-1
         col_span: 5
