@@ -173,7 +173,7 @@ sections:
     subtitle: El 87% de las empresas no encuentra los ingenieros que necesita. Tú puedes ser uno de ellos.
     description: Los ingenieros de IA construyen sistemas inteligentes, automatizan procesos y diseñan productos impulsados por IA. Según McKinsey, el 87% de las empresas reportan que les falta talento en ingeniería de IA para transformar sus operaciones. Esta brecha es tu oportunidad. La demanda existe, el desafío es estar preparado.
     card_color: bg-background
-    background: hsl(var(--card))
+    background: hsl(var(--secondary))
     items:
       - value: "800.000"
         title: Roles relacionados con IA previstos para 2027
