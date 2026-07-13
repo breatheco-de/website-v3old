@@ -132,20 +132,20 @@ sections:
       - name: Carrera Universitaria
       - name: 4Geeks AI Engineering
     rows:
-      - feature: 1:1 Support
+      - feature: Duración
         values:
-          - Unlimited
-          - Limited
-        feature_description: Get personalized guidance whenever you need it
-      - feature: Guarantee
+          - 4 a 5 años
+          - 24 semanas
+        feature_description: null
+      - feature: Enfoque curricular
         values:
-          - "Yes"
-          - "No"
-        feature_description: Money back if not satisfied
-      - feature: Pricing
+          - Fundamentos generales de computación
+          - 100% aplicado - agentes, RAG, MCP, infraestructura de IA
+        feature_description: null
+      - feature: Actualización del contenido
         values:
-          - Flexible
-          - Fixed
+          - Ciclos de revisión de varios años
+          - Currículum vivo, ajustado a lo que el mercado pide ahora
     footer_note: "* Based on industry research"
     section_id: comparison_table-lhvsra
     paddingY:
