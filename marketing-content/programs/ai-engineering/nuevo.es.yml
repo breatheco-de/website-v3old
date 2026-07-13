@@ -38,16 +38,16 @@ sections:
       - Construye sistemas de IA reales, listos para producción, ya sea para una empresa o tu propio producto.
       - Domina los agentes de código que la industria ya está usando.
       - "Sal con un portafolio real: la prueba que necesitas para conseguir empleo o lanzar tu propia idea."
-      - "84% de nuestros graduados consigue empleo. Suma la Garantía de Empleo opcional* para mayor tranquilidad.<div><br></div><div><span style=\"font-size: 12px; text-align: center;\"><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\" target=\"_blank\">*No disponible en todas las regiones. Aplican términos y condiciones.</a></span></div>"
+      - 84% de nuestros graduados consigue empleo. Suma la Garantía de Empleo opcional* para mayor tranquilidad.
     tutors:
       - name: Marco Gonzalo
         role: Instructor Principal
         image: https://storage.googleapis.com/4geeks-academy-website/media/410890.jpg
-      - name: Rigo
-        role: Tutor de IA
+      - name: Tutor con IA
+        role: IA de 4Geeks 24/7. Atención continua las 24h.
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Tus mentores:"
-    description: "Lanza tu carrera en uno de los campos de más rápido crecimiento en tecnología, con las habilidades para conseguir puestos de $95K–$135K+.<div><br></div><div><span style=\"font-size: 12px; text-align: center;\"><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\" target=\"_blank\">*No disponible en todas las regiones. Aplican términos y condiciones.</a></span></div>"
+    description: "<div><br></div><div><span style=\"font-size: 12px; text-align: center;\"><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf\" target=\"_blank\">*No disponible en todas las regiones. Aplican términos y condiciones.</a></span></div>"
     media:
       type: video
       src: https://www.youtube.com/shorts/sSxJnelPJT8
