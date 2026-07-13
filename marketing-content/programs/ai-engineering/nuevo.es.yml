@@ -240,17 +240,48 @@ sections:
     marginY:
       desktop: md lg
     title_highlight: ahora
-  - type: breadcrumb
-    version: v1.0
+  - type: testimonials
+    section_id: testimonials-ghxelh
+    title: Las personas detrás de los números.
+    subtitle: Distintos puntos de partida, un mismo resultado. Más productividad, mayor eficiencia y horas recuperadas.
+    rating_summary:
+      average: {{ global.global_review_rating | 4.9 }}
+      count: {{ global.global_review_count | 700 }}
     items:
-      - label: Home
-        url: /
-      - label: Career Programs
-        url: /en/career-programs
-      - label: Full Stack Developer
-    section_id: breadcrumb-0f5q9g
+      - comment: Ha sido la mejor decisión que he tomado para tener mejores oportunidades de trabajo.
+        name: Josefa
+        outcome: Mejores oportunidades laborales
+        rating: 5
+        role: Graduada de 4Geeks Academy
+      - comment: La academia es muy buena, así como su plan de estudios. Los profesores tienen la mejor disposición y mantienen un ambiente agradable todo el tiempo.
+        name: Diego Sepúlveda
+        outcome: Ambiente de aprendizaje agradable
+        rating: 5
+        role: Graduado de 4Geeks Academy
+      - comment: La forma de enseñar es excelente, súper clara, y está diseñada para quienes comienzan desde cero.
+        name: Martina Sofía Ojeda
+        outcome: Aprendió desde cero
+        rating: 5
+        role: Graduada de 4Geeks Academy
+      - comment: Ha sido una experiencia increíble y muy útil para mi carrera. Enseñan de manera fenomenal, incluso para quienes no saben nada al empezar.
+        name: Luis Rosales
+        outcome: Sin experiencia previa necesaria
+        rating: 5
+        role: Graduado de 4Geeks Academy
+      - comment: 4Geeks Academy fue y será una experiencia que cambió mi vida. Soy Comunicadora Social en marketing y publicidad, y esto fue un plus impresionante para mi carrera.
+        name: Annelis Fuenmayor
+        outcome: Nueva habilidad para su profesión
+        rating: 5
+        role: Comunicadora Social
+      - comment: Me encantó haber sido parte de 4Geeks Academy. Ha sido una experiencia muy positiva, desde los compañeros con los que compartí hasta los profesores con quienes trabajamos.
+        name: Angela Patarroyo
+        outcome: Experiencia positiva de principio a fin
+        rating: 5
+        role: Graduada de 4Geeks Academy
     paddingY:
-      desktop: sm
+      desktop: md lg
+    marginY:
+      desktop: none
   - type: syllabus
     section_id: syllabus-5hjjcl
     variant: program-modules
