@@ -24,8 +24,8 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Ingeniería de IA. El empleo con más demanda de 2026. Puedes optar a uno en <em>22 semanas</em>.
-    title_highlight: Puedes optar a uno en <em>22 semanas</em>.
+    title: Ingeniería de IA. El empleo con más demanda de 2026. Puedes optar a uno en 22 semanas.
+    title_highlight: más demanda de 2026
     subtitle: Desarrolla las habilidades que las empresas están contratando. Nuestro programa intensivo te prepara para construir sistemas de IA listos para producción, agentes de código y pipelines de automatización. Con mentoría 1:1 ilimitada y apoyo profesional de por vida.
     students_enrolled:
       avatars:
