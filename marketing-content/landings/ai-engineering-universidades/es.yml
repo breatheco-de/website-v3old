@@ -411,8 +411,8 @@ sections:
   - type: ai_learning
     section_id: ai_learning-0rf2k7
     badge: ¿Por qué 4Geeks?
-    title: La academia que no te abandona cuando te gradúas
-    description: La mayoría de academias te dan un curso y te desean suerte. 4Geeks se queda contigo desde tu primera línea de código hasta tu primera oferta de trabajo y más allá.
+    title: La academia que no te suelta al graduarte
+    description: La mayoría de las academias — y muchas carreras — te dan un título y te desean suerte. Acá el acompañamiento sigue.
     features:
       - icon: TrendingUp
         title: Apoyo de carrera construido para el mercado tech
