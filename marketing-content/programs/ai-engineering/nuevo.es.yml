@@ -198,29 +198,27 @@ sections:
     paddingY:
       desktop: md none
     description: null
-    card_bars:
-      title: La IA crea más empleos de los que quita
-    card_gauge:
-      title: Sé parte del 3% que ya está listo para la IA
+    card_bars: null
+    card_gauge: null
   - type: features_grid
     version: "1.0"
     variant: stats-charts
     subtitle: La demanda existe. El talento, no.
     title: Por qué Ingeniería de IA ahora
-    description: En los últimos dos años, la IA ha generado 1,3 millones de nuevos empleos en el mundo, y solo el 3 % de la población activa tiene las habilidades para cubrirlos. LinkedIn sitúa al Ingeniero de IA entre los roles de más rápido crecimiento en 2026. La demanda existe. El talento, no. Ahí está tu oportunidad.
+    description: null
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
     card_gauge_accent: hsl(var(--destructive) / 0.5)
     card_trend_accent: hsl(var(--accent))
     card_bars:
-      title: Más empleos nuevos en IA que puestos perdidos
+      title: La IA crea más empleos de los que quita
       description: Delta anual · 2021-2025 · indexado
       stat_value: +340%
       stat_label: empleos netos nuevos en IA desde 2021
       displaced_label: Desplazados
       created_label: Creados por la IA
     card_gauge:
-      title: ¿Quién está cualificado para roles de IA?
+      title: Sé parte del 3% que ya está listo para la IA
       description: Población activa global · datos 2025
       inner_stat_percentage: 3
       outer_stat_percentage: 97
