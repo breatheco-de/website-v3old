@@ -496,10 +496,10 @@ sections:
         label: Aumento salarial promedio
         description: Nuestros graduados ven un aumento salarial promedio del 40% al pasar a roles de ingeniería de IA. La inversión se paga sola.
         benefits:
-          - text: "Ingeniero de Software con IA: $20K–$30K USD"
-          - text: "AI Engineer Full Stack: $25K–$40K USD"
-          - text: "Ingeniero de Agentes: $25K–$50K USD"
-          - text: "Ingeniero de Automatización: $25K–$60K USD"
+          - text: "Ingeniero de Software con IA: 30.000–50.000€"
+          - text: "AI Engineer (Full Stack con IA): 35.000–55.000€"
+          - text: "Ingeniero de Agentes: 35.000–55.000€"
+          - text: "Ingeniero de Automatización: 28.000–45.000€"
       - value: 6,000+
         label: Graduados en todo el mundo
         description: Accede a nuestra red de empresas que buscan talento. Recibe orientación personalizada y acceso a procesos de selección prioritarios.
