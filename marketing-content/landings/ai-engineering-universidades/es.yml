@@ -518,8 +518,8 @@ sections:
       desktop: md
     background: hsl(var(--card))
   - type: testimonials_slide
-    title: Dieron el salto y esto es lo que pasó.
-    description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa de Uruguay, Costa Rica, Chile y más. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
+    title: Dieron el salto sin pasar por la universidad de nuevo
+    description: Músicos, especialistas de soporte, emprendedores — sin experiencia previa en programación.
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
