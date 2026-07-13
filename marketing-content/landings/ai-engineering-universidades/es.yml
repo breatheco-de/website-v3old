@@ -128,8 +128,8 @@ sections:
     title: Universidad tradicional vs. AI Engineering
     subtitle: No es "mejor o peor" en abstracto. Es qué camino te deja empleable en el mercado de IA que existe hoy, no el de hace cinco años.
     columns:
-      - highlight: true
       - name: Carrera Universitaria
+      - highlight: true
       - name: 4Geeks AI Engineering
     rows:
       - feature: Duración
