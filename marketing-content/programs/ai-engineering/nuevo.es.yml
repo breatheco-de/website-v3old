@@ -26,7 +26,7 @@ sections:
     variant: course
     title: Ingeniería de IA. El empleo con más demanda de 2026. Puedes optar a uno en 22 semanas.
     title_highlight: más demanda de 2026
-    subtitle: "En 22 semanas, pasas de usar IA a construirla: sistemas listos para producción, agentes de código, automatización real. Sales con las habilidades para optar a salarios de $95K–$135K+. Con mentoría 1:1 ilimitada, de por vida."
+    subtitle: "En 22 semanas, pasas de usar IA a construirla: sistemas listos para producción, agentes de código, automatización real. Ya sea que busques un salario de $95K–$135K+ o quieras lanzar tu propio producto con IA, sales con las habilidades para lograrlo. Con mentoría 1:1 ilimitada, de por vida."
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -35,9 +35,10 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +8500 graduados
     bullet_points:
-      - Construye una empresa completa nativa de IA de principio a fin, con agentes, pipelines y datos en tiempo real.
-      - Trabaja con agentes de código IA para construir y entregar software listo para producción más rápido.
-      - Consigue empleo con nuestro sistema de apoyo profesional probado. 84% de contratación. Garantía de Empleo opcional* disponible.
+      - Construye sistemas de IA reales, listos para producción, ya sea para una empresa o tu propio producto.
+      - Domina los agentes de código que la industria ya está usando.
+      - "Sal con un portafolio real: la prueba que necesitas para conseguir empleo o lanzar tu propia idea."
+      - 84% de nuestros graduados consigue empleo. Suma la Garantía de Empleo opcional* para mayor tranquilidad.
     tutors:
       - name: Marco Gonzalo
         role: Instructor Principal
