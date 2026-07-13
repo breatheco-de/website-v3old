@@ -164,53 +164,6 @@ sections:
     section_id: comparison_table-lhvsra
     paddingY:
       desktop: sm
-  - type: graduates_stats
-    heading: La brecha de talento en IA es real, hoy
-    subheading: Las empresas no encuentran ingenieros de IA. Ese vacío es exactamente lo que este programa está diseñado para llenar.
-    stats:
-      - value: 87%
-        label: de empresas no encuentra el talento de IA que necesita
-      - value: ~30%
-        label: crecimiento interanual en ofertas de trabajo en IAmpresas no encuentra el talento de IA que necesita
-      - value: 800K
-        label: roles relacionados con IA previstos para 2027
-      - value: 40.000€
-        label: salario anual promedio para ingenieros de IA
-    collage_images:
-      - image_id: group-7085-1
-        col_span: 5
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
-        id: gemini-generated-image-uwpyyruwpyyruwpy
-        object_scale: 1.1
-        object_position: 50% 30%
-      - image_id: group-7086-1
-        col_span: 7
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
-        id: gemini-generated-image-pd2u4upd2u4upd2u
-        object_scale: 1
-        transform_origin: 50% 50%
-        object_position: 50% 60%
-      - image_id: group-7084-1
-        col_span: 6
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
-        id: gemini-generated-image-dhko5mdhko5mdhko-1
-        object_scale: 1.05
-      - image_id: group-7087-1
-        col_span: 6
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
-        id: gemini-generated-image-wpk4yvwpk4yvwpk4
-        object_scale: 1.05
-        transform_origin: 50% 50%
-        object_position: 50% 40%
-    section_id: graduates_stats-vlw0zo
-    marginY:
-      desktop: none
-    maxWidth:
-      desktop: 6xl
   - type: trust_cards
     maxWidth:
       desktop: 6xl
