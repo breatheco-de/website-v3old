@@ -217,7 +217,7 @@ sections:
     paddingY:
       desktop: none md
     marginY:
-      desktop: none lg
+      desktop: md lg
   - type: syllabus
     variant: program-modules
     program_title: AI Engineering — Módulos del programa
