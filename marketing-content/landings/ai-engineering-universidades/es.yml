@@ -136,17 +136,31 @@ sections:
         values:
           - 4 a 5 años
           - 24 semanas
-        feature_description: null
       - feature: Enfoque curricular
         values:
           - Fundamentos generales de computación
           - 100% aplicado - agentes, RAG, MCP, infraestructura de IA
-        feature_description: null
       - feature: Actualización del contenido
         values:
           - Ciclos de revisión de varios años
           - Currículum vivo, ajustado a lo que el mercado pide ahora
-    footer_note: "* Based on industry research"
+      - feature: Mentoría
+        values:
+          - Limitada
+          - 1:1 ilimitada con mentores senior, de por vida
+      - feature: Proyecto final
+        values:
+          - Tesis o trabajo académico
+          - Empresa completa transformada con IA, desplegada
+      - feature: Apoyo de carrera
+        values:
+          - Bolsa de trabajo general del campus
+          - Coaching específico para roles de IA + portfolio + entrevistas
+      - feature: Forma de pago
+        values:
+          - Matrícula anual o semestral
+          - 10, 12 o 18 cuotas, sin dejar tu trabajo actual
+    footer_note: "* Basado en datos del mercado"
     section_id: comparison_table-lhvsra
     paddingY:
       desktop: sm
