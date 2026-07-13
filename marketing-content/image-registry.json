@@ -1835,7 +1835,17 @@
       "focal_point": "center",
       "tags": [
         "logo",
-        "partner"
+        "partner",
+        "avatar",
+        "card",
+        "icon",
+        "photo",
+        "badge",
+        "press",
+        "illustration",
+        "testimonial",
+        "team",
+        "award"
       ],
       "usage_count": 0,
       "hash": "e1c82879a3722da3eb0b13e44df00ee91236b46338a8b24a655980195623e05d",
