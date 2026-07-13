@@ -562,8 +562,6 @@ sections:
       - value: 5,000+
         label: Graduados empleados en todo el mundo
         description: Accede a nuestra red de empresas que buscan talento. Recibe orientación personalizada y acceso a procesos de selección prioritarios.
-    certificate_position: right
-    useSolidCard: true
     section_id: certificate-vj0h03
     marginY:
       mobile: none
