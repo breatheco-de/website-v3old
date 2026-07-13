@@ -3961,7 +3961,14 @@
       "focal_point": "center",
       "tags": [
         "logo",
-        "award"
+        "award",
+        "hero",
+        "card",
+        "photo",
+        "badge",
+        "partner",
+        "press",
+        "illustration"
       ],
       "usage_count": 0,
       "hash": "c011f3a24701b67bcccd31360c569cc19fb0287be7621511955de066ebb16961",
