@@ -146,6 +146,7 @@ sections:
     paddingY:
       mobile: none md
       desktop: none
+    background: hsl(var(--muted))
   - type: comparison_table
     version: "1.0"
     title: Universidad tradicional vs. AI Engineering
