@@ -370,26 +370,59 @@ sections:
   - id: pricing
     type: pricing
     version: "1.0"
+    variant: product
     title: Precios, descuentos y financiación.
     subtitle: Invertir en inteligencia artificial es tu camino hacia el éxito, y 4Geeks es el mejor lugar para hacerlo.
-    yearly:
-      price: "450"
-      period: ""
-      original_price: "500"
-      savings_badge: Ahorra $50
+    discount_text: "10% de descuento: $450 de una sola vez."
+    financing_text: También puedes financiarlo en 2 cuotas de $250, sin intereses.
+    original_price: $500
+    financing_amount: $250
+    financing_period: ""
     tech_icons:
       - openai
       - claude
       - n8n
+      - openclaw
+      - gmail
+      - notion
+      - slack
+      - google-sheets
+      - google-drive
     features_title: "Así de simple: paga como prefieras."
     features:
       - icon: IconCheck
         text: Plazas limitadas. Apúntate ahora, no lo dejes para después.
+      - icon: IconCheck
+        text: Financiación sin intereses, ajustada a tu realidad.
+      - icon: IconCheck
+        text: Incluye 1 sesión de mentoría 1:1 con un experto.
+    footer: PRÓXIMAS COHORTES
+    footer_badges:
+      - label: 15 de julio
+        tag: Llenándose rápido
+      - label: 26 de agosto
     cta:
       text: Inscríbete ahora
       url: https://4geeksacademy.com/es/payment-component?program=ai-fluency
       variant: primary
     section_id: pricing-aifluency-latam
+    marginY:
+      desktop: lg md
+    paddingY:
+      desktop: md lg
+    background: hsl(210 100% 50% / 0.05)
+    showOnLocations:
+      - bogota-colombia
+      - buenosaires-argentina
+      - caracas-venezuela
+      - costa-rica
+      - lapaz-bolivia
+      - lima-peru
+      - mexicocity-mexico
+      - montevideo-uruguay
+      - panamacity-panama
+      - quito-ecuador
+      - santiago-chile
   - type: pricing
     version: "1.0"
     variant: product
