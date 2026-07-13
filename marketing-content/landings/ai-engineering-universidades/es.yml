@@ -169,9 +169,8 @@ sections:
     heading: La brecha de talento en IA es real, hoy
     subtitle: Las empresas no encuentran ingenieros de IA. Ese vacío es exactamente lo que este programa está diseñado para llenar.
     cards:
-      - title: "\"4Geeks ha empujado mi futuro laboral\""
-        description: Las tutorías ilimitadas de 4Geeks fueron clave para elegirlos. Con la ayuda de sus profesores y la comunidad, pudo resolver todas sus dudas rápidamente y avanzar en su aprendizaje.
-        alt: Geekpal
+      - title: 87%
+        description: de empresas no encuentra el talento de IA que necesita
       - video:
           url: https://www.youtube.com/watch?v=XqyM_QSVcOs
         image: ""
