@@ -125,6 +125,28 @@ sections:
     load: eager
     paddingY:
       desktop: none lg
+  - type: features_grid
+    section_id: features_grid-35vns9
+    version: "1.0"
+    variant: stats-text-card
+    title: ¿Por qué aprender Ingeniería de IA ahora?
+    subtitle: El 87% de las empresas no encuentra los ingenieros que necesita. Tú puedes ser uno de ellos.
+    description: Los ingenieros de IA construyen sistemas inteligentes, automatizan procesos y diseñan productos impulsados por IA. Según McKinsey, el 87% de las empresas reportan que les falta talento en ingeniería de IA para transformar sus operaciones. Esta brecha es tu oportunidad. La demanda existe, el desafío es estar preparado.
+    card_color: bg-background
+    background: hsl(var(--secondary))
+    items:
+      - value: "800.000"
+        title: Roles relacionados con IA previstos para 2027
+      - value: ~30%
+        title: Crecimiento interanual en ofertas de trabajo en IA
+      - value: 40.000€-50.000€
+        title: Salario anual promedio para ingenieros de IA
+    marginY:
+      mobile: md none
+      desktop: lg md
+    paddingY:
+      mobile: none md
+      desktop: none
   - type: comparison_table
     version: "1.0"
     title: Universidad tradicional vs. AI Engineering
@@ -167,28 +189,6 @@ sections:
     section_id: comparison_table-lhvsra
     paddingY:
       desktop: sm
-  - type: features_grid
-    section_id: features_grid-35vns9
-    version: "1.0"
-    variant: stats-text-card
-    title: ¿Por qué aprender Ingeniería de IA ahora?
-    subtitle: El 87% de las empresas no encuentra los ingenieros que necesita. Tú puedes ser uno de ellos.
-    description: Los ingenieros de IA construyen sistemas inteligentes, automatizan procesos y diseñan productos impulsados por IA. Según McKinsey, el 87% de las empresas reportan que les falta talento en ingeniería de IA para transformar sus operaciones. Esta brecha es tu oportunidad. La demanda existe, el desafío es estar preparado.
-    card_color: bg-background
-    background: hsl(var(--secondary))
-    items:
-      - value: "800.000"
-        title: Roles relacionados con IA previstos para 2027
-      - value: ~30%
-        title: Crecimiento interanual en ofertas de trabajo en IA
-      - value: 40.000€-50.000€
-        title: Salario anual promedio para ingenieros de IA
-    marginY:
-      mobile: md none
-      desktop: lg md
-    paddingY:
-      mobile: none md
-      desktop: none
   - type: trust_cards
     maxWidth:
       desktop: 6xl
