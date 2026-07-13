@@ -542,6 +542,55 @@ sections:
       mobile: lg
       desktop: md
     background: hsl(var(--card))
+  - type: certificate
+    title: Tu certificado. Tu ventaja salarial.
+    description: Gradúate con un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida y las credenciales para negociar tu primer salario como Ingeniero de IA desde una posición de fuerza.
+    card:
+      title: Ingeniero de IA
+      subtitle: Certificado 4Geeks Academy
+      program_name: Ingeniería de IA
+    stats:
+      - value: 84%
+        label: Tasa de contratación
+        description: Gradúate con las habilidades, credenciales y perfil profesional que los empleadores buscan.
+        benefits:
+          - text: Certificado reconocido por el Departamento de Educación de Florida
+          - text: Empresa completa con IA en tu portfolio
+          - text: Experiencia demostrada con agentes, flujos y sistemas de IA
+          - text: Perfil profesional y estrategia de búsqueda optimizados
+      - value: 3-6 meses
+        label: Tiempo para conseguir empleo
+        description: La mayoría de los graduados consiguen su primer rol en 3-6 meses gracias a nuestro proceso de desarrollo profesional.
+        benefits:
+          - text: CV, portfolio y LinkedIn construidos para atraer recruiters
+          - text: Preparación para entrevistas técnicas y conductuales con feedback real de ingenieros
+          - text: Estrategia personalizada de búsqueda de empleo con acceso a redes de contratación activas
+      - value: 40%
+        label: Aumento salarial promedio
+        description: Nuestros graduados ven un aumento salarial promedio del 40% al pasar a roles de ingeniería de IA. La inversión se paga sola.
+        benefits:
+          - text: "Ingeniero de Software con IA: $20K–$30K USD"
+          - text: "AI Engineer Full Stack: $25K–$40K USD"
+          - text: "Ingeniero de Agentes: $25K–$50K USD"
+          - text: "Ingeniero de Automatización: $25K–$60K USD"
+      - value: 5,000+
+        label: Graduados empleados en todo el mundo
+        description: Accede a nuestra red de empresas que buscan talento. Recibe orientación personalizada y acceso a procesos de selección prioritarios.
+        benefits:
+          - text: Acceso exclusivo a bolsa de empleo
+          - text: Recomendaciones directas a empresas colaboradoras
+          - text: Eventos de networking con recruiters y responsables de selección
+    certificate_position: right
+    useSolidCard: true
+    section_id: certificate-vj0h03
+    marginY:
+      mobile: none
+      desktop: md
+    paddingY:
+      mobile: lg
+      desktop: md
+    background: hsl(var(--card))
+    _imageSizes: {}
   - type: testimonials_slide
     title: Dieron el salto y esto es lo que pasó.
     description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa de Uruguay, Costa Rica, Chile y más. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
