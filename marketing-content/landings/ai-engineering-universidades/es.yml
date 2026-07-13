@@ -6,7 +6,7 @@ meta:
   robots: index, follow
   priority: 0.9
   change_frequency: weekly
-  page_title: ai engineering universidades
+  page_title: AI Engineering
   description: Aprende a desarrollar soluciones de IA con nuestro programa de ingeniería de IA y conviértete en experto en 24 semanas con 4Geeks
 schema:
   include:
