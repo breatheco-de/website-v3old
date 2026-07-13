@@ -725,20 +725,6 @@ sections:
       desktop: md
     marginY:
       desktop: none md
-  - type: testimonials
-    section_id: testimonials-uastb3
-    title: Las personas detrás de los números.
-    subtitle: "Distintos puntos de partida. Un mismo resultado: una carrera en tech."
-    related_features:
-      - content-and-syllabus
-      - career-support
-    rating_summary:
-      average: {{ global.global_review_rating | 4.9 }}
-      count: {{ global.global_review_count | 700 }}
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: none md
   - type: whos_hiring
     section_id: whos_hiring-6ml5ey
     variant: carousel
