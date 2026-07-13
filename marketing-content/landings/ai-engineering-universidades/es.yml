@@ -23,7 +23,7 @@ sections:
       highlight: 4 años
       color: primary
       suffix: en llegar ahí.
-    description: Mientras una carrera tradicional te enseña las bases de la computación, este programa te pone directo a construir agentes, RAG e infraestructura de IA que las empresas ya están contratando.
+    description: Mientras una carrera tradicional te enseña las bases de la informática, este programa te pone directo a construir agentes, RAG e infraestructura de IA que las empresas ya están contratando.
     bullets:
       - text: 24 semanas 100% enfocadas en IA aplicada
       - text: Stack vivo - LLMs, RAG, agentes, MCP
