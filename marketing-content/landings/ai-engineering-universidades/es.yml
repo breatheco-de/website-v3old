@@ -129,8 +129,8 @@ sections:
     subtitle: No es "mejor o peor" en abstracto. Es qué camino te deja empleable en el mercado de IA que existe hoy, no el de hace cinco años.
     columns:
       - name: Carrera Universitaria
-      - highlight: true
       - name: 4Geeks AI Engineering
+      - highlight: true
     rows:
       - feature: Duración
         values:
