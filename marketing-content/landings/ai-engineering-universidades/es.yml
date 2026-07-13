@@ -633,32 +633,6 @@ sections:
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-69mc5i
     background: hsl(var(--card))
-  - type: numbered_steps
-    section_id: numbered_steps-2blr6f
-    version: "1.0"
-    variant: bubbleText
-    title: Así funciona el proceso de admisión
-    description: Aplicar no es comprometerse. Es el primer paso para saber si este programa es el adecuado para ti. Todo el proceso dura menos de 48 horas.
-    steps:
-      - icon: Application
-        title: Aplicación al programa
-        bullets:
-          - Completa el formulario inicial para iniciar tu proceso de admisión.
-          - Revisamos tu perfil, experiencia y objetivos profesionales.
-          - Buscamos personas comprometidas con una transformación real en su carrera.
-      - icon: Interview
-        title: Entrevista por WhatsApp
-        bullets:
-          - Nuestro equipo de admisiones te escribirá por WhatsApp.
-          - Evaluamos tu motivación, disponibilidad y encaje con el programa.
-          - No es un examen técnico, es una conversación para entender si este es el momento adecuado para ti.
-      - icon: Decision
-        title: Selección y próximos pasos
-        bullets:
-          - Si tu perfil encaja, te compartimos la información completa para avanzar.
-          - Recibirás orientación clara sobre fechas, inversión y expectativas.
-          - Si no es el mejor momento, te recomendamos alternativas para tu crecimiento profesional.
-    background: bg-background
   - type: cta_banner
     section_id: cta_banner-76bymf
     version: "1.0"
