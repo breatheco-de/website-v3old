@@ -171,22 +171,12 @@ sections:
     cards:
       - title: 87%
         description: de empresas no encuentra el talento de IA que necesita
-      - video:
-          url: https://www.youtube.com/watch?v=XqyM_QSVcOs
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekpal-logo-new.png
-        author_name: Ana Romero
-        title: "\"He superado mi miedo a programar\""
-        description: Están ahí siempre para brindarte apoyo. Sus buenos mentores, guías de programación y las herramientas de 4Geeks son excelentes. La recomendaría un millón de veces.
-        alt: Geekpal
-      - video:
-          url: https://www.youtube.com/watch?v=rtpfwwfE0yY
-        image: ""
-        brand_image: https://storage.googleapis.com/4geeks-academy-website/media/geekforce-logo-new.png
-        author_name: Joshua Bravo
-        title: "\"De asistente de cocina a Desarrollador Full Stack\""
-        description: Joshua pasó de trabajar en cocina y contabilidad a conseguir empleo como desarrollador en Regcheq, una startup fintech en Chile, tras completar el bootcamp de 4Geeks.
-        alt: Geekforce
+      - title: 87%
+        description: de empresas no encuentra el talento de IA que necesita
+      - title: 87%
+        description: de empresas no encuentra el talento de IA que necesita
+      - title: 87%
+        description: de empresas no encuentra el talento de IA que necesita
     marginY:
       desktop: none xl
     background: hsl(var(--card))
