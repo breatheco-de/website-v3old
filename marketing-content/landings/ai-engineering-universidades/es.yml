@@ -125,10 +125,10 @@ sections:
     load: eager
   - type: comparison_table
     version: "1.0"
-    title: How We Compare
-    subtitle: See how our approach stacks up against typical alternatives
+    title: Universidad tradicional vs. AI Engineering
+    subtitle: No es "mejor o peor" en abstracto. Es qué camino te deja empleable en el mercado de IA que existe hoy, no el de hace cinco años.
     columns:
-      - name: Feature
+      - name: null
         highlight: true
       - name: Our Brand
       - name: Others
