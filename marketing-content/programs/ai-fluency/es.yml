@@ -372,13 +372,7 @@ sections:
     version: "1.0"
     title: Precios, descuentos y financiación.
     subtitle: Invertir en inteligencia artificial es tu camino hacia el éxito, y 4Geeks es el mejor lugar para hacerlo.
-    monthly:
-      discount_badge: 10% OFF
-      price: "450"
-      period: ""
-      original_price: "500"
     yearly:
-      discount_badge: 10% OFF
       price: "450"
       period: ""
       original_price: "500"
