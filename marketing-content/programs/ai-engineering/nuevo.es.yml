@@ -236,9 +236,9 @@ sections:
       end_label: 1.3M · 2027
     section_id: features_grid-hudxi9
     paddingY:
-      desktop: none lg
+      desktop: none md
     marginY:
-      desktop: md lg
+      desktop: md
     title_highlight: ahora
   - type: testimonials
     section_id: testimonials-ghxelh
