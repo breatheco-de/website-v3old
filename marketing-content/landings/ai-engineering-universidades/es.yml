@@ -32,7 +32,7 @@ sections:
     form:
       variant: stacked
       conversion_name: request_more_info
-      submit_label: Obtén toda la info
+      submit_label: Obtén toda la información
       fields:
         email:
           visible: true
