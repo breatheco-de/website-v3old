@@ -165,8 +165,8 @@ sections:
     paddingY:
       desktop: sm
   - type: graduates_stats
-    heading: Nuestros Graduados Consiguen Empleo. Rápido.
-    subheading: Más de 6,000 graduados en todo el mundo. Ahora prosperando en tecnología.
+    heading: La brecha de talento en IA es real, hoy
+    subheading: Las empresas no encuentran ingenieros de IA. Ese vacío es exactamente lo que este programa está diseñado para llenar.
     stats:
       - value: 87%
         label: de empresas no encuentra el talento de IA que necesita
