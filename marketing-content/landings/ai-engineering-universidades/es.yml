@@ -193,15 +193,21 @@ sections:
     version: v1.0
     title: La academia mejor valorada en todas las plataformas de reseñas
     items:
-      - image: https://old.4geeksacademy.com/static/01607bc41a0de635d83e9500e7cdb2ba/b490d/course-report.webp
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/CourseReport-best-bootcamp_-2025_1770392145137.png
         rating: 4.9
         review_count: 4.9 en Course Report
-      - image: https://old.4geeksacademy.com/static/b75f1b5bdfb35d447612388524e6ca96/611d9/google.webp
+        alt: CourseReport Best European Bootcamp 2025
+        id: logo-coursereport-best-bootcamp-2025
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/google_1765590146414.webp
         rating: 4.8
         review_count: 4.8 en Google
-      - image: https://old.4geeksacademy.com/static/2c0afa9f6c7390203793f4d0bb6c5728/4d404/career-karma.webp
+        alt: Google logo
+        id: logo-google
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/CareerKarma_logo.png
         rating: 4.9
         review_count: 4.9 en Career Karma
+        alt: "Image: CareerKarma_logo"
+        id: careerkarma-logo
       - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
         rating: 4.9
         review_count: 4.9 en SwitchUp
