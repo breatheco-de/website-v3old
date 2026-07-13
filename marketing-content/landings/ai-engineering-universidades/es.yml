@@ -234,31 +234,6 @@ sections:
       desktop: none md
     marginY:
       desktop: none lg
-  - type: two_column
-    version: v1.0
-    proportions:
-      - 6
-      - 6
-    alignment: center
-    gap: "8"
-    left:
-      video: https://www.youtube.com/shorts/-SpU1PWNBF4?feature=share
-      justify: center
-    right:
-      heading: Por qué dejar de usar herramientas de IA y empezar a construirlas
-      sub_heading: El siguiente nivel no es usar ChatGPT. Es saber construir lo que hay detrás.
-      description: El 87% de las empresas no encuentra los ingenieros de IA que necesita. La demanda crece un 30% cada año. Este programa existe para que pases del lado del usuario al lado del creador, y te conviertas en quien diseña los sistemas que otros usan.
-      button:
-        text: Iniciar mi aplicación
-        url: "#hero-9g1br4"
-        variant: primary
-        icon: Rocket
-    section_id: two_column-1pvtc6
-    marginY:
-      desktop: md sm
-    paddingY:
-      desktop: lg
-    background: hsl(var(--secondary))
   - type: syllabus
     variant: program-modules
     program_title: AI Engineering — Módulos del programa
@@ -433,6 +408,31 @@ sections:
       mobile: none
       desktop: none lg
     section_id: syllabus-h26916
+  - type: two_column
+    version: v1.0
+    proportions:
+      - 6
+      - 6
+    alignment: center
+    gap: "8"
+    left:
+      video: https://www.youtube.com/shorts/-SpU1PWNBF4?feature=share
+      justify: center
+    right:
+      heading: Por qué dejar de usar herramientas de IA y empezar a construirlas
+      sub_heading: El siguiente nivel no es usar ChatGPT. Es saber construir lo que hay detrás.
+      description: El 87% de las empresas no encuentra los ingenieros de IA que necesita. La demanda crece un 30% cada año. Este programa existe para que pases del lado del usuario al lado del creador, y te conviertas en quien diseña los sistemas que otros usan.
+      button:
+        text: Iniciar mi aplicación
+        url: "#hero-9g1br4"
+        variant: primary
+        icon: Rocket
+    section_id: two_column-1pvtc6
+    marginY:
+      desktop: md sm
+    paddingY:
+      desktop: lg
+    background: hsl(var(--secondary))
   - type: features_grid
     section_id: features_grid-35vns9
     version: "1.0"
