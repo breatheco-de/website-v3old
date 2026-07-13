@@ -65,15 +65,15 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Pista de 24 semanas o pista acelerada matutina de 15 semanas
-        - icon: IconShield
-          text: Garantía de Empleo opcional (disponible como complemento)
+          text: 22 semanas, o acelerado en 15 semanas si prefieres ir más rápido.
         - icon: IconUsers
-          text: Proporción {{ global.global_teacher_student_ratio | 7:1 }} estudiante–instructor
+          text: "Nunca eres un número más: 7 estudiantes por instructor."
         - icon: IconUserCheck
-          text: Mentoría 1:1 ilimitada
+          text: Mentoría 1:1 ilimitada, sin límites ni listas de espera.
         - icon: IconRobot
-          text: Aprendizaje y feedback potenciado por IA
+          text: Mentor de IA disponible 24/7, además de tus mentores humanos.
+        - icon: IconShield
+          text: Garantía de Empleo opcional* para mayor tranquilidad.
     section_id: hero-tznhhe
     paddingY:
       desktop: lg md
