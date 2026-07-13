@@ -7,9 +7,7 @@ meta:
   priority: 0.9
   change_frequency: weekly
   page_title: ai engineering universidades
-  description: >-
-    Aprende a desarrollar soluciones de IA con nuestro programa de ingeniería de IA y conviértete en experto en 24
-    semanas con 4Geeks
+  description: Aprende a desarrollar soluciones de IA con nuestro programa de ingeniería de IA y conviértete en experto en 24 semanas con 4Geeks
 schema:
   include:
     - organization
@@ -17,16 +15,14 @@ schema:
     - courses:ai-engineering
 sections:
   - type: hero
-    version: '1.0'
+    version: "1.0"
     variant: productShowcase
-    title: ''
+    title: ""
     brand_mark:
-      prefix: De usar herramientas de IA
-      highlight: a construir con ellas
+      prefix: Ingeniería de IA en 24 semanas. La universidad tarda
+      highlight: 4 años
       color: primary
-    description: >-
-      La IA está cambiando todos los trabajos. En 24 semanas pasas de usar herramientas de IA a desarrollar e integrar
-      sistemas reales que las empresas llevan meses intentando contratar.
+    description: La IA está cambiando todos los trabajos. En 24 semanas pasas de usar herramientas de IA a desarrollar e integrar sistemas reales que las empresas llevan meses intentando contratar.
     bullets:
       - text: Mentoría ilimitada de por vida con ingenieros senior, incluso después de graduarte
       - text: Paga en 10, 12 o 18 cuotas mensuales sin dejar tu trabajo actual
@@ -54,9 +50,7 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: >-
-          Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de
-          entrada.
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       consent: {}
     form_card_title: Obtén la guía completa del programa
     form_card_subtitle: Te enviamos el programa completo con plan de estudios, opciones de financiación y más. Solo toma 2 minutos.
@@ -95,7 +89,7 @@ sections:
       desktop: none
   - type: sticky_cta
     section_id: sticky_cta-56tm9c
-    version: '1.0'
+    version: "1.0"
     heading: ¿Listo para empezar tu carrera en tech?
     button_label: Iniciar mi aplicación
     show_dismiss: false
@@ -124,9 +118,7 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: >-
-          Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de
-          entrada.
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
     load: eager
   - type: graduates_stats
     heading: Nuestros Graduados Consiguen Empleo. Rápido.
@@ -142,14 +134,14 @@ sections:
       - image_id: group-7085-1
         col_span: 5
         row_span: 2
-        alt: 'Image: Gemini_Generated_Image_uwpyyruwpyyruwpy'
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
         id: gemini-generated-image-uwpyyruwpyyruwpy
         object_scale: 1.1
         object_position: 50% 30%
       - image_id: group-7086-1
         col_span: 7
         row_span: 2
-        alt: 'Image: Gemini_Generated_Image_pd2u4upd2u4upd2u'
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
         id: gemini-generated-image-pd2u4upd2u4upd2u
         object_scale: 1
         transform_origin: 50% 50%
@@ -157,13 +149,13 @@ sections:
       - image_id: group-7084-1
         col_span: 6
         row_span: 2
-        alt: 'Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)'
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
         id: gemini-generated-image-dhko5mdhko5mdhko-1
         object_scale: 1.05
       - image_id: group-7087-1
         col_span: 6
         row_span: 2
-        alt: 'Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4'
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
         id: gemini-generated-image-wpk4yvwpk4yvwpk4
         object_scale: 1.05
         transform_origin: 50% 50%
@@ -202,20 +194,17 @@ sections:
       - 6
       - 6
     alignment: center
-    gap: '8'
+    gap: "8"
     left:
       video: https://www.youtube.com/shorts/-SpU1PWNBF4?feature=share
       justify: center
     right:
       heading: Por qué dejar de usar herramientas de IA y empezar a construirlas
       sub_heading: El siguiente nivel no es usar ChatGPT. Es saber construir lo que hay detrás.
-      description: >-
-        El 87% de las empresas no encuentra los ingenieros de IA que necesita. La demanda crece un 30% cada año. Este
-        programa existe para que pases del lado del usuario al lado del creador, y te conviertas en quien diseña los
-        sistemas que otros usan.
+      description: El 87% de las empresas no encuentra los ingenieros de IA que necesita. La demanda crece un 30% cada año. Este programa existe para que pases del lado del usuario al lado del creador, y te conviertas en quien diseña los sistemas que otros usan.
       button:
         text: Iniciar mi aplicación
-        url: '#hero-9g1br4'
+        url: "#hero-9g1br4"
         variant: primary
         icon: Rocket
     section_id: two_column-1pvtc6
@@ -226,18 +215,15 @@ sections:
     background: hsl(var(--secondary))
   - type: features_grid
     section_id: features_grid-35vns9
-    version: '1.0'
+    version: "1.0"
     variant: stats-text-card
     title: ¿Por qué aprender Ingeniería de IA ahora?
     subtitle: El 87% de las empresas no encuentra los ingenieros que necesita. Tú puedes ser uno de ellos.
-    description: >-
-      Los ingenieros de IA construyen sistemas inteligentes, automatizan procesos y diseñan productos impulsados por IA.
-      Según McKinsey, el 87% de las empresas reportan que les falta talento en ingeniería de IA para transformar sus
-      operaciones. Esta brecha es tu oportunidad. La demanda existe, el desafío es estar preparado.
+    description: Los ingenieros de IA construyen sistemas inteligentes, automatizan procesos y diseñan productos impulsados por IA. Según McKinsey, el 87% de las empresas reportan que les falta talento en ingeniería de IA para transformar sus operaciones. Esta brecha es tu oportunidad. La demanda existe, el desafío es estar preparado.
     card_color: bg-background
     background: hsl(var(--card))
     items:
-      - value: '800.000'
+      - value: "800.000"
         title: Roles relacionados con IA previstos para 2027
       - value: ~30%
         title: Crecimiento interanual en ofertas de trabajo en IA
@@ -252,11 +238,7 @@ sections:
   - type: syllabus
     variant: program-modules
     program_title: AI Engineering — Módulos del programa
-    program_description: >-
-      Construye sistemas reales con IA desde el primer día. Este currículo se organiza en dos tracks — IA Central y
-      Agentes, e Infraestructura para IA — más un capstone que integra todo en una empresa completamente transformada y
-      desplegada. Apoyado por fundamentos complementarios en herramientas y prácticas de desarrollo moderno a lo largo
-      del programa.
+    program_description: Construye sistemas reales con IA desde el primer día. Este currículo se organiza en dos tracks — IA Central y Agentes, e Infraestructura para IA — más un capstone que integra todo en una empresa completamente transformada y desplegada. Apoyado por fundamentos complementarios en herramientas y prácticas de desarrollo moderno a lo largo del programa.
     tech_logos:
       - name: Python
         icon: python
@@ -274,9 +256,7 @@ sections:
         objectives:
           - Configurar un agente de IA de código abierto como asistente personal
           - Asignar tareas e integrar aplicaciones externas con el agente
-        projects: >-
-          Despliega y configura un asistente de IA autoalojado — tuyo, bajo tu control, sin depender de proveedores
-          externos.
+        projects: Despliega y configura un asistente de IA autoalojado — tuyo, bajo tu control, sin depender de proveedores externos.
         orientation: vertical
         icon: IconRobot
       - title: Asistentes Personales Avanzados con OpenClaw
@@ -295,9 +275,7 @@ sections:
           - Construir bancos de memoria y reglas de contexto desde una base de código existente
           - Escribir especificaciones ejecutables para agentes (agent specs)
           - Sintetizar habilidades reutilizables para que los agentes actúen con precisión
-        projects: >-
-          Construye bancos de memoria y reglas de contexto que conviertan un agente de código en un colaborador que
-          entiende tu base de código.
+        projects: Construye bancos de memoria y reglas de contexto que conviertan un agente de código en un colaborador que entiende tu base de código.
         orientation: vertical
         icon: IconCode
       - title: LLMs, Entrenamiento y RAG
@@ -318,9 +296,7 @@ sections:
           - Proveer herramientas al agente mediante CLIs optimizadas para IA
           - Extender las capacidades del agente con el Protocolo de Contexto de Modelo (MCP)
           - Dar memoria persistente a un agente
-        projects: >-
-          Construye agentes que llaman herramientas, acceden a sistemas externos vía MCPs y CLIs, y operan con memoria
-          persistente.
+        projects: Construye agentes que llaman herramientas, acceden a sistemas externos vía MCPs y CLIs, y operan con memoria persistente.
         orientation: vertical
         icon: IconBolt
       - title: Flujos de Trabajo Agénticos
@@ -339,9 +315,7 @@ sections:
           - Crear bucles de agente integrando LLMs con APIs
           - Implementar almacenamiento ligero y procesamiento de datos CSV
           - Construir y exponer APIs REST para frontends y agentes
-        projects: >-
-          Construye APIs robustas con FastAPI, implementa bucles de agente en Python y diseña arquitecturas backend
-          orientadas a casos de uso de IA.
+        projects: Construye APIs robustas con FastAPI, implementa bucles de agente en Python y diseña arquitecturas backend orientadas a casos de uso de IA.
         orientation: vertical
         icon: IconServer
       - title: Automatizaciones de Flujos de Trabajo
@@ -359,9 +333,7 @@ sections:
         objectives:
           - Manipular y preparar conjuntos de datos con Python
           - Construir pipelines de datos desde la aplicación hasta sistemas de análisis
-        projects: >-
-          Construye pipelines que toman datos crudos, los transforman y los dejan listos para alimentar modelos,
-          reportes o agentes.
+        projects: Construye pipelines que toman datos crudos, los transforman y los dejan listos para alimentar modelos, reportes o agentes.
         orientation: vertical
         icon: IconChartBar
       - title: Telemetría
@@ -380,9 +352,7 @@ sections:
           - Implementar procesamiento en segundo plano para tareas costosas
           - Gestionar colas de procesos con workers
           - Usar colas para delegar trabajo entre agentes y servicios
-        projects: >-
-          Implementa sistemas de procesamiento en segundo plano y colas que permiten a los agentes delegar trabajo
-          pesado sin bloquear a los usuarios.
+        projects: Implementa sistemas de procesamiento en segundo plano y colas que permiten a los agentes delegar trabajo pesado sin bloquear a los usuarios.
         orientation: vertical
         icon: IconServer
       - title: Tiempo Real
@@ -391,9 +361,7 @@ sections:
           - Construir chats de soporte con LLMs en tiempo real
           - Implementar streaming de respuestas con generadores (yield)
           - Integrar webhooks y pub/sub en aplicaciones de IA
-        projects: >-
-          Implementa comunicación en tiempo real entre usuarios y modelos de lenguaje usando streaming, WebSockets y
-          arquitecturas orientadas a eventos.
+        projects: Implementa comunicación en tiempo real entre usuarios y modelos de lenguaje usando streaming, WebSockets y arquitecturas orientadas a eventos.
         orientation: vertical
         icon: IconBolt
       - title: Autenticación de Aplicaciones Web
@@ -401,9 +369,7 @@ sections:
         objectives:
           - Implementar autenticación y restricciones de rutas en FastAPI
           - Construir flujos de autenticación completos (login, tokens, sesiones)
-        projects: >-
-          Implementa autenticación segura en FastAPI y construye flujos de login completos que definen lo que cada
-          usuario — y agente — puede hacer.
+        projects: Implementa autenticación segura en FastAPI y construye flujos de login completos que definen lo que cada usuario — y agente — puede hacer.
         orientation: vertical
         icon: IconCode
       - title: Manejo de Errores, Depuración y Testing
@@ -411,9 +377,7 @@ sections:
         objectives:
           - Entender y gestionar errores en tiempo de ejecución con control de flujo
           - Desarrollar suites de pruebas para aplicaciones robustas
-        projects: >-
-          Verifica el código generado por IA con manejo controlado de errores y suites de pruebas que validan el
-          comportamiento esperado.
+        projects: Verifica el código generado por IA con manejo controlado de errores y suites de pruebas que validan el comportamiento esperado.
         orientation: vertical
         icon: IconCode
       - title: Ciberseguridad en Aplicaciones de IA
@@ -422,9 +386,7 @@ sections:
           - Identificar y corregir las vulnerabilidades OWASP Top 10 en aplicaciones web
           - Implementar prácticas de seguridad específicas para integraciones de IA
           - Usar LLMs como herramienta de auditoría de ciberseguridad
-        projects: >-
-          Identifica vulnerabilidades críticas en aplicaciones de IA e implementa prácticas seguras en la integración de
-          modelos.
+        projects: Identifica vulnerabilidades críticas en aplicaciones de IA e implementa prácticas seguras en la integración de modelos.
         orientation: vertical
         icon: IconCode
       - title: Empresa Transformada por IA
@@ -437,9 +399,7 @@ sections:
           - Capa de conocimiento RAG
           - Agentes con llamadas a herramientas
           - Comunicación en tiempo real
-        projects: >-
-          Integra todo lo aprendido en un sistema funcional y desplegado — la transformación completa de una empresa a
-          través de la IA.
+        projects: Integra todo lo aprendido en un sistema funcional y desplegado — la transformación completa de una empresa a través de la IA.
         orientation: horizontal
         icon: IconCode
     paddingY:
@@ -453,9 +413,7 @@ sections:
     section_id: ai_learning-0rf2k7
     badge: ¿Por qué 4Geeks?
     title: La academia que no te abandona cuando te gradúas
-    description: >-
-      La mayoría de academias te dan un curso y te desean suerte. 4Geeks se queda contigo desde tu primera línea de
-      código hasta tu primera oferta de trabajo y más allá.
+    description: La mayoría de academias te dan un curso y te desean suerte. 4Geeks se queda contigo desde tu primera línea de código hasta tu primera oferta de trabajo y más allá.
     features:
       - icon: TrendingUp
         title: Apoyo de carrera construido para el mercado tech
@@ -492,10 +450,7 @@ sections:
       desktop: none lg
   - type: certificate
     title: Tu certificado. Tu ventaja salarial.
-    description: >-
-      Gradúate con un certificado reconocido por la industria de una institución acreditada por el Departamento de
-      Educación de Florida y las credenciales para negociar tu primer salario como Ingeniero de IA desde una posición de
-      fuerza.
+    description: Gradúate con un certificado reconocido por la industria de una institución acreditada por el Departamento de Educación de Florida y las credenciales para negociar tu primer salario como Ingeniero de IA desde una posición de fuerza.
     card:
       title: Ingeniero de IA
       subtitle: Certificado 4Geeks Academy
@@ -511,28 +466,22 @@ sections:
           - text: Perfil profesional y estrategia de búsqueda optimizados
       - value: 3-6 meses
         label: Tiempo para conseguir empleo
-        description: >-
-          La mayoría de los graduados consiguen su primer rol en 3-6 meses gracias a nuestro proceso de desarrollo
-          profesional.
+        description: La mayoría de los graduados consiguen su primer rol en 3-6 meses gracias a nuestro proceso de desarrollo profesional.
         benefits:
           - text: CV, portfolio y LinkedIn construidos para atraer recruiters
           - text: Preparación para entrevistas técnicas y conductuales con feedback real de ingenieros
           - text: Estrategia personalizada de búsqueda de empleo con acceso a redes de contratación activas
       - value: 40%
         label: Aumento salarial promedio
-        description: >-
-          Nuestros graduados ven un aumento salarial promedio del 40% al pasar a roles de ingeniería de IA. La inversión
-          se paga sola.
+        description: Nuestros graduados ven un aumento salarial promedio del 40% al pasar a roles de ingeniería de IA. La inversión se paga sola.
         benefits:
-          - text: 'Ingeniero de Software con IA: $20K–$30K USD'
-          - text: 'AI Engineer Full Stack: $25K–$40K USD'
-          - text: 'Ingeniero de Agentes: $25K–$50K USD'
-          - text: 'Ingeniero de Automatización: $25K–$60K USD'
+          - text: "Ingeniero de Software con IA: $20K–$30K USD"
+          - text: "AI Engineer Full Stack: $25K–$40K USD"
+          - text: "Ingeniero de Agentes: $25K–$50K USD"
+          - text: "Ingeniero de Automatización: $25K–$60K USD"
       - value: 5,000+
         label: Graduados empleados en todo el mundo
-        description: >-
-          Accede a nuestra red de empresas que buscan talento. Recibe orientación personalizada y acceso a procesos de
-          selección prioritarios.
+        description: Accede a nuestra red de empresas que buscan talento. Recibe orientación personalizada y acceso a procesos de selección prioritarios.
         benefits:
           - text: Acceso exclusivo a bolsa de empleo
           - text: Recomendaciones directas a empresas colaboradoras
@@ -549,9 +498,7 @@ sections:
     background: hsl(var(--card))
   - type: testimonials_slide
     title: Dieron el salto y esto es lo que pasó.
-    description: >-
-      Músicos, filósofos, especialistas de soporte y personas sin experiencia previa de Uruguay, Costa Rica, Chile y
-      más. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
+    description: Músicos, filósofos, especialistas de soporte y personas sin experiencia previa de Uruguay, Costa Rica, Chile y más. Ahora son desarrolladores con empleos reales y salarios que no esperaban.
     testimonials:
       - name: Loretta Thompson
         img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
@@ -560,9 +507,7 @@ sections:
           name: United States of America
           iso: us
         contributor: United Way Miami
-        description: >-
-          Loretta joined in 2022 and graduated in 2023. She already found a job within the next few months and has
-          fulfilled the whole circle of skills+job that we all want to complete!
+        description: Loretta joined in 2022 and graduated in 2023. She already found a job within the next few months and has fulfilled the whole circle of skills+job that we all want to complete!
         achievement: She got a 45% increase in her salary
       - name: Rich Akers
         img: https://storage.googleapis.com/4geeks-academy-website/media/Akers_1764725327796.jpeg
@@ -571,9 +516,7 @@ sections:
           name: United States of America
           iso: us
         contributor: Clark University
-        description: >-
-          Richard is a great developer that just transitioned from a different background and is now working as a web
-          dev in the tech field.
+        description: Richard is a great developer that just transitioned from a different background and is now working as a web dev in the tech field.
         achievement: He got a 30% increase in his salary
       - name: MaiLinh Tran
         img: https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh_1764725334980.png
@@ -591,9 +534,7 @@ sections:
           name: Uruguay
           iso: uy
         contributor: UTEC-BID
-        description: >-
-          Martín joined the first program that we launched together with UTEC and IDB. He got a better paying job, a
-          career that he is passionate about and a new professional life.
+        description: Martín joined the first program that we launched together with UTEC and IDB. He got a better paying job, a career that he is passionate about and a new professional life.
         achievement: He got a 100% increase in his salary
       - name: Jean St. Cloud
         img: https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
@@ -602,9 +543,7 @@ sections:
           name: United States of America
           iso: us
         contributor: Clark
-        description: >-
-          Jean is transitioning from other industries (Music) and is finding his way into Tech. He got it with the
-          support of Clark University and is already performing as a developer and a Mentor.
+        description: Jean is transitioning from other industries (Music) and is finding his way into Tech. He got it with the support of Clark University and is already performing as a developer and a Mentor.
         achievement: He got a 100% increase in his salary
       - name: Alexandra Espinoza
         img: https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
@@ -613,9 +552,7 @@ sections:
           name: Costa Rica
           iso: cr
         contributor: CINDE-BID
-        description: >-
-          Alexandra came from a total different background is been a huge revelation for her and everyone around her.
-          She is now a successful and talented software developer in Costa Rica.
+        description: Alexandra came from a total different background is been a huge revelation for her and everyone around her. She is now a successful and talented software developer in Costa Rica.
         achievement: She got a 100% increase in her salary
       - name: Gabriel Salazar
         img: https://storage.googleapis.com/4geeks-academy-website/media/GabrielSalazar_1764725392872.jpeg
@@ -624,9 +561,7 @@ sections:
           name: Costa Rica
           iso: cr
         contributor: CINDE-BID
-        description: >-
-          Gabriel was already a support specialist at Microsoft and after completing the program he was able to achieve
-          a new position within Microsoft where he is now working as a Software Engineer.
+        description: Gabriel was already a support specialist at Microsoft and after completing the program he was able to achieve a new position within Microsoft where he is now working as a Software Engineer.
         achievement: He got a 50% increase in his salary
       - name: Laura Magallanes
         img: https://storage.googleapis.com/4geeks-academy-website/media/Laura_1764725397398.jpeg
@@ -635,9 +570,7 @@ sections:
           name: Uruguay
           iso: uy
         contributor: UTEC-BID
-        description: >-
-          Laura is just extraordinary. From a little town in Uruguay with no experience in Coding, she is now a woman
-          head of household, an Instructor and a Program Coordinator.
+        description: Laura is just extraordinary. From a little town in Uruguay with no experience in Coding, she is now a woman head of household, an Instructor and a Program Coordinator.
         achievement: She got a 120% increase in her salary
       - name: Melanie Galaretto
         img: https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto_1764725408397.jpeg
@@ -646,9 +579,7 @@ sections:
           name: Uruguay
           iso: uy
         contributor: UTEC-BID
-        description: >-
-          Melanie is a young professional who is dreaming of achieving a life that now she owns. She is a resourceful
-          and committed software developer working for a software firm in her home country.
+        description: Melanie is a young professional who is dreaming of achieving a life that now she owns. She is a resourceful and committed software developer working for a software firm in her home country.
         achievement: She got a +100% increase in her salary
       - name: Natia Lombardo
         img: https://storage.googleapis.com/4geeks-academy-website/media/NatiaLombardo_1764725413363.jpeg
@@ -657,9 +588,7 @@ sections:
           name: Uruguay
           iso: uy
         contributor: UTEC-BID
-        description: >-
-          Natia is a philosopher and a software developer. Currently working as a QA Engineer of a huge and successful
-          International firm.
+        description: Natia is a philosopher and a software developer. Currently working as a QA Engineer of a huge and successful International firm.
       - name: Luis Larraburo
         img: https://storage.googleapis.com/4geeks-academy-website/media/LuisLarraburo_1764725418057.jpeg
         status: Graduated
@@ -667,9 +596,7 @@ sections:
           name: Costa Rica
           iso: cr
         contributor: CINDE-BID
-        description: >-
-          Luis came to the program without any previous experience. He is now a software developer working at a tech
-          firm in Costa Rica.
+        description: Luis came to the program without any previous experience. He is now a software developer working at a tech firm in Costa Rica.
         achievement: He got a 50% increase in his salary
       - name: Leandro Matonte
         img: https://storage.googleapis.com/4geeks-academy-website/media/Leandro_1764725403142.jpeg
@@ -678,20 +605,16 @@ sections:
           name: Uruguay
           iso: uy
         contributor: UTEC-BID
-        description: >-
-          Leandro got into the program with the expectation to achieve a better understanding and some coding skills.
-          Now he is a software developer at a tech firm in Uruguay.
+        description: Leandro got into the program with the expectation to achieve a better understanding and some coding skills. Now he is a software developer at a tech firm in Uruguay.
         achievement: He got a 60% increase in his salary
     section_id: testimonials_slide-69mc5i
     background: hsl(var(--card))
   - type: numbered_steps
     section_id: numbered_steps-2blr6f
-    version: '1.0'
+    version: "1.0"
     variant: bubbleText
     title: Así funciona el proceso de admisión
-    description: >-
-      Aplicar no es comprometerse. Es el primer paso para saber si este programa es el adecuado para ti. Todo el proceso
-      dura menos de 48 horas.
+    description: Aplicar no es comprometerse. Es el primer paso para saber si este programa es el adecuado para ti. Todo el proceso dura menos de 48 horas.
     steps:
       - icon: Application
         title: Aplicación al programa
@@ -714,7 +637,7 @@ sections:
     background: bg-background
   - type: cta_banner
     section_id: cta_banner-76bymf
-    version: '1.0'
+    version: "1.0"
     title: Tu carrera como Ingeniero de IA no va a empezar sola.
     subtitle: Cada semana que esperas es una semana que otro se lleva el trabajo. Aplica en 2 minutos.
     background: hsl(var(--primary))
@@ -744,9 +667,7 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: >-
-          Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de
-          entrada.
+        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
       button_className: bg-primary border-white
       terms_className: text-white/80
     form_background: hsl(var(--card))
@@ -759,7 +680,7 @@ sections:
       desktop: lg
   - type: footer
     section_id: footer-kwu9la
-    version: '1.0'
+    version: "1.0"
     copyright_text: 2024 4Geeks. Todos los derechos reservados.
     paddingY:
       mobile: none
