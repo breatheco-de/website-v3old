@@ -240,6 +240,17 @@ sections:
     marginY:
       desktop: md lg
     title_highlight: ahora
+  - type: breadcrumb
+    version: v1.0
+    items:
+      - label: Home
+        url: /
+      - label: Career Programs
+        url: /en/career-programs
+      - label: Full Stack Developer
+    section_id: breadcrumb-0f5q9g
+    paddingY:
+      desktop: sm
   - type: syllabus
     section_id: syllabus-5hjjcl
     variant: program-modules
