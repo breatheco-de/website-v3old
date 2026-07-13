@@ -189,6 +189,8 @@ sections:
     section_id: comparison_table-lhvsra
     paddingY:
       desktop: sm
+    marginY:
+      desktop: md none
   - type: trust_cards
     maxWidth:
       desktop: 6xl
