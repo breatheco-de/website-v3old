@@ -693,7 +693,7 @@ sections:
     description_link:
       text: "*No disponible en todas las regiones. Aplican términos y condiciones."
       url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guaranteee-es.pdf
-    background: hsl(var(--secondary))
+    background: hsl(var(--card))
     steps:
       - icon: School
         text: Añade la Garantía de Empleo a tu plan de pago.
