@@ -204,7 +204,7 @@ sections:
     version: "1.0"
     variant: stats-charts
     subtitle: La demanda existe. El talento, no.
-    title: "Por qué&nbsp; aprender Ingeniería de IA <span style=\"color: hsl(var(--primary));\"><i style=\"\"><span style=\"font-size: 2.25rem;\"><span>ahora.</span></span></i></span>"
+    title: "Por qué&nbsp; aprender Ingeniería de IA <span style=\"color: hsl(var(--primary));\"><i style=\"\"><span style=\"font-size: 3.75rem;\"><span><span>ahora.</span></span></span></i></span>"
     description: null
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
