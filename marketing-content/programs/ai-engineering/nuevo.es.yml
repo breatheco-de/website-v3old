@@ -545,7 +545,7 @@ sections:
     marginY:
       desktop: none xl
     paddingY:
-      desktop: md none
+      desktop: sm none
     background: hsl(var(--secondary))
   - type: pricing
     version: "1.0"
