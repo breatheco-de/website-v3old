@@ -57,7 +57,7 @@ sections:
       title: Antes de inscribirte, mira todo lo que incluye
       description: Completa tus datos y recibe el currículum completo, el plan de financiamiento y todo lo que incluye el programa. Un asesor te contacta para resolver tus dudas. Solo toma 30 segundos.
       cta_button:
-        text: Envíame los detalles
+        text: Quiero ver el currículum completo
         url: "#modal-ubwgcj"
         variant: primary
       login_link:
