@@ -54,8 +54,8 @@ sections:
       thumbnail: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop
       alt: Introducción al programa de Ingeniería de IA
     signup_card:
-      title: Recibe la visión completa del programa
-      description: "Completa tus datos y nuestro equipo de admisiones te enviará todo lo que necesitas: plan de estudios, detalles del programa, opciones de financiación y más. Solo toma 2 minutos."
+      title: Antes de inscribirte, mira todo lo que incluye
+      description: Completa tus datos y recibe el currículum completo, el plan de financiamiento y todo lo que incluye el programa. Un asesor te contacta para resolver tus dudas. Solo toma 30 segundos.
       cta_button:
         text: Envíame los detalles
         url: "#modal-ubwgcj"
