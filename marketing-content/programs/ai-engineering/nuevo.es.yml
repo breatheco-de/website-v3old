@@ -208,7 +208,7 @@ sections:
     description: null
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
-    card_gauge_accent: hsl(var(--color-green))
+    card_gauge_accent: hsl(var(--color-orange))
     card_trend_accent: hsl(var(--accent))
     card_bars:
       title: La IA crea más empleos de los que quita
