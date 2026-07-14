@@ -512,14 +512,14 @@ sections:
         video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
         cta: null
       - icon: Headset
-        title: Mentoría 1:1 ilimitada, de por vida
+        title: Mentorías privadas ilimitadas con tu mentor
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Acceso de por vida a mentoría técnica 1:1
-          - text: Proporción {{ global.global_teacher_student_ratio | 7:1 }} estudiante–instructor
-          - text: Check-ins semanales y colaboración entre pares vía Slack
-          - text: Canales dedicados de Slack para soporte de código, bolsa de trabajo y consejos de carrera
+          - text: Mentoría técnica de por vida, no solo mientras estudias.
+          - text: "Nunca eres un número más: 7 estudiantes por instructor."
+          - text: Check-ins semanales, y una comunidad de compañeros en Slack.
+          - text: Canales de Slack para dudas de código, ofertas de trabajo y consejos de carrera.
         video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
       - icon: TrendingUp
         title: Acompañamiento profesional para el mercado laboral de IA
