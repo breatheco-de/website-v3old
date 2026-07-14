@@ -483,14 +483,6 @@ sections:
   - type: testimonials_slide
     title: Dieron el salto sin pasar por la universidad de nuevo
     description: "Diferentes trayectorias, diferentes puntos de partida, un solo resultado: una carrera en tecnología que lo cambió todo. Estas son sus historias."
-    dynamic_entries:
-      database: testimonials_es
-      limit: 30
-      permanent_filters:
-        - item_property_slug: related_features
-          value:
-            - mentors-and-teachers
-            - career-support
     section_id: testimonials_slide-6jlded
     marginY:
       desktop: none
