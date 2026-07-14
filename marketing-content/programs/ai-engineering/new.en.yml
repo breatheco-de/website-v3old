@@ -663,13 +663,7 @@ sections:
       - tampa-usa
       - toronto-canada
       - bogota-colombia
-      - buenosaires-argentina
-      - caracas-venezuela
-      - costa-rica
       - mexicocity-mexico
-      - montevideo-uruguay
-      - panamacity-panama
-      - panamacity-panama
     paddingY:
       desktop: md
     marginY:
