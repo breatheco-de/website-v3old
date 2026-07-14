@@ -414,7 +414,7 @@ sections:
         orientation: horizontal
         icon: IconCode
     marginY:
-      desktop: sm md
+      desktop: sm lg
     paddingY:
       desktop: md sm
   - type: human_and_ai_duo
