@@ -1,0 +1,28 @@
+EnrollmentSelector — Optional Add-on Toggle
+What & Why
+Add an optional add-on toggle (e.g. Job Guarantee) to the EnrollmentSelector component. The toggle lives inside the "What's included" card, separated by a divider. When activated it updates the summary card rows dynamically — changing both the add-on status row and the total fee row.
+
+Done looks like
+A toggle row appears at the bottom of the benefits card (after a <hr> divider) when the program has an addon configured
+The row shows: addon label + amber "Optional add-on" pill badge + description text + a toggle switch (no text label next to it)
+When toggled ON: a green "Job guarantee added" badge appears below the description
+Two summary rows react to the toggle:
+The row with show_dynamic_addon: true shows addon.summary_value_on (ON) or addon.summary_value_off (OFF)
+Any row with value_with_addon set swaps its displayed value when the toggle is ON
+The addon state resets to OFF when the user switches programs
+All new fields are optional — existing programs without an addon block are unaffected
+Out of scope
+Addon price calculation logic (content editor sets explicit string values)
+Multiple addons per program
+Addon state persisting across page loads
+Steps
+Extend the schema — Add addonSchema with fields label, badge, description, added_label, summary_value_on, summary_value_off. Add addon?: addonSchema to enrollmentProgramSchema. Add show_dynamic_addon?: boolean and value_with_addon?: string to summaryRowSchema.
+Component state & reset — Add addonEnabled boolean state. Reset it to false whenever the selected program changes.
+Toggle UI — Render the add-on row (divider + toggle) at the bottom of the benefits/included card when the current program has addon defined. Use a shadcn Switch or equivalent accessible toggle. Show the added_label green badge (visibility toggled, not mounted/unmounted) when addonEnabled is true.
+Summary row logic — In the summary row renderer, handle show_dynamic_addon (pick summary_value_on/summary_value_off from addon config) and value_with_addon (swap value when addonEnabled).
+Update example YAML — Add addon block to the ai-engineering program in default.yml and the landing example. Add a show_dynamic_addon: true row and value_with_addon to the relevant summary rows.
+Relevant files
+client/src/components/enrollment_selector/variants/EnrollmentSelectorDefault.tsx
+marketing-content/component-registry/enrollment_selector/v1.0/schema.ts
+marketing-content/component-registry/enrollment_selector/v1.0/examples/default.yml
+marketing-content/landings/example/en.yml
