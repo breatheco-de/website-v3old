@@ -506,6 +506,16 @@ sections:
     title: Nunca estás solo. Ni construyendo, ni buscando empleo.
     description: Feedback de tu tutor de IA a cualquier hora, mentores reales cuando los necesites, y un equipo de carrera que está a tu lado hasta que consigas empleo.
     features:
+      - icon: TrendingUp
+        title: Te acompañamos hasta que consigas empleo
+        description: ""
+        show_rigobot_logo: true
+        bullets:
+          - text: Coaching de carrera adaptado a ti.
+          - text: Tu CV y portafolio, listos para pasar los filtros automáticos de selección de las empresas.
+          - text: Preparación para entrevistas y negociación salarial.
+          - text: Referencias directas a nuestra red de más de 400 empleadores.
+        video_url: https://youtu.be/-2ZvlgDnltc
       - icon: bot
         title: Tu tutor de IA, disponible 24/7
         description: ""
@@ -526,16 +536,6 @@ sections:
           - text: Check-ins semanales, y una comunidad de compañeros en Slack.
           - text: Canales de Slack para dudas de código, ofertas de trabajo y consejos de carrera.
         video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
-      - icon: TrendingUp
-        title: Te acompañamos hasta que consigas empleo
-        description: ""
-        show_rigobot_logo: true
-        bullets:
-          - text: Coaching de carrera adaptado a ti.
-          - text: Tu CV y portafolio, listos para pasar los filtros automáticos de selección de las empresas.
-          - text: Preparación para entrevistas y negociación salarial.
-          - text: Referencias directas a nuestra red de más de 400 empleadores.
-        video_url: https://youtu.be/-2ZvlgDnltc
     section_id: ai_learning-xiuj75
     marginY:
       desktop: sm xl
