@@ -455,6 +455,8 @@ sections:
       desktop: md none
     section_id: human_and_ai_duo-99s71d
     background: hsl(var(--secondary))
+    marginY:
+      desktop: none lg
   - type: testimonials
     section_id: testimonials-ghxelh
     title: Las personas detrás de los números.
