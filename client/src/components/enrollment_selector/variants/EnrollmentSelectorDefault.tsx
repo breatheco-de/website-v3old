@@ -584,9 +584,9 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                       {active && (
                         <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary" />
                       )}
-                      <div className="flex items-center justify-between gap-2 pr-5 sm:block sm:pr-4 md:flex md:pr-5 lg:block lg:pr-4">
+                      <div className="flex items-center justify-between gap-2 pr-5 sm:block sm:pr-4">
                         <span
-                          className="flex items-center gap-1.5 min-w-0 text-[14px] sm:text-[15px] font-extrabold sm:mb-1 md:mb-0 lg:mb-1 transition-colors duration-200"
+                          className="flex items-center gap-1.5 min-w-0 text-[14px] sm:text-[15px] font-extrabold sm:mb-1 transition-colors duration-200"
                           style={{ color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))" }}
                         >
                           {ProgramIcon && <ProgramIcon size={16} className="shrink-0" />}
