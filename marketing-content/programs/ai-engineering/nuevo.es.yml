@@ -453,7 +453,7 @@ sections:
     marginY:
       desktop: md none
     paddingY:
-      desktop: md lg
+      desktop: md none
   - type: trust_cards
     version: v1.0
     title: Una de las Mejores Escuelas Tech del Mundo. Calificación perfecta en portales externos.
