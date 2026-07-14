@@ -498,7 +498,7 @@ sections:
     paddingY:
       desktop: md sm
     marginY:
-      desktop: none md
+      desktop: none lg
     background: hsl(var(--card))
   - type: ai_learning
     variant: feature-tabs
