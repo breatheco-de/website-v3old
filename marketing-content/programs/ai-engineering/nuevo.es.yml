@@ -420,7 +420,7 @@ sections:
   - type: human_and_ai_duo
     version: "1.0"
     heading: 22 semanas te separan de ser Ingeniero de IA. ¿Qué esperas para empezar?
-    description: Cupos limitados por cohorte. Asegura el tuyo antes de que se llene.
+    description: Inscripciones limitadas por clase. Asegura el tuyo antes de que se llene.
     cta:
       text: Reserva tu cupo
       url: /es/apply
