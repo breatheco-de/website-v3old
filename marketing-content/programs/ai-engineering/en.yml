@@ -612,14 +612,14 @@ sections:
   - type: numbered_steps
     version: "1.0"
     title: Get Hired. Or Your Money Back.
-    description: Enroll with our optional Job Guarantee. Get hired within 9 months, or we refund your full tuition. That's how confident we are in what we built.
+    description: You can add our Job or Refund option to your AI Engineering enrollment to protect your investment. Not hired within 9 months? Full tuition refund. That's how confident we are in what we built.
     description_link:
       text: "*Not available in all regions. Terms and conditions apply."
       url: https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf
-    background: bg-muted/30
+    background: hsl(var(--secondary))
     steps:
       - icon: School
-        text: Add the Job Guarantee to your payment plan.
+        text: Add the Job or Refund option to your payment plan.
       - icon: briefcase-business
         text: Complete the program and follow the GeekForce career process.
       - icon: banknote
@@ -644,8 +644,9 @@ sections:
       - mexicocity-mexico
       - montevideo-uruguay
       - panamacity-panama
+      - panamacity-panama
     paddingY:
-      desktop: none md
+      desktop: md
     marginY:
       desktop: none md
   - type: testimonials
