@@ -243,7 +243,7 @@ sections:
   - type: syllabus
     section_id: syllabus-5hjjcl
     variant: program-modules
-    program_title: Módulos del Programa de Ingeniería de IA
+    program_title: Cómo aprenderás en 22 semanas
     program_description: "Aprendes construyendo, no memorizando. Cada semana: un módulo a tu ritmo, más una clase en vivo con tu instructor para resolver dudas y aplicar lo aprendido a proyectos reales. Recorres dos tracks completos, IA Central y Agentes, e Infraestructura para IA, y cierras con un capstone donde integras todo en una empresa real transformada por IA."
     tech_logos:
       - name: Python
