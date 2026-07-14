@@ -279,6 +279,11 @@ function AddonToggleRow({
   compact?: boolean;
   onToggle: (checked: boolean) => void;
 }) {
+  const badgeText =
+    typeof addon.badge === "string" ? addon.badge : addon.badge?.text;
+  const badgeColor = resolveColorVar(
+    (typeof addon.badge === "object" && addon.badge?.color) || "hsl(var(--color-orange))",
+  );
   return (
     <div className={compact ? "mt-3 pt-3 border-t border-border" : "mt-4 pt-4 border-t border-border md:mt-5 md:pt-5"}>
       <div className="flex items-start justify-between gap-3 md:gap-4">
@@ -287,38 +292,38 @@ function AddonToggleRow({
             <span className={compact ? "text-[12px] font-bold text-foreground" : "text-[13px] md:text-[15px] font-bold text-foreground"}>
               {addon.label}
             </span>
-            {addon.badge && (
+            {badgeText && (
               <span
                 className="inline-flex items-center text-[9px] md:text-[10px] font-bold leading-none px-1.5 py-[3px] rounded-full whitespace-nowrap"
                 style={{
-                  background: "hsl(var(--color-orange) / 0.15)",
-                  color: "hsl(var(--color-orange))",
+                  background: hslColor(badgeColor, 0.15),
+                  color: hslColor(badgeColor, 1),
                 }}
               >
-                {addon.badge}
+                {badgeText}
               </span>
             )}
           </div>
-          {addon.description && (
+          {(addon.description || addon.on?.added_label) && (
             <p className={compact ? "text-[11px] text-muted-foreground leading-snug" : "text-[11px] md:text-[12px] text-muted-foreground leading-relaxed"}>
               {addon.description}
+              {addon.on?.added_label && (
+                <span
+                  className={`inline-flex items-center gap-1 text-[9px] md:text-[10px] font-bold leading-none px-1.5 py-[3px] rounded-full whitespace-nowrap align-middle ml-1.5 transition-opacity duration-200 ${
+                    enabled ? "opacity-100" : "opacity-0"
+                  }`}
+                  aria-hidden={!enabled}
+                  style={{
+                    background: "hsl(var(--color-green) / 0.15)",
+                    color: "hsl(var(--color-green))",
+                  }}
+                  data-testid="badge-addon-added"
+                >
+                  <IconCheck size={10} stroke={3} />
+                  {addon.on.added_label}
+                </span>
+              )}
             </p>
-          )}
-          {addon.on?.added_label && (
-            <span
-              className={`inline-flex items-center gap-1 text-[9px] md:text-[10px] font-bold leading-none px-1.5 py-[3px] rounded-full whitespace-nowrap mt-1.5 transition-opacity duration-200 ${
-                enabled ? "opacity-100" : "opacity-0"
-              }`}
-              aria-hidden={!enabled}
-              style={{
-                background: "hsl(var(--color-green) / 0.15)",
-                color: "hsl(var(--color-green))",
-              }}
-              data-testid="badge-addon-added"
-            >
-              <IconCheck size={10} stroke={3} />
-              {addon.on.added_label}
-            </span>
           )}
         </div>
         <div className="flex items-center gap-2 shrink-0 mt-0.5">

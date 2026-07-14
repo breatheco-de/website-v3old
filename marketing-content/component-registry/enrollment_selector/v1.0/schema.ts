@@ -35,8 +35,17 @@ export const enrollmentAddonSchema = z.object({
   /** Add-on identifier. Used for default urls: ?addon=<id> (ON) and ?addon= (OFF) */
   id: z.string(),
   label: z.string(),
-  /** Pill badge text next to the label (e.g. "Optional add-on") */
-  badge: z.string().optional(),
+  /** Pill badge next to the label (e.g. "Optional add-on"). String or { text, color } */
+  badge: z
+    .union([
+      z.string(),
+      z.object({
+        text: z.string(),
+        /** Pill color (e.g. "hsl(var(--color-orange))"). Defaults to orange */
+        color: z.string().optional(),
+      }),
+    ])
+    .optional(),
   description: z.string().optional(),
   /** State config when the toggle is ON */
   on: enrollmentAddonStateSchema.optional(),

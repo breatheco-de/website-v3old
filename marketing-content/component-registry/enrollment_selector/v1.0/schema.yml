@@ -259,9 +259,18 @@ props:
             required: true
             description: Add-on name shown in bold in the toggle row (e.g. "Job guarantee")
           badge:
-            type: string
+            type: object
             required: false
-            description: Pill badge text next to the label (e.g. "Optional add-on")
+            properties:
+              text:
+                type: string
+                required: true
+                description: Pill badge text next to the label (e.g. "Optional add-on")
+              color:
+                type: string
+                required: false
+                description: Pill color (e.g. "hsl(var(--color-orange))"). Defaults to orange
+            description: Pill badge next to the label. Accepts a plain string as shorthand for { text }
           description:
             type: string
             required: false
