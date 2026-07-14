@@ -258,6 +258,16 @@ function BenefitsList({
 
 type AddonConfig = NonNullable<EnrollmentSelectorProgram["addon"]>;
 
+/** Querystring link navigated when the toggle turns ON (defaults to ?addon=<id>) */
+function addonOnUrl(addon: AddonConfig): string {
+  return addon.on?.url ?? `?addon=${addon.id}`;
+}
+
+/** Querystring link navigated when the toggle turns OFF (defaults to ?addon=) */
+function addonOffUrl(addon: AddonConfig): string {
+  return addon.off?.url ?? "?addon=";
+}
+
 function AddonToggleRow({
   addon,
   enabled,
@@ -294,7 +304,7 @@ function AddonToggleRow({
               {addon.description}
             </p>
           )}
-          {addon.added_label && (
+          {addon.on?.added_label && (
             <span
               className={`inline-flex items-center gap-1 text-[9px] md:text-[10px] font-bold leading-none px-1.5 py-[3px] rounded-full whitespace-nowrap mt-1.5 transition-opacity duration-200 ${
                 enabled ? "opacity-100" : "opacity-0"
@@ -307,7 +317,7 @@ function AddonToggleRow({
               data-testid="badge-addon-added"
             >
               <IconCheck size={10} stroke={3} />
-              {addon.added_label}
+              {addon.on.added_label}
             </span>
           )}
         </div>
@@ -381,9 +391,14 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
         setFilteredByQs(true);
       }
     }
-    const addonQs = params.get("addon");
-    if (addonQs && data.programs[activeIdx]?.addon?.id === addonQs) {
-      setAddonEnabled(true);
+    const addon = data.programs[activeIdx]?.addon;
+    if (addon) {
+      const onParams = new URLSearchParams(addonOnUrl(addon).replace(/^\?/, ""));
+      let matches = false;
+      onParams.forEach((v, k) => {
+        if (params.get(k) === v && v !== "") matches = true;
+      });
+      if (matches) setAddonEnabled(true);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -465,24 +480,11 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
     if (url) nav.navigate(url);
   }
 
-  function removeAddonParam() {
-    if (typeof window === "undefined") return;
-    const params = new URLSearchParams(window.location.search);
-    if (!params.has("addon")) return;
-    params.delete("addon");
-    const str = params.toString();
-    history.replaceState(null, "", window.location.pathname + (str ? `?${str}` : "") + window.location.hash);
-  }
-
   function handleAddonToggle(checked: boolean) {
     setAddonEnabled(checked);
     const addon = program?.addon;
     if (!addon) return;
-    if (checked) {
-      nav.navigate(`?addon=${addon.id}`);
-    } else {
-      removeAddonParam();
-    }
+    nav.navigate(checked ? addonOnUrl(addon) : addonOffUrl(addon));
   }
 
   const sectionCls =
@@ -564,8 +566,10 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                         setSelectedProgramIdx(i);
                         setSelectedDateIdx(0);
                         setSelectedPlanIdx(0);
+                        if (addonEnabled && program?.addon) {
+                          nav.navigate(addonOffUrl(program.addon));
+                        }
                         setAddonEnabled(false);
-                        removeAddonParam();
                       }}
                     >
                       {active && (
@@ -735,8 +739,8 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                     accent = true;
                   } else if (row.show_dynamic_addon && program?.addon) {
                     dynamicValue = addonEnabled
-                      ? (program.addon.summary_value_on ?? "")
-                      : (program.addon.summary_value_off ?? "");
+                      ? (program.addon.on?.summary_value ?? "")
+                      : (program.addon.off?.summary_value ?? "");
                     accent = addonEnabled;
                   } else if (row.show_dynamic_date) {
                     if (isDateMode && displayDates.length > 0) {

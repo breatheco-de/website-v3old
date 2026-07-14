@@ -61,9 +61,13 @@ sections:
           label: Job guarantee
           badge: Optional add-on
           description: Get hired within 9 months of graduating — or receive a full refund. Conditions apply.
-          added_label: Job guarantee added
-          summary_value_on: Included
-          summary_value_off: Not included
+          on:
+            url: "?addon=job-guarantee"
+            added_label: Job guarantee added
+            summary_value: Included
+          off:
+            url: "?addon="
+            summary_value: Not included
         dates:
           mode: static
           items:

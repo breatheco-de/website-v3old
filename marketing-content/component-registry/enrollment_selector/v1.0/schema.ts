@@ -16,25 +16,32 @@ const summaryRowSchema = z.object({
   value_with_addon: z.string().optional(),
   show_dynamic_program: z.boolean().optional(),
   show_dynamic_date: z.boolean().optional(),
-  /** Shows addon.summary_value_on / summary_value_off depending on the add-on toggle */
+  /** Shows addon.on.summary_value / addon.off.summary_value depending on the add-on toggle */
   show_dynamic_addon: z.boolean().optional(),
 });
 
 // ─── Optional add-on (e.g. Job Guarantee) ─────────────────────────────────────
 
+export const enrollmentAddonStateSchema = z.object({
+  /** Querystring link navigated when the toggle enters this state, like any page link (e.g. "?addon=job-guarantee" for ON, "?addon=" for OFF) */
+  url: z.string().optional(),
+  /** Green badge shown below the description while in this state (typically only for ON) */
+  added_label: z.string().optional(),
+  /** Value for summary rows with show_dynamic_addon while in this state */
+  summary_value: z.string().optional(),
+});
+
 export const enrollmentAddonSchema = z.object({
-  /** Used as the querystring value: ?addon=<id> */
+  /** Add-on identifier. Used for default urls: ?addon=<id> (ON) and ?addon= (OFF) */
   id: z.string(),
   label: z.string(),
   /** Pill badge text next to the label (e.g. "Optional add-on") */
   badge: z.string().optional(),
   description: z.string().optional(),
-  /** Green badge shown below the description when the toggle is ON */
-  added_label: z.string().optional(),
-  /** Value for summary rows with show_dynamic_addon when the toggle is ON */
-  summary_value_on: z.string().optional(),
-  /** Value for summary rows with show_dynamic_addon when the toggle is OFF */
-  summary_value_off: z.string().optional(),
+  /** State config when the toggle is ON */
+  on: enrollmentAddonStateSchema.optional(),
+  /** State config when the toggle is OFF */
+  off: enrollmentAddonStateSchema.optional(),
 });
 
 export const enrollmentSummarySchema = z.object({

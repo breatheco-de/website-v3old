@@ -253,7 +253,7 @@ props:
           id:
             type: string
             required: true
-            description: Add-on identifier, used as the querystring value (?addon=<id>)
+            description: Add-on identifier. Used for default urls when on.url/off.url are not set (?addon=<id> / ?addon=)
           label:
             type: string
             required: true
@@ -266,23 +266,42 @@ props:
             type: string
             required: false
             description: Short description text shown below the label
-          added_label:
-            type: string
+          "on":
+            type: object
             required: false
-            description: Green badge text shown below the description when the toggle is ON (e.g. "Job guarantee added")
-          summary_value_on:
-            type: string
+            properties:
+              url:
+                type: string
+                required: false
+                description: Querystring link navigated when the toggle turns ON, like any page link (e.g. "?addon=job-guarantee"). Defaults to "?addon=<id>"
+              added_label:
+                type: string
+                required: false
+                description: Green badge text shown below the description while ON (e.g. "Job guarantee added")
+              summary_value:
+                type: string
+                required: false
+                description: Value shown in summary rows with show_dynamic_addon while ON (e.g. "Included")
+            description: State config when the toggle is ON
+          "off":
+            type: object
             required: false
-            description: Value shown in summary rows with show_dynamic_addon when the toggle is ON (e.g. "Included")
-          summary_value_off:
-            type: string
-            required: false
-            description: Value shown in summary rows with show_dynamic_addon when the toggle is OFF (e.g. "Not included")
+            properties:
+              url:
+                type: string
+                required: false
+                description: Querystring link navigated when the toggle turns OFF (e.g. "?addon="). Defaults to "?addon="
+              summary_value:
+                type: string
+                required: false
+                description: Value shown in summary rows with show_dynamic_addon while OFF (e.g. "Not included")
+            description: State config when the toggle is OFF
         description: >-
           Optional add-on toggle (e.g. Job Guarantee) rendered at the bottom of the "What's included" card after a
-          divider. Toggling ON adds ?addon=<id> to the URL (removed when OFF) and updates summary rows: rows with
-          show_dynamic_addon show summary_value_on/summary_value_off; rows with value_with_addon swap their value.
-          The toggle resets to OFF when the user switches programs, and initializes ON if ?addon=<id> is in the URL.
+          divider. Toggling ON navigates on.url (default ?addon=<id>) like any page link; toggling OFF navigates
+          off.url (default ?addon=). Summary rows with show_dynamic_addon show on/off summary_value; rows with
+          value_with_addon swap their value while ON. The toggle resets to OFF when the user switches programs, and
+          initializes ON if the on.url params are already present in the page URL.
     description: >-
       Array of programs. A program with a "dates" key uses date-mode; one with a "plans" key uses plan-mode. Each
       program has: id, selection_card (name, duration, badge?, icon?), summary (price_label, price_amount,
