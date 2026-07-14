@@ -438,8 +438,8 @@ sections:
   - type: ai_learning
     variant: feature-tabs
     badge: Why 4Geeks?
-    title: The Support That Keeps You Going. And Gets You Hired.
-    description: "22 weeks is intense, and it's crucial not to lose momentum halfway through. That's why support is built into every step: AI feedback 24/7, 1:1 mentorship sessions focused entirely on you, and career support focused on landing your first role."
+    title: Support That Keeps You Going. And Gets You Hired.
+    description: "22 weeks is intense, and it's crucial not to lose momentum halfway through. That's why support is built into every step: AI feedback 24/7, 1:1 mentorship sessions focused entirely on you, and career support to land your first role."
     features:
       - icon: Robot
         title: AI-powered feedback 24/7
@@ -457,9 +457,9 @@ sections:
         show_rigobot_logo: false
         bullets:
           - text: Lifelong access to 1:1 technical mentorship
+          - text: Personalized guidance from expert mentors who've been where you are
           - text: {{ global.global_teacher_student_ratio | 7:1 }} student-to-instructor ratio
-          - text: Slack groups to collaborate with your peers and stay motivated.
-          - text: Dedicated channels for coding support, job boards, and career advice
+          - text: Dedicated Slack channels for coding support, job posts, and collaborating with your peers
         video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
       - icon: TrendingUp
         title: Career support built for the AI job market
