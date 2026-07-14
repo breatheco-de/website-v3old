@@ -513,8 +513,6 @@ sections:
       - tampa-usa
       - toronto-canada
       - bogota-colombia
-      - buenosaires-argentina
-      - costa-rica
       - mexicocity-mexico
     marginX:
       desktop: none
