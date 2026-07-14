@@ -149,7 +149,7 @@ sections:
   - type: comparison_table
     version: "1.0"
     title: Universidad tradicional vs. AI Engineering
-    subtitle: No es "mejor o peor" en abstracto. Es qué camino te deja empleable en el mercado de IA que existe hoy, no el de hace cinco años.
+    subtitle: Más que elegir entre una opción u otra, se trata de elegir el camino que te prepara para el mercado laboral de hoy.
     columns:
       - name: Características
       - name: Carrera Universitaria
