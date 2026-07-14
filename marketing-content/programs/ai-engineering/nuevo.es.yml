@@ -542,7 +542,7 @@ sections:
       desktop: sm lg
     primary:
       badge: Salarios 2026
-      description: "<span style=\"font-size: 1.5rem;\"><span>Las empresas pagan más por quien sabe construir con IA. LinkedIn reporta un crecimiento ×42 en roles de despliegue de IA solo desde 2023.</span></span>"
+      description: "<span style=\"font-size: 1.25rem;\"><span><span>Las empresas pagan más por quien sabe construir con IA. LinkedIn reporta un crecimiento ×42 en roles de despliegue de IA solo desde 2023.</span></span></span>"
       heading: Los roles de IA. Y lo que pagan.
     secondary:
       benefits:
