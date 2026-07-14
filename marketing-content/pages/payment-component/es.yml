@@ -83,7 +83,7 @@ sections:
         dates:
           mode: static
           items:
-            - date_iso: "2026-08-24"
+            - date_iso: "2026-24-08"
               badges:
                 - text: 2 seats left
                   icon: IconUsers
