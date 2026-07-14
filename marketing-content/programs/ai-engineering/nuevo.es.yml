@@ -412,6 +412,38 @@ sections:
       desktop: md xl
     paddingY:
       desktop: md sm
+  - type: trust_cards
+    version: v1.0
+    title: Una de las Mejores Escuelas Tech del Mundo. Calificación perfecta en portales externos.
+    items:
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
+        rating: 4.9
+        review_count: 4.9 en Course Report
+        alt: Course Report logo
+        id: logo-course-report
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79.webp
+        rating: 4.8
+        review_count: 4.8 en Google
+        alt: "Image: google"
+        id: google-583x196-q79
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/CareerKarma_logo.png
+        rating: 4.9
+        review_count: 4.9 en Career Karma
+        alt: "Image: CareerKarma_logo"
+        id: careerkarma-logo
+      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
+        rating: 4.9
+        review_count: 4.9 en SwitchUp
+    name: Tarjetas de confianza por defecto
+    description: Cuatro tarjetas de plataformas de reseñas con valoraciones
+    section_id: trust_cards-jji04i
+    paddingY:
+      desktop: md lg
+    marginY:
+      desktop: md lg
+    maxWidth:
+      desktop: 6xl
+    background: hsl(210 100% 50% / 0.05)
   - type: testimonials
     section_id: testimonials-ghxelh
     title: Las personas detrás de los números.
@@ -455,38 +487,6 @@ sections:
     marginY:
       desktop: none
     background: hsl(var(--card))
-  - type: trust_cards
-    version: v1.0
-    title: Una de las Mejores Escuelas Tech del Mundo. Calificación perfecta en portales externos.
-    items:
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
-        rating: 4.9
-        review_count: 4.9 en Course Report
-        alt: Course Report logo
-        id: logo-course-report
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/google-583x196-q79.webp
-        rating: 4.8
-        review_count: 4.8 en Google
-        alt: "Image: google"
-        id: google-583x196-q79
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/CareerKarma_logo.png
-        rating: 4.9
-        review_count: 4.9 en Career Karma
-        alt: "Image: CareerKarma_logo"
-        id: careerkarma-logo
-      - image: https://storage.googleapis.com/4geeks-academy-website/media/switchup_1765590146414.webp
-        rating: 4.9
-        review_count: 4.9 en SwitchUp
-    name: Tarjetas de confianza por defecto
-    description: Cuatro tarjetas de plataformas de reseñas con valoraciones
-    section_id: trust_cards-jji04i
-    paddingY:
-      desktop: md lg
-    marginY:
-      desktop: md lg
-    maxWidth:
-      desktop: 6xl
-    background: hsl(210 100% 50% / 0.05)
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
