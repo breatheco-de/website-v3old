@@ -542,6 +542,28 @@ sections:
     paddingY:
       desktop: lg md
     background: hsl(210 100% 50% / 0.05)
+  - marginY:
+      desktop: none lg
+    paddingY:
+      desktop: md
+    primary:
+      badge: Salarios 2026
+      description: "<span style=\"font-size: 1.25rem;\">Un mismo programa, distintas especializaciones. Te damos los conocimientos y las herramientas para que te puedas enfocar en la que más te guste.<br>LinkedIn nombró a Ingeniero de IA el trabajo de más rápido crecimiento en EE. UU. en 2026.&nbsp;</span>"
+      heading: Dominar la IA paga. Y paga bien.
+      tool_icons: null
+    secondary:
+      benefits:
+        - icon: IconRobot
+          text: "$85K–$135K: Ingeniero de Agentes de IA"
+        - icon: IconCode
+          text: "$90K–$130K: Ingeniero AI Full Stack"
+        - icon: IconServer
+          text: "$85K–$120K: Ingeniero de IA"
+    section_id: split_cards-r890zf
+    type: split_cards
+    variant: primary-left
+    version: v1.0
+    items: null
   - type: trust_cards
     version: v1.0
     title: Una de las Mejores Escuelas Tech del Mundo. Calificación perfecta en portales externos.
@@ -573,28 +595,6 @@ sections:
       desktop: md none
     maxWidth:
       desktop: 6xl
-  - marginY:
-      desktop: none lg
-    paddingY:
-      desktop: md
-    primary:
-      badge: Salarios 2026
-      description: "<span style=\"font-size: 1.25rem;\">Un mismo programa, distintas especializaciones. Te damos los conocimientos y las herramientas para que te puedas enfocar en la que más te guste.<br>LinkedIn nombró a Ingeniero de IA el trabajo de más rápido crecimiento en EE. UU. en 2026.&nbsp;</span>"
-      heading: Dominar la IA paga. Y paga bien.
-      tool_icons: null
-    secondary:
-      benefits:
-        - icon: IconRobot
-          text: "$85K–$135K: Ingeniero de Agentes de IA"
-        - icon: IconCode
-          text: "$90K–$130K: Ingeniero AI Full Stack"
-        - icon: IconServer
-          text: "$85K–$120K: Ingeniero de IA"
-    section_id: split_cards-r890zf
-    type: split_cards
-    variant: primary-left
-    version: v1.0
-    items: null
   - type: pricing
     version: "1.0"
     variant: product
