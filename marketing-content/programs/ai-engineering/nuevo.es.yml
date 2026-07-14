@@ -29,8 +29,8 @@ sections:
       color: primary
       background: hsl(var(--primary))
       text_color: hsl(var(--primary-foreground))
-    title: Ingeniería de IA en 22 semanas. Trabaja en las mejores empresas, o lanza la tuya.
-    title_highlight: Trabaja en las mejores empresas, o lanza la tuya.
+    title: Domina la Ingeniería de IA en 22 semanas. Trabaja en cualquier empresa, o lanza la tuya.
+    title_highlight: Trabaja en cualquier empresa, o lanza la tuya.
     subtitle: "En 22 semanas, pasas de usar IA a construirla: sistemas listos para producción, agentes de código, automatización real. Ya sea que busques un salario de $95K–$135K+ o quieras lanzar tu propio producto con IA, sales con las habilidades para lograrlo. Con mentoría 1:1 ilimitada, de por vida."
     students_enrolled:
       avatars:
