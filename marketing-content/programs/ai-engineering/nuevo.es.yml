@@ -499,20 +499,18 @@ sections:
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
     title: Nunca estás solo. Ni construyendo, ni buscando empleo.
-    description: Avanza más rápido que nunca, con un sistema de apoyo construido alrededor de tu ritmo, tus objetivos y tu carrera.
+    description: Feedback de tu tutor de IA a cualquier hora, mentores reales cuando los necesites, y un equipo de carrera que está a tu lado hasta que consigas empleo.
     features:
       - icon: Robot
-        title: Feedback con IA disponible 24/7
+        title: Tu tutor de IA, disponible 24/7
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Feedback instantáneo de Rigobot, nuestro tutor de IA
-          - text: Orientación adaptada a tu nivel y progreso
-          - text: Ayuda inmediata a cualquier hora, día o noche
-          - text: Cientos de ejercicios prácticos y evaluaciones técnicas
+          - text: Presente acompañándote en cada clase, cada ejercicio, cada proyecto.
+          - text: Sabe dónde te trabas y te explica justo eso.
+          - text: Responde en segundos, no en la próxima sesión de mentoría.
         video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
-        cta:
-          icon: Rigobot
+        cta: null
       - icon: Headset
         title: Mentoría 1:1 ilimitada, de por vida
         description: ""
