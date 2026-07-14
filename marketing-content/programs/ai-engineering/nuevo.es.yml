@@ -494,7 +494,7 @@ sections:
         rating: 5
         role: Graduada de 4Geeks Academy
     paddingY:
-      desktop: md
+      desktop: md sm
     marginY:
       desktop: none md
     background: hsl(var(--card))
@@ -538,7 +538,7 @@ sections:
     marginY:
       desktop: sm xl
     paddingY:
-      desktop: md
+      desktop: lg md
     background: hsl(210 100% 50% / 0.05)
   - marginY:
       desktop: none xl
