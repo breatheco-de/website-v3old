@@ -573,7 +573,6 @@ sections:
       desktop: md none
     maxWidth:
       desktop: 6xl
-    background: hsl(210 100% 50% / 0.05)
   - marginY:
       desktop: none lg
     paddingY:
