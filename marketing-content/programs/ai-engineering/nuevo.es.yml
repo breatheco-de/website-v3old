@@ -42,7 +42,7 @@ sections:
     bullet_points:
       - "Construye sistemas desde 0: optimiza tu flujo de trabajo o lanza tu propio producto."
       - Domina la tecnología de IA que el 88% de las empresas ya pagan por tener.
-      - "Pasa de usuario a creador de tecnología: la capacidad de construir e implementar tu propia propiedad intelectual."
+      - Pasa de usuario a creador y domina la capacidad de construir e implementar tu propia propiedad intelectual.
       - Obtén certificados reconocidos por empleadores en todo el mundo.
     tutors:
       - name: Marco Gonzalo
@@ -542,17 +542,17 @@ sections:
       desktop: sm lg
     primary:
       badge: Salarios 2026
-      description: "<span style=\"font-size: 1.25rem;\"><span><span>Las empresas pagan más por quien sabe construir con IA. El rol de Forward-Deployed Engineer, uno de los que ves a la derecha, ha crecido ×42 desde 2023, según LinkedIn.</span></span></span>"
-      heading: Los roles de IA. Y lo que pagan.
+      description: "<span style=\"font-size: 1.25rem;\">Un mismo programa, distintas especializaciones. En este programa te damos los conocimientos y las herramientas para que te puedas enfocar en la que más te guste.<br><br>LinkedIn nombró a Ingeniero de IA el trabajo de más rápido crecimiento en EE. UU. en 2026. Las vacantes del sector crecieron 280% solo en el último año.</span>"
+      heading: La IA paga. Y paga bien.
       tool_icons: null
     secondary:
       benefits:
-        - icon: IconRocket
-          text: "$105K–$155K: Forward-Deployed Engineer"
         - icon: IconRobot
-          text: "$95K–$135K: Ingeniero de Software de IA"
+          text: "$85K–$135K: Ingeniero de Agentes de IA"
         - icon: IconCode
-          text: "$90K–$130K: Ingeniero Full Stack con Dominio de IA"
+          text: "$90K–$130K: Ingeniero AI Full Stack"
+        - icon: IconServer
+          text: "$85K–$120K: Ingeniero de IA"
     section_id: split_cards-r890zf
     type: split_cards
     variant: primary-left
