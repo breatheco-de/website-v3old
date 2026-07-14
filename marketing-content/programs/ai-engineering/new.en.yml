@@ -73,7 +73,7 @@ sections:
         - icon: IconRobot
           text: AI-Powered Learning & Feedback
         - icon: IconShield
-          text: Secure Your Investment with our Job-or-Refund Option
+          text: Secure Your Investment with our Job-or-Refund Option*
     section_id: hero-tznhhe
     paddingY:
       desktop: lg md
