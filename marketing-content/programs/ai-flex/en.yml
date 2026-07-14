@@ -24,7 +24,7 @@ sections:
       color: primary
       background: hsl(var(--primary))
       text_color: hsl(var(--primary-foreground))
-    title: AI Skills on Your Terms. At Your Pace, With Real Support.
+    title: The AI Skills You Actually Need. At Your Pace, With Real Support.
     title_highlight: At Your Pace, With Real Support.
     subtitle: Take a 4-question quiz and get a learning path matched to your goals, not a generic course list. Build AI skills that expand what you can do, sharpen what you ship, and boost your productivity.
     students_enrolled:
