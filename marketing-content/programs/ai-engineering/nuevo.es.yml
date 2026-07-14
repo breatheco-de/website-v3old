@@ -282,7 +282,7 @@ sections:
       desktop: md
     marginY:
       desktop: none
-    background: hsl(var(--secondary))
+    background: hsl(var(--card))
   - type: syllabus
     section_id: syllabus-5hjjcl
     variant: program-modules
