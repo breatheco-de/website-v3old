@@ -504,7 +504,7 @@ sections:
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
     title: Nunca estás solo. Ni construyendo, ni buscando empleo.
-    description: Soporte de tu tutor de IA en cualquier momento, mentores reales cuando los necesites y orientación profesional constante hasta que encuentres trabajo
+    description: Soporte de tu Tutor de IA las 24 horas, mentores expertos cuando los necesites y orientación profesional constante hasta que encuentres trabajo
     features:
       - icon: TrendingUp
         title: Tu quieres empleo, nosotros, que lo consigas.
