@@ -24,7 +24,12 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: Ingeniería de IA. El empleo con más demanda de 2026. Puedes optar a uno en 22 semanas.
+    badge:
+      text: Ingeniería de IA
+      color: primary
+      background: hsl(var(--primary))
+      text_color: hsl(var(--primary-foreground))
+    title: El empleo con más demanda de 2026. Puedes optar a uno en 22 semanas.
     title_highlight: más demanda de 2026
     subtitle: "En 22 semanas, pasas de usar IA a construirla: sistemas listos para producción, agentes de código, automatización real. Ya sea que busques un salario de $95K–$135K+ o quieras lanzar tu propio producto con IA, sales con las habilidades para lograrlo. Con mentoría 1:1 ilimitada, de por vida."
     students_enrolled:
