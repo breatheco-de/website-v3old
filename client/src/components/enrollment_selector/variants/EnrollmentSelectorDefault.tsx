@@ -279,11 +279,7 @@ function AddonToggleRow({
   compact?: boolean;
   onToggle: (checked: boolean) => void;
 }) {
-  const badgeText =
-    typeof addon.badge === "string" ? addon.badge : addon.badge?.text;
-  const badgeColor = resolveColorVar(
-    (typeof addon.badge === "object" && addon.badge?.color) || "hsl(var(--color-orange))",
-  );
+  const badgeText = selectionCardBadgeText(addon.badge);
   return (
     <div className={compact ? "mt-3 pt-3 border-t border-border" : "mt-4 pt-4 border-t border-border md:mt-5 md:pt-5"}>
       <div className="flex items-start justify-between gap-3 md:gap-4">
@@ -296,8 +292,8 @@ function AddonToggleRow({
               <span
                 className="inline-flex items-center text-[9px] md:text-[10px] font-bold leading-none px-1.5 py-[3px] rounded-full whitespace-nowrap"
                 style={{
-                  background: hslColor(badgeColor, 0.15),
-                  color: hslColor(badgeColor, 1),
+                  background: "hsl(var(--primary) / 0.12)",
+                  color: "hsl(var(--primary))",
                 }}
               >
                 {badgeText}

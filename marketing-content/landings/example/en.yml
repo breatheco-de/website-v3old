@@ -34,7 +34,7 @@ sections:
               show_dynamic_addon: true
           cta:
             text: Secure My Seat
-            url: https://4geeks.com/checkout?plan=ai-engineering-registration-fee&cohort={qs:cohort|sept-2026}
+            url: https://4geeks.com/checkout?plan=ai-engineering-registration-fee&cohort={qs:cohort|sept-2026}&add_ons={qs:add_ons}
             variant: primary
           trust_note:
             initials: 4G
@@ -59,16 +59,14 @@ sections:
         addon:
           id: job-guarantee
           label: Job guarantee
-          badge:
-            text: Optional add-on
-            color: "hsl(var(--color-orange))"
+          badge: Optional add-on
           description: Get hired within 9 months of graduating — or receive a full refund. Conditions apply.
-          on:
-            url: "?addon=job-guarantee"
+          "on":
+            url: "?add_ons=job-guarantee"
             added_label: Job guarantee added
             summary_value: Included
-          off:
-            url: "?addon="
+          "off":
+            url: "?add_ons="
             summary_value: Not included
         dates:
           mode: static

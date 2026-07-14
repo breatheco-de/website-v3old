@@ -10,7 +10,6 @@ export const fieldEditors: Record<string, EditorType> = {
   "default:programs[].summary.rows[].value_with_addon": "rich-text-editor",
   "default:programs[].summary.trust_note.image_id": "image-picker",
   "default:programs[].dates.items[].url": "link-picker",
-  "default:programs[].addon.badge.color": "color-picker:courses",
   "default:programs[].dates.items[].badges[].color": "color-picker:courses",
   "default:programs[].dates.items[].tags[].color": "color-picker:courses",
   "default:programs[].dates.url": "link-picker",

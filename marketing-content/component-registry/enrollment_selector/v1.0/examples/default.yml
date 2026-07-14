@@ -53,9 +53,7 @@ programs:
     addon:
       id: job-guarantee
       label: Job guarantee
-      badge:
-        text: Optional add-on
-        color: "hsl(var(--color-orange))"
+      badge: Optional add-on
       description: Get hired within 9 months of graduating — or receive a full refund. Conditions apply.
       on:
         url: "?addon=job-guarantee"
