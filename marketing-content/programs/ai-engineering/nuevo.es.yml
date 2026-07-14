@@ -229,8 +229,8 @@ sections:
       bar1_label: Talento tradicional
       bar2_label: Profesionales preparados para IA
     card_trend:
-      title: La demanda se acelera
-      description: Ofertas indexadas · 2020 → proyección 2027
+      title: La demanda de trabajadores que sepan usar IA se acelera
+      description: Ofertas laborales en 2020 → proyección para 2027
       stat_value: 1.3M
       stat_label: nuevos empleos en IA creados globalmente en dos años
       end_label: 1.3M · 2027
