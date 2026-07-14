@@ -446,31 +446,30 @@ sections:
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Instant feedback from Rigobot, our custom AI tutor
-          - text: Advice adjusted to your skill level and progress
-          - text: Instant help at any hour, day or night
-          - text: Practice with hundreds of real coding exercises, not just theory.
+          - text: Never get stuck. Rigobot gives instant feedback any hour, day or night.
+          - text: Get advice that actually fits you, adjusted to your skill level and progress.
+          - text: Build real skill, not just theory, with hundreds of hands-on coding exercises.
+          - text: Move forward with confidence, no more guessing if you're doing it right.
         video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
       - icon: Headset
         title: Unlimited 1:1 mentorship, for life
         description: ""
         show_rigobot_logo: false
         bullets:
-          - text: Lifelong access to 1:1 technical mentorship
-          - text: Personalized guidance from expert mentors who've been where you are
-          - text: {{ global.global_teacher_student_ratio | 7:1 }} student-to-instructor ratio
-          - text: Dedicated Slack channels for coding support, job posts, and collaborating with your peers
+          - text: Keep learning after graduation, with lifelong access to 1:1 technical mentorship.
+          - text: Get personalized guidance from expert mentors who've been where you are.
+          - text: Get real one-on-one attention with a 7:1 student-to-instructor ratio.
+          - text: Stay connected and in the loop, dedicated Slack channels for coding support, job posts, and peer collaboration.
         video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
       - icon: TrendingUp
         title: Career support built for the AI job market
         description: ""
         show_rigobot_logo: false
         bullets:
-          - text: Lifelong 1:1 career coaching
-          - text: Resume and portfolio built to pass AI-based screening
-          - text: Interview prep and salary negotiation
-          - text: Direct referrals to our 400+ employer network
-        video_url: https://youtu.be/-2ZvlgDnltc
+          - text: Get a career partner for life, with lifelong 1:1 career coaching.
+          - text: Get past automated filters, with a resume and portfolio built to pass AI-based screening.
+          - text: Walk into interviews prepared and confident, with prep and salary negotiation support.
+          - text: Get direct referrals to our 400+ employer network, not just another job board.
     section_id: ai_learning-xiuj75
     marginY:
       desktop: none
