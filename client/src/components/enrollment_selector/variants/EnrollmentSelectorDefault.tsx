@@ -149,7 +149,13 @@ function DateSelectorTiles({
       >
         {label}
       </p>
-      <div className={`grid grid-cols-3 ${compact ? "gap-1.5" : "gap-1.5 md:gap-2"}`}>
+      <div
+        className={`grid ${
+          compact
+            ? "grid-cols-3 gap-1.5"
+            : "grid-cols-3 md:grid-cols-1 lg:grid-cols-3 gap-1.5 md:gap-2"
+        }`}
+      >
         {dates.map((d, i) => {
           const active = selectedIdx === i;
           const fid = `date-${i}`;
@@ -498,8 +504,10 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
 
   if (!program || !activeSummary) return null;
 
+  const programCardRendered = !filteredByQs && data.programs.length > 1;
+
   const plansAttachToProgramCard =
-    !filteredByQs && data.programs.length > 1 && isPlanMode && !!program?.plans?.length;
+    programCardRendered && isPlanMode && !!program?.plans?.length;
 
   const ctaVariantMap: Record<string, "default" | "secondary" | "outline"> = {
     primary: "default",
@@ -546,7 +554,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
               <p className="text-[10px] md:text-[12px] font-bold tracking-[1.5px] md:tracking-[1.8px] uppercase text-muted-foreground mb-2 md:mb-3.5">
                 {data.choose_program_label ?? "Choose your program"}
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5 md:gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3 gap-1.5 md:gap-2">
                 {data.programs.map((prog, i) => {
                   const active = selectedProgramIdx === i;
                   const fid = `prog-${i}`;
@@ -576,9 +584,9 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                       {active && (
                         <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary" />
                       )}
-                      <div className="flex items-center justify-between gap-2 pr-5 sm:block sm:pr-4">
+                      <div className="flex items-center justify-between gap-2 pr-5 sm:block sm:pr-4 md:flex md:pr-5 lg:block lg:pr-4">
                         <span
-                          className="flex items-center gap-1.5 min-w-0 text-[14px] sm:text-[15px] font-extrabold sm:mb-1 transition-colors duration-200"
+                          className="flex items-center gap-1.5 min-w-0 text-[14px] sm:text-[15px] font-extrabold sm:mb-1 md:mb-0 lg:mb-1 transition-colors duration-200"
                           style={{ color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))" }}
                         >
                           {ProgramIcon && <ProgramIcon size={16} className="shrink-0" />}
@@ -608,6 +616,17 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                     setSelectedPlanIdx(i);
                   }}
                 />
+              )}
+
+              {/* MOBILE: addon toggle at the bottom of the program card (below plans if present) */}
+              {program.addon && (
+                <div className="md:hidden">
+                  <AddonToggleRow
+                    addon={program.addon}
+                    enabled={addonEnabled}
+                    onToggle={handleAddonToggle}
+                  />
+                </div>
               )}
             </div>
           ) : null}
@@ -785,9 +804,9 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                 })}
               </div>
 
-              {/* MOBILE: benefits (replaces unlocks) */}
+              {/* MOBILE: benefits (replaces unlocks). Addon lives in the program card when it renders */}
               <div className="md:hidden">
-                {(activeBenefits.length > 0 || program.addon) && (
+                {(activeBenefits.length > 0 || (program.addon && !programCardRendered)) && (
                   <div
                     className={summaryInsetCls}
                     style={{ background: "hsl(var(--muted-foreground) / 0.03)" }}
@@ -795,7 +814,7 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                     {activeBenefits.length > 0 && (
                       <BenefitsList benefits={activeBenefits} label={includedLabel} compact />
                     )}
-                    {program.addon && (
+                    {program.addon && !programCardRendered && (
                       <AddonToggleRow
                         addon={program.addon}
                         enabled={addonEnabled}
@@ -889,7 +908,7 @@ function PlanSelectorBlock({
       <p className="text-[10px] md:text-[12px] font-bold tracking-[1.5px] md:tracking-[1.8px] uppercase text-muted-foreground mb-2 md:mb-3.5">
         {label}
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 md:gap-3">
         {plans.map((p: EnrollmentPlan, i) => {
           const active = selectedPlanIdx === i;
           const fid = `plan-${i}`;
