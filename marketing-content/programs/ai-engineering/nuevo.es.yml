@@ -154,12 +154,12 @@ sections:
     heading: Resultados reales. Cifras reales.
     subheading: Más de 8500 graduados. Resultados sólidos en todos los frentes.
     stats:
-      - value: 84%
-        label: Tasa media de contratación
-      - value: 55%
-        label: Aumento salarial medio en el nuevo puesto
-      - value: 3-6 months
-        label: Tiempo medio para conseguir empleo
+      - label: de nuestros graduados consigue empleo
+        value: 84%
+      - label: de aumento salarial
+        value: 55%
+      - label: para conseguir empleo después de graduarte
+        value: 3-6 meses
     collage_images:
       - image_id: group-7085-1
         col_span: 5
