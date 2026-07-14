@@ -544,7 +544,7 @@ sections:
     background: hsl(210 100% 50% / 0.05)
   - type: trust_cards
     version: v1.0
-    title: No lo decimos nosotros. Lo dicen ellos.
+    title: Una de las Mejores Escuelas Tech del Mundo. Calificación perfecta en portales externos.
     items:
       - image: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         rating: 4.9
@@ -570,11 +570,10 @@ sections:
     paddingY:
       desktop: md lg
     marginY:
-      desktop: md lg
+      desktop: md none
     maxWidth:
       desktop: 6xl
-    module_cards: null
-    program_description: null
+    background: hsl(210 100% 50% / 0.05)
   - marginY:
       desktop: none lg
     paddingY:
