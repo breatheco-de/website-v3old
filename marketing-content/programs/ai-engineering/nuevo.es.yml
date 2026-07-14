@@ -629,7 +629,7 @@ sections:
     marginY:
       desktop: lg md
     paddingY:
-      desktop: md
+      desktop: lg md
     showOnLocations:
       - bogota-colombia
       - buenosaires-argentina
