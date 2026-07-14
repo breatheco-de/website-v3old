@@ -508,6 +508,7 @@ sections:
           - Identifica y corrige las vulnerabilidades OWASP Top 10 en aplicaciones web
           - Implementa prácticas de seguridad específicas para integraciones de IA
           - Usa LLMs como herramienta de auditoría de ciberseguridad
+    program_description: "Aprendes construyendo, no memorizando. Cada semana: un módulo a tu ritmo, más una clase en vivo con tu instructor para resolver dudas y aplicar lo aprendido a proyectos reales. Recorres dos tracks completos, IA Central y Agentes, e Infraestructura para IA, y cierras con un capstone donde integras todo en una empresa real transformada por IA."
   - type: testimonials
     section_id: testimonials-ghxelh
     title: Las personas detrás de los números.
