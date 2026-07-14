@@ -70,7 +70,7 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: 22 semanas, o acelerado en 15 semanas si prefieres ir más rápido.
+          text: "Duración: De 15 a 22 semanas, según tu disponibilidad y el ritmo que elijas."
         - icon: IconUsers
           text: "Nunca eres un número más: 7 estudiantes por instructor."
         - icon: IconUserCheck
