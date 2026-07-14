@@ -27,10 +27,11 @@ sections:
               show_dynamic_date: true
             - label: Total program fee
               value: $15,999
+              value_with_addon: $18,999
             - label: Financing from
               value: $349/mo
             - label: Job guarantee
-              value: Not included
+              show_dynamic_addon: true
           cta:
             text: Secure My Seat
             url: https://4geeks.com/checkout?plan=ai-engineering-registration-fee&cohort={qs:cohort|sept-2026}
@@ -55,6 +56,14 @@ sections:
           - text: Master the fundamentals — Learn Git, JavaScript, YAML/JSON, and core web concepts.
           - text: Build AI from day one — Create your first coding agents with hands-on projects.
           - text: Learn with expert support — Get LMS & VPS access plus weekly live classes and 1:1 mentorship sessions.
+        addon:
+          id: job-guarantee
+          label: Job guarantee
+          badge: Optional add-on
+          description: Get hired within 9 months of graduating — or receive a full refund. Conditions apply.
+          added_label: Job guarantee added
+          summary_value_on: Included
+          summary_value_off: Not included
         dates:
           mode: static
           items:

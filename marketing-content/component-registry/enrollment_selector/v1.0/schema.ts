@@ -12,8 +12,29 @@ const trustNoteSchema = z.object({
 const summaryRowSchema = z.object({
   label: z.string(),
   value: z.string().optional(),
+  /** Alternative value shown when the program's optional add-on is toggled ON */
+  value_with_addon: z.string().optional(),
   show_dynamic_program: z.boolean().optional(),
   show_dynamic_date: z.boolean().optional(),
+  /** Shows addon.summary_value_on / summary_value_off depending on the add-on toggle */
+  show_dynamic_addon: z.boolean().optional(),
+});
+
+// ─── Optional add-on (e.g. Job Guarantee) ─────────────────────────────────────
+
+export const enrollmentAddonSchema = z.object({
+  /** Used as the querystring value: ?addon=<id> */
+  id: z.string(),
+  label: z.string(),
+  /** Pill badge text next to the label (e.g. "Optional add-on") */
+  badge: z.string().optional(),
+  description: z.string().optional(),
+  /** Green badge shown below the description when the toggle is ON */
+  added_label: z.string().optional(),
+  /** Value for summary rows with show_dynamic_addon when the toggle is ON */
+  summary_value_on: z.string().optional(),
+  /** Value for summary rows with show_dynamic_addon when the toggle is OFF */
+  summary_value_off: z.string().optional(),
 });
 
 export const enrollmentSummarySchema = z.object({
@@ -113,6 +134,7 @@ export const enrollmentProgramSchema = z.object({
   unlocks: z.array(unlockSchema).default([]),
   dates: enrollmentDatesSchema.optional(),
   plans: z.array(enrollmentPlanSchema).optional(),
+  addon: enrollmentAddonSchema.optional(),
 });
 
 // ─── Root schema ──────────────────────────────────────────────────────────────
@@ -140,3 +162,4 @@ export type EnrollmentSelectorSection = z.infer<typeof enrollmentSelectorSection
 export type EnrollmentSelectorProgram = z.infer<typeof enrollmentProgramSchema>;
 export type EnrollmentSelectorPlan = z.infer<typeof enrollmentPlanSchema>;
 export type EnrollmentSummary = z.infer<typeof enrollmentSummarySchema>;
+export type EnrollmentAddon = z.infer<typeof enrollmentAddonSchema>;

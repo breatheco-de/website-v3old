@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { RichTextContent } from "@/components/ui/rich-text-content";
 import { UniversalImage } from "@/components/UniversalImage";
 import { getIcon } from "@/lib/icons";
@@ -255,6 +256,77 @@ function BenefitsList({
   );
 }
 
+type AddonConfig = NonNullable<EnrollmentSelectorProgram["addon"]>;
+
+function AddonToggleRow({
+  addon,
+  enabled,
+  compact,
+  onToggle,
+}: {
+  addon: AddonConfig;
+  enabled: boolean;
+  compact?: boolean;
+  onToggle: (checked: boolean) => void;
+}) {
+  return (
+    <div className={compact ? "mt-3 pt-3 border-t border-border" : "mt-4 pt-4 border-t border-border md:mt-5 md:pt-5"}>
+      <div className="flex items-start justify-between gap-3 md:gap-4">
+        <div className="min-w-0">
+          <div className="flex items-center gap-2 flex-wrap mb-0.5 md:mb-1">
+            <span className={compact ? "text-[12px] font-bold text-foreground" : "text-[13px] md:text-[15px] font-bold text-foreground"}>
+              {addon.label}
+            </span>
+            {addon.badge && (
+              <span
+                className="inline-flex items-center text-[9px] md:text-[10px] font-bold leading-none px-1.5 py-[3px] rounded-full whitespace-nowrap"
+                style={{
+                  background: "hsl(var(--color-orange) / 0.15)",
+                  color: "hsl(var(--color-orange))",
+                }}
+              >
+                {addon.badge}
+              </span>
+            )}
+          </div>
+          {addon.description && (
+            <p className={compact ? "text-[11px] text-muted-foreground leading-snug" : "text-[11px] md:text-[12px] text-muted-foreground leading-relaxed"}>
+              {addon.description}
+            </p>
+          )}
+          {addon.added_label && (
+            <span
+              className={`inline-flex items-center gap-1 text-[9px] md:text-[10px] font-bold leading-none px-1.5 py-[3px] rounded-full whitespace-nowrap mt-1.5 transition-opacity duration-200 ${
+                enabled ? "opacity-100" : "opacity-0"
+              }`}
+              aria-hidden={!enabled}
+              style={{
+                background: "hsl(var(--color-green) / 0.15)",
+                color: "hsl(var(--color-green))",
+              }}
+              data-testid="badge-addon-added"
+            >
+              <IconCheck size={10} stroke={3} />
+              {addon.added_label}
+            </span>
+          )}
+        </div>
+        <div className="flex items-center gap-2 shrink-0 mt-0.5">
+          <span className="text-[11px] md:text-[12px] text-muted-foreground font-medium">
+            {enabled ? "On" : "Off"}
+          </span>
+          <Switch
+            checked={enabled}
+            onCheckedChange={onToggle}
+            aria-label={addon.label}
+            data-testid="switch-addon"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function UnlocksList({ unlocks }: { unlocks: { icon?: string; text: string }[] }) {
   return (
     <div className="flex flex-col gap-1.5">
@@ -292,19 +364,26 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
   const [selectedPlanIdx, setSelectedPlanIdx] = useState(0);
   const [flashId, setFlashId] = useState<string | null>(null);
   const [filteredByQs, setFilteredByQs] = useState(false);
+  const [addonEnabled, setAddonEnabled] = useState(false);
   const flashTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // On mount: read ?program and ?cohort from URL
+  // On mount: read ?program, ?cohort and ?addon from URL
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
     const programQs = params.get("program");
+    let activeIdx = 0;
     if (programQs) {
       const idx = data.programs.findIndex((p) => p.id === programQs);
       if (idx !== -1) {
+        activeIdx = idx;
         setSelectedProgramIdx(idx);
         setFilteredByQs(true);
       }
+    }
+    const addonQs = params.get("addon");
+    if (addonQs && data.programs[activeIdx]?.addon?.id === addonQs) {
+      setAddonEnabled(true);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -386,6 +465,26 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
     if (url) nav.navigate(url);
   }
 
+  function removeAddonParam() {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (!params.has("addon")) return;
+    params.delete("addon");
+    const str = params.toString();
+    history.replaceState(null, "", window.location.pathname + (str ? `?${str}` : "") + window.location.hash);
+  }
+
+  function handleAddonToggle(checked: boolean) {
+    setAddonEnabled(checked);
+    const addon = program?.addon;
+    if (!addon) return;
+    if (checked) {
+      nav.navigate(`?addon=${addon.id}`);
+    } else {
+      removeAddonParam();
+    }
+  }
+
   const sectionCls =
     "bg-card border border-border rounded-[0.8rem] p-3 mb-3 md:p-5 md:mb-4 shadow-[0_1px_4px_rgba(0,0,0,0.06),0_4px_16px_rgba(0,0,0,0.05)]";
   const sectionClsLast =
@@ -465,6 +564,8 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                         setSelectedProgramIdx(i);
                         setSelectedDateIdx(0);
                         setSelectedPlanIdx(0);
+                        setAddonEnabled(false);
+                        removeAddonParam();
                       }}
                     >
                       {active && (
@@ -551,9 +652,18 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
           )}
 
           {/* BENEFITS — desktop only */}
-          {activeBenefits.length > 0 && (
+          {(activeBenefits.length > 0 || program.addon) && (
             <div className={`${sectionClsLast} hidden md:block`}>
-              <BenefitsList benefits={activeBenefits} label={includedLabel} />
+              {activeBenefits.length > 0 && (
+                <BenefitsList benefits={activeBenefits} label={includedLabel} />
+              )}
+              {program.addon && (
+                <AddonToggleRow
+                  addon={program.addon}
+                  enabled={addonEnabled}
+                  onToggle={handleAddonToggle}
+                />
+              )}
             </div>
           )}
         </div>
@@ -623,6 +733,11 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                   if (row.show_dynamic_program && program) {
                     dynamicValue = program.selection_card.name;
                     accent = true;
+                  } else if (row.show_dynamic_addon && program?.addon) {
+                    dynamicValue = addonEnabled
+                      ? (program.addon.summary_value_on ?? "")
+                      : (program.addon.summary_value_off ?? "");
+                    accent = addonEnabled;
                   } else if (row.show_dynamic_date) {
                     if (isDateMode && displayDates.length > 0) {
                       const d = displayDates[selectedDateIdx];
@@ -633,7 +748,9 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                   }
 
                   const isDynamic = dynamicValue !== null;
-                  const value = dynamicValue ?? row.value ?? "";
+                  const baseValue =
+                    addonEnabled && row.value_with_addon ? row.value_with_addon : row.value;
+                  const value = dynamicValue ?? baseValue ?? "";
 
                   return (
                     <div
@@ -665,12 +782,22 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
 
               {/* MOBILE: benefits (replaces unlocks) */}
               <div className="md:hidden">
-                {activeBenefits.length > 0 && (
+                {(activeBenefits.length > 0 || program.addon) && (
                   <div
                     className={summaryInsetCls}
                     style={{ background: "hsl(var(--muted-foreground) / 0.03)" }}
                   >
-                    <BenefitsList benefits={activeBenefits} label={includedLabel} compact />
+                    {activeBenefits.length > 0 && (
+                      <BenefitsList benefits={activeBenefits} label={includedLabel} compact />
+                    )}
+                    {program.addon && (
+                      <AddonToggleRow
+                        addon={program.addon}
+                        enabled={addonEnabled}
+                        compact
+                        onToggle={handleAddonToggle}
+                      />
+                    )}
                   </div>
                 )}
               </div>
