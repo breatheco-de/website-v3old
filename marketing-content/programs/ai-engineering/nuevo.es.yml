@@ -522,14 +522,14 @@ sections:
           - text: Canales de Slack para dudas de código, ofertas de trabajo y consejos de carrera.
         video_url: https://www.youtube.com/watch?v=1BmVA2a4h6o
       - icon: TrendingUp
-        title: Acompañamiento profesional para el mercado laboral de IA
+        title: Te acompañamos hasta que consigas empleo
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Coaching personalizado 1:1 de por vida
-          - text: CVs y portafolios optimizados para filtros de IA
-          - text: Preparación para entrevistas y negociación salarial
-          - text: Referencias directas a nuestra red de más de 400 empleadores
+          - text: Coaching de carrera adaptado a ti.
+          - text: Tu CV y portafolio, listos para pasar los filtros automáticos de selección de las empresas.
+          - text: Preparación para entrevistas y negociación salarial.
+          - text: Referencias directas a nuestra red de más de 400 empleadores.
         video_url: https://youtu.be/-2ZvlgDnltc
     section_id: ai_learning-xiuj75
     marginY:
