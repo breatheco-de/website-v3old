@@ -31,7 +31,7 @@ sections:
       text_color: hsl(var(--primary-foreground))
     title: Compite en la industria o crea tu empresa. De 0 a Ingeniero de IA en 22 semanas.
     title_highlight: De 0 a Ingeniero de IA en 22 semanas.
-    subtitle: "En 22 semanas, pasas de usar IA a construirla: sistemas listos para producción, agentes de código y automatización real. Ya sea que busques un mejor salario, multiplicar tu productividad o quieras lanzar tu propio producto con IA, te llevas las habilidades para lograrlo. Con mentoría 1:1 ilimitada, de por vida."
+    subtitle: "En 22 semanas, pasas de usar IA a construirla: sistemas listos para producción, agentes de código y automatización real. Ya sea que busques un mejor salario, multiplicar tu productividad o quieras lanzar tu propio producto con IA, te llevas las habilidades para lograrlo."
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
