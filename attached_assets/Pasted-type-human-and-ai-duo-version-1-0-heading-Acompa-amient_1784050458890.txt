@@ -1,0 +1,46 @@
+type: human_and_ai_duo
+version: "1.0"
+heading: Acompañamiento de verdad, ¡no estás solo!
+description: "Es normal tener dudas, pero te ayudamos a resolverlas: accede a una clase en vivo cada semana y a una mentoría 1:1 de regalo para que la pruebes. Y por si fuera poco, Rigobot, nuestro mentor de inteligencia artificial, te acompaña las 24 horas del día, los 7 días de la semana."
+bullet_groups:
+  - title: "Mentores Humanos:"
+    image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
+    bullets:
+      - text: Clases en vivo, una vez a la semana.
+      - text: "Ayuda personalizada: te regalamos una mentoría 1:1 con un experto en inteligencia artificial."
+      - text: ¿Buscas un impulso extra? Tenemos paquetes de mentoría aún más personalizados.
+  - title: "Mentor Impulsado por IA: Rigobot"
+    image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
+    bullets:
+      - text: Creado por 4Geeks y entrenado con miles de horas de mentorías reales a lo largo de nuestra trayectoria.
+      - text: Se adapta a tu nivel y te da feedback instantáneo.
+      - text: Disponible 24/7, ¡no hay excusas! Todas tus dudas, resueltas, sí o sí.
+images:
+  - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina-brightened-1365x2048.webp
+    alt: "Image: valentina_brightened"
+    object_fit: cover
+    object_position: 40%20%
+    border_radius: 0.5rem
+    id: valentina-brightened-1365x2048
+  - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536.webp
+    alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
+    object_fit: cover
+    object_position: 50%30%
+    border_radius: 0.5rem
+    id: chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536
+  - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
+    alt: Estudiante africana colaborando con su equipo
+    object_fit: cover
+    object_position: 70%15%
+    border_radius: 0.5rem
+  - src: https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74.webp
+    alt: Estudiante latina celebrando un logro
+    object_fit: cover
+    object_position: 50%30%
+    border_radius: 0.5rem
+image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
+image_alt: Mujer trabajando con portátil en una cafetería
+paddingY:
+  mobile: sm none
+  desktop: md none
+section_id: human_and_ai_duo-99s71d
