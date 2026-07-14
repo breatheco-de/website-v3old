@@ -19,7 +19,7 @@ sections:
     variant: productShowcase
     title: ""
     brand_mark:
-      prefix: "<span style=\"color: hsl(var(--primary));\">Ingeniería de IA</span>. Llegamos a donde la universidad"
+      prefix: "<span style=\"color: hsl(var(--primary));\">Ingeniería de IA</span><span style=\"color: hsl(var(--primary));\">.</span> Llegamos a donde la universidad"
       highlight: jamás
       color: primary
       suffix: podrá llegar
