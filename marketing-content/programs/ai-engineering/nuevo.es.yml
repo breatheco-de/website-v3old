@@ -238,7 +238,7 @@ sections:
         object_position: 50% 45%
     section_id: graduates_stats-cnxqbb
     marginY:
-      desktop: none sm
+      desktop: none
     maxWidth:
       desktop: 6xl
     paddingY:
