@@ -45,6 +45,9 @@ export {
 // Alias for backward compatibility
 export { leadFormDataSchema as productShowcaseFormSchema } from "../marketing-content/component-registry/_common/schema";
 
+// Local binding for use within this file
+import { ctaButtonSchema as commonCtaButtonSchema } from "../marketing-content/component-registry/_common/schema";
+
 // ============================================
 // Re-export Hero Schemas from Component Registry
 // Only export unified schema and shared sub-schemas (not individual variants)
@@ -686,7 +689,8 @@ export const humanAndAIDuoSectionSchema = z.object({
   version: z.string().optional(),
   heading: z.string(),
   description: z.string(),
-  bullet_groups: z.array(humanAndAIDuoBulletGroupSchema),
+  bullet_groups: z.array(humanAndAIDuoBulletGroupSchema).optional(),
+  cta: commonCtaButtonSchema.optional(),
   footer_description: z.string().optional(),
   // New: array of images with CSS styling
   images: z.array(z.object({

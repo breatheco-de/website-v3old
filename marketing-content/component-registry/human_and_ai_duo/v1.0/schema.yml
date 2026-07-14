@@ -20,8 +20,11 @@ props:
     example: Learning works best when human expertise and AI support come together.
   bullet_groups:
     type: array
-    required: true
-    description: Array of groups containing title, optional icon/image, and bullets
+    required: false
+    description: >-
+      Array of groups containing title, optional icon/image, and bullets.
+      Optional — when omitted, the bullet groups card is not rendered and the
+      section shows only heading, description, optional CTA, and images.
     items:
       title:
         type: string
@@ -49,6 +52,30 @@ props:
           icon:
             type: string
             required: false
+  cta:
+    type: object
+    required: false
+    description: Optional CTA button displayed below the main description (standard CTA button object)
+    properties:
+      text:
+        type: string
+        required: true
+        description: Button label
+        example: Inscríbete ahora
+      url:
+        type: string
+        required: true
+        description: Button link URL
+        example: /es/apply
+      variant:
+        type: enum
+        required: true
+        values: [primary, secondary, outline]
+        description: Button style variant
+      icon:
+        type: string
+        required: false
+        description: Optional icon name
   footer_description:
     type: string
     required: false
