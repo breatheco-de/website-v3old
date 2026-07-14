@@ -58,17 +58,17 @@ sections:
         dates:
           mode: static
           items:
-            - date_iso: "2026-09-08"
+            - date_iso: "2026-08-24"
               badges:
                 - text: 4 seats left
                   color: destructive
                 - text: Fast track
                   color: primary
-              url: "?cohort=sept-2026"
-            - date_iso: "2026-10-13"
-              url: "?cohort=oct-2026"
-            - date_iso: "2026-11-10"
-              url: "?cohort=nov-2026"
+              url: "?cohort=1536"
+            - date_iso: "2026-10-05"
+              url: "?cohort=1536"
+            - date_iso: "2026-11-09"
+              url: "?cohort=1536"
       - id: ai-fluency
         description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
         selection_card:
