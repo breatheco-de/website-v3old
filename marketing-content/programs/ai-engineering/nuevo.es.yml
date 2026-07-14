@@ -160,7 +160,7 @@ sections:
     version: "1.0"
     variant: stats-charts
     subtitle: La IA ya domina el mercado.
-    title: "Por qué estudiar <span style=\"color: hsl(var(--primary));\">Ingeniería de IA </span>"
+    title: "Por qué aprender <span style=\"color: hsl(var(--primary));\">Ingeniería de IA </span>"
     description: null
     background: bg-slate-950
     card_bars_accent: hsl(var(--primary))
