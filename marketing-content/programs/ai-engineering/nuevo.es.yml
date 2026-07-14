@@ -197,7 +197,7 @@ sections:
       desktop: lg none
     title_highlight: ahora
   - type: graduates_stats
-    heading: "<span style=\"color: hsl(var(--foreground));\">+8500 Graduados que representan a 4Geeks</span>"
+    heading: "<span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">+8500 Graduados</span> que representan a 4Geeks.</span>"
     stats:
       - label: de nuestros graduados consigue empleo
         value: 84%
