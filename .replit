@@ -13,7 +13,7 @@ run = ["sh", "-c", "node dist/mcp-server.js & node dist/index.js"]
 
 [[ports]]
 localPort = 3001
-externalPort = 3003
+externalPort = 3001
 
 [[ports]]
 localPort = 5000
@@ -21,30 +21,10 @@ externalPort = 80
 
 [[ports]]
 localPort = 6333
-externalPort = 6000
-
-[[ports]]
-localPort = 6334
-externalPort = 6800
-
-[[ports]]
-localPort = 19998
-externalPort = 4200
-
-[[ports]]
-localPort = 19999
-externalPort = 5000
-
-[[ports]]
-localPort = 23636
-externalPort = 3001
-
-[[ports]]
-localPort = 23637
 externalPort = 3000
 
 [[ports]]
-localPort = 23638
+localPort = 6334
 externalPort = 3002
 
 [env]
