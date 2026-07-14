@@ -22,7 +22,6 @@ sections:
       prefix: De usar herramientas de IA
       highlight: a construir con ellas
       color: primary
-      suffix: <br>
     description: La IA está cambiando todos los trabajos. En 24 semanas pasas de usar herramientas de IA a desarrollar e integrar sistemas reales que las empresas llevan meses intentando contratar.
     bullets:
       - text: Mentoría ilimitada de por vida con ingenieros senior, incluso después de graduarte
