@@ -536,26 +536,23 @@ sections:
       desktop: sm none
     paddingY:
       desktop: md sm
-  - type: features_grid
-    version: "1.0"
-    variant: stats-cards
-    title: Los roles que puedes conseguir. Y los salarios que los acompañan.
-    subtitle: Mucha demanda. Salarios altos.
-    description: Los roles de Ingeniería de IA están entre los de más rápido crecimiento y mejor pagados en tecnología. Las empresas contratan con urgencia y pagan más por quien sabe construir con IA. LinkedIn habla de un crecimiento ×42 en Forward-Deployed Engineering solo desde 2023. Estos son algunos de los puestos que consiguen nuestros graduados.
-    card_color: bg-background
-    items:
-      - value: $105K–$155K
-        title: Ingeniero de Despliegue en Cliente
-      - value: $95K–$135K
-        title: Ingeniero de Software de IA
-      - value: $90K–$130K
-        title: Ingeniero Full Stack con Dominio de IA
-    section_id: features_grid-r890zf
-    marginY:
+  - marginY:
       desktop: none xl
     paddingY:
-      desktop: sm none
-    background: hsl(var(--secondary))
+      desktop: sm lg
+    primary:
+      badge: Salarios 2026
+      description: Las empresas pagan más por quien sabe construir con IA. LinkedIn reporta un crecimiento ×42 en roles de despliegue de IA solo desde 2023.
+      heading: Los roles de IA. Y lo que pagan.
+    secondary:
+      benefits:
+        - text: "Ingeniero de Despliegue en Cliente: $105K–$155K"
+        - text: "Ingeniero de Software de IA: $95K–$135K"
+        - text: "Ingeniero Full Stack con Dominio de IA: $90K–$130K"
+    section_id: split_cards-r890zf
+    type: split_cards
+    variant: primary-left
+    version: v1.0
   - type: pricing
     version: "1.0"
     variant: product
