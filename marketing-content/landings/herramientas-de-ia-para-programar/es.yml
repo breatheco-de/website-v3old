@@ -95,7 +95,7 @@ sections:
     show_dismiss: false
     form:
       variant: inline
-      conversion_name: student_application
+      conversion_name: request_more_info
       submit_label: Iniciar mi aplicación
       fields:
         email:
