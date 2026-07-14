@@ -507,7 +507,7 @@ sections:
     description: Feedback de tu tutor de IA a cualquier hora, mentores reales cuando los necesites, y un equipo de carrera que está a tu lado hasta que consigas empleo.
     features:
       - icon: TrendingUp
-        title: Tu quieres empleo, nosotros que lo consigas.
+        title: Tu quieres empleo, nosotros, que lo consigas.
         description: ""
         show_rigobot_logo: true
         bullets:
