@@ -192,9 +192,9 @@ sections:
       end_label: 1.3M · 2027
     section_id: features_grid-hudxi9
     paddingY:
-      desktop: none md
+      desktop: none sm
     marginY:
-      desktop: md
+      desktop: md none
     title_highlight: ahora
   - type: graduates_stats
     heading: Resultados reales. Cifras reales.
