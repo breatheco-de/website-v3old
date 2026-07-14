@@ -807,7 +807,7 @@ sections:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/logo_jooble-200x167-q70.webp
         alt: Jooble
     marginY:
-      desktop: md xl
+      desktop: md lg
     paddingY:
       desktop: none
     background: hsl(var(--background))
