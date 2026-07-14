@@ -501,7 +501,7 @@ sections:
     title: Nunca estás solo. Ni construyendo, ni buscando empleo.
     description: Feedback de tu tutor de IA a cualquier hora, mentores reales cuando los necesites, y un equipo de carrera que está a tu lado hasta que consigas empleo.
     features:
-      - icon: Robot
+      - icon: bot
         title: Tu tutor de IA, disponible 24/7
         description: ""
         show_rigobot_logo: true
