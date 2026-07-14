@@ -168,7 +168,7 @@ sections:
     card_trend_accent: hsl(var(--accent))
     card_bars:
       title: La IA crea más empleos de los que quita
-      description: Avance desde 2021 y 2025 · indexado
+      description: Evolucion desde 2021 y 2025
       stat_value: +340%
       stat_label: empleos netos nuevos en IA desde 2021
       displaced_label: Desplazados
