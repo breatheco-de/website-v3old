@@ -197,7 +197,7 @@ sections:
       desktop: lg none
     title_highlight: ahora
   - type: graduates_stats
-    heading: Más de 8500 graduados. Resultados sólidos en todos los frentes.
+    heading: Más de 8500 graduados con resultados sólidos en todos los frentes.
     stats:
       - label: de nuestros graduados consigue empleo
         value: 84%
@@ -494,7 +494,7 @@ sections:
         rating: 5
         role: Graduada de 4Geeks Academy
     paddingY:
-      desktop: md lg
+      desktop: md
     marginY:
       desktop: none
     background: hsl(var(--card))
@@ -538,7 +538,7 @@ sections:
     marginY:
       desktop: sm none
     paddingY:
-      desktop: md sm
+      desktop: lg sm
     background: hsl(210 100% 50% / 0.05)
   - marginY:
       desktop: none xl
