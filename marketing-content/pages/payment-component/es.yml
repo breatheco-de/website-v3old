@@ -88,6 +88,8 @@ sections:
                 - text: 2 seats left
                   icon: IconUsers
                   color: hsl(var(--destructive) / 0.5)
+                  url: "?cohort=1536"
+            - date_iso: "2026-24-08"
               url: "?cohort=1536"
             - date_iso: 2026-10-5
               url: "?cohort=1536"
