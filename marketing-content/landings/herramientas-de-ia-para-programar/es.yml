@@ -96,7 +96,7 @@ sections:
     form:
       variant: inline
       conversion_name: request_more_info
-      submit_label: Iniciar mi aplicación
+      submit_label: Solicitar información
       fields:
         email:
           visible: true
@@ -118,7 +118,7 @@ sections:
           visible: false
           default: ai-engineering
       success:
-        message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
+        message: Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
     load: eager
   - type: graduates_stats
     heading: Nuestros Graduados Consiguen Empleo. Rápido.
