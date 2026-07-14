@@ -546,20 +546,14 @@ sections:
       heading: Los roles de IA. Y lo que pagan.
     secondary:
       benefits:
-        - text: "Ingeniero de Despliegue en Cliente: $105K–$155K"
-        - text: "Ingeniero de Software de IA: $95K–$135K"
-        - text: "Ingeniero Full Stack con Dominio de IA: $90K–$130K"
+        - text: "$105K–$155K: Ingeniero de Despliegue en Cliente"
+        - text: "$95K–$135K: Ingeniero de Software de IA"
+        - text: "$90K–$130K: Ingeniero Full Stack con Dominio de IA"
     section_id: split_cards-r890zf
     type: split_cards
     variant: primary-left
     version: v1.0
-    items:
-      - title: $105K–$155K
-        value: Ingeniero de Despliegue en Cliente
-      - title: $95K–$135K
-        value: Ingeniero de Software de IA
-      - title: $90K–$130K
-        value: Ingeniero Full Stack con Dominio de IA
+    items: null
   - type: pricing
     version: "1.0"
     variant: product
