@@ -422,6 +422,19 @@ sections:
     version: "1.0"
     heading: Acompañamiento de verdad, ¡no estás solo!
     description: "Es normal tener dudas, pero te ayudamos a resolverlas: accede a una clase en vivo cada semana y a una mentoría 1:1 de regalo para que la pruebes. Y por si fuera poco, Rigobot, nuestro mentor de inteligencia artificial, te acompaña las 24 horas del día, los 7 días de la semana."
+    bullet_groups:
+      - title: "Mentores Humanos:"
+        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
+        bullets:
+          - text: Clases en vivo, una vez a la semana.
+          - text: "Ayuda personalizada: te regalamos una mentoría 1:1 con un experto en inteligencia artificial."
+          - text: ¿Buscas un impulso extra? Tenemos paquetes de mentoría aún más personalizados.
+      - title: "Mentor Impulsado por IA: Rigobot"
+        image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
+        bullets:
+          - text: Creado por 4Geeks y entrenado con miles de horas de mentorías reales a lo largo de nuestra trayectoria.
+          - text: Se adapta a tu nivel y te da feedback instantáneo.
+          - text: Disponible 24/7, ¡no hay excusas! Todas tus dudas, resueltas, sí o sí.
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina-brightened-1365x2048.webp
         alt: "Image: valentina_brightened"
