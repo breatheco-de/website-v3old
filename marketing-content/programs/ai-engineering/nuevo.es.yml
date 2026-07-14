@@ -543,7 +543,7 @@ sections:
   - marginY:
       desktop: none lg
     paddingY:
-      desktop: none lg
+      desktop: none md
     primary:
       badge: Salarios 2026
       description: "<span style=\"font-size: 1.25rem;\">Un mismo programa, distintas especializaciones. Te damos los conocimientos y las herramientas para que te puedas enfocar en la que más te guste.<br>LinkedIn nombró a Ingeniero de IA el trabajo de más rápido crecimiento en EE. UU. en 2026.&nbsp;</span>"
