@@ -29,7 +29,7 @@ sections:
       color: primary
       background: hsl(var(--primary))
       text_color: hsl(var(--primary-foreground))
-    title: Compite en el mercado o crea tu empresa desde 0. Ingeniería de IA en 22 semanas.
+    title: Compite en el mercado o crea tu empresa. De 0 a Ingeniería de IA en 22 semanas.
     title_highlight: Ingeniería de IA en 22 semanas.
     subtitle: "En 22 semanas, pasas de usar IA a construirla: sistemas listos para producción, agentes de código, automatización real. Ya sea que busques un salario de $95K–$135K+ o quieras lanzar tu propio producto con IA, sales con las habilidades para lograrlo. Con mentoría 1:1 ilimitada, de por vida."
     students_enrolled:
