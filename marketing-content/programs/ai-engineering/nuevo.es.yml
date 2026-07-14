@@ -242,7 +242,7 @@ sections:
     maxWidth:
       desktop: 6xl
     paddingY:
-      desktop: md none
+      desktop: none
     description: null
     card_bars: null
     card_gauge: null
