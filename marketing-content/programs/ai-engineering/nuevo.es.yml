@@ -244,7 +244,7 @@ sections:
     section_id: syllabus-5hjjcl
     variant: program-modules
     program_title: Módulos del Programa de Ingeniería de IA
-    program_description: Construye sistemas reales con IA desde el primer día. Este currículo se organiza en dos tracks — IA Central y Agentes, e Infraestructura para IA — más un capstone que integra todo en una empresa completamente transformada y desplegada. Apoyado por fundamentos complementarios en herramientas y prácticas de desarrollo moderno a lo largo del programa.
+    program_description: "Aprendes construyendo, no memorizando. Cada semana: un módulo a tu ritmo, más una clase en vivo con tu instructor para resolver dudas y aplicar lo aprendido a proyectos reales. Recorres dos tracks completos, IA Central y Agentes, e Infraestructura para IA, y cierras con un capstone donde integras todo en una empresa real transformada por IA."
     tech_logos:
       - name: Python
         icon: python
@@ -260,138 +260,138 @@ sections:
       - title: Construye tu propio asistente de IA
         duration: IA Central y Agentes
         objectives:
-          - Configurar un agente de IA de código abierto como asistente personal
-          - Asignar tareas e integrar aplicaciones externas con el agente
+          - Configura un agente de IA de código abierto como tu asistente personal
+          - Asígnale tareas e intégralo con aplicaciones externas
         projects: Despliega y configura un asistente de IA autoalojado — tuyo, bajo tu control, sin depender de proveedores externos.
         orientation: vertical
         icon: IconRobot
       - title: Convierte tu asistente en una herramienta real de trabajo
         duration: IA Central y Agentes
         objectives:
-          - Identificar escenarios donde un agente resuelve problemas reales de negocio
-          - Desarrollar habilidades personalizadas para OpenClaw
-          - Implementar memoria contextual (episódica, semántica, procedimental)
-          - Configuración y extensión avanzada del agente
+          - Identifica escenarios donde un agente resuelve problemas reales de negocio
+          - Desarrolla habilidades personalizadas para OpenClaw
+          - "Implementa memoria contextual: episódica, semántica y procedimental"
+          - Configura y extiende tu agente a un nivel avanzado
         projects: Convierte tu asistente básico en una herramienta productiva con autonomía real en contextos de negocio.
         orientation: vertical
         icon: IconRobot
       - title: Domina agentes que entienden tu proyecto completo
         duration: IA Central y Agentes
         objectives:
-          - Construir bancos de memoria y reglas de contexto desde una base de código existente
-          - Escribir especificaciones ejecutables para agentes (agent specs)
-          - Sintetizar habilidades reutilizables para que los agentes actúen con precisión
+          - Construye bancos de memoria y reglas de contexto desde una base de código existente
+          - Escribe especificaciones ejecutables para agentes (agent specs)
+          - Sintetiza habilidades reutilizables para que tus agentes actúen con precisión
         projects: Construye bancos de memoria y reglas de contexto que conviertan un agente de código en un colaborador que entiende tu base de código.
         orientation: vertical
         icon: IconCode
       - title: Dale a tu IA conocimiento propio
         duration: IA Central y Agentes
         objectives:
-          - Preparar datos y seleccionar modelos para entrenamiento
-          - Implementar técnicas RAG en bases de conocimiento propietarias
-          - Trabajar con bases de datos vectoriales
-          - Evaluar, depurar e integrar modelos en producción
+          - Prepara datos y selecciona modelos para entrenamiento
+          - Implementa RAG en bases de conocimiento propietarias
+          - Trabaja con bases de datos vectoriales
+          - Evalúa, depura e integra modelos en producción
         projects: Implementa RAG para que tu agente responda con conocimiento propietario y actualizado.
         orientation: vertical
         icon: IconDatabase
       - title: Construye agentes con herramientas reales
         duration: IA Central y Agentes
         objectives:
-          - Construir agentes con llamadas a herramientas (function calls reales)
-          - Implementar guardrails como mecanismo de seguridad y control
-          - Proveer herramientas al agente mediante CLIs optimizadas para IA
-          - Extender las capacidades del agente con el Protocolo de Contexto de Modelo (MCP)
-          - Dar memoria persistente a un agente
+          - Construye agentes con llamadas a herramientas (function calls reales)
+          - Implementa guardrails como mecanismo de seguridad y control
+          - Provee herramientas a tu agente mediante CLIs optimizadas para IA
+          - Extiende las capacidades de tu agente con el Protocolo de Contexto de Modelo (MCP)
+          - Dale memoria persistente a tu agente
         projects: Construye agentes que llaman herramientas, acceden a sistemas externos vía MCPs y CLIs, y operan con memoria persistente.
         orientation: vertical
         icon: IconBolt
       - title: Coordina agentes que trabajan solos
         duration: IA Central y Agentes
         objectives:
-          - Diseñar sistemas multi-agente con enrutamiento y arbitraje
-          - Implementar memoria compartida entre agentes
-          - Desplegar flujos de trabajo agénticos con funciones serverless y durables
+          - Diseña sistemas multi-agente con enrutamiento y arbitraje
+          - Implementa memoria compartida entre agentes
+          - Despliega flujos de trabajo agénticos con funciones serverless y durables
         projects: Diseña sistemas donde múltiples agentes colaboran, distribuyen tareas y funcionan de forma autónoma a escala.
         orientation: vertical
         icon: IconLayoutKanban
       - title: Construye el backend de cualquier producto de IA
         duration: Infraestructura para IA
         objectives:
-          - Diseñar arquitecturas backend para soluciones potenciadas por IA
-          - Crear bucles de agente integrando LLMs con APIs
-          - Implementar almacenamiento ligero y procesamiento de datos CSV
-          - Construir y exponer APIs REST para frontends y agentes
+          - Diseña arquitecturas backend para soluciones potenciadas por IA
+          - Crea bucles de agente integrando LLMs con APIs
+          - Implementa almacenamiento ligero y procesamiento de datos CSV
+          - Construye y expón APIs REST para frontends y agentes
         projects: Construye APIs robustas con FastAPI, implementa bucles de agente en Python y diseña arquitecturas backend orientadas a casos de uso de IA.
         orientation: vertical
         icon: IconServer
       - title: Automatiza procesos de negocio completos
         duration: Infraestructura para IA
         objectives:
-          - Modelar lógica de negocio con diagramas de flujo
-          - Implementar flujos básicos y avanzados en n8n
-          - Integrar LLMs y aplicaciones externas en automatizaciones
-          - Desplegar flujos mantenibles con manejo de errores
+          - Modela lógica de negocio con diagramas de flujo
+          - Implementa flujos básicos y avanzados en n8n
+          - Integra LLMs y aplicaciones externas en tus automatizaciones
+          - Despliega flujos mantenibles con manejo de errores
         projects: Construye automatizaciones de negocio con IA en n8n que se ejecutan de forma autónoma sin intervención manual.
         orientation: vertical
         icon: IconCode
       - title: Prepara datos listos para tu IA
         duration: Infraestructura para IA
         objectives:
-          - Manipular y preparar conjuntos de datos con Python
-          - Construir pipelines de datos desde la aplicación hasta sistemas de análisis
+          - Manipula y prepara conjuntos de datos con Python
+          - Construye pipelines de datos desde tu aplicación hasta sistemas de análisis
         projects: Construye pipelines que toman datos crudos, los transforman y los dejan listos para alimentar modelos, reportes o agentes.
         orientation: vertical
         icon: IconChartBar
       - title: Decide con datos, no con suposiciones
         duration: Infraestructura para IA
         objectives:
-          - Optimizar el almacenamiento para reportes e integridad de datos
-          - Identificar oportunidades de recolección de datos en escenarios reales
-          - Recopilar telemetría y contexto del usuario desde la aplicación
-          - Construir reportes a partir de datos de telemetría
+          - Optimiza el almacenamiento para reportes e integridad de datos
+          - Identifica oportunidades de recolección de datos en escenarios reales
+          - Recopila telemetría y contexto del usuario desde tu aplicación
+          - Construye reportes a partir de datos de telemetría
         projects: Instrumenta aplicaciones para recopilar datos de comportamiento y tomar decisiones basadas en evidencia real.
         orientation: vertical
         icon: IconChartBar
       - title: Procesa tareas pesadas sin trabar tu sistema
         duration: Infraestructura para IA
         objectives:
-          - Implementar procesamiento en segundo plano para tareas costosas
-          - Gestionar colas de procesos con workers
-          - Usar colas para delegar trabajo entre agentes y servicios
+          - Implementa procesamiento en segundo plano para tareas costosas
+          - Gestiona colas de procesos con workers
+          - Usa colas para delegar trabajo entre agentes y servicios
         projects: Implementa sistemas de procesamiento en segundo plano y colas que permiten a los agentes delegar trabajo pesado sin bloquear a los usuarios.
         orientation: vertical
         icon: IconServer
       - title: Construye IA que responde en tiempo real
         duration: Infraestructura para IA
         objectives:
-          - Construir chats de soporte con LLMs en tiempo real
-          - Implementar streaming de respuestas con generadores (yield)
-          - Integrar webhooks y pub/sub en aplicaciones de IA
+          - Construye chats de soporte con LLMs en tiempo real
+          - Implementa streaming de respuestas con generadores (yield)
+          - Integra webhooks y pub/sub en tus aplicaciones de IA
         projects: Implementa comunicación en tiempo real entre usuarios y modelos de lenguaje usando streaming, WebSockets y arquitecturas orientadas a eventos.
         orientation: vertical
         icon: IconBolt
       - title: Controla quién hace qué en tu app
         duration: Infraestructura para IA
         objectives:
-          - Implementar autenticación y restricciones de rutas en FastAPI
-          - Construir flujos de autenticación completos (login, tokens, sesiones)
+          - Implementa autenticación y restricciones de rutas en FastAPI
+          - "Construye flujos de autenticación completos: login, tokens, sesiones"
         projects: Implementa autenticación segura en FastAPI y construye flujos de login completos que definen lo que cada usuario — y agente — puede hacer.
         orientation: vertical
         icon: IconCode
       - title: Escribe código confiable, humano o de IA
         duration: Infraestructura para IA
         objectives:
-          - Entender y gestionar errores en tiempo de ejecución con control de flujo
-          - Desarrollar suites de pruebas para aplicaciones robustas
+          - Entiende y gestiona errores en tiempo de ejecución con control de flujo
+          - Desarrolla suites de pruebas para aplicaciones robustas
         projects: Verifica el código generado por IA con manejo controlado de errores y suites de pruebas que validan el comportamiento esperado.
         orientation: vertical
         icon: IconCode
       - title: Blinda tu IA contra ataques comunes
         duration: Infraestructura para IA
         objectives:
-          - Identificar y corregir las vulnerabilidades OWASP Top 10 en aplicaciones web
-          - Implementar prácticas de seguridad específicas para integraciones de IA
-          - Usar LLMs como herramienta de auditoría de ciberseguridad
+          - Identifica y corrige las vulnerabilidades OWASP Top 10 en aplicaciones web
+          - Implementa prácticas de seguridad específicas para integraciones de IA
+          - Usa LLMs como herramienta de auditoría de ciberseguridad
         projects: Identifica vulnerabilidades críticas en aplicaciones de IA e implementa prácticas seguras en la integración de modelos.
         orientation: vertical
         icon: IconCode
@@ -444,71 +444,8 @@ sections:
     maxWidth:
       desktop: 6xl
     background: hsl(210 100% 50% / 0.05)
-    module_cards:
-      - objectives:
-          - Configura un agente de IA de código abierto como tu asistente personal
-          - Asígnale tareas e intégralo con aplicaciones externas
-      - objectives:
-          - Identifica escenarios donde un agente resuelve problemas reales de negocio
-          - Desarrolla habilidades personalizadas para OpenClaw
-          - "Implementa memoria contextual: episódica, semántica y procedimental"
-          - Configura y extiende tu agente a un nivel avanzado
-      - objectives:
-          - Construye bancos de memoria y reglas de contexto desde una base de código existente
-          - Escribe especificaciones ejecutables para agentes (agent specs)
-          - Sintetiza habilidades reutilizables para que tus agentes actúen con precisión
-      - objectives:
-          - Prepara datos y selecciona modelos para entrenamiento
-          - Implementa RAG en bases de conocimiento propietarias
-          - Trabaja con bases de datos vectoriales
-          - Evalúa, depura e integra modelos en producción
-      - objectives:
-          - Construye agentes con llamadas a herramientas (function calls reales)
-          - Implementa guardrails como mecanismo de seguridad y control
-          - Provee herramientas a tu agente mediante CLIs optimizadas para IA
-          - Extiende las capacidades de tu agente con el Protocolo de Contexto de Modelo (MCP)
-          - Dale memoria persistente a tu agente
-      - objectives:
-          - Diseña sistemas multi-agente con enrutamiento y arbitraje
-          - Implementa memoria compartida entre agentes
-          - Despliega flujos de trabajo agénticos con funciones serverless y durables
-      - objectives:
-          - Diseña arquitecturas backend para soluciones potenciadas por IA
-          - Crea bucles de agente integrando LLMs con APIs
-          - Implementa almacenamiento ligero y procesamiento de datos CSV
-          - Construye y expón APIs REST para frontends y agentes
-      - objectives:
-          - Modela lógica de negocio con diagramas de flujo
-          - Implementa flujos básicos y avanzados en n8n
-          - Integra LLMs y aplicaciones externas en tus automatizaciones
-          - Despliega flujos mantenibles con manejo de errores
-      - objectives:
-          - Manipula y prepara conjuntos de datos con Python
-          - Construye pipelines de datos desde tu aplicación hasta sistemas de análisis
-      - objectives:
-          - Optimiza el almacenamiento para reportes e integridad de datos
-          - Identifica oportunidades de recolección de datos en escenarios reales
-          - Recopila telemetría y contexto del usuario desde tu aplicación
-          - Construye reportes a partir de datos de telemetría
-      - objectives:
-          - Implementa procesamiento en segundo plano para tareas costosas
-          - Gestiona colas de procesos con workers
-          - Usa colas para delegar trabajo entre agentes y servicios
-      - objectives:
-          - Construye chats de soporte con LLMs en tiempo real
-          - Implementa streaming de respuestas con generadores (yield)
-          - Integra webhooks y pub/sub en tus aplicaciones de IA
-      - objectives:
-          - Implementa autenticación y restricciones de rutas en FastAPI
-          - "Construye flujos de autenticación completos: login, tokens, sesiones"
-      - objectives:
-          - Entiende y gestiona errores en tiempo de ejecución con control de flujo
-          - Desarrolla suites de pruebas para aplicaciones robustas
-      - objectives:
-          - Identifica y corrige las vulnerabilidades OWASP Top 10 en aplicaciones web
-          - Implementa prácticas de seguridad específicas para integraciones de IA
-          - Usa LLMs como herramienta de auditoría de ciberseguridad
-    program_description: "Aprendes construyendo, no memorizando. Cada semana: un módulo a tu ritmo, más una clase en vivo con tu instructor para resolver dudas y aplicar lo aprendido a proyectos reales. Recorres dos tracks completos, IA Central y Agentes, e Infraestructura para IA, y cierras con un capstone donde integras todo en una empresa real transformada por IA."
+    module_cards: null
+    program_description: null
   - type: testimonials
     section_id: testimonials-ghxelh
     title: Las personas detrás de los números.
