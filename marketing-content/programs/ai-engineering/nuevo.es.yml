@@ -541,7 +541,7 @@ sections:
       desktop: lg md
     background: hsl(210 100% 50% / 0.05)
   - marginY:
-      desktop: none xl
+      desktop: none lg
     paddingY:
       desktop: none lg
     primary:
