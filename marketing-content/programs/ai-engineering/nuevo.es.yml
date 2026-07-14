@@ -422,7 +422,7 @@ sections:
     heading: Tu momento es ahora.
     description: Cupos limitados por cohorte. Asegura el tuyo antes de que se llene.
     cta:
-      text: Aplicar ahora
+      text: Reserva tu cupo
       url: /es/apply
       variant: primary
     images:
