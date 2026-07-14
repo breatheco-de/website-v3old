@@ -489,7 +489,7 @@ sections:
     laptop_image:
       image_id: laptop
     title: Land the Job. Or Get Your Money Back.
-    description: "<span style=\"font-size: 1.125rem;\"><span>Add our Job or Refund option to your enrollment. Not hired within 9 months? Full tuition refund. <b>That's how confident we are in what we built.</b></span></span><b></b><div><span style=\"font-size: 0.875rem;\">*Job or Refund is not available in all regions.&nbsp;</span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem;\">Terms and conditions apply.</a></div>"
+    description: "<span style=\"font-size: 1.125rem;\"><span></span></span><span style=\"color: hsl(var(--foreground));\"><span style=\"font-size: 1.125rem;\"><span>Add our Job or Refund option to your enrollment. Not hired within 9 months? Full tuition refund. <b>That's how confident we are in what we built.</b></span></span><b></b><div></div></span><div><span style=\"font-size: 0.875rem;\">*Job or Refund is not available in all regions.&nbsp;</span><a href=\"https://storage.googleapis.com/4geeks-academy-website/PDF%20and%20Docs/job-guarantee-en.pdf\" style=\"font-size: 0.875rem;\">Terms and conditions apply.</a></div>"
     cta:
       text: How It Works
       url: /en/job-guarantee
