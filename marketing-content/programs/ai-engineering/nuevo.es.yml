@@ -511,9 +511,9 @@ sections:
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: Presente acompañándote en cada clase, cada ejercicio, cada proyecto.
-          - text: Sabe dónde te trabas y te explica justo eso.
-          - text: Responde en segundos, no en la próxima sesión de mentoría.
+          - text: Presente acompañándote en cada clase, cada ejercicio y cada proyecto.
+          - text: Te ayuda exactamente cuando y donde más lo necesitas.
+          - text: Resuelve tus dudas en segundos para que no dejes de avanzar.
         video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
         cta: null
       - icon: Headset
