@@ -194,7 +194,7 @@ sections:
     paddingY:
       desktop: none
     marginY:
-      desktop: md none
+      desktop: lg none
     title_highlight: ahora
   - type: graduates_stats
     heading: Resultados reales. Cifras reales.
