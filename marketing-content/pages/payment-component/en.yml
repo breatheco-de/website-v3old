@@ -97,7 +97,7 @@ sections:
             initials: 4G
             message: <span class="font-semibold text-foreground">Have questions?</span> Reach out to us at support@4geeksacademy.com.
         benefits:
-          - title: Immediate access to 4Geeks.com
+          - title: Immediate access to the full 4Geeks suite
             desc: Start learning AI fundamentals right away — prompting, agents, automation, and no-code tools.
           - title: Weekly live classes
             desc: Join mentor-led live sessions every week to get guidance on projects, talk through blockers, and learn alongside your cohort in real time.
