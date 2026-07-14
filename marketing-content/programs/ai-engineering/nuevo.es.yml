@@ -511,7 +511,7 @@ sections:
         description: ""
         show_rigobot_logo: true
         bullets:
-          - text: La IA entrenada de 4Geeks que te acompaña en cada clase, cada ejercicio y cada proyecto.
+          - text: La IA entrenada por miles de estudiantes de 4Geeks que te acompaña en cada clase, cada ejercicio y cada proyecto.
           - text: Te ayuda exactamente cuando y donde más lo necesitas.
           - text: No esperes a la siguiente mentoría. Resuelve tus dudas en segundos para que no dejes de avanzar.
         video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
