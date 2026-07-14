@@ -539,6 +539,7 @@ sections:
       desktop: sm none
     paddingY:
       desktop: md sm
+    background: hsl(210 100% 50% / 0.05)
   - marginY:
       desktop: none xl
     paddingY:
