@@ -542,8 +542,8 @@ sections:
       desktop: sm lg
     primary:
       badge: Salarios 2026
-      description: "<span style=\"font-size: 1.25rem;\">Un mismo programa, distintas especializaciones. En este programa te damos los conocimientos y las herramientas para que te puedas enfocar en la que más te guste.<br><br>LinkedIn nombró a Ingeniero de IA el trabajo de más rápido crecimiento en EE. UU. en 2026. Las vacantes del sector crecieron 280% solo en el último año.</span>"
-      heading: La IA paga. Y paga bien.
+      description: "<span style=\"font-size: 1.25rem;\">Un mismo programa, distintas especializaciones. Te damos los conocimientos y las herramientas para que te puedas enfocar en la que más te guste.<br>LinkedIn nombró a Ingeniero de IA el trabajo de más rápido crecimiento en EE. UU. en 2026.&nbsp;</span>"
+      heading: Dominar la IA paga. Y paga bien.
       tool_icons: null
     secondary:
       benefits:
