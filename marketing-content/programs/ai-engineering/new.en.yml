@@ -439,7 +439,7 @@ sections:
     variant: feature-tabs
     badge: Why 4Geeks?
     title: Support That Keeps You Going. And Gets You Hired.
-    description: "22 weeks is intense, and it's crucial not to lose momentum halfway through. That's why support is built into every step: AI feedback 24/7, 1:1 mentorship sessions focused entirely on you, and career support to land your first role."
+    description: "22 weeks is intense, and it's crucial not to lose momentum halfway through. That's why support is built into every step: AI feedback 24/7, 1:1 mentorship sessions focused entirely on you, and career support to land you a role."
     features:
       - icon: Robot
         title: AI-powered feedback 24/7
