@@ -424,7 +424,7 @@ sections:
     description: "Es normal tener dudas, pero te ayudamos a resolverlas: accede a una clase en vivo cada semana y a una mentoría 1:1 de regalo para que la pruebes. Y por si fuera poco, Rigobot, nuestro mentor de inteligencia artificial, te acompaña las 24 horas del día, los 7 días de la semana."
     cta:
       text: Quiero mas información
-      url: /es/apply
+      url: "#modal-ubwgcj"
       variant: primary
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina-brightened-1365x2048.webp
