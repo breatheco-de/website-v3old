@@ -419,10 +419,10 @@ sections:
       desktop: md sm
   - type: human_and_ai_duo
     version: "1.0"
-    heading: Acompañamiento de verdad, ¡no estás solo!
-    description: "Es normal tener dudas, pero te ayudamos a resolverlas: accede a una clase en vivo cada semana y a una mentoría 1:1 de regalo para que la pruebes. Y por si fuera poco, Rigobot, nuestro mentor de inteligencia artificial, te acompaña las 24 horas del día, los 7 días de la semana."
+    heading: Tu momento es ahora.
+    description: Cupos limitados por cohorte. Asegura el tuyo antes de que se llene.
     cta:
-      text: Quiero mas información
+      text: Aplicar ahora
       url: /es/apply
       variant: primary
     images:
