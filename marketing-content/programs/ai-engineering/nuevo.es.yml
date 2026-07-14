@@ -415,7 +415,7 @@ sections:
         orientation: horizontal
         icon: IconCode
     marginY:
-      desktop: md xl
+      desktop: sm xl
     paddingY:
       desktop: md sm
   - type: trust_cards
