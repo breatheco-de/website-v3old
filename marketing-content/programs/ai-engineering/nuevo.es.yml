@@ -418,145 +418,52 @@ sections:
       desktop: sm xl
     paddingY:
       desktop: md sm
-  - type: ai_flex_path
-    version: v1.0
-    variant: course_color_selector
-    section_id: ai-flex-path-color-selector-example
-    ready_label: Your path is ready
-    path_name: The Data-Driven Analyst
-    tagline: Python, data science and ML with AI tools
-    results_subtitle: View your courses or build your own path
-    max_selections: 4
-    slot_colors:
-      - color: hsl(0 84% 60%)
-      - color: hsl(45 96% 53%)
-      - color: hsl(142 71% 45%)
-      - color: hsl(330 80% 62%)
-    view_details_label: View details
-    drag_instruction_label: Also available — drag any card to swap it into your path
-    replace_label: Replace with
-    swap_label: Swap into path
-    swap_icon: arrow-left-right
-    swap_prompt_label: Tap a course in your path to replace it
-    swap_cancel_label: Cancel
-    tools_label: Tools in this path
-    tools_marquee: true
-    icon: 4GeeksAvatar
-    default_courses:
-      - Deep Dive into Python
-      - Data Science & ML
-      - Applied AI
-      - Prompt Engineering
-    cta:
-      title: Start with a 7-day free trial.
-      subtitle: No commitment. Cancel anytime. Your path stays saved.
-      banner: true
-      buttons:
-        - text: Start free trial
-          url: /en/apply
-          variant: primary
-    courses:
-      - name: Prompt Engineering
-        tagline: Prompting patterns & reusable libraries
-        hrs: ~8 hrs
-        color: hsl(0 84% 60%)
-        tools:
-          - ChatGPT
-          - Claude
-          - Gemini
-          - Perplexity
-        skills:
-          - name: Prompting patterns
-            skill_percentage: 55
-          - name: Output control
-            skill_percentage: 28
-          - name: Context management
-            skill_percentage: 17
-      - name: Applied AI
-        tagline: AI for real professional work tasks
-        hrs: ~12 hrs
-        color: hsl(45 96% 53%)
-        tools:
-          - ChatGPT
-          - Notion
-          - Otter.ai
-          - Grammarly
-          - Gamma
-        skills:
-          - name: AI writing & editing
-            skill_percentage: 40
-          - name: Research tools
-            skill_percentage: 35
-          - name: Workflow documentation
-            skill_percentage: 25
-      - name: No-Code & Automations
-        tagline: Visual workflows with n8n, Zapier, Make
-        hrs: ~10 hrs
-        color: hsl(142 71% 45%)
-        tools:
-          - n8n
-          - Make
-          - Zapier
-          - Airtable
-          - Webhooks
-        skills:
-          - name: Visual workflows
-            skill_percentage: 45
-          - name: App integrations
-            skill_percentage: 35
-          - name: AI steps in pipelines
-            skill_percentage: 20
-      - name: Vibe Coding with AI
-        tagline: Build apps with AI coding assistants
-        hrs: ~12 hrs
-        color: hsl(330 80% 62%)
-        tools:
-          - Cursor
-          - GitHub Copilot
-          - Replit
-          - Vercel
-        skills:
-          - name: AI-assisted coding
-            skill_percentage: 50
-          - name: Shipping projects
-            skill_percentage: 30
-          - name: Debug & review
-            skill_percentage: 20
-      - name: Deep Dive into Python
-        tagline: Python fundamentals to advanced
-        hrs: ~18 hrs
-        color: hsl(0 84% 60%)
-        tools:
-          - Python
-          - VS Code
-          - Git
-          - GitHub
-        skills:
-          - name: Python foundations
-            skill_percentage: 50
-          - name: OOP & structures
-            skill_percentage: 30
-          - name: Project setup
-            skill_percentage: 20
-      - name: Data Science & ML
-        tagline: Data analysis, ML models, predictions
-        hrs: ~22 hrs
-        color: hsl(45 96% 53%)
-        tools:
-          - Pandas
-          - NumPy
-          - scikit-learn
-          - Jupyter
-          - Streamlit
-        skills:
-          - name: Data analysis & viz
-            skill_percentage: 45
-          - name: ML model building
-            skill_percentage: 35
-          - name: Model evaluation
-            skill_percentage: 20
+  - type: human_and_ai_duo
+    version: "1.0"
+    heading: Acompañamiento de verdad, ¡no estás solo!
+    description: "Es normal tener dudas, pero te ayudamos a resolverlas: accede a una clase en vivo cada semana y a una mentoría 1:1 de regalo para que la pruebes. Y por si fuera poco, Rigobot, nuestro mentor de inteligencia artificial, te acompaña las 24 horas del día, los 7 días de la semana."
+    bullet_groups:
+      - title: "Mentores Humanos:"
+        image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
+        bullets:
+          - text: Clases en vivo, una vez a la semana.
+          - text: "Ayuda personalizada: te regalamos una mentoría 1:1 con un experto en inteligencia artificial."
+          - text: ¿Buscas un impulso extra? Tenemos paquetes de mentoría aún más personalizados.
+      - title: "Mentor Impulsado por IA: Rigobot"
+        image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
+        bullets:
+          - text: Creado por 4Geeks y entrenado con miles de horas de mentorías reales a lo largo de nuestra trayectoria.
+          - text: Se adapta a tu nivel y te da feedback instantáneo.
+          - text: Disponible 24/7, ¡no hay excusas! Todas tus dudas, resueltas, sí o sí.
+    images:
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/valentina-brightened-1365x2048.webp
+        alt: "Image: valentina_brightened"
+        object_fit: cover
+        object_position: 40%20%
+        border_radius: 0.5rem
+        id: valentina-brightened-1365x2048
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536.webp
+        alt: "Image: ChatGPT Image Mar 26, 2026, 04_26_00 PM"
+        object_fit: cover
+        object_position: 50%30%
+        border_radius: 0.5rem
+        id: chatgpt-image-mar-26-2026-04-26-00-pm-1024x1536
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/ChatGPT-Image-Mar-26-2026-04_28_27-PM.png
+        alt: Estudiante africana colaborando con su equipo
+        object_fit: cover
+        object_position: 70%15%
+        border_radius: 0.5rem
+      - src: https://storage.googleapis.com/4geeks-academy-website/media/664da5b40253e1771c2096443722466d57cb39a84f89654b0aa0fd7de16d5fdf-900x1758-q74.webp
+        alt: Estudiante latina celebrando un logro
+        object_fit: cover
+        object_position: 50%30%
+        border_radius: 0.5rem
+    image: https://storage.googleapis.com/4geeks-academy-website/media/Group_6685_(1)_1765300162049.png
+    image_alt: Mujer trabajando con portátil en una cafetería
     paddingY:
-      desktop: sm
+      mobile: sm none
+      desktop: md none
+    section_id: human_and_ai_duo-99s71d
   - type: testimonials
     section_id: testimonials-ghxelh
     title: Las personas detrás de los números.
