@@ -542,13 +542,27 @@ sections:
       desktop: sm lg
     primary:
       badge: Salarios 2026
-      description: "<span style=\"font-size: 1.25rem;\"><span><span>Las empresas pagan más por quien sabe construir con IA. LinkedIn reporta un crecimiento ×42 en roles de despliegue de IA solo desde 2023.</span></span></span>"
+      description: "<span style=\"font-size: 1.25rem;\"><span><span>Las empresas pagan más por quien sabe construir con IA. El rol de Forward-Deployed Engineer, uno de los que ves a la derecha, ha crecido ×42 desde 2023, según LinkedIn.</span></span></span>"
       heading: Los roles de IA. Y lo que pagan.
+      tool_icons:
+        - icon: BrandOpenai
+          position:
+            bottom: 18%
+            left: 8%
+          size: md
+        - icon: Code
+          position:
+            bottom: 30%
+            left: 22%
+          size: sm
     secondary:
       benefits:
-        - text: "$105K–$155K: Ingeniero de Despliegue en Cliente"
-        - text: "$95K–$135K:                 Ingeniero de Software de IA"
-        - text: "$90K–$130K: Ingeniero Full Stack con Dominio de IA"
+        - icon: IconRocket
+          text: "$105K–$155K: Forward-Deployed Engineer"
+        - icon: IconRobot
+          text: "$95K–$135K: Ingeniero de Software de IA"
+        - icon: IconCode
+          text: "$90K–$130K: Ingeniero Full Stack con Dominio de IA"
     section_id: split_cards-r890zf
     type: split_cards
     variant: primary-left
