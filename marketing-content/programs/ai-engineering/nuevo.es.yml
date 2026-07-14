@@ -159,7 +159,7 @@ sections:
   - type: features_grid
     version: "1.0"
     variant: stats-charts
-    subtitle: La demanda existe. El talento, no.
+    subtitle: La IA ya domina el mercado.
     title: "Por qué Ingeniería de IA<span style=\"color: hsl(var(--primary));\"> ahora</span>"
     description: null
     background: bg-slate-950
