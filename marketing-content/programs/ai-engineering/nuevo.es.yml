@@ -156,6 +156,46 @@ sections:
     marginY:
       desktop: md none
     title: "<span style=\"font-size: 1.25rem;\">Premiada internacionalmente como una de las mejores escuelas tech por 6 años consecutivos</span>"
+  - type: features_grid
+    version: "1.0"
+    variant: stats-charts
+    subtitle: La demanda existe. El talento, no.
+    title: "Por qué Ingeniería de IA<span style=\"color: hsl(var(--primary));\"> ahora</span>"
+    description: null
+    background: bg-slate-950
+    card_bars_accent: hsl(var(--primary))
+    card_gauge_accent: hsl(var(--color-orange))
+    card_trend_accent: hsl(var(--accent))
+    card_bars:
+      title: La IA crea más empleos de los que quita
+      description: Delta anual · 2021-2025 · indexado
+      stat_value: +340%
+      stat_label: empleos netos nuevos en IA desde 2021
+      displaced_label: Desplazados
+      created_label: Creados por la IA
+    card_gauge:
+      title: Sé parte del 3% que ya está listo para la IA
+      description: Población activa global · datos 2025
+      inner_stat_percentage: 3
+      outer_stat_percentage: 97
+      show_gauge: true
+      inner_stat_highlight: true
+      gauge_label: cualificados
+      stat_label: de la población activa no está preparada hoy para roles de IA
+      bar1_label: Talento tradicional
+      bar2_label: Profesionales preparados para IA
+    card_trend:
+      title: La demanda de trabajadores que sepan usar IA se acelera
+      description: Ofertas laborales en 2020 → proyección para 2027
+      stat_value: 1.3M
+      stat_label: nuevos empleos en IA creados globalmente en dos años
+      end_label: 1.3M · 2027
+    section_id: features_grid-hudxi9
+    paddingY:
+      desktop: none md
+    marginY:
+      desktop: md
+    title_highlight: ahora
   - type: graduates_stats
     heading: Resultados reales. Cifras reales.
     subheading: Más de 8500 graduados. Resultados sólidos en todos los frentes.
@@ -206,46 +246,6 @@ sections:
     description: null
     card_bars: null
     card_gauge: null
-  - type: features_grid
-    version: "1.0"
-    variant: stats-charts
-    subtitle: La demanda existe. El talento, no.
-    title: "Por qué Ingeniería de IA<span style=\"color: hsl(var(--primary));\"> ahora</span>"
-    description: null
-    background: bg-slate-950
-    card_bars_accent: hsl(var(--primary))
-    card_gauge_accent: hsl(var(--color-orange))
-    card_trend_accent: hsl(var(--accent))
-    card_bars:
-      title: La IA crea más empleos de los que quita
-      description: Delta anual · 2021-2025 · indexado
-      stat_value: +340%
-      stat_label: empleos netos nuevos en IA desde 2021
-      displaced_label: Desplazados
-      created_label: Creados por la IA
-    card_gauge:
-      title: Sé parte del 3% que ya está listo para la IA
-      description: Población activa global · datos 2025
-      inner_stat_percentage: 3
-      outer_stat_percentage: 97
-      show_gauge: true
-      inner_stat_highlight: true
-      gauge_label: cualificados
-      stat_label: de la población activa no está preparada hoy para roles de IA
-      bar1_label: Talento tradicional
-      bar2_label: Profesionales preparados para IA
-    card_trend:
-      title: La demanda de trabajadores que sepan usar IA se acelera
-      description: Ofertas laborales en 2020 → proyección para 2027
-      stat_value: 1.3M
-      stat_label: nuevos empleos en IA creados globalmente en dos años
-      end_label: 1.3M · 2027
-    section_id: features_grid-hudxi9
-    paddingY:
-      desktop: none md
-    marginY:
-      desktop: md
-    title_highlight: ahora
   - type: syllabus
     section_id: syllabus-5hjjcl
     variant: program-modules
