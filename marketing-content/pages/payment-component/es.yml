@@ -89,6 +89,8 @@ sections:
                   icon: IconUsers
                   color: hsl(var(--destructive) / 0.5)
                   url: "?cohort=1536"
+            - date_iso: "2026-08-24"
+              url: "?cohort=1536"
             - date_iso: 2026-10-5
               url: "?cohort=1536"
             - date_iso: 2026-11-9
