@@ -73,7 +73,7 @@ sections:
         - icon: IconRobot
           text: AI-Powered Learning & Feedback
         - icon: IconShield
-          text: Hire-or-Refund available as add-on
+          text: Job-or-Refund available as add-on
     section_id: hero-tznhhe
     paddingY:
       desktop: lg md
