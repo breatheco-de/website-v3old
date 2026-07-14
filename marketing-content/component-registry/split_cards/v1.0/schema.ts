@@ -36,7 +36,7 @@ export const splitCardsSectionSchema = z.object({
     heading: z.string(),
     description: z.string().optional(),
     badge: z.string().optional(),
-    tool_icons: z.array(toolIconSchema).optional(),
+    tool_icons: z.array(toolIconSchema).nullable().optional(),
   }),
   secondary: z.object({
     benefits: z.array(splitCardsBenefitSchema).max(5).optional(),

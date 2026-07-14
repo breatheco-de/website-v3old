@@ -32,7 +32,7 @@ export const aiLearningFeatureSchema = z.object({
   video_url: z.string().optional(),
   video: videoConfigSchema.optional(),
   image_id: z.string().optional(),
-  cta: ctaButtonSchema.optional(),
+  cta: ctaButtonSchema.nullable().optional(),
 });
 
 // Variant: feature-tabs - Shows 3 hover cards with expandable content
