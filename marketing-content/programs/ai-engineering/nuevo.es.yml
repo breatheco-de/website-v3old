@@ -553,6 +553,13 @@ sections:
     type: split_cards
     variant: primary-left
     version: v1.0
+    items:
+      - title: $105K–$155K
+        value: Ingeniero de Despliegue en Cliente
+      - title: $95K–$135K
+        value: Ingeniero de Software de IA
+      - title: $90K–$130K
+        value: Ingeniero Full Stack con Dominio de IA
   - type: pricing
     version: "1.0"
     variant: product
