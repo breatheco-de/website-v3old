@@ -267,7 +267,7 @@ sections:
         objectives:
           - Configura un agente de IA de código abierto como tu asistente personal
           - Asígnale tareas e intégralo con aplicaciones externas
-        projects: Despliega y configura un asistente de IA autoalojado — tuyo, bajo tu control, sin depender de proveedores externos.
+        projects: Despliega y configura un asistente de IA autoalojado, tuyo, bajo tu control y sin depender de proveedores externos.
         orientation: vertical
         icon: IconRobot
       - title: Convierte tu asistente en una herramienta real de trabajo
@@ -380,7 +380,7 @@ sections:
         objectives:
           - Implementa autenticación y restricciones de rutas en FastAPI
           - "Construye flujos de autenticación completos: login, tokens, sesiones"
-        projects: Implementa autenticación segura en FastAPI y construye flujos de login completos que definen lo que cada usuario — y agente — puede hacer.
+        projects: Implementa autenticación segura en FastAPI y construye flujos de login completos que definen lo que cada usuario, y cada agente, puede hacer.
         orientation: vertical
         icon: IconCode
       - title: Escribe código confiable, humano o de IA
@@ -410,7 +410,7 @@ sections:
           - Capa de conocimiento RAG
           - Agentes con llamadas a herramientas
           - Comunicación en tiempo real
-        projects: Integra todo lo aprendido en un sistema funcional y desplegado — la transformación completa de una empresa a través de la IA.
+        projects: "Integra todo lo aprendido en un sistema funcional y desplegado: la transformación completa de una empresa a través de la IA."
         orientation: horizontal
         icon: IconCode
     marginY:
