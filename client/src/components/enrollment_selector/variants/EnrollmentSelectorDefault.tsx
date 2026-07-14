@@ -586,13 +586,13 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                       )}
                       <div className="flex items-center justify-between gap-2 pr-5 sm:block sm:pr-4">
                         <span
-                          className="flex items-center gap-1.5 min-w-0 text-[14px] sm:text-[15px] font-extrabold sm:mb-1 transition-colors duration-200"
+                          className="flex items-center gap-1.5 min-w-0 text-[14px] sm:text-[15px] font-extrabold sm:mb-1 md:justify-center lg:justify-start transition-colors duration-200"
                           style={{ color: active ? "hsl(var(--primary))" : "hsl(var(--foreground))" }}
                         >
                           {ProgramIcon && <ProgramIcon size={16} className="shrink-0" />}
                           <span className="truncate">{prog.selection_card.name}</span>
                         </span>
-                        <span className="flex items-center gap-1 shrink-0 text-[12px] sm:text-[13px] text-muted-foreground sm:mt-0">
+                        <span className="flex items-center gap-1 shrink-0 text-[12px] sm:text-[13px] text-muted-foreground sm:mt-0 md:justify-center lg:justify-start">
                           {prog.selection_card.duration}
                           {programBadge && (
                             <DateBadgeItem text={programBadge} color="primary" />
