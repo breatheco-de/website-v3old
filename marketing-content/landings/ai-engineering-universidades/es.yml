@@ -483,6 +483,114 @@ sections:
   - type: testimonials_slide
     title: Dieron el salto sin pasar por la universidad de nuevo
     description: "Diferentes trayectorias, diferentes puntos de partida, un solo resultado: una carrera en tecnología que lo cambió todo. Estas son sus historias."
+    testimonials:
+      - name: Loretta Thompson
+        img: https://storage.googleapis.com/4geeks-academy-website/media/ttaLoretta_1764725322100.jpeg
+        status: Graduado
+        country:
+          name: Estados Unidos
+          iso: us
+        contributor: United Way Miami
+        description: Loretta se unió en 2022 y se graduó en 2023. En los meses siguientes ya consiguió empleo y completó el ciclo de habilidades + trabajo que todos buscamos.
+        achievement: Logró un aumento salarial del 45%
+      - name: Rich Akers
+        img: https://storage.googleapis.com/4geeks-academy-website/media/Akers_1764725327796.jpeg
+        status: Graduado
+        country:
+          name: Estados Unidos
+          iso: us
+        contributor: Clark University
+        description: Richard es un gran desarrollador que acaba de hacer la transición desde otro sector y ahora trabaja como desarrollador web en tecnología.
+        achievement: Logró un aumento salarial del 30%
+      - name: MaiLinh Tran
+        img: https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh_1764725334980.png
+        status: Graduado
+        country:
+          name: Estados Unidos
+          iso: us
+        contributor: Clark University
+        description: Una emprendedora apasionada por la tecnología que ahora se enfoca en el lado de desarrollo de su proyecto.
+        achievement: Lanzó su propia startup, puede contratar nuevo talento tech y coordina un equipo de desarrollo.
+      - name: Jorge Martín Coimbra
+        img: https://storage.googleapis.com/4geeks-academy-website/media/coimbra_1764725341501.png
+        status: Graduado
+        country:
+          name: Uruguay
+          iso: uy
+        contributor: UTEC-BID
+        description: Martín se unió al primer programa que lanzamos junto con UTEC e IDB. Consiguió un empleo mejor remunerado, una carrera que le apasiona y una nueva vida profesional.
+        achievement: Logró un aumento salarial del 100%
+      - name: Jean St. Cloud
+        img: https://storage.googleapis.com/4geeks-academy-website/media/JeanSt.Cloud_1764725356935.jpeg
+        status: Graduado
+        country:
+          name: Estados Unidos
+          iso: us
+        contributor: Clark
+        description: Jean está haciendo la transición desde otras industrias (música) hacia la tecnología. Lo logró con el apoyo de Clark University y ya trabaja como desarrollador y mentor.
+        achievement: Logró un aumento salarial del 100%
+      - name: Alexandra Espinoza
+        img: https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
+        status: Graduado
+        country:
+          name: Costa Rica
+          iso: cr
+        contributor: CINDE-BID
+        description: Alexandra venía de un sector totalmente distinto y ha sido una gran revelación para ella y quienes la rodean. Hoy es una desarrolladora de software exitosa y talentosa en Costa Rica.
+        achievement: Logró un aumento salarial del 100%
+      - name: Gabriel Salazar
+        img: https://storage.googleapis.com/4geeks-academy-website/media/GabrielSalazar_1764725392872.jpeg
+        status: Graduado
+        country:
+          name: Costa Rica
+          iso: cr
+        contributor: CINDE-BID
+        description: Gabriel ya era especialista de soporte en Microsoft y, tras completar el programa, consiguió un nuevo puesto en la misma empresa como ingeniero de software.
+        achievement: Logró un aumento salarial del 50%
+      - name: Laura Magallanes
+        img: https://storage.googleapis.com/4geeks-academy-website/media/Laura_1764725397398.jpeg
+        status: Graduado
+        country:
+          name: Uruguay
+          iso: uy
+        contributor: UTEC-BID
+        description: Laura es extraordinaria. De un pueblo pequeño en Uruguay sin experiencia en programación, hoy es sostén de hogar, instructora y coordinadora de programas.
+        achievement: Logró un aumento salarial del 120%
+      - name: Melanie Galaretto
+        img: https://storage.googleapis.com/4geeks-academy-website/media/MelamnieGalaretto_1764725408397.jpeg
+        status: Graduado
+        country:
+          name: Uruguay
+          iso: uy
+        contributor: UTEC-BID
+        description: Melanie es una joven profesional que soñaba con la vida que ahora tiene. Es una desarrolladora de software creativa y comprometida que trabaja en una empresa de tecnología en su país.
+        achievement: Logró un aumento salarial de más del 100%
+      - name: Natia Lombardo
+        img: https://storage.googleapis.com/4geeks-academy-website/media/NatiaLombardo_1764725413363.jpeg
+        status: Graduado
+        country:
+          name: Uruguay
+          iso: uy
+        contributor: UTEC-BID
+        description: Natia es filósofa y desarrolladora de software. Actualmente trabaja como ingeniera de QA en una gran y exitosa empresa internacional.
+      - name: Luis Larraburo
+        img: https://storage.googleapis.com/4geeks-academy-website/media/LuisLarraburo_1764725418057.jpeg
+        status: Graduado
+        country:
+          name: Costa Rica
+          iso: cr
+        contributor: CINDE-BID
+        description: Luis llegó al programa sin experiencia previa. Hoy es desarrollador de software en una empresa de tecnología en Costa Rica.
+        achievement: Logró un aumento salarial del 50%
+      - name: Leandro Matonte
+        img: https://storage.googleapis.com/4geeks-academy-website/media/Leandro_1764725403142.jpeg
+        status: Graduado
+        country:
+          name: Uruguay
+          iso: uy
+        contributor: UTEC-BID
+        description: Leandro entró al programa buscando comprender mejor la programación y adquirir habilidades que le ayudaran a decidir si estudiar ciencias de la computación. Hoy es desarrollador de software en una empresa de tecnología en Uruguay.
+        achievement: Logró un aumento salarial del 60%
     section_id: testimonials_slide-6jlded
     marginY:
       desktop: none
