@@ -502,6 +502,8 @@ sections:
           - text: Ayuda inmediata a cualquier hora, día o noche
           - text: Cientos de ejercicios prácticos y evaluaciones técnicas
         video_url: https://www.youtube.com/watch?v=6m1Jyya7eCc
+        cta:
+          icon: Rigobot
       - icon: Headset
         title: Mentoría 1:1 ilimitada, de por vida
         description: ""
