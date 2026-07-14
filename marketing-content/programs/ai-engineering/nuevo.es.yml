@@ -444,6 +444,70 @@ sections:
     maxWidth:
       desktop: 6xl
     background: hsl(210 100% 50% / 0.05)
+    module_cards:
+      - objectives:
+          - Configura un agente de IA de código abierto como tu asistente personal
+          - Asígnale tareas e intégralo con aplicaciones externas
+      - objectives:
+          - Identifica escenarios donde un agente resuelve problemas reales de negocio
+          - Desarrolla habilidades personalizadas para OpenClaw
+          - "Implementa memoria contextual: episódica, semántica y procedimental"
+          - Configura y extiende tu agente a un nivel avanzado
+      - objectives:
+          - Construye bancos de memoria y reglas de contexto desde una base de código existente
+          - Escribe especificaciones ejecutables para agentes (agent specs)
+          - Sintetiza habilidades reutilizables para que tus agentes actúen con precisión
+      - objectives:
+          - Prepara datos y selecciona modelos para entrenamiento
+          - Implementa RAG en bases de conocimiento propietarias
+          - Trabaja con bases de datos vectoriales
+          - Evalúa, depura e integra modelos en producción
+      - objectives:
+          - Construye agentes con llamadas a herramientas (function calls reales)
+          - Implementa guardrails como mecanismo de seguridad y control
+          - Provee herramientas a tu agente mediante CLIs optimizadas para IA
+          - Extiende las capacidades de tu agente con el Protocolo de Contexto de Modelo (MCP)
+          - Dale memoria persistente a tu agente
+      - objectives:
+          - Diseña sistemas multi-agente con enrutamiento y arbitraje
+          - Implementa memoria compartida entre agentes
+          - Despliega flujos de trabajo agénticos con funciones serverless y durables
+      - objectives:
+          - Diseña arquitecturas backend para soluciones potenciadas por IA
+          - Crea bucles de agente integrando LLMs con APIs
+          - Implementa almacenamiento ligero y procesamiento de datos CSV
+          - Construye y expón APIs REST para frontends y agentes
+      - objectives:
+          - Modela lógica de negocio con diagramas de flujo
+          - Implementa flujos básicos y avanzados en n8n
+          - Integra LLMs y aplicaciones externas en tus automatizaciones
+          - Despliega flujos mantenibles con manejo de errores
+      - objectives:
+          - Manipula y prepara conjuntos de datos con Python
+          - Construye pipelines de datos desde tu aplicación hasta sistemas de análisis
+      - objectives:
+          - Optimiza el almacenamiento para reportes e integridad de datos
+          - Identifica oportunidades de recolección de datos en escenarios reales
+          - Recopila telemetría y contexto del usuario desde tu aplicación
+          - Construye reportes a partir de datos de telemetría
+      - objectives:
+          - Implementa procesamiento en segundo plano para tareas costosas
+          - Gestiona colas de procesos con workers
+          - Usa colas para delegar trabajo entre agentes y servicios
+      - objectives:
+          - Construye chats de soporte con LLMs en tiempo real
+          - Implementa streaming de respuestas con generadores (yield)
+          - Integra webhooks y pub/sub en tus aplicaciones de IA
+      - objectives:
+          - Implementa autenticación y restricciones de rutas en FastAPI
+          - "Construye flujos de autenticación completos: login, tokens, sesiones"
+      - objectives:
+          - Entiende y gestiona errores en tiempo de ejecución con control de flujo
+          - Desarrolla suites de pruebas para aplicaciones robustas
+      - objectives:
+          - Identifica y corrige las vulnerabilidades OWASP Top 10 en aplicaciones web
+          - Implementa prácticas de seguridad específicas para integraciones de IA
+          - Usa LLMs como herramienta de auditoría de ciberseguridad
   - type: testimonials
     section_id: testimonials-ghxelh
     title: Las personas detrás de los números.
