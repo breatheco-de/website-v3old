@@ -196,56 +196,6 @@ sections:
     marginY:
       desktop: md none
     title_highlight: ahora
-  - type: graduates_stats
-    heading: Resultados reales. Cifras reales.
-    subheading: Más de 8500 graduados. Resultados sólidos en todos los frentes.
-    stats:
-      - label: de nuestros graduados consigue empleo
-        value: 84%
-      - label: de aumento salarial en nuevos trabajos
-        value: 55%
-      - label: para conseguir empleo después de graduarte
-        value: 3-6 meses
-    collage_images:
-      - image_id: group-7085-1
-        col_span: 5
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
-        id: gemini-generated-image-uwpyyruwpyyruwpy
-        object_scale: 1.1
-        object_position: 50% 30%
-      - image_id: group-7086-1
-        col_span: 7
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
-        id: gemini-generated-image-pd2u4upd2u4upd2u
-        object_scale: 1
-        transform_origin: 50% 50%
-        object_position: 50% 60%
-      - image_id: group-7084-1
-        col_span: 6
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
-        id: gemini-generated-image-dhko5mdhko5mdhko-1
-        object_scale: 1.05
-      - image_id: group-7087-1
-        col_span: 6
-        row_span: 2
-        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
-        id: gemini-generated-image-wpk4yvwpk4yvwpk4
-        object_scale: 1.05
-        transform_origin: 50% 50%
-        object_position: 50% 45%
-    section_id: graduates_stats-cnxqbb
-    marginY:
-      desktop: none
-    maxWidth:
-      desktop: 6xl
-    paddingY:
-      desktop: md none
-    description: null
-    card_bars: null
-    card_gauge: null
   - type: syllabus
     section_id: syllabus-5hjjcl
     variant: program-modules
@@ -418,6 +368,56 @@ sections:
       desktop: sm xl
     paddingY:
       desktop: md sm
+  - type: graduates_stats
+    heading: Resultados reales. Cifras reales.
+    subheading: Más de 8500 graduados. Resultados sólidos en todos los frentes.
+    stats:
+      - label: de nuestros graduados consigue empleo
+        value: 84%
+      - label: de aumento salarial en nuevos trabajos
+        value: 55%
+      - label: para conseguir empleo después de graduarte
+        value: 3-6 meses
+    collage_images:
+      - image_id: group-7085-1
+        col_span: 5
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_uwpyyruwpyyruwpy"
+        id: gemini-generated-image-uwpyyruwpyyruwpy
+        object_scale: 1.1
+        object_position: 50% 30%
+      - image_id: group-7086-1
+        col_span: 7
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_pd2u4upd2u4upd2u"
+        id: gemini-generated-image-pd2u4upd2u4upd2u
+        object_scale: 1
+        transform_origin: 50% 50%
+        object_position: 50% 60%
+      - image_id: group-7084-1
+        col_span: 6
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_dhko5mdhko5mdhko (1)"
+        id: gemini-generated-image-dhko5mdhko5mdhko-1
+        object_scale: 1.05
+      - image_id: group-7087-1
+        col_span: 6
+        row_span: 2
+        alt: "Image: Gemini_Generated_Image_wpk4yvwpk4yvwpk4"
+        id: gemini-generated-image-wpk4yvwpk4yvwpk4
+        object_scale: 1.05
+        transform_origin: 50% 50%
+        object_position: 50% 45%
+    section_id: graduates_stats-cnxqbb
+    marginY:
+      desktop: none
+    maxWidth:
+      desktop: 6xl
+    paddingY:
+      desktop: md none
+    description: null
+    card_bars: null
+    card_gauge: null
   - type: testimonials
     section_id: testimonials-ghxelh
     title: Las personas detrás de los números.
