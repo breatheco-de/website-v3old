@@ -498,7 +498,7 @@ sections:
   - type: ai_learning
     variant: feature-tabs
     badge: ¿Por qué 4Geeks?
-    title: El camino más personalizado hacia una carrera en IA
+    title: Nunca estás solo. Ni construyendo, ni buscando empleo.
     description: Avanza más rápido que nunca, con un sistema de apoyo construido alrededor de tu ritmo, tus objetivos y tu carrera.
     features:
       - icon: Robot
