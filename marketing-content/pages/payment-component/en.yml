@@ -4,7 +4,7 @@ sections:
     version: v1.0
     variant: default
     eyebrow: Enrollment · Apply now
-    title: "Reserve your seat.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Start learning</span></span> today.</span>"
+    title: "Reserve your seat.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Your AI career starts</span></span> now.</span>"
     choose_program_label: Choose your program
     choose_date_label: Choose your start date
     included_label: What's included
