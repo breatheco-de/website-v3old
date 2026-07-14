@@ -544,17 +544,7 @@ sections:
       badge: Salarios 2026
       description: "<span style=\"font-size: 1.25rem;\"><span><span>Las empresas pagan más por quien sabe construir con IA. El rol de Forward-Deployed Engineer, uno de los que ves a la derecha, ha crecido ×42 desde 2023, según LinkedIn.</span></span></span>"
       heading: Los roles de IA. Y lo que pagan.
-      tool_icons:
-        - icon: BrandOpenai
-          position:
-            bottom: 18%
-            left: 8%
-          size: md
-        - icon: Code
-          position:
-            bottom: 30%
-            left: 22%
-          size: sm
+      tool_icons: null
     secondary:
       benefits:
         - icon: IconRocket
