@@ -459,6 +459,12 @@ sections:
     included_label: Qué incluye
     programs:
       - id: ai-engineering
+        description: Asegura tu cupo en AI Engineering, entra directo a tus clases con AI Fluency, o desbloquea todo nuestro catálogo con AI Flex. Completa tu pago para obtener acceso inmediato a 4Geeks.com.
+        selection_card:
+          name: Ingeniería de IA
+          duration: 24 weeks
+          badge: Más Popular
+          icon: IconCode
       - benefits:
           - desc: "Tu cuenta se activa en el momento en que pagas. Empieza Foundations de inmediato: Git, fundamentos de JavaScript, YAML y JSON, conceptos de internet, y tus primeros agentes de código."
             title: Acceso inmediato a 4Geeks.com + prework
@@ -474,24 +480,19 @@ sections:
             title: Financiamiento flexible
         dates:
           items:
-            - badges:
-                - color: destructive
-                  text: Quedan 4 cupos
-                - color: primary
-                  text: Vía rápida
-              date_iso: "2026-09-08"
-              url: "?cohort=1577"
-            - date_iso: "2026-10-13"
-              url: "?cohort=1577"
-            - date_iso: "2026-11-10"
-              url: "?cohort=1577"
+            - date_iso: "2026-08-24"
+              badges:
+                - text: 4 seats left
+                  color: destructive
+                - text: Fast track
+                  color: primary
+              url: "?cohort=1536"
+            - date_iso: "2026-10-05"
+              url: "?cohort=1536"
+            - date_iso: "2026-11-09"
+              url: "?cohort=1536"
           mode: static
         description: Asegura tu cupo en AI Engineering, entra directo a tus clases con AI Fluency, o desbloquea todo nuestro catálogo con AI Flex. Completa tu pago para obtener acceso inmediato a 4Geeks.com.
-        selection_card:
-          badge: Más Popular
-          duration: 24 semanas
-          icon: IconCode
-          name: AI Engineering
         summary:
           cta:
             text: Asegura Mi Cupo
@@ -529,20 +530,6 @@ sections:
             title: Proyectos reales
           - desc: Planes de pago flexibles desde $250/mes, o ahorra 10% si pagas por adelantado.
             title: Financiamiento flexible
-        dates:
-          mode: static
-          items:
-            - date_iso: "2026-07-30"
-              badges:
-                - text: 2 seats left
-                  icon: IconUsers
-                  color: hsl(var(--destructive) / 0.5)
-              url: "?cohort=1772"
-            - date_iso: "2026-09-10"
-              url: "?cohort=1773"
-            - date_iso: "2026-10-22"
-              url: "?cohort=1774"
-        description: Asegura tu cupo en AI Engineering, entra directo a tus clases con AI Fluency, o desbloquea todo nuestro catálogo con AI Flex. Completa tu pago para obtener acceso inmediato a 4Geeks.com.
         id: ai-fluency
         selection_card:
           badge: Productividad con IA
@@ -574,6 +561,19 @@ sections:
           - text: Construye con IA desde el primer día. Crea tus primeros agentes de código con proyectos prácticos.
           - text: Soporte de mentor de IA 24/7. Accede a Rigobot, listo para responder preguntas, guiarte en los retos y ayudarte a construir tus proyectos en cualquier momento.
       - description: Asegura tu cupo en AI Engineering, entra directo a tus clases con AI Fluency, o desbloquea todo nuestro catálogo con AI Flex. Completa tu pago para obtener acceso inmediato a 4Geeks.com.
+        dates:
+          mode: static
+          items:
+            - date_iso: "2026-07-30"
+              badges:
+                - text: 2 seats left
+                  icon: IconUsers
+                  color: hsl(var(--destructive) / 0.5)
+              url: "?cohort=1772"
+            - date_iso: "2026-09-10"
+              url: "?cohort=1773"
+            - date_iso: "2026-10-22"
+              url: "?cohort=1774"
         id: ai-flex
         plans:
           - amount: "85"
