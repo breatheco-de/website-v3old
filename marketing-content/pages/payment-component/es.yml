@@ -37,7 +37,7 @@ sections:
             variant: primary
           trust_note:
             initials: 4G
-            message: <span class="font-semibold text-foreground">Un asesor de admisiones te llamará dentro de 24 horas</span> para finalizar tu inscripción, explicarte el financiamiento y resolver tus dudas.
+            message: <span class="font-semibold text-foreground">Un asesor de admisiones te llamará dentro de las próximas horas</span> para finalizar tu inscripción, explicarte el financiamiento y resolver tus dudas.
         benefits:
           - desc: "Tu cuenta se activa en el momento en que pagas. Empieza Foundations de inmediato: Git, fundamentos de JavaScript, YAML y JSON, conceptos de internet, y tus primeros agentes de código."
             title: Acceso inmediato a 4Geeks.com
