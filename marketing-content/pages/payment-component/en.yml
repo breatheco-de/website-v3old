@@ -30,6 +30,7 @@ sections:
             - label: Financing from
               value: $349/mo
             - label: Job guarantee
+              show_dynamic_addon: true
               value: Not included
           cta:
             text: Secure My Seat
