@@ -30,7 +30,7 @@ sections:
       background: hsl(var(--primary))
       text_color: hsl(var(--primary-foreground))
     title: Compite en la industria o crea tu empresa. De 0 a Ingeniero de IA en 22 semanas.
-    title_highlight: De 0 a Ingeniero de IA en 22 semanas.
+    title_highlight: De 0 a Ingeniero de IA en 24 semanas.
     subtitle: Deja de usar la IA y empieza a construirla. Usa agentes de código para crear productos digitales, automatiza procesos enteros, y arma tu propio equipo de agentes que trabajan por ti. Es la habilidad más demandada y mejor pagada del momento. Con mentorías privadas ilimitadas, de por vida.
     students_enrolled:
       avatars:
