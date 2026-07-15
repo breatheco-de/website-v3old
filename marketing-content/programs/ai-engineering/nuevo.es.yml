@@ -31,7 +31,7 @@ sections:
       text_color: hsl(var(--primary-foreground))
     title: Conviértete en ingeniero de IA. La profesión con más crecimiento en 2026
     title_highlight: La profesión con más crecimiento en 2026
-    subtitle: Deja de usar la IA y empieza a construirla. Usa agentes de código para crear productos digitales, automatiza procesos enteros y construye sistemas que transforman empresas tradicionales en compañías impulsadas con inteligencia artificial. Con mentorías 1 a 1 ilimitadas, de por vida.
+    subtitle: Deja de usar la IA y empieza a construirla. Crea sistemas que transforman empresas tradicionales en compañías impulsadas por inteligencia artificial. Con mentorías 1 a 1 ilimitadas, de por vida.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -40,7 +40,7 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
       count: +8500 graduados
     bullet_points:
-      - Construye sistemas que transforman empresas tradicionales en compañías impulsadas con inteligencia artificial.
+      - Usa agentes de código para crear productos digitales y automatiza procesos enteros.
       - Crea y lidera tu propio equipo de agentes de IA, coordinados para automatizar procesos complejos.
       - Cero teoría de relleno, adquiere las habilidades que las empresas buscan.
       - Más de 700.000 vacantes de IA activas en el mundo, hoy mismo. El 84% de nuestros graduados comprometidos consigue empleo.
