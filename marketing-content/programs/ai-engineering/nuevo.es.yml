@@ -29,7 +29,7 @@ sections:
       color: primary
       background: hsl(var(--primary))
       text_color: hsl(var(--primary-foreground))
-    title: Conviértete en ingeniero de inteligencia artificial. La profesión con más crecimiento en 2026
+    title: Conviértete en ingeniero de IA. La profesión con más crecimiento en 2026
     title_highlight: De 0 a Ingeniero de IA en 22 semanas.
     subtitle: "En 22 semanas, pasas de usar IA a construirla: sistemas listos para producción, agentes de código y automatización real. Ya sea que busques un mejor salario, multiplicar tu productividad o quieras lanzar tu propio producto con IA, te llevas las habilidades para lograrlo. Con mentorías privadas ilimitadas."
     students_enrolled:
