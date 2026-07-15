@@ -211,8 +211,8 @@ sections:
     card_bars:
       title: More Jobs Created Than Lost to AI
       description: Job creation vs. displacement · WEF Future of Jobs 2025 · by 2030
-      stat_value: +7%
-      stat_label: net global job growth from AI-driven transformation
+      stat_value: 78M
+      stat_label: net new jobs created by AI-driven transformation, globally
       displaced_label: 92M jobs displaced
       created_label: 170M jobs created
     card_gauge:
