@@ -5,6 +5,7 @@ import { RichTextContent } from "@/components/ui/rich-text-content";
 import { UniversalImage } from "@/components/UniversalImage";
 import { getIcon } from "@/lib/icons";
 import { useInternalNav } from "@/hooks/useInternalNav";
+import { useSectionContext } from "@/contexts/SectionContext";
 import { IconChevronRight, IconCheck } from "@tabler/icons-react";
 import type { EnrollmentSelectorDefault, EnrollmentSelectorProgram } from "@shared/schema";
 import { addDays, addWeeks, addMonths } from "date-fns";
@@ -79,27 +80,42 @@ type DisplayDate = {
   date_iso: string;
 };
 
+/** Current calendar date in UTC (YYYY-MM-DD) — identical on server and client. */
+function todayUtcIso(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+/** Deterministic date label: fixed page locale + UTC timezone, so SSR and client output match. */
+function formatDateLabel(iso: string, locale: string): string {
+  return new Date(iso + "T00:00:00Z").toLocaleDateString(locale || "en", {
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
+
 function generateIntervalDates(
   startIso: string,
   interval: number,
   unit: "days" | "weeks" | "months",
+  locale: string,
   url?: string,
 ): DisplayDate[] {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  let current = new Date(startIso + "T00:00:00");
-  while (current <= today) {
+  const todayIso = todayUtcIso();
+  let current = new Date(startIso + "T00:00:00Z");
+  while (current.toISOString().slice(0, 10) <= todayIso) {
     current = advanceByInterval(current, interval, unit);
   }
   const result: DisplayDate[] = [];
   for (let i = 0; i < 3; i++) {
+    const iso = current.toISOString().slice(0, 10);
     result.push({
-      label: current.toLocaleDateString(undefined, { month: "long", day: "numeric" }),
-      year: String(current.getFullYear()),
+      label: formatDateLabel(iso, locale),
+      year: String(current.getUTCFullYear()),
       badges: [],
       tags: [],
       url,
-      date_iso: current.toISOString().slice(0, 10),
+      date_iso: iso,
     });
     current = advanceByInterval(current, interval, unit);
   }
@@ -375,6 +391,7 @@ function UnlocksList({ unlocks }: { unlocks: { icon?: string; text: string }[] }
 
 export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSelectorDefault }) {
   const nav = useInternalNav();
+  const { locale } = useSectionContext();
 
   const [selectedProgramIdx, setSelectedProgramIdx] = useState(0);
   const [selectedDateIdx, setSelectedDateIdx] = useState(0);
@@ -418,20 +435,14 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
   const displayDates = useMemo<DisplayDate[]>(() => {
     if (!program?.dates) return [];
     if (program.dates.mode === "static") {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
+      const todayIso = todayUtcIso();
       return program.dates.items
-        .filter((item) => new Date(item.date_iso + "T00:00:00") >= today)
+        .filter((item) => item.date_iso >= todayIso)
         .sort((a, b) => a.date_iso.localeCompare(b.date_iso))
         .slice(0, 3)
         .map((item) => ({
-          label:
-            item.label ??
-            new Date(item.date_iso + "T00:00:00").toLocaleDateString(undefined, {
-              month: "long",
-              day: "numeric",
-            }),
-          year: item.year ?? String(new Date(item.date_iso + "T00:00:00").getFullYear()),
+          label: item.label ?? formatDateLabel(item.date_iso, locale),
+          year: item.year ?? item.date_iso.slice(0, 4),
           badges: asChipList(item.badges),
           tags: asChipList(item.tags),
           url: item.url,
@@ -442,17 +453,10 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
       program.dates.start_date_iso,
       program.dates.interval,
       program.dates.interval_unit,
+      locale,
       program.dates.url,
     );
-  }, [program]);
-
-  // On mount: fire the URL of the first pre-selected date to set query params
-  useEffect(() => {
-    if (filteredByQs) return;
-    const firstDate = displayDates[0];
-    if (firstDate?.url) nav.navigate(firstDate.url);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [program, locale]);
 
   // Preselect date from ?cohort querystring once dates are resolved
   useEffect(() => {
@@ -492,6 +496,16 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
     const addon = program?.addon;
     if (!addon) return;
     nav.navigate(checked ? addonOnUrl(addon) : addonOffUrl(addon));
+  }
+
+  /** Ensure the current (default) selection's query params are in the URL
+   *  before the CTA link resolves its {qs:} tokens. Uses history.replaceState
+   *  under the hood for `?` URLs, so it causes no re-render. */
+  function applySelectionParams() {
+    const d = displayDates[selectedDateIdx];
+    if (d?.url) nav.navigate(d.url);
+    const addon = program?.addon;
+    if (addon) nav.navigate(addonEnabled ? addonOnUrl(addon) : addonOffUrl(addon));
   }
 
   const sectionCls =
@@ -847,7 +861,19 @@ export default function EnrollmentSelectorDefault({ data }: { data: EnrollmentSe
                 data-testid="button-enrollment-cta"
                 asChild
               >
-                <a href={activeSummary.cta.url} onClick={nav} onMouseDown={nav.onMouseDown}>
+                <a
+                  href={activeSummary.cta.url}
+                  onClick={(e) => {
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+                      applySelectionParams();
+                    }
+                    nav(e);
+                  }}
+                  onMouseDown={(e) => {
+                    if (e.button === 1) applySelectionParams();
+                    nav.onMouseDown(e);
+                  }}
+                >
                   {activeSummary.cta.text}
                   <IconChevronRight size={16} stroke={2.5} />
                 </a>

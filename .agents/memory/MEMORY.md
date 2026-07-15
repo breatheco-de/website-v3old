@@ -1,1 +1,2 @@
 - [Font weights in section components](font-weights-section-components.md) — use font-inter (not font-sans) for bold/extrabold/black text; mockup sandbox used Inter, production uses Archivo (limited weights)
+- [SSR-deterministic dates & `?` nav](ssr-deterministic-dates.md) — format dates with page locale + UTC (never `toLocaleDateString(undefined)`); `nav.navigate("?...")` is replaceState, no re-render
