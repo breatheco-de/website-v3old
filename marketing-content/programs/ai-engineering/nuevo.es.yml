@@ -84,6 +84,9 @@ sections:
       desktop: lg md
     marginY:
       desktop: none
+    form:
+      conversion_name: request_more_info
+      automations: soft
   - type: modal
     version: "1.0"
     heading: Solicitar detalles del programa
