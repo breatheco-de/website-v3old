@@ -567,7 +567,7 @@ sections:
             text: Asegura Mi Cupo
             url: https://4geeks.com/checkout?plan=ai-fluency-ue&cohort={qs:cohort|fluency-sept-2026}
             variant: primary
-          price_amount: 810€
+          price_amount: $450
           price_label: Paga hoy
           price_sub: Obtén 10% de descuento
           rows:
@@ -576,9 +576,9 @@ sections:
             - label: Fecha de inicio
               show_dynamic_date: true
             - label: Costo total del programa
-              value: 900€
+              value: $500
             - label: Financiamiento desde
-              value: 450€/mes por 2 meses
+              value: $225/mes por 2 meses
           trust_note:
             initials: 4G
             message: <span class="font-semibold text-foreground">¿Tienes preguntas?</span> Escríbenos a support@4geeksacademy.com.
@@ -620,8 +620,8 @@ sections:
         plans:
           - id: basic
             name: Básico
-            currency: €
-            amount: "129"
+            currency: $
+            amount: "49"
             period: /mes
             billing_note: Mensual
             tag: Inicial
@@ -631,7 +631,7 @@ sections:
                 text: Empieza Ahora
                 url: https://4geeks.com/checkout?plan=basic
                 variant: primary
-              price_amount: 129€
+              price_amount: $49
               price_label: Tu plan
               price_period: /mes
               price_sub: Facturación mensual
@@ -641,7 +641,7 @@ sections:
                 - label: Plan
                   show_dynamic_date: true
                 - label: Total
-                  value: 129€/mes
+                  value: $49/mes
               trust_note:
                 initials: 4G
                 message: <span class="font-semibold text-foreground">¿Tienes preguntas?</span> Escríbenos a support@4geeksacademy.com.
@@ -663,8 +663,8 @@ sections:
           - id: pro
             name: Pro
             tagline: Para hasta 2 estudiantes
-            currency: €
-            amount: "900"
+            currency: $
+            amount: "350"
             period: /año
             billing_note: Anual · Ahorra 10 meses
             tag: Mejor Valor
@@ -674,7 +674,7 @@ sections:
                 text: Empieza Ahora
                 url: https://4geeks.com/checkout?plan=pro
                 variant: primary
-              price_amount: 900€
+              price_amount: $350
               price_label: AHORRA 10 MESES
               price_period: /año
               price_sub: Facturación anual
@@ -684,9 +684,9 @@ sections:
                 - label: Plan
                   show_dynamic_date: true
                 - label: Total
-                  value: 900€/año
+                  value: $350/año
                 - label: Financiamiento desde
-                  value: 450€/mes por 2 meses
+                  value: $175/mes por 2 meses
               trust_note:
                 initials: 4G
                 message: <span class="font-semibold text-foreground">¿Tienes preguntas?</span> Escríbenos a support@4geeksacademy.com.
