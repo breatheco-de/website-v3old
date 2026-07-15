@@ -289,7 +289,7 @@ sections:
             message: <span class="font-semibold text-foreground">Un asesor de admisiones te llamará dentro de las próximas horas</span> para finalizar tu inscripción, explicarte el financiamiento y resolver tus dudas.
         benefits:
           - desc: "Tu cuenta se activa en el momento en que pagas. Empieza Foundations de inmediato: Git, fundamentos de JavaScript, YAML y JSON, conceptos de internet, y tus primeros agentes de código."
-            title: Acceso inmediato a 4Geeks.com + prework
+            title: Acceso inmediato a 4Geeks.com
           - desc: Agenda las sesiones que necesites con ingenieros senior y mentores de la industria. Sin límites, sin listas de espera, nunca.
             title: Mentoría 1 a 1 ilimitada
           - desc: Únete a sesiones guiadas por un mentor cada semana para recibir orientación en tus proyectos, resolver dudas y aprender junto a tu cohorte.
