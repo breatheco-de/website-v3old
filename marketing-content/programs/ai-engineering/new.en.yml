@@ -34,7 +34,7 @@ sections:
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
-      count: +6000 graduates
+      count: +8500 graduates
     bullet_points:
       - Build a real, complete AI-native company, with agents, pipelines, and real-time data. Not standalone exercises.
       - Orchestrate AI coding agents the way top-tier engineering teams do. Not just writing code. Directing systems.
