@@ -234,6 +234,8 @@ sections:
     choose_date_label: Elige tu fecha de inicio
     included_label: Qué incluye
     programs:
+      - id: ai-engineering
+        description: Asegura tu cupo en AI Engineering, entra directo a tus clases con AI Fluency, o desbloquea todo nuestro catálogo con AI Flex. Completa tu pago para obtener acceso inmediato a 4Geeks.com.
       - benefits:
           - desc: "Tu cuenta se activa en el momento en que pagas. Empieza Foundations de inmediato: Git, fundamentos de JavaScript, YAML y JSON, conceptos de internet, y tus primeros agentes de código."
             title: Acceso inmediato a 4Geeks.com + prework
@@ -249,20 +251,19 @@ sections:
             title: Financiamiento flexible
         dates:
           items:
-            - badges:
-                - color: destructive
-                  text: Quedan 4 cupos
-                - color: primary
-                  text: Vía rápida
-              date_iso: "2026-09-08"
-              url: "?cohort=sept-2026"
-            - date_iso: "2026-10-13"
-              url: "?cohort=oct-2026"
-            - date_iso: "2026-11-10"
-              url: "?cohort=nov-2026"
+            - date_iso: "2026-08-24"
+              badges:
+                - text: 4 seats left
+                  color: destructive
+                - text: Fast track
+                  color: primary
+              url: "?cohort=1536"
+            - date_iso: "2026-10-05"
+              url: "?cohort=1536"
+            - date_iso: "2026-11-09"
+              url: "?cohort=1536"
           mode: static
         description: Asegura tu cupo en AI Engineering, entra directo a tus clases con AI Fluency, o desbloquea todo nuestro catálogo con AI Flex. Completa tu pago para obtener acceso inmediato a 4Geeks.com.
-        id: ai-engineering
         selection_card:
           badge: Más Popular
           duration: 24 semanas
@@ -303,20 +304,6 @@ sections:
             title: Proyectos reales
           - desc: Planes de pago flexibles desde 450€/mes, o ahorra 10% si pagas por adelantado.
             title: Financiamiento flexible
-        dates:
-          mode: static
-          items:
-            - date_iso: "2026-07-30"
-              badges:
-                - text: 2 seats left
-                  icon: IconUsers
-                  color: hsl(var(--destructive) / 0.5)
-              url: "?cohort=1775"
-            - date_iso: "2026-09-10"
-              url: "?cohort=1776"
-            - date_iso: "2026-10-22"
-              url: "?cohort=1777"
-        description: Asegura tu cupo en AI Engineering, entra directo a tus clases con AI Fluency, o desbloquea todo nuestro catálogo con AI Flex. Completa tu pago para obtener acceso inmediato a 4Geeks.com.
         id: ai-fluency
         selection_card:
           badge: Productividad con IA
