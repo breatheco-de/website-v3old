@@ -809,6 +809,7 @@ sections:
           default: ai-engineering
       success:
         message: Check your inbox. Our admissions team will be in touch shortly with everything you need to know.
+      automations: strong
     section_id: cta_banner-55y7oh
     paddingY:
       desktop: md
