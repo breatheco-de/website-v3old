@@ -715,6 +715,7 @@ sections:
       success:
         message: ¡Gracias! Nos pondremos en contacto pronto.
       button_className: bg-primary border-white
+      automations: soft
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
     section_id: cta_banner-h5ak8w
