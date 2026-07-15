@@ -507,7 +507,7 @@ sections:
         summary:
           cta:
             text: Asegura Mi Cupo
-            url: https://4geeks.com/checkout?plan=ai-engineering&cohort={qs:cohort|sept-2026}
+            url: https://4geeks.com/checkout?plan=prework-latam&cohort={qs:cohort|sept-2026}
             variant: primary
           price_amount: $100
           price_label: Pago de reserva
@@ -540,17 +540,17 @@ sections:
         dates:
           mode: static
           items:
-            - date_iso: "2026-08-24"
+            - date_iso: "2026-07-27"
               badges:
                 - text: 4 seats left
                   color: destructive
                 - text: Fast track
                   color: primary
-              url: "?cohort=1536"
-            - date_iso: "2026-10-05"
-              url: "?cohort=1536"
-            - date_iso: "2026-11-09"
-              url: "?cohort=1536"
+              url: "?cohort=1577"
+            - date_iso: "2026-08-24"
+              url: "?cohort=1577"
+            - date_iso: "2026-09-28"
+              url: "?cohort=1577"
         unlocks:
           - text: Domina los fundamentos. Aprende Git, JavaScript, YAML/JSON y conceptos esenciales de la web.
           - text: Construye con IA desde el primer día. Crea tus primeros agentes de código con proyectos prácticos.
