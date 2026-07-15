@@ -31,7 +31,6 @@ sections:
               value: $349/mo
             - label: Job guarantee
               show_dynamic_addon: true
-              value: Not included
           cta:
             text: Secure My Seat
             url: https://4geeks.com/checkout?plan=ai-engineering-registration-fee&cohort={qs:cohort|sept-2026}
