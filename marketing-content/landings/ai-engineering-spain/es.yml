@@ -122,6 +122,8 @@ sections:
           default: ai-engineering
       success:
         message: ¡Gracias! Nos pondremos en contacto en 24 horas.
+      automations: strong
+    load: eager
   - type: two_column
     version: v1.0
     proportions:
