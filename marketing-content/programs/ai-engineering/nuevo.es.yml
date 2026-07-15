@@ -29,9 +29,9 @@ sections:
       color: primary
       background: hsl(var(--primary))
       text_color: hsl(var(--primary-foreground))
-    title: Compite en la industria o crea tu empresa. De 0 a Ingeniero de IA en 24 semanas.
-    title_highlight: De 0 a Ingeniero de IA en 24 semanas.
-    subtitle: Deja de usar la IA y empieza a construirla. Usa agentes de código para crear productos digitales, automatiza procesos enteros, y arma tu propio equipo de agentes que trabajan por ti. Es la habilidad más demandada y mejor pagada del momento. Con mentorías privadas ilimitadas, de por vida.
+    title: Conviértete en ingeniero de inteligencia artificial. La profesión con más crecimiento en 2026
+    title_highlight: De 0 a Ingeniero de IA en 22 semanas.
+    subtitle: "En 22 semanas, pasas de usar IA a construirla: sistemas listos para producción, agentes de código y automatización real. Ya sea que busques un mejor salario, multiplicar tu productividad o quieras lanzar tu propio producto con IA, te llevas las habilidades para lograrlo. Con mentorías privadas ilimitadas."
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
@@ -70,7 +70,7 @@ sections:
         url: https://4geeks.com/es/login
       features:
         - icon: calendar
-          text: Duración de 15 a 24 semanas. Tú eliges el ritmo.
+          text: Duración de 15 a 22 semanas. Tú eliges el ritmo.
         - icon: IconUsers
           text: Solo 7 estudiantes por clase para una atención personalizada.
         - icon: IconUserCheck
