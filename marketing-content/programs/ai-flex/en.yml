@@ -19,36 +19,38 @@ sections:
   - type: hero
     version: "1.0"
     variant: course
-    title: AI Flex. AI Skills on Your Terms. At Your Pace, Always Supported.
-    title_highlight: AI Skills on Your Terms. At Your Pace, Always Supported.
-    subtitle: AI Flex gives you access to 8+ courses covering automation, AI workflows, vibe coding, data skills and more. Follow a curated learning path or build your own, fully self-paced.
+    badge:
+      text: AI Flex
+      color: primary
+      background: hsl(var(--primary))
+      text_color: hsl(var(--primary-foreground))
+    title: The AI Skills You Actually Need. At Your Pace, With Real Support.
+    title_highlight: At Your Pace, With Real Support.
+    subtitle: Whether you're just starting out or staying current, AI is no longer optional. Take a 4-question quiz and get a learning path matched to your goals. Build AI skills that expand what you can do, sharpen what you ship, and boost your productivity.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/AlexandraEspinoza_1764725386161.jpeg
         - https://storage.googleapis.com/4geeks-academy-website/media/jeanstcloud-1764725356935-800x800-q70.webp
         - https://storage.googleapis.com/4geeks-academy-website/media/MaiLinh2_1770856306817.webp
-      count: +6000 graduates
+      count: +8500 graduates
     bullet_points:
-      - No rigid schedule. Learn at whatever pace fits your life.
-      - Get unstuck instantly. Rigobot gives you feedback 24/7, no waiting.
-      - Get 1:1 advice from human mentors who've actually been there. Available whenever you need it.
-      - Learn alongside 6,000+ graduates who started exactly where you are.
+      - Full access to all 8 courses, covering automation, AI workflows, vibe coding, and data skills, on your schedule.
+      - Never get stuck. Our AI tutor gives instant feedback, 24/7.
+      - Real 1:1 mentorship, not just a group chat. Get advice from mentors who've actually done it, one session included every month.
+      - Earn an industry-recognized certificate for every course you complete.
     tutors:
-      - name: Expert Instructor
-        role: Lead Instructor
-        image: https://randomuser.me/api/portraits/men/10.jpg
-      - name: Rigo
-        role: AI Tutor
+      - name: AI Tutor
+        role: 4Geeks AI, available 24/7.
         image: https://storage.googleapis.com/4geeks-academy-website/media/rigobot-logo_1764707022198.webp
     tutors_label: "Your tutors:"
     description: AI is not the future, it's the foundation. Start with AI Flex, and go as far as you want.
     signup_card:
-      title: Start Learning Today
-      description: Choose your plan and get instant access to 8+ AI courses, Rigobot, and monthly mentorship.
+      title: What You'll Get
+      description: Answer 4 quick questions and we'll match you to a learning path, full course access, an AI tutor, and mentorship included.
       cta_button:
-        text: See Plans and Pricing
-        url: "#pricing-6svo9e"
+        text: Take the Quiz
+        url: "#survey-g6wkjo"
         variant: primary
       login_link:
         text: Already a student? Login here.
@@ -57,11 +59,11 @@ sections:
         - icon: calendar
           text: Self-Paced, Start Anytime
         - icon: IconUsers
-          text: 8+ AI and Tech Courses
+          text: Full Access to 8 Courses, Updated Monthly
         - icon: IconUserCheck
-          text: Monthly 1:1 Mentorship Included
+          text: Monthly 1:1 Mentorship, Tailored to Your Questions
         - icon: IconRobot
-          text: New Content Added Every Month
+          text: AI-Powered Learning and Feedback, 24/7
     paddingY:
       desktop: lg md
     marginY:
@@ -1052,20 +1054,20 @@ sections:
   - type: human_and_ai_duo
     version: "1.0"
     heading: 24/7 AI Tutoring. Human Expertise on Demand.
-    description: Rigobot is available around the clock throughout your subscription — ask for help, get feedback, or work through a concept whenever you need it. If you want a human perspective, senior mentors are available to book anytime.
+    description: Never wait for an answer. Rigobot is available around the clock throughout your subscription, ask for help, get feedback, or work through a concept whenever you need it. Want a human perspective too? Senior mentors are available to book anytime.
     bullet_groups:
       - title: "Rigobot, your AI tutor:"
         image: https://images.prismic.io/4geeks/ZhcryjjCgu4jzvSJ_rigobot-1-.png?auto=format,compress
         bullets:
-          - text: Available 24/7 across every course in the catalog
-          - text: Ask for help, get feedback, or work through a concept at any point
-          - text: Adapts to your level and what you are working on
+          - text: Get unstuck instantly, any time of day or night.
+          - text: Real advice on your actual work, not a generic answer.
+          - text: Feedback that adapts to your level, so you're never lost or bored.
       - title: "Expert mentors:"
         image: https://storage.googleapis.com/4geeks-academy-website/media/profile-pic6_1764775742734.webp
         bullets:
-          - text: Book a 1:1 session with a senior instructor for $25
-          - text: Focused on your actual work, your pace, your questions
-          - text: Add as many sessions as you need, whenever you need them
+          - text: One 1:1 session included every month, no extra cost.
+          - text: Get advice focused on your actual challenges and questions.
+          - text: Need more support? Add sessions anytime for $25.
     section_id: human_and_ai_duo-aiflex
     images:
       - src: https://storage.googleapis.com/4geeks-academy-website/media/student_asian-133x500.webp

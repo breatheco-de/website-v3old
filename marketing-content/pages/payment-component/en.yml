@@ -4,7 +4,7 @@ sections:
     version: v1.0
     variant: default
     eyebrow: Enrollment · Apply now
-    title: "Reserve your seat.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Start learning</span></span> today.</span>"
+    title: "Reserve your seat.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Your AI career starts</span></span> NOW.</span>"
     choose_program_label: Choose your program
     choose_date_label: Choose your start date
     included_label: What's included
@@ -37,13 +37,13 @@ sections:
             variant: primary
           trust_note:
             initials: 4G
-            message: <span class="font-semibold text-foreground">An admissions advisor will call you within 24 hours</span> to finalize enrollment, walk you through financing, and answer any questions.
+            message: <span class="font-semibold text-foreground">An admissions advisor will call you within a few hours</span> to finalize enrollment, walk you through financing, and answer any questions.
         benefits:
-          - title: Immediate access to 4Geeks.com + prework
+          - title: Immediate access to the full 4Geeks suite (prework + projects)
             desc: Your account activates the moment you pay. Start Foundations right away — Git, JavaScript basics, YAML & JSON, internet fundamentals, and your first coding agents.
           - title: Unlimited 1-on-1 mentorship
             desc: Book as many sessions as you need with senior engineers and industry mentors — no caps, no waitlists, ever.
-          - title: Weekly live group sessions
+          - title: Immersive weekly schedule + live classes
             desc: Join mentor-led group sessions every week to get guidance on projects, talk through blockers, and learn alongside your cohort.
           - title: Unlimited career support
             desc: Resume reviews, mock interviews, LinkedIn optimization, and job search coaching — for life, not just while enrolled.
@@ -58,17 +58,17 @@ sections:
         dates:
           mode: static
           items:
-            - date_iso: "2026-09-08"
+            - date_iso: "2026-08-24"
               badges:
                 - text: 4 seats left
                   color: destructive
                 - text: Fast track
                   color: primary
-              url: "?cohort=sept-2026"
-            - date_iso: "2026-10-13"
-              url: "?cohort=oct-2026"
-            - date_iso: "2026-11-10"
-              url: "?cohort=nov-2026"
+              url: "?cohort=1536"
+            - date_iso: "2026-10-05"
+              url: "?cohort=1536"
+            - date_iso: "2026-11-09"
+              url: "?cohort=1536"
       - id: ai-fluency
         description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!
         selection_card:
@@ -97,7 +97,7 @@ sections:
             initials: 4G
             message: <span class="font-semibold text-foreground">Have questions?</span> Reach out to us at support@4geeksacademy.com.
         benefits:
-          - title: Immediate access to 4Geeks.com
+          - title: Immediate access to the full 4Geeks suite
             desc: Start learning AI fundamentals right away — prompting, agents, automation, and no-code tools.
           - title: Weekly live classes
             desc: Join mentor-led live sessions every week to get guidance on projects, talk through blockers, and learn alongside your cohort in real time.
@@ -534,16 +534,16 @@ sections:
         dates:
           mode: static
           items:
-            - date_iso: "2026-09-08"
+            - date_iso: "2026-07-27"
               badges:
                 - text: 4 seats left
                   color: destructive
                 - text: Fast track
                   color: primary
               url: "?cohort=1577"
-            - date_iso: "2026-10-13"
+            - date_iso: "2026-08-24"
               url: "?cohort=1577"
-            - date_iso: "2026-11-10"
+            - date_iso: "2026-09-28"
               url: "?cohort=1577"
       - id: ai-fluency
         description: Secure your seat in AI Engineering with a $250 registration fee, jump straight into your class with AI Fluency, or unlock our complete course catalog with AI Flex. Complete your checkout to get immediate access to 4Geeks.com!

@@ -181,7 +181,7 @@ sections:
     variant: marqueeBadges
     subtitle: From upskilling to career change
     title: "AI is <span style=\"color: hsl(var(--primary));\"><i>the way</i></span>."
-    body: "Data Science, Full Stack, Cybersecurity. It all runs on AI now. So does 4Geeks: three tracks, three entry points, one field worth entering."
+    body: "Data Science, Full Stack, Cybersecurity all run on AI now. So does 4Geeks: three tracks of different intensity, three entry points, one field worth entering."
     top_badges:
       - Full Stack
       - Data Science

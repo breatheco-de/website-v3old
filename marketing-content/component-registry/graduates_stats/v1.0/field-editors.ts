@@ -4,7 +4,7 @@
  * Defines which fields in this component should use special editors
  * in the Props tab of the section editor panel.
  *
- * EditorType options: "font-size-picker" | "image-with-style-picker"
+ * EditorType options: "font-size-picker" | "image-with-style-picker" | "rich-text-editor"
  *
  * Pattern for array image fields:
  *   "arrayName[].fieldName": "image-with-style-picker"
@@ -20,9 +20,10 @@
  * change — those fields are intentionally excluded here.
  */
 
-export type EditorType = "font-size-picker" | "image-with-style-picker";
+export type EditorType = "font-size-picker" | "image-with-style-picker" | "rich-text-editor";
 
 export const fieldEditors: Record<string, EditorType> = {
+  "heading": "rich-text-editor",
   "value_size": "font-size-picker",
   "collage_images[].image_id": "image-with-style-picker",
   "featured_images[].image_id": "image-with-style-picker",
