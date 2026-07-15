@@ -6,7 +6,7 @@ settings:
     eager_count: 3
 meta:
   page_title: Programa de IA Aplicada para Profesionales | 4Geeks
-  description: "Domina las habilidades de IA para seguir siendo competitivo y avanzar en tu carrera en solo 6 semanas. Aprende a aplicar la IA para mayor eficiencia e impacto."
+  description: Domina las habilidades de IA para seguir siendo competitivo y avanzar en tu carrera en solo 6 semanas. Aprende a aplicar la IA para mayor eficiencia e impacto.
   robots: index, follow
   og_image: /images/programs/ai-engineering-og.jpg
   priority: 0.9
@@ -24,7 +24,7 @@ sections:
         url: /
       - label: Programas de Carrera
         url: /es/programas-de-carrera
-      - label: "Inteligencia Artificial Aplicada"
+      - label: Inteligencia Artificial Aplicada
   - type: hero
     version: "1.0"
     variant: course
@@ -501,6 +501,7 @@ sections:
         message: ¡Gracias! Nos pondremos en contacto pronto.
       button_className: bg-primary
       terms_className: text-white/80
+      automations: strong
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
     section_id: cta_banner-8dww61
