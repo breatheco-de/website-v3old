@@ -122,6 +122,7 @@ sections:
           default: ai-engineering
       success:
         message: Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
+      automations: strong
     load: eager
     paddingY:
       desktop: none
