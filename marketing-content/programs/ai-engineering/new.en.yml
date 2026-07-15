@@ -218,8 +218,8 @@ sections:
     card_gauge:
       title: Employers Can't Find AI Talent
       description: 39,000 employers, 41 countries · ManpowerGroup 2026
-      inner_stat_percentage: 28
-      outer_stat_percentage: 72
+      inner_stat_percentage: 72
+      outer_stat_percentage: 28
       show_gauge: true
       inner_stat_highlight: true
       gauge_label: hiring difficulty
