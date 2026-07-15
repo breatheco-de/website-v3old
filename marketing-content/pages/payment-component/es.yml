@@ -255,7 +255,7 @@ sections:
     version: v1.0
     variant: default
     eyebrow: Inscripción · Aplica ahora
-    title: "Reserva tu cupo.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Empieza a aprender</span></span> hoy.</span>"
+    title: "Reserva tu cupo.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Empieza tu carrera en IA</span></span> HOY.</span>"
     choose_program_label: Elige tu programa
     choose_date_label: Elige tu fecha de inicio
     included_label: Qué incluye
