@@ -590,7 +590,7 @@ sections:
     description: Cuatro tarjetas de plataformas de reseñas con valoraciones
     section_id: trust_cards-jji04i
     paddingY:
-      desktop: md lg
+      desktop: md
     marginY:
       desktop: md none
     maxWidth:
