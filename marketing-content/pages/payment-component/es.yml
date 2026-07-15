@@ -453,11 +453,12 @@ sections:
     version: v1.0
     variant: default
     eyebrow: Inscripción · Aplica ahora
-    title: "Reserva tu cupo.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Empieza a aprender</span></span> hoy.</span>"
+    title: "Reserva tu cupo.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Empieza a aprender IA</span></span> HOY.</span>"
     choose_program_label: Elige tu programa
     choose_date_label: Elige tu fecha de inicio
     included_label: Qué incluye
     programs:
+      - id: ai-engineering
       - benefits:
           - desc: "Tu cuenta se activa en el momento en que pagas. Empieza Foundations de inmediato: Git, fundamentos de JavaScript, YAML y JSON, conceptos de internet, y tus primeros agentes de código."
             title: Acceso inmediato a 4Geeks.com + prework
@@ -486,7 +487,6 @@ sections:
               url: "?cohort=1577"
           mode: static
         description: Asegura tu cupo en AI Engineering, entra directo a tus clases con AI Fluency, o desbloquea todo nuestro catálogo con AI Flex. Completa tu pago para obtener acceso inmediato a 4Geeks.com.
-        id: ai-engineering
         selection_card:
           badge: Más Popular
           duration: 24 semanas
