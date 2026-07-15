@@ -492,7 +492,7 @@ sections:
     version: v1.0
     variant: default
     eyebrow: Inscripción · Aplica ahora
-    title: "Reserva tu cupo.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Empieza a aprender</span></span> hoy.</span>"
+    title: "Reserva tu cupo.<br><span class=\"text-primary italic\"><span style=\"color: hsl(var(--foreground));\"><span style=\"color: hsl(var(--primary));\">Empieza tu carrera en IA</span></span> HOY.</span>"
     choose_program_label: Elige tu programa
     choose_date_label: Elige tu fecha de inicio
     included_label: Qué incluye
@@ -509,8 +509,8 @@ sections:
             text: Asegura Mi Cupo
             url: https://4geeks.com/checkout?plan=ai-engineering&cohort={qs:cohort|sept-2026}
             variant: primary
-          price_amount: 250€
-          price_label: Pago inicial
+          price_amount: $100
+          price_label: Pago de reserva
           price_sub: Se aplica a tu matrícula total
           rows:
             - label: Programa
@@ -518,9 +518,9 @@ sections:
             - label: Fecha de inicio
               show_dynamic_date: true
             - label: Costo total del programa
-              value: 15,999€
+              value: $2,700
             - label: Financiamiento desde
-              value: 349€/mes
+              value: $459/mes
           trust_note:
             initials: 4G
             message: <span class="font-semibold text-foreground">Un asesor de admisiones te llamará dentro de las próximas horas</span> para finalizar tu inscripción, explicarte el financiamiento y resolver tus dudas.
@@ -535,7 +535,7 @@ sections:
             title: Soporte de carrera ilimitado
           - desc: Acceso inmediato a una comunidad global de ingenieros en activo. Referidos, contactos, oportunidades de empleo.
             title: "Red de egresados: +8,500 graduados"
-          - desc: Planes de pago flexibles desde 349€/mes. También disponible financiamiento con socios externos.
+          - desc: Planes de pago flexibles desde $459/mes. También disponible financiamiento con socios externos.
             title: Financiamiento flexible
         dates:
           mode: static
