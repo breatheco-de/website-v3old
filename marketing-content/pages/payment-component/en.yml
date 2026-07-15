@@ -525,7 +525,7 @@ sections:
             variant: primary
           trust_note:
             initials: 4G
-            message: <span class="font-semibold text-foreground">An admissions advisor will call you within 24 hours</span> to finalize enrollment, walk you through financing, and answer any questions.
+            message: <span class="font-semibold text-foreground">An admissions advisor will call you within a few hours</span> to finalize enrollment, walk you through financing, and answer any questions.
         benefits:
           - title: Immediate access to 4Geeks.com + prework
             desc: Your account activates the moment you pay. Start Foundations right away — Git, JavaScript basics, YAML & JSON, internet fundamentals, and your first coding agents.
