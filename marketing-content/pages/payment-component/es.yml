@@ -111,6 +111,19 @@ sections:
           - text: Construye con IA desde el primer día. Crea tus primeros agentes de código con proyectos prácticos.
           - text: Soporte de mentor de IA 24/7. Accede a Rigobot, listo para responder preguntas, guiarte en los retos y ayudarte a construir tus proyectos en cualquier momento.
       - description: Asegura tu cupo en AI Engineering, entra directo a tus clases con AI Fluency, o desbloquea todo nuestro catálogo con AI Flex. Completa tu pago para obtener acceso inmediato a 4Geeks.com.
+        dates:
+          mode: static
+          items:
+            - date_iso: "2026-07-30"
+              badges:
+                - text: 2 seats left
+                  icon: IconUsers
+                  color: hsl(var(--destructive) / 0.5)
+              url: "?cohort=1706"
+            - date_iso: "2026-09-10"
+              url: "?cohort=1770"
+            - date_iso: "2026-10-22"
+              url: "?cohort=1771"
         id: ai-flex
         plans:
           - amount: "129"
