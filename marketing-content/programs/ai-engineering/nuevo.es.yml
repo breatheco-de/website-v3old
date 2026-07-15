@@ -31,7 +31,7 @@ sections:
       text_color: hsl(var(--primary-foreground))
     title: Conviértete en ingeniero de IA. La profesión con más crecimiento en 2026
     title_highlight: La profesión con más crecimiento en 2026
-    subtitle: Deja de usar la IA y empieza a construirla. Crea sistemas que transforman empresas tradicionales en compañías impulsadas por inteligencia artificial. Con mentorías 1 a 1 ilimitadas, de por vida.
+    subtitle: Deja de usar la IA y empieza a construirla. Crea sistemas que transforman empresas tradicionales en compañías impulsadas por inteligencia artificial. Aprende de la mano de la escuela tech más premiada del mundo; con mentorías 1 a 1 ilimitadas, de por vida.
     students_enrolled:
       avatars:
         - https://storage.googleapis.com/4geeks-academy-website/media/coimbra-1764725341501-512x512-q70.webp
