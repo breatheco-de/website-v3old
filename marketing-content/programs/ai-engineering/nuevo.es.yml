@@ -566,7 +566,7 @@ sections:
     items: null
   - type: trust_cards
     version: v1.0
-    title: Una de las Mejores Escuelas Tech del Mundo. Calificación perfecta en portales externos.
+    title: Entre las mejores escuelas tech del mundo, con calificación perfecta.
     items:
       - image: https://storage.googleapis.com/4geeks-academy-website/media/course-report_1765590146414.webp
         rating: 4.9
