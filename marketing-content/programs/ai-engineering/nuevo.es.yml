@@ -595,6 +595,7 @@ sections:
       desktop: md none
     maxWidth:
       desktop: 6xl
+    background: hsl(var(--secondary))
   - type: pricing
     version: "1.0"
     variant: product
