@@ -62,7 +62,7 @@ sections:
       title: Tu transformación empieza aquí.
       description: Por razones logísticas y de personalización, nuestras plazas son limitadas. Agenda una llamada con nuestro equipo y validaremos si tu perfil se adapta a este programa.
       cta_button:
-        text: Quiero ver el currículum completo
+        text: Solicita más información
         url: "#modal-ubwgcj"
         variant: primary
       login_link:
