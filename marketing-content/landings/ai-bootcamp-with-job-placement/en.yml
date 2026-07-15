@@ -98,8 +98,10 @@ sections:
           default: ai-engineering
       success:
         message: You're in. Someone from our admissions team will reach out within a few minutes via email. Check your inbox.
+      automations: strong
     paddingY:
       desktop: none
+    load: eager
   - type: graduates_stats
     heading: Our Graduates Get Hired. Fast.
     subheading: 6,000+ graduates worldwide. Now thiriving in tech.
