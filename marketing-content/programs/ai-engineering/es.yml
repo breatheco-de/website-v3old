@@ -772,6 +772,7 @@ sections:
         message: Revisa tu bandeja de entrada. El equipo de admisiones se pondrá en contacto pronto con todo lo que necesitas saber.
       button_className: bg-primary
       terms_className: text-white/80
+      automations: strong
     form_background: hsl(var(--card))
     terms_color: hsl(var(--primary))
     marginY:
