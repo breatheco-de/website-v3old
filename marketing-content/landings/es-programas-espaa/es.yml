@@ -39,6 +39,7 @@ sections:
           default: ai-engineering
       success:
         message: Ya estás dentro. Alguien de nuestro equipo se pondrá en contacto contigo en unos minutos. Revisa tu bandeja de entrada.
+      automations: strong
     form_vertical_align: top
     form_card_text_color: hsl(var(--foreground))
     form_card_title: Recibe todos los detalles del programa
