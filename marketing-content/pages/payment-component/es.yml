@@ -51,6 +51,10 @@ sections:
             title: "Red de egresados: +8,500 graduados"
           - desc: Planes de pago flexibles desde $349/mes. También disponible financiamiento con socios externos.
             title: Financiamiento flexible
+        unlocks:
+          - text: Master the fundamentals — Learn Git, JavaScript, YAML/JSON, and core web concepts.
+          - text: Build AI from day one — Create your first coding agents with hands-on projects.
+          - text: Learn with expert support — Get LMS & VPS access plus weekly live classes and 1:1 mentorship sessions.
         addon:
           id: job-guarantee
           label: Job guarantee
