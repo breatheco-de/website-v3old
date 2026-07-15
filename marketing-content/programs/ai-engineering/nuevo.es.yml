@@ -627,7 +627,7 @@ sections:
       variant: primary
     section_id: pricing-oyjnax
     marginY:
-      desktop: lg md
+      desktop: none md
     paddingY:
       desktop: lg md
     showOnLocations:
